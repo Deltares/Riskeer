@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.TestUtil;
 
 namespace Ringtoets.Common.Service.Test
@@ -33,9 +34,21 @@ namespace Ringtoets.Common.Service.Test
     {
         private const double validTargetProbability = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
         private static readonly TargetProbabilityCalculationService calculationService = new TestTargetProbabilityCalculationService();
+
+        [Test]
+        public void Validate_CalculationSettingsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => calculationService.Validate(null, validTargetProbability);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationSettings", exception.ParamName);
+        }
 
         [Test]
         public void Validate_ValidParameters_ReturnsTrue()
@@ -44,9 +57,7 @@ namespace Ringtoets.Common.Service.Test
             var valid = false;
 
             // Call
-            Action call = () => valid = calculationService.Validate(validFilePath,
-                                                                    validPreprocessorDirectory,
-                                                                    validTargetProbability);
+            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -63,13 +74,14 @@ namespace Ringtoets.Common.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabasePath_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
+                                                                               validHlcdFilePath,
+                                                                               string.Empty);
             var valid = true;
 
             // Call
-            Action call = () => valid = calculationService.Validate(notValidFilePath,
-                                                                    validPreprocessorDirectory,
-                                                                    validTargetProbability);
+            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -87,13 +99,14 @@ namespace Ringtoets.Common.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string notValidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
             var valid = false;
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
+                                                                               validHlcdFilePath,
+                                                                               string.Empty);
 
             // Call
-            Action call = () => valid = calculationService.Validate(notValidFilePath,
-                                                                    validPreprocessorDirectory,
-                                                                    validTargetProbability);
+            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -113,11 +126,12 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             var valid = true;
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+                                                                               validHlcdFilePath,
+                                                                               invalidPreprocessorDirectory);
 
             // Call
-            Action call = () => valid = calculationService.Validate(validFilePath,
-                                                                    invalidPreprocessorDirectory,
-                                                                    validTargetProbability);
+            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -138,9 +152,7 @@ namespace Ringtoets.Common.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = calculationService.Validate(validFilePath,
-                                                                    validPreprocessorDirectory,
-                                                                    double.NaN);
+            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), double.NaN);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -161,9 +173,7 @@ namespace Ringtoets.Common.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = calculationService.Validate(validFilePath,
-                                                                    validPreprocessorDirectory,
-                                                                    1.0);
+            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), 1.0);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -184,9 +194,7 @@ namespace Ringtoets.Common.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = calculationService.Validate(validFilePath,
-                                                                    validPreprocessorDirectory,
-                                                                    0.0);
+            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), 0.0);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -198,6 +206,13 @@ namespace Ringtoets.Common.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);
+        }
+
+        private static HydraulicBoundaryCalculationSettings CreateValidCalculationSettings()
+        {
+            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+                                                            validHlcdFilePath,
+                                                            validPreprocessorDirectory);
         }
 
         private class TestTargetProbabilityCalculationService : TargetProbabilityCalculationService {}

@@ -31,7 +31,6 @@ using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
@@ -285,8 +284,8 @@ namespace Ringtoets.Common.Service
         {
             var waveHeightCalculationInput = new WaveHeightCalculationInput(1, hydraulicBoundaryLocationId, norm);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, 
-                                                                       calculationSettings.HydraulicBoundaryDatabaseFilePath, 
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput,
+                                                                       calculationSettings.HydraulicBoundaryDatabaseFilePath,
                                                                        !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
 
             return waveHeightCalculationInput;

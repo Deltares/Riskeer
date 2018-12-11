@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.Properties;
 
@@ -32,19 +34,25 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Performs validation on the given input parameters. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database to validate.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
+        /// to perform a hydraulic boundary calculation.</param>
         /// <param name="targetProbability">The target probability to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        public bool Validate(string hydraulicBoundaryDatabaseFilePath,
-                             string preprocessorDirectory,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
+        public bool Validate(HydraulicBoundaryCalculationSettings calculationSettings,
                              double targetProbability)
         {
+            if (calculationSettings == null)
+            {
+                throw new ArgumentNullException(nameof(calculationSettings));
+            }
+
             var isValid = true;
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
+            string preprocessorDirectory = calculationSettings.PreprocessorDirectory;
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(calculationSettings.HydraulicBoundaryDatabaseFilePath,
                                                                                                                    preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {

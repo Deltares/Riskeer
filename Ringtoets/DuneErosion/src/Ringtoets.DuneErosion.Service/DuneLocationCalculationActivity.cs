@@ -75,9 +75,7 @@ namespace Ringtoets.DuneErosion.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculationSettings.HydraulicBoundaryDatabaseFilePath,
-                                               calculationSettings.PreprocessorDirectory,
-                                               norm);
+            return calculationService.Validate(calculationSettings, norm);
         }
 
         protected override void PerformCalculation()
