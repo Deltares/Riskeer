@@ -329,10 +329,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
-                                         hydraRingCalculationSettings);
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(designWaterLevelCalculator)
                                  .Repeat

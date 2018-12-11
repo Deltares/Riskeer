@@ -843,9 +843,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedSettings,
-                                                                                                               hydraRingCalculationSettings);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(designWaterLevelCalculator)
                                  .Repeat
@@ -853,9 +852,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedSettings,
-                                                                                                               hydraRingCalculationSettings);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  }).Return(waveHeightCalculator)
                                  .Repeat
                                  .Times(4);

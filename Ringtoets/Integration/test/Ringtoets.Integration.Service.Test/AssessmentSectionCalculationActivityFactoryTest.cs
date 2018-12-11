@@ -109,9 +109,8 @@ namespace Ringtoets.Integration.Service.Test
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings,
-                                                                                                               hydraRingCalculationSettings);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestDesignWaterLevelCalculator
                                  {
@@ -147,17 +146,15 @@ namespace Ringtoets.Integration.Service.Test
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings,
-                                                                                                               hydraRingCalculationSettings);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(3);
 
@@ -203,9 +200,8 @@ namespace Ringtoets.Integration.Service.Test
                 calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings,
-                                                                                                               hydraRingCalculationSettings);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestDunesBoundaryConditionsCalculator()).Repeat.Times(5);
             }

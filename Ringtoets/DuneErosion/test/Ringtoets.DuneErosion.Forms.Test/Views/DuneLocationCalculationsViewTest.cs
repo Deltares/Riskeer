@@ -642,10 +642,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
-                                     hydraRingCalculationSettings);
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
@@ -709,10 +708,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
-                                     hydraRingCalculationSettings);
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
@@ -777,10 +775,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
-                                     hydraRingCalculationSettings);
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();

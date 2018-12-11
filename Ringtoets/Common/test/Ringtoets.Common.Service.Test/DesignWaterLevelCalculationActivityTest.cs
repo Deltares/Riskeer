@@ -222,9 +222,8 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings,
-                                                                                                           hydraRingCalculationSettings);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
             mockRepository.ReplayAll();

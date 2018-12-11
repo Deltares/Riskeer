@@ -539,9 +539,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings,
-                                                                                                               hydraRingCalculationSettings);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestDesignWaterLevelCalculator
                                  {
@@ -577,9 +576,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedCalculationSettings,
-                                                                                                               hydraRingCalculationSettings);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))

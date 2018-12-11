@@ -140,9 +140,8 @@ namespace Ringtoets.DuneErosion.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var hydraRingSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(calculationSettings,
-                                                                                                           hydraRingSettings);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
