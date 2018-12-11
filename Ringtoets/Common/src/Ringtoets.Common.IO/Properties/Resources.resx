@@ -473,8 +473,11 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length" xml:space="preserve">
     <value>De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte</value>
   </data>
-  <data name="Importer_ProgressText_Adding_imported_data_to_data_model" xml:space="preserve">
+  <data name="Importer_ProgressText_Adding_imported_data_to_FailureMechanism" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan het toetsspoor.</value>
+  </data>
+  <data name="Importer_ProgressText_Adding_imported_data_to_AssessmentSection" xml:space="preserve">
+    <value>Geïmporteerde data toevoegen aan het traject.</value>
   </data>
   <data name="CalculationConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}</value>

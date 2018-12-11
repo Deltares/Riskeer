@@ -140,7 +140,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.",
+                    Text = "Geïmporteerde data toevoegen aan het traject.",
                     CurrentStep = 2,
                     TotalNumberOfSteps = 2
                 }
@@ -305,7 +305,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                if (description.Contains("Geïmporteerde data toevoegen aan het traject."))
                 {
                     importer.Cancel();
                 }

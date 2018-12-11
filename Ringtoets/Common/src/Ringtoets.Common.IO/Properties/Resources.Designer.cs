@@ -1104,11 +1104,20 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het traject..
+        /// </summary>
+        public static string Importer_ProgressText_Adding_imported_data_to_AssessmentSection {
+            get {
+                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
         /// </summary>
-        public static string Importer_ProgressText_Adding_imported_data_to_data_model {
+        public static string Importer_ProgressText_Adding_imported_data_to_FailureMechanism {
             get {
-                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_data_model", resourceCulture);
+                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_FailureMechanism", resourceCulture);
             }
         }
         

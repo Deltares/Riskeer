@@ -32,7 +32,7 @@ namespace Ringtoets.Common.IO.FileImporters.MessageProviders
     {
         public string GetAddDataToModelProgressText()
         {
-            return Resources.Importer_ProgressText_Adding_imported_data_to_data_model;
+            return Resources.Importer_ProgressText_Adding_imported_data_to_FailureMechanism;
         }
 
         public string GetCancelledLogMessageText(string typeDescriptor)
