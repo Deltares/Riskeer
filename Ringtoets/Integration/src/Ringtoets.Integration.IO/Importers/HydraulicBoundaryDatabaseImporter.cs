@@ -123,18 +123,30 @@ namespace Ringtoets.Integration.IO.Importers
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
                 {
-                    return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false)
-                    {
-                        Items = new []
-                        {
-                            reader.Read(trackId)
-                        }
-                    };
+                    return ReadHydraulicLocationConfigurationDatabase(trackId, reader);
                 }
             }
             catch (CriticalFileReadException)
             {
                 return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
+            }
+        }
+
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId, HydraulicLocationConfigurationDatabaseReader reader)
+        {
+            try
+            {
+                return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false)
+                {
+                    Items = new[]
+                    {
+                        reader.Read(trackId)
+                    }
+                };
+            }
+            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
+            {
+                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(e);
             }
         }
 
