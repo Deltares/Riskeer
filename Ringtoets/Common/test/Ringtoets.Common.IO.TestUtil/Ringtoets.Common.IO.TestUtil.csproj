@@ -22,6 +22,7 @@
   <ItemGroup>
     <Compile Include="CustomCalculationConfigurationExporterDesignGuidelinesTestFixture.cs" />
     <Compile Include="CustomCalculationConfigurationWriterDesignGuidelinesTestFixture.cs" />
+    <Compile Include="ExpectedProgressNotification.cs" />
     <Compile Include="FileTestHelper.cs" />
     <Compile Include="ProgressNotification.cs" />
     <Compile Include="ProgressNotificationTestHelper.cs" />

@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.ReferenceLines
 {
@@ -476,13 +477,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
-        }
-
-        private class ExpectedProgressNotification
-        {
-            public string Text { get; set; }
-            public int CurrentStep { get; set; }
-            public int TotalNumberOfSteps { get; set; }
         }
     }
 }

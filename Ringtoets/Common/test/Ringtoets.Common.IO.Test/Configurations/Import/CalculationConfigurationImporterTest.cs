@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Import;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.Configurations.Import
 {
@@ -883,13 +884,6 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             }
 
             public string Name { get; }
-        }
-
-        private class ExpectedProgressNotification
-        {
-            public string Text { get; set; }
-            public int CurrentStep { get; set; }
-            public int TotalNumberOfSteps { get; set; }
         }
 
         private static CalculationGroup GetExpectedNestedData()
