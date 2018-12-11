@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
-            if (!OpenSettingsFileToValidate())
+            if (!OpenSettingsFileToValidate() || Canceled)
             {
                 return false;
             }

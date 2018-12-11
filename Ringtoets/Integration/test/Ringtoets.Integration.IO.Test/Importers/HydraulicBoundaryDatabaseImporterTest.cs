@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -202,6 +202,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         [Test]
         [TestCase(1)]
         [TestCase(2)]
+        [TestCase(3)]
         public void Import_CancelOfImportWhilePerformingStep_CancelsImportAndLogs(int stepNumber)
         {
             // Setup
