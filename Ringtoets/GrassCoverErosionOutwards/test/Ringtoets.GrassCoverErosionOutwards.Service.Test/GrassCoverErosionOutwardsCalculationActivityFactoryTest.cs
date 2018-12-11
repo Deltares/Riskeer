@@ -150,24 +150,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             AssertWaveHeightCalculationActivity(activities.ElementAt(5),
                                                 hydraulicBoundaryLocation,
                                                 mechanismSpecificFactorizedSignalingNorm,
-                                                "Iv");
+                                                "Iv", 
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(6),
                                                 hydraulicBoundaryLocation,
                                                 mechanismSpecificSignalingNorm,
-                                                "IIv");
+                                                "IIv",
+                                                hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(7),
                                                 hydraulicBoundaryLocation,
                                                 mechanismSpecificLowerLimitNorm,
-                                                "IIIv");
+                                                "IIIv",
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(8),
                                                 hydraulicBoundaryLocation,
                                                 lowerLimitNorm,
-                                                "IVv");
+                                                "IVv", 
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(9),
                                                 hydraulicBoundaryLocation,
                                                 factorizedLowerLimitNorm,
-                                                "Vv");
+                                                "Vv", 
+                                                hydraulicBoundaryDatabase);
 
             var hydraulicBoundaryLocationCalculationOutput = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = hydraulicBoundaryLocationCalculationOutput;
@@ -263,16 +268,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             AssertWaveHeightCalculationActivity(activities.ElementAt(3),
                                                 hydraulicBoundaryLocation,
                                                 mechanismSpecificFactorizedSignalingNorm,
-                                                "Iv");
+                                                "Iv", hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(4),
                                                 hydraulicBoundaryLocation,
                                                 mechanismSpecificSignalingNorm,
-                                                "IIv");
+                                                "IIv", hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(5),
                                                 hydraulicBoundaryLocation,
                                                 mechanismSpecificLowerLimitNorm,
-                                                "IIIv");
+                                                "IIIv", hydraulicBoundaryDatabase);
 
             var hydraulicBoundaryLocationCalculationOutput = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = hydraulicBoundaryLocationCalculationOutput;
@@ -721,54 +726,66 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             double mechanismSpecificFactorizedSignalingNorm = GetExpectedNorm(failureMechanism,
                                                                               assessmentSection.FailureMechanismContribution.SignalingNorm / 30);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertWaveHeightCalculationActivity(activities.First(),
                                                 hydraulicBoundaryLocation1,
                                                 mechanismSpecificFactorizedSignalingNorm,
-                                                "Iv");
+                                                "Iv",
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(1),
                                                 hydraulicBoundaryLocation2,
                                                 mechanismSpecificFactorizedSignalingNorm,
-                                                "Iv");
+                                                "Iv",
+                                                hydraulicBoundaryDatabase);
 
             double mechanismSpecificSignalingNorm = GetExpectedNorm(failureMechanism, assessmentSection.FailureMechanismContribution.SignalingNorm);
             AssertWaveHeightCalculationActivity(activities.ElementAt(2),
                                                 hydraulicBoundaryLocation1,
                                                 mechanismSpecificSignalingNorm,
-                                                "IIv");
+                                                "IIv",
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(3),
                                                 hydraulicBoundaryLocation2,
                                                 mechanismSpecificSignalingNorm,
-                                                "IIv");
+                                                "IIv",
+                                                hydraulicBoundaryDatabase);
 
             double mechanismSpecificLowerLimitNorm = GetExpectedNorm(failureMechanism, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
             AssertWaveHeightCalculationActivity(activities.ElementAt(4),
                                                 hydraulicBoundaryLocation1,
                                                 mechanismSpecificLowerLimitNorm,
-                                                "IIIv");
+                                                "IIIv",
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(5),
                                                 hydraulicBoundaryLocation2,
                                                 mechanismSpecificLowerLimitNorm,
-                                                "IIIv");
+                                                "IIIv",
+                                                hydraulicBoundaryDatabase);
 
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             AssertWaveHeightCalculationActivity(activities.ElementAt(6),
                                                 hydraulicBoundaryLocation1,
                                                 lowerLimitNorm,
-                                                "IVv");
+                                                "IVv",
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(7),
                                                 hydraulicBoundaryLocation2,
                                                 lowerLimitNorm,
-                                                "IVv");
+                                                "IVv",
+                                                hydraulicBoundaryDatabase);
 
             double factorizedLowerLimitNorm = lowerLimitNorm * 30;
             AssertWaveHeightCalculationActivity(activities.ElementAt(8),
                                                 hydraulicBoundaryLocation1,
                                                 factorizedLowerLimitNorm,
-                                                "Vv");
+                                                "Vv",
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(9),
                                                 hydraulicBoundaryLocation2,
                                                 factorizedLowerLimitNorm,
-                                                "Vv");
+                                                "Vv",
+                                                hydraulicBoundaryDatabase);
         }
 
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
@@ -783,10 +800,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
-                                     hydraRingCalculationSettings);
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(designWaterLevelCalculator);
             mocks.ReplayAll();
@@ -809,7 +825,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         private static void AssertWaveHeightCalculationActivity(Activity activity,
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                 double norm,
-                                                                string categoryBoundaryName)
+                                                                string categoryBoundaryName,
+                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var waveHeightCalculator = new TestWaveHeightCalculator();
@@ -817,9 +834,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(waveHeightCalculator);
             mocks.ReplayAll();
