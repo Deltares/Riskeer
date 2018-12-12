@@ -272,6 +272,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void Import_WhenSuccessful_UpdatesHydraulicBoundaryDatabaseWithImportedData()
         {
             // Setup
+            string filePath = Path.Combine(testDataPath, "complete.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
@@ -282,7 +283,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
                    .Return(false);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
-                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull))
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
+                                         Arg<string>.Is.Same(filePath)))
                    .WhenCalled(invocation =>
                    {
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
@@ -293,7 +295,6 @@ namespace Ringtoets.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
 
             // Call
@@ -311,7 +312,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
             handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
-            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -436,7 +437,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
             handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
-            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -483,7 +484,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
-                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull))
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
+                                         Arg<string>.Is.Same(filePath)))
                    .Return(new[]
                    {
                        observable1,

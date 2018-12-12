@@ -55,10 +55,12 @@ namespace Ringtoets.Integration.IO.Handlers
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to update.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database to update with.</param>
         /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to update with.</param>
+        /// <param name="filePath">The file path of the read hydraulic boundary database.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                         ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
-                                        ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase);
+                                        ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                        string filePath);
     }
 }
