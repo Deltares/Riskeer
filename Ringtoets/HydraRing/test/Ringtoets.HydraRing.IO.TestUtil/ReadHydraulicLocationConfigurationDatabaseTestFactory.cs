@@ -19,28 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using System.Collections.Generic;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil
 {
     /// <summary>
-    /// Factory that creates simple <see cref="ReadHydraulicBoundaryDatabase"/> instances
+    /// Factory that creates simple <see cref="ReadHydraulicLocationConfigurationDatabase"/> instances
     /// that can be used for testing.
     /// </summary>
-    public static class ReadHydraulicBoundaryDatabaseTestFactory
+    public static class ReadHydraulicLocationConfigurationDatabaseTestFactory
     {
         /// <summary>
-        /// Creates a of <see cref="ReadHydraulicBoundaryDatabase"/> with random values.
+        /// Creates a of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <returns>The created <see cref="ReadHydraulicBoundaryDatabase"/>.</returns>
-        public static ReadHydraulicBoundaryDatabase Create()
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
+        public static ReadHydraulicLocationConfigurationDatabase Create()
         {
-            var random = new Random(21);
-            return new ReadHydraulicBoundaryDatabase(random.Next(), "version", new[]
+            return new ReadHydraulicLocationConfigurationDatabase(new Dictionary<long, long>
             {
-                new ReadHydraulicBoundaryLocation(random.Next(), "location1", random.NextDouble(), random.NextDouble()), 
-                new ReadHydraulicBoundaryLocation(random.Next(), "location2", random.NextDouble(), random.NextDouble())
+                {
+                    1, 1
+                },
+                {
+                    2, 2
+                }
             });
         }
     }
