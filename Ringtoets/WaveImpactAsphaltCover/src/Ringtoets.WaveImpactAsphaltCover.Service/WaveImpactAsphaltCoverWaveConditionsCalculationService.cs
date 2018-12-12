@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
@@ -48,13 +47,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> instances.</param>
-        /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="assessmentSection"/>
         /// or <paramref name="generalWaveConditionsInput"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hlcdFilePath"/> contains invalid characters.</exception>
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hlcdFilePath"/>
+        /// <item>No settings database file could be found at the location of hydraulic boundary database file path
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -66,8 +64,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
                               IAssessmentSection assessmentSection,
-                              GeneralWaveConditionsInput generalWaveConditionsInput,
-                              string hlcdFilePath)
+                              GeneralWaveConditionsInput generalWaveConditionsInput)
         {
             if (calculation == null)
             {
@@ -91,8 +88,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             RoundedDouble c = generalWaveConditionsInput.C;
 
             double norm = assessmentSection.GetNorm(calculation.InputParameters.CategoryType);
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-
             RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                  calculation.InputParameters.CategoryType);
 
@@ -106,8 +101,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                                                                                     b,
                                                                                     c,
                                                                                     norm,
-                                                                                    hlcdFilePath,
-                                                                                    preprocessorDirectory);
+                                                                                    assessmentSection.HydraulicBoundaryDatabase);
 
                 if (!Canceled)
                 {

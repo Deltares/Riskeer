@@ -77,8 +77,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                 null,
                 assessmentSection,
-                failureMechanism.GeneralInput,
-                validFilePath);
+                failureMechanism.GeneralInput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -97,8 +96,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                 calculation,
                 null,
-                failureMechanism.GeneralInput,
-                validFilePath);
+                failureMechanism.GeneralInput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -119,8 +117,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                 calculation,
                 assessmentSection,
-                null,
-                validFilePath);
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -145,13 +142,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Twice();
@@ -163,8 +155,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -205,13 +196,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Twice();
@@ -238,8 +224,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -287,9 +272,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator)
                              .Repeat
@@ -302,8 +287,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
 
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = calculator.ReceivedInputs.ToArray();
@@ -355,8 +339,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
 
                 // Assert
                 Assert.IsFalse(calculation.HasOutput);
@@ -378,13 +361,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -397,8 +375,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -419,13 +396,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Times(3);
@@ -437,8 +409,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
@@ -470,13 +441,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(calculatorThatFails)
                              .Repeat
                              .Times(3);
@@ -497,8 +463,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                         new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                             calculation,
                             assessmentSection,
-                            failureMechanism.GeneralInput,
-                            validFilePath);
+                            failureMechanism.GeneralInput);
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -587,8 +552,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 // Call
                 Action call = () => service.Calculate(calculation,
                                                       assessmentSection,
-                                                      failureMechanism.GeneralInput,
-                                                      validFilePath);
+                                                      failureMechanism.GeneralInput);
 
                 // Assert
                 RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
@@ -647,9 +611,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator)
                              .Repeat
@@ -662,8 +626,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
             }
 
             // Assert
@@ -690,9 +653,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator)
                              .Repeat
@@ -705,8 +668,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
             }
 
             // Assert
@@ -733,9 +695,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator)
                              .Repeat
@@ -748,8 +710,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                     calculation,
                     assessmentSection,
-                    waveImpactAsphaltCoverFailureMechanism.GeneralInput,
-                    validFilePath);
+                    waveImpactAsphaltCoverFailureMechanism.GeneralInput);
             }
 
             // Assert

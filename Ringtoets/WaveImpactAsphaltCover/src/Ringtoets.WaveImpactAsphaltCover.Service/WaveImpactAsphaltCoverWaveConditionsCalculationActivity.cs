@@ -84,7 +84,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
             WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
             calculationService.Calculate(
-                calculation, assessmentSection, failureMechanism.GeneralInput, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                calculation, assessmentSection, failureMechanism.GeneralInput);
         }
 
         protected override void OnCancel()
