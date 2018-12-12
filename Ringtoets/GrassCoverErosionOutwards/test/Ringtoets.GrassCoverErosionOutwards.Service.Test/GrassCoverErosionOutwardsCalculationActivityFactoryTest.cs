@@ -150,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             AssertWaveHeightCalculationActivity(activities.ElementAt(5),
                                                 hydraulicBoundaryLocation,
                                                 mechanismSpecificFactorizedSignalingNorm,
-                                                "Iv", 
+                                                "Iv",
                                                 hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(6),
                                                 hydraulicBoundaryLocation,
@@ -166,19 +166,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             AssertWaveHeightCalculationActivity(activities.ElementAt(8),
                                                 hydraulicBoundaryLocation,
                                                 lowerLimitNorm,
-                                                "IVv", 
+                                                "IVv",
                                                 hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(9),
                                                 hydraulicBoundaryLocation,
                                                 factorizedLowerLimitNorm,
-                                                "Vv", 
+                                                "Vv",
                                                 hydraulicBoundaryDatabase);
 
             var hydraulicBoundaryLocationCalculationOutput = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = hydraulicBoundaryLocationCalculationOutput;
 
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(10), calculation1, hydraulicBoundaryLocationCalculationOutput.Result);
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(11), calculation2, hydraulicBoundaryLocationCalculationOutput.Result);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(10), 
+                                                                             calculation1, 
+                                                                             hydraulicBoundaryLocationCalculationOutput.Result,
+                                                                             hydraulicBoundaryDatabase);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(11), 
+                                                                             calculation2, 
+                                                                             hydraulicBoundaryLocationCalculationOutput.Result,
+                                                                             hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -282,8 +288,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var hydraulicBoundaryLocationCalculationOutput = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = hydraulicBoundaryLocationCalculationOutput;
 
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(6), calculation1, hydraulicBoundaryLocationCalculationOutput.Result);
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(7), calculation2, hydraulicBoundaryLocationCalculationOutput.Result);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(6),
+                                                                             calculation1, 
+                                                                             hydraulicBoundaryLocationCalculationOutput.Result, 
+                                                                             hydraulicBoundaryDatabase);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(7), 
+                                                                             calculation2, 
+                                                                             hydraulicBoundaryLocationCalculationOutput.Result,
+                                                                             hydraulicBoundaryDatabase);
         }
 
         private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanism()
@@ -332,7 +344,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(Activity activity,
                                                                                              GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                                                             RoundedDouble assessmentLevel)
+                                                                                             RoundedDouble assessmentLevel,
+                                                                                             HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
@@ -341,9 +354,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator)
                              .Repeat
@@ -425,7 +438,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
@@ -444,7 +458,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(
                 activity,
                 calculation,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result);
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result, 
+                hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -504,7 +519,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
@@ -532,8 +548,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             RoundedDouble assessmentLevel = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result;
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel);
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
         }
 
         #endregion

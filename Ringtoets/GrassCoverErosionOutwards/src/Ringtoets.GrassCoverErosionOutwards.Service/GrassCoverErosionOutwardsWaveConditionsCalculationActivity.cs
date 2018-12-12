@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
             calculationService.Calculate(
-                calculation, failureMechanism, assessmentSection, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                calculation, failureMechanism, assessmentSection);
         }
 
         protected override void OnCancel()
