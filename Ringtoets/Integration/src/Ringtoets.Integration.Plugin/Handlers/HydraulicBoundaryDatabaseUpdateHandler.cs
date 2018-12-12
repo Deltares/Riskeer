@@ -97,7 +97,18 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabase));
             }
 
-            throw new NotImplementedException();
+            var changedObjects = new List<IObservable>();
+
+            if (hydraulicBoundaryDatabase.IsLinked() && hydraulicBoundaryDatabase.Version == readHydraulicBoundaryDatabase.Version)
+            {
+                if (hydraulicBoundaryDatabase.FilePath != filePath)
+                {
+                    hydraulicBoundaryDatabase.FilePath = filePath;
+                    changedObjects.Add(hydraulicBoundaryDatabase);
+                }
+            }
+
+            return changedObjects;
         }
     }
 }

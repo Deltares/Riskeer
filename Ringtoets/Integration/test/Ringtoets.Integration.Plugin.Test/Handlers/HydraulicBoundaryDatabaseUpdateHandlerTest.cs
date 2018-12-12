@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -20,11 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
@@ -211,6 +212,55 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("readHydraulicLocationConfigurationDatabase", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_FilePathAndVersionSame_NothingUpdatesAndReturnsEmptyCollection()
+        {
+            // Setup
+            const string filePath = "some/file/path";
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
+                Version = "version"
+            };
+
+            // Call
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Assert
+            CollectionAssert.IsEmpty(changedObjects);
+            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+        }
+
+        [Test]
+        public void Update_VersionSameAndFilePathNotSame_UpdatesFilePathAndReturnsChangedObjects()
+        {
+            // Setup
+            const string filePath = "some/file/path";
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = "old/file/path",
+                Version = "version"
+            };
+
+            // Call
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryDatabase
+            }, changedObjects);
+            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
         }
     }
 }
