@@ -22,6 +22,8 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.HydraRing.IO.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -51,6 +53,55 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.IsInstanceOf<IHydraulicBoundaryDatabaseUpdateHandler>(handler);
+        }
+
+        [Test]
+        public void IsConfirmationRequired_HydraulicBoundaryDatabaseNotLinked_ReturnsFalse()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+            
+            // Call
+            bool confirmationRequired = handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create());
+
+            // Assert
+            Assert.IsFalse(confirmationRequired);
+        }
+
+        [Test]
+        public void IsConfirmationRequired_HydraulicBoundaryDatabaseLinkedAndReadDatabaseSameVersion_ReturnsFalse()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var database = new HydraulicBoundaryDatabase
+            {
+                FilePath = "some/file/path",
+                Version = "version"
+            };
+
+            // Call
+            bool confirmationRequired = handler.IsConfirmationRequired(database, ReadHydraulicBoundaryDatabaseTestFactory.Create());
+
+            // Assert
+            Assert.IsFalse(confirmationRequired);
+        }
+
+        [Test]
+        public void IsConfirmationRequired_HydraulicBoundaryDatabaseLinkedAndReadDatabaseDifferentVersion_ReturnsTrue()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var database = new HydraulicBoundaryDatabase
+            {
+                FilePath = "some/file/path",
+                Version = "1"
+            };
+
+            // Call
+            bool confirmationRequired = handler.IsConfirmationRequired(database, ReadHydraulicBoundaryDatabaseTestFactory.Create());
+
+            // Assert
+            Assert.IsTrue(confirmationRequired);
         }
     }
 }

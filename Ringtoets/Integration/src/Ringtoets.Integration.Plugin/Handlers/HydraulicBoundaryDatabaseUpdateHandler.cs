@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
         {
-            throw new NotImplementedException();
+            return hydraulicBoundaryDatabase.IsLinked() && hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
         }
 
         public bool InquireConfirmation()
