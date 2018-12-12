@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
@@ -38,6 +39,7 @@ namespace Ringtoets.Integration.IO.Handlers
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database.</param>
         /// <returns><c>true</c> when confirmation is required; <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
 
         /// <summary>

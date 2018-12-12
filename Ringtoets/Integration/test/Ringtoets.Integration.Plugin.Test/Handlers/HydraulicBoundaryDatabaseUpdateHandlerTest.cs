@@ -57,6 +57,34 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        public void IsConfirmationRequired_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            TestDelegate call = () => handler.IsConfirmationRequired(null, ReadHydraulicBoundaryDatabaseTestFactory.Create());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+        }
+
+        [Test]
+        public void IsConfirmationRequired_ReadHydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            TestDelegate call = () => handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("readHydraulicBoundaryDatabase", exception.ParamName);
+        }
+
+        [Test]
         public void IsConfirmationRequired_HydraulicBoundaryDatabaseNotLinked_ReturnsFalse()
         {
             // Setup
