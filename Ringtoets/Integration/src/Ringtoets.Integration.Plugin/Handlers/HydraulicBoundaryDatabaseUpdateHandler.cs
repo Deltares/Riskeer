@@ -21,12 +21,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
+using Ringtoets.Integration.Plugin.Properties;
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Handlers
 {
@@ -60,7 +63,10 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         public bool InquireConfirmation()
         {
-            throw new NotImplementedException();
+            DialogResult result = MessageBox.Show(Resources.HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data,
+                                                  CoreCommonBaseResources.Confirm,
+                                                  MessageBoxButtons.OKCancel);
+            return result == DialogResult.OK;
         }
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase, ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)

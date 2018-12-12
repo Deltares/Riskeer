@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -31,7 +32,7 @@ using Ringtoets.Integration.Plugin.Handlers;
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseUpdateHandlerTest
+    public class HydraulicBoundaryDatabaseUpdateHandlerTest : NUnitFormTest
     {
 
         [Test]
@@ -102,6 +103,42 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.IsTrue(confirmationRequired);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void InquireConfirmation_ClickDialog_ReturnTrueIfOkAndFalseIfCancel(bool clickOk)
+        {
+            string dialogTitle = null, dialogMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                dialogTitle = tester.Title;
+                dialogMessage = tester.Text;
+                if (clickOk)
+                {
+                    tester.ClickOk();
+                }
+                else
+                {
+                    tester.ClickCancel();
+                }
+            };
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            bool result = handler.InquireConfirmation();
+
+            // Assert
+            Assert.AreEqual(clickOk, result);
+
+            Assert.AreEqual("Bevestigen", dialogTitle);
+            Assert.AreEqual("U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden." + Environment.NewLine +
+                            Environment.NewLine +
+                            "Wilt u doorgaan?",
+                            dialogMessage);
         }
     }
 }
