@@ -1329,16 +1329,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            });
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    null,
@@ -1356,9 +1356,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestOvertoppingCalculator())
                                  .Repeat
