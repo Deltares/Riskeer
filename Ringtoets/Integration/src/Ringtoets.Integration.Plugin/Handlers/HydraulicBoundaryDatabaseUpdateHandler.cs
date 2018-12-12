@@ -81,6 +81,21 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase, ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            if (readHydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(readHydraulicBoundaryDatabase));
+            }
+
+            if (readHydraulicLocationConfigurationDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabase));
+            }
+
             throw new NotImplementedException();
         }
     }

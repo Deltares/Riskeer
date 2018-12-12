@@ -138,6 +138,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         [TestCase(false)]
         public void InquireConfirmation_ClickDialog_ReturnTrueIfOkAndFalseIfCancel(bool clickOk)
         {
+            // Setup
             string dialogTitle = null, dialogMessage = null;
             DialogBoxHandler = (name, wnd) =>
             {
@@ -167,6 +168,48 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                             Environment.NewLine +
                             "Wilt u doorgaan?",
                             dialogMessage);
+        }
+
+        [Test]
+        public void Update_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            TestDelegate call = () => handler.Update(null, ReadHydraulicBoundaryDatabaseTestFactory.Create(), ReadHydraulicLocationConfigurationDatabaseTestFactory.Create());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_ReadHydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), null, ReadHydraulicLocationConfigurationDatabaseTestFactory.Create());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("readHydraulicBoundaryDatabase", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_ReadHydraulicLocationConfigurationDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("readHydraulicLocationConfigurationDatabase", exception.ParamName);
         }
     }
 }
