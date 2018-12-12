@@ -84,7 +84,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
             calculationService.Calculate(
-                calculation, assessmentSection, failureMechanism.GeneralInput, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                calculation, assessmentSection, failureMechanism.GeneralInput);
         }
 
         protected override void OnFinish()

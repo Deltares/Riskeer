@@ -52,13 +52,12 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="StabilityStoneCoverWaveConditionsCalculation"/> instances.</param>
-        /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="assessmentSection"/>
         /// or <paramref name="generalWaveConditionsInput"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hlcdFilePath"/> contains invalid characters.</exception>
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hlcdFilePath"/>
+        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -70,8 +69,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(StabilityStoneCoverWaveConditionsCalculation calculation,
                               IAssessmentSection assessmentSection,
-                              GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput,
-                              string hlcdFilePath)
+                              GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput)
         {
             if (calculation == null)
             {
@@ -99,7 +97,6 @@ namespace Ringtoets.StabilityStoneCover.Service
             RoundedDouble cColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C;
 
             double norm = assessmentSection.GetNorm(calculation.InputParameters.CategoryType);
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
 
             RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                  calculation.InputParameters.CategoryType);
@@ -115,8 +112,7 @@ namespace Ringtoets.StabilityStoneCover.Service
                                                                                           bBlocks,
                                                                                           cBlocks,
                                                                                           norm,
-                                                                                          hlcdFilePath,
-                                                                                          preprocessorDirectory);
+                                                                                          assessmentSection.HydraulicBoundaryDatabase);
                 log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished);
 
                 IEnumerable<WaveConditionsOutput> columnsOutputs = null;
@@ -129,8 +125,7 @@ namespace Ringtoets.StabilityStoneCover.Service
                                                              bColumns,
                                                              cColumns,
                                                              norm,
-                                                             hlcdFilePath,
-                                                             preprocessorDirectory);
+                                                             assessmentSection.HydraulicBoundaryDatabase);
                     log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished);
                 }
 

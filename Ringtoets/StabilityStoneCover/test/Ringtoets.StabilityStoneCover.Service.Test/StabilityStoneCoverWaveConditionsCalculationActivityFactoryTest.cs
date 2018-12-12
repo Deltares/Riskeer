@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
@@ -105,8 +106,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityStoneCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel);
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -183,7 +185,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculationActivity>(activity);
             AssertStabilityStoneCoverWaveConditionsCalculationActivity(activity,
                                                                        calculation,
-                                                                       assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result);
+                                                                       assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result,
+                                                                       assessmentSection.HydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -267,8 +270,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel);
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
         }
 
         private static void SetHydraulicBoundaryLocationToAssessmentSection(AssessmentSectionStub assessmentSection, TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -326,7 +330,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculationActivity(Activity activity,
                                                                                        StabilityStoneCoverWaveConditionsCalculation calculation,
-                                                                                       RoundedDouble assessmentLevel)
+                                                                                       RoundedDouble assessmentLevel, 
+                                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
@@ -335,9 +340,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings)invocation.Arguments[0]);
                              })
                              .Return(testCalculator)
                              .Repeat
