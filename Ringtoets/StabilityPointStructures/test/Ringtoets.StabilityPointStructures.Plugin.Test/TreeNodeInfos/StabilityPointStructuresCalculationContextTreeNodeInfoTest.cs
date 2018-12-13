@@ -903,22 +903,21 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
+                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
                 Version = "random",
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            });
+            };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
             var calculation = new TestStabilityPointStructuresCalculation
@@ -946,9 +945,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                              Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
                 mocks.ReplayAll();

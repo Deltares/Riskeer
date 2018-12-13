@@ -92,14 +92,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
@@ -218,14 +212,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
@@ -284,14 +272,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -335,19 +317,6 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         public void Run_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
-                             .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
-            mockRepository.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -355,6 +324,19 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                     FilePath = validFilePath
                 }
             };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
+            mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation();
