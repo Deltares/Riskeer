@@ -14,7 +14,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
         /// to create a <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
-        /// <returns>The <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
+        /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
         public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
@@ -23,17 +23,18 @@ namespace Ringtoets.Common.Data.Hydraulics
             }
 
             string hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabase.FilePath;
-            string hlcdFilePath = null;
-
-            if (!string.IsNullOrWhiteSpace(hydraulicBoundaryDatabaseFilePath))
+            string effectivePreprocessorDirectory = hydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            if (string.IsNullOrWhiteSpace(hydraulicBoundaryDatabaseFilePath))
             {
-                string directory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-                hlcdFilePath = Path.Combine(directory, "HLCD.sqlite");
+                return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath, 
+                    effectivePreprocessorDirectory);
             }
 
+            string directory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            string hlcdFilePath = Path.Combine(directory, "HLCD.sqlite");
             return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
                                                             hlcdFilePath,
-                                                            hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                                                            effectivePreprocessorDirectory);
         }
     }
 }

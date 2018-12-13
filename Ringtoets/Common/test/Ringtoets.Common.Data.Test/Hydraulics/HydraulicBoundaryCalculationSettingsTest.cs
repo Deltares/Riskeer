@@ -8,7 +8,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryCalculationSettingsTest
     {
         [Test]
-        [TestCaseSource(nameof(GetTestCases))]
+        [TestCaseSource(nameof(GetTestCasesWithAllParameters))]
         public void Constructor_WithArguments_ExpectedValues(string hydraulicBoundaryDatabaseFilePath,
                                                              string hlcdFilePath,
                                                              string preprocessorDirectory)
@@ -24,7 +24,22 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
         }
 
-        private static IEnumerable<TestCaseData> GetTestCases()
+        [Test]
+        [TestCaseSource(nameof(GetTestCaseWithoutHlcdParameter))]
+        public void Constructor_ExpectedValues(string hydraulicBoundaryDatabaseFilePath,
+                                               string preprocessorDirectory)
+        {
+            // Call
+            var settings = new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
+                                                                    preprocessorDirectory);
+
+            // Assert
+            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
+            Assert.IsNull(settings.HlcdFilePath);
+            Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
+        }
+
+        private static IEnumerable<TestCaseData> GetTestCasesWithAllParameters()
         {
             yield return new TestCaseData("D:\\HydraulicBoundaryDatabase.sqlite",
                                           "D:\\HLCD.sqlite",
@@ -35,6 +50,19 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             yield return new TestCaseData(string.Empty, string.Empty, string.Empty)
                 .SetName("All inputs empty");
             yield return new TestCaseData(null, null, null)
+                .SetName("All inputs null");
+        }
+
+        private static IEnumerable<TestCaseData> GetTestCaseWithoutHlcdParameter()
+        {
+            yield return new TestCaseData("D:\\HydraulicBoundaryDatabase.sqlite",
+                                          "D:\\")
+                .SetName("All inputs with values");
+            yield return new TestCaseData("  ", "  ")
+                .SetName("All inputs whitespace");
+            yield return new TestCaseData(string.Empty, string.Empty)
+                .SetName("All inputs empty");
+            yield return new TestCaseData(null, null)
                 .SetName("All inputs null");
         }
     }

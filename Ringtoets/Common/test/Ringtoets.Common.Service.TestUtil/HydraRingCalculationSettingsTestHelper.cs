@@ -5,7 +5,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input;
 namespace Ringtoets.Common.Service.TestUtil
 {
     /// <summary>
-    /// A test helper which can be used to assert instances of <see cref="HydraRingCalculationSettings"/>
+    /// A test helper which can be used to assert instances of <see cref="HydraRingCalculationSettings"/>.
     /// </summary>
     public static class HydraRingCalculationSettingsTestHelper
     {
