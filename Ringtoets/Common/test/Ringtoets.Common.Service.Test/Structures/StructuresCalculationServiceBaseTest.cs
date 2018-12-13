@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
@@ -46,7 +47,8 @@ namespace Ringtoets.Common.Service.Test.Structures
     public class StructuresCalculationServiceBaseTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
@@ -130,7 +132,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(), mocks, validFilePath);
+                new TestFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -226,7 +228,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
                                                                                                            mocks,
-                                                                                                           validFilePath);
+                                                                                                           validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -264,7 +266,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -302,7 +304,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -342,7 +344,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, validFilePath);
+                failureMechanism, mocks, validHydraulicBoundaryDatabaseFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -380,7 +382,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(), mocks, validFilePath);
+                new TestFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
@@ -423,7 +425,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(), mocks, validFilePath);
+                new TestFailureMechanism(), mocks, validHydraulicBoundaryDatabaseFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -469,7 +471,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(null, new GeneralTestInput(), string.Empty, string.Empty);
+                .Calculate(null, new GeneralTestInput(), HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -485,11 +487,9 @@ namespace Ringtoets.Common.Service.Test.Structures
             var messageProvider = mocks.Stub<IStructuresCalculationMessageProvider>();
             mocks.ReplayAll();
 
-            var calculation = new TestStructuresCalculation();
-
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(calculation, null, string.Empty, string.Empty);
+                .Calculate(new TestStructuresCalculation(), null, HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -498,31 +498,106 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Calculate_ValidInput_InputPropertiesCorrectlySentToCalculatorAndLogs(bool readIllustrationPoints)
+        public void Calculate_CalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
+            var messageProvider = mocks.Stub<IStructuresCalculationMessageProvider>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new TestStructuresCalculationService(messageProvider)
+                .Calculate(new TestStructuresCalculation(), new GeneralTestInput(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationSettings", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidInput_InputPropertiesCorrectlySentToCalculator(bool usePreprocessor)
+        {
+            // Setup
+            string preprocessorDirectory = usePreprocessor
+                                               ? validPreprocessorDirectory
+                                               : string.Empty;
+
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+                                                                               validHlcdFilePath,
+                                                                               preprocessorDirectory);
+
+            var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validFilePath,
-                IllustrationPointsResult = new TestGeneralResult()
+                OutputDirectory = validHydraulicBoundaryDatabaseFilePath
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
                                          Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService(messageProvider);
+
+                // Call
+                service.Calculate(calculation, new GeneralTestInput(), calculationSettings);
+
+                // Assert
+                ExceedanceProbabilityCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                var expectedInput = new TestExceedanceProbabilityCalculationInput(hydraulicBoundaryLocation.Id);
+                ExceedanceProbabilityCalculationInput actualInput = calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidStructuresCalculation_SetsOutputAndLogs(bool readIllustrationPoints)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
+                IllustrationPointsResult = new TestGeneralResult()
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(null))
+                             .IgnoreArguments()
+                             .Return(calculator);
+
+            const string performedCalculationMessage = "Calculation successful";
+            var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -540,7 +615,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -552,14 +627,9 @@ namespace Ringtoets.Common.Service.Test.Structures
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
 
-                ExceedanceProbabilityCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(1, calculationInputs.Length);
-
-                var expectedInput = new TestExceedanceProbabilityCalculationInput(hydraulicBoundaryLocation.Id);
-                ExceedanceProbabilityCalculationInput actualInput = calculationInputs[0];
-                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
-                Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculator.IsCanceled);
+
+                Assert.IsNotNull(calculation.Output);
                 Assert.AreEqual(readIllustrationPoints, calculation.Output.HasGeneralResult);
             }
 
@@ -574,23 +644,17 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validFilePath,
+                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
                 IllustrationPointsParserErrorMessage = parserMessage
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -608,7 +672,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -635,23 +699,17 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validFilePath,
+                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
                 IllustrationPointsParserErrorMessage = "Parser error"
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -669,7 +727,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -695,23 +753,17 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validFilePath,
+                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -729,7 +781,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -760,23 +812,17 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validFilePath,
+                OutputDirectory = validHydraulicBoundaryDatabaseFilePath,
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
 
             const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validHydraulicBoundaryDatabaseFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -794,7 +840,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -833,14 +879,8 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
 
             var messageProvider = mocks.Stub<IStructuresCalculationMessageProvider>();
@@ -852,7 +892,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
+                service.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -888,14 +928,8 @@ namespace Ringtoets.Common.Service.Test.Structures
                 LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(
-                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
 
             const string calculationFailedMessage = "Calculation failed";
@@ -928,7 +962,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 {
                     try
                     {
-                        structuresCalculationService.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
+                        structuresCalculationService.Calculate(calculation, new GeneralTestInput(), CreateCalculationSettings());
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -951,6 +985,13 @@ namespace Ringtoets.Common.Service.Test.Structures
             }
 
             mocks.VerifyAll();
+        }
+
+        private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
+        {
+            return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+                                                            validHlcdFilePath,
+                                                            string.Empty);
         }
 
         private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,

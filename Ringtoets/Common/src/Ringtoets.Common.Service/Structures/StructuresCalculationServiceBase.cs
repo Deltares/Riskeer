@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
 using log4net;
@@ -122,18 +121,17 @@ namespace Ringtoets.Common.Service.Structures
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
         /// <param name="generalInput">The general inputs used in the calculations.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="generalInput"/>,
-        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
+        /// to perform a hydraulic boundary calculation.</param>
+        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
         /// enum value is encountered.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -141,8 +139,7 @@ namespace Ringtoets.Common.Service.Structures
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(StructuresCalculation<TStructureInput> calculation,
                               TGeneralInput generalInput,
-                              string hydraulicBoundaryDatabaseFilePath,
-                              string preprocessorDirectory)
+                              HydraulicBoundaryCalculationSettings calculationSettings)
         {
             if (calculation == null)
             {
@@ -154,11 +151,18 @@ namespace Ringtoets.Common.Service.Structures
                 throw new ArgumentNullException(nameof(generalInput));
             }
 
-            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, hydraulicBoundaryDatabaseFilePath, !string.IsNullOrEmpty(preprocessorDirectory));
+            if (calculationSettings == null)
+            {
+                throw new ArgumentNullException(nameof(calculationSettings));
+            }
 
-            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(settings);
+            TCalculationInput input = CreateInput(calculation.InputParameters,
+                                                  generalInput,
+                                                  calculationSettings.HydraulicBoundaryDatabaseFilePath,
+                                                  !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
+
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(
+                HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings));
             string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBegin();
