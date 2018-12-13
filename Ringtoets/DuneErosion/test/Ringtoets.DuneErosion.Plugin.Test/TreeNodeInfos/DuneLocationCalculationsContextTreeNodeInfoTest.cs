@@ -60,7 +60,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         private DuneErosionPlugin plugin;
         private TreeNodeInfo info;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [SetUp]
         public void SetUp()
@@ -229,8 +230,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_InvalidNorm_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -287,8 +286,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -344,7 +341,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
                 var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
                 {
                     new DuneLocationCalculation(new DuneLocation(1300001, locationName1, new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -470,7 +466,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = validFilePath
             };
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Id).Return("13-1");
@@ -550,7 +546,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                FilePath = validFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
@@ -612,8 +608,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
                 new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties

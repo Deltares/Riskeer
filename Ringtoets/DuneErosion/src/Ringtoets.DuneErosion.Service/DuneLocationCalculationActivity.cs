@@ -46,7 +46,7 @@ namespace Ringtoets.DuneErosion.Service
         /// to perform a hydraulic boundary calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
-        /// <remarks>Preprocessing is disabled when 'the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
+        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/>
         /// or <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>

@@ -505,7 +505,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                             double norm,
                                                             string categoryBoundaryName,
                                                             ActivityState state)
-                : base(duneLocationCalculation, calculationSettings,
+                : base(duneLocationCalculation,
+                       calculationSettings,
                        norm,
                        categoryBoundaryName)
             {

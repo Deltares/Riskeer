@@ -457,13 +457,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var calculationsObserver = mocks.StrictMock<IObserver>();
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
-                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
