@@ -407,9 +407,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                      .WhenCalled(invocation =>
                                      {
-                                         var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                         Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                         Assert.IsEmpty(settings.PreprocessorDirectory);
+                                         HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                             HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                             (HydraRingCalculationSettings) invocation.Arguments[0]);
                                      })
                                      .Return(waveHeightCalculator);
                     mockRepository.ReplayAll();
