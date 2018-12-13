@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Call
             TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(null,
-                                                                                         HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                                         CreateCalculationSettings(),
                                                                                          1,
                                                                                          calculationMessageProvider);
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Call
             TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                                                                         HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                                         CreateCalculationSettings(),
                                                                                          1,
                                                                                          null);
 

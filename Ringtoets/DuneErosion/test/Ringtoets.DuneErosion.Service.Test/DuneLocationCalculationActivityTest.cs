@@ -85,7 +85,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Call
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
-                                                               HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                               CreateCalculationSettings(),
                                                                1.0 / 30000,
                                                                categoryBoundaryName);
 

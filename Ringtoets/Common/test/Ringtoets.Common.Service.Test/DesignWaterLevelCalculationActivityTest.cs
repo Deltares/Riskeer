@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Call
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
-                                                                   HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                   CreateCalculationSettings(),
                                                                    1,
                                                                    categoryBoundaryName);
 

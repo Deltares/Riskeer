@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Call
             TestDelegate test = () => new WaveHeightCalculationService().Calculate(null,
-                                                                                   HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                                   CreateCalculationSettings(),
                                                                                    1,
                                                                                    calculationMessageProvider);
 
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Call
             TestDelegate test = () => new WaveHeightCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                                                                   HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                                   CreateCalculationSettings(),
                                                                                    1,
                                                                                    null);
 

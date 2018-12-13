@@ -471,7 +471,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(null, new GeneralTestInput(), HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings());
+                .Calculate(null, new GeneralTestInput(), CreateCalculationSettings());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -489,7 +489,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(new TestStructuresCalculation(), null, HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings());
+                .Calculate(new TestStructuresCalculation(), null, CreateCalculationSettings());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

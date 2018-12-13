@@ -71,7 +71,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Call
             TestDelegate test = () => new DuneLocationCalculationService().Calculate(null,
                                                                                      1,
-                                                                                     HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                                     CreateCalculationSettings(),
                                                                                      calculationMessageProvider);
 
             // Assert
@@ -87,7 +87,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Call
             TestDelegate test = () => new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(new TestDuneLocation()),
                                                                                      1,
-                                                                                     HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                                     CreateCalculationSettings(),
                                                                                      null);
 
             // Assert
@@ -365,7 +365,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     {
                         new DuneLocationCalculationService().Calculate(duneLocationCalculation,
                                                                        norm,
-                                                                       HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                       CreateCalculationSettings(),
                                                                        calculationMessageProvider);
                     }
                     catch (HydraRingCalculationException)
@@ -498,7 +498,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     {
                         new DuneLocationCalculationService().Calculate(duneLocationCalculation,
                                                                        norm,
-                                                                       HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
+                                                                       CreateCalculationSettings(),
                                                                        calculationMessageProvider);
                     }
                     catch (HydraRingCalculationException e)
