@@ -267,7 +267,8 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="calculationSettings"></param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
+        /// to perform a hydraulic boundary calculation.</param>
         /// <returns>An <see cref="AssessmentLevelCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
