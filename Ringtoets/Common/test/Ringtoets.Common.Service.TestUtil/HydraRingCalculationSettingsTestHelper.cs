@@ -18,7 +18,7 @@ namespace Ringtoets.Common.Service.TestUtil
         /// <param name="actualSettings">The <see cref="HydraRingCalculationSettings"/> to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item>The hlcd file paths do not match.</item>
+        /// <item>The HLCD file paths do not match.</item>
         /// <item>The preprocessor directories do not match.</item>
         /// </list>
         /// </exception>

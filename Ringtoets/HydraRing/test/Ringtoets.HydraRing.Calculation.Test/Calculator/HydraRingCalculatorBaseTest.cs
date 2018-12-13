@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         {
             // Setup
             var parser = new TestParser();
-            var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlit", string.Empty);
+            var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlite", string.Empty);
             var calculator = new TestHydraRingCalculator(settings, parser);
             var hydraRingCalculationInput = new TestHydraRingCalculationInput();
 
