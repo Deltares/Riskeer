@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Service.Test
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
-            HydraulicBoundaryCalculationSettings expectedCalculationSettings = 
+            HydraulicBoundaryCalculationSettings expectedCalculationSettings =
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             using (mocks.Ordered())
             {
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Service.Test
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings, (HydraRingCalculationSettings)invocation.Arguments[0]);
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestOvertoppingCalculator());
 
@@ -167,9 +167,8 @@ namespace Ringtoets.Integration.Service.Test
                                              Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
 
@@ -177,9 +176,8 @@ namespace Ringtoets.Integration.Service.Test
                                              Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
 
@@ -187,9 +185,8 @@ namespace Ringtoets.Integration.Service.Test
                                              Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
 
