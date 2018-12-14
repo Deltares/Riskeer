@@ -774,34 +774,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
                                                                                                            validFilePath);
-            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
-
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestOvertoppingCalculator
                              {
                                  IllustrationPointsResult = new TestGeneralResult()
                              });
-            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             }).Return(new TestHydraulicLoadsCalculator
+            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestHydraulicLoadsCalculator
                              {
                                  IllustrationPointsResult = new TestGeneralResult()
                              });
-            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                             })
+            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestHydraulicLoadsCalculator
                              {
                                  IllustrationPointsResult = new TestGeneralResult()
