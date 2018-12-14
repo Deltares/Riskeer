@@ -26,6 +26,7 @@ using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -34,6 +35,9 @@ using Ringtoets.HydraRing.IO.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.TestUtil;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {
@@ -320,10 +324,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.AreEqual(oldLocations, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(oldLocations, assessmentSection);
 
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-
             // Call
-            handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+            handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                            ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
 
             // Assert
@@ -386,10 +388,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Precondition
             Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
-
             // When
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
 
             // Then
@@ -410,7 +410,30 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
-        }, changedObjects);
+            }, changedObjects);
+        }
+
+        [Test]
+        public void GivenCalculationsWithLocation_WhenUpdatingDatabaseWithNewLocations_ThenCalculationOutputClearedAndChangedObjectsReturned()
+        {
+            // Given
+            const string filePath = "some/file/path";
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
+                                                                     .SelectMany(fm => fm.Calculations)
+                                                                     .Where(c => c.HasOutput)
+                                                                     .ToArray();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection);
+
+            // When
+            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Then
+            Assert.IsTrue(calculationsWithOutput.All(c => !c.HasOutput));
+            CollectionAssert.IsSubsetOf(calculationsWithOutput, changedObjects);
         }
 
         private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)

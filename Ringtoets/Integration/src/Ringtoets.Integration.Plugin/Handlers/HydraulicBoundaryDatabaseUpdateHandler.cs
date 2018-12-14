@@ -29,6 +29,7 @@ using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Handlers
@@ -115,6 +116,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
                 changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
+                changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
             }
 
             return changedObjects;
