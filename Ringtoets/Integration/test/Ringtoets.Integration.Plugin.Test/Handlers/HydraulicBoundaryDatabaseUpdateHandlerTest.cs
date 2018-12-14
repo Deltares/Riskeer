@@ -285,18 +285,16 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
 
             // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                hydraulicBoundaryDatabase
-            }, changedObjects);
+            CollectionAssert.IsEmpty(changedObjects);
             Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
         }
 
         [Test]
-        public void Update_DatabaseAlreadyLinked_RemovesOldLocationsAndCalculations()
+        public void Update_DatabaseLinkedAndVersionNotSame_RemovesOldLocationsAndCalculations()
         {
+            // Setup
             const string filePath = "some/file/path";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -350,6 +348,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         [Test]
         public void Update_DatabaseNotLinked_SetsAllData()
         {
+            // Setup
             const string filePath = "some/file/path";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -371,6 +370,47 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenDatabase_WhenUpdatingDataWithNewLocations_ThenChangedObjectsReturned(bool isLinked)
+        {
+            // Given
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection);
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
+
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
+            // When
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Then
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                hydraulicBoundaryDatabase.Locations,
+                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
+                assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
+                assessmentSection.WaveHeightCalculationsForSignalingNorm,
+                assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+                assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+        }, changedObjects);
         }
 
         private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)

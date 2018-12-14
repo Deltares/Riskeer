@@ -104,7 +104,6 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 if (hydraulicBoundaryDatabase.FilePath != filePath)
                 {
                     hydraulicBoundaryDatabase.FilePath = filePath;
-                    changedObjects.Add(hydraulicBoundaryDatabase);
                 }
             }
             else
@@ -112,12 +111,35 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 hydraulicBoundaryDatabase.FilePath = filePath;
                 hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
                 SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations);
-
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+
+                changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
             }
-            
+
             return changedObjects;
+        }
+
+        private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            return new IObservable[]
+            {
+                hydraulicBoundaryDatabase.Locations,
+                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
+                assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
+                assessmentSection.WaveHeightCalculationsForSignalingNorm,
+                assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+                assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+            };
         }
 
         private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations)
