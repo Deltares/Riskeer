@@ -21,11 +21,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
@@ -36,7 +40,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class HydraulicBoundaryDatabaseUpdateHandlerTest : NUnitFormTest
     {
-
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -91,7 +94,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
-            
+
             // Call
             bool confirmationRequired = handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create());
 
@@ -219,12 +222,26 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             const string filePath = "some/file/path";
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
-                Version = "version"
+                Version = "version",
+                Locations =
+                {
+                    new TestHydraulicBoundaryLocation("old location 1"),
+                    new TestHydraulicBoundaryLocation("old location 2"),
+                    new TestHydraulicBoundaryLocation("old location 3")
+                }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+
+            HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();
+
+            // Precondition
+            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
 
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
@@ -234,7 +251,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(changedObjects);
             Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
         }
 
         [Test]
@@ -242,12 +259,26 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             const string filePath = "some/file/path";
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = "old/file/path",
-                Version = "version"
+                Version = "version",
+                Locations =
+                {
+                    new TestHydraulicBoundaryLocation("old location 1"),
+                    new TestHydraulicBoundaryLocation("old location 2"),
+                    new TestHydraulicBoundaryLocation("old location 3")
+                }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+
+            HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();
+
+            // Precondition
+            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
 
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
@@ -260,7 +291,121 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             }, changedObjects);
             Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
+        }
+
+        [Test]
+        public void Update_DatabaseAlreadyLinked_RemovesOldLocationsAndCalculations()
+        {
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
+                Version = "1",
+                Locations =
+                {
+                    new TestHydraulicBoundaryLocation("old location 1"),
+                    new TestHydraulicBoundaryLocation("old location 2"),
+                    new TestHydraulicBoundaryLocation("old location 3")
+                }
+            };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection);
+
+            HydraulicBoundaryLocation[] oldLocations = hydraulicBoundaryDatabase.Locations.ToArray();
+
+            // Precondition
+            Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
+            CollectionAssert.AreEqual(oldLocations, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocationsAndCalculations(oldLocations, assessmentSection);
+
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
+            // Call
+            handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Assert
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryDatabase.Locations);
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+        }
+
+        [Test]
+        public void Update_DatabaseNotLinked_SetsAllData()
+        {
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection);
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
+
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
+            // Call
+            handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Assert
+            Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
+            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
+
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
+        }
+
+        private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)
+        {
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+        }
+
+        private static void AssertHydraulicBoundaryLocations(IEnumerable<ReadHydraulicBoundaryLocation> readLocations, ObservableList<HydraulicBoundaryLocation> actualLocations)
+        {
+            Assert.AreEqual(readLocations.Count(), actualLocations.Count);
+
+            for (var i = 0; i < actualLocations.Count; i++)
+            {
+                ReadHydraulicBoundaryLocation readLocation = readLocations.ElementAt(i);
+                HydraulicBoundaryLocation actualLocation = actualLocations.ElementAt(i);
+
+                Assert.AreEqual(readLocation.Id, actualLocation.Id);
+                Assert.AreEqual(readLocation.Name, actualLocation.Name);
+                Assert.AreEqual(readLocation.CoordinateX, actualLocation.Location.X);
+                Assert.AreEqual(readLocation.CoordinateY, actualLocation.Location.Y);
+            }
         }
     }
 }

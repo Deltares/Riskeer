@@ -107,8 +107,28 @@ namespace Ringtoets.Integration.Plugin.Handlers
                     changedObjects.Add(hydraulicBoundaryDatabase);
                 }
             }
+            else
+            {
+                hydraulicBoundaryDatabase.FilePath = filePath;
+                hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
+                SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations);
 
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+                assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            }
+            
             return changedObjects;
+        }
+
+        private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations)
+        {
+            hydraulicBoundaryDatabase.Locations.Clear();
+
+            foreach (ReadHydraulicBoundaryLocation readLocation in readLocations)
+            {
+                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(readLocation.Id, readLocation.Name,
+                                                                                      readLocation.CoordinateX, readLocation.CoordinateY));
+            }
         }
     }
 }
