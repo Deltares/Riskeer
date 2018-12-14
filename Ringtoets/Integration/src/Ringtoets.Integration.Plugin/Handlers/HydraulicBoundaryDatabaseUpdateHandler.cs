@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
@@ -40,21 +41,29 @@ namespace Ringtoets.Integration.Plugin.Handlers
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
+        private readonly IViewCommands viewCommands;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseUpdateHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to update for.</param>
+        /// <param name="viewCommands">The view commands used to close views for removed data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseUpdateHandler(AssessmentSection assessmentSection)
+        public HydraulicBoundaryDatabaseUpdateHandler(AssessmentSection assessmentSection, IViewCommands viewCommands)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException(nameof(viewCommands));
+            }
+
             this.assessmentSection = assessmentSection;
+            this.viewCommands = viewCommands;
         }
 
         public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
