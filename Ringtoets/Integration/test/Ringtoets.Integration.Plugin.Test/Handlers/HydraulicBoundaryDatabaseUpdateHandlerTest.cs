@@ -476,10 +476,22 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             const string filePath = "some/file/path";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            if (isLinked)
+            {
+                hydraulicBoundaryDatabase.FilePath = filePath;
+                hydraulicBoundaryDatabase.Version = "1";
+                hydraulicBoundaryDatabase.Locations.AddRange(new []
+                {
+                    new TestHydraulicBoundaryLocation("old location 1"),
+                    new TestHydraulicBoundaryLocation("old location 2"),
+                    new TestHydraulicBoundaryLocation("old location 3")
+                });
+            }
+
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, viewCommands);
 
             // Precondition
-            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
+            Assert.AreEqual(isLinked, hydraulicBoundaryDatabase.IsLinked());
 
             // When
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
