@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Calculate_FailureMechniamsNull_ThrowArgumentNullException()
+        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();

@@ -678,21 +678,14 @@ namespace Ringtoets.Revetment.Service.Test
             var calculator = new TestWaveConditionsCosineCalculator();
             int nrOfCalculators = input.GetWaterLevels(waterLevel).Count();
 
-            string expectedHlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
-            string expectedPreprocessorDirectory = hydraulicBoundaryDatabase.UsePreprocessor
-                                                       ? validPreprocessorDirectory
-                                                       : string.Empty;
-            var expectedCalculationSettings = new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
-                                                                                       expectedHlcdFilePath,
-                                                                                       expectedPreprocessorDirectory);
-
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator)
                              .Repeat
@@ -1007,6 +1000,7 @@ namespace Ringtoets.Revetment.Service.Test
 
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryDatabaseConfigurations()
         {
+            string expectedHlcdDirectory = Path.Combine(testDataPath, "HLCD.sqlite");
             yield return new TestCaseData(new HydraulicBoundaryDatabase
             {
                 CanUsePreprocessor = true,

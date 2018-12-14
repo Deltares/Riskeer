@@ -83,8 +83,7 @@ namespace Ringtoets.StabilityStoneCover.Service
             calculationService.OnProgressChanged += UpdateProgressText;
 
             StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
-            calculationService.Calculate(
-                calculation, assessmentSection, failureMechanism.GeneralInput);
+            calculationService.Calculate(calculation, assessmentSection, failureMechanism.GeneralInput);
         }
 
         protected override void OnFinish()
