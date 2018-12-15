@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
@@ -29,7 +30,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
     public class ReadHydraulicBoundaryDatabaseTestFactoryTest
     {
         [Test]
-        public void Create_ExpectedValues()
+        public void Create_WithoutLocations_ExpectedValues()
         {
             // Call
             ReadHydraulicBoundaryDatabase readDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
@@ -48,6 +49,21 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
                 Assert.IsFalse(double.IsNaN(locations[i].CoordinateX));
                 Assert.IsFalse(double.IsNaN(locations[i].CoordinateY));
             }
+        }
+
+        [Test]
+        public void Create_WithLocations_ExpectedValues()
+        {
+            // Setup
+            IEnumerable<ReadHydraulicBoundaryLocation> locations = Enumerable.Empty<ReadHydraulicBoundaryLocation>();
+
+            // Call
+            ReadHydraulicBoundaryDatabase readDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(locations);
+
+            // Assert
+            Assert.IsNotNull(readDatabase.TrackId);
+            Assert.AreEqual("version", readDatabase.Version);
+            Assert.AreSame(locations, readDatabase.Locations);
         }
     }
 }

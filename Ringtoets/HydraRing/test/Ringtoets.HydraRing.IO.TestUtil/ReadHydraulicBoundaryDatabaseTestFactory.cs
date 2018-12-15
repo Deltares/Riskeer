@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil
@@ -37,11 +38,22 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         public static ReadHydraulicBoundaryDatabase Create()
         {
             var random = new Random(21);
-            return new ReadHydraulicBoundaryDatabase(random.Next(), "version", new[]
+            return Create(new[]
             {
                 new ReadHydraulicBoundaryLocation(random.Next(), "location1", random.NextDouble(), random.NextDouble()), 
                 new ReadHydraulicBoundaryLocation(random.Next(), "location2", random.NextDouble(), random.NextDouble())
             });
+        }
+
+        /// <summary>
+        /// Creates a of <see cref="ReadHydraulicBoundaryDatabase"/> with random values.
+        /// </summary>
+        /// <param name="locations">The locations to use.</param>
+        /// <returns>The created <see cref="ReadHydraulicBoundaryDatabase"/>.</returns>
+        public static ReadHydraulicBoundaryDatabase Create(IEnumerable<ReadHydraulicBoundaryLocation> locations)
+        {
+            var random = new Random(21);
+            return new ReadHydraulicBoundaryDatabase(random.Next(), "version", locations);
         }
     }
 }
