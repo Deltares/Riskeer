@@ -152,7 +152,13 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                assessmentSection.DuneErosion.DuneLocations,
+                assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm,
+                assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm,
+                assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm,
+                assessmentSection.DuneErosion.CalculationsForLowerLimitNorm,
+                assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm
             };
         }
 
