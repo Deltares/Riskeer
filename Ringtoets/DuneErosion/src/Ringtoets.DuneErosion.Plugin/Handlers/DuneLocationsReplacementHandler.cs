@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
         /// to update the dune locations for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="newHydraulicBoundaryLocations"/>
         /// is <c>null</c>.</exception>
-        public void Replace(HydraulicBoundaryLocation[] newHydraulicBoundaryLocations)
+        public void Replace(IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations)
         {
             IEnumerable<ReadDuneLocation> newDuneLocations = duneLocationsReader.ReadDuneLocations();
 

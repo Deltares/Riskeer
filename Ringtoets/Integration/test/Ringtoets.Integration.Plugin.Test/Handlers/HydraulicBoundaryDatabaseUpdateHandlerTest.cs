@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -31,6 +33,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.TestUtil;
@@ -225,7 +229,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual(clickOk, result);
 
             Assert.AreEqual("Bevestigen", dialogTitle);
-            Assert.AreEqual("U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden." + 
+            Assert.AreEqual("U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden." +
                             Environment.NewLine +
                             Environment.NewLine +
                             "Wilt u doorgaan?",
@@ -398,6 +402,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
+            var duneLocations = new[]
+            {
+                new TestDuneLocation(),
+                new TestDuneLocation()
+            };
+            assessmentSection.DuneErosion.SetDuneLocations(duneLocations);
+
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, viewCommands);
 
             HydraulicBoundaryLocation[] oldLocations = hydraulicBoundaryDatabase.Locations.ToArray();
@@ -406,6 +417,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
             CollectionAssert.AreEqual(oldLocations, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(oldLocations, assessmentSection);
+            AssertDuneLocationsAndCalculations(duneLocations, assessmentSection.DuneErosion);
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
@@ -413,6 +425,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryDatabase.Locations);
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -428,6 +441,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(duneLocations, duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Select(c => c.DuneLocation));
+            CollectionAssert.IsNotSubsetOf(duneLocations, duneErosionFailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Select(c => c.DuneLocation));
+            CollectionAssert.IsNotSubsetOf(duneLocations, duneErosionFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Select(c => c.DuneLocation));
+            CollectionAssert.IsNotSubsetOf(duneLocations, duneErosionFailureMechanism.CalculationsForLowerLimitNorm.Select(c => c.DuneLocation));
+            CollectionAssert.IsNotSubsetOf(duneLocations, duneErosionFailureMechanism.CalculationsForFactorizedLowerLimitNorm.Select(c => c.DuneLocation));
             mocks.VerifyAll();
         }
 
@@ -480,7 +498,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             {
                 hydraulicBoundaryDatabase.FilePath = filePath;
                 hydraulicBoundaryDatabase.Version = "1";
-                hydraulicBoundaryDatabase.Locations.AddRange(new []
+                hydraulicBoundaryDatabase.Locations.AddRange(new[]
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
                     new TestHydraulicBoundaryLocation("old location 2"),
@@ -520,6 +538,44 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        public void GivenDatabase_WhenNewLocationsIsDune_SetsData()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, viewCommands);
+
+            var newLocation = new ReadHydraulicBoundaryLocation(1, "test_1_100", 205354, 609735);
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(new []
+            {
+                newLocation
+            });
+
+            // Call
+            handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Assert
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            Assert.AreEqual(1, duneErosionFailureMechanism.DuneLocations.Count());
+
+            DuneLocation duneLocation = duneErosionFailureMechanism.DuneLocations.Single();
+            Assert.AreEqual(newLocation.Id, duneLocation.Id);
+            Assert.AreEqual(new Point2D(newLocation.CoordinateX, newLocation.CoordinateY), duneLocation.Location);
+            AssertDuneLocationsAndCalculations(new[]
+            {
+                duneLocation
+            }, duneErosionFailureMechanism);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GivenCalculationsWithLocation_WhenUpdatingDatabaseWithNewLocations_ThenCalculationOutputClearedAndChangedObjectsReturned()
         {
             // Given
@@ -545,6 +601,16 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsTrue(calculationsWithOutput.All(c => !c.HasOutput));
             CollectionAssert.IsSubsetOf(calculationsWithOutput, changedObjects);
             mocks.VerifyAll();
+        }
+
+        private static void AssertDuneLocationsAndCalculations(IEnumerable locations, DuneErosionFailureMechanism failureMechanism)
+        {
+            Assert.AreEqual(locations, failureMechanism.DuneLocations);
+            CollectionAssert.AreEqual(locations, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Select(c => c.DuneLocation));
+            CollectionAssert.AreEqual(locations, failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Select(c => c.DuneLocation));
+            CollectionAssert.AreEqual(locations, failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Select(c => c.DuneLocation));
+            CollectionAssert.AreEqual(locations, failureMechanism.CalculationsForLowerLimitNorm.Select(c => c.DuneLocation));
+            CollectionAssert.AreEqual(locations, failureMechanism.CalculationsForFactorizedLowerLimitNorm.Select(c => c.DuneLocation));
         }
 
         private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)

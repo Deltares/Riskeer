@@ -52,7 +52,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocations">The dune locations to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
-                                            ICollection<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                             IEnumerable<ReadDuneLocation> duneLocations)
         {
             if (failureMechanism == null)
@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.Service
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
-            if (hydraulicBoundaryLocations.Count == 0 || !duneLocations.Any())
+            if (!hydraulicBoundaryLocations.Any() || !duneLocations.Any())
             {
                 failureMechanism.SetDuneLocations(Enumerable.Empty<DuneLocation>());
                 return;

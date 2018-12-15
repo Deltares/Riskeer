@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.Data;
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
-        private readonly IViewCommands viewCommands;
+        private DuneLocationsReplacementHandler duneLocationsReplacementHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseUpdateHandler"/>.
@@ -63,7 +64,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             this.assessmentSection = assessmentSection;
-            this.viewCommands = viewCommands;
+            duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion);
         }
 
         public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
@@ -123,6 +124,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+                
+                duneLocationsReplacementHandler.Replace(hydraulicBoundaryDatabase.Locations);
 
                 changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
                 changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
