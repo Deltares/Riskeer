@@ -134,6 +134,11 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return changedObjects;
         }
 
+        public void DoPostUpdateActions()
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return new IObservable[]

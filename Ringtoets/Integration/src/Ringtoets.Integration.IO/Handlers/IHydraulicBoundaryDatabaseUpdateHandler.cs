@@ -62,5 +62,10 @@ namespace Ringtoets.Integration.IO.Handlers
                                         ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                         ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                         string filePath);
+
+        /// <summary>
+        /// Perform post-update actions.
+        /// </summary>
+        void DoPostUpdateActions();
     }
 }
