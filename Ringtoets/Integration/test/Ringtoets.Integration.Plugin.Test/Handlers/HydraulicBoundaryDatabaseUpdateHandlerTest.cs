@@ -297,6 +297,25 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        public void Update_ExcludedLocationIdsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), null, ""); ;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("excludedLocationIds", exception.ParamName);
+        }
+
+        [Test]
         public void Update_FilePathAndVersionSame_NothingUpdatesAndReturnsEmptyCollection()
         {
             // Setup

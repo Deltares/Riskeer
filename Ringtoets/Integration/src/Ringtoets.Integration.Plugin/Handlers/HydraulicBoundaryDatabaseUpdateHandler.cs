@@ -109,6 +109,11 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabase));
             }
 
+            if (excludedLocationIds == null)
+            {
+                throw new ArgumentNullException(nameof(excludedLocationIds));
+            }
+
             var changedObjects = new List<IObservable>();
 
             updateLocations = !hydraulicBoundaryDatabase.IsLinked() || hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
