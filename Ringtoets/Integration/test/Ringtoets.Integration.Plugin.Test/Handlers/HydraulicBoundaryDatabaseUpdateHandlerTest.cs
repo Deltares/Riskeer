@@ -613,6 +613,27 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void DoPostUpdateActions_Always_CallsDuneLocationsReplacementHandler()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
+            duneLocationsReplacementHandler.Expect(h => h.DoPostReplacementUpdates());
+            mocks.ReplayAll();
+
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, viewCommands, duneLocationsReplacementHandler);
+
+            // Call
+            handler.DoPostUpdateActions();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
         private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)
         {
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;

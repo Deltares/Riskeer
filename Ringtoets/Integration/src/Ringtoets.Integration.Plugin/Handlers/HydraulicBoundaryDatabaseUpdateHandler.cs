@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         public void DoPostUpdateActions()
         {
-            throw new NotImplementedException();
+            duneLocationsReplacementHandler.DoPostReplacementUpdates();
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
