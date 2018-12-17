@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil
@@ -36,14 +35,10 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
         public static ReadHydraulicLocationConfigurationDatabase Create()
         {
-            return new ReadHydraulicLocationConfigurationDatabase(new Dictionary<long, long>
+            return new ReadHydraulicLocationConfigurationDatabase(new []
             {
-                {
-                    1, 1
-                },
-                {
-                    2, 2
-                }
+                new ReadHydraulicLocationMapping(1, 1), 
+                new ReadHydraulicLocationMapping(2, 2)
             });
         }
     }

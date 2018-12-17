@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
@@ -35,13 +35,13 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
 
             // Assert
-            Assert.AreEqual(2, database.LocationIds.Count);
+            Assert.AreEqual(2, database.LocationIdMappings.Count());
 
             var i = 1;
-            foreach (KeyValuePair<long, long> databaseLocationId in database.LocationIds)
+            foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
             {
-                Assert.AreEqual(i, databaseLocationId.Key);
-                Assert.AreEqual(i, databaseLocationId.Value);
+                Assert.AreEqual(i, databaseLocationIdMapping.HrdLocationId);
+                Assert.AreEqual(i, databaseLocationIdMapping.HlcdLocationId);
                 i++;
             }
         }
