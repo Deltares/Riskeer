@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -70,7 +71,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        public Dictionary<long, long> GetLocationIdsByTrackId(long trackId)
+        public IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsByTrackId(long trackId)
         {
             var trackParameter = new SQLiteParameter
             {
@@ -103,30 +104,30 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private Dictionary<long, long> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
+        private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
-            var dictionary = new Dictionary<long, long>();
+            var mappings = new List<ReadHydraulicLocationMapping>();
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
             using (IDataReader dataReader = CreateDataReader(query, trackParameter))
             {
                 while (MoveNext(dataReader))
                 {
-                    long key = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
-                    long value = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
+                    long hrdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
+                    long hlcdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
 
                     // Must be unique
-                    if (dictionary.ContainsKey(key))
+                    if (mappings.Any(m => m.HrdLocationId == hrdLocationId))
                     {
                         log.Warn(Resources.HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
                     }
                     else
                     {
-                        dictionary.Add(key, value);
+                        mappings.Add(new ReadHydraulicLocationMapping(hrdLocationId, hlcdLocationId));
                     }
                 }
             }
 
-            return dictionary;
+            return mappings;
         }
     }
 }

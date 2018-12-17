@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util.Builders;
@@ -153,7 +154,8 @@ namespace Ringtoets.Common.IO.FileImporters
                 string version = hydraulicBoundaryDatabaseReader.GetVersion();
                 var hydraulicBoundaryLocations = new List<HydraulicBoundaryLocation>();
 
-                Dictionary<long, long> locationIdsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationIdsByTrackId(trackId);
+                Dictionary<long, long> locationIdsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationIdsByTrackId(trackId)
+                                                                                                           .ToDictionary(m => m.HrdLocationId, m => m.HlcdLocationId);
                 var filter = new HydraulicBoundaryLocationFilter(HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseReader.Path));
 
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();

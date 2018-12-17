@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -81,12 +82,13 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                Dictionary<long, long> locationIdDictionary = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
+                IEnumerable<ReadHydraulicLocationMapping> locationMappings = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
-                long locationId;
-                locationIdDictionary.TryGetValue(hrdLocationId, out locationId);
-                Assert.AreEqual(expectedLocationId, locationId);
+                long actualLocationId = locationMappings.Where(m => m.HrdLocationId == hrdLocationId)
+                                                        .Select(m => m.HlcdLocationId)
+                                                        .SingleOrDefault();
+                Assert.AreEqual(expectedLocationId, actualLocationId);
             }
         }
 
@@ -97,20 +99,21 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
             const int trackId = 18;
             const int hrdLocationId = 1;
-            var locationIdDictionary = new Dictionary<long, long>();
+            IEnumerable<ReadHydraulicLocationMapping> locationMappings = null;
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                Action call = () => locationIdDictionary = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
+                Action call = () => locationMappings = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
                 const int expectedLocationId = 1800001;
                 const string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-                long locationId;
-                locationIdDictionary.TryGetValue(hrdLocationId, out locationId);
-                Assert.AreEqual(expectedLocationId, locationId);
+                long actualLocationId = locationMappings.Where(m => m.HrdLocationId == hrdLocationId)
+                                                        .Select(m => m.HlcdLocationId)
+                                                        .Single();
+                Assert.AreEqual(expectedLocationId, actualLocationId);
             }
         }
 
@@ -168,9 +171,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                long locationId;
-                readHydraulicLocationConfigurationDatabase.LocationIds.TryGetValue(hrdLocationId, out locationId);
-                Assert.AreEqual(expectedLocationId, locationId);
+                long actualLocationId = readHydraulicLocationConfigurationDatabase.LocationIdMappings.Where(m => m.HrdLocationId == hrdLocationId)
+                                                                                  .Select(m => m.HlcdLocationId)
+                                                                                  .SingleOrDefault();
+                Assert.AreEqual(expectedLocationId, actualLocationId);
             }
         }
 
@@ -192,9 +196,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 const int expectedLocationId = 1800001;
                 const string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-                long locationId;
-                readHydraulicLocationConfigurationDatabase.LocationIds.TryGetValue(hrdLocationId, out locationId);
-                Assert.AreEqual(expectedLocationId, locationId);
+                long actualLocationId = readHydraulicLocationConfigurationDatabase.LocationIdMappings.Where(m => m.HrdLocationId == hrdLocationId)
+                                                                                  .Select(m => m.HlcdLocationId)
+                                                                                  .Single();
+                Assert.AreEqual(expectedLocationId, actualLocationId);
             }
         }
 
