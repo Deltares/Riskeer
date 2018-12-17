@@ -573,17 +573,92 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void DoPostUpdateActions_Always_CallsDuneLocationsReplacementHandler()
+        public void DoPostUpdateActions_NoUpdateCalled_DoNothing()
         {
             // Setup
             var mocks = new MockRepository();
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+
+            // Call
+            handler.DoPostUpdateActions();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostUpdateActions_AfterUpdateCalledAndNoLocationsUpdated_DoNothing()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
+                Version = "version",
+                Locations =
+                {
+                    new TestHydraulicBoundaryLocation("old location 1"),
+                    new TestHydraulicBoundaryLocation("old location 2"),
+                    new TestHydraulicBoundaryLocation("old location 3")
+                }
+            };
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Precondition
+            CollectionAssert.IsEmpty(changedObjects);
+
+            // Call
+            handler.DoPostUpdateActions();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostUpdateActions_AfterUpdateCalledAndLocationsUpdated_Perform()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
+            duneLocationsReplacementHandler.Expect(h => h.Replace(null)).IgnoreArguments();
             duneLocationsReplacementHandler.Expect(h => h.DoPostReplacementUpdates());
             mocks.ReplayAll();
 
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            const string filePath = "old/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
+                Version = "1",
+                Locations =
+                {
+                    new TestHydraulicBoundaryLocation("old location 1"),
+                    new TestHydraulicBoundaryLocation("old location 2"),
+                    new TestHydraulicBoundaryLocation("old location 3")
+                }
+            };
 
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), filePath);
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(changedObjects);
 
             // Call
             handler.DoPostUpdateActions();

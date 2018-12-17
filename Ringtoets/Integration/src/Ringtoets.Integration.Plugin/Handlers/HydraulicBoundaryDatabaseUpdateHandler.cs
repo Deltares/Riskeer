@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
@@ -43,6 +42,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
     {
         private readonly AssessmentSection assessmentSection;
         private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
+        private bool updateLocations;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseUpdateHandler"/>.
@@ -110,25 +110,27 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
             var changedObjects = new List<IObservable>();
 
-            if (hydraulicBoundaryDatabase.IsLinked() && hydraulicBoundaryDatabase.Version == readHydraulicBoundaryDatabase.Version)
-            {
-                if (hydraulicBoundaryDatabase.FilePath != filePath)
-                {
-                    hydraulicBoundaryDatabase.FilePath = filePath;
-                }
-            }
-            else
+            updateLocations = !hydraulicBoundaryDatabase.IsLinked() || hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
+
+            if (updateLocations)
             {
                 hydraulicBoundaryDatabase.FilePath = filePath;
                 hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
                 SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-                
+
                 duneLocationsReplacementHandler.Replace(hydraulicBoundaryDatabase.Locations);
 
                 changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
                 changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
+            }
+            else
+            {
+                if (hydraulicBoundaryDatabase.FilePath != filePath)
+                {
+                    hydraulicBoundaryDatabase.FilePath = filePath;
+                }
             }
 
             return changedObjects;
@@ -136,7 +138,10 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         public void DoPostUpdateActions()
         {
-            duneLocationsReplacementHandler.DoPostReplacementUpdates();
+            if (updateLocations)
+            {
+                duneLocationsReplacementHandler.DoPostReplacementUpdates();
+            }
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
