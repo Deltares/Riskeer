@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
-        private IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
+        private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseUpdateHandler"/>.
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             this.assessmentSection = assessmentSection;
-            this.duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion);
+            this.duneLocationsReplacementHandler = duneLocationsReplacementHandler;
         }
 
         public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
