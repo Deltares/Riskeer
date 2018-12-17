@@ -491,6 +491,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                        observable1,
                        observable2
                    });
+            handler.Expect(h => h.DoPostUpdateActions());
             mocks.ReplayAll();
 
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -108,6 +108,8 @@ namespace Ringtoets.Integration.IO.Importers
 
         protected override void DoPostImportUpdates()
         {
+            updateHandler.DoPostUpdateActions();
+
             base.DoPostImportUpdates();
 
             foreach (IObservable changedObservable in changedObservables)
