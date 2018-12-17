@@ -33,7 +33,7 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
     /// <summary>
     /// Class responsible for replacing dune locations on a <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
-    public class DuneLocationsReplacementHandler
+    public class DuneLocationsReplacementHandler : IDuneLocationsReplacementHandler
     {
         private readonly IViewCommands viewCommands;
         private readonly DuneErosionFailureMechanism failureMechanism;

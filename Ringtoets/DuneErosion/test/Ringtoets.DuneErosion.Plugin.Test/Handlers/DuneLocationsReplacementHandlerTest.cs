@@ -68,6 +68,22 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
         }
 
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            var handler = new DuneLocationsReplacementHandler(viewCommands, new DuneErosionFailureMechanism());
+
+            // Assert
+            Assert.IsInstanceOf<IDuneLocationsReplacementHandler>(handler);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Replace_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Setup
