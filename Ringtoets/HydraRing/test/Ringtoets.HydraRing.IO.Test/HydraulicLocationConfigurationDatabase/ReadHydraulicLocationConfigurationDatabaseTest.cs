@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
@@ -39,6 +40,19 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 
             // Assert
             Assert.AreSame(locationIds, readDatabase.LocationIds);
+        }
+
+        [Test]
+        public void Constructor_WithMapping_ExpectedValues()
+        {
+            // Setup
+            IEnumerable<ReadHydraulicLocationMapping> locationIdMappings = Enumerable.Empty<ReadHydraulicLocationMapping>();
+
+            // Call
+            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIdMappings);
+
+            // Assert
+            Assert.AreSame(locationIdMappings, readDatabase.LocationIdMappings);
         }
     }
 }
