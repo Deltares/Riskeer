@@ -91,7 +91,9 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
-            if (!OpenSettingsFileToValidate() || Canceled)
+            ReadResult<IEnumerable<long>> readExcludedLocationsResult = ReadExcludedLocations();
+
+            if (readExcludedLocationsResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
             }
@@ -186,20 +188,39 @@ namespace Ringtoets.Integration.IO.Importers
             }
         }
 
-        private bool OpenSettingsFileToValidate()
+        private ReadResult<IEnumerable<long>> ReadExcludedLocations()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file, 3, numberOfSteps);
             string settingsFilePath = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(FilePath);
             try
             {
-                using (new HydraRingSettingsDatabaseReader(settingsFilePath)) {}
-
-                return true;
+                using (var reader = new HydraRingSettingsDatabaseReader(settingsFilePath))
+                {
+                    return ReadExcludedLocations(reader);
+                }
             }
             catch (CriticalFileReadException e)
             {
-                HandleCriticalFileReadError(string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
-                return false;
+                return HandleCriticalFileReadError<IEnumerable<long>>(
+                    string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
+            }
+        }
+
+        private ReadResult<IEnumerable<long>> ReadExcludedLocations(HydraRingSettingsDatabaseReader reader)
+        {
+            try
+            {
+                return new ReadResult<IEnumerable<long>>(false)
+                {
+                    Items = new[]
+                    {
+                        reader.ReadExcludedLocations().ToArray()
+                    }
+                };
+            }
+            catch (CriticalFileReadException e)
+            {
+                return HandleCriticalFileReadError<IEnumerable<long>>(e.Message);
             }
         }
 

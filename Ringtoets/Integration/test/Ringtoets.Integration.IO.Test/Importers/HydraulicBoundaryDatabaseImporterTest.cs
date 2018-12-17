@@ -269,6 +269,31 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
+        public void Import_ExistingFileWithInvalidSettings_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "invalidSettings", "complete.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': de rekeninstellingen database heeft niet het juiste schema."
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_WhenSuccessful_UpdatesHydraulicBoundaryDatabaseWithImportedData()
         {
             // Setup
