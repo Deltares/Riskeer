@@ -48,20 +48,14 @@ namespace Ringtoets.Integration.Plugin.Handlers
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseUpdateHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to update for.</param>
-        /// <param name="viewCommands">The view commands used to close views for removed data.</param>
         /// <param name="duneLocationsReplacementHandler">The handler to replace dune locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseUpdateHandler(AssessmentSection assessmentSection, IViewCommands viewCommands,
+        public HydraulicBoundaryDatabaseUpdateHandler(AssessmentSection assessmentSection,
                                                       IDuneLocationsReplacementHandler duneLocationsReplacementHandler)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (viewCommands == null)
-            {
-                throw new ArgumentNullException(nameof(viewCommands));
             }
 
             if (duneLocationsReplacementHandler == null)
