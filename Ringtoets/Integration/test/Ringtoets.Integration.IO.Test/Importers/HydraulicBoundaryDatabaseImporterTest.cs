@@ -290,7 +290,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
 
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
-                       Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIds.Count);
+                       Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
                    })
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();

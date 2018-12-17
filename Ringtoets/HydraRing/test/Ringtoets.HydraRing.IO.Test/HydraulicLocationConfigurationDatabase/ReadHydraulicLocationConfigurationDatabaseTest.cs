@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -31,19 +31,6 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
     {
         [Test]
         public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var locationIds = new Dictionary<long, long>();
-
-            // Call
-            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIds);
-
-            // Assert
-            Assert.AreSame(locationIds, readDatabase.LocationIds);
-        }
-
-        [Test]
-        public void Constructor_WithMapping_ExpectedValues()
         {
             // Setup
             IEnumerable<ReadHydraulicLocationMapping> locationIdMappings = Enumerable.Empty<ReadHydraulicLocationMapping>();

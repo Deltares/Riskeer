@@ -32,15 +32,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <param name="locationIds">The location ids of the read hydraulic location configuration database.</param>
-        internal ReadHydraulicLocationConfigurationDatabase(Dictionary<long, long> locationIds)
-        {
-            LocationIds = locationIds;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
-        /// </summary>
         /// <param name="locationIdMappings">The location id mappings of the read hydraulic location
         /// configuration database.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationIdMappings"/>
@@ -54,11 +45,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
 
             LocationIdMappings = locationIdMappings;
         }
-
-        /// <summary>
-        /// Gets the location ids of the read hydraulic location configuration database.
-        /// </summary>
-        public Dictionary<long, long> LocationIds { get; }
 
         /// <summary>
         /// Gets the location id mappings of the read hydraulic location configuration database.
