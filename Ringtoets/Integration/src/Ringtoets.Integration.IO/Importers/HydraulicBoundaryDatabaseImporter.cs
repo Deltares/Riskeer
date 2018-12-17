@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.IO.Importers
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = readHydraulicBoundaryDatabaseResult.Items.Single();
 
-            bool clearDependentData = IsClearingDependentDataRequired(readHydraulicBoundaryDatabase);
+            InquireConfirmation(readHydraulicBoundaryDatabase);
 
             if (Canceled)
             {
@@ -118,23 +118,15 @@ namespace Ringtoets.Integration.IO.Importers
             }
         }
 
-        private bool IsClearingDependentDataRequired(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        private void InquireConfirmation(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
         {
-            var clearDependentData = false;
-
             if (updateHandler.IsConfirmationRequired(ImportTarget, readHydraulicBoundaryDatabase))
             {
                 if (!updateHandler.InquireConfirmation())
                 {
                     Cancel();
                 }
-                else
-                {
-                    clearDependentData = true;
-                }
             }
-
-            return clearDependentData;
         }
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
