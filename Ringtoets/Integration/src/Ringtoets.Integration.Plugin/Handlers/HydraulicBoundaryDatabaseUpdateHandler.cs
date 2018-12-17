@@ -42,16 +42,17 @@ namespace Ringtoets.Integration.Plugin.Handlers
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
-        private DuneLocationsReplacementHandler duneLocationsReplacementHandler;
+        private IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseUpdateHandler"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to update for.</param>
         /// <param name="viewCommands">The view commands used to close views for removed data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseUpdateHandler(AssessmentSection assessmentSection, IViewCommands viewCommands)
+        /// <param name="duneLocationsReplacementHandler">The handler to replace dune locations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseUpdateHandler(AssessmentSection assessmentSection, IViewCommands viewCommands,
+                                                      IDuneLocationsReplacementHandler duneLocationsReplacementHandler)
         {
             if (assessmentSection == null)
             {
@@ -63,8 +64,13 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(viewCommands));
             }
 
+            if (duneLocationsReplacementHandler == null)
+            {
+                throw new ArgumentNullException(nameof(duneLocationsReplacementHandler));
+            }
+
             this.assessmentSection = assessmentSection;
-            duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion);
+            this.duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion);
         }
 
         public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)

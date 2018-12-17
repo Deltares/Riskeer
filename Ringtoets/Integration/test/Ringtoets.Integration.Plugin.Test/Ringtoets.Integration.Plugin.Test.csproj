@@ -303,6 +303,10 @@
       <Project>{EC2DEF03-71FE-48A0-AB85-31E13112E4A1}</Project>
       <Name>Ringtoets.DuneErosion.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Plugin\Ringtoets.DuneErosion.Plugin.csproj">
+      <Project>{83885FB9-A87B-4D43-AF27-43EA44A84E42}</Project>
+      <Name>Ringtoets.DuneErosion.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\test\Ringtoets.DuneErosion.Data.TestUtil\Ringtoets.DuneErosion.Data.TestUtil.csproj">
       <Project>{7BE6B522-02E3-4143-8508-C021A211DE54}</Project>
       <Name>Ringtoets.DuneErosion.Data.TestUtil</Name>
