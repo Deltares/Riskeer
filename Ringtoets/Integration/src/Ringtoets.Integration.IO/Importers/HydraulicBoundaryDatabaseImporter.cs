@@ -98,7 +98,8 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
-            AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabaseResult.Items.Single(), readHydraulicLocationConfigurationDatabaseResult.Items.Single());
+            AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseResult.Items.Single(),
+                                                    readExcludedLocationsResult.Items.Single());
 
             return true;
         }
@@ -225,10 +226,12 @@ namespace Ringtoets.Integration.IO.Importers
         }
 
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
-                                                             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+                                                             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                             IEnumerable<long> excludedLocationIds)
         {
             NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase, FilePath));
+            changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
+                                                             excludedLocationIds, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
