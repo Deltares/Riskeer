@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controleren van het rekeninstellingen bestand..
+        ///   Looks up a localized string similar to Inlezen van het rekeninstellingen bestand..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file {
             get {

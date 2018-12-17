@@ -358,7 +358,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Controleren van het rekeninstellingen bestand.",
+                    Text = "Inlezen van het rekeninstellingen bestand.",
                     CurrentStep = 3,
                     TotalNumberOfSteps = 4
                 },
