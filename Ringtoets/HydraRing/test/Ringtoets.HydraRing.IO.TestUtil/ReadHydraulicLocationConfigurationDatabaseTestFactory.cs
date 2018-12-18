@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil
@@ -35,11 +37,22 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
         public static ReadHydraulicLocationConfigurationDatabase Create()
         {
-            return new ReadHydraulicLocationConfigurationDatabase(new []
+            return Create(new long[]
             {
-                new ReadHydraulicLocationMapping(1, 1), 
-                new ReadHydraulicLocationMapping(2, 2)
+                1,
+                2
             });
+        }
+
+        /// <summary>
+        /// Creates a of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
+        /// </summary>
+        /// <param name="locationIds">The location ids to add.</param>
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
+        public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds)
+        {
+            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId))
+                                                                             .ToList());
         }
     }
 }

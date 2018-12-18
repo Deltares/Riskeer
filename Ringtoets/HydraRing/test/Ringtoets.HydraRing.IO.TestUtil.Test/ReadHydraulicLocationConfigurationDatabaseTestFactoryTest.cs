@@ -45,5 +45,31 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
                 i++;
             }
         }
+
+        [Test]
+        public void Create_WithLocationIds_ExpectedValues()
+        {
+            // Setup
+            var locationsIds = new long[]
+            {
+                4,
+                6,
+                8
+            };
+
+            // Call
+            ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(locationsIds);
+
+            // Assert
+            Assert.AreEqual(3, database.LocationIdMappings.Count());
+
+            var i = 0;
+            foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
+            {
+                Assert.AreEqual(locationsIds[i], databaseLocationIdMapping.HrdLocationId);
+                Assert.AreEqual(locationsIds[i], databaseLocationIdMapping.HlcdLocationId);
+                i++;
+            }
+        }
     }
 }
