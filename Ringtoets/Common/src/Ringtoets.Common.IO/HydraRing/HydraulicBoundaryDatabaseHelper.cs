@@ -73,10 +73,7 @@ namespace Ringtoets.Common.IO.HydraRing
             string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(filePath);
             try
             {
-                using (var db = new OldHydraulicBoundaryDatabaseReader(filePath))
-                {
-                    db.GetVersion();
-                }
+                using (new HydraulicBoundaryDatabaseReader(filePath)) {}
 
                 string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
                 using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath)) {}
@@ -174,9 +171,9 @@ namespace Ringtoets.Common.IO.HydraRing
         /// boundary database could be created.</exception>
         private static string GetVersion(string filePath)
         {
-            using (var db = new OldHydraulicBoundaryDatabaseReader(filePath))
+            using (var db = new HydraulicBoundaryDatabaseReader(filePath))
             {
-                return db.GetVersion();
+                return db.ReadVersion();
             }
         }
     }

@@ -99,7 +99,8 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, testDataPath);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{validFilePath}':", result);
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(validFilePath), "HLCD.sqlite");
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{hlcdFilePath}':", result);
         }
 
         [Test]
