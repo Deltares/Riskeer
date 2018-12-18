@@ -161,17 +161,12 @@ namespace Ringtoets.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="IAssessmentSection"/>.
+        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <remarks>This will import 19 Hydraulic boundary locations.</remarks>
+        /// <remarks>This will import 18 Hydraulic boundary locations.</remarks>
         public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    false,
                                                                                    "HRD dutch coast south.sqlite",
@@ -180,18 +175,34 @@ namespace Ringtoets.Integration.TestUtil
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
 
-                var mocks = new MockRepository();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                mocks.ReplayAll();
-
-                var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                              new HydraulicBoundaryDatabaseUpdateHandler(
-                                                                                                  assessmentSection,
-                                                                                                  new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
-                                                                                              filePath);
-                    hydraulicBoundaryDatabaseImporter.Import();
-                    mocks.VerifyAll();
+                ImportHydraulicBoundaryDatabase(assessmentSection, filePath);
             }
+        }
+
+        /// <summary>
+        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="AssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <param name="filePath">The filePath to import from.</param>
+        /// <remarks>This will import 18 Hydraulic boundary locations.</remarks>
+        public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection, string filePath)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                          new HydraulicBoundaryDatabaseUpdateHandler(
+                                                                                              assessmentSection,
+                                                                                              new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
+                                                                                          filePath);
+            hydraulicBoundaryDatabaseImporter.Import();
+            mocks.VerifyAll();
         }
 
         private static FailureMechanismSection DeepCloneSection(FailureMechanismSection section)

@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -113,6 +115,30 @@ namespace Ringtoets.Integration.TestUtil.Test
         {
             // Call
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(18, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
+        }
+
+        [Test]
+        public void ImportHydraulicBoundaryDatabaseWithFilePath_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => DataImportHelper.ImportHydraulicBoundaryDatabase(null, "");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void ImportHydraulicBoundaryDatabaseWithFilePath_ValidData_AddsHydraulicBoundaryLocations()
+        {
+            // Setup
+            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.TestUtil, nameof(DataImportHelper));
+
+            // Call
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, Path.Combine(testDataPath, "complete.sqlite"));
 
             // Assert
             Assert.AreEqual(18, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
