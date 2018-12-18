@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,7 +37,9 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
+using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.IO.Importers;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -164,15 +167,30 @@ namespace Ringtoets.Integration.TestUtil
         /// <remarks>This will import 19 Hydraulic boundary locations.</remarks>
         public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    false,
                                                                                    "HRD dutch coast south.sqlite",
                                                                                    "HLCD.sqlite",
                                                                                    "HRD dutch coast south.config.sqlite"))
-            using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                hydraulicBoundaryDatabaseImporter.Import(assessmentSection, filePath);
+
+                var mocks = new MockRepository();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                mocks.ReplayAll();
+
+                var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                              new HydraulicBoundaryDatabaseUpdateHandler(
+                                                                                                  assessmentSection,
+                                                                                                  new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
+                                                                                              filePath);
+                    hydraulicBoundaryDatabaseImporter.Import();
+                    mocks.VerifyAll();
             }
         }
 
