@@ -124,11 +124,10 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 hydraulicBoundaryDatabase.FilePath = filePath;
                 hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
 
-                ReadHydraulicBoundaryLocation[] locationsToAdd = FilterLocations(readHydraulicBoundaryDatabase.Locations,
-                                                                                 readHydraulicLocationConfigurationDatabase.LocationIdMappings,
-                                                                                 excludedLocationIds.ToList()).ToArray();
+                SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations,
+                             readHydraulicLocationConfigurationDatabase.LocationIdMappings,
+                             excludedLocationIds.ToList());
 
-                SetLocations(hydraulicBoundaryDatabase, locationsToAdd);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
@@ -154,31 +153,6 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 duneLocationsReplacementHandler.DoPostReplacementUpdates();
             }
-        }
-
-        private static IEnumerable<ReadHydraulicBoundaryLocation> FilterLocations(IEnumerable<ReadHydraulicBoundaryLocation> locations,
-                                                                                  IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
-                                                                                  List<long> excludedLocationIds)
-        {
-            excludedLocationIds.Sort();
-
-            foreach (ReadHydraulicBoundaryLocation location in locations)
-            {
-                long locationConfigurationId = locationIdMappings.Where(m => m.HrdLocationId == location.Id)
-                                                                 .Select(m => m.HlcdLocationId)
-                                                                 .SingleOrDefault();
-
-                if (locationConfigurationId != 0 && ShouldInclude(excludedLocationIds, locationConfigurationId))
-                {
-                    yield return location;
-                }
-            }
-        }
-
-        private static bool ShouldInclude(List<long> excludedLocationIds, long locationId)
-        {
-            int matchingIndex = excludedLocationIds.BinarySearch(locationId);
-            return matchingIndex < 0;
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
@@ -209,15 +183,31 @@ namespace Ringtoets.Integration.Plugin.Handlers
             };
         }
 
-        private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations)
+        private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
+                                         IEnumerable<ReadHydraulicLocationMapping> locationIdMappings, List<long> excludedLocationIds)
         {
             hydraulicBoundaryDatabase.Locations.Clear();
 
+            excludedLocationIds.Sort();
+
             foreach (ReadHydraulicBoundaryLocation readLocation in readLocations)
             {
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(readLocation.Id, readLocation.Name,
-                                                                                      readLocation.CoordinateX, readLocation.CoordinateY));
+                long locationConfigurationId = locationIdMappings.Where(m => m.HrdLocationId == readLocation.Id)
+                                                                 .Select(m => m.HlcdLocationId)
+                                                                 .SingleOrDefault();
+
+                if (locationConfigurationId != 0 && ShouldInclude(excludedLocationIds, locationConfigurationId))
+                {
+                    hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(locationConfigurationId, readLocation.Name,
+                                                                                          readLocation.CoordinateX, readLocation.CoordinateY));
+                }
             }
+        }
+
+        private static bool ShouldInclude(List<long> excludedLocationIds, long locationId)
+        {
+            int matchingIndex = excludedLocationIds.BinarySearch(locationId);
+            return matchingIndex < 0;
         }
     }
 }

@@ -34,6 +34,7 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.HydraRing.IO.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
@@ -495,10 +496,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
-                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+                           readHydraulicLocationConfigurationDatabase,
                            Enumerable.Empty<long>(), filePath);
 
             // Assert
@@ -506,7 +508,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
 
-            AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
             mocks.VerifyAll();
         }
@@ -540,14 +542,15 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToInclude
                                                                                                                           .Concat(readHydraulicBoundaryLocationsToExclude)
                                                                                                                           .ToList());
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
-                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+                           readHydraulicLocationConfigurationDatabase,
                            Enumerable.Empty<long>(), filePath);
 
             // Assert
-            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
             mocks.VerifyAll();
         }
 
@@ -580,14 +583,16 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToExclude
                                                                                                                           .Concat(readHydraulicBoundaryLocationsToInclude)
                                                                                                                           .ToList());
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(
+                readHydraulicBoundaryLocationsToInclude.Select(l => l.Id));
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
-                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToInclude.Select(l => l.Id)),
+                           readHydraulicLocationConfigurationDatabase,
                            readHydraulicBoundaryLocationsToExclude.Select(l => l.Id), filePath);
 
             // Assert
-            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, hydraulicBoundaryDatabase.Locations);
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
             mocks.VerifyAll();
         }
 
@@ -799,7 +804,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
         }
 
-        private static void AssertHydraulicBoundaryLocations(IEnumerable<ReadHydraulicBoundaryLocation> readLocations, ObservableList<HydraulicBoundaryLocation> actualLocations)
+        private static void AssertHydraulicBoundaryLocations(IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
+                                                             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                             ObservableList<HydraulicBoundaryLocation> actualLocations)
         {
             Assert.AreEqual(readLocations.Count(), actualLocations.Count);
 
@@ -808,7 +815,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 ReadHydraulicBoundaryLocation readLocation = readLocations.ElementAt(i);
                 HydraulicBoundaryLocation actualLocation = actualLocations.ElementAt(i);
 
-                Assert.AreEqual(readLocation.Id, actualLocation.Id);
+                Assert.AreEqual(readHydraulicLocationConfigurationDatabase.LocationIdMappings
+                                                                          .Where(l => l.HrdLocationId == readLocation.Id)
+                                                                          .Select(l => l.HlcdLocationId).Single(), actualLocation.Id);
                 Assert.AreEqual(readLocation.Name, actualLocation.Name);
                 Assert.AreEqual(readLocation.CoordinateX, actualLocation.Location.X);
                 Assert.AreEqual(readLocation.CoordinateY, actualLocation.Location.Y);
