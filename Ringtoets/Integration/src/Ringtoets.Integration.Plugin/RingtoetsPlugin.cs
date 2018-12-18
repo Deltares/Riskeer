@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -114,6 +114,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
+using HydraulicBoundaryDatabaseImporter = Ringtoets.Integration.IO.Importers.HydraulicBoundaryDatabaseImporter;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -763,6 +764,20 @@ namespace Ringtoets.Integration.Plugin
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => HasGeometry(context.ParentAssessmentSection.ReferenceLine),
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
+            };
+
+            yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
+            {
+                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = RingtoetsCommonFormsResources.DatabaseIcon,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
+                                                              RingtoetsFormsResources.HydraulicBoundaryDatabase_FilePath_DisplayName),
+                CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
+                    context.WrappedData, new HydraulicBoundaryDatabaseUpdateHandler(
+                        context.AssessmentSection, new DuneLocationsReplacementHandler(
+                            Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
+                    filePath)
             };
         }
 
@@ -2333,7 +2348,7 @@ namespace Ringtoets.Integration.Plugin
                     return;
                 }
 
-                using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
+                using (var hydraulicBoundaryLocationsImporter = new Common.IO.FileImporters.HydraulicBoundaryDatabaseImporter())
                 {
                     if (!hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                     {

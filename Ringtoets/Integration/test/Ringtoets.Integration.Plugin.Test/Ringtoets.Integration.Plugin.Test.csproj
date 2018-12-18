@@ -58,6 +58,7 @@
     <Compile Include="FileImporters\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="Handlers\HydraulicBoundaryDatabaseUpdateHandlerTest.cs" />
+    <Compile Include="ImportInfos\HydraulicBoundaryDatabaseContextImportInfoTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandlerTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergerTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
