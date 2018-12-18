@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -2285,7 +2285,9 @@ namespace Ringtoets.Integration.Plugin
                                                         calculateAllItem);
 
             return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(connectionItem)
+                      .AddCustomImportItem(RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
+                                           RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                                           RingtoetsCommonFormsResources.DatabaseIcon)
                       .AddExportItem()
                       .AddSeparator()
                       .AddCustomItem(calculateAllItem)
