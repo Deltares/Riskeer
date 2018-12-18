@@ -32,47 +32,47 @@ namespace Ringtoets.Integration.TestUtil.Test
     [TestFixture]
     public class DataImportHelperTest
     {
-        private AssessmentSection dikeSection;
+        private AssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
-            dikeSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
         }
 
         [Test]
         public void ImportReferenceLine_ValidAssessmentSection_AddsReferenceLineGeometry()
         {
             // Call
-            DataImportHelper.ImportReferenceLine(dikeSection);
+            DataImportHelper.ImportReferenceLine(assessmentSection);
 
             // Assert
-            Assert.AreEqual(2380, dikeSection.ReferenceLine.Points.Count());
+            Assert.AreEqual(2380, assessmentSection.ReferenceLine.Points.Count());
         }
 
         [Test]
         public void ImportFailureMechanismSections_WithReferenceLine_AddsSectionsToSuppliedFailureMechanismOnly()
         {
             // Setup
-            DataImportHelper.ImportReferenceLine(dikeSection);
+            DataImportHelper.ImportReferenceLine(assessmentSection);
             const int failureMechanismCount = 18;
             int chosenFailureMechanismIndex = new Random(21).Next(0, failureMechanismCount);
-            IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(chosenFailureMechanismIndex);
+            IFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().ElementAt(chosenFailureMechanismIndex);
 
             // Call
-            DataImportHelper.ImportFailureMechanismSections(dikeSection, failureMechanism);
+            DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
             // Assert
             int[] expectedSectionCounts = Enumerable.Repeat(0, failureMechanismCount).ToArray();
             expectedSectionCounts[chosenFailureMechanismIndex] = 283;
-            CollectionAssert.AreEqual(expectedSectionCounts, dikeSection.GetFailureMechanisms().Select(fm => fm.Sections.Count()));
+            CollectionAssert.AreEqual(expectedSectionCounts, assessmentSection.GetFailureMechanisms().Select(fm => fm.Sections.Count()));
         }
 
         [Test]
         public void ImportFailureMechanismSections_MultipleFailureMechanismsWithReferenceLine_AddsSectionsToSuppliedFailureMechanismOnly()
         {
             // Setup
-            DataImportHelper.ImportReferenceLine(dikeSection);
+            DataImportHelper.ImportReferenceLine(assessmentSection);
             const int failureMechanismCount = 18;
             var random = new Random(21);
             IEnumerable<int> chosenNumbers = new[]
@@ -81,11 +81,11 @@ namespace Ringtoets.Integration.TestUtil.Test
                 random.Next(failureMechanismCount),
                 random.Next(failureMechanismCount)
             }.Distinct();
-            IEnumerable<IFailureMechanism> sectionFailureMechanisms = dikeSection.GetFailureMechanisms().ToArray();
+            IEnumerable<IFailureMechanism> sectionFailureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
             IEnumerable<IFailureMechanism> failureMechanisms = sectionFailureMechanisms.Where((fm, i) => chosenNumbers.Contains(i));
 
             // Call
-            DataImportHelper.ImportFailureMechanismSections(dikeSection, failureMechanisms);
+            DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanisms);
 
             // Assert
             int[] expectedSectionCounts = Enumerable.Repeat(0, failureMechanismCount).ToArray();
@@ -109,23 +109,23 @@ namespace Ringtoets.Integration.TestUtil.Test
         }
 
         [Test]
-        public void ImportHydraulicBoundaryDatabase_ValidAssessmentSection_AddsFourSurfaceLines()
+        public void ImportHydraulicBoundaryDatabase_ValidAssessmentSection_AddsHydraulicBoundaryLocations()
         {
             // Call
-            DataImportHelper.ImportHydraulicBoundaryDatabase(dikeSection);
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection);
 
             // Assert
-            Assert.AreEqual(18, dikeSection.HydraulicBoundaryDatabase.Locations.Count);
+            Assert.AreEqual(18, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
         }
 
         [Test]
         public void ImportPipingSurfaceLines_WithReferenceLine_AddsFourSurfaceLines()
         {
             // Setup
-            DataImportHelper.ImportReferenceLine(dikeSection);
+            DataImportHelper.ImportReferenceLine(assessmentSection);
 
             // Call
-            DataImportHelper.ImportPipingSurfaceLines(dikeSection);
+            DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -134,14 +134,14 @@ namespace Ringtoets.Integration.TestUtil.Test
                 "PK001_0002",
                 "PK001_0003",
                 "PK001_0004"
-            }, dikeSection.Piping.SurfaceLines.Select(sm => sm.Name));
+            }, assessmentSection.Piping.SurfaceLines.Select(sm => sm.Name));
         }
 
         [Test]
         public void ImportPipingStochasticSoilModels_Always_AddsFourSoilModelsWithProfiles()
         {
             // Call
-            DataImportHelper.ImportPipingStochasticSoilModels(dikeSection);
+            DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -150,31 +150,31 @@ namespace Ringtoets.Integration.TestUtil.Test
                 "PK001_0002_Piping",
                 "PK001_0003_Piping",
                 "PK001_0004_Piping"
-            }, dikeSection.Piping.StochasticSoilModels.Select(sm => sm.Name));
+            }, assessmentSection.Piping.StochasticSoilModels.Select(sm => sm.Name));
             CollectionAssert.AreEqual(new[]
             {
                 1,
                 1,
                 1,
                 1
-            }, dikeSection.Piping.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
+            }, assessmentSection.Piping.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
             CollectionAssert.AreEqual(new[]
             {
                 "W1-6_0_1D1",
                 "W1-6_4_1D1",
                 "W1-7_0_1D1",
                 "W1-8_6_1D1"
-            }, dikeSection.Piping.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
+            }, assessmentSection.Piping.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
         }
 
         [Test]
         public void ImportMacroStabilityInwardsSurfaceLines_WithReferenceLine_AddsFourSurfaceLines()
         {
             // Setup
-            DataImportHelper.ImportReferenceLine(dikeSection);
+            DataImportHelper.ImportReferenceLine(assessmentSection);
 
             // Call
-            DataImportHelper.ImportMacroStabilityInwardsSurfaceLines(dikeSection);
+            DataImportHelper.ImportMacroStabilityInwardsSurfaceLines(assessmentSection);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -183,14 +183,14 @@ namespace Ringtoets.Integration.TestUtil.Test
                 "PK001_0002",
                 "PK001_0003",
                 "PK001_0004"
-            }, dikeSection.MacroStabilityInwards.SurfaceLines.Select(sm => sm.Name));
+            }, assessmentSection.MacroStabilityInwards.SurfaceLines.Select(sm => sm.Name));
         }
 
         [Test]
         public void ImportMacroStabilityInwardsStochasticSoilModels_Always_AddsFourSoilModelsWithProfiles()
         {
             // Call
-            DataImportHelper.ImportMacroStabilityInwardsStochasticSoilModels(dikeSection);
+            DataImportHelper.ImportMacroStabilityInwardsStochasticSoilModels(assessmentSection);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -199,21 +199,21 @@ namespace Ringtoets.Integration.TestUtil.Test
                 "PK001_0002_Stability",
                 "PK001_0003_Stability",
                 "PK001_0004_Stability"
-            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.Select(sm => sm.Name));
+            }, assessmentSection.MacroStabilityInwards.StochasticSoilModels.Select(sm => sm.Name));
             CollectionAssert.AreEqual(new[]
             {
                 1,
                 1,
                 1,
                 1
-            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
+            }, assessmentSection.MacroStabilityInwards.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
             CollectionAssert.AreEqual(new[]
             {
                 "W1-6_0_1D1",
                 "W1-6_4_1D1",
                 "W1-7_0_1D1",
                 "W1-8_6_1D1"
-            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
+            }, assessmentSection.MacroStabilityInwards.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
         }
     }
 }
