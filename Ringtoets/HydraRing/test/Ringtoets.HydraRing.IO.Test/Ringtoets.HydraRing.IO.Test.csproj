@@ -24,7 +24,6 @@
     <Compile Include="HydraulicBoundaryDatabase\HrdLocationsTableDefinitionsTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseReaderTest.cs" />
-    <Compile Include="HydraulicBoundaryDatabase\OldHydraulicBoundaryDatabaseReaderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryLocationTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
