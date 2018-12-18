@@ -372,12 +372,6 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
-    <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read" xml:space="preserve">
-    <value>De hydraulische belastingenlocaties zijn ingelezen.</value>
-  </data>
   <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline" xml:space="preserve">
     <value>De profiellocatie met ID '{0}' ligt niet op de referentielijn.</value>
   </data>
@@ -454,9 +448,6 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   </data>
   <data name="settings_schema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\settings-schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_" xml:space="preserve">
-    <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
   </data>
   <data name="HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema" xml:space="preserve">
     <value>De rekeninstellingen database heeft niet het juiste schema.</value>
