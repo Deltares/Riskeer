@@ -62,7 +62,6 @@
     <Compile Include="HydraRing\DesignTablesSettingsProvider.cs" />
     <Compile Include="HydraRing\HydraRingSettingsDatabaseReader.cs" />
     <Compile Include="HydraRing\HydraRingSettingsDatabaseValidator.cs" />
-    <Compile Include="HydraRing\HydraulicBoundaryLocationFilter.cs" />
     <Compile Include="FileImporters\ProfilesImporter.cs" />
     <Compile Include="FileImporters\StructuresImporter.cs" />
     <Compile Include="HydraRing\HydraulicBoundaryDatabaseHelper.cs" />
