@@ -308,7 +308,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), null, ""); ;
+                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), null, "");
+            ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -507,6 +508,86 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_HrdLocationIdsNotInHlcdLocationIds_ThenLocationsNotAdded()
+        {
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
+
+            var readHydraulicBoundaryLocationsToInclude = new[]
+            {
+                new ReadHydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new ReadHydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+            var readHydraulicBoundaryLocationsToExclude = new[]
+            {
+                new ReadHydraulicBoundaryLocation(3, "location 3", 3, 3),
+                new ReadHydraulicBoundaryLocation(4, "location 4", 4, 4)
+            };
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToInclude
+                                                                                                                          .Concat(readHydraulicBoundaryLocationsToExclude)
+                                                                                                                          .ToList());
+
+            // Call
+            handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
+                           Enumerable.Empty<long>(), filePath);
+
+            // Assert
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, hydraulicBoundaryDatabase.Locations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_HrdLocationIdsInExcludedLocationIds_LocationsNotAdded()
+        {
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
+
+            var readHydraulicBoundaryLocationsToExclude = new[]
+            {
+                new ReadHydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new ReadHydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+            var readHydraulicBoundaryLocationsToInclude = new[]
+            {
+                new ReadHydraulicBoundaryLocation(3, "location 3", 3, 3),
+                new ReadHydraulicBoundaryLocation(4, "location 4", 4, 4)
+            };
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToExclude
+                                                                                                                          .Concat(readHydraulicBoundaryLocationsToInclude)
+                                                                                                                          .ToList());
+
+            // Call
+            handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
+                           ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToInclude.Select(l => l.Id)),
+                           readHydraulicBoundaryLocationsToExclude.Select(l => l.Id), filePath);
+
+            // Assert
+            AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, hydraulicBoundaryDatabase.Locations);
             mocks.VerifyAll();
         }
 

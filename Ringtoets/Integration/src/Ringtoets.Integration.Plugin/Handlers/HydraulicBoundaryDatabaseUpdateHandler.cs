@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
@@ -122,7 +123,12 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 hydraulicBoundaryDatabase.FilePath = filePath;
                 hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
-                SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations);
+
+                ReadHydraulicBoundaryLocation[] locationsToAdd = FilterLocations(readHydraulicBoundaryDatabase.Locations,
+                                                                                 readHydraulicLocationConfigurationDatabase.LocationIdMappings,
+                                                                                 excludedLocationIds.ToList()).ToArray();
+
+                SetLocations(hydraulicBoundaryDatabase, locationsToAdd);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
@@ -148,6 +154,31 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 duneLocationsReplacementHandler.DoPostReplacementUpdates();
             }
+        }
+
+        private static IEnumerable<ReadHydraulicBoundaryLocation> FilterLocations(IEnumerable<ReadHydraulicBoundaryLocation> locations,
+                                                                                  IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
+                                                                                  List<long> excludedLocationIds)
+        {
+            excludedLocationIds.Sort();
+
+            foreach (ReadHydraulicBoundaryLocation location in locations)
+            {
+                long locationConfigurationId = locationIdMappings.Where(m => m.HrdLocationId == location.Id)
+                                                                 .Select(m => m.HlcdLocationId)
+                                                                 .SingleOrDefault();
+
+                if (locationConfigurationId != 0 && ShouldInclude(excludedLocationIds, locationConfigurationId))
+                {
+                    yield return location;
+                }
+            }
+        }
+
+        private static bool ShouldInclude(List<long> excludedLocationIds, long locationId)
+        {
+            int matchingIndex = excludedLocationIds.BinarySearch(locationId);
+            return matchingIndex < 0;
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
