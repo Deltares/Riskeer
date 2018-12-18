@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
             string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))

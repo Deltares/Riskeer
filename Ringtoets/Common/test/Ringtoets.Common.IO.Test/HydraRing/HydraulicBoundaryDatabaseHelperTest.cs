@@ -33,7 +33,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
     [TestFixture]
     public class HydraulicBoundaryDatabaseHelperTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         [Test]
         public void ValidateFilesForCalculation_ExistingFileWithHlcd_ReturnsNull()

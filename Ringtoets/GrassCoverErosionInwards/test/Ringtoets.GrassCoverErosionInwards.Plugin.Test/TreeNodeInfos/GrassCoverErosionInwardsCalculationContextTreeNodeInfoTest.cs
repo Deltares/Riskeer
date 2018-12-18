@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateIndex = 7;
         private const int contextMenuCalculateIndex = 8;
         private const int contextMenuClearIndex = 10;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;

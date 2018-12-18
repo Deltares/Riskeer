@@ -63,7 +63,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         private const int validateMenuItemIndex = 7;
         private const int calculateMenuItemIndex = 8;
         private const int clearOutputMenuItemIndex = 10;
-        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;

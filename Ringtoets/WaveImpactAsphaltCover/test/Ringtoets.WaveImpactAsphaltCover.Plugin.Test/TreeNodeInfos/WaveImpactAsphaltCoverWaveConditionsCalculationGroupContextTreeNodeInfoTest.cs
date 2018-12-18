@@ -789,7 +789,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+                                                                                   Path.Combine(nameof(HydraulicBoundaryDatabase), "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {
