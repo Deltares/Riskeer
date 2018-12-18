@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -68,92 +67,6 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             {
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundaryDatabaseReader);
-            }
-        }
-
-        [Test]
-        [TestCase(18169, 1000, 1801000)]
-        [TestCase(6, 1000, 0)]
-        public void GetLocationIdsByTrackId_ValidFile_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
-        {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "complete.sqlite");
-
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
-            {
-                // Call
-                IEnumerable<ReadHydraulicLocationMapping> locationMappings = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
-
-                // Assert
-                long actualLocationId = locationMappings.Where(m => m.HrdLocationId == hrdLocationId)
-                                                        .Select(m => m.HlcdLocationId)
-                                                        .SingleOrDefault();
-                Assert.AreEqual(expectedLocationId, actualLocationId);
-            }
-        }
-
-        [Test]
-        public void GetLocationIdsByTrackId_AmbiguousLocations_ReturnsFirstAndLogsWarning()
-        {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
-            const int trackId = 18;
-            const int hrdLocationId = 1;
-            IEnumerable<ReadHydraulicLocationMapping> locationMappings = null;
-
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
-            {
-                // Call
-                Action call = () => locationMappings = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
-
-                // Assert
-                const int expectedLocationId = 1800001;
-                const string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-                long actualLocationId = locationMappings.Where(m => m.HrdLocationId == hrdLocationId)
-                                                        .Select(m => m.HlcdLocationId)
-                                                        .Single();
-                Assert.AreEqual(expectedLocationId, actualLocationId);
-            }
-        }
-
-        [Test]
-        public void GetLocationIdsByTrackId_InvalidColumns_ThrowsLineParseException()
-        {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            const int trackId = 1;
-
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
-            {
-                // Call
-                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
-
-                // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
-                var exception = Assert.Throws<LineParseException>(test);
-                Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
-            }
-        }
-
-        [Test]
-        public void GetLocationIdsByTrackId_EmptyFile_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            const int trackId = 1;
-
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
-            {
-                // Call
-                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
-
-                // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
-                var exception = Assert.Throws<CriticalFileReadException>(test);
-                Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
         }
 

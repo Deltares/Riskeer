@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        public IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsByTrackId(long trackId)
+        private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsByTrackId(long trackId)
         {
             var trackParameter = new SQLiteParameter
             {
