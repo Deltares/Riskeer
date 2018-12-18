@@ -51,7 +51,6 @@
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionUpdateStrategy.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
-    <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporter.cs" />
     <Compile Include="FileImporters\IDikeProfileUpdateDataStrategy.cs" />
     <Compile Include="FileImporters\IFailureMechanismSectionUpdateStrategy.cs" />
     <Compile Include="FileImporters\IForeshoreProfileUpdateDataStrategy.cs" />
