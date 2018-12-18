@@ -184,5 +184,58 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 Assert.AreEqual(427567.0, location.CoordinateY);
             }
         }
+
+        [Test]
+        public void ReadVersion_EmptyDatabase_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptySchemaGeneral.sqlite");
+
+            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadVersion();
+
+                // Assert
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadVersion_InvalidTrackIdColumn_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "empty.sqlite");
+
+            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadVersion();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadVersion_ValidFile_ReturnsReadVersion()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
+
+            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                string version= reader.ReadVersion();
+
+                // Assert
+                Assert.AreEqual("Dutch coast South19-11-2015 12:0013", version);
+            }
+        }
     }
 }

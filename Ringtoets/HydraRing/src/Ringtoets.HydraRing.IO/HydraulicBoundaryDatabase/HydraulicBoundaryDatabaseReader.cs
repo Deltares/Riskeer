@@ -105,22 +105,31 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// </summary>
         /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version cannot be found.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
-        private string ReadVersion()
+        public string ReadVersion()
         {
-            using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
+            try
             {
-                if (reader.Read())
+                using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
                 {
-                    string version = Convert.ToString(reader[GeneralTableDefinitions.GeneratedVersion]);
 
-                    if (!string.IsNullOrEmpty(version))
+                    if (reader.Read())
                     {
-                        return version;
-                    }
-                }
+                        string version = Convert.ToString(reader[GeneralTableDefinitions.GeneratedVersion]);
 
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new CriticalFileReadException(message);
+                        if (!string.IsNullOrEmpty(version))
+                        {
+                            return version;
+                        }
+                    }
+
+                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                    throw new CriticalFileReadException(message);
+                }
+            }
+            catch (SQLiteException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+                throw new CriticalFileReadException(message, e);
             }
         }
 
