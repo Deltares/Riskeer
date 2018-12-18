@@ -32,7 +32,6 @@ using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Factories;
 using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {

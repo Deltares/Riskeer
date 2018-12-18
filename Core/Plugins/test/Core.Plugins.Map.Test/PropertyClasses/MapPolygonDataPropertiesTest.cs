@@ -331,10 +331,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_MapPolygonDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
-            MapTheme<PolygonCategoryTheme> mapTheme = hasMapTheme
-                                                          ? CreateMapTheme()
-                                                          : null;
-            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(), mapTheme);
+            MapPolygonData mapPolygonData = hasMapTheme
+                                                ? new MapPolygonData("Test", new PolygonStyle(), CreateMapTheme())
+                                                : new MapPolygonData("Test");
 
             var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 

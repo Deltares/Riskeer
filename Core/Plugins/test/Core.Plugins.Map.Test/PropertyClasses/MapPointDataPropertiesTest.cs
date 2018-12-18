@@ -359,10 +359,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_MapPointDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
-            MapTheme<PointCategoryTheme> mapTheme = hasMapTheme
-                                                        ? CreateMapTheme()
-                                                        : null;
-            var mapPointData = new MapPointData("Test", new PointStyle(), mapTheme);
+            MapPointData mapPointData = hasMapTheme
+                                            ? new MapPointData("Test", new PointStyle(), CreateMapTheme())
+                                            : new MapPointData("Test");
 
             var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 

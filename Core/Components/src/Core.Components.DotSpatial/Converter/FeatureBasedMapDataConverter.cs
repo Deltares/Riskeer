@@ -151,9 +151,9 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Creates the <see cref="IFeatureScheme"/> based on the type of map data.
+        /// Creates the <see cref="IFeatureScheme"/>.
         /// </summary>
-        /// <returns>A configured <see cref="IFeatureScheme"/> based on the type of map data.</returns>
+        /// <returns>A configured <see cref="IFeatureScheme"/>.</returns>
         /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureScheme CreateScheme();
 

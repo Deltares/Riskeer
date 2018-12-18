@@ -150,7 +150,33 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void TypedConstructor_WithCategoryThemes_ExpectedValues()
+        public void TypedConstructor_ThemeNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TypedTestFeatureBasedMapData("name", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("theme", exception.ParamName);
+        }
+
+        [Test]
+        public void TypedConstructor_WitName_ExpectedValues()
+        {
+            // Setup
+            const string name = "name";
+
+            // Call
+            var data = new TypedTestFeatureBasedMapData(name);
+
+            // Assert
+            Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.AreEqual(name, data.Name);
+            Assert.IsNull(data.Theme);
+        }
+
+        [Test]
+        public void TypedConstructor_WithNameAndCategoryThemes_ExpectedValues()
         {
             // Setup
             const string name = "name";
@@ -177,6 +203,8 @@ namespace Core.Components.Gis.Test.Data
         {
             public TypedTestFeatureBasedMapData(string name, MapTheme<TestCategoryTheme> theme)
                 : base(name, theme) {}
+
+            public TypedTestFeatureBasedMapData(string name) : base(name) {}
         }
 
         private class TestCategoryTheme : CategoryTheme

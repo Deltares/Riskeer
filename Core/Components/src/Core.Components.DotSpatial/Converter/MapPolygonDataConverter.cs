@@ -99,7 +99,7 @@ namespace Core.Components.DotSpatial.Converter
             return strokeColor;
         }
 
-        private IFeatureCategory CreateCategory(PolygonStyle style)
+        private static IFeatureCategory CreateCategory(PolygonStyle style)
         {
             return new PolygonCategory(style.FillColor, GetStrokeColor(style), style.StrokeThickness);
         }
