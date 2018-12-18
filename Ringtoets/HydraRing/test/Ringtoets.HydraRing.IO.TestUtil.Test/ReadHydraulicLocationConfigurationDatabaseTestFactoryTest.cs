@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
             {
                 Assert.AreEqual(i, databaseLocationIdMapping.HrdLocationId);
-                Assert.AreEqual(i, databaseLocationIdMapping.HlcdLocationId);
+                Assert.AreEqual(i + 100, databaseLocationIdMapping.HlcdLocationId);
                 i++;
             }
         }
@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
             {
                 Assert.AreEqual(locationsIds[i], databaseLocationIdMapping.HrdLocationId);
-                Assert.AreEqual(locationsIds[i], databaseLocationIdMapping.HlcdLocationId);
+                Assert.AreEqual(locationsIds[i] + 100, databaseLocationIdMapping.HlcdLocationId);
                 i++;
             }
         }
