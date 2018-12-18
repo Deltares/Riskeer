@@ -30,7 +30,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -38,6 +37,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Service;
@@ -99,10 +99,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation
@@ -165,10 +162,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation
@@ -213,10 +207,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation
@@ -273,10 +264,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>

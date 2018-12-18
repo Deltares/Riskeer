@@ -65,6 +65,10 @@
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
+      <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
+      <Name>Ringtoets.Integration.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
