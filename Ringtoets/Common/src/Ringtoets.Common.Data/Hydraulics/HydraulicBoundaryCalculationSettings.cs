@@ -8,7 +8,7 @@
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the Hydraulic Boundary Locations Configuration Database (HLCD).</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         public HydraulicBoundaryCalculationSettings(string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
 
@@ -37,7 +37,7 @@
         public string HydraulicBoundaryDatabaseFilePath { get; }
 
         /// <summary>
-        /// Gets the HLCD file path.
+        /// Gets the file path of the Hydraulic Boundary Locations Configuration Database (HLCD).
         /// </summary>
         public string HlcdFilePath { get; }
 
