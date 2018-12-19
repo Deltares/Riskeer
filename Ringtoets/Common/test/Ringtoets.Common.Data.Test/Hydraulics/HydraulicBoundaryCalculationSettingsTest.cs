@@ -25,7 +25,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        [TestCaseSource(nameof(GetTestCaseWithoutHlcdParameter))]
+        [TestCaseSource(nameof(GetTestCasesWithoutHlcdParameter))]
         public void Constructor_ExpectedValues(string hydraulicBoundaryDatabaseFilePath,
                                                string preprocessorDirectory)
         {
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 .SetName("All inputs null");
         }
 
-        private static IEnumerable<TestCaseData> GetTestCaseWithoutHlcdParameter()
+        private static IEnumerable<TestCaseData> GetTestCasesWithoutHlcdParameter()
         {
             yield return new TestCaseData("D:\\HydraulicBoundaryDatabase.sqlite",
                                           "D:\\")
