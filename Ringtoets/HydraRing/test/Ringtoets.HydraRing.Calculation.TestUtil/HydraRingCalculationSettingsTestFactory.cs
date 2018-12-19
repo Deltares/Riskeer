@@ -3,7 +3,7 @@
 namespace Ringtoets.HydraRing.Calculation.TestUtil
 {
     /// <summary>
-    /// Factory which creates valid instances of <see cref="HydraRingCalculationSettings"/>
+    /// Factory that creates simple instances of <see cref="HydraRingCalculationSettings"/>
     /// which can be used for testing.
     /// </summary>
     public static class HydraRingCalculationSettingsTestFactory

@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// initialized.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation.</param>
+        /// general information for a Hydra-Ring calculation settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
