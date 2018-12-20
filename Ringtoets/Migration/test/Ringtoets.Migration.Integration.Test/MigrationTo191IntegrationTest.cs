@@ -27,9 +27,9 @@ using Ringtoets.Migration.Core.TestUtil;
 
 namespace Ringtoets.Migration.Integration.Test
 {
-    public class MigrationTo182IntegrationTest
+    public class MigrationTo191IntegrationTest
     {
-        private const string newVersion = "18.2";
+        private const string newVersion = "19.1";
 
         [Test]
         public void Given181Project_WhenUpgradedTo182_ThenProjectAsExpected()
@@ -223,14 +223,14 @@ namespace Ringtoets.Migration.Integration.Test
                 Assert.AreEqual(3, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 18.2:"),
+                    new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'BackgroundData-DefaultValue'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, $"  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."),
+                    new MigrationLogMessage("18.1", newVersion, "  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."),
                     messages[i]);
             }
         }
@@ -240,7 +240,7 @@ namespace Ringtoets.Migration.Integration.Test
             const string validateVersion =
                 "SELECT COUNT() = 1 " +
                 "FROM [VersionEntity] " +
-                "WHERE [Version] = \"18.2\";";
+                "WHERE [Version] = \"19.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
 

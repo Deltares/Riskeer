@@ -1,7 +1,7 @@
  /*
 Migration script for migrating Ringtoets databases.
-SourceProject version: 17.3
-TargetProject version: 18.1
+SourceProject version: 18.1
+TargetProject version: 19.1
 */
 PRAGMA foreign_keys = OFF;
 
@@ -125,7 +125,7 @@ INSERT INTO VersionEntity (
 	[Timestamp],
 	[FingerPrint])
 SELECT [VersionId],
-	"18.2",
+	"19.1",
 	[Timestamp],
 	[FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
@@ -170,7 +170,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-VALUES ("18.1", "18.2", "Gevolgen van de migratie van versie 18.1 naar versie 18.2:");
+VALUES ("18.1", "19.1", "Gevolgen van de migratie van versie 18.1 naar versie 19.1:");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
@@ -219,7 +219,7 @@ AssessmentSectionFailureMechanismMessages
 )
 SELECT 
 	"18.1",
-	"18.2",
+	"19.1",
 	CASE 
 		WHEN [AssessmentSectionName] IS NOT NULL
 			THEN 
@@ -238,7 +238,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[ToVersion], 
 	[LogMessage])
 SELECT "18.1",
-	"18.2", 
+	"19.1", 
 	"* Geen aanpassingen."
 	WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
