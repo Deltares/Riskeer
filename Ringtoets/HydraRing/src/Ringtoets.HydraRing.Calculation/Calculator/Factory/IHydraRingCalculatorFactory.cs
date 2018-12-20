@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating a design water level.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for performing an overtopping calculation.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
@@ -58,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating a dike height.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating an overtopping rate.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
@@ -82,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating wave conditions.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IWaveConditionsCosineCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating a wave height.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
@@ -106,7 +106,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for performing a calculation for dunes boundary conditions.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
@@ -119,7 +119,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// </summary>
         /// <typeparam name="TCalculationInput">The type of the input.</typeparam>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <returns>A new <see cref="IStructuresCalculator{TInput}"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>

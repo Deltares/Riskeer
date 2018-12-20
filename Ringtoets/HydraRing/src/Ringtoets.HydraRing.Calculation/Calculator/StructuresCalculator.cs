@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Creates a new instance of <see cref="StructuresCalculator{T}"/>.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// general information for a Hydra-Ring calculation settings.</param>
+        /// Hydra-Ring calculation settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
         /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
