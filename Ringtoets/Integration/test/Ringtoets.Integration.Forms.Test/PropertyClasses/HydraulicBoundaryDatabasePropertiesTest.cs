@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.IsEmpty(properties.FilePath);
+            Assert.IsEmpty(properties.HrdFilePath);
             Assert.IsEmpty(properties.HlcdFilePath);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.Zero(properties.Year);
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, properties.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, properties.HrdFilePath);
 
             HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
@@ -162,8 +162,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "Hydraulische belastingendatabase",
-                                                                            "Locatie van het hydraulische belastingendatabase bestand.",
+                                                                            "HRD database locatie",
+                                                                            "Locatie van het HRD bestand.",
                                                                             true);
 
             PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
@@ -267,8 +267,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "Hydraulische belastingendatabase",
-                                                                            "Locatie van het hydraulische belastingendatabase bestand.",
+                                                                            "HRD database locatie",
+                                                                            "Locatie van het HRD bestand.",
                                                                             true);
 
             PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
@@ -412,7 +412,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
             Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
             Assert.AreEqual(canUsePreprocessor && usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
             Assert.AreEqual(canUsePreprocessor && !usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));

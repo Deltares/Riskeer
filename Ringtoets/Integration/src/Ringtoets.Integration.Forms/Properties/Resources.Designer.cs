@@ -664,7 +664,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie van het hydraulische belastingendatabase bestand..
+        ///   Looks up a localized string similar to Locatie van het HRD bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_Description {
             get {
@@ -673,7 +673,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
+        ///   Looks up a localized string similar to HRD database locatie.
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
             get {
