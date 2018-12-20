@@ -62,16 +62,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        public void GetProperties_WithHydraulicBoundaryDatabaseWithPreprocessorData_ReturnExpectedValues()
         {
             // Setup
-            const string filePath = @"C:\file.sqlite";
             const bool usePreprocessor = true;
             const string preprocessorDirectory = @"C:\preprocessor";
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = usePreprocessor,
                 PreprocessorDirectory = preprocessorDirectory
@@ -81,10 +79,63 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.AreEqual(filePath, properties.FilePath);
             Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
             Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectory);
             Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectoryReadOnly);
+        }
+
+        [Test]
+        public void GetProperties_WithUnlinkedDatabase_ReturnsExpectedValues()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+
+            // Assert
+            Assert.IsEmpty(properties.FilePath);
+            Assert.IsEmpty(properties.HlcdFilePath);
+            Assert.IsEmpty(properties.ScenarioName);
+            Assert.Zero(properties.Year);
+            Assert.IsEmpty(properties.Scope);
+            Assert.IsEmpty(properties.SeaLevel);
+            Assert.IsEmpty(properties.RiverDischarge);
+            Assert.IsEmpty(properties.LakeLevel);
+            Assert.IsEmpty(properties.WindDirection);
+            Assert.IsEmpty(properties.WindSpeed);
+            Assert.IsEmpty(properties.Comment);
+        }
+
+        [Test]
+        public void GetProperties_WithLinkedDatabase_ReturnsExpectedValues()
+        {
+            // Setup
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateLinkedHydraulicBoundaryDatabase();
+
+            // Precondition
+            Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+
+            // Assert
+            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, properties.FilePath);
+
+            HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
+            Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
+            Assert.AreEqual(configurationSettings.Year, properties.Year);
+            Assert.AreEqual(configurationSettings.Scope, properties.Scope);
+            Assert.AreEqual(configurationSettings.SeaLevel, properties.SeaLevel);
+            Assert.AreEqual(configurationSettings.RiverDischarge, properties.RiverDischarge);
+            Assert.AreEqual(configurationSettings.LakeLevel, properties.LakeLevel);
+            Assert.AreEqual(configurationSettings.WindDirection, properties.WindDirection);
+            Assert.AreEqual(configurationSettings.WindSpeed, properties.WindSpeed);
+            Assert.AreEqual(configurationSettings.Comment, properties.Comment);
         }
 
         [Test]
@@ -365,6 +416,29 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
             Assert.AreEqual(canUsePreprocessor && usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
             Assert.AreEqual(canUsePreprocessor && !usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
+        }
+
+        private static HydraulicBoundaryDatabase CreateLinkedHydraulicBoundaryDatabase()
+        {
+            const string filePath = @"C:\file.sqlite";
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath
+            };
+
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("FilePath",
+                                                                                       "ScenarioName",
+                                                                                       10,
+                                                                                       "Scope",
+                                                                                       "SeaLevel",
+                                                                                       "RiverDischarge",
+                                                                                       "LakeLevel",
+                                                                                       "WindDirection",
+                                                                                       "WindSpeed",
+                                                                                       "Comment");
+
+            return hydraulicBoundaryDatabase;
         }
     }
 }
