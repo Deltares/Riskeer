@@ -1,12 +1,18 @@
 ﻿using System;
 
-namespace Ringtoets.Common.Data.Hydraulics {
+namespace Ringtoets.Common.Data.Hydraulics
+{
     /// <summary>
     /// Class which holds information about the hydraulic
     /// location configuration settings.
     /// </summary>
     public class HydraulicLocationConfigurationSettings
     {
+        /// <summary>
+        /// Gets the file path.
+        /// </summary>
+        public string FilePath { get; private set; }
+
         /// <summary>
         /// Gets the scenario name.
         /// </summary>
@@ -55,6 +61,7 @@ namespace Ringtoets.Common.Data.Hydraulics {
         /// <summary>
         /// Sets values to the <see cref="HydraulicLocationConfigurationSettings"/>.
         /// </summary>
+        /// <param name="filePath">The file path.</param>
         /// <param name="scenarioName">The name of the scenario.</param>
         /// <param name="year">The year.</param>
         /// <param name="scope">The scope.</param>
@@ -66,10 +73,15 @@ namespace Ringtoets.Common.Data.Hydraulics {
         /// <param name="comment">The comment.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="scenarioName"/>
         /// or <paramref name="scope"/> are <c>null</c>.</exception>
-        public void SetValues(string scenarioName, int year, string scope, 
+        public void SetValues(string filePath, string scenarioName, int year, string scope,
                               string seaLevel, string riverDischarge, string lakeLevel,
                               string windDirection, string windSpeed, string comment)
         {
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
             if (scenarioName == null)
             {
                 throw new ArgumentNullException(nameof(scenarioName));
@@ -80,6 +92,7 @@ namespace Ringtoets.Common.Data.Hydraulics {
                 throw new ArgumentNullException(nameof(scope));
             }
 
+            FilePath = filePath;
             ScenarioName = scenarioName;
             Year = year;
             Scope = scope;

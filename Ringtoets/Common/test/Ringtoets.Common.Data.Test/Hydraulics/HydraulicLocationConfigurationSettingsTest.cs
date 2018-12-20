@@ -14,6 +14,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Assert
+            Assert.IsNull(settings.FilePath);
             Assert.IsNull(settings.ScenarioName);
             Assert.Zero(settings.Year);
             Assert.IsNull(settings.Scope);
@@ -26,10 +27,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void SetValues_ScenarioNameNull_ThrowsArgumentNullException()
+        public void SetValues_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
+            const string scenarioName = "FilePath";
             int year = random.Next();
             const string scope = "Scope";
             const string seaLevel = "SeaLevel";
@@ -42,7 +44,34 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Call
-            TestDelegate call = () => settings.SetValues(null, year, scope,
+            TestDelegate call = () => settings.SetValues(null, scenarioName, year, scope,
+                                                         seaLevel, riverDischarge, lakeLevel,
+                                                         windDirection, windSpeed, comment);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
+        public void SetValues_ScenarioNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            const string filePath = "FilePath";
+            int year = random.Next();
+            const string scope = "Scope";
+            const string seaLevel = "SeaLevel";
+            const string riverDischarge = "RiverDischarge";
+            const string lakeLevel = "LakeLevel";
+            const string windDirection = "WindDirection";
+            const string windSpeed = "WindSpeed";
+            const string comment = "Comment";
+
+            var settings = new HydraulicLocationConfigurationSettings();
+
+            // Call
+            TestDelegate call = () => settings.SetValues(filePath, null, year, scope,
                                                          seaLevel, riverDischarge, lakeLevel,
                                                          windDirection, windSpeed, comment);
 
@@ -56,6 +85,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             var random = new Random(21);
+            const string filePath = "FilePath";
             const string scenarioName = "ScenarioName";
             int year = random.Next();
             const string seaLevel = "SeaLevel";
@@ -68,7 +98,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Call
-            TestDelegate call = () => settings.SetValues(scenarioName, year, null,
+            TestDelegate call = () => settings.SetValues(filePath, scenarioName, year, null,
                                                          seaLevel, riverDischarge, lakeLevel,
                                                          windDirection, windSpeed, comment);
 
@@ -82,6 +112,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             var random = new Random(21);
+            const string filePath = "FilePath";
             const string scenarioName = "ScenarioName";
             int year = random.Next();
             const string scope = "Scope";
@@ -95,7 +126,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Call
-            settings.SetValues(scenarioName, year, scope,
+            settings.SetValues(filePath, scenarioName, year, scope,
                                seaLevel, riverDischarge, lakeLevel,
                                windDirection, windSpeed, comment);
 
