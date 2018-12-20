@@ -718,6 +718,186 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overige informatie..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_Comment_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_Comment_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overig.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_Comment_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_Comment_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie van het HLCD bestand..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_FilePath_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_FilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HLCD database locatie.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_FilePath_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_FilePath_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_LakeLevel_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_LakeLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meerpeil.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_LakeLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_LakeLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klimaatinformatie met betrekking tot de rivierafvoer..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_RiverDischarge_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_RiverDischarge_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rivierafvoer.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_RiverDischarge_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_RiverDischarge_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Algemene naam van het klimaatscenario..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_ScenarioName_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_ScenarioName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klimaatscenario.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_ScenarioName_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_ScenarioName_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projectkader waarin de statistiek bedoeld is te gebruiken..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_Scope_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_Scope_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toepassingskader.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_Scope_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_Scope_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klimaatinformatie met betrekking tot de zeewaterstand..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_SeaLevel_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_SeaLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zeewaterstand.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_SeaLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_SeaLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klimaatinformatie met betrekking tot de windrichting..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_WindDirection_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_WindDirection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windrichting.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_WindDirection_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_WindDirection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klimaatinformatie met betrekking tot de windsnelheid..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_WindSpeed_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_WindSpeed_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windsnelheid.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_WindSpeed_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_WindSpeed_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jaartal van het jaar waarop de statistiek van toepassing is..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_Year_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_Year_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zichtjaar.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_Year_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_Year_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden..
         /// </summary>
         public static string LowerLimitNorm_Description {

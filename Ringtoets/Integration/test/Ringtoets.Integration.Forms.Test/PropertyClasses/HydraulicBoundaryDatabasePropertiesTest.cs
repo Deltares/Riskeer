@@ -33,9 +33,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicBoundaryDatabasePropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int usePreprocessorPropertyIndex = 1;
-        private const int preprocessorDirectoryPropertyIndex = 2;
+        private const int hrdFilePathPropertyIndex = 0;
+        private const int hlcdFilePathPropertyIndex = 1;
+        private const int scenarioNamePropertyIndex = 2;
+        private const int yearPropertyIndex = 3;
+        private const int scopePropertyIndex = 4;
+        private const int seaLevelPropertyIndex = 5;
+        private const int riverDischargePropertyIndex = 6;
+        private const int lakeLevelPropertyIndex = 7;
+        private const int windDirectionPropertyIndex = 8;
+        private const int windSpeedPropertyIndex = 9;
+        private const int commentPropertyIndex = 10;
+        private const int usePreprocessorPropertyIndex = 11;
+        private const int preprocessorDirectoryPropertyIndex = 12;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -95,24 +105,95 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(13, dynamicProperties.Count);
 
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            "Algemeen",
+            const string expectedCategory = "Algemeen";
+            PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
+                                                                            expectedCategory,
                                                                             "Hydraulische belastingendatabase",
                                                                             "Locatie van het hydraulische belastingendatabase bestand.",
                                                                             true);
 
+            PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
+                                                                            expectedCategory,
+                                                                            "HLCD database locatie",
+                                                                            "Locatie van het HLCD bestand.",
+                                                                            true);
+
+            PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
+                                                                            expectedCategory,
+                                                                            "Klimaatscenario",
+                                                                            "Algemene naam van het klimaatscenario.",
+                                                                            true);
+
+            PropertyDescriptor yearProperty = dynamicProperties[yearPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(yearProperty,
+                                                                            expectedCategory,
+                                                                            "Zichtjaar",
+                                                                            "Jaartal van het jaar waarop de statistiek van toepassing is.",
+                                                                            true);
+
+            PropertyDescriptor scopeProperty = dynamicProperties[scopePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scopeProperty,
+                                                                            expectedCategory,
+                                                                            "Toepassingskader",
+                                                                            "Projectkader waarin de statistiek bedoeld is te gebruiken.",
+                                                                            true);
+
+            PropertyDescriptor seaLevelProperty = dynamicProperties[seaLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(seaLevelProperty,
+                                                                            expectedCategory,
+                                                                            "Zeewaterstand",
+                                                                            "Klimaatinformatie met betrekking tot de zeewaterstand.",
+                                                                            true);
+
+            PropertyDescriptor riverDischargeProperty = dynamicProperties[riverDischargePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(riverDischargeProperty,
+                                                                            expectedCategory,
+                                                                            "Rivierafvoer",
+                                                                            "Klimaatinformatie met betrekking tot de rivierafvoer.",
+                                                                            true);
+
+            PropertyDescriptor lakeLevelProperty = dynamicProperties[lakeLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lakeLevelProperty,
+                                                                            expectedCategory,
+                                                                            "Meerpeil",
+                                                                            "Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.",
+                                                                            true);
+
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            expectedCategory,
+                                                                            "Windrichting",
+                                                                            "Klimaatinformatie met betrekking tot de windrichting.",
+                                                                            true);
+
+            PropertyDescriptor windSpeedProperty = dynamicProperties[windSpeedPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windSpeedProperty,
+                                                                            expectedCategory,
+                                                                            "Windsnelheid",
+                                                                            "Klimaatinformatie met betrekking tot de windsnelheid.",
+                                                                            true);
+
+            PropertyDescriptor commentProperty = dynamicProperties[commentPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(commentProperty,
+                                                                            expectedCategory,
+                                                                            "Overig",
+                                                                            "Overige informatie.",
+                                                                            true);
+
             PropertyDescriptor usePreprocessorProperty = dynamicProperties[usePreprocessorPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorProperty,
-                                                                            "Algemeen",
+                                                                            expectedCategory,
                                                                             "Gebruik preprocessor",
                                                                             "Gebruik de preprocessor bij het uitvoeren van een berekening.");
 
             PropertyDescriptor preprocessorDirectoryProperty = dynamicProperties[preprocessorDirectoryPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(preprocessorDirectoryProperty,
-                                                                            "Algemeen",
+                                                                            expectedCategory,
                                                                             "Locatie preprocessor bestanden",
                                                                             "Locatie waar de preprocessor bestanden opslaat.",
                                                                             !usePreprocessor);
@@ -129,13 +210,84 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(1, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            "Algemeen",
+            const string expectedCategory = "Algemeen";
+            PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
+                                                                            expectedCategory,
                                                                             "Hydraulische belastingendatabase",
                                                                             "Locatie van het hydraulische belastingendatabase bestand.",
+                                                                            true);
+
+            PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
+                                                                            expectedCategory,
+                                                                            "HLCD database locatie",
+                                                                            "Locatie van het HLCD bestand.",
+                                                                            true);
+
+            PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
+                                                                            expectedCategory,
+                                                                            "Klimaatscenario",
+                                                                            "Algemene naam van het klimaatscenario.",
+                                                                            true);
+
+            PropertyDescriptor yearProperty = dynamicProperties[yearPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(yearProperty,
+                                                                            expectedCategory,
+                                                                            "Zichtjaar",
+                                                                            "Jaartal van het jaar waarop de statistiek van toepassing is.",
+                                                                            true);
+
+            PropertyDescriptor scopeProperty = dynamicProperties[scopePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scopeProperty,
+                                                                            expectedCategory,
+                                                                            "Toepassingskader",
+                                                                            "Projectkader waarin de statistiek bedoeld is te gebruiken.",
+                                                                            true);
+
+            PropertyDescriptor seaLevelProperty = dynamicProperties[seaLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(seaLevelProperty,
+                                                                            expectedCategory,
+                                                                            "Zeewaterstand",
+                                                                            "Klimaatinformatie met betrekking tot de zeewaterstand.",
+                                                                            true);
+
+            PropertyDescriptor riverDischargeProperty = dynamicProperties[riverDischargePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(riverDischargeProperty,
+                                                                            expectedCategory,
+                                                                            "Rivierafvoer",
+                                                                            "Klimaatinformatie met betrekking tot de rivierafvoer.",
+                                                                            true);
+
+            PropertyDescriptor lakeLevelProperty = dynamicProperties[lakeLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lakeLevelProperty,
+                                                                            expectedCategory,
+                                                                            "Meerpeil",
+                                                                            "Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.",
+                                                                            true);
+
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            expectedCategory,
+                                                                            "Windrichting",
+                                                                            "Klimaatinformatie met betrekking tot de windrichting.",
+                                                                            true);
+
+            PropertyDescriptor windSpeedProperty = dynamicProperties[windSpeedPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windSpeedProperty,
+                                                                            expectedCategory,
+                                                                            "Windsnelheid",
+                                                                            "Klimaatinformatie met betrekking tot de windsnelheid.",
+                                                                            true);
+
+            PropertyDescriptor commentProperty = dynamicProperties[commentPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(commentProperty,
+                                                                            expectedCategory,
+                                                                            "Overig",
+                                                                            "Overige informatie.",
                                                                             true);
         }
 
