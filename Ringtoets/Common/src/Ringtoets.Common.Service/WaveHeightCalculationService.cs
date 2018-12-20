@@ -52,8 +52,8 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
-        /// to perform a hydraulic boundary calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/>,
@@ -151,8 +151,8 @@ namespace Ringtoets.Common.Service
         /// Performs a calculation for the wave height.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
-        /// to perform a hydraulic boundary calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -265,8 +265,8 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
-        /// to perform a hydraulic boundary calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="WaveHeightCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary location file path 
         /// contains invalid characters.</exception>

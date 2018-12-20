@@ -34,8 +34,8 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Performs validation on the given input parameters. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
-        /// to perform a hydraulic boundary calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="targetProbability">The target probability to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>

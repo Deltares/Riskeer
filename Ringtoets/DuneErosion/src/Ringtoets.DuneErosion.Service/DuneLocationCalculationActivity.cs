@@ -42,8 +42,8 @@ namespace Ringtoets.DuneErosion.Service
         /// Creates a new instance of <see cref="DuneLocationCalculationActivity"/>.
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
-        /// to perform a hydraulic boundary calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>

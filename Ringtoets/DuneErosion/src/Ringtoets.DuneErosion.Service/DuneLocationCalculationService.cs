@@ -52,8 +52,8 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
-        /// to perform a hydraulic boundary calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/>,
@@ -204,8 +204,8 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
         /// <param name="norm">The norm of the failure mechanism to use.</param>
-        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing
-        /// all data to perform a hydraulic boundary calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
         /// input data.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path.
