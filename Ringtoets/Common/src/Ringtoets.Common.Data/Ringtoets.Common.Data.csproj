@@ -62,6 +62,7 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInput.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationOutput.cs" />
+    <Compile Include="Hydraulics\HydraulicLocationConfigurationSettings.cs" />
     <Compile Include="IllustrationPoints\CombinationType.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNodeExtensions.cs" />
