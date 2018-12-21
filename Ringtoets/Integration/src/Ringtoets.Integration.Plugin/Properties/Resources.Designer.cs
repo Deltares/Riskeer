@@ -322,6 +322,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_file_filter_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to sqlite.
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_Extension {

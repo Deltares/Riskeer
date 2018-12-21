@@ -770,7 +770,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.DatabaseIcon,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
-                                                              RingtoetsFormsResources.HydraulicBoundaryDatabase_FilePath_DisplayName),
+                                                              Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
                     context.WrappedData, new HydraulicBoundaryDatabaseUpdateHandler(
                         context.AssessmentSection, new DuneLocationsReplacementHandler(

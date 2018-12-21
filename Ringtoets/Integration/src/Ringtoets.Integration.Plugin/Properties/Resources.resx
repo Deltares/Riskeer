@@ -226,4 +226,7 @@ Wilt u doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_FilePath_Extension" xml:space="preserve">
     <value>sqlite</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_file_filter_Description" xml:space="preserve">
+    <value>Hydraulische belastingendatabase</value>
+  </data>
 </root>
