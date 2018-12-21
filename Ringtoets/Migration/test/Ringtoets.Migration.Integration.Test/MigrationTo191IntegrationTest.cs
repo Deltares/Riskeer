@@ -61,6 +61,8 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertDatabase(reader);
 
                     AssertBackgroundData(reader, sourceFilePath);
+
+                    AssertPipingSoilLayers(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -220,7 +222,7 @@ namespace Ringtoets.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(3, messages.Count);
+                Assert.AreEqual(8, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
@@ -231,6 +233,22 @@ namespace Ringtoets.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."),
+                    messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "* Traject: 'PipingSoilLayer'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Piping'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - De waarde '0.0049' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelMean' is ongeldig en is veranderd naar NaN."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - De waarde '4.9e-07' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag 'PermeabilityMean' is ongeldig en is veranderd naar NaN."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - De waarde '4.9e-07' voor het gemiddelde van parameter 'd70' van ondergrondlaag 'DiameterD70Mean' is ongeldig en is veranderd naar NaN."),
                     messages[i]);
             }
         }
@@ -249,6 +267,28 @@ namespace Ringtoets.Migration.Integration.Test
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        private static void AssertPipingSoilLayers(MigratedDatabaseReader reader)
+        {
+            const string validateBelowPhreaticLevel =
+                "SELECT COUNT() = 0 " +
+                "FROM PipingSoilLayerEntity " +
+                "WHERE [BelowPhreaticLevelMean] < [BelowPhreaticLevelShift] " +
+                "OR [BelowPhreaticLevelMean] < 0.005;";
+            reader.AssertReturnedDataIsValid(validateBelowPhreaticLevel);
+
+            const string validateDiameter70 =
+                "SELECT COUNT() = 0 " +
+                "FROM PipingSoilLayerEntity " +
+                "WHERE [DiameterD70Mean] < 0.0000005;";
+            reader.AssertReturnedDataIsValid(validateDiameter70);
+
+            const string validatePermeability =
+                "SELECT COUNT() = 0 " +
+                "FROM PipingSoilLayerEntity " +
+                "WHERE [PermeabilityMean] < 0.0000005;";
+            reader.AssertReturnedDataIsValid(validatePermeability);
         }
     }
 }

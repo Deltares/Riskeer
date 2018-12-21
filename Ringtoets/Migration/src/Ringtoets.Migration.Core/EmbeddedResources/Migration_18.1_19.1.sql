@@ -94,7 +94,52 @@ INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCa
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
-INSERT INTO PipingSoilLayerEntity SELECT * FROM [SOURCEPROJECT].PipingSoilLayerEntity;
+INSERT INTO PipingSoilLayerEntity(
+	[PipingSoilLayerEntityId],
+	[PipingSoilProfileEntityId],
+	[Top],
+	[IsAquifer], 
+	[Color], 
+	[MaterialName],
+	[BelowPhreaticLevelMean] ,
+	[BelowPhreaticLevelDeviation],
+	[BelowPhreaticLevelShift],
+	[DiameterD70Mean],
+	[DiameterD70CoefficientOfVariation],
+	[PermeabilityMean],
+	[PermeabilityCoefficientOfVariation],
+	[Order])
+SELECT 
+	[PipingSoilLayerEntityId],
+	[PipingSoilProfileEntityId],
+	[Top],
+	[IsAquifer], 
+	[Color], 
+	[MaterialName],
+	CASE
+		WHEN [BelowPhreaticLevelMean] < 0.005
+			THEN NULL
+		ELSE
+			[BelowPhreaticLevelMean]
+	END,
+	[BelowPhreaticLevelDeviation],
+	[BelowPhreaticLevelShift],
+	CASE
+		WHEN [DiameterD70Mean] <= 0.0000005
+			THEN NULL
+		ELSE
+			[DiameterD70Mean]
+	END,
+	[DiameterD70CoefficientOfVariation],
+	CASE
+		WHEN [PermeabilityMean] <= 0.0000005
+			THEN NULL
+		ELSE
+			[PermeabilityMean]
+	END,
+	[PermeabilityCoefficientOfVariation],
+	[Order]
+FROM [SOURCEPROJECT].PipingSoilLayerEntity;
 INSERT INTO PipingSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingSoilProfileEntity;
 INSERT INTO PipingStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingStochasticSoilProfileEntity;
 INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingStructureFailureMechanismMetaEntity;
@@ -218,6 +263,51 @@ CREATE TEMP TABLE TempChanges
 	[FailureMechanismName],
 	[msg]
 );
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde '" || source.[BelowPhreaticLevelMean] ||  "' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	FROM PipingSoilLayerEntity as psl
+	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
+	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
+	WHERE source.[BelowPhreaticLevelMean] IS NOT psl.[BelowPhreaticLevelMean];
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde '" || source.[DiameterD70Mean] ||  "' voor het gemiddelde van parameter 'd70' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	FROM PipingSoilLayerEntity as psl
+	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
+	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
+	WHERE source.[DiameterD70Mean] IS NOT psl.[DiameterD70Mean];
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde '" || source.[PermeabilityMean] ||  "' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	FROM PipingSoilLayerEntity as psl
+	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
+	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
+	WHERE source.[PermeabilityMean] IS NOT psl.[PermeabilityMean];
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
