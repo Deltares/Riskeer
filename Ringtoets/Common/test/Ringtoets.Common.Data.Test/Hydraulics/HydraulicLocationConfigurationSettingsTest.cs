@@ -152,6 +152,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                windDirection, windSpeed, comment);
 
             // Assert
+            Assert.AreEqual(filePath, settings.FilePath);
             Assert.AreEqual(scenarioName, settings.ScenarioName);
             Assert.AreEqual(year, settings.Year);
             Assert.AreEqual(scope, settings.Scope);
@@ -161,6 +162,36 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(windDirection, settings.WindDirection);
             Assert.AreEqual(windSpeed, settings.WindSpeed);
             Assert.AreEqual(comment, settings.Comment);
+        }
+
+        [Test]
+        public void SetValues_OptionalArgumentsNull_SetsExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            const string filePath = "FilePath";
+            const string scenarioName = "ScenarioName";
+            int year = random.Next();
+            const string scope = "Scope";
+
+            var settings = new HydraulicLocationConfigurationSettings();
+
+            // Call
+            settings.SetValues(filePath, scenarioName, year, scope, 
+                               null, null, null, null, null, null);
+
+            // Assert
+            Assert.AreEqual(filePath, settings.FilePath);
+            Assert.AreEqual(scenarioName, settings.ScenarioName);
+            Assert.AreEqual(year, settings.Year);
+            Assert.AreEqual(scope, settings.Scope);
+
+            Assert.IsNull(settings.SeaLevel);
+            Assert.IsNull(settings.RiverDischarge);
+            Assert.IsNull(settings.LakeLevel);
+            Assert.IsNull(settings.WindDirection);
+            Assert.IsNull(settings.WindSpeed);
+            Assert.IsNull(settings.Comment);
         }
     }
 }
