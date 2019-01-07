@@ -36,6 +36,8 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
         /// to create a <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
         /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <see cref="HydraulicBoundaryDatabase.FilePath"/>
+        /// is <c>null</c>, is empty or consists of whitespace.</exception>
         public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
@@ -44,18 +46,11 @@ namespace Ringtoets.Common.Data.Hydraulics
             }
 
             string hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabase.FilePath;
-            string effectivePreprocessorDirectory = hydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            if (string.IsNullOrWhiteSpace(hydraulicBoundaryDatabaseFilePath))
-            {
-                return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath, 
-                    effectivePreprocessorDirectory);
-            }
-
             string directory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             string hlcdFilePath = Path.Combine(directory, "HLCD.sqlite");
             return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
                                                             hlcdFilePath,
-                                                            effectivePreprocessorDirectory);
+                                                            hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
     }
 }

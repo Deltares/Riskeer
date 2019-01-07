@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
@@ -29,27 +31,28 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the Hydraulic Boundary Locations Configuration Database (HLCD).</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        public HydraulicBoundaryCalculationSettings(string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
-
-        {
-            HydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
-            PreprocessorDirectory = preprocessorDirectory;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/>.
-        /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database.</param>
         /// <param name="hlcdFilePath">The file path of the HLCD.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// or <paramref name="hlcdFilePath"/> is <c>null</c>, is empty or consists of whitespace.</exception>
         public HydraulicBoundaryCalculationSettings(string hydraulicBoundaryDatabaseFilePath,
                                                     string hlcdFilePath,
                                                     string preprocessorDirectory)
-            : this(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory)
         {
+            if (string.IsNullOrWhiteSpace(hydraulicBoundaryDatabaseFilePath))
+            {
+                throw new ArgumentException($"{nameof(hydraulicBoundaryDatabaseFilePath)} is null, empty or consist of whitespace.");
+            }
+
+            if (string.IsNullOrWhiteSpace(hlcdFilePath))
+            {
+                throw new ArgumentException($"{nameof(hlcdFilePath)} is null, empty or consist of whitespace.");
+            }
+
+            HydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             HlcdFilePath = hlcdFilePath;
+            PreprocessorDirectory = preprocessorDirectory;
         }
 
         /// <summary>

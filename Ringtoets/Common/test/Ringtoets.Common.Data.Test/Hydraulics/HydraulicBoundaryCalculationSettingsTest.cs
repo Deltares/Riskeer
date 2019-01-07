@@ -19,7 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -29,11 +30,48 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryCalculationSettingsTest
     {
         [Test]
-        [TestCaseSource(nameof(GetTestCasesWithAllParameters))]
-        public void Constructor_WithArguments_ExpectedValues(string hydraulicBoundaryDatabaseFilePath,
-                                                             string hlcdFilePath,
-                                                             string preprocessorDirectory)
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void Constructor_InvalidHydraulicBoundaryDatabaseFilePath_ThrowsArgumentNullException(string invalidHydraulicBoundaryDatabaseFilePath)
         {
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
+                                                                               "D:\\hlcdFilePath",
+                                                                               null);
+
+            // Assert
+            const string expectedMessage = "hydraulicBoundaryDatabaseFilePath is null, empty or consist of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void Constructor_InvalidHlcdFilePath_ThrowsArgumentNullException(string invalidHlcdFilePath)
+        {
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryCalculationSettings("D:\\HydraulicBoundaryDatabseFilePath",
+                                                                               invalidHlcdFilePath,
+                                                                               null);
+
+            // Assert
+            const string expectedMessage = "hlcdFilePath is null, empty or consist of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase("D:\\PreprocessorDirectory")]
+        public void Constructor_WithArguments_ExpectedValues(string preprocessorDirectory)
+        {
+            // Setup
+            const string hydraulicBoundaryDatabaseFilePath = "D:\\HydraulicBoundaryDatabaseFilePath";
+            const string hlcdFilePath = "D:\\hlcdFilePath";
+
             // Call
             var settings = new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
                                                                     hlcdFilePath,
@@ -43,48 +81,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetTestCasesWithoutHlcdParameter))]
-        public void Constructor_ExpectedValues(string hydraulicBoundaryDatabaseFilePath,
-                                               string preprocessorDirectory)
-        {
-            // Call
-            var settings = new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
-                                                                    preprocessorDirectory);
-
-            // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
-            Assert.IsNull(settings.HlcdFilePath);
-            Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
-        }
-
-        private static IEnumerable<TestCaseData> GetTestCasesWithAllParameters()
-        {
-            yield return new TestCaseData("D:\\HydraulicBoundaryDatabase.sqlite",
-                                          "D:\\HLCD.sqlite",
-                                          "D:\\")
-                .SetName("All inputs with values");
-            yield return new TestCaseData("  ", "  ", "  ")
-                .SetName("All inputs whitespace");
-            yield return new TestCaseData(string.Empty, string.Empty, string.Empty)
-                .SetName("All inputs empty");
-            yield return new TestCaseData(null, null, null)
-                .SetName("All inputs null");
-        }
-
-        private static IEnumerable<TestCaseData> GetTestCasesWithoutHlcdParameter()
-        {
-            yield return new TestCaseData("D:\\HydraulicBoundaryDatabase.sqlite",
-                                          "D:\\")
-                .SetName("All inputs with values");
-            yield return new TestCaseData("  ", "  ")
-                .SetName("All inputs whitespace");
-            yield return new TestCaseData(string.Empty, string.Empty)
-                .SetName("All inputs empty");
-            yield return new TestCaseData(null, null)
-                .SetName("All inputs null");
         }
     }
 }

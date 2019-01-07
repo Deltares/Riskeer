@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -43,26 +43,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        public void CreateSettings_WithHydraulicBoundaryDatabaseWithInvalidFilePath_ReturnsExpectedSettings(string filePath)
-        {
-            // Setup
-            var database = new HydraulicBoundaryDatabase
-            {
-                FilePath = filePath
-            };
-
-            // Call
-            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(database);
-
-            // Assert
-            Assert.AreEqual(database.FilePath, settings.HydraulicBoundaryDatabaseFilePath);
-            Assert.IsNull(settings.HlcdFilePath);
-        }
-
-        [Test]
         public void CreateSettings_WithHydraulicBoundaryDatabaseWithFilePath_ReturnsExpectedSettings()
         {
             // Setup
@@ -87,8 +67,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             HydraulicBoundaryDatabase database,
             string expectedPreprocessorDirectory)
         {
-            // Setup
-
             // Call
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(database);
 
@@ -98,12 +76,19 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
         private static IEnumerable<TestCaseData> GetPreprocessorConfigurations()
         {
-            yield return new TestCaseData(new HydraulicBoundaryDatabase(),
+            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            yield return new TestCaseData(new HydraulicBoundaryDatabase
+                                          {
+                                              FilePath = validFilePath
+                                          },
                                           string.Empty)
                 .SetName("UsePreprocessorFalse");
 
             yield return new TestCaseData(new HydraulicBoundaryDatabase
                 {
+                    FilePath = validFilePath,
                     CanUsePreprocessor = true,
                     PreprocessorDirectory = "Directory"
                 }, string.Empty)
@@ -112,6 +97,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             const string preprocessorDirectory = "Directory";
             yield return new TestCaseData(new HydraulicBoundaryDatabase
                 {
+                    FilePath = validFilePath,
                     CanUsePreprocessor = true,
                     UsePreprocessor = true,
                     PreprocessorDirectory = preprocessorDirectory
