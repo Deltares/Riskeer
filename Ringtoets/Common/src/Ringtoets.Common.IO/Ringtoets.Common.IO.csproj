@@ -58,7 +58,6 @@
     <Compile Include="FileImporters\MessageProviders\IImporterMessageProvider.cs" />
     <Compile Include="FileImporters\MessageProviders\ImportMessageProvider.cs" />
     <Compile Include="FileImporters\MessageProviders\UpdateMessageProvider.cs" />
-    <Compile Include="FileImporters\ReadHydraulicBoundaryDatabase.cs" />
     <Compile Include="HydraRing\DesignTablesSettingsProvider.cs" />
     <Compile Include="HydraRing\HydraRingSettingsDatabaseReader.cs" />
     <Compile Include="HydraRing\HydraRingSettingsDatabaseValidator.cs" />

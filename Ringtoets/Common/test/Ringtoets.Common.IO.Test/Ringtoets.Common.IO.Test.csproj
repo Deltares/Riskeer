@@ -58,7 +58,6 @@
     <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />
     <Compile Include="FileImporters\MessageProviders\ImportMessageProviderTest.cs" />
     <Compile Include="FileImporters\MessageProviders\UpdateMessageProviderTest.cs" />
-    <Compile Include="FileImporters\ReadHydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="HydraRing\DesignTablesSettingsProviderTest.cs" />
     <Compile Include="HydraRing\HydraRingSettingsDatabaseValidatorTest.cs" />
     <Compile Include="FileImporters\ProfilesImporterTest.cs" />
