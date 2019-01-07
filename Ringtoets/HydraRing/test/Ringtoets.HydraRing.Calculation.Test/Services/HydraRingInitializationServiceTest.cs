@@ -98,7 +98,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                                   "hydraulicdbfilename     = " + hlcdFilePath + Environment.NewLine +
                                                   "designpointOutput       = sqlite";
 
-            if (!string.IsNullOrEmpty(preprocessorDirectory))
+            if (preprocessorDirectory != string.Empty)
             {
                 expectedInitializationScript += Environment.NewLine + "preprocessordbdirectory = " + preprocessorDirectory;
             }
