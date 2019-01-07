@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// <summary>
         /// Creates a new instance of <see cref="ReadHydraulicBoundaryDatabase"/>.
         /// </summary>
-        /// <param name="trackId">The track ID of the read hydraulic boundary database.</param>
+        /// <param name="trackId">The track Id of the read hydraulic boundary database.</param>
         /// <param name="version">The version of the read hydraulic boundary database.</param>
         /// <param name="locations">The read hydraulic boundary locations.</param>
         internal ReadHydraulicBoundaryDatabase(long trackId, string version, IEnumerable<ReadHydraulicBoundaryLocation> locations)

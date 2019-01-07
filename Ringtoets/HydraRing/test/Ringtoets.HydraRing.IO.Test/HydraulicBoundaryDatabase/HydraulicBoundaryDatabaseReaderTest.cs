@@ -73,16 +73,16 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string hydraulicBoundaryDatabaseFile)
+        public void Constructor_FilePathNullOrEmpty_ThrowsCriticalFileReadException(string hydraulicBoundaryDatabaseFilePath)
         {
             // Call
             TestDelegate test = () =>
             {
-                using (new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile)) {}
+                using (new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFilePath)) {}
             };
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -175,7 +175,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
 
                 // Assert
                 Assert.AreEqual("Dutch coast South19-11-2015 12:0013", readDatabase.Version);
-                Assert.AreEqual((long) 13, readDatabase.TrackId);
+                Assert.AreEqual(13, readDatabase.TrackId);
                 Assert.AreEqual(18, readDatabase.Locations.Count());
                 ReadHydraulicBoundaryLocation location = readDatabase.Locations.First();
                 Assert.AreEqual(1, location.Id);

@@ -33,8 +33,8 @@ using Ringtoets.HydraRing.IO.Properties;
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
-    /// This class reads a SqLite database file and constructs a <see cref="ReadHydraulicBoundaryDatabase"/>
-    /// instance from this database.
+    /// This class reads a hydraulic boundary database file and constructs a
+    /// <see cref="ReadHydraulicBoundaryDatabase"/> instance from this database.
     /// </summary>
     public class HydraulicBoundaryDatabaseReader : SqLiteDatabaseReaderBase
     {
@@ -56,19 +56,18 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// </summary>
         /// <returns>A read hydraulic boundary database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the data cannot be read.</exception>
         public ReadHydraulicBoundaryDatabase Read()
         {
             return new ReadHydraulicBoundaryDatabase(ReadTrackId(), ReadVersion(), ReadLocations().ToArray());
         }
 
         /// <summary>
-        /// Reads the track id from the hydraulic boundary database.
+        /// Reads the track Id from the hydraulic boundary database.
         /// </summary>
-        /// <returns>The track id found in the database.</returns>
+        /// <returns>The track Id found in the database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema
-        /// or the track id cannot be found.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the track Id cannot be read.</exception>
         private long ReadTrackId()
         {
             try
@@ -104,7 +103,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// Gets the version of the hydraulic boundary database.
         /// </summary>
         /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version cannot be found.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the version cannot be read..</exception>
         public string ReadVersion()
         {
             try
@@ -134,7 +133,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// 
+        /// Reads the locations from the database.
         /// </summary>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         private IEnumerable<ReadHydraulicBoundaryLocation> ReadLocations()
@@ -149,10 +148,9 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// Reads the next location from the database.
+        /// Reads a location from the database.
         /// </summary>
-        /// <returns>A new instance of <see cref="ReadHydraulicBoundaryLocation"/> based on the data read from
-        /// the database or <c>null</c> if no data is available.</returns>
+        /// <returns>A <see cref="ReadHydraulicBoundaryLocation"/> based on the data read from the database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         private ReadHydraulicBoundaryLocation ReadLocation(IDataReader reader)
         {
