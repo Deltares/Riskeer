@@ -29,6 +29,7 @@
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseReaderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\LocationsTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabaseSettingsTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabaseTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationMappingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
