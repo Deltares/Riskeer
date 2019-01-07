@@ -41,7 +41,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
+
+        private readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
@@ -87,10 +89,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -111,10 +111,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand bestaat niet."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand bestaat niet.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -135,10 +133,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -159,10 +155,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kon geen locaties verkrijgen van de database."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kon geen locaties verkrijgen van de database.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -184,10 +178,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -210,10 +202,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het bevragen van de database is mislukt."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het bevragen van de database is mislukt.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -236,10 +226,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -262,10 +250,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}': kon het rekeninstellingen bestand niet openen. " +
-                                     $"Fout bij het lezen van bestand '{HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(path)}': het bestand bestaat niet."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+                                     $"Fout bij het lezen van bestand '{HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(path)}': het bestand bestaat niet.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -287,10 +273,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{path}': de rekeninstellingen database heeft niet het juiste schema."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': de rekeninstellingen database heeft niet het juiste schema.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -298,7 +282,6 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void Import_WhenSuccessful_UpdatesHydraulicBoundaryDatabaseWithImportedData()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
@@ -314,7 +297,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Same(filePath)))
+                                         Arg<string>.Is.Same(validFilePath)))
                    .WhenCalled(invocation =>
                    {
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
@@ -328,7 +311,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
 
             // Call
             bool importResult = importer.Import();
@@ -347,8 +330,6 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
             handler.Stub(h => h.Update(null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
-
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var expectedProgressMessages = new[]
             {
@@ -379,7 +360,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             };
             var progressChangedCallCount = 0;
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
@@ -413,9 +394,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
 
             var importResult = true;
 
@@ -423,8 +402,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create("Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.", LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
+            const string expectedMessage = "Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
         }
@@ -441,8 +420,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
             mocks.ReplayAll();
 
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
             importer.SetProgressChanged((description, currentStep, steps) =>
             {
                 if (currentStep == stepNumber)
@@ -452,7 +430,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             });
 
             // Precondition
-            Assert.IsTrue(File.Exists(filePath));
+            Assert.IsTrue(File.Exists(validFilePath));
 
             var importResult = true;
 
@@ -460,8 +438,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create("Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.", LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
+            const string expectedMessage = "Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
         }
@@ -476,9 +454,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Stub(h => h.Update(null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (step == 4)
@@ -494,7 +470,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -503,7 +480,6 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void DoPostImportUpdates_HydraulicBoundaryDatabaseIsSetAndAnswerDialogToContinue_NotifyObserversOfTargetAndClearedObjects()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
@@ -522,7 +498,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Same(filePath)))
+                                         Arg<string>.Is.Same(validFilePath)))
                    .Return(new[]
                    {
                        observable1,
@@ -533,7 +509,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
 
             // Precondition
             Assert.IsTrue(importer.Import());
@@ -549,13 +525,12 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void DoPostImportUpdates_CancelingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, "complete.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
             handler.Expect(h => h.IsConfirmationRequired(null, null)).IgnoreArguments()
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(false);
@@ -572,6 +547,15 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             mocks.VerifyAll(); // Expect no NotifyObserver calls
+        }
+
+        private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)
+        {
+            string expectedMessage = $"{errorMessage}" +
+                                     $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage,
+                                                                                                      LogLevelConstant.Error), 1);
+            Assert.IsFalse(importSuccessful);
         }
 
         private static void AssertReadHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)

@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.IO.Importers
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
-        /// <param name="importTarget">The import target.</param>
+        /// <param name="importTarget">The hydraulic boundary database to import to.</param>
         /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicBoundaryDatabase"/>.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
