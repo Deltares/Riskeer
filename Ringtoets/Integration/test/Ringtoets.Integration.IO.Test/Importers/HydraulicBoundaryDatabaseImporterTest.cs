@@ -314,7 +314,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                        Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
 
                        var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
-                       Assert.AreEqual(0, excludedLocationIds.Count());
+                       Assert.AreEqual(1, excludedLocationIds.Count());
                    })
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();

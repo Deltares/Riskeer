@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
@@ -547,9 +546,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 new ReadHydraulicBoundaryLocation(3, "location 3", 3, 3),
                 new ReadHydraulicBoundaryLocation(4, "location 4", 4, 4)
             };
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToInclude
-                                                                                                                          .Concat(readHydraulicBoundaryLocationsToExclude)
-                                                                                                                          .ToList());
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(
+                readHydraulicBoundaryLocationsToInclude.Concat(readHydraulicBoundaryLocationsToExclude));
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
 
             // Precondition
@@ -588,9 +586,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 new ReadHydraulicBoundaryLocation(3, "location 3", 3, 3),
                 new ReadHydraulicBoundaryLocation(4, "location 4", 4, 4)
             };
-            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(readHydraulicBoundaryLocationsToExclude
-                                                                                                                          .Concat(readHydraulicBoundaryLocationsToInclude)
-                                                                                                                          .ToList());
+
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(
+                readHydraulicBoundaryLocationsToExclude.Concat(readHydraulicBoundaryLocationsToInclude));
+
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(
                 readHydraulicBoundaryLocationsToInclude.Select(l => l.Id));
 

@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(locationsIds);
 
             // Assert
-            Assert.AreEqual(3, database.LocationIdMappings.Count());
+            Assert.AreEqual(locationsIds.Length, database.LocationIdMappings.Count());
 
             var i = 0;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)

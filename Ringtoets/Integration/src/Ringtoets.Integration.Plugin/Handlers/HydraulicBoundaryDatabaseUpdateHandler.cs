@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
                 SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations,
                              readHydraulicLocationConfigurationDatabase.LocationIdMappings,
-                             excludedLocationIds.ToList());
+                             excludedLocationIds.ToArray());
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
@@ -189,11 +189,11 @@ namespace Ringtoets.Integration.Plugin.Handlers
         }
 
         private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
-                                         IEnumerable<ReadHydraulicLocationMapping> locationIdMappings, List<long> excludedLocationIds)
+                                         IEnumerable<ReadHydraulicLocationMapping> locationIdMappings, long[] excludedLocationIds)
         {
             hydraulicBoundaryDatabase.Locations.Clear();
 
-            excludedLocationIds.Sort();
+            Array.Sort(excludedLocationIds);
 
             foreach (ReadHydraulicBoundaryLocation readLocation in readLocations)
             {
@@ -209,9 +209,9 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
         }
 
-        private static bool ShouldInclude(List<long> excludedLocationIds, long locationId)
+        private static bool ShouldInclude(long[] excludedLocationIds, long locationId)
         {
-            int matchingIndex = excludedLocationIds.BinarySearch(locationId);
+            int matchingIndex = Array.BinarySearch(excludedLocationIds, locationId);
             return matchingIndex < 0;
         }
     }
