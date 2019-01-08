@@ -27,7 +27,7 @@ using Ringtoets.DuneErosion.Data;
 namespace Ringtoets.DuneErosion.Plugin.Handlers
 {
     /// <summary>
-    /// Interface for replacing dune locations on a <see cref="DuneErosionFailureMechanism"/>.
+    /// Interface for replacing dune locations of a <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
     public interface IDuneLocationsReplacementHandler
     {

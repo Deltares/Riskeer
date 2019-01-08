@@ -31,7 +31,7 @@ using Ringtoets.DuneErosion.Service;
 namespace Ringtoets.DuneErosion.Plugin.Handlers
 {
     /// <summary>
-    /// Class responsible for replacing dune locations on a <see cref="DuneErosionFailureMechanism"/>.
+    /// Class responsible for replacing dune locations of a <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
     public class DuneLocationsReplacementHandler : IDuneLocationsReplacementHandler
     {
@@ -63,13 +63,6 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
             duneLocationsReader = new DuneLocationsReader();
         }
 
-        /// <summary>
-        /// Replaces the dune locations of the <see cref="DuneErosionFailureMechanism"/>.
-        /// </summary>
-        /// <param name="newHydraulicBoundaryLocations">The new hydraulic boundary locations
-        /// to update the dune locations for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newHydraulicBoundaryLocations"/>
-        /// is <c>null</c>.</exception>
         public void Replace(IEnumerable<HydraulicBoundaryLocation> newHydraulicBoundaryLocations)
         {
             IEnumerable<ReadDuneLocation> newDuneLocations = duneLocationsReader.ReadDuneLocations();
@@ -79,9 +72,6 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
                                                                    newDuneLocations);
         }
 
-        /// <summary>
-        /// Performs post-replacement updates.
-        /// </summary>
         public void DoPostReplacementUpdates()
         {
             if (!failureMechanism.DuneLocations.Any())

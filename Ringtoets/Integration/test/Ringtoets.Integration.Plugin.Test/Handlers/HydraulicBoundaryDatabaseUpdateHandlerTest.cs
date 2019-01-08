@@ -443,20 +443,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
                                            .WhenCalled(invocation =>
                                            {
-                                               CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]);
+                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]);
                                            });
             mocks.ReplayAll();
 
             AssessmentSection assessmentSection = CreateAssessmentSection();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-
-            var duneLocations = new[]
-            {
-                new TestDuneLocation(),
-                new TestDuneLocation()
-            };
-            assessmentSection.DuneErosion.SetDuneLocations(duneLocations);
 
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -488,6 +481,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -501,7 +495,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
                                            .WhenCalled(invocation =>
                                            {
-                                               CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]);
+                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]);
                                            });
             mocks.ReplayAll();
 
@@ -769,7 +763,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Setup
             var mocks = new MockRepository();
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
-            duneLocationsReplacementHandler.Expect(h => h.Replace(null)).IgnoreArguments();
+            duneLocationsReplacementHandler.Stub(h => h.Replace(null)).IgnoreArguments();
             duneLocationsReplacementHandler.Expect(h => h.DoPostReplacementUpdates());
             mocks.ReplayAll();
 
