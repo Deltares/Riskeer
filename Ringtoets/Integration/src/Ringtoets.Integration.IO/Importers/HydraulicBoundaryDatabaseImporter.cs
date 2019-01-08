@@ -91,6 +91,13 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
+            if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
+            {
+                Log.Error(BuildErrorMessage(GetHlcdFilePath(), "placeHolder."));
+                return false;
+            }
+
             ReadResult<IEnumerable<long>> readExcludedLocationsResult = ReadExcludedLocations();
 
             if (readExcludedLocationsResult.CriticalErrorOccurred || Canceled)
@@ -98,7 +105,7 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
-            AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseResult.Items.Single(),
+            AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
                                                     readExcludedLocationsResult.Items.Single());
 
             return true;
@@ -132,6 +139,16 @@ namespace Ringtoets.Integration.IO.Importers
             }
         }
 
+        private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent)
+            {
+                return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
+            }
+            
+            return true;
+        }
+
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
@@ -157,10 +174,9 @@ namespace Ringtoets.Integration.IO.Importers
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(FilePath), "hlcd.sqlite");
             try
             {
-                using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+                using (var reader = new HydraulicLocationConfigurationDatabaseReader(GetHlcdFilePath()))
                 {
                     return ReadHydraulicLocationConfigurationDatabase(trackId, reader);
                 }
@@ -254,9 +270,19 @@ namespace Ringtoets.Integration.IO.Importers
             Log.Error(errorMessage);
         }
 
+        private string GetHlcdFilePath()
+        {
+            return Path.Combine(Path.GetDirectoryName(FilePath), "hlcd.sqlite");
+        }
+
         private string BuildErrorMessage(string message)
         {
-            return new FileReaderErrorMessageBuilder(FilePath).Build(
+            return BuildErrorMessage(FilePath, message);
+        }
+
+        private static string BuildErrorMessage(string filePath, string message)
+        {
+            return new FileReaderErrorMessageBuilder(filePath).Build(
                 string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
                               message));
         }

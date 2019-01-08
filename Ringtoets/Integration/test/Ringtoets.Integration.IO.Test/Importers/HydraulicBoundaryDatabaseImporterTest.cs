@@ -232,6 +232,34 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
+        [TestCase("hlcdWithScenarioInformationNoEntries")]
+        [TestCase("hlcdWithScenarioInformationMultipleEntries")]
+        public void Import_ExistingFileAndHlcdWithInvalidNumberOfScenarioInformationEntries_CancelImportWithErrorMessage(string testFolder)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, testFolder, "complete.sqlite");
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': placeHolder."
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_ExistingFileWithoutSettings_CancelImportWithErrorMessage()
         {
             // Setup
@@ -281,7 +309,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Import_WhenSuccessful_UpdatesHydraulicBoundaryDatabaseWithImportedData(bool confirmationRequired)
+        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(bool confirmationRequired)
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -312,6 +340,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
                        Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
+                       CollectionAssert.IsEmpty(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+                       Assert.IsFalse(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
 
                        var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
                        Assert.AreEqual(1, excludedLocationIds.Count());
@@ -320,6 +350,52 @@ namespace Ringtoets.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
+
+            // Call
+            bool importResult = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Stub(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+                                                       Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
+                   .WhenCalled(invocation =>
+                   {
+                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase)invocation.Arguments[1]);
+                   })
+                   .Return(false);
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
+                                         Arg<IEnumerable<long>>.Is.NotNull,
+                                         Arg<string>.Is.Same(filePath)))
+                   .WhenCalled(invocation =>
+                   {
+                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase)invocation.Arguments[1]);
+
+                       var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase)invocation.Arguments[2];
+                       Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
+                       Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
+                       Assert.IsTrue(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
+
+                       var excludedLocationIds = (IEnumerable<long>)invocation.Arguments[3];
+                       Assert.AreEqual(0, excludedLocationIds.Count());
+                   })
+                   .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
 
             // Call
             bool importResult = importer.Import();
