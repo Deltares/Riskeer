@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             }
 
             Assert.IsTrue(database.IsScenarioInformationPresent);
-            ReadHydraulicLocationConfigurationDatabaseSetting setting = database.ReadHydraulicLocationConfigurationDatabaseSettings.Single();
+            ReadHydraulicLocationConfigurationDatabaseSettings setting = database.ReadHydraulicLocationConfigurationDatabaseSettings.Single();
             Assert.AreEqual("scenarioName", setting.ScenarioName);
             Assert.AreEqual(1337, setting.Year);
             Assert.AreEqual("scope", setting.Scope);
