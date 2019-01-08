@@ -77,5 +77,33 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             Assert.IsFalse(database.IsScenarioInformationPresent);
             CollectionAssert.IsEmpty(database.ReadHydraulicLocationConfigurationDatabaseSettings);
         }
+
+        [Test]
+        public void CreateWithScenarioInformation_WithHydraulicLocationCalculationSettings_ExpectedValues()
+        {
+            // Call
+            ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithScenarioInformation();
+
+            // Assert
+            var i = 1;
+            foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
+            {
+                Assert.AreEqual(i, databaseLocationIdMapping.HrdLocationId);
+                Assert.AreEqual(i + 100, databaseLocationIdMapping.HlcdLocationId);
+                i++;
+            }
+
+            Assert.IsTrue(database.IsScenarioInformationPresent);
+            ReadHydraulicLocationConfigurationDatabaseSetting setting = database.ReadHydraulicLocationConfigurationDatabaseSettings.Single();
+            Assert.AreEqual("scenarioName", setting.ScenarioName);
+            Assert.AreEqual(1337, setting.Year);
+            Assert.AreEqual("scope", setting.Scope);
+            Assert.AreEqual("seaLevel", setting.SeaLevel);
+            Assert.AreEqual("riverDischarge", setting.RiverDischarge);
+            Assert.AreEqual("lakeLevel", setting.LakeLevel);
+            Assert.AreEqual("windDirection", setting.WindDirection);
+            Assert.AreEqual("windSpeed", setting.WindSpeed);
+            Assert.AreEqual("comment", setting.Comment);
+        }
     }
 }

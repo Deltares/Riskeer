@@ -54,7 +54,33 @@ namespace Ringtoets.HydraRing.IO.TestUtil
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
                                                                              .ToList(),
                                                                   false,
-                                                                  Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>());
+                                                                  Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSetting>());
+        }
+
+        /// <summary>
+        /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>
+        /// with scenario information.
+        /// </summary>
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with scenario information.</returns>
+        public static ReadHydraulicLocationConfigurationDatabase CreateWithScenarioInformation()
+        {
+            var locationIds = new long[]
+            {
+                1,
+                2
+            };
+
+            var setting = new ReadHydraulicLocationConfigurationDatabaseSetting("scenarioName", 1337, "scope", "seaLevel", 
+                                                                                "riverDischarge", "lakeLevel", "windDirection",
+                                                                                "windSpeed", "comment");
+
+            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
+                                                                             .ToList(),
+                                                                  true,
+                                                                  new []
+                                                                  {
+                                                                      setting
+                                                                  });
         }
     }
 }
