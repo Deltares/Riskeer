@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -130,36 +131,21 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var expectedProgressMessages = new[]
-            {
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen referentielijn.",
-                    CurrentStep = 1,
-                    TotalNumberOfSteps = 2
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Geïmporteerde data toevoegen aan het traject.",
-                    CurrentStep = 2,
-                    TotalNumberOfSteps = 2
-                }
-            };
-            var progressChangedCallCount = 0;
+            var progressChangeNotifications = new List<ProgressNotification>();
+
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
-                progressChangedCallCount++;
-            });
+            importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
             importer.Import();
 
             // Assert
-            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
+            var expectedProgressNotifications = new[]
+            {
+                new ProgressNotification("Inlezen referentielijn.", 1, 2),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 2, 2)
+            };
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
             mocks.VerifyAll();
         }
 

@@ -331,50 +331,25 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Stub(h => h.Update(null, null, null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var expectedProgressMessages = new[]
-            {
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen van het hydraulische belastingen bestand.",
-                    CurrentStep = 1,
-                    TotalNumberOfSteps = 4
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen van het hydraulische locatie configuratie bestand.",
-                    CurrentStep = 2,
-                    TotalNumberOfSteps = 4
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen van het rekeninstellingen bestand.",
-                    CurrentStep = 3,
-                    TotalNumberOfSteps = 4
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Geïmporteerde data toevoegen aan het traject.",
-                    CurrentStep = 4,
-                    TotalNumberOfSteps = 4
-                }
-            };
-            var progressChangedCallCount = 0;
+            var progressChangeNotifications = new List<ProgressNotification>();
 
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
-                progressChangedCallCount++;
-            });
+            importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
+
 
             // Call
             bool importResult = importer.Import();
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, progressChangedCallCount);
+            var expectedProgressNotifications = new[]
+            {
+                new ProgressNotification("Inlezen van het hydraulische belastingen bestand.", 1, 4),
+                new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 2, 4),
+                new ProgressNotification("Inlezen van het rekeninstellingen bestand.", 3, 4),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 4, 4)
+            };
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
             mocks.VerifyAll();
         }
 
