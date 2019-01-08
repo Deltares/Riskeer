@@ -92,7 +92,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         }
 
         [Test]
-        public void Read_AmbiguousLocations_ReturnsFirstAndLogsWarning()
+        public void Read_AmbiguousLocations_ReturnsFirstLocationIdAndLogsWarning()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 
 namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
@@ -34,15 +33,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="locationIdMappings">The location id mappings of the read hydraulic location
         /// configuration database.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationIdMappings"/>
-        /// ic <c>null</c>.</exception>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings)
         {
-            if (locationIdMappings == null)
-            {
-                throw new ArgumentNullException(nameof(locationIdMappings));
-            }
-
             LocationIdMappings = locationIdMappings;
         }
 

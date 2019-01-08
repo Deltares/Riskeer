@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// <summary>
         /// Reads the hydraulic boundary database.
         /// </summary>
-        /// <returns>A read hydraulic boundary database.</returns>
+        /// <returns>A <see cref="ReadHydraulicBoundaryDatabase"/>.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the data cannot be read.</exception>
         public ReadHydraulicBoundaryDatabase Read()

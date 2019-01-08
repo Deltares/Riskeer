@@ -432,9 +432,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Precondition
             Assert.IsTrue(File.Exists(validFilePath));
 
-            var importResult = true;
-
             // Call
+            var importResult = true;
             Action call = () => importResult = importer.Import();
 
             // Assert

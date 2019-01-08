@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -30,17 +29,6 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
     [TestFixture]
     public class ReadHydraulicLocationConfigurationDatabaseTest
     {
-        [Test]
-        public void Constructor_LocationIdMappingsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ReadHydraulicLocationConfigurationDatabase(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("locationIdMappings", exception.ParamName);
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
