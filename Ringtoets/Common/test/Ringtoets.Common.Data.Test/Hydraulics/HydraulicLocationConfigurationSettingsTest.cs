@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -48,7 +49,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void SetValues_FilePathNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("    ")]
+        public void SetValues_InvalidFilePathNull_ThrowsArgumentException(string invalidFilePath)
         {
             // Setup
             var random = new Random(21);
@@ -70,8 +74,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                          windDirection, windSpeed, comment);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("filePath", exception.ParamName);
+            const string expectedMessage = "'filePath' is null, empty or consists of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

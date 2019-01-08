@@ -93,14 +93,16 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <param name="windSpeed">The wind speed.</param>
         /// <param name="comment">The comment.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="scenarioName"/>
-        /// or <paramref name="scope"/> are <c>null</c>.</exception>
+        /// or <paramref name="scope"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/>
+        /// is <c>null</c>, empty or consists of whitespace.</exception>
         public void SetValues(string filePath, string scenarioName, int year, string scope,
                               string seaLevel, string riverDischarge, string lakeLevel,
                               string windDirection, string windSpeed, string comment)
         {
-            if (filePath == null)
+            if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new ArgumentNullException(nameof(filePath));
+                throw new ArgumentException($@"'{nameof(filePath)}' is null, empty or consists of whitespace.");
             }
 
             if (scenarioName == null)
