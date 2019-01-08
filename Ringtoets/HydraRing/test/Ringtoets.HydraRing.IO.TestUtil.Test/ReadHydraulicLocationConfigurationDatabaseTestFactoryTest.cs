@@ -37,6 +37,9 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             // Assert
             Assert.AreEqual(2, database.LocationIdMappings.Count());
 
+            Assert.IsFalse(database.IsScenarioInformationPresent);
+            CollectionAssert.IsEmpty(database.ReadHydraulicLocationConfigurationDatabaseSettings);
+
             var i = 1;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
             {
@@ -70,6 +73,9 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
                 Assert.AreEqual(locationsIds[i] + 100, databaseLocationIdMapping.HlcdLocationId);
                 i++;
             }
+
+            Assert.IsFalse(database.IsScenarioInformationPresent);
+            CollectionAssert.IsEmpty(database.ReadHydraulicLocationConfigurationDatabaseSettings);
         }
     }
 }
