@@ -607,6 +607,93 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        public void Update_ReadHydraulicLocationConfigurationDatabaseWithScenarioInformation_SetsHydraulicLocationConfigurationSettings()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithScenarioInformation();
+
+            // Precondition
+            Assert.IsTrue(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
+            Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
+
+            // Call
+            handler.Update(hydraulicBoundaryDatabase,
+                           ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                           readHydraulicLocationConfigurationDatabase,
+                           Enumerable.Empty<long>(),
+                           filePath);
+
+            // Assert
+            ReadHydraulicLocationConfigurationDatabaseSettings expectedSettings = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
+                                                                                                                            .Single();
+            HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+
+            Assert.AreEqual(filePath, actualSettings.FilePath);
+            Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
+            Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
+            Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
+            Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
+            Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
+            Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
+            Assert.AreEqual(expectedSettings.WindDirection, actualSettings.WindDirection);
+            Assert.AreEqual(expectedSettings.WindSpeed, actualSettings.WindSpeed);
+            Assert.AreEqual(expectedSettings.Comment, actualSettings.Comment);
+        }
+
+        [Test]
+        public void Update_ReadHydraulicLocationConfigurationDatabaseWithoutScenarioInformation_SetsDefaultHydraulicLocationConfigurationSettings()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            const string filePath = "some/file/path";
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
+
+            // Precondition
+            Assert.IsFalse(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
+            CollectionAssert.IsEmpty(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+
+            // Call
+            handler.Update(hydraulicBoundaryDatabase,
+                           ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                           readHydraulicLocationConfigurationDatabase,
+                           Enumerable.Empty<long>(),
+                           filePath);
+
+            // Assert
+            HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(filePath, actualSettings.FilePath);
+            Assert.AreEqual("WBI2017", actualSettings.ScenarioName);
+            Assert.AreEqual(2023, actualSettings.Year);
+            Assert.AreEqual("WBI2017", actualSettings.Scope);
+            Assert.AreEqual("Conform WBI2017", actualSettings.SeaLevel);
+            Assert.AreEqual("Conform WBI2017", actualSettings.RiverDischarge);
+            Assert.AreEqual("Conform WBI2017", actualSettings.LakeLevel);
+            Assert.AreEqual("Conform WBI2017", actualSettings.WindDirection);
+            Assert.AreEqual("Conform WBI2017", actualSettings.WindSpeed);
+            Assert.AreEqual("Conform WBI2017", actualSettings.Comment);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenDatabase_WhenUpdatingDataWithNewLocations_ThenChangedObjectsReturned(bool isLinked)

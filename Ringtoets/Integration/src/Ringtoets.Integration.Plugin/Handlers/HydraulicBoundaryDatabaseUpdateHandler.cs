@@ -149,6 +149,10 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 }
             }
 
+            SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                      readHydraulicLocationConfigurationDatabase, 
+                                                      filePath);
+
             return changedObjects;
         }
 
@@ -157,6 +161,41 @@ namespace Ringtoets.Integration.Plugin.Handlers
             if (updateLocations)
             {
                 duneLocationsReplacementHandler.DoPostReplacementUpdates();
+            }
+        }
+
+        private static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
+                                                                      ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
+                                                                      string filePath)
+        {
+            if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent)
+            {
+                ReadHydraulicLocationConfigurationDatabaseSettings readSettings =
+                    readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
+                                                              .Single();
+                hydraulicLocationConfigurationSettings.SetValues(filePath,
+                                                                 readSettings.ScenarioName,
+                                                                 readSettings.Year,
+                                                                 readSettings.Scope,
+                                                                 readSettings.SeaLevel,
+                                                                 readSettings.RiverDischarge,
+                                                                 readSettings.LakeLevel,
+                                                                 readSettings.WindDirection,
+                                                                 readSettings.WindSpeed,
+                                                                 readSettings.Comment);
+            }
+            else
+            {
+                hydraulicLocationConfigurationSettings.SetValues(filePath,
+                                                                 "WBI2017",
+                                                                 2023,
+                                                                 "WBI2017",
+                                                                 "Conform WBI2017",
+                                                                 "Conform WBI2017",
+                                                                 "Conform WBI2017",
+                                                                 "Conform WBI2017",
+                                                                 "Conform WBI2017",
+                                                                 "Conform WBI2017");
             }
         }
 
