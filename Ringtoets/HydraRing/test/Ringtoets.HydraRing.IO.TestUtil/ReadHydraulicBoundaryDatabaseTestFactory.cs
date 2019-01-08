@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil
     public static class ReadHydraulicBoundaryDatabaseTestFactory
     {
         /// <summary>
-        /// Creates a of <see cref="ReadHydraulicBoundaryDatabase"/> with random values.
+        /// Creates a <see cref="ReadHydraulicBoundaryDatabase"/> with random values.
         /// </summary>
         /// <returns>The created <see cref="ReadHydraulicBoundaryDatabase"/>.</returns>
         public static ReadHydraulicBoundaryDatabase Create()
@@ -46,9 +46,9 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         }
 
         /// <summary>
-        /// Creates a of <see cref="ReadHydraulicBoundaryDatabase"/> with random values.
+        /// Creates a <see cref="ReadHydraulicBoundaryDatabase"/> with the provided <paramref name="locations"/>.
         /// </summary>
-        /// <param name="locations">The locations to use.</param>
+        /// <param name="locations">The locations to add to the <see cref="ReadHydraulicBoundaryDatabase"/>.</param>
         /// <returns>The created <see cref="ReadHydraulicBoundaryDatabase"/>.</returns>
         public static ReadHydraulicBoundaryDatabase Create(IEnumerable<ReadHydraulicBoundaryLocation> locations)
         {

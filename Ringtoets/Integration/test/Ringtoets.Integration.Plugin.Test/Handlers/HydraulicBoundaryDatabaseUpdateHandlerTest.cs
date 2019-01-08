@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void Constructor_DuneLocationsReplacementHandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), null);
+            TestDelegate call = () => new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Assert
             Assert.IsInstanceOf<IHydraulicBoundaryDatabaseUpdateHandler>(handler);
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             TestDelegate call = () => handler.IsConfirmationRequired(null, ReadHydraulicBoundaryDatabaseTestFactory.Create());
@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             TestDelegate call = () => handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), null);
@@ -136,7 +136,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             bool confirmationRequired = handler.IsConfirmationRequired(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create());
@@ -154,15 +154,17 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
                 FilePath = "some/file/path",
-                Version = "version"
+                Version = readHydraulicBoundaryDatabase.Version
             };
 
             // Call
-            bool confirmationRequired = handler.IsConfirmationRequired(database, ReadHydraulicBoundaryDatabaseTestFactory.Create());
+            bool confirmationRequired = handler.IsConfirmationRequired(database, readHydraulicBoundaryDatabase);
 
             // Assert
             Assert.IsFalse(confirmationRequired);
@@ -177,7 +179,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
             var database = new HydraulicBoundaryDatabase
             {
                 FilePath = "some/file/path",
@@ -195,7 +197,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void InquireConfirmation_ClickDialog_ReturnTrueIfOkAndFalseIfCancel(bool clickOk)
+        public void InquireConfirmation_ClickDialog_ReturnsExpectedResult(bool clickOk)
         {
             // Setup
             var mocks = new MockRepository();
@@ -218,7 +220,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 }
             };
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             bool result = handler.InquireConfirmation();
@@ -243,7 +245,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             TestDelegate call = () => handler.Update(null, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
@@ -264,7 +266,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), null,
@@ -285,7 +287,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
@@ -305,7 +307,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike), duneLocationsReplacementHandler);
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
@@ -318,6 +320,26 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        public void Update_FilePathNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(), null);
+            ;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
         public void Update_FilePathAndVersionSame_NothingUpdatesAndReturnsEmptyCollection()
         {
             // Setup
@@ -326,12 +348,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string filePath = "some/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
-                Version = "version",
+                Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -344,11 +367,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();
 
-            // Precondition
-            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
-
             // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
                                                                      Enumerable.Empty<long>(), filePath);
 
@@ -361,20 +381,21 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_VersionSameAndFilePathNotSame_UpdatesFilePathAndReturnsChangedObjects()
+        public void Update_VersionSameAndFilePathNotSame_UpdatesFilePathAndReturnsEmptyCollection()
         {
             // Setup
             var mocks = new MockRepository();
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            const string newFilePath = "some/file/path";
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = "old/file/path",
-                Version = "version",
+                Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -387,17 +408,14 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();
 
-            // Precondition
-            AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
-
             // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), filePath);
+                                                                     Enumerable.Empty<long>(), newFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(newFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
@@ -429,7 +447,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                            });
             mocks.ReplayAll();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
@@ -446,8 +464,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Precondition
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
-            CollectionAssert.AreEqual(oldLocations, hydraulicBoundaryDatabase.Locations);
-            AssertHydraulicBoundaryLocationsAndCalculations(oldLocations, assessmentSection);
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
@@ -455,7 +471,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                            Enumerable.Empty<long>(), filePath);
 
             // Assert
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryDatabase.Locations);
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -465,6 +480,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -489,14 +506,14 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string filePath = "some/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
@@ -523,11 +540,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string filePath = "some/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             var readHydraulicBoundaryLocationsToInclude = new[]
             {
@@ -543,6 +557,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                           .Concat(readHydraulicBoundaryLocationsToExclude)
                                                                                                                           .ToList());
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
@@ -564,11 +581,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string filePath = "some/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
-
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             var readHydraulicBoundaryLocationsToExclude = new[]
             {
@@ -585,6 +599,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                                           .ToList());
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(
                 readHydraulicBoundaryLocationsToInclude.Select(l => l.Id));
+
+            // Precondition
+            Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
@@ -607,7 +624,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string filePath = "some/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             if (isLinked)
             {
@@ -696,7 +713,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -716,11 +733,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string filePath = "some/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
-                Version = "version",
+                Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation("old location 1"),
@@ -731,7 +749,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
                                                                      Enumerable.Empty<long>(), filePath);
 
@@ -756,7 +774,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string filePath = "old/file/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
@@ -785,9 +803,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.VerifyAll();
         }
 
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            return new AssessmentSection(AssessmentSectionComposition.Dike);
+        }
+
         private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)
         {
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -796,6 +818,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -806,11 +830,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         private static void AssertHydraulicBoundaryLocations(IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                                             ObservableList<HydraulicBoundaryLocation> actualLocations)
+                                                             IEnumerable<HydraulicBoundaryLocation> actualLocations)
         {
-            Assert.AreEqual(readLocations.Count(), actualLocations.Count);
+            Assert.AreEqual(readLocations.Count(), actualLocations.Count());
 
-            for (var i = 0; i < actualLocations.Count; i++)
+            for (var i = 0; i < actualLocations.Count(); i++)
             {
                 ReadHydraulicBoundaryLocation readLocation = readLocations.ElementAt(i);
                 HydraulicBoundaryLocation actualLocation = actualLocations.ElementAt(i);

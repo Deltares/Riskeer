@@ -41,8 +41,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest
     {
+        private const int totalNumberOfSteps = 4;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
-
         private readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [Test]
@@ -279,20 +279,28 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_WhenSuccessful_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Import_WhenSuccessful_UpdatesHydraulicBoundaryDatabaseWithImportedData(bool confirmationRequired)
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
-            handler.Stub(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+            handler.Expect(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                                        Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
                    })
-                   .Return(false);
+                   .Return(confirmationRequired);
+
+            if (confirmationRequired)
+            {
+                handler.Expect(h => h.InquireConfirmation()).Return(true);
+            }
+
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
@@ -336,7 +344,6 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
-
             // Call
             bool importResult = importer.Import();
 
@@ -344,10 +351,10 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Assert.IsTrue(importResult);
             var expectedProgressNotifications = new[]
             {
-                new ProgressNotification("Inlezen van het hydraulische belastingen bestand.", 1, 4),
-                new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 2, 4),
-                new ProgressNotification("Inlezen van het rekeninstellingen bestand.", 3, 4),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 4, 4)
+                new ProgressNotification("Inlezen van het hydraulische belastingen bestand.", 1, totalNumberOfSteps),
+                new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 2, totalNumberOfSteps),
+                new ProgressNotification("Inlezen van het rekeninstellingen bestand.", 3, totalNumberOfSteps),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 4, totalNumberOfSteps)
             };
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
             mocks.VerifyAll();
@@ -431,7 +438,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
             importer.SetProgressChanged((description, step, steps) =>
             {
-                if (step == 4)
+                if (step == totalNumberOfSteps)
                 {
                     importer.Cancel();
                 }
@@ -466,13 +473,12 @@ namespace Ringtoets.Integration.IO.Test.Importers
             observable2.Expect(o => o.NotifyObservers());
 
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
-            handler.Expect(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(true);
-            handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+            handler.Expect(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Same(validFilePath)))
+                                         Arg<string>.Is.NotNull))
                    .Return(new[]
                    {
                        observable1,
@@ -492,7 +498,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             importer.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
+            mocks.VerifyAll(); // Expect NotifyObservers on updated observables
         }
 
         [Test]
@@ -537,7 +543,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Assert.AreEqual("Dutch coast South19-11-2015 12:0013", readHydraulicBoundaryDatabase.Version);
             Assert.AreEqual((long) 13, readHydraulicBoundaryDatabase.TrackId);
             Assert.AreEqual(18, readHydraulicBoundaryDatabase.Locations.Count());
+
             ReadHydraulicBoundaryLocation location = readHydraulicBoundaryDatabase.Locations.First();
+
             Assert.AreEqual(1, location.Id);
             Assert.AreEqual("punt_flw_ 1", location.Name);
             Assert.AreEqual(52697.5, location.CoordinateX);

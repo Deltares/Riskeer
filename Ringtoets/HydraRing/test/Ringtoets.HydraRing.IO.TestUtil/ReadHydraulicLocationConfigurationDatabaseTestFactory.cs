@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil
     public static class ReadHydraulicLocationConfigurationDatabaseTestFactory
     {
         /// <summary>
-        /// Creates a of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
+        /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
         public static ReadHydraulicLocationConfigurationDatabase Create()
@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         }
 
         /// <summary>
-        /// Creates a of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
+        /// Creates a <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <param name="locationIds">The location ids to add.</param>
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
