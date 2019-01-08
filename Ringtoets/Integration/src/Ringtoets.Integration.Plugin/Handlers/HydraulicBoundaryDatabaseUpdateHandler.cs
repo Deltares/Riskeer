@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                               IEnumerable<long> excludedLocationIds, string filePath)
+                                               IEnumerable<long> excludedLocationIds, string hydraulicBoundaryDatabaseFilePath, string hlcdFilePath)
         {
             if (hydraulicBoundaryDatabase == null)
             {
@@ -115,9 +115,14 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(excludedLocationIds));
             }
 
-            if (filePath == null)
+            if (hydraulicBoundaryDatabaseFilePath == null)
             {
-                throw new ArgumentNullException(nameof(filePath));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));
+            }
+
+            if (hlcdFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
             var changedObjects = new List<IObservable>();
@@ -126,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
             if (updateLocations)
             {
-                hydraulicBoundaryDatabase.FilePath = filePath;
+                hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
                 hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
 
                 SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations,
@@ -143,15 +148,15 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
             else
             {
-                if (hydraulicBoundaryDatabase.FilePath != filePath)
+                if (hydraulicBoundaryDatabase.FilePath != hydraulicBoundaryDatabaseFilePath)
                 {
-                    hydraulicBoundaryDatabase.FilePath = filePath;
+                    hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
                 }
             }
 
             SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
                                                       readHydraulicLocationConfigurationDatabase, 
-                                                      filePath);
+                                                      hlcdFilePath);
 
             return changedObjects;
         }

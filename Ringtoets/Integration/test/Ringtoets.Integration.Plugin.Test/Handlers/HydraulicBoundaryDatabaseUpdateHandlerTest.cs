@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             TestDelegate call = () => handler.Update(null, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                     Enumerable.Empty<long>(), "");
+                                                     Enumerable.Empty<long>(), "", "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -270,7 +270,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), null,
                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                     Enumerable.Empty<long>(), "");
+                                                     Enumerable.Empty<long>(), "", "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -290,7 +290,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                                     null, Enumerable.Empty<long>(), "");
+                                                     null, Enumerable.Empty<long>(), "", "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -310,7 +310,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), null, "");
+                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), null, "", "");
             ;
 
             // Assert
@@ -319,7 +319,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_FilePathNull_ThrowsArgumentNullException()
+        public void Update_HydraulicBoundaryDatabaseFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -330,12 +330,34 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(), null);
+                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(),
+                                                     null, "");
             ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("filePath", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryDatabaseFilePath", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_HlcdFilePathNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                     ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(),
+                                                     "", null);
+            ;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hlcdFilePath", exception.ParamName);
         }
 
         [Test]
@@ -346,13 +368,14 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath,
+                FilePath = hydraulicBoundaryDatabaseFilePath,
                 Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
                 {
@@ -369,11 +392,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), filePath);
+                                                                     Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
@@ -387,7 +410,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string newFilePath = "some/file/path";
+            const string newHydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
@@ -410,11 +434,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), newFilePath);
+                                                                     Enumerable.Empty<long>(), newHydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
-            Assert.AreEqual(newFilePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(newHydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
@@ -424,10 +448,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void Update_DatabaseLinkedAndVersionNotSame_RemovesOldLocationsAndCalculations()
         {
             // Setup
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath,
+                FilePath = hydraulicBoundaryDatabaseFilePath,
                 Version = "1",
                 Locations =
                 {
@@ -460,7 +485,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                            ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                           Enumerable.Empty<long>(), filePath);
+                           Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
             CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryDatabase.Locations);
@@ -498,7 +523,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                            });
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -511,11 +537,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                            readHydraulicLocationConfigurationDatabase,
-                           Enumerable.Empty<long>(), filePath);
+                           Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
-            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
@@ -532,7 +558,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -556,7 +583,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                            readHydraulicLocationConfigurationDatabase,
-                           Enumerable.Empty<long>(), filePath);
+                           Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
@@ -572,7 +599,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -599,7 +627,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Call
             handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                            readHydraulicLocationConfigurationDatabase,
-                           readHydraulicBoundaryLocationsToExclude.Select(l => l.Id), filePath);
+                           readHydraulicBoundaryLocationsToExclude.Select(l => l.Id), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Assert
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryLocationsToInclude, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
@@ -616,7 +644,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -632,14 +661,15 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                            ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                            readHydraulicLocationConfigurationDatabase,
                            Enumerable.Empty<long>(),
-                           filePath);
+                           hydraulicBoundaryDatabaseFilePath,
+                           hlcdFilePath);
 
             // Assert
             ReadHydraulicLocationConfigurationDatabaseSettings expectedSettings = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
                                                                                                                             .Single();
             HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
 
-            Assert.AreEqual(filePath, actualSettings.FilePath);
+            Assert.AreEqual(hlcdFilePath, actualSettings.FilePath);
             Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
             Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
             Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
@@ -661,7 +691,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
@@ -677,11 +708,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                            ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                            readHydraulicLocationConfigurationDatabase,
                            Enumerable.Empty<long>(),
-                           filePath);
+                           hydraulicBoundaryDatabaseFilePath,
+                           hlcdFilePath);
 
             // Assert
             HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
-            Assert.AreEqual(filePath, actualSettings.FilePath);
+            Assert.AreEqual(hlcdFilePath, actualSettings.FilePath);
             Assert.AreEqual("WBI2017", actualSettings.ScenarioName);
             Assert.AreEqual(2023, actualSettings.Year);
             Assert.AreEqual("WBI2017", actualSettings.Scope);
@@ -703,12 +735,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             if (isLinked)
             {
-                hydraulicBoundaryDatabase.FilePath = filePath;
+                hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
                 hydraulicBoundaryDatabase.Version = "1";
                 hydraulicBoundaryDatabase.Locations.AddRange(new[]
                 {
@@ -726,7 +759,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // When
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), filePath);
+                                                                     Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Then
             CollectionAssert.AreEqual(new IObservable[]
@@ -764,7 +797,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
@@ -777,7 +811,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // When
             IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), filePath);
+                                                                     Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Then
             Assert.IsTrue(calculationsWithOutput.All(c => !c.HasOutput));
@@ -812,12 +846,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var duneLocationsReplacementHandler = mocks.StrictMock<IDuneLocationsReplacementHandler>();
             mocks.ReplayAll();
 
-            const string filePath = "some/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "some/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath,
+                FilePath = hydraulicBoundaryDatabaseFilePath,
                 Version = readHydraulicBoundaryDatabase.Version,
                 Locations =
                 {
@@ -831,7 +866,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), filePath);
+                                                                     Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Precondition
             CollectionAssert.IsEmpty(changedObjects);
@@ -853,11 +888,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             duneLocationsReplacementHandler.Expect(h => h.DoPostReplacementUpdates());
             mocks.ReplayAll();
 
-            const string filePath = "old/file/path";
+            const string hydraulicBoundaryDatabaseFilePath = "old/file/path";
+            const string hlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath,
+                FilePath = hydraulicBoundaryDatabaseFilePath,
                 Version = "1",
                 Locations =
                 {
@@ -871,7 +907,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), filePath);
+                                                                     Enumerable.Empty<long>(), hydraulicBoundaryDatabaseFilePath, hlcdFilePath);
 
             // Precondition
             CollectionAssert.IsNotEmpty(changedObjects);

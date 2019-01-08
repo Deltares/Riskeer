@@ -247,7 +247,7 @@ namespace Ringtoets.Integration.IO.Importers
         {
             NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
-                                                             excludedLocationIds, FilePath));
+                                                             excludedLocationIds, FilePath, GetHlcdFilePath()));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
