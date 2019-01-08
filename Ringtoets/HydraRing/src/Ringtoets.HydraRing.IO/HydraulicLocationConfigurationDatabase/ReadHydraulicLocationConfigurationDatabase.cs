@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// ic <c>null</c>.</exception>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
                                                             bool isScenarioInformationPresent,
-                                                            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings)
+                                                            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSetting> readHydraulicLocationConfigurationDatabaseSettings)
         {
             LocationIdMappings = locationIdMappings;
             IsScenarioInformationPresent = isScenarioInformationPresent;
@@ -61,6 +61,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <summary>
         /// Gets the settings of the read hydraulic location configuration database.
         /// </summary>
-        public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
+        public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSetting> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
     }
 }

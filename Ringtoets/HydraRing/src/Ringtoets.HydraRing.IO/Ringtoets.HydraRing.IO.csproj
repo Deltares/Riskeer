@@ -30,7 +30,7 @@
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\LocationsTableDefinitions.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabase.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabaseSettings.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabaseSetting.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationMapping.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\ScenarioInformationTableDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

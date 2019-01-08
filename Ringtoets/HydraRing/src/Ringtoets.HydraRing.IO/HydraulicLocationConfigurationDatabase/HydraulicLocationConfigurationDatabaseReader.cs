@@ -65,10 +65,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
             bool isScenarioInformationPresent = IsScenarioInformationTablePresent();
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings =
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSetting> configurationSettings =
                 isScenarioInformationPresent
                     ? GetConfigurationSettings()
-                    : Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
+                    : Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSetting>();
 
             return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
                                                                   isScenarioInformationPresent,
@@ -150,7 +150,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettings()
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSetting> GetConfigurationSettings()
         {
             try
             {
@@ -206,10 +206,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSetting> GetConfigurationSettingsFromDatabase()
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery();
-            var readSettings = new List<ReadHydraulicLocationConfigurationDatabaseSettings>();
+            var readSettings = new List<ReadHydraulicLocationConfigurationDatabaseSetting>();
             using (IDataReader dataReader = CreateDataReader(query))
             {
                 while (MoveNext(dataReader))
@@ -225,10 +225,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Reads the hydraulic location configuration setting from the database.
         /// </summary>
         /// <param name="reader">The <see cref="IDataReader"/> which is used to read the data.</param>
-        /// <returns>The read <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.</returns>
+        /// <returns>The read <see cref="ReadHydraulicLocationConfigurationDatabaseSetting"/>.</returns>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private ReadHydraulicLocationConfigurationDatabaseSettings ReadSetting(IDataReader reader)
+        private ReadHydraulicLocationConfigurationDatabaseSetting ReadSetting(IDataReader reader)
         {
             try
             {
@@ -242,9 +242,9 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
                 var windSpeed = reader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed);
                 var comment = reader.Read<string>(ScenarioInformationTableDefinitions.Comment);
 
-                return new ReadHydraulicLocationConfigurationDatabaseSettings(scenarioName, year, scope,
-                                                                              seaLevel, riverDischarge, lakeLevel,
-                                                                              windDirection, windSpeed, comment);
+                return new ReadHydraulicLocationConfigurationDatabaseSetting(scenarioName, year, scope,
+                                                                             seaLevel, riverDischarge, lakeLevel,
+                                                                             windDirection, windSpeed, comment);
             }
             catch (ConversionException e)
             {
