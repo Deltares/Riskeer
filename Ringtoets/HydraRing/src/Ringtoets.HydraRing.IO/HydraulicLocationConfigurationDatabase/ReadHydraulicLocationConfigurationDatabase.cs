@@ -33,14 +33,34 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="locationIdMappings">The location id mappings of the read hydraulic location
         /// configuration database.</param>
-        internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings)
+        /// <param name="isScenarioInformationPresent">Indicator whether scenario information is present in the hydraulic location
+        /// configuration database.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The hydraulic location configuration settings
+        /// of the read hydraulic location database.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationIdMappings"/>
+        /// ic <c>null</c>.</exception>
+        internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
+                                                            bool isScenarioInformationPresent,
+                                                            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings)
         {
             LocationIdMappings = locationIdMappings;
+            IsScenarioInformationPresent = isScenarioInformationPresent;
+            ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
         }
 
         /// <summary>
         /// Gets the location id mappings of the read hydraulic location configuration database.
         /// </summary>
         public IEnumerable<ReadHydraulicLocationMapping> LocationIdMappings { get; }
+
+        /// <summary>
+        /// Gets whether the scenario information is present in the hydraulic location configuration database.
+        /// </summary>
+        public bool IsScenarioInformationPresent { get; }
+
+        /// <summary>
+        /// Gets the settings of the read hydraulic location configuration database.
+        /// </summary>
+        public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
     }
 }

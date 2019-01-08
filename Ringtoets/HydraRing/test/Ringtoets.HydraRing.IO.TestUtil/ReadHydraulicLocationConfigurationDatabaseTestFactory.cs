@@ -52,7 +52,9 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds)
         {
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
-                                                                             .ToArray());
+                                                                             .ToList(),
+                                                                  false,
+                                                                  Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>());
         }
     }
 }

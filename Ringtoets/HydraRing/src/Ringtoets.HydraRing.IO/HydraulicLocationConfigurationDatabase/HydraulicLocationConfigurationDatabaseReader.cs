@@ -58,9 +58,21 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="trackId">The track id to read the location configurations for.</param>
         /// <returns>A read hydraulic location configuration database.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when hydraulic location configuration database
+        /// could not be read.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId));
+            bool isScenarioInformationPresent = IsScenarioInformationTablePresent();
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings =
+                isScenarioInformationPresent 
+                    ? GetConfigurationSettings() 
+                    : Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
+
+            return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
+                                                                  isScenarioInformationPresent,
+                                                                  configurationSettings);
         }
 
         /// <summary>
@@ -129,6 +141,107 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
 
             return locationLookup.Select(lookup => new ReadHydraulicLocationMapping(lookup.Key, lookup.Value)).ToArray();
+        }
+
+        /// <summary>
+        /// Gets the hydraulic location configuration settings from the database.
+        /// </summary>
+        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettings()
+        {
+            try
+            {
+                return GetConfigurationSettingsFromDatabase();
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message, exception);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the table related to the scenario information is present in the database.
+        /// </summary>
+        /// <returns><c>true</c> if the table is present; <c>false</c> otherwise.</returns>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file..</exception>
+        private bool IsScenarioInformationTablePresent()
+        {
+            const string validationQuery = "SELECT COUNT() = 1 AS IsScenarioInformationPresent FROM sqlite_master WHERE type = 'table' AND name='ScenarioInformation'";
+            using (IDataReader dataReader = CreateDataReader(validationQuery))
+            {
+                if (dataReader.Read())
+                {
+                    return Convert.ToBoolean(dataReader["IsScenarioInformationPresent"]);
+                }
+
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new CriticalFileReadException(message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the hydraulic location configuration settings from the database.
+        /// </summary>
+        /// <returns>A collection of the read hydraulic configuration database settings.</returns>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
+        {
+            const string query = "SELECT * FROM ScenarioInformation";
+            var readSettings = new List<ReadHydraulicLocationConfigurationDatabaseSettings>();
+            using (IDataReader dataReader = CreateDataReader(query))
+            {
+                while (MoveNext(dataReader))
+                {
+                    readSettings.Add(ReadSetting(dataReader));
+                }
+            }
+
+            return readSettings;
+        }
+
+        /// <summary>
+        /// Reads the hydraulic location configuration setting from the database.
+        /// </summary>
+        /// <param name="reader">The <see cref="IDataReader"/> which is used to read the data.</param>
+        /// <returns>The read <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the settings could not be read.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        private ReadHydraulicLocationConfigurationDatabaseSettings ReadSetting(IDataReader reader)
+        {
+            try
+            {
+                var scenarioName = reader.Read<string>("ScenarioName");
+                var year = reader.Read<int>("Year");
+                var scope = reader.Read<string>("Scope");
+                var seaLevel = reader.Read<string>("SeaLevel");
+                var riverDischarge = reader.Read<string>("RiverDischarge");
+                var lakeLevel = reader.Read<string>("LakeLevel");
+                var windDirection = reader.Read<string>("WindDirection");
+                var windSpeed = reader.Read<string>("WindSpeed");
+                var comment = reader.Read<string>("Comment");
+
+                return new ReadHydraulicLocationConfigurationDatabaseSettings(scenarioName, year, scope,
+                                                                              seaLevel, riverDischarge, lakeLevel,
+                                                                              windDirection, windSpeed, comment);
+            }
+            catch (ConversionException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, e);
+            }
+            catch (ArgumentException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new CriticalFileReadException(message, e);
+            }
         }
     }
 }

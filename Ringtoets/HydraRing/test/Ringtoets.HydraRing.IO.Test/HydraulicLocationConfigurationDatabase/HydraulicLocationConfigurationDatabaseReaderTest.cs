@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_ValidFile_ExpectedValues()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "complete.sqlite");
+            string dbFile = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
 
             // Call
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
@@ -73,10 +74,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         [Test]
         [TestCase(18169, 1000, 1801000)]
         [TestCase(6, 1000, 0)]
-        public void Read_ValidFile_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
+        public void Read_ValidFileWithoutScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "complete.sqlite");
+            string dbFile = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
@@ -88,6 +89,119 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                                   .Select(m => m.HlcdLocationId)
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
+                Assert.IsFalse(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
+                CollectionAssert.IsEmpty(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+            }
+        }
+
+        [Test]
+        [TestCase(18169, 1000, 1801000)]
+        [TestCase(6, 1000, 0)]
+        public void Read_ValidFileWithScenarioInformation_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformation.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            {
+                // Call
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
+
+                // Assert
+                long actualLocationId = readHydraulicLocationConfigurationDatabase.LocationIdMappings.Where(m => m.HrdLocationId == hrdLocationId)
+                                                                                  .Select(m => m.HlcdLocationId)
+                                                                                  .SingleOrDefault();
+                Assert.AreEqual(expectedLocationId, actualLocationId);
+                Assert.IsTrue(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
+                IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings = 
+                    readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
+                Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Count());
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    "ScenarioName WBI2017",
+                    "ScenarioName WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.ScenarioName));
+                CollectionAssert.AreEqual(new[]
+                {
+                    2023,
+                    2024
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Year));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "Scope WBI2017",
+                    "Scope WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Scope));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "SeaLevel WBI2017",
+                    "SeaLevel WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.SeaLevel));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "RiverDischarge WBI2017",
+                    "RiverDischarge WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.RiverDischarge));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "LakeLevel WBI2017",
+                    "LakeLevel WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.LakeLevel));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "WindDirection WBI2017",
+                    "WindDirection WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindDirection));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "WindSpeed WBI2017",
+                    "WindSpeed WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.WindSpeed));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "Comment WBI2017",
+                    "Comment WBI2018"
+                }, readHydraulicLocationConfigurationDatabaseSettings.Select(s => s.Comment));
+            }
+        }
+
+        [Test]
+        public void Read_FileWithScenarioInformationAndMissingColumns_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            const int trackId = 18169;
+            string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformationMissingColumn.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(trackId);
+
+                // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void Read_FileWithScenarioInformationAndInvalidData_ThrowsLineParseException()
+        {
+            // Setup
+            const int trackId = 18169;
+            string dbFile = Path.Combine(testDataPath, "hlcdWithScenarioInformationInvalidData.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(trackId);
+
+                // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                var exception = Assert.Throws<LineParseException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<ConversionException>(exception.InnerException);
             }
         }
 

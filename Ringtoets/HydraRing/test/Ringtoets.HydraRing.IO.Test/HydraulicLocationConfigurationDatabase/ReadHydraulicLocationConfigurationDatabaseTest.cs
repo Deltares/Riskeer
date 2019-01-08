@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
@@ -33,13 +34,18 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            bool isScenarioInformationPresent = random.NextBoolean();
             IEnumerable<ReadHydraulicLocationMapping> locationIdMappings = Enumerable.Empty<ReadHydraulicLocationMapping>();
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> databaseSettings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
 
             // Call
-            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIdMappings);
+            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIdMappings, isScenarioInformationPresent, databaseSettings);
 
             // Assert
             Assert.AreSame(locationIdMappings, readDatabase.LocationIdMappings);
+            Assert.AreEqual(isScenarioInformationPresent, readDatabase.IsScenarioInformationPresent);
+            Assert.AreSame(databaseSettings, readDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
         }
     }
 }
