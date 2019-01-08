@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.IO.Importers
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
             if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
             {
-                Log.Error(BuildErrorMessage(GetHlcdFilePath(), "placeHolder."));
+                Log.Error(BuildErrorMessage(GetHlcdFilePath(), Resources.HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries));
                 return false;
             }
 

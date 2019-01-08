@@ -132,6 +132,16 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to de tabel &apos;ScenarioInformation&apos; in de HLCD moet exact 1 rij bevatten..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entr" +
+                        "ies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {

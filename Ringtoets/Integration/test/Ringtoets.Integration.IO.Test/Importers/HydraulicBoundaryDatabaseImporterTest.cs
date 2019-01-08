@@ -252,7 +252,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': placeHolder."
+            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': de tabel 'ScenarioInformation' in de HLCD moet exact 1 rij bevatten."
                                      + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -317,7 +317,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
             handler.Expect(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
-                                                       Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
+                                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
@@ -360,7 +360,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(bool confirmationRequired)
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
@@ -368,13 +370,19 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
-            handler.Stub(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
-                                                       Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
+            handler.Expect(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+                                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase)invocation.Arguments[1]);
+                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
                    })
-                   .Return(false);
+                   .Return(confirmationRequired);
+
+            if (confirmationRequired)
+            {
+                handler.Expect(h => h.InquireConfirmation()).Return(true);
+            }
+
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
@@ -382,14 +390,14 @@ namespace Ringtoets.Integration.IO.Test.Importers
                                          Arg<string>.Is.Same(filePath)))
                    .WhenCalled(invocation =>
                    {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase)invocation.Arguments[1]);
+                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
 
-                       var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase)invocation.Arguments[2];
+                       var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
                        Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
                        Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
                        Assert.IsTrue(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
 
-                       var excludedLocationIds = (IEnumerable<long>)invocation.Arguments[3];
+                       var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
                        Assert.AreEqual(0, excludedLocationIds.Count());
                    })
                    .Return(Enumerable.Empty<IObservable>());
