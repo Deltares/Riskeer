@@ -66,8 +66,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         {
             bool isScenarioInformationPresent = IsScenarioInformationTablePresent();
             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings =
-                isScenarioInformationPresent 
-                    ? GetConfigurationSettings() 
+                isScenarioInformationPresent
+                    ? GetConfigurationSettings()
                     : Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
 
             return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
@@ -167,20 +167,35 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Determines whether the table related to the scenario information is present in the database.
         /// </summary>
         /// <returns><c>true</c> if the table is present; <c>false</c> otherwise.</returns>
-        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file..</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         private bool IsScenarioInformationTablePresent()
         {
-            const string validationQuery = "SELECT COUNT() = 1 AS IsScenarioInformationPresent FROM sqlite_master WHERE type = 'table' AND name='ScenarioInformation'";
-            using (IDataReader dataReader = CreateDataReader(validationQuery))
-            {
-                if (dataReader.Read())
-                {
-                    return Convert.ToBoolean(dataReader["IsScenarioInformationPresent"]);
-                }
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery();
 
+            try
+            {
+                using (IDataReader dataReader = CreateDataReader(query))
+                {
+                    if (dataReader.Read())
+                    {
+                        return Convert.ToBoolean(dataReader[ScenarioInformationTableDefinitions.IsScenarioInformationPresent]);
+                    }
+
+                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                    throw new CriticalFileReadException(message);
+                }
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message, exception);
+            }
+            catch (InvalidCastException exception)
+            {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new CriticalFileReadException(message);
+                throw new LineParseException(message, exception);
             }
         }
 
@@ -193,7 +208,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> GetConfigurationSettingsFromDatabase()
         {
-            const string query = "SELECT * FROM ScenarioInformation";
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery();
             var readSettings = new List<ReadHydraulicLocationConfigurationDatabaseSettings>();
             using (IDataReader dataReader = CreateDataReader(query))
             {
@@ -211,22 +226,21 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <param name="reader">The <see cref="IDataReader"/> which is used to read the data.</param>
         /// <returns>The read <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the settings could not be read.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
         private ReadHydraulicLocationConfigurationDatabaseSettings ReadSetting(IDataReader reader)
         {
             try
             {
-                var scenarioName = reader.Read<string>("ScenarioName");
-                var year = reader.Read<int>("Year");
-                var scope = reader.Read<string>("Scope");
-                var seaLevel = reader.Read<string>("SeaLevel");
-                var riverDischarge = reader.Read<string>("RiverDischarge");
-                var lakeLevel = reader.Read<string>("LakeLevel");
-                var windDirection = reader.Read<string>("WindDirection");
-                var windSpeed = reader.Read<string>("WindSpeed");
-                var comment = reader.Read<string>("Comment");
+                var scenarioName = reader.Read<string>(ScenarioInformationTableDefinitions.ScenarioName);
+                var year = reader.Read<int>(ScenarioInformationTableDefinitions.Year);
+                var scope = reader.Read<string>(ScenarioInformationTableDefinitions.Scope);
+                var seaLevel = reader.Read<string>(ScenarioInformationTableDefinitions.SeaLevel);
+                var riverDischarge = reader.Read<string>(ScenarioInformationTableDefinitions.RiverDischarge);
+                var lakeLevel = reader.Read<string>(ScenarioInformationTableDefinitions.LakeLevel);
+                var windDirection = reader.Read<string>(ScenarioInformationTableDefinitions.WindDirection);
+                var windSpeed = reader.Read<string>(ScenarioInformationTableDefinitions.WindSpeed);
+                var comment = reader.Read<string>(ScenarioInformationTableDefinitions.Comment);
 
                 return new ReadHydraulicLocationConfigurationDatabaseSettings(scenarioName, year, scope,
                                                                               seaLevel, riverDischarge, lakeLevel,
@@ -236,11 +250,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
-            }
-            catch (ArgumentException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new CriticalFileReadException(message, e);
             }
         }
     }

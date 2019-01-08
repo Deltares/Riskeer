@@ -178,10 +178,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                 TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
         }
 

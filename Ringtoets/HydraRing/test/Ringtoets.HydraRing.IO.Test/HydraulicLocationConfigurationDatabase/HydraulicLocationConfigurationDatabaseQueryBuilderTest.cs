@@ -28,13 +28,38 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
     public class HydraulicLocationConfigurationDatabaseQueryBuilderTest
     {
         [Test]
-        public void GetLocationIdsByTrackIdQuery_Always_ReturnsExpectedValues()
+        public void GetLocationIdsByTrackIdQuery_Always_ReturnsExpectedValue()
         {
             // Call
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
 
             // Assert
             const string expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE TrackId = @TrackId ORDER BY HRDLocationId;";
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetIsScenarioInformationPresentQuery_Always_ReturnsExpectedValue()
+        {
+            // Call
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery();
+
+            // Assert
+            const string expectedQuery = "SELECT COUNT() = 1 AS IsScenarioInformationPresent " +
+                                         "FROM sqlite_master WHERE type = 'table' " +
+                                         "AND name='ScenarioInformation';";
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetScenarioInformationQuery_Always_ReturnsExpectedValue()
+        {
+            // Call
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetScenarioInformationQuery();
+
+            // Assert
+            const string expectedQuery = "SELECT ScenarioName, Year, Scope, SeaLevel, RiverDischarge, LakeLevel, WindDirection, WindSpeed, Comment " +
+                                         "FROM ScenarioInformation;";
             Assert.AreEqual(expectedQuery, query);
         }
     }
