@@ -113,7 +113,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
                 Assert.IsTrue(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
-                IEnumerable<ReadHydraulicLocationConfigurationDatabaseSetting> readHydraulicLocationConfigurationDatabaseSettings = 
+                IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings = 
                     readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
                 Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Count());
 

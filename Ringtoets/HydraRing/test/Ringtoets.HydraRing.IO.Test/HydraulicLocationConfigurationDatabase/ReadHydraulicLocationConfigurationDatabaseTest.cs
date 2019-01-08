@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             var random = new Random(21);
             bool isScenarioInformationPresent = random.NextBoolean();
             IEnumerable<ReadHydraulicLocationMapping> locationIdMappings = Enumerable.Empty<ReadHydraulicLocationMapping>();
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSetting> databaseSettings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSetting>();
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> databaseSettings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
 
             // Call
             var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIdMappings, isScenarioInformationPresent, databaseSettings);

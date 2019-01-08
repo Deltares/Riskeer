@@ -22,13 +22,13 @@
 namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Class for holding a configuration setting that are read from a hydraulic location
+    /// Class for holding configuration settings that are read from a hydraulic location
     /// configuration database file.
     /// </summary>
-    public class ReadHydraulicLocationConfigurationDatabaseSetting
+    public class ReadHydraulicLocationConfigurationDatabaseSettings
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabaseSetting"/>.
+        /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/>.
         /// </summary>
         /// <param name="scenarioName">The name of the scenario.</param>
         /// <param name="year">The year.</param>
@@ -39,9 +39,9 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="windSpeed">The wind speed.</param>
         /// <param name="comment">The comment.</param>
-        internal ReadHydraulicLocationConfigurationDatabaseSetting(string scenarioName, int year, string scope,
-                                                                   string seaLevel, string riverDischarge, string lakeLevel,
-                                                                   string windDirection, string windSpeed, string comment)
+        internal ReadHydraulicLocationConfigurationDatabaseSettings(string scenarioName, int year, string scope,
+                                                                    string seaLevel, string riverDischarge, string lakeLevel,
+                                                                    string windDirection, string windSpeed, string comment)
         {
             ScenarioName = scenarioName;
             Year = year;

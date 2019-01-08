@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
                                                                              .ToList(),
                                                                   false,
-                                                                  Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSetting>());
+                                                                  Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>());
         }
 
         /// <summary>
@@ -70,14 +70,14 @@ namespace Ringtoets.HydraRing.IO.TestUtil
                 2
             };
 
-            var setting = new ReadHydraulicLocationConfigurationDatabaseSetting("scenarioName", 1337, "scope", "seaLevel", 
-                                                                                "riverDischarge", "lakeLevel", "windDirection",
-                                                                                "windSpeed", "comment");
+            var setting = new ReadHydraulicLocationConfigurationDatabaseSettings("scenarioName", 1337, "scope", "seaLevel",
+                                                                                 "riverDischarge", "lakeLevel", "windDirection",
+                                                                                 "windSpeed", "comment");
 
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
                                                                              .ToList(),
                                                                   true,
-                                                                  new []
+                                                                  new[]
                                                                   {
                                                                       setting
                                                                   });
