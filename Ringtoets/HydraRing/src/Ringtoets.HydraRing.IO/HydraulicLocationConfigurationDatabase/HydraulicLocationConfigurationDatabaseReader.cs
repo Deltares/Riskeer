@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
         /// </summary>
         /// <param name="trackId">The hydraulic boundary track id.</param>
-        /// <returns>A dictionary with pairs of Hrd location id (key) and location id (value) as found in the database.</returns>
+        /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
@@ -100,14 +100,15 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Gets the location ids from the database, based upon <paramref name="trackParameter"/>.
         /// </summary>
         /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
-        /// <returns>A dictionary with pairs of Hrd location id (key) and location id (value) as found in the database.</returns>
+        /// <returns>A collection of <see cref="ReadHydraulicLocationMapping"/> as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
         private IEnumerable<ReadHydraulicLocationMapping> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
-            var mappings = new List<ReadHydraulicLocationMapping>();
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
+            var locationLookup = new Dictionary<long, long>();
+
             using (IDataReader dataReader = CreateDataReader(query, trackParameter))
             {
                 while (MoveNext(dataReader))
@@ -116,18 +117,18 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
                     long hlcdLocationId = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
 
                     // Must be unique
-                    if (mappings.Any(m => m.HrdLocationId == hrdLocationId))
+                    if (locationLookup.ContainsKey(hrdLocationId))
                     {
                         log.Warn(Resources.HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
                     }
                     else
                     {
-                        mappings.Add(new ReadHydraulicLocationMapping(hrdLocationId, hlcdLocationId));
+                        locationLookup[hrdLocationId] = hlcdLocationId;
                     }
                 }
             }
 
-            return mappings;
+            return locationLookup.Select(lookup => new ReadHydraulicLocationMapping(lookup.Key, lookup.Value)).ToArray();
         }
     }
 }

@@ -22,7 +22,7 @@
 namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Class for holding location mapping data that is read from a hydraulic location configuration database file.
+    /// Class for holding a mapping between the hydraulic boundary location id and hydraulic location configuration id.
     /// </summary>
     public class ReadHydraulicLocationMapping
     {
