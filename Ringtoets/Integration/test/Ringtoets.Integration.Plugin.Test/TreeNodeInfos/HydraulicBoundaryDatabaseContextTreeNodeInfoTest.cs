@@ -214,10 +214,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                     {
-                        const string expectedItemText = "&Koppel aan database...";
-                        const string expectedItemTooltip = "Koppel aan hydraulische belastingendatabase.";
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportHydraulicBoundaryDatabaseIndex,
-                                                                      expectedItemText, expectedItemTooltip,
+                                                                      "&Koppel aan database...",
+                                                                      "Koppel aan hydraulische belastingendatabase.",
                                                                       RingtoetsCommonFormsResources.DatabaseIcon);
                     }
                 }

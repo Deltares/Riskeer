@@ -833,8 +833,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 HydraulicBoundaryLocation actualLocation = actualLocations.ElementAt(i);
 
                 Assert.AreEqual(readHydraulicLocationConfigurationDatabase.LocationIdMappings
-                                                                          .Where(l => l.HrdLocationId == readLocation.Id)
-                                                                          .Select(l => l.HlcdLocationId).Single(), actualLocation.Id);
+                                                                          .Single(l => l.HrdLocationId == readLocation.Id)
+                                                                          .HlcdLocationId, actualLocation.Id);
                 Assert.AreEqual(readLocation.Name, actualLocation.Name);
                 Assert.AreEqual(readLocation.CoordinateX, actualLocation.Location.X);
                 Assert.AreEqual(readLocation.CoordinateY, actualLocation.Location.Y);

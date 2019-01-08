@@ -184,7 +184,8 @@ namespace Ringtoets.Integration.TestUtil
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <param name="filePath">The filePath to import from.</param>
-        /// <remarks>This will import 18 Hydraulic boundary locations.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
         public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection, string filePath)
         {
             if (assessmentSection == null)
