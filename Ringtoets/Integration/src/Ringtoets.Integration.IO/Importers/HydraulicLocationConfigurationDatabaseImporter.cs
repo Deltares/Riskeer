@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.IO.Handlers;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -31,6 +34,8 @@ namespace Ringtoets.Integration.IO.Importers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
     {
+        private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
         /// </summary>
@@ -54,16 +59,31 @@ namespace Ringtoets.Integration.IO.Importers
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
+
+            this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
         }
 
         protected override bool OnImport()
         {
-            throw new NotImplementedException();
+            if (Path.GetDirectoryName(FilePath) != Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath))
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD));
+                return false;
+            }
+
+            return true;
         }
 
         protected override void LogImportCanceledMessage()
         {
             throw new NotImplementedException();
+        }
+
+        private static string BuildErrorMessage(string filePath, string message)
+        {
+            return new FileReaderErrorMessageBuilder(filePath).Build(
+                string.Format(Resources.HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicLocationConfigurationDatabase_imported,
+                              message));
         }
     }
 }

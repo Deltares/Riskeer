@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
@@ -32,6 +34,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseImporterTest
     {
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
+                                                                                 nameof(HydraulicLocationConfigurationDatabaseImporter));
+
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
@@ -75,6 +80,43 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Assert
             Assert.IsInstanceOf<FileImporterBase<HydraulicLocationConfigurationSettings>>(importer);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_FilePathIsDifferentFromHydraulicBoundaryDatabasesFilePath_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
+                                                                                           nameof(HydraulicBoundaryDatabaseImporter)), "complete.sqlite");
+            string path = Path.Combine(testDataPath, "hlcd.sqlite");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = hydraulicBoundaryDatabasePath
+            };
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler, hydraulicBoundaryDatabase, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)
+        {
+            string expectedMessage = $"{errorMessage}" +
+                                     $"{Environment.NewLine}Er is geen HLCD geïmporteerd.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(importSuccessful);
         }
     }
 }

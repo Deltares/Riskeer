@@ -178,4 +178,11 @@ Er is geen hydraulische belastingen database gekoppeld.</value>
   <data name="HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
     <value>De tabel 'ScenarioInformation' in het HLCD bestand moet exact 1 rij bevatten.</value>
   </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicLocationConfigurationDatabase_imported" xml:space="preserve">
+    <value>{0}
+Er is geen HLCD geïmporteerd.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD" xml:space="preserve">
+    <value>Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
+  </data>
 </root>
