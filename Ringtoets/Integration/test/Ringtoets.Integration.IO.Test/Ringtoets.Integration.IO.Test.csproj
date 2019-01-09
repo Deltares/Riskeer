@@ -90,6 +90,7 @@
     <Compile Include="Helpers\ExportableFailureMechanismSectionHelperTest.cs" />
     <Compile Include="Helpers\IdentifierGeneratorTest.cs" />
     <Compile Include="Importers\HydraulicBoundaryDatabaseImporterTest.cs" />
+    <Compile Include="Importers\HydraulicLocationConfigurationDatabaseImporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
