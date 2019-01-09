@@ -335,8 +335,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Same(validFilePath),
-                                         Arg<string>.Is.Same(hlcdFilePath)))
+                                         Arg<string>.Is.Equal(validFilePath),
+                                         Arg<string>.Is.Equal(hlcdFilePath)))
                    .WhenCalled(invocation =>
                    {
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
@@ -369,7 +369,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         {
             // Setup
             string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
-            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "hlcd.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
@@ -391,8 +391,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Same(hydraulicBoundaryDatabaseFilePath),
-                                         Arg<string>.Is.Same(hlcdFilePath)))
+                                         Arg<string>.Is.Equal(hydraulicBoundaryDatabaseFilePath),
+                                         Arg<string>.Is.Equal(hlcdFilePath)))
                    .WhenCalled(invocation =>
                    {
                        AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
