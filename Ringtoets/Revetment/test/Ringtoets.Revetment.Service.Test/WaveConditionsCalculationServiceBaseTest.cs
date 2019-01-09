@@ -966,12 +966,15 @@ namespace Ringtoets.Revetment.Service.Test
 
         private static HydraulicBoundaryDatabase GetValidHydraulicBoundaryDatabase()
         {
-            return new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validHydraulicBoundaryDatabaseFilePath,
                 CanUsePreprocessor = true,
                 PreprocessorDirectory = validPreprocessorDirectory
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            return hydraulicBoundaryDatabase;
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm,
@@ -1000,24 +1003,31 @@ namespace Ringtoets.Revetment.Service.Test
 
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryDatabaseConfigurations()
         {
-            string expectedHlcdDirectory = Path.Combine(testDataPath, "HLCD.sqlite");
-            yield return new TestCaseData(new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabaseUsePreprocessorTrue = new HydraulicBoundaryDatabase
             {
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 FilePath = validHydraulicBoundaryDatabaseFilePath,
                 PreprocessorDirectory = validPreprocessorDirectory
-            }).SetName("UsePreprocessorTrue");
-            yield return new TestCaseData(new HydraulicBoundaryDatabase
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorTrue);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorTrue).SetName("UsePreprocessorTrue");
+
+            var hydraulicBoundaryDatabaseUsePreprocessorFalse = new HydraulicBoundaryDatabase
             {
                 CanUsePreprocessor = true,
                 FilePath = validHydraulicBoundaryDatabaseFilePath,
                 PreprocessorDirectory = validPreprocessorDirectory
-            }).SetName("UsePreprocessorFalse");
-            yield return new TestCaseData(new HydraulicBoundaryDatabase
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorFalse);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorFalse).SetName("UsePreprocessorFalse");
+
+            var hydraulicBoundaryDatabaseCanUsePreprocessorFalse = new HydraulicBoundaryDatabase
             {
                 FilePath = validHydraulicBoundaryDatabaseFilePath
-            }).SetName("CanUsePreprocessorFalse");
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseCanUsePreprocessorFalse);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseCanUsePreprocessorFalse).SetName("CanUsePreprocessorFalse");
         }
 
         private class TestWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
