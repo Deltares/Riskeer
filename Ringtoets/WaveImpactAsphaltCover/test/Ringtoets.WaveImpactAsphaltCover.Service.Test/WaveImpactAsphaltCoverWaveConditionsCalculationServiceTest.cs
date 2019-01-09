@@ -727,7 +727,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     }
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

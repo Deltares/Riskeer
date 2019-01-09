@@ -294,13 +294,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
         private static AssessmentSectionStub CreateAssessmentSection()
         {
-            return new AssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            return assessmentSection;
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
