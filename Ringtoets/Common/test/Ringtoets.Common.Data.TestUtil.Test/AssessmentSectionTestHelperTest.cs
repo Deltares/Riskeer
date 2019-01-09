@@ -89,6 +89,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
             Assert.IsNotNull(assessmentSection.ReferenceLine);
 
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.IsNull(settings.FilePath);
+            Assert.IsNull(settings.ScenarioName);
+            Assert.AreEqual(0, settings.Year);
+            Assert.IsNull(settings.Scope);
+            Assert.IsNull(settings.SeaLevel);
+            Assert.IsNull(settings.RiverDischarge);
+            Assert.IsNull(settings.LakeLevel);
+            Assert.IsNull(settings.WindDirection);
+            Assert.IsNull(settings.WindSpeed);
+            Assert.IsNull(settings.Comment);
+
             CollectionAssert.AreEqual(new[]
             {
                 failureMechanism
@@ -131,6 +143,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
             Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
             Assert.IsNotNull(assessmentSection.ReferenceLine);
+
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual("some\\Path\\ToHlcd", settings.FilePath);
+            Assert.AreEqual("ScenarioName", settings.ScenarioName);
+            Assert.AreEqual(1337, settings.Year);
+            Assert.AreEqual("Scope", settings.Scope);
+            Assert.AreEqual("SeaLevel", settings.SeaLevel);
+            Assert.AreEqual("RiverDischarge", settings.RiverDischarge);
+            Assert.AreEqual("LakeLevel", settings.LakeLevel);
+            Assert.AreEqual("WindDirection", settings.WindDirection);
+            Assert.AreEqual("WindSpeed", settings.WindSpeed);
+            Assert.AreEqual("Comment", settings.Comment);
 
             CollectionAssert.AreEqual(new[]
             {
