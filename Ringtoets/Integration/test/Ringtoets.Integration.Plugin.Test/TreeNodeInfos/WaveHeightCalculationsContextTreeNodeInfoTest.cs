@@ -371,7 +371,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = validFilePath
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -452,7 +453,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     PreprocessorDirectory = preprocessorDirectory
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -532,7 +534,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     PreprocessorDirectory = "InvalidPreprocessorDirectory"
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -611,7 +614,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 },
                 Id = string.Empty
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             const string categoryBoundaryName = "A";
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));

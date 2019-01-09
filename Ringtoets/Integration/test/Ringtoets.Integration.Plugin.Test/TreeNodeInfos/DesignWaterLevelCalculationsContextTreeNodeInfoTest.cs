@@ -371,6 +371,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
@@ -451,7 +452,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     PreprocessorDirectory = preprocessorDirectory
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -531,7 +533,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     PreprocessorDirectory = "InvalidPreprocessorDirectory"
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -609,6 +612,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = validFilePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             const string categoryBoundaryName = "A";
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));

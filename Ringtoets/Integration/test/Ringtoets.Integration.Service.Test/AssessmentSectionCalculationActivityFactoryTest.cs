@@ -285,13 +285,16 @@ namespace Ringtoets.Integration.Service.Test
 
         private static AssessmentSection CreateAssessmentSection()
         {
-            return new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            return assessmentSection;
         }
 
         private static void AddGrassCoverErosionInwardsCalculation(AssessmentSection assessmentSection,

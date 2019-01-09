@@ -358,7 +358,8 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             return assessmentSection;
         }
 

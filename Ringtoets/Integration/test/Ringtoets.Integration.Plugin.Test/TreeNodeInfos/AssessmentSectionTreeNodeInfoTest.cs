@@ -511,7 +511,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = hydraulicBoundaryDatabaseFilePath
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {

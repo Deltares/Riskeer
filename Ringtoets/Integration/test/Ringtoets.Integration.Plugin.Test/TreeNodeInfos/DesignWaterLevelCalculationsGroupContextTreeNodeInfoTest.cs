@@ -301,7 +301,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {

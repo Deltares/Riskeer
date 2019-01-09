@@ -435,7 +435,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = validFilePath
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
