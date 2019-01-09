@@ -467,7 +467,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
                                            .WhenCalled(invocation =>
                                            {
-                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]);
+                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, invocation.Arguments[0]);
                                            });
             mocks.ReplayAll();
 
@@ -519,7 +519,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             duneLocationsReplacementHandler.Expect(h => h.Replace(Arg<IEnumerable<HydraulicBoundaryLocation>>.Is.NotNull))
                                            .WhenCalled(invocation =>
                                            {
-                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]);
+                                               Assert.AreSame(hydraulicBoundaryDatabase.Locations, invocation.Arguments[0]);
                                            });
             mocks.ReplayAll();
 
