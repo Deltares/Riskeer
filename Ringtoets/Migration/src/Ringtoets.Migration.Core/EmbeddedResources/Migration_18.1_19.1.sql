@@ -1,7 +1,7 @@
  /*
 Migration script for migrating Ringtoets databases.
-SourceProject version: 17.3
-TargetProject version: 18.1
+SourceProject version: 18.1
+TargetProject version: 19.1
 */
 PRAGMA foreign_keys = OFF;
 
@@ -94,7 +94,52 @@ INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCa
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
-INSERT INTO PipingSoilLayerEntity SELECT * FROM [SOURCEPROJECT].PipingSoilLayerEntity;
+INSERT INTO PipingSoilLayerEntity(
+	[PipingSoilLayerEntityId],
+	[PipingSoilProfileEntityId],
+	[Top],
+	[IsAquifer], 
+	[Color], 
+	[MaterialName],
+	[BelowPhreaticLevelMean] ,
+	[BelowPhreaticLevelDeviation],
+	[BelowPhreaticLevelShift],
+	[DiameterD70Mean],
+	[DiameterD70CoefficientOfVariation],
+	[PermeabilityMean],
+	[PermeabilityCoefficientOfVariation],
+	[Order])
+SELECT 
+	[PipingSoilLayerEntityId],
+	[PipingSoilProfileEntityId],
+	[Top],
+	[IsAquifer], 
+	[Color], 
+	[MaterialName],
+	CASE
+		WHEN [BelowPhreaticLevelMean] < 0.005
+			THEN NULL
+		ELSE
+			[BelowPhreaticLevelMean]
+	END,
+	[BelowPhreaticLevelDeviation],
+	[BelowPhreaticLevelShift],
+	CASE
+		WHEN [DiameterD70Mean] <= 0.0000005
+			THEN NULL
+		ELSE
+			[DiameterD70Mean]
+	END,
+	[DiameterD70CoefficientOfVariation],
+	CASE
+		WHEN [PermeabilityMean] <= 0.0000005
+			THEN NULL
+		ELSE
+			[PermeabilityMean]
+	END,
+	[PermeabilityCoefficientOfVariation],
+	[Order]
+FROM [SOURCEPROJECT].PipingSoilLayerEntity;
 INSERT INTO PipingSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingSoilProfileEntity;
 INSERT INTO PipingStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingStochasticSoilProfileEntity;
 INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingStructureFailureMechanismMetaEntity;
@@ -125,7 +170,7 @@ INSERT INTO VersionEntity (
 	[Timestamp],
 	[FingerPrint])
 SELECT [VersionId],
-	"18.2",
+	"19.1",
 	[Timestamp],
 	[FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
@@ -147,6 +192,49 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
 	'LogMessage' TEXT NOT NULL
 );
 
+CREATE TEMP TABLE TempFailureMechanisms
+(
+	'FailureMechanismType' INTEGER NOT NULL,
+	'FailureMechanismName' VARCHAR(255) NOT NULL
+);
+
+INSERT INTO TempFailureMechanisms VALUES (1, 'Piping');
+INSERT INTO TempFailureMechanisms VALUES (2, 'Macrostabiliteit binnenwaarts');
+INSERT INTO TempFailureMechanisms VALUES (3, 'Golfklappen op asfaltbekleding');
+INSERT INTO TempFailureMechanisms VALUES (4, 'Grasbekleding erosie buitentalud');
+INSERT INTO TempFailureMechanisms VALUES (5, 'Grasbekleding afschuiven buitentalud');
+INSERT INTO TempFailureMechanisms VALUES (6, 'Grasbekleding erosie kruin en binnentalud');
+INSERT INTO TempFailureMechanisms VALUES (7, 'Stabiliteit steenzetting');
+INSERT INTO TempFailureMechanisms VALUES (8, 'Duinafslag');
+INSERT INTO TempFailureMechanisms VALUES (9, 'Hoogte kunstwerk');
+INSERT INTO TempFailureMechanisms VALUES (10, 'Betrouwbaarheid sluiting kunstwerk');
+INSERT INTO TempFailureMechanisms VALUES (11, 'Piping bij kunstwerk');
+INSERT INTO TempFailureMechanisms VALUES (12, 'Sterkte en stabiliteit puntconstructies');
+INSERT INTO TempFailureMechanisms VALUES (13, 'Macrostabiliteit buitenwaarts');
+INSERT INTO TempFailureMechanisms VALUES (14, 'Microstabiliteit');
+INSERT INTO TempFailureMechanisms VALUES (15, 'Wateroverdruk bij asfaltbekleding');
+INSERT INTO TempFailureMechanisms VALUES (16, 'Grasbekleding afschuiven binnentalud');
+INSERT INTO TempFailureMechanisms VALUES (17, 'Sterkte en stabiliteit langsconstructies');
+INSERT INTO TempFailureMechanisms VALUES (18, 'Technische innovaties');
+
+CREATE TEMP TABLE TempAssessmentSectionFailureMechanism
+(
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	[FailureMechanismId],
+	[FailureMechanismName]
+);
+
+INSERT INTO TempAssessmentSectionFailureMechanism
+SELECT
+	[AssessmentSectionEntityId],
+	[Name],
+	[FailureMechanismEntityId],
+	[FailureMechanismName]
+FROM AssessmentSectionEntity
+JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
+JOIN TempFailureMechanisms USING (FailureMechanismType);
+
 CREATE TEMP TABLE TempAssessmentSectionChanges
 (
 	[AssessmentSectionId],
@@ -157,31 +245,117 @@ CREATE TEMP TABLE TempAssessmentSectionChanges
 
 INSERT INTO TempAssessmentSectionChanges
 SELECT
-	ase.[AssessmentSectionEntityId],
-	ase.[Name],
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
 	0,
 	"De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."
 FROM AssessmentSectionEntity AS ase
 JOIN BackgroundDataEntity AS bd USING(AssessmentSectionEntityId)
 JOIN [SOURCEPROJECT].BackgroundDataEntity AS source USING(BackgroundDataEntityId)
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[AssessmentSectionId] = ase.AssessmentSectionEntityId
 WHERE source.[Transparency] != bd.Transparency;
+
+CREATE TEMP TABLE TempChanges
+(
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	[FailureMechanismId],
+	[FailureMechanismName],
+	[msg]
+);
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde '" || source.[BelowPhreaticLevelMean] ||  "' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	FROM PipingSoilLayerEntity as psl
+	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
+	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
+	WHERE source.[BelowPhreaticLevelMean] IS NOT psl.[BelowPhreaticLevelMean];
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde '" || source.[DiameterD70Mean] ||  "' voor het gemiddelde van parameter 'd70' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	FROM PipingSoilLayerEntity as psl
+	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
+	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
+	WHERE source.[DiameterD70Mean] IS NOT psl.[DiameterD70Mean];
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde '" || source.[PermeabilityMean] ||  "' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	FROM PipingSoilLayerEntity as psl
+	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
+	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
+	WHERE source.[PermeabilityMean] IS NOT psl.[PermeabilityMean];
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-VALUES ("18.1", "18.2", "Gevolgen van de migratie van versie 18.1 naar versie 18.2:");
+VALUES ("18.1", "19.1", "Gevolgen van de migratie van versie 18.1 naar versie 19.1:");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
 WITH RECURSIVE
+FailureMechanismMessages
+(
+	[FailureMechanismId],
+	[FailureMechanismName],
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	[msg], 
+	[level]
+) AS (
+SELECT DISTINCT 
+	[FailureMechanismId],
+	[FailureMechanismName],
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	NULL,
+	1
+	FROM TempChanges
+	UNION
+SELECT
+	[FailureMechanismId],
+	NULL,
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	[msg],
+	2
+	FROM TempChanges
+	WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
+	ORDER BY [FailureMechanismId], [AssessmentSectionId]
+),
 AssessmentSectionFailureMechanismMessages
 (
 	[AssessmentSectionId],
 	[AssessmentSectionName],
 	[IsAssessmentSectionHeader],
+	[FailureMechanismId],
+	[FailureMechanismName],
 	[msg],
 	[level],
 	[Order]
@@ -191,6 +365,8 @@ AssessmentSectionFailureMechanismMessages
 	[AssessmentSectionName],
 	1,
 	NULL,
+	NULL,
+	NULL,
 	1,
 	0
 	FROM
@@ -199,6 +375,12 @@ AssessmentSectionFailureMechanismMessages
 			[AssessmentSectionId],
 			[AssessmentSectionName]
 			FROM TempAssessmentSectionChanges
+		UNION
+		SELECT 
+			[AssessmentSectionId],
+			[AssessmentSectionName]
+			FROM FailureMechanismMessages
+		WHERE [AssessmentSectionId] IS NOT NULL
 	)
 
 	UNION
@@ -211,15 +393,32 @@ AssessmentSectionFailureMechanismMessages
 			[AssessmentSectionId],
 			[AssessmentSectionName],
 			0 AS [IsAssessmentSectionHeader],
+			NULL AS [FailureMechanismId],
+			NULL,
 			[msg],
 			1 AS [level],
 			[Order]
 			FROM TempAssessmentSectionChanges
-	) ORDER BY [AssessmentSectionId], [level], [IsAssessmentSectionHeader] DESC, [Order]
+
+		UNION
+
+		SELECT
+			[AssessmentSectionId],
+			NULL,
+			0 AS [IsAssessmentSectionHeader],
+			fmm.[FailureMechanismId] AS [FailureMechanismId],
+			fmm.[FailureMechanismName],
+			[msg],
+			fmm.[level] AS [level],
+			1 AS [Order]
+			FROM FailureMechanismMessages AS fmm
+			WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
+
+	) ORDER BY [AssessmentSectionId], [FailureMechanismId], [level], [IsAssessmentSectionHeader] DESC, [Order]
 )
 SELECT 
 	"18.1",
-	"18.2",
+	"19.1",
 	CASE 
 		WHEN [AssessmentSectionName] IS NOT NULL
 			THEN 
@@ -228,17 +427,27 @@ SELECT
 				ELSE
 					"  + " || [msg]
 				END	
+		ELSE
+			CASE
+				WHEN [FailureMechanismName] IS NOT NULL
+					THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'"
+				ELSE
+				"    - " || [msg]
+			END
 	END
 FROM AssessmentSectionFailureMechanismMessages;
 
+DROP TABLE TempFailureMechanisms;
+DROP TABLE TempAssessmentSectionFailureMechanism;
 DROP TABLE TempAssessmentSectionChanges;
+DROP TABLE TempChanges;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 
 	[LogMessage])
 SELECT "18.1",
-	"18.2", 
+	"19.1", 
 	"* Geen aanpassingen."
 	WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity

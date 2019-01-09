@@ -152,7 +152,7 @@ namespace Ringtoets.Migration.Integration.Test
             yield return new FileToMigrate("Empty valid Release 17.1.rtd", "17.2");
             yield return new FileToMigrate("Empty valid Release 17.2.rtd", "17.3");
             yield return new FileToMigrate("Empty valid Release 17.3.rtd", "18.1");
-            yield return new FileToMigrate("Empty valid Release 18.1.rtd", "18.2");
+            yield return new FileToMigrate("Empty valid Release 18.1.rtd", "19.1");
         }
 
         private class FileToMigrate

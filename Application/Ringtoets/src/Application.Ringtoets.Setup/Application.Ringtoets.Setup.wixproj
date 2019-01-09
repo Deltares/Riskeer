@@ -10,7 +10,7 @@
 		Custom Field: ReleaseVersion
 		Field is injected into WiX with the same name to make it available there as well.
 	-->
-    <ReleaseVersion>18.2.1.1</ReleaseVersion>
+    <ReleaseVersion>19.1.1.1</ReleaseVersion>
     <!--
 		Environment Variable: BUILD_NUMBER
 		Field could be set by BuildServer. If not present, it will be skipped.
