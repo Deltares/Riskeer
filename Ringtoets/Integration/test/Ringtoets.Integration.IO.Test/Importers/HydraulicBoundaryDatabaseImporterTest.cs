@@ -621,8 +621,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         {
             string expectedMessage = $"{errorMessage}" +
                                      $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage,
-                                                                                                      LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importSuccessful);
         }
 
