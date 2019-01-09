@@ -46,19 +46,22 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         public void CreateSettings_WithHydraulicBoundaryDatabaseWithFilePath_ReturnsExpectedSettings()
         {
             // Setup
-            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            const string hydraulicBoundaryDatabaseFilePath = "some//FilePath//HRD dutch coast south.sqlite";
+            const string hlcdFilePath = "some//FilePath//HLCD dutch coast south.sqlite";
+
             var database = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = hydraulicBoundaryDatabaseFilePath
             };
+            database.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath, string.Empty, 10, string.Empty,
+                                                                      null, null, null, null, null, null);
 
             // Call
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(database);
 
             // Assert
-            Assert.AreEqual(validFilePath, settings.HydraulicBoundaryDatabaseFilePath);
-            Assert.AreEqual(Path.Combine(testDataPath, "HLCD.sqlite"), settings.HlcdFilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
+            Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
         }
 
         [Test]
