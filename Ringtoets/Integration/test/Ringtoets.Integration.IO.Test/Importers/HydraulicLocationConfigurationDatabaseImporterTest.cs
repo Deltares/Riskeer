@@ -36,11 +36,28 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), null, "");
+            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), null,
+                                                                                         new HydraulicBoundaryDatabase(), "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("updateHandler", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler, null, "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
         [Test]
@@ -52,7 +69,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             // Call
-            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler, "");
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+                                                                              new HydraulicBoundaryDatabase(), "");
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<HydraulicLocationConfigurationSettings>>(importer);
