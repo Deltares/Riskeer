@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -181,6 +182,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             {
                 FilePath = validFilePath
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -217,6 +219,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 UsePreprocessor = true,
                 PreprocessorDirectory = validPreprocessorDirectory
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             const string categoryBoundaryName = "A";
             const string duneLocationName = "duneLocationName";

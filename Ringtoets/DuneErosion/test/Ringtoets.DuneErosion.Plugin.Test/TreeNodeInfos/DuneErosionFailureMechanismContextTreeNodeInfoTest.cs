@@ -501,6 +501,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
