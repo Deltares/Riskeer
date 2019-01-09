@@ -37,8 +37,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// configuration database.</param>
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The hydraulic location configuration settings
         /// of the read hydraulic location database.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationIdMappings"/>
-        /// ic <c>null</c>.</exception>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
                                                             bool isScenarioInformationPresent,
                                                             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings)

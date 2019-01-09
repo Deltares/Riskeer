@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to de tabel &apos;ScenarioInformation&apos; in de HLCD moet exact 1 rij bevatten..
+        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand moet exact 1 rij bevatten..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries {
             get {

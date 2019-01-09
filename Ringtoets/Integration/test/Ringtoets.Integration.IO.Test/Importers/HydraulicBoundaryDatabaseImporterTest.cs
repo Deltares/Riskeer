@@ -252,10 +252,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': de tabel 'ScenarioInformation' in de HLCD moet exact 1 rij bevatten."
-                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
+            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': de tabel 'ScenarioInformation' in het HLCD bestand moet exact 1 rij bevatten.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
 

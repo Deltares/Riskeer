@@ -176,6 +176,6 @@ Er is geen hydraulische belastingen database gekoppeld.</value>
     <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
-    <value>de tabel 'ScenarioInformation' in de HLCD moet exact 1 rij bevatten.</value>
+    <value>De tabel 'ScenarioInformation' in het HLCD bestand moet exact 1 rij bevatten.</value>
   </data>
 </root>
