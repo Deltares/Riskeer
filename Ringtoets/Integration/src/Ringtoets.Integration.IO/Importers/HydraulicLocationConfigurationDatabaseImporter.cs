@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.IO;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Integration.IO.Handlers;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -34,10 +35,19 @@ namespace Ringtoets.Integration.IO.Importers
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
         /// </summary>
         /// <param name="importTarget">The hydraulic location configuration settings to import to.</param>
+        /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget, string filePath)
-            : base(filePath, importTarget) {}
+        public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget,
+                                                              IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
+                                                              string filePath)
+            : base(filePath, importTarget)
+        {
+            if (updateHandler == null)
+            {
+                throw new ArgumentNullException(nameof(updateHandler));
+            }
+        }
 
         protected override bool OnImport()
         {
