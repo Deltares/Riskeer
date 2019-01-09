@@ -125,6 +125,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -157,6 +158,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -184,6 +186,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -229,6 +232,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mockRepository.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -324,6 +328,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -356,6 +361,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -383,6 +389,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -428,6 +435,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mockRepository.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {

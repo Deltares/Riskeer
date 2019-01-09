@@ -25,6 +25,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -82,29 +83,35 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            yield return new TestCaseData(new HydraulicBoundaryDatabase
-                                          {
-                                              FilePath = validFilePath
-                                          },
+            var hydraulicBoundaryDatabaseCanUsePreprocessorFalse = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseCanUsePreprocessorFalse);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseCanUsePreprocessorFalse,
                                           string.Empty)
-                .SetName("UsePreprocessorFalse");
+                .SetName("CanUsePreprocessorFalse");
 
-            yield return new TestCaseData(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath,
-                    CanUsePreprocessor = true,
-                    PreprocessorDirectory = "Directory"
-                }, string.Empty)
+            var hydraulicBoundaryDatabaseUsePreprocessorFalse = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                PreprocessorDirectory = "Directory"
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorFalse);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorFalse, string.Empty)
                 .SetName("UsePreprocessorFalseWithPreprocessorDirectory");
 
             const string preprocessorDirectory = "Directory";
-            yield return new TestCaseData(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath,
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = preprocessorDirectory
-                }, preprocessorDirectory)
+            var hydraulicBoundaryDatabaseUsePreprocessorTrue = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = preprocessorDirectory
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorTrue);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorTrue, preprocessorDirectory)
                 .SetName("UsePreprocessorTrueWithPreprocessorDirectory");
         }
     }
