@@ -19,12 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.IO;
+using Ringtoets.Common.Data.Hydraulics;
+
 namespace Ringtoets.Integration.IO.Importers
 {
     /// <summary>
     /// Importer for hydraulic location configuration database files.
     /// </summary>
-    public class HydraulicLocationConfigurationDatabaseImporter
+    public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
+        /// </summary>
+        /// <param name="importTarget">The hydraulic location configuration settings to import to.</param>
+        /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget, string filePath)
+            : base(filePath, importTarget) {}
+
+        protected override bool OnImport()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void LogImportCanceledMessage()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

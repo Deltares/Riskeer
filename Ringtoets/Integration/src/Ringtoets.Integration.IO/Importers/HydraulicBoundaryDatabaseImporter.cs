@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.IO.Importers
         private readonly IHydraulicBoundaryDatabaseUpdateHandler updateHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporter"/>.
         /// </summary>
         /// <param name="importTarget">The hydraulic boundary database to import to.</param>
         /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicBoundaryDatabase"/>.</param>
