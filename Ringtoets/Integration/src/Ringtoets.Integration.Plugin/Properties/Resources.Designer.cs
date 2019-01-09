@@ -352,6 +352,26 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WBI2017.
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_mandatory_properties {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_" +
+                        "default_value_for_mandatory_properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conform WBI2017.
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_" +
+                        "default_value_for_optional_properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
         ///
         ///Wilt u doorgaan?.

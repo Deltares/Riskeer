@@ -171,14 +171,14 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         private static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
                                                                       ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                                                      string filePath)
+                                                                      string hlcdFilePath)
         {
             if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent)
             {
                 ReadHydraulicLocationConfigurationDatabaseSettings readSettings =
                     readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
                                                               .Single();
-                hydraulicLocationConfigurationSettings.SetValues(filePath,
+                hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
                                                                  readSettings.ScenarioName,
                                                                  readSettings.Year,
                                                                  readSettings.Scope,
@@ -191,16 +191,16 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
             else
             {
-                hydraulicLocationConfigurationSettings.SetValues(filePath,
-                                                                 "WBI2017",
+                hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_mandatory_properties,
                                                                  2023,
-                                                                 "WBI2017",
-                                                                 "Conform WBI2017",
-                                                                 "Conform WBI2017",
-                                                                 "Conform WBI2017",
-                                                                 "Conform WBI2017",
-                                                                 "Conform WBI2017",
-                                                                 "Conform WBI2017");
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_mandatory_properties,
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
+                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties);
             }
         }
 
