@@ -7,7 +7,47 @@ PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
-INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
+INSERT INTO AssessmentSectionEntity (
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[HydraulicLocationCalculationCollectionEntity1Id],
+	[HydraulicLocationCalculationCollectionEntity2Id],
+	[HydraulicLocationCalculationCollectionEntity3Id],
+	[HydraulicLocationCalculationCollectionEntity4Id],
+	[HydraulicLocationCalculationCollectionEntity5Id],
+	[HydraulicLocationCalculationCollectionEntity6Id],
+	[HydraulicLocationCalculationCollectionEntity7Id],
+	[HydraulicLocationCalculationCollectionEntity8Id],
+	[Id],
+	[Name],
+	[Comments],
+	[LowerLimitNorm],
+	[SignalingNorm],
+	[NormativeNormType],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order])
+SELECT 
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[HydraulicLocationCalculationCollectionEntity1Id],
+	[HydraulicLocationCalculationCollectionEntity2Id],
+	[HydraulicLocationCalculationCollectionEntity3Id],
+	[HydraulicLocationCalculationCollectionEntity4Id],
+	[HydraulicLocationCalculationCollectionEntity5Id],
+	[HydraulicLocationCalculationCollectionEntity6Id],
+	[HydraulicLocationCalculationCollectionEntity7Id],
+	[HydraulicLocationCalculationCollectionEntity8Id],
+	[Id],
+	[Name],
+	[Comments],
+	[LowerLimitNorm],
+	[SignalingNorm],
+	[NormativeNormType],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order]
+FROM SOURCEPROJECT.AssessmentSectionEntity;
 INSERT INTO BackgroundDataEntity (
 	[BackgroundDataEntityId],
 	[AssessmentSectionEntityId],
@@ -178,6 +218,42 @@ INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOUR
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+
+/*
+Insert new data
+*/
+
+-- Directory retrieval was taken from https://stackoverflow.com/questions/21388820/how-to-get-the-last-index-of-a-substring-in-sqlite
+INSERT INTO HydraulicBoundaryDatabaseEntity (
+	[AssessmentSectionEntityId],
+	[HydraulicBoundaryDatabaseVersion],
+	[HydraulicBoundaryDatabaseFilePath],
+	[HydraulicLocationConfigurationSettingsFilePath],
+	[HydraulicLocationConfigurationSettingsScenarioName],
+	[HydraulicLocationConfigurationSettingsYear],
+	[HydraulicLocationConfigurationSettingsScope],
+	[HydraulicLocationConfigurationSettingsSeaLevel],
+	[HydraulicLocationConfigurationSettingsRiverDischarge],
+	[HydraulicLocationConfigurationSettingsLakeLevel],
+	[HydraulicLocationConfigurationSettingsWindDirection],
+	[HydraulicLocationConfigurationSettingsWindSpeed],
+	[HydraulicLocationConfigurationSettingsComment])
+SELECT 
+	[AssessmentSectionEntityId],
+	[HydraulicDatabaseVersion],
+	[HydraulicDatabaseLocation],
+	rtrim([HydraulicDatabaseLocation], replace([HydraulicDatabaseLocation], '\', '')) || 'hlcd.sqlite', 
+	"",
+	0,
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	""
+FROM SOURCEPROJECT.AssessmentSectionEntity
+WHERE [HydraulicDatabaseLocation] IS NOT NULL;
 
 /* 
 Write migration logging

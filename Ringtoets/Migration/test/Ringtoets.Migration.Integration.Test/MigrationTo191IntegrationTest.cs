@@ -60,6 +60,7 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
+                    AssertAssessmentSection(reader,sourceFilePath);
                     AssertBackgroundData(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
@@ -67,6 +68,59 @@ namespace Ringtoets.Migration.Integration.Test
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateAssessmentSection =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM SOURCEPROJECT.AssessmentSectionEntity) " +
+                "FROM AssessmentSectionEntity NEW " +
+                "JOIN SOURCEPROJECT.AssessmentSectionEntity OLD USING(AssessmentSectionEntityId) " +
+                "WHERE NEW.[ProjectEntityId] = OLD.[ProjectEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity1Id] = OLD.[HydraulicLocationCalculationCollectionEntity1Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity2Id] = OLD.[HydraulicLocationCalculationCollectionEntity2Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity3Id] = OLD.[HydraulicLocationCalculationCollectionEntity3Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity4Id] = OLD.[HydraulicLocationCalculationCollectionEntity4Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity5Id] = OLD.[HydraulicLocationCalculationCollectionEntity5Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity6Id] = OLD.[HydraulicLocationCalculationCollectionEntity6Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity7Id] = OLD.[HydraulicLocationCalculationCollectionEntity7Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity8Id] = OLD.[HydraulicLocationCalculationCollectionEntity8Id] " +
+                "AND NEW.[Id] IS OLD.[Id] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[LowerLimitNorm] = OLD.[LowerLimitNorm] " +
+                "AND NEW.[SignalingNorm] = OLD.[SignalingNorm] " +
+                "AND NEW.[NormativeNormType] = OLD.[NormativeNormType] " +
+                "AND NEW.[Composition] = OLD.[Composition] " +
+                "AND NEW.[ReferenceLinePointXml] IS OLD.[ReferenceLinePointXml] " +
+                "AND NEW.\"Order\" =  OLD.\"Order\"; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateAssessmentSection);
+
+            string validateHydraulicDatabase =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.AssessmentSectionEntity " +
+                "WHERE HydraulicDatabaseLocation IS NOT NULL " +
+                ") " +
+                "FROM HydraulicBoundaryDatabaseEntity NEW " +
+                "JOIN SOURCEPROJECT.AssessmentSectionEntity OLD USING(AssessmentSectionEntityId) " +
+                "WHERE NEW.[HydraulicBoundaryDatabaseVersion] = OLD.[HydraulicDatabaseVersion] " +
+                "AND NEW.[HydraulicBoundaryDatabaseFilePath] = OLD.[HydraulicDatabaseLocation] " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsFilePath] = rtrim(OLD.[HydraulicDatabaseLocation], replace(OLD.[HydraulicDatabaseLocation], '\\', '')) || 'hlcd.sqlite' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsScenarioName] = \"\" " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsYear] = 0 " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsSeaLevel] IS \"\" " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsRiverDischarge] IS \"\" " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsLakeLevel] IS \"\" " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsWindDirection] IS \"\" " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsWindSpeed] IS \"\" " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsComment] IS \"\"; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateHydraulicDatabase);
         }
 
         private static void AssertBackgroundData(MigratedDatabaseReader reader, string sourceFilePath)
