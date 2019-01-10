@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryDatabaseTest
     {
         [Test]
-        public void Constructor_Parameterless_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -40,6 +40,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(0, hydraulicBoundaryDatabase.TrackId);
             Assert.IsNotNull(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
