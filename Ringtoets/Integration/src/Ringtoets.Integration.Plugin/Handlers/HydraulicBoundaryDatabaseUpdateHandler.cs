@@ -133,6 +133,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
                 hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
+                hydraulicBoundaryDatabase.TrackId = readHydraulicBoundaryDatabase.TrackId;
 
                 SetLocations(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase.Locations,
                              readHydraulicLocationConfigurationDatabase.LocationIdMappings,
