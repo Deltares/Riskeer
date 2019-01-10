@@ -207,6 +207,16 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; moet exact 1 rij bevatten..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformat" +
+                        "ion_entries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         internal static string SerializableAssembly_IdPrefix {

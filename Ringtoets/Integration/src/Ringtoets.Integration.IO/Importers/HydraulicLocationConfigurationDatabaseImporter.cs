@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -80,6 +81,23 @@ namespace Ringtoets.Integration.IO.Importers
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred)
             {
                 return false;
+            }
+
+            ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
+            if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries));
+                return false;
+            }
+
+            return true;
+        }
+        
+        private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent)
+            {
+                return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
             }
 
             return true;

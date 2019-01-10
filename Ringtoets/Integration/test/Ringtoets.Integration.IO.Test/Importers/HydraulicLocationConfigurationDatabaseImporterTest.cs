@@ -166,6 +166,36 @@ namespace Ringtoets.Integration.IO.Test.Importers
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase("scenarioInformationNoEntries")]
+        [TestCase("scenarioInformationMultipleEntries")]
+        public void Import_InvalidNumberOfScenarioInformationEntries_CancelImportWithErrorMessage(string fileName)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, $"{fileName}.sqlite");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = path,
+                TrackId = 13
+            };
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler, hydraulicBoundaryDatabase, path);
+            
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': de tabel 'ScenarioInformation' moet exact 1 rij bevatten.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)
         {
             string expectedMessage = $"{errorMessage}" +

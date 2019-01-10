@@ -185,4 +185,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD" xml:space="preserve">
     <value>Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
   </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
+    <value>De tabel 'ScenarioInformation' moet exact 1 rij bevatten.</value>
+  </data>
 </root>
