@@ -501,6 +501,18 @@ namespace Ringtoets.Storage.Core.TestUtil.Test
             Assert.AreEqual("/temp/test", hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(2, hydraulicBoundaryDatabase.Locations.Count);
 
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual("some\\Path\\ToHlcd", settings.FilePath);
+            Assert.AreEqual("ScenarioName", settings.ScenarioName);
+            Assert.AreEqual(1337, settings.Year);
+            Assert.AreEqual("Scope", settings.Scope);
+            Assert.AreEqual("SeaLevel", settings.SeaLevel);
+            Assert.AreEqual("RiverDischarge", settings.RiverDischarge);
+            Assert.AreEqual("LakeLevel", settings.LakeLevel);
+            Assert.AreEqual("WindDirection", settings.WindDirection);
+            Assert.AreEqual("WindSpeed", settings.WindSpeed);
+            Assert.AreEqual("Comment", settings.Comment);
+
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[0];
             Assert.AreEqual(13001, hydraulicBoundaryLocation.Id);
             Assert.AreEqual("test", hydraulicBoundaryLocation.Name);
