@@ -84,20 +84,11 @@ namespace Ringtoets.Integration.IO.Importers
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
-            if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
+            if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent 
+                && readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() != 1)
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries));
                 return false;
-            }
-
-            return true;
-        }
-        
-        private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
-        {
-            if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent)
-            {
-                return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
             }
 
             return true;
