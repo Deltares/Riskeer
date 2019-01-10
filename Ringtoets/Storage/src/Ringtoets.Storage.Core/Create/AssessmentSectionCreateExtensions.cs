@@ -121,6 +121,8 @@ namespace Ringtoets.Storage.Core.Create
         {
             if (hydraulicBoundaryDatabase.IsLinked())
             {
+                entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabase.Create());
+
                 for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
                 {
                     HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[i];

@@ -47,6 +47,7 @@
     <Compile Include="Create\HydraulicBoundaryLocationCalculationCollectionCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCalculationOutputCreateExtensions.cs" />
+    <Compile Include="Create\HydraulicLocationConfigurationSettingsCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensions.cs" />
