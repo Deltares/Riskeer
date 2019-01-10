@@ -22,8 +22,11 @@
 using System;
 using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
 
@@ -71,12 +74,49 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
+                hydraulicBoundaryDatabase.TrackId);
+
+            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred)
+            {
+                return false;
+            }
+
             return true;
         }
 
         protected override void LogImportCanceledMessage()
         {
             throw new NotImplementedException();
+        }
+
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
+        {
+            try
+            {
+                using (var reader = new HydraulicLocationConfigurationDatabaseReader(FilePath))
+                {
+                    return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false)
+                    {
+                        Items = new[]
+                        {
+                            reader.Read(trackId)
+                        }
+                    };
+                }
+            }
+            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
+            {
+                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(e);
+            }
+        }
+
+        private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
+        {
+            string errorMessage = string.Format(Resources.HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicLocationConfigurationDatabase_imported,
+                                                e.Message);
+            Log.Error(errorMessage);
+            return new ReadResult<T>(true);
         }
 
         private static string BuildErrorMessage(string filePath, string message)
