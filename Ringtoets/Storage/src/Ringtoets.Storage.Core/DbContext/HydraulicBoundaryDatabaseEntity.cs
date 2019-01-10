@@ -38,7 +38,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public string HydraulicBoundaryDatabaseFilePath { get; set; }
         public string HydraulicLocationConfigurationSettingsFilePath { get; set; }
         public string HydraulicLocationConfigurationSettingsScenarioName { get; set; }
-        public long HydraulicLocationConfigurationSettingsYear { get; set; }
+        public int HydraulicLocationConfigurationSettingsYear { get; set; }
         public string HydraulicLocationConfigurationSettingsScope { get; set; }
         public string HydraulicLocationConfigurationSettingsSeaLevel { get; set; }
         public string HydraulicLocationConfigurationSettingsRiverDischarge { get; set; }
