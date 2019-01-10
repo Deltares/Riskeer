@@ -40,6 +40,7 @@ namespace Ringtoets.Storage.Core.DbContext
         {
             BackgroundDataEntities = new HashSet<BackgroundDataEntity>();
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
+            HydraulicBoundaryDatabaseEntities = new HashSet<HydraulicBoundaryDatabaseEntity>();
             HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
         }
 
@@ -59,8 +60,6 @@ namespace Ringtoets.Storage.Core.DbContext
         public double LowerLimitNorm { get; set; }
         public double SignalingNorm { get; set; }
         public byte NormativeNormType { get; set; }
-        public string HydraulicDatabaseVersion { get; set; }
-        public string HydraulicDatabaseLocation { get; set; }
         public byte Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
         public int Order { get; set; }
@@ -80,6 +79,9 @@ namespace Ringtoets.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicBoundaryDatabaseEntity> HydraulicBoundaryDatabaseEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
