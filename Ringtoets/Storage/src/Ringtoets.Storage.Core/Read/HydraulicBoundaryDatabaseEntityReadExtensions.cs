@@ -54,7 +54,7 @@ namespace Ringtoets.Storage.Core.Read {
 
             hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(entity.HydraulicLocationConfigurationSettingsFilePath,
                                                                                        entity.HydraulicLocationConfigurationSettingsScenarioName,
-                                                                                       (int) entity.HydraulicLocationConfigurationSettingsYear,
+                                                                                       entity.HydraulicLocationConfigurationSettingsYear,
                                                                                        entity.HydraulicLocationConfigurationSettingsScope,
                                                                                        entity.HydraulicLocationConfigurationSettingsSeaLevel,
                                                                                        entity.HydraulicLocationConfigurationSettingsRiverDischarge,
