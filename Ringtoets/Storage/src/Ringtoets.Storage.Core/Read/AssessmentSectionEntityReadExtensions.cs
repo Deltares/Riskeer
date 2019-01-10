@@ -120,6 +120,8 @@ namespace Ringtoets.Storage.Core.Read
             if (hydraulicBoundaryDatabaseEntity != null)
             {
                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+                hydraulicBoundaryDatabaseEntity.Read(hydraulicBoundaryDatabase);
+
                 HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
                                                                                    .OrderBy(hl => hl.Order)
                                                                                    .Select(hle => hle.Read(collector))

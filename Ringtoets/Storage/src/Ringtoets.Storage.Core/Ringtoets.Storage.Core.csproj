@@ -391,6 +391,7 @@
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\HydraulicBoundaryDatabaseEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationCalculationCollectionReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationOutputEntityReadExtensions.cs" />

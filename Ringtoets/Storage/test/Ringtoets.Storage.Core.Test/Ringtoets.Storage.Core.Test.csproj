@@ -103,6 +103,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\HydraulicBoundaryDatabaseEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationCalculationCollectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationOutputEntityReadExtensionsTest.cs" />
