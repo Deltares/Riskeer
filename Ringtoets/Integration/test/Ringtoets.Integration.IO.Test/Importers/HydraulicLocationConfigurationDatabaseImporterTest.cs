@@ -335,6 +335,44 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
+        public void Import_CancelImportDuringAddReadDataToDataModel_ContinuesImportAndLogs()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
+            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath
+            };
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (step == totalNumberOfSteps)
+                {
+                    importer.Cancel();
+                }
+            });
+
+            var importResult = true;
+
+            // Call
+            importer.Import();
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+            Assert.IsTrue(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse()
         {
             // Setup
