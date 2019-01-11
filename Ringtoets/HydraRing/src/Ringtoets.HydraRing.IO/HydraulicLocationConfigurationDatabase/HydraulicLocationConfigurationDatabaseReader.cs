@@ -68,7 +68,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings =
                 isScenarioInformationPresent
                     ? GetConfigurationSettings()
-                    : Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
+                    : null;
 
             return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
                                                                   isScenarioInformationPresent,
