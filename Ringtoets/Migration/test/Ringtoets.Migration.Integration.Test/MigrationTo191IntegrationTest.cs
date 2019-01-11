@@ -276,10 +276,13 @@ namespace Ringtoets.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(8, messages.Count);
+                Assert.AreEqual(11, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "* Er kan een andere HLCD bestand worden gekoppeld worden in het werkpaneel 'Eigenschappen' van de 'Hydraulische belastingen'."),
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -303,6 +306,13 @@ namespace Ringtoets.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - De waarde '4.9e-07' voor het gemiddelde van parameter 'd70' van ondergrondlaag 'DiameterD70Mean' is ongeldig en is veranderd naar NaN."),
+                    messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "* Traject: 'WithHydraulicDatabase'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),
                     messages[i]);
             }
         }

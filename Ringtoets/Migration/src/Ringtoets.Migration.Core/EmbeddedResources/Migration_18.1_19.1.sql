@@ -243,15 +243,15 @@ SELECT
 	[HydraulicDatabaseVersion],
 	[HydraulicDatabaseLocation],
 	rtrim([HydraulicDatabaseLocation], replace([HydraulicDatabaseLocation], '\', '')) || 'hlcd.sqlite', 
-	'Conform WBI2017',
+	"Conform WBI2017",
 	2023,
-	'Conform WBI2017',
-	'Conform WBI2017',
-	'Conform WBI2017',
-	'Conform WBI2017',
-	'Conform WBI2017',
-	'Conform WBI2017',
-	'Gegenereerd door Ringtoets (conform WBI2017)'
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Gegenereerd door Ringtoets (conform WBI2017)"
 FROM SOURCEPROJECT.AssessmentSectionEntity
 WHERE [HydraulicDatabaseLocation] IS NOT NULL;
 
@@ -324,6 +324,16 @@ SELECT
 	asfm.[AssessmentSectionId],
 	asfm.[AssessmentSectionName],
 	0,
+	"Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."
+FROM HydraulicBoundaryDatabaseEntity
+JOIN AssessmentSectionEntity AS ase USING(AssessmentSectionEntityId)
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[AssessmentSectionId] = ase.AssessmentSectionEntityId;
+
+INSERT INTO TempAssessmentSectionChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	1,
 	"De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."
 FROM AssessmentSectionEntity AS ase
 JOIN BackgroundDataEntity AS bd USING(AssessmentSectionEntityId)
@@ -390,6 +400,18 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[ToVersion],
 	[LogMessage])
 VALUES ("18.1", "19.1", "Gevolgen van de migratie van versie 18.1 naar versie 19.1:");
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+	[FromVersion],
+	[ToVersion],
+	[LogMessage])
+SELECT
+	"18.1",
+	"19.1",
+	"* Er kan een andere HLCD bestand worden gekoppeld worden in het werkpaneel 'Eigenschappen' van de 'Hydraulische belastingen'."
+	FROM SOURCEPROJECT.AssessmentSectionEntity
+	WHERE [HydraulicDatabaseLocation] IS NOT NULL
+	LIMIT 1;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
