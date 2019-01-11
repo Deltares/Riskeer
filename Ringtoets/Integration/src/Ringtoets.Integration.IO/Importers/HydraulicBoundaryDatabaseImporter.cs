@@ -92,7 +92,13 @@ namespace Ringtoets.Integration.IO.Importers
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
-            if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> hydraulicLocationConfigurationDatabaseSettings = 
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
+            if (hydraulicLocationConfigurationDatabaseSettings == null)
+            {
+                Log.Warn(Resources.HydraulicBoundaryDatabaseImporter_HLCD_No_ScenarioInformation_entries_present);
+            }
+            else if (hydraulicLocationConfigurationDatabaseSettings.Count() != 1)
             {
                 Log.Error(BuildErrorMessage(GetHlcdFilePath(), Resources.HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries));
                 return false;
@@ -137,12 +143,6 @@ namespace Ringtoets.Integration.IO.Importers
                     Cancel();
                 }
             }
-        }
-
-        private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
-        {
-            return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings == null
-                   || readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
         }
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()

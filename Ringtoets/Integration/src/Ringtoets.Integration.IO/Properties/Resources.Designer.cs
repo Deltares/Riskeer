@@ -142,6 +142,15 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand is niet aanwezig, er worden standaard waarden conform WBI2017 voor de HLCD bestand informatie gebruikt..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_HLCD_No_ScenarioInformation_entries_present {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_No_ScenarioInformation_entries_present", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {

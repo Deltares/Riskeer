@@ -277,7 +277,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}': kon het rekeninstellingen bestand niet openen. " +
                                      $"Fout bij het lezen van bestand '{HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(path)}': het bestand bestaat niet.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            AssertImportFailed(call, expectedMessage, 2, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -300,7 +300,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}': de rekeninstellingen database heeft niet het juiste schema.";
-            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            AssertImportFailed(call, expectedMessage, 2, ref importSuccessful);
             mocks.VerifyAll();
         }
 
@@ -318,7 +318,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase)invocation.Arguments[1]);
+                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
                    })
                    .Return(confirmationRequired);
 
@@ -347,7 +347,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedDataAndLogsWarning()
         {
             // Setup
             string hlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
@@ -382,15 +382,19 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaard waarden " +
+                                           "conform WBI2017 voor de HLCD bestand informatie gebruikt.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedDataAndDoesNotLogWarning()
         {
             // Setup
             string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
@@ -426,9 +430,11 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, hydraulicBoundaryDatabaseFilePath);
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -495,10 +501,10 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        public void Import_CancelOfImportWhilePerformingStep_CancelsImportAndLogs(int stepNumber)
+        [TestCase(1, 1)]
+        [TestCase(2, 1)]
+        [TestCase(3, 2)]
+        public void Import_CancelOfImportWhilePerformingStep_CancelsImportAndLogs(int stepNumber, int nrOfExpectedLogMessages)
         {
             // Setup
             var mocks = new MockRepository();
@@ -524,7 +530,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             const string expectedMessage = "Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), nrOfExpectedLogMessages);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
         }
@@ -556,7 +562,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 2);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -633,12 +639,17 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Assert
             mocks.VerifyAll(); // Expect no NotifyObserver calls
         }
-
+        
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)
+        {
+            AssertImportFailed(call, errorMessage, 1, ref importSuccessful);
+        }
+
+        private static void AssertImportFailed(Action call, string errorMessage, int expectedNrOfLogMessages, ref bool importSuccessful)
         {
             string expectedMessage = $"{errorMessage}" +
                                      $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error), expectedNrOfLogMessages);
             Assert.IsFalse(importSuccessful);
         }
 
