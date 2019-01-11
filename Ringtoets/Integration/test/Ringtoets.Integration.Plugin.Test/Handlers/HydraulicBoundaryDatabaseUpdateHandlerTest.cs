@@ -745,7 +745,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual("Conform WBI2017", actualSettings.LakeLevel);
             Assert.AreEqual("Conform WBI2017", actualSettings.WindDirection);
             Assert.AreEqual("Conform WBI2017", actualSettings.WindSpeed);
-            Assert.AreEqual("Conform WBI2017", actualSettings.Comment);
+            Assert.AreEqual("Gegenereerd door Ringtoets (conform WBI2017)", actualSettings.Comment);
         }
 
         [Test]

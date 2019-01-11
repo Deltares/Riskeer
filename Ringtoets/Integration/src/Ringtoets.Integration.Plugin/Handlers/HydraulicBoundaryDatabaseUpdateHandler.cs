@@ -43,6 +43,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
     {
         private const string mandatoryConfigurationPropertyDefaultValue = "WBI2017";
         private const string optionalConfigurationPropertyDefaultValue = "Conform WBI2017";
+        private const string additionalInformationConfigurationPropertyValue = "Gegenereerd door Ringtoets (conform WBI2017)";
         private readonly AssessmentSection assessmentSection;
         private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
         private bool updateLocations;
@@ -216,7 +217,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                                                  optionalConfigurationPropertyDefaultValue,
                                                                  optionalConfigurationPropertyDefaultValue,
                                                                  optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue);
+                                                                 additionalInformationConfigurationPropertyValue);
             }
         }
 
