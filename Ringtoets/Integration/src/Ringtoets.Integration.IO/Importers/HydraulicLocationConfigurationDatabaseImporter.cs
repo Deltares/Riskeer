@@ -39,6 +39,7 @@ namespace Ringtoets.Integration.IO.Importers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
     {
+        private const int numberOfSteps = 2;
         private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
 
         /// <summary>
@@ -109,6 +110,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<long> ReadTrackId()
         {
+            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabase.FilePath))
@@ -130,6 +132,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
         {
+            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(FilePath))
