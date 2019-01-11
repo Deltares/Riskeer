@@ -40,6 +40,7 @@ namespace Ringtoets.Integration.IO.Importers
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
     {
         private const int numberOfSteps = 2;
+        private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
         private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
 
         /// <summary>
@@ -66,6 +67,7 @@ namespace Ringtoets.Integration.IO.Importers
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
+            this.updateHandler = updateHandler;
             this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
         }
 
@@ -97,6 +99,13 @@ namespace Ringtoets.Integration.IO.Importers
                 && readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() != 1)
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries));
+                return false;
+            }
+
+            InquireConfirmation();
+
+            if (Canceled)
+            {
                 return false;
             }
 
@@ -149,6 +158,14 @@ namespace Ringtoets.Integration.IO.Importers
             catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
             {
                 return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(e);
+            }
+        }
+
+        private void InquireConfirmation()
+        {
+            if (!updateHandler.InquireConfirmation())
+            {
+                Cancel();
             }
         }
 
