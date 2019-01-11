@@ -111,14 +111,14 @@ namespace Ringtoets.Migration.Integration.Test
                 "WHERE NEW.[HydraulicBoundaryDatabaseVersion] = OLD.[HydraulicDatabaseVersion] " +
                 "AND NEW.[HydraulicBoundaryDatabaseFilePath] = OLD.[HydraulicDatabaseLocation] " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsFilePath] = rtrim(OLD.[HydraulicDatabaseLocation], replace(OLD.[HydraulicDatabaseLocation], '\\', '')) || 'hlcd.sqlite' " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsScenarioName] = \"\" " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsYear] = 0 " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsSeaLevel] IS \"\" " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsRiverDischarge] IS \"\" " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsLakeLevel] IS \"\" " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsWindDirection] IS \"\" " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsWindSpeed] IS \"\" " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsComment] IS \"\"; " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsScenarioName] = 'Conform WBI2017' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsYear] = 2023 " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsSeaLevel] IS 'Conform WBI2017' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsRiverDischarge] IS 'Conform WBI2017' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsLakeLevel] IS 'Conform WBI2017' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsWindDirection] IS 'Conform WBI2017' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsWindSpeed] IS 'Conform WBI2017' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsComment] IS 'Gegenereerd door Ringtoets (conform WBI2017)'; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateHydraulicDatabase);
         }
