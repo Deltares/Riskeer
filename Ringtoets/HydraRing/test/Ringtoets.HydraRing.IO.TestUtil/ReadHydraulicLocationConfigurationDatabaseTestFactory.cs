@@ -51,9 +51,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/>.</returns>
         public static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds)
         {
-            return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
-                                                                             .ToList(),
-                                                                  Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>());
+            return Create(locationIds, null);
         }
 
         /// <summary>
@@ -63,22 +61,26 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with scenario information.</returns>
         public static ReadHydraulicLocationConfigurationDatabase CreateWithScenarioInformation()
         {
-            var locationIds = new long[]
+            var settings = new[]
+            {
+                new ReadHydraulicLocationConfigurationDatabaseSettings("scenarioName", 1337, "scope", "seaLevel",
+                                                                       "riverDischarge", "lakeLevel", "windDirection",
+                                                                       "windSpeed", "comment")
+            };
+
+            return Create(new long[]
             {
                 1,
                 2
-            };
+            }, settings);
+        }
 
-            var setting = new ReadHydraulicLocationConfigurationDatabaseSettings("scenarioName", 1337, "scope", "seaLevel",
-                                                                                 "riverDischarge", "lakeLevel", "windDirection",
-                                                                                 "windSpeed", "comment");
-
+        private static ReadHydraulicLocationConfigurationDatabase Create(IEnumerable<long> locationIds,
+                                                                         IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings)
+        {
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
                                                                              .ToList(),
-                                                                  new[]
-                                                                  {
-                                                                      setting
-                                                                  });
+                                                                  settings);
         }
     }
 }

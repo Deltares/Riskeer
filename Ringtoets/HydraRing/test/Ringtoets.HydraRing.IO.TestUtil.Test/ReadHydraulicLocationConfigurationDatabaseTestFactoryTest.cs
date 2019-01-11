@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
 
             // Assert
             Assert.AreEqual(2, database.LocationIdMappings.Count());
-            CollectionAssert.IsEmpty(database.ReadHydraulicLocationConfigurationDatabaseSettings);
+            Assert.IsNull(database.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             var i = 1;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
@@ -63,6 +63,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
 
             // Assert
             Assert.AreEqual(locationsIds.Length, database.LocationIdMappings.Count());
+            Assert.IsNull(database.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             var i = 0;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
@@ -71,12 +72,10 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
                 Assert.AreEqual(locationsIds[i] + 100, databaseLocationIdMapping.HlcdLocationId);
                 i++;
             }
-
-            CollectionAssert.IsEmpty(database.ReadHydraulicLocationConfigurationDatabaseSettings);
         }
 
         [Test]
-        public void CreateWithScenarioInformation_WithHydraulicLocationCalculationSettings_ExpectedValues()
+        public void CreateWithScenarioInformation_ExpectedValues()
         {
             // Call
             ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithScenarioInformation();
