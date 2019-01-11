@@ -174,7 +174,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                                                       ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                                       string hlcdFilePath)
         {
-            if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent)
+            if (readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings != null)
             {
                 ReadHydraulicLocationConfigurationDatabaseSettings readSettings =
                     readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings

@@ -32,17 +32,13 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <param name="locationIdMappings">The location id mappings of the read hydraulic location
-        /// configuration database.</param>
-        /// <param name="isScenarioInformationPresent">Indicator whether scenario information is present in the hydraulic location
-        /// configuration database.</param>
+        ///     configuration database.</param>
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The hydraulic location configuration settings
-        /// of the read hydraulic location database.</param>
+        ///     of the read hydraulic location database.</param>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
-                                                            bool isScenarioInformationPresent,
                                                             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings)
         {
             LocationIdMappings = locationIdMappings;
-            IsScenarioInformationPresent = isScenarioInformationPresent;
             ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
         }
 
@@ -50,11 +46,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Gets the location id mappings of the read hydraulic location configuration database.
         /// </summary>
         public IEnumerable<ReadHydraulicLocationMapping> LocationIdMappings { get; }
-
-        /// <summary>
-        /// Gets whether the scenario information is present in the hydraulic location configuration database.
-        /// </summary>
-        public bool IsScenarioInformationPresent { get; }
 
         /// <summary>
         /// Gets the settings of the read hydraulic location configuration database.

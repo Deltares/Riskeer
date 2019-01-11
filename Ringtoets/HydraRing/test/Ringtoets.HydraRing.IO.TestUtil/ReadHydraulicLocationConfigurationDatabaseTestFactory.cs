@@ -53,7 +53,6 @@ namespace Ringtoets.HydraRing.IO.TestUtil
         {
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
                                                                              .ToList(),
-                                                                  false,
                                                                   Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>());
         }
 
@@ -76,7 +75,6 @@ namespace Ringtoets.HydraRing.IO.TestUtil
 
             return new ReadHydraulicLocationConfigurationDatabase(locationIds.Select(locationId => new ReadHydraulicLocationMapping(locationId, locationId + 100))
                                                                              .ToList(),
-                                                                  true,
                                                                   new[]
                                                                   {
                                                                       setting

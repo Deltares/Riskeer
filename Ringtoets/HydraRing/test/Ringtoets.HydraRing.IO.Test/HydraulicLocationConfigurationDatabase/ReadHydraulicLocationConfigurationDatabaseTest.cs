@@ -35,17 +35,14 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var random = new Random(21);
-            bool isScenarioInformationPresent = random.NextBoolean();
             IEnumerable<ReadHydraulicLocationMapping> locationIdMappings = Enumerable.Empty<ReadHydraulicLocationMapping>();
             IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> databaseSettings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
 
             // Call
-            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIdMappings, isScenarioInformationPresent, databaseSettings);
+            var readDatabase = new ReadHydraulicLocationConfigurationDatabase(locationIdMappings, databaseSettings);
 
             // Assert
             Assert.AreSame(locationIdMappings, readDatabase.LocationIdMappings);
-            Assert.AreEqual(isScenarioInformationPresent, readDatabase.IsScenarioInformationPresent);
             Assert.AreSame(databaseSettings, readDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
         }
     }

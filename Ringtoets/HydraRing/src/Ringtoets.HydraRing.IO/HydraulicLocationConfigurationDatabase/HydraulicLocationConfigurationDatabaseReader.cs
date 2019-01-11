@@ -64,14 +64,11 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// required properties.</exception>
         public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
         {
-            bool isScenarioInformationPresent = IsScenarioInformationTablePresent();
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings =
-                isScenarioInformationPresent
-                    ? GetConfigurationSettings()
-                    : null;
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> configurationSettings = IsScenarioInformationTablePresent()
+                                                                                                        ? GetConfigurationSettings()
+                                                                                                        : null;
 
             return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
-                                                                  isScenarioInformationPresent,
                                                                   configurationSettings);
         }
 

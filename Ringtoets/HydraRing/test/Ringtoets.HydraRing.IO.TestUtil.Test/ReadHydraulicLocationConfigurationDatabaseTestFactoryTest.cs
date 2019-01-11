@@ -36,8 +36,6 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
 
             // Assert
             Assert.AreEqual(2, database.LocationIdMappings.Count());
-
-            Assert.IsFalse(database.IsScenarioInformationPresent);
             CollectionAssert.IsEmpty(database.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             var i = 1;
@@ -74,7 +72,6 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
                 i++;
             }
 
-            Assert.IsFalse(database.IsScenarioInformationPresent);
             CollectionAssert.IsEmpty(database.ReadHydraulicLocationConfigurationDatabaseSettings);
         }
 
@@ -93,7 +90,6 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
                 i++;
             }
 
-            Assert.IsTrue(database.IsScenarioInformationPresent);
             ReadHydraulicLocationConfigurationDatabaseSettings setting = database.ReadHydraulicLocationConfigurationDatabaseSettings.Single();
             Assert.AreEqual("scenarioName", setting.ScenarioName);
             Assert.AreEqual(1337, setting.Year);

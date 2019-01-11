@@ -654,7 +654,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithScenarioInformation();
 
             // Precondition
-            Assert.IsTrue(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
+            Assert.IsNotNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
             Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
 
             // Call
@@ -701,7 +701,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 ReadHydraulicLocationConfigurationDatabaseTestFactory.Create();
 
             // Precondition
-            Assert.IsFalse(readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent);
+            Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
             CollectionAssert.IsEmpty(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             // Call

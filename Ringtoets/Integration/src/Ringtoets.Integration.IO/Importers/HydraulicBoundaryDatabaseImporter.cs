@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
-            if (readHydraulicLocationConfigurationDatabase.IsScenarioInformationPresent)
+            if (readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings != null)
             {
                 return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
             }
