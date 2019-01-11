@@ -33,6 +33,7 @@ using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.IO.Importers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
     {
-        private const int numberOfSteps = 2;
+        private const int numberOfSteps = 3;
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
         private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
@@ -177,6 +178,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings)
         {
+            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 3, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicLocationConfigurationDatabaseSettings, FilePath));
         }
 

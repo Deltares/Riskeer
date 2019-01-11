@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseImporterTest
     {
-        private const int totalNumberOfSteps = 2;
+        private const int totalNumberOfSteps = 3;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
                                                                                  nameof(HydraulicLocationConfigurationDatabaseImporter));
 
@@ -292,6 +292,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             {
                 new ProgressNotification("Inlezen van het hydraulische belastingen bestand.", 1, totalNumberOfSteps),
                 new ProgressNotification("Inlezen van het hydraulische locatie configuratie bestand.", 2, totalNumberOfSteps),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 3, totalNumberOfSteps)
             };
             ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
             mocks.VerifyAll();
