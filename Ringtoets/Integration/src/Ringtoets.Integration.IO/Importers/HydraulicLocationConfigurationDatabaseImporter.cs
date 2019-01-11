@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.IO.Importers
 
             ReadResult<long> readTrackIdResult = ReadTrackId();
 
-            if (readTrackIdResult.CriticalErrorOccurred)
+            if (readTrackIdResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
             }
@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.IO.Importers
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
                 readTrackIdResult.Items.Single());
 
-            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred)
+            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
             }
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            throw new NotImplementedException();
+            Log.Info(Resources.HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
         }
 
         private ReadResult<long> ReadTrackId()

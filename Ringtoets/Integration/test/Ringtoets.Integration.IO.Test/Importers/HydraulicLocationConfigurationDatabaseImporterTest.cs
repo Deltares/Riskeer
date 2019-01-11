@@ -292,6 +292,42 @@ namespace Ringtoets.Integration.IO.Test.Importers
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void Import_CancelOfImportWhilePerformingStep_CancelsImportAndLogs(int stepNumber)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath
+            };
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+            importer.SetProgressChanged((description, currentStep, steps) =>
+            {
+                if (currentStep == stepNumber)
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Call
+            var importResult = true;
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            const string expectedMessage = "HLCD importeren afgebroken. Geen gegevens gewijzigd.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
+            Assert.IsFalse(importResult);
+            mocks.VerifyAll();
+        }
+
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)
         {
             string expectedMessage = $"{errorMessage}" +

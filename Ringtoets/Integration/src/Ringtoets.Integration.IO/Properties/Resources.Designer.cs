@@ -226,6 +226,16 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HLCD importeren afgebroken. Geen gegevens gewijzigd..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_da" +
+                        "ta_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         internal static string SerializableAssembly_IdPrefix {
