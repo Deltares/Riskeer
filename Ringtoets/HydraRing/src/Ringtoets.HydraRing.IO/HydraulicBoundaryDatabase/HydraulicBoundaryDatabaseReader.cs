@@ -68,7 +68,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// <returns>The track Id found in the database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the track Id cannot be read.</exception>
-        private long ReadTrackId()
+        public long ReadTrackId()
         {
             try
             {
