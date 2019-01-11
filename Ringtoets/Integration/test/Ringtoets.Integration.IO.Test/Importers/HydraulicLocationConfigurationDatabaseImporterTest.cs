@@ -37,6 +37,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
                                                                                  nameof(HydraulicLocationConfigurationDatabaseImporter));
 
+        private readonly string validHrdFilePath = Path.Combine(testDataPath, "completeHrd.sqlite");
+
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
@@ -110,6 +112,62 @@ namespace Ringtoets.Integration.IO.Test.Importers
             AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
+        
+        [Test]
+        public void Import_HrdInvalidSchema_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "CorruptHrd");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(path, "corruptschema.sqlite")
+            };
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+                                                                              hydraulicBoundaryDatabase, Path.Combine(path, "HLCD.sqlite"));
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_HrdEmptySchema_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "EmptyHrd");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(path, "empty.sqlite")
+            };
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
+                                                                              hydraulicBoundaryDatabase, Path.Combine(path, "HLCD.sqlite"));
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': kon geen locaties verkrijgen van de database.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void Import_EmptySchema_CancelImportWithErrorMessage()
@@ -123,7 +181,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = path
+                FilePath = validHrdFilePath
             };
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler, hydraulicBoundaryDatabase, path);
@@ -150,8 +208,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = path,
-                TrackId = 13
+                FilePath = validHrdFilePath
             };
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler, hydraulicBoundaryDatabase, path);
@@ -180,8 +237,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = path,
-                TrackId = 13
+                FilePath = validHrdFilePath
             };
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler, hydraulicBoundaryDatabase, path);

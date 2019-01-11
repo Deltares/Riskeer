@@ -27,6 +27,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
@@ -75,8 +76,15 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
+            ReadResult<long> readTrackIdResult = ReadTrackId();
+
+            if (readTrackIdResult.CriticalErrorOccurred)
+            {
+                return false;
+            }
+
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
-                hydraulicBoundaryDatabase.TrackId);
+                readTrackIdResult.Items.Single());
 
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred)
             {
@@ -97,6 +105,27 @@ namespace Ringtoets.Integration.IO.Importers
         protected override void LogImportCanceledMessage()
         {
             throw new NotImplementedException();
+        }
+
+        private ReadResult<long> ReadTrackId()
+        {
+            try
+            {
+                using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabase.FilePath))
+                {
+                    return new ReadResult<long>(false)
+                    {
+                        Items = new[]
+                        {
+                            reader.ReadTrackId()
+                        }
+                    };
+                }
+            }
+            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
+            {
+                return HandleCriticalFileReadError<long>(e);
+            }
         }
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
