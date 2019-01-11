@@ -307,11 +307,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(bool confirmationRequired)
+        public void Import_WithValidFileAndConfirmationRequired_InquiresAndUpdatesHydraulicBoundaryDatabase(bool confirmationRequired)
         {
             // Setup
-            string hlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
@@ -320,7 +318,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
                                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
+                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase)invocation.Arguments[1]);
                    })
                    .Return(confirmationRequired);
 
@@ -328,6 +326,38 @@ namespace Ringtoets.Integration.IO.Test.Importers
             {
                 handler.Expect(h => h.InquireConfirmation()).Return(true);
             }
+
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.NotNull,
+                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
+                                         Arg<IEnumerable<long>>.Is.NotNull,
+                                         Arg<string>.Is.NotNull,
+                                         Arg<string>.Is.NotNull))
+                   .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
+
+            // Call
+            bool importResult = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        {
+            // Setup
+            string hlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Expect(h => h.IsConfirmationRequired(null, null))
+                   .IgnoreArguments()
+                   .Return(false);
 
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
@@ -360,9 +390,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(bool confirmationRequired)
+        public void Import_WithValidFileAndHlcdWithValidScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
         {
             // Setup
             string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation", "complete.sqlite");
@@ -371,18 +399,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
-            handler.Expect(h => h.IsConfirmationRequired(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
-                                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
-                   .WhenCalled(invocation =>
-                   {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[1]);
-                   })
-                   .Return(confirmationRequired);
-
-            if (confirmationRequired)
-            {
-                handler.Expect(h => h.InquireConfirmation()).Return(true);
-            }
+            handler.Expect(h => h.IsConfirmationRequired(null, null))
+                   .IgnoreArguments()
+                   .Return(false);
 
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
