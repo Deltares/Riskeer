@@ -19,12 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.Integration.IO.Handlers
 {
     /// <summary>
     /// Interface for an object that can properly update <see cref="HydraulicLocationConfigurationSettings"/>.
     /// </summary>
-    public interface IHydraulicLocationConfigurationDatabaseUpdateHandler {}
+    public interface IHydraulicLocationConfigurationDatabaseUpdateHandler
+    {
+        /// <summary>
+        /// Gets confirmation for updating the <see cref="HydraulicLocationConfigurationSettings"/>.
+        /// </summary>
+        /// <returns><c>true</c> when confirmation is given; <c>false</c> otherwise.</returns>
+        bool InquireConfirmation();
+
+        /// <summary>
+        /// Updates the <paramref name="hydraulicLocationConfigurationSettings"/> and its dependent data with the
+        /// <paramref name="readHydraulicLocationConfigurationDatabaseSettings"/>.
+        /// </summary>
+        /// <param name="hydraulicLocationConfigurationSettings">The hydraulic location configuration settings to update.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration database settings to update with.</param>
+        /// <param name="hlcdFilePath">The file path of the hlcd.</param>
+        /// <returns>All objects that have been affected by the update.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        IEnumerable<IObservable> Update(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
+                                        ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
+                                        string hlcdFilePath);
+    }
 }
