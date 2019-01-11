@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -40,6 +42,7 @@ namespace Ringtoets.Integration.IO.Importers
     public class HydraulicLocationConfigurationDatabaseImporter : FileImporterBase<HydraulicLocationConfigurationSettings>
     {
         private const int numberOfSteps = 2;
+        private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
         private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
 
@@ -109,6 +112,9 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
+            AddHydraulicLocationConfigurationSettingsToDataModel(
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.SingleOrDefault());
+
             return true;
         }
 
@@ -167,6 +173,11 @@ namespace Ringtoets.Integration.IO.Importers
             {
                 Cancel();
             }
+        }
+
+        private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings)
+        {
+            changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicLocationConfigurationDatabaseSettings, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

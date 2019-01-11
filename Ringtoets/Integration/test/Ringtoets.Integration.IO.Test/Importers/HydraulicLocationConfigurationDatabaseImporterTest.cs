@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -22,12 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Importers;
 
@@ -265,6 +268,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
+            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
@@ -354,6 +359,68 @@ namespace Ringtoets.Integration.IO.Test.Importers
             const string expectedMessage = "HLCD importeren afgebroken. Geen gegevens gewijzigd.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ValidFileWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath
+            };
+
+            string filePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
+
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.Update(Arg<HydraulicLocationConfigurationSettings>.Is.Same(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings),
+                                         Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
+                                         Arg<string>.Is.Equal(filePath)))
+                   .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryDatabase, filePath);
+
+            // Call
+            bool importResult = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ValidFileWithScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath
+            };
+
+            string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation.sqlite");
+
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.Update(Arg<HydraulicLocationConfigurationSettings>.Is.Same(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings),
+                                         Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.NotNull,
+                                         Arg<string>.Is.Equal(filePath)))
+                   .Return(Enumerable.Empty<IObservable>());
+            mocks.ReplayAll();
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryDatabase, filePath);
+
+            // Call
+            bool importResult = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
 
