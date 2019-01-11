@@ -56,11 +56,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         public string Version { get; set; }
 
         /// <summary>
-        /// Gets or sets the track id of the hydraulic boundary database.
-        /// </summary>
-        public long TrackId { get; set; }
-
-        /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
         public ObservableList<HydraulicBoundaryLocation> Locations { get; }

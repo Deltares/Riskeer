@@ -566,7 +566,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
             Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
-            Assert.AreEqual(readHydraulicBoundaryDatabase.TrackId, hydraulicBoundaryDatabase.TrackId);
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
