@@ -60,6 +60,8 @@ namespace Ringtoets.Integration.IO.Handlers
         /// <param name="hlcdFilePath">The file path of the hlcd.</param>
         /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabase"/>
+        /// cannot be updated with <paramref name="readHydraulicLocationConfigurationDatabase"/>.</exception>
         IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                         ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                         ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,

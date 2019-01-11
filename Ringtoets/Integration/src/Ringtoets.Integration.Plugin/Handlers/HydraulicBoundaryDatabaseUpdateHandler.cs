@@ -41,6 +41,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// </summary>
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
+        private const string mandatoryConfigurationPropertyDefaultValue = "WBI2017";
+        private const string optionalConfigurationPropertyDefaultValue = "Conform WBI2017";
         private readonly AssessmentSection assessmentSection;
         private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
         private bool updateLocations;
@@ -125,6 +127,13 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
+            if (!IsValidReadHydraulicLocationConfigurationDatabase(readHydraulicLocationConfigurationDatabase))
+            {
+                string errorMessage = $"{nameof(readHydraulicLocationConfigurationDatabase)} must be null or contain exactly one item for " +
+                                      "the collection of hydraulic location configuration database settings.";
+                throw new ArgumentException(errorMessage);
+            }
+
             var changedObjects = new List<IObservable>();
 
             updateLocations = !hydraulicBoundaryDatabase.IsLinked() || hydraulicBoundaryDatabase.Version != readHydraulicBoundaryDatabase.Version;
@@ -156,7 +165,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                      readHydraulicLocationConfigurationDatabase, 
+                                                      readHydraulicLocationConfigurationDatabase,
                                                       hlcdFilePath);
 
             return changedObjects;
@@ -168,6 +177,12 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 duneLocationsReplacementHandler.DoPostReplacementUpdates();
             }
+        }
+
+        private static bool IsValidReadHydraulicLocationConfigurationDatabase(ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings == null
+                   || readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
         }
 
         private static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
@@ -193,15 +208,15 @@ namespace Ringtoets.Integration.Plugin.Handlers
             else
             {
                 hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_mandatory_properties,
+                                                                 mandatoryConfigurationPropertyDefaultValue,
                                                                  2023,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_mandatory_properties,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties,
-                                                                 Resources.HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties);
+                                                                 mandatoryConfigurationPropertyDefaultValue,
+                                                                 optionalConfigurationPropertyDefaultValue,
+                                                                 optionalConfigurationPropertyDefaultValue,
+                                                                 optionalConfigurationPropertyDefaultValue,
+                                                                 optionalConfigurationPropertyDefaultValue,
+                                                                 optionalConfigurationPropertyDefaultValue,
+                                                                 optionalConfigurationPropertyDefaultValue);
             }
         }
 

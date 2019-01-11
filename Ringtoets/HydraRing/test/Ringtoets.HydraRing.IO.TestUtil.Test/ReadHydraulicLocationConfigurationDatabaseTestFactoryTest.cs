@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
@@ -75,10 +76,10 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateWithScenarioInformation_ExpectedValues()
+        public void CreateWithConfigurationSettings_ExpectedValues()
         {
             // Call
-            ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithScenarioInformation();
+            ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings();
 
             // Assert
             var i = 1;
@@ -99,6 +100,27 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             Assert.AreEqual("windDirection", setting.WindDirection);
             Assert.AreEqual("windSpeed", setting.WindSpeed);
             Assert.AreEqual("comment", setting.Comment);
+        }
+
+        [Test]
+        public void CreateWithConfigurationSettings_WithReadHydraulicLocationConfigurationDatabaseSettings_ExpectedValues()
+        {
+            // Setup
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings = Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>();
+
+            // Call
+            ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(settings);
+
+            // Assert
+            var i = 1;
+            foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
+            {
+                Assert.AreEqual(i, databaseLocationIdMapping.HrdLocationId);
+                Assert.AreEqual(i + 100, databaseLocationIdMapping.HlcdLocationId);
+                i++;
+            }
+
+            Assert.AreSame(settings, database.ReadHydraulicLocationConfigurationDatabaseSettings);
         }
     }
 }

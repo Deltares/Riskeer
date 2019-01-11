@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -361,6 +362,28 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        [TestCaseSource(nameof(GetInvalidReadHydraulicBoundaryDatabaseConfigurations))]
+        public void Update_ReadHydraulicLocationConfigurationDatabaseHasUnequalToOneSettings_ThrowsArgumentException(
+            ReadHydraulicLocationConfigurationDatabase configurationDatabase)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var duneLocationsReplacementHandler = mocks.Stub<IDuneLocationsReplacementHandler>();
+            mocks.ReplayAll();
+
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(CreateAssessmentSection(), duneLocationsReplacementHandler);
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                                     configurationDatabase, Enumerable.Empty<long>(), "", "");
+
+            // Assert
+            const string expectedMessage = "readHydraulicLocationConfigurationDatabase must be null or contain " +
+                                           "exactly one item for the collection of hydraulic location configuration database settings.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
         public void Update_FilePathAndVersionSame_NothingUpdatesAndReturnsEmptyCollection()
         {
             // Setup
@@ -651,7 +674,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase =
-                ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithScenarioInformation();
+                ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings();
 
             // Precondition
             Assert.IsNotNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
@@ -702,7 +725,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Precondition
             Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
-            CollectionAssert.IsEmpty(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             // Call
             handler.Update(hydraulicBoundaryDatabase,
@@ -963,6 +985,20 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.AreEqual(readLocation.CoordinateX, actualLocation.Location.X);
                 Assert.AreEqual(readLocation.CoordinateY, actualLocation.Location.Y);
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidReadHydraulicBoundaryDatabaseConfigurations()
+        {
+            yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
+                                              Enumerable.Empty<ReadHydraulicLocationConfigurationDatabaseSettings>()))
+                .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsEmpty");
+            yield return new TestCaseData(ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(
+                                              new[]
+                                              {
+                                                  ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(),
+                                                  ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create()
+                                              }))
+                .SetName("ReadHydraulicLocationConfigurationDatabaseSettingsMultipleItems");
         }
     }
 }

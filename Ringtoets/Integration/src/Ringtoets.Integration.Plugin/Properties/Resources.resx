@@ -229,10 +229,4 @@ Wilt u doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_file_filter_Description" xml:space="preserve">
     <value>Hydraulische belastingendatabase</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_mandatory_properties" xml:space="preserve">
-    <value>WBI2017</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseUpdateHandler_SetHydraulicLocationConfigurationSettings_default_value_for_optional_properties" xml:space="preserve">
-    <value>Conform WBI2017</value>
-  </data>
 </root>

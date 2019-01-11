@@ -56,18 +56,31 @@ namespace Ringtoets.HydraRing.IO.TestUtil
 
         /// <summary>
         /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>
-        /// with scenario information.
+        /// with hydraulic location configuration database settings.
         /// </summary>
-        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with scenario information.</returns>
-        public static ReadHydraulicLocationConfigurationDatabase CreateWithScenarioInformation()
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration database settings.</returns>
+        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings()
         {
-            var settings = new[]
+            ReadHydraulicLocationConfigurationDatabaseSettings[] settings =
             {
-                new ReadHydraulicLocationConfigurationDatabaseSettings("scenarioName", 1337, "scope", "seaLevel",
-                                                                       "riverDischarge", "lakeLevel", "windDirection",
-                                                                       "windSpeed", "comment")
+                ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create()
             };
 
+            return Create(new long[]
+            {
+                1,
+                2
+            }, settings);
+        }
+
+        /// <summary>
+        /// Create a valid instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>
+        /// with hydraulic location configuration database settings.
+        /// </summary>
+        /// <param name="settings">The <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> to set.</param>
+        /// <returns>The created <see cref="ReadHydraulicLocationConfigurationDatabase"/> with hydraulic location configuration database settings.</returns>
+        public static ReadHydraulicLocationConfigurationDatabase CreateWithConfigurationSettings(IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> settings)
+        {
             return Create(new long[]
             {
                 1,

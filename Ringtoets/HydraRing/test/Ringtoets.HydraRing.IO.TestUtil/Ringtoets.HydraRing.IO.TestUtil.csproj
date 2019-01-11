@@ -13,6 +13,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadHydraulicBoundaryDatabaseTestFactory.cs" />
+    <Compile Include="ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.cs" />
     <Compile Include="ReadHydraulicLocationConfigurationDatabaseTestFactory.cs" />
   </ItemGroup>
   <ItemGroup>
