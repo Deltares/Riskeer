@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil.Test
             ReadHydraulicBoundaryDatabase readDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create(locations);
 
             // Assert
-            Assert.NotZero(readDatabase.TrackId);
+            Assert.AreNotEqual(0, readDatabase.TrackId);
             Assert.AreEqual("version", readDatabase.Version);
             Assert.AreSame(locations, readDatabase.Locations);
         }

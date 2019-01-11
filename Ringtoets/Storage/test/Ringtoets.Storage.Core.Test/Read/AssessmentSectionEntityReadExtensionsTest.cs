@@ -111,7 +111,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.IsNull(settings.FilePath);
             Assert.IsNull(settings.ScenarioName);
-            Assert.Zero(settings.Year);
+            Assert.AreEqual(0, settings.Year);
             Assert.IsNull(settings.Scope);
             Assert.IsNull(settings.SeaLevel);
             Assert.IsNull(settings.RiverDischarge);

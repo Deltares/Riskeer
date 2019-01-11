@@ -156,8 +156,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyCategoriesInput);
-                Assert.Zero(failureMechanismSectionAssemblyCalculator.ManualAssemblyNInput);
-                Assert.Zero(failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
+                Assert.AreEqual(0, failureMechanismSectionAssemblyCalculator.ManualAssemblyNInput);
+                Assert.AreEqual(0, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
             }
         }
 

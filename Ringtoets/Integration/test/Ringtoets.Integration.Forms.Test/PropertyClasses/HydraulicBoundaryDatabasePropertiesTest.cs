@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsEmpty(properties.HrdFilePath);
             Assert.IsEmpty(properties.HlcdFilePath);
             Assert.IsEmpty(properties.ScenarioName);
-            Assert.Zero(properties.Year);
+            Assert.AreEqual(0, properties.Year);
             Assert.IsEmpty(properties.Scope);
             Assert.IsEmpty(properties.SeaLevel);
             Assert.IsEmpty(properties.RiverDischarge);

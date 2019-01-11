@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             // Assert
             Assert.IsNull(settings.FilePath);
             Assert.IsNull(settings.ScenarioName);
-            Assert.Zero(settings.Year);
+            Assert.AreEqual(0, settings.Year);
             Assert.IsNull(settings.Scope);
             Assert.IsNull(settings.SeaLevel);
             Assert.IsNull(settings.RiverDischarge);
