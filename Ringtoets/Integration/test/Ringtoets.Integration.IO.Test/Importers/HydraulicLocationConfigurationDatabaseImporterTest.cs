@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -461,6 +461,46 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Assert
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostImportUpdates_WhenImportSuccessful_NotifyObserversOfReturnedObjects()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHrdFilePath
+            };
+
+            var mocks = new MockRepository();
+            var observable1 = mocks.StrictMock<IObservable>();
+            observable1.Expect(o => o.NotifyObservers());
+            var observable2 = mocks.StrictMock<IObservable>();
+            observable2.Expect(o => o.NotifyObservers());
+
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.Update(Arg<HydraulicLocationConfigurationSettings>.Is.NotNull,
+                                         Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
+                                         Arg<string>.Is.NotNull))
+                   .Return(new[]
+                   {
+                       observable1,
+                       observable2
+                   });
+            mocks.ReplayAll();
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+
+            // Precondition
+            Assert.IsTrue(importer.Import());
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            mocks.VerifyAll(); // Expect NotifyObservers on updated observables
         }
 
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)

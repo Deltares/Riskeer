@@ -124,6 +124,16 @@ namespace Ringtoets.Integration.IO.Importers
             Log.Info(Resources.HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
         }
 
+        protected override void DoPostImportUpdates()
+        {
+            base.DoPostImportUpdates();
+
+            foreach (IObservable changedObservable in changedObservables)
+            {
+                changedObservable.NotifyObservers();
+            }
+        }
+
         private ReadResult<long> ReadTrackId()
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
