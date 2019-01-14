@@ -216,6 +216,15 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1 of meerdere locaties komen niet voor in de HLCD..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; moet exact 1 rij bevatten..
         /// </summary>
         internal static string HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries {

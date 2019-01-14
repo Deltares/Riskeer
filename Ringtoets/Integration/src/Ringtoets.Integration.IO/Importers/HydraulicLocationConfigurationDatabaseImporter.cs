@@ -113,6 +113,16 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
+            IEnumerable<long> locationIds = hydraulicBoundaryDatabase.Locations.Select(l => l.Id);
+            long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.LocationIdMappings.Select(l => l.HlcdLocationId))
+                                          .ToArray();
+
+            if (intersect.Length != locationIds.Count())
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds));
+                return false;
+            }
+
             AddHydraulicLocationConfigurationSettingsToDataModel(
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single());
 

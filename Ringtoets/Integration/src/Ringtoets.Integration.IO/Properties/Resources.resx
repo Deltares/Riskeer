@@ -194,4 +194,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
     <value>HLCD importeren afgebroken. Geen gegevens gewijzigd.</value>
   </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds" xml:space="preserve">
+    <value>1 of meerdere locaties komen niet voor in de HLCD.</value>
+  </data>
 </root>

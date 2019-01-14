@@ -28,11 +28,15 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Importers;
+using Ringtoets.Integration.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Importers
 {
@@ -40,6 +44,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
     public class HydraulicLocationConfigurationDatabaseImporterTest
     {
         private const int totalNumberOfSteps = 3;
+
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
                                                                                  nameof(HydraulicLocationConfigurationDatabaseImporter));
 
@@ -102,7 +107,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             mocks.ReplayAll();
 
             string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
-                                                                                           nameof(HydraulicBoundaryDatabaseImporter)),"complete.sqlite");
+                                                                                           nameof(HydraulicBoundaryDatabaseImporter)), "complete.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabasePath
@@ -120,7 +125,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Import_HrdInvalidSchema_CancelImportWithErrorMessage()
         {
@@ -257,13 +262,41 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, path);
-            
+
             // Call
             var importSuccessful = true;
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}': de tabel 'ScenarioInformation' moet exact 1 rij bevatten.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_LocationIdNotInHlcd_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validHrdFilePath);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
+
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
+            mocks.ReplayAll();
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryDatabase, validHlcdFilePath);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{validHlcdFilePath}': 1 of meerdere locaties komen niet voor in de HLCD.";
             AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }
@@ -412,10 +445,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void Import_ValidFileWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validHrdFilePath);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             string filePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
 
@@ -443,10 +475,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void Import_ValidFileWithScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validHrdFilePath);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             string filePath = Path.Combine(testDataPath, "hlcdWithValidScenarioInformation.sqlite");
 
