@@ -20,21 +20,16 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
-namespace Ringtoets.Integration.Plugin.Handlers
+namespace Ringtoets.Integration.Plugin.Helpers
 {
     /// <summary>
     /// Helper class for dealing with updating <see cref="HydraulicLocationConfigurationSettings"/>
     /// </summary>
     public static class HydraulicLocationConfigurationSettingsUpdateHelper
     {
-        private const string mandatoryConfigurationPropertyDefaultValue = "WBI2017";
-        private const string optionalConfigurationPropertyDefaultValue = "Conform WBI2017";
-        private const string additionalInformationConfigurationPropertyValue = "Gegenereerd door Ringtoets (conform WBI2017)";
-
         /// <summary>
         /// Sets the hydraulic location configuration settings.
         /// </summary>
@@ -73,15 +68,15 @@ namespace Ringtoets.Integration.Plugin.Handlers
             else
             {
                 hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
-                                                                 mandatoryConfigurationPropertyDefaultValue,
-                                                                 2023,
-                                                                 mandatoryConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 additionalInformationConfigurationPropertyValue);
+                                                                 HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.YearDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                                                                 HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue);
             }
         }
     }

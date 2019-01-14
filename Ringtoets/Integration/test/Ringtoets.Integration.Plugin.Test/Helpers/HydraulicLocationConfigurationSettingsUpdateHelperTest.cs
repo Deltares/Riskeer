@@ -24,9 +24,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.HydraRing.IO.TestUtil;
-using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Plugin.Helpers;
 
-namespace Ringtoets.Integration.Plugin.Test.Handlers
+namespace Ringtoets.Integration.Plugin.Test.Helpers
 {
     [TestFixture]
     public class HydraulicLocationConfigurationSettingsUpdateHelperTest
