@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
+using Ringtoets.Integration.Plugin.Helpers;
 using Ringtoets.Integration.Plugin.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -53,17 +54,16 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            if (readHydraulicLocationConfigurationDatabaseSettings == null)
-            {
-                throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabaseSettings));
-            }
-
             if (hlcdFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
 
-            throw new NotImplementedException();
+            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                readHydraulicLocationConfigurationDatabaseSettings, hlcdFilePath);
+
+            return null;
         }
     }
 }

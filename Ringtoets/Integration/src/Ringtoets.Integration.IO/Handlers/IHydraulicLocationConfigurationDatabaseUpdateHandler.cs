@@ -43,10 +43,12 @@ namespace Ringtoets.Integration.IO.Handlers
         /// <paramref name="readHydraulicLocationConfigurationDatabaseSettings"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to update the settings for.</param>
-        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location configuration database settings to update with.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read hydraulic location
+        /// configuration database settings to update with.</param>
         /// <param name="hlcdFilePath">The file path of the hlcd.</param>
         /// <returns>All objects that have been affected by the update.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
+        /// or <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                         ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
                                         string hlcdFilePath);
