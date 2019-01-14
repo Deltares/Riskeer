@@ -20,8 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Forms;
+using Core.Common.Base.Service;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.IO.Handlers;
+using Ringtoets.Integration.IO.Importers;
 
 namespace Ringtoets.Integration.Plugin.Handlers
 {
@@ -30,9 +35,51 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseImportHandler : IHydraulicLocationConfigurationDatabaseImportHandler
     {
+        private readonly IWin32Window viewParent;
+        private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImportHandler"/>.
+        /// </summary>
+        /// <param name="viewParent">The parent of the view.</param>
+        /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        public HydraulicLocationConfigurationDatabaseImportHandler(IWin32Window viewParent,
+                                                                   IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler)
+        {
+            if (viewParent == null)
+            {
+                throw new ArgumentNullException(nameof(viewParent));
+            }
+
+            if (updateHandler == null)
+            {
+                throw new ArgumentNullException(nameof(updateHandler));
+            }
+
+            this.viewParent = viewParent;
+            this.updateHandler = updateHandler;
+        }
+
         public void OnNewFilePathSet(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath)
         {
-            throw new NotImplementedException();
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            if (hlcdFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(hlcdFilePath));
+            }
+
+            var importSettingsActivity = new FileImportActivity(
+                new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                                   updateHandler,
+                                                                   hydraulicBoundaryDatabase,
+                                                                   hlcdFilePath),
+                string.Empty);
+            ActivityProgressDialogRunner.Run(viewParent, importSettingsActivity);
         }
     }
 }

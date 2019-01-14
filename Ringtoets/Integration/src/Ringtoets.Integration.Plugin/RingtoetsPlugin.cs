@@ -89,6 +89,7 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.IO.Exporters;
+using Ringtoets.Integration.IO.Importers;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Merge;
@@ -112,7 +113,6 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
-using HydraulicBoundaryDatabaseImporter = Ringtoets.Integration.IO.Importers.HydraulicBoundaryDatabaseImporter;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -303,7 +303,9 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
             {
-                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData, new HydraulicLocationConfigurationDatabaseImportHandler())
+                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData,
+                                                                                    new HydraulicLocationConfigurationDatabaseImportHandler(Gui.MainWindow,
+                                                                                                                                            new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection)))
             };
             yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
             {
@@ -457,7 +459,10 @@ namespace Ringtoets.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -471,7 +476,10 @@ namespace Ringtoets.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -1736,7 +1744,10 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
-                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
+                });
 
             var importItem = new StrictContextMenuItem(
                 GuiResources.Import,

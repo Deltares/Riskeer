@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
@@ -35,6 +36,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
         /// to update.</param>
         /// <param name="hlcdFilePath">The file path to import the data from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         void OnNewFilePathSet(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath);
     }
 }
