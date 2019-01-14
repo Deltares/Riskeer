@@ -34,6 +34,7 @@
     <Compile Include="FileImporters\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="Handlers\HydraulicBoundaryDatabaseUpdateHandler.cs" />
+    <Compile Include="Handlers\HydraulicLocationConfigurationSettingsUpdateHelper.cs" />
     <Compile Include="Handlers\HydraulicLocationConfigurationDatabaseUpdateHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMerger.cs" />
