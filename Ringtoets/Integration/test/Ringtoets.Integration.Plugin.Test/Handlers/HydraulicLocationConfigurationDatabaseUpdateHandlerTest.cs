@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -26,7 +28,7 @@ using Ringtoets.Integration.Plugin.Handlers;
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationDatabaseUpdateHandlerTest
+    public class HydraulicLocationConfigurationDatabaseUpdateHandlerTest : NUnitFormTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -36,6 +38,44 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.IsInstanceOf<IHydraulicLocationConfigurationDatabaseUpdateHandler>(handler);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void InquireConfirmation_ClickDialog_ReturnsExpectedResult(bool clickOk)
+        {
+            // Setup
+            string dialogTitle = null, dialogMessage = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                dialogTitle = tester.Title;
+                dialogMessage = tester.Text;
+                if (clickOk)
+                {
+                    tester.ClickOk();
+                }
+                else
+                {
+                    tester.ClickCancel();
+                }
+            };
+
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+
+            // Call
+            bool result = handler.InquireConfirmation();
+
+            // Assert
+            Assert.AreEqual(clickOk, result);
+
+            Assert.AreEqual("Bevestigen", dialogTitle);
+            Assert.AreEqual("U heeft een ander HLCD bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle HB berekeningen verwijderd worden." +
+                            Environment.NewLine +
+                            Environment.NewLine +
+                            "Wilt u doorgaan?",
+                            dialogMessage);
         }
     }
 }

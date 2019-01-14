@@ -229,4 +229,9 @@ Wilt u doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_file_filter_Description" xml:space="preserve">
     <value>Hydraulische belastingendatabase</value>
   </data>
+  <data name="HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data" xml:space="preserve">
+    <value>U heeft een ander HLCD bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle HB berekeningen verwijderd worden.
+
+Wilt u doorgaan?</value>
+  </data>
 </root>
