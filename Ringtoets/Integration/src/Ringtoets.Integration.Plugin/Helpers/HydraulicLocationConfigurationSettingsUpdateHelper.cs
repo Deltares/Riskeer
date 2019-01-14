@@ -39,8 +39,8 @@ namespace Ringtoets.Integration.Plugin.Helpers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationSettings"/>
         /// or <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         public static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
-                                                                      ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
-                                                                      string hlcdFilePath)
+                                                                     ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
+                                                                     string hlcdFilePath)
         {
             if (hydraulicLocationConfigurationSettings == null)
             {
@@ -54,29 +54,31 @@ namespace Ringtoets.Integration.Plugin.Helpers
 
             if (readHydraulicLocationConfigurationDatabaseSettings != null)
             {
-                hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.ScenarioName,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.Year,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.Scope,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.SeaLevel,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.RiverDischarge,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.LakeLevel,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.WindDirection,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.WindSpeed,
-                                                                 readHydraulicLocationConfigurationDatabaseSettings.Comment);
+                hydraulicLocationConfigurationSettings.SetValues(
+                    hlcdFilePath,
+                    readHydraulicLocationConfigurationDatabaseSettings.ScenarioName,
+                    readHydraulicLocationConfigurationDatabaseSettings.Year,
+                    readHydraulicLocationConfigurationDatabaseSettings.Scope,
+                    readHydraulicLocationConfigurationDatabaseSettings.SeaLevel,
+                    readHydraulicLocationConfigurationDatabaseSettings.RiverDischarge,
+                    readHydraulicLocationConfigurationDatabaseSettings.LakeLevel,
+                    readHydraulicLocationConfigurationDatabaseSettings.WindDirection,
+                    readHydraulicLocationConfigurationDatabaseSettings.WindSpeed,
+                    readHydraulicLocationConfigurationDatabaseSettings.Comment);
             }
             else
             {
-                hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
-                                                                 HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.YearDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
-                                                                 HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue);
+                hydraulicLocationConfigurationSettings.SetValues(
+                    hlcdFilePath,
+                    HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.YearDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
+                    HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue);
             }
         }
     }
