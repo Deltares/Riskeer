@@ -29,6 +29,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Helpers;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Handlers
@@ -86,6 +87,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 hydraulicBoundaryDatabase
             };
+
+            changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));
 
             return changedObjects;
         }
