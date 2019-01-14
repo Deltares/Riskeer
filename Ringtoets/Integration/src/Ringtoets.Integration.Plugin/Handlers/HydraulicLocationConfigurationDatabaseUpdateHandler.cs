@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<IObservable> Update(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
+        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
                                                string hlcdFilePath)
         {

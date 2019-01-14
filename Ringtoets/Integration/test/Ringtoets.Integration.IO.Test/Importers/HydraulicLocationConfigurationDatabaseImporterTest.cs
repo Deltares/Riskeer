@@ -454,7 +454,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.Update(Arg<HydraulicLocationConfigurationSettings>.Is.Same(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings),
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
@@ -484,7 +484,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.Update(Arg<HydraulicLocationConfigurationSettings>.Is.Same(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings),
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.NotNull,
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
@@ -518,7 +518,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
-            handler.Expect(h => h.Update(Arg<HydraulicLocationConfigurationSettings>.Is.NotNull,
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
                                          Arg<string>.Is.NotNull))
                    .Return(new[]

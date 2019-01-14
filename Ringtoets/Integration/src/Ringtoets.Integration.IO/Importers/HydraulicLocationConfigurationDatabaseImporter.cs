@@ -199,7 +199,7 @@ namespace Ringtoets.Integration.IO.Importers
         private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings)
         {
             NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 3, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicLocationConfigurationDatabaseSettings, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseSettings, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
