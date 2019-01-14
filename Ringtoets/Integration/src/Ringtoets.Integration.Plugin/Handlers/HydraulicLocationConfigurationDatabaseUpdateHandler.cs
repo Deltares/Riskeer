@@ -63,7 +63,12 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
                 readHydraulicLocationConfigurationDatabaseSettings, hlcdFilePath);
 
-            return null;
+            var changedObjects = new List<IObservable>
+            {
+                hydraulicBoundaryDatabase
+            };
+
+            return changedObjects;
         }
     }
 }

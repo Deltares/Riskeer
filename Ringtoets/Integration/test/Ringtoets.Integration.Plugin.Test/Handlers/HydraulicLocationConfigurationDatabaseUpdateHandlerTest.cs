@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -158,6 +160,24 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual(readSettings.WindDirection, settings.WindDirection);
             Assert.AreEqual(readSettings.WindSpeed, settings.WindSpeed);
             Assert.AreEqual(readSettings.Comment, settings.Comment);
+        }
+
+        [Test]
+        public void Update_DataUpdated_ReturnsChangedObjects()
+        {
+            // Setup
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, null, "some/file/path");
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryDatabase
+            }, changedObjects);
+
         }
     }
 }
