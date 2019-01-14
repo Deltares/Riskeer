@@ -24,9 +24,11 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.HydraRing.IO.TestUtil;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Handlers;
 
@@ -36,10 +38,21 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
     public class HydraulicLocationConfigurationDatabaseUpdateHandlerTest : NUnitFormTest
     {
         [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseUpdateHandler(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Assert
             Assert.IsInstanceOf<IHydraulicLocationConfigurationDatabaseUpdateHandler>(handler);
@@ -67,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 }
             };
 
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Call
             bool result = handler.InquireConfirmation();
@@ -87,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void Update_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Call
             TestDelegate call = () => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), "");
@@ -101,7 +114,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void Update_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), null);
@@ -116,7 +129,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             const string hlcdFilePath = "some/file/path";
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             
             // Call
@@ -141,7 +154,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             const string hlcdFilePath = "some/file/path";
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             ReadHydraulicLocationConfigurationDatabaseSettings readSettings = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
 
@@ -166,7 +179,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void Update_DataUpdated_ReturnsChangedObjects()
         {
             // Setup
-            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
@@ -177,7 +190,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             {
                 hydraulicBoundaryDatabase
             }, changedObjects);
+        }
 
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            return new AssessmentSection(AssessmentSectionComposition.Dike);
         }
     }
 }

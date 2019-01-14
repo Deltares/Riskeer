@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Helpers;
 using Ringtoets.Integration.Plugin.Properties;
@@ -37,6 +38,24 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseUpdateHandler : IHydraulicLocationConfigurationDatabaseUpdateHandler
     {
+        private readonly AssessmentSection assessmentSection;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseUpdateHandler"/>
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to use for clearing data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public HydraulicLocationConfigurationDatabaseUpdateHandler(AssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+        }
+
         public bool InquireConfirmation()
         {
             DialogResult result = MessageBox.Show(Resources.HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data,
