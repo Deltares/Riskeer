@@ -30,6 +30,7 @@ using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Handlers;
+using Ringtoets.Integration.Plugin.Helpers;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -41,9 +42,6 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// </summary>
     public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
-        private const string mandatoryConfigurationPropertyDefaultValue = "WBI2017";
-        private const string optionalConfigurationPropertyDefaultValue = "Conform WBI2017";
-        private const string additionalInformationConfigurationPropertyValue = "Gegenereerd door Ringtoets (conform WBI2017)";
         private readonly AssessmentSection assessmentSection;
         private readonly IDuneLocationsReplacementHandler duneLocationsReplacementHandler;
         private bool updateLocations;
@@ -164,9 +162,9 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 }
             }
 
-            SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                      readHydraulicLocationConfigurationDatabase,
-                                                      hlcdFilePath);
+            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                                                                         readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
+                                                                                                         hlcdFilePath);
 
             return changedObjects;
         }
@@ -183,41 +181,6 @@ namespace Ringtoets.Integration.Plugin.Handlers
         {
             return readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings == null
                    || readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count() == 1;
-        }
-
-        private static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
-                                                                      ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
-                                                                      string hlcdFilePath)
-        {
-            if (readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings != null)
-            {
-                ReadHydraulicLocationConfigurationDatabaseSettings readSettings =
-                    readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
-                                                              .Single();
-                hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
-                                                                 readSettings.ScenarioName,
-                                                                 readSettings.Year,
-                                                                 readSettings.Scope,
-                                                                 readSettings.SeaLevel,
-                                                                 readSettings.RiverDischarge,
-                                                                 readSettings.LakeLevel,
-                                                                 readSettings.WindDirection,
-                                                                 readSettings.WindSpeed,
-                                                                 readSettings.Comment);
-            }
-            else
-            {
-                hydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
-                                                                 mandatoryConfigurationPropertyDefaultValue,
-                                                                 2023,
-                                                                 mandatoryConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 optionalConfigurationPropertyDefaultValue,
-                                                                 additionalInformationConfigurationPropertyValue);
-            }
         }
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
