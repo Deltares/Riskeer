@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
@@ -48,17 +49,53 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int preprocessorDirectoryPropertyIndex = 12;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryDatabaseProperties(null, importHandler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_HydraulicLocationConfigurationDatabaseImportHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            TestDelegate call = () => new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicLocationConfigurationDatabaseImportHandler", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
             Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -68,6 +105,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const bool usePreprocessor = true;
             const string preprocessorDirectory = @"C:\preprocessor";
 
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 CanUsePreprocessor = true,
@@ -76,25 +117,30 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
             Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
             Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectory);
             Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectoryReadOnly);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithUnlinkedDatabase_ReturnsExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Precondition
             Assert.IsFalse(hydraulicBoundaryDatabase.IsLinked());
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
             Assert.IsEmpty(properties.HrdFilePath);
@@ -108,19 +154,24 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsEmpty(properties.WindDirection);
             Assert.IsEmpty(properties.WindSpeed);
             Assert.IsEmpty(properties.Comment);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithLinkedDatabase_ReturnsExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateLinkedHydraulicBoundaryDatabase();
 
             // Precondition
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, properties.HrdFilePath);
@@ -136,6 +187,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(configurationSettings.WindDirection, properties.WindDirection);
             Assert.AreEqual(configurationSettings.WindSpeed, properties.WindSpeed);
             Assert.AreEqual(configurationSettings.Comment, properties.Comment);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -144,6 +196,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_CanUsePreprocessorTrue_PropertiesHaveExpectedAttributesValues(bool usePreprocessor)
         {
             // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 CanUsePreprocessor = true,
@@ -152,7 +208,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -248,16 +304,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Locatie preprocessor bestanden",
                                                                             "Locatie waar de preprocessor bestanden opslaat.",
                                                                             !usePreprocessor);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CanUsePreprocessorFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -340,17 +401,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Overig",
                                                                             "Overige informatie.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDatabaseAndObserversNotified([Values(true, false)] bool usePreprocessor)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDatabaseAndObserversNotified(bool usePreprocessor)
         {
             // Setup
             var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
             var observer = mocks.StrictMock<IObserver>();
-
             observer.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -360,7 +423,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 PreprocessorDirectory = "Preprocessor"
             };
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             hydraulicBoundaryDatabase.Attach(observer);
 
@@ -376,6 +439,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void PreprocessorDirectory_SetNewValue_ValueSetToHydraulicBoundaryDatabase()
         {
             // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
             const string newPreprocessorDirectory = @"C:/path";
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -384,21 +451,48 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 PreprocessorDirectory = "Preprocessor"
             };
 
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Call
             properties.PreprocessorDirectory = newPreprocessorDirectory;
 
             // Assert
             Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
+            mocks.VerifyAll();
         }
 
         [Test]
+        public void HlcdFilePath_SetNewValue_CallsHydraulicLocationConfigurationDatabaseImportHandler()
+        {
+            // Setup
+            const string hlcdFilePath = @"C:/path/HlcdFilePath";
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var importHandler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            importHandler.Expect(ih => ih.OnNewFilePathSet(hydraulicBoundaryDatabase, hlcdFilePath));
+            mocks.ReplayAll();
+
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+
+            // Call
+            properties.HlcdFilePath = hlcdFilePath;
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
         public void DynamicVisibleValidationMethod_DependingOnCanUsePreprocessorAndUsePreprocessor_ReturnExpectedVisibility(
             [Values(true, false)] bool canUsePreprocessor,
             [Values(true, false)] bool usePreprocessor)
         {
             // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             if (canUsePreprocessor)
@@ -409,13 +503,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             }
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
             Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
             Assert.AreEqual(canUsePreprocessor && usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
             Assert.AreEqual(canUsePreprocessor && !usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
+            mocks.VerifyAll();
         }
 
         private static HydraulicBoundaryDatabase CreateLinkedHydraulicBoundaryDatabase()

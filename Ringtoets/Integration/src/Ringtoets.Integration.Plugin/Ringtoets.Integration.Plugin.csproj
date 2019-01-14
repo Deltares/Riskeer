@@ -37,6 +37,7 @@
     <Compile Include="Helpers\HydraulicLocationConfigurationSettingsConstants.cs" />
     <Compile Include="Helpers\HydraulicLocationConfigurationSettingsUpdateHelper.cs" />
     <Compile Include="Handlers\HydraulicLocationConfigurationDatabaseUpdateHandler.cs" />
+    <Compile Include="Handlers\HydraulicLocationConfigurationDatabaseImportHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMerger.cs" />
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />

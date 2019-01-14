@@ -51,19 +51,28 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         private const int usePreprocessorPropertyIndex = 11;
         private const int preprocessorDirectoryPropertyIndex = 12;
 
+        private readonly IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
-        /// is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <param name="hydraulicLocationConfigurationDatabaseImportHandler">The handler to update the hydraulic location configuration settings.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                   IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
+            if (hydraulicLocationConfigurationDatabaseImportHandler == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationDatabaseImportHandler));
+            }
+
+            this.hydraulicLocationConfigurationDatabaseImportHandler = hydraulicLocationConfigurationDatabaseImportHandler;
             Data = hydraulicBoundaryDatabase;
         }
 
@@ -83,11 +92,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
+        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
         public string HlcdFilePath
         {
             get
             {
-                return  data.HydraulicLocationConfigurationSettings.FilePath ?? string.Empty;
+                return data.HydraulicLocationConfigurationSettings.FilePath ?? string.Empty;
+            }
+            set
+            {
+                hydraulicLocationConfigurationDatabaseImportHandler.OnNewFilePathSet(data, value);
             }
         }
 
@@ -148,7 +162,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return data.HydraulicLocationConfigurationSettings.RiverDischarge ?? string.Empty;
-
             }
         }
 

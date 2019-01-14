@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
             {
-                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData, new HydraulicLocationConfigurationDatabaseImportHandler())
             };
             yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
             {
