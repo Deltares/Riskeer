@@ -77,6 +77,13 @@ namespace Ringtoets.Integration.IO.Importers
 
         protected override bool OnImport()
         {
+            InquireConfirmation();
+
+            if (Canceled)
+            {
+                return false;
+            }
+
             if (Path.GetDirectoryName(FilePath) != Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath))
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD));
@@ -106,15 +113,8 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
-            InquireConfirmation();
-
-            if (Canceled)
-            {
-                return false;
-            }
-
             AddHydraulicLocationConfigurationSettingsToDataModel(
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.SingleOrDefault());
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single());
 
             return true;
         }

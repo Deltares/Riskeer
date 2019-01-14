@@ -98,6 +98,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
             string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
@@ -126,6 +127,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
             string path = Path.Combine(testDataPath, "CorruptHrd");
@@ -154,6 +156,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
             string path = Path.Combine(testDataPath, "EmptyHrd");
@@ -182,6 +185,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
             string path = Path.Combine(testDataPath, "empty.sqlite");
@@ -210,6 +214,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
             string path = Path.Combine(testDataPath, "invalid.sqlite");
@@ -240,6 +245,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
             string path = Path.Combine(testDataPath, $"{fileName}.sqlite");
@@ -306,6 +312,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
