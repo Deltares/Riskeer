@@ -48,6 +48,21 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                                ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
                                                string hlcdFilePath)
         {
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            if (readHydraulicLocationConfigurationDatabaseSettings == null)
+            {
+                throw new ArgumentNullException(nameof(readHydraulicLocationConfigurationDatabaseSettings));
+            }
+
+            if (hlcdFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(hlcdFilePath));
+            }
+
             throw new NotImplementedException();
         }
     }

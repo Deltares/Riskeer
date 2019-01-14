@@ -22,6 +22,8 @@
 using System;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.HydraRing.IO.TestUtil;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Handlers;
 
@@ -76,6 +78,48 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                             Environment.NewLine +
                             "Wilt u doorgaan?",
                             dialogMessage);
+        }
+
+        [Test]
+        public void Update_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+
+            // Call
+            TestDelegate call = () => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_ReadHydraulicLocationConfigurationDatabaseSettingsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), null, "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("readHydraulicLocationConfigurationDatabaseSettings", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_HlcdFilePathNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler();
+
+            // Call
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hlcdFilePath", exception.ParamName);
         }
     }
 }
