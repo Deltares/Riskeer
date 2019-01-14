@@ -145,6 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsEmpty(properties.HrdFilePath);
             Assert.IsEmpty(properties.HlcdFilePath);
+            Assert.IsEmpty(properties.HlcdFilePathReadOnly);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.AreEqual(0, properties.Year);
             Assert.IsEmpty(properties.Scope);
@@ -178,6 +179,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
+            Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePathReadOnly);
             Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(configurationSettings.Year, properties.Year);
             Assert.AreEqual(configurationSettings.Scope, properties.Scope);
@@ -402,6 +404,106 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Overige informatie.",
                                                                             true);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithVariousLinkedDatabaseStatuses_HlcdFilePathHaveExpectedAttributeValue(bool isLinked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = isLinked
+                                                                      ? CreateLinkedHydraulicBoundaryDatabase()
+                                                                      : new HydraulicBoundaryDatabase();
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(11, dynamicProperties.Count);
+
+            const string expectedCategory = "Algemeen";
+            PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
+                                                                            expectedCategory,
+                                                                            "HRD database locatie",
+                                                                            "Locatie van het HRD bestand.",
+                                                                            true);
+
+            PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
+                                                                            expectedCategory,
+                                                                            "HLCD database locatie",
+                                                                            "Locatie van het HLCD bestand.",
+                                                                            !isLinked);
+
+            PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
+                                                                            expectedCategory,
+                                                                            "Klimaatscenario",
+                                                                            "Algemene naam van het klimaatscenario.",
+                                                                            true);
+
+            PropertyDescriptor yearProperty = dynamicProperties[yearPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(yearProperty,
+                                                                            expectedCategory,
+                                                                            "Zichtjaar",
+                                                                            "Jaartal van het jaar waarop de statistiek van toepassing is.",
+                                                                            true);
+
+            PropertyDescriptor scopeProperty = dynamicProperties[scopePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scopeProperty,
+                                                                            expectedCategory,
+                                                                            "Toepassingskader",
+                                                                            "Projectkader waarin de statistiek bedoeld is te gebruiken.",
+                                                                            true);
+
+            PropertyDescriptor seaLevelProperty = dynamicProperties[seaLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(seaLevelProperty,
+                                                                            expectedCategory,
+                                                                            "Zeewaterstand",
+                                                                            "Klimaatinformatie met betrekking tot de zeewaterstand.",
+                                                                            true);
+
+            PropertyDescriptor riverDischargeProperty = dynamicProperties[riverDischargePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(riverDischargeProperty,
+                                                                            expectedCategory,
+                                                                            "Rivierafvoer",
+                                                                            "Klimaatinformatie met betrekking tot de rivierafvoer.",
+                                                                            true);
+
+            PropertyDescriptor lakeLevelProperty = dynamicProperties[lakeLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lakeLevelProperty,
+                                                                            expectedCategory,
+                                                                            "Meerpeil",
+                                                                            "Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.",
+                                                                            true);
+
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            expectedCategory,
+                                                                            "Windrichting",
+                                                                            "Klimaatinformatie met betrekking tot de windrichting.",
+                                                                            true);
+
+            PropertyDescriptor windSpeedProperty = dynamicProperties[windSpeedPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windSpeedProperty,
+                                                                            expectedCategory,
+                                                                            "Windsnelheid",
+                                                                            "Klimaatinformatie met betrekking tot de windsnelheid.",
+                                                                            true);
+
+            PropertyDescriptor commentProperty = dynamicProperties[commentPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(commentProperty,
+                                                                            expectedCategory,
+                                                                            "Overig",
+                                                                            "Overige informatie.",
+                                                                            true);
         }
 
         [Test]

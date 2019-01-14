@@ -89,10 +89,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(hlcdFilePathPropertyIndex)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
-        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
         public string HlcdFilePath
         {
             get
@@ -102,6 +103,19 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 hydraulicLocationConfigurationDatabaseImportHandler.ImportHydraulicLocationConfigurationSettings(data, value);
+            }
+        }
+
+        [PropertyOrder(hlcdFilePathPropertyIndex)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
+        public string HlcdFilePathReadOnly
+        {
+            get
+            {
+                return data.HydraulicLocationConfigurationSettings.FilePath ?? string.Empty;
             }
         }
 
@@ -278,6 +292,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
 
             if (propertyName.Equals(nameof(PreprocessorDirectoryReadOnly)) && (!canUsePreprocessor || UsePreprocessor))
+            {
+                return false;
+            }
+
+            if (propertyName.Equals(nameof(HlcdFilePath)) && !data.IsLinked())
+            {
+                return false;
+            }
+
+            if (propertyName.Equals(nameof(HlcdFilePathReadOnly)) && data.IsLinked())
             {
                 return false;
             }
