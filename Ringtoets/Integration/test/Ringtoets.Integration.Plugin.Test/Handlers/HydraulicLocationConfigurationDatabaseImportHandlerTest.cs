@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
 
             // Call
-            TestDelegate call = () => importHandler.OnNewFilePathSet(null, string.Empty);
+            TestDelegate call = () => importHandler.ImportHydraulicLocationConfigurationSettings(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
 
             // Call
-            TestDelegate call = () => importHandler.OnNewFilePathSet(new HydraulicBoundaryDatabase(), null);
+            TestDelegate call = () => importHandler.ImportHydraulicLocationConfigurationSettings(new HydraulicBoundaryDatabase(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -163,7 +163,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
 
             // Call
-            importHandler.OnNewFilePathSet(hydraulicBoundaryDatabase, newHlcdFilePath);
+            importHandler.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase, newHlcdFilePath);
 
             // Assert
             mocks.VerifyAll();

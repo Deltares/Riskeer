@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
             set
             {
-                hydraulicLocationConfigurationDatabaseImportHandler.OnNewFilePathSet(data, value);
+                hydraulicLocationConfigurationDatabaseImportHandler.ImportHydraulicLocationConfigurationSettings(data, value);
             }
         }
 

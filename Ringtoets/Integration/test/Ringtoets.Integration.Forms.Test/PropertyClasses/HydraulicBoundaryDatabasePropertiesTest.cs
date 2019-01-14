@@ -470,7 +470,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var importHandler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            importHandler.Expect(ih => ih.OnNewFilePathSet(hydraulicBoundaryDatabase, hlcdFilePath));
+            importHandler.Expect(ih => ih.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase, hlcdFilePath));
             mocks.ReplayAll();
 
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);

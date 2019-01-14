@@ -37,6 +37,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// to update.</param>
         /// <param name="hlcdFilePath">The file path to import the data from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        void OnNewFilePathSet(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath);
+        void ImportHydraulicLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath);
     }
 }

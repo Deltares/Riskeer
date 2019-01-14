@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             this.updateHandler = updateHandler;
         }
 
-        public void OnNewFilePathSet(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath)
+        public void ImportHydraulicLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath)
         {
             if (hydraulicBoundaryDatabase == null)
             {
