@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Importers;
+using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Handlers
 {
@@ -78,7 +79,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                                                    updateHandler,
                                                                    hydraulicBoundaryDatabase,
                                                                    hlcdFilePath),
-                string.Empty);
+                Resources.HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfigurationSettings_Description);
             ActivityProgressDialogRunner.Run(viewParent, importSettingsActivity);
         }
     }

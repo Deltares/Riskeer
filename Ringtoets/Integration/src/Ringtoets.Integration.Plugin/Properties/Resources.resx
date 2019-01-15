@@ -234,4 +234,7 @@ Wilt u doorgaan?</value>
 
 Wilt u doorgaan?</value>
   </data>
+  <data name="HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfigurationSettings_Description" xml:space="preserve">
+    <value>Importeren van het HLCD bestand</value>
+  </data>
 </root>
