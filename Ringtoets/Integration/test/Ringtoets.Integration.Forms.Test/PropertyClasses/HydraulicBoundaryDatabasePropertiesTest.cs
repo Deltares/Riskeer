@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Windows.Forms.Design;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
@@ -445,7 +446,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             !isLinked);
             if (isLinked)
             {
-                object hlcdFilePathEditor = hlcdFilePathProperty.GetEditor(typeof(FileNameEditor));
+                object hlcdFilePathEditor = hlcdFilePathProperty.GetEditor(typeof(UITypeEditor));
                 Assert.IsInstanceOf<HlcdFileNameEditor>(hlcdFilePathEditor);
             }
 

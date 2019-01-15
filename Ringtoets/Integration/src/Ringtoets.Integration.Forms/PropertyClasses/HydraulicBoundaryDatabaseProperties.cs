@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
-        [Editor(typeof(HlcdFileNameEditor), typeof(FileNameEditor))]
+        [Editor(typeof(HlcdFileNameEditor), typeof(UITypeEditor))]
         public string HlcdFilePath
         {
             get
