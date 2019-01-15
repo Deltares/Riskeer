@@ -226,8 +226,8 @@ Insert new data
 -- Directory retrieval was taken from https://stackoverflow.com/questions/21388820/how-to-get-the-last-index-of-a-substring-in-sqlite
 INSERT INTO HydraulicBoundaryDatabaseEntity (
 	[AssessmentSectionEntityId],
-	[HydraulicBoundaryDatabaseVersion],
-	[HydraulicBoundaryDatabaseFilePath],
+	[Version],
+	[FilePath],
 	[HydraulicLocationConfigurationSettingsFilePath],
 	[HydraulicLocationConfigurationSettingsScenarioName],
 	[HydraulicLocationConfigurationSettingsYear],

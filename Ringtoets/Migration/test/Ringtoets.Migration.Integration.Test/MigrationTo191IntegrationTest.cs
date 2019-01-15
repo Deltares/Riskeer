@@ -108,8 +108,8 @@ namespace Ringtoets.Migration.Integration.Test
                 ") " +
                 "FROM HydraulicBoundaryDatabaseEntity NEW " +
                 "JOIN SOURCEPROJECT.AssessmentSectionEntity OLD USING(AssessmentSectionEntityId) " +
-                "WHERE NEW.[HydraulicBoundaryDatabaseVersion] = OLD.[HydraulicDatabaseVersion] " +
-                "AND NEW.[HydraulicBoundaryDatabaseFilePath] = OLD.[HydraulicDatabaseLocation] " +
+                "WHERE NEW.[Version] = OLD.[HydraulicDatabaseVersion] " +
+                "AND NEW.[FilePath] = OLD.[HydraulicDatabaseLocation] " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsFilePath] = rtrim(OLD.[HydraulicDatabaseLocation], replace(OLD.[HydraulicDatabaseLocation], '\\', '')) || 'hlcd.sqlite' " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsScenarioName] = 'Conform WBI2017' " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsYear] = 2023 " +
