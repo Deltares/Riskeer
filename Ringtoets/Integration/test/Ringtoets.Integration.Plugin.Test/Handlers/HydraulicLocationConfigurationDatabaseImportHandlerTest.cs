@@ -66,7 +66,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Setup
             var mocks = new MockRepository();
             var viewParent = mocks.Stub<IWin32Window>();
-            var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -96,7 +95,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void OnNewFilePathSet_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void ImportHydraulicLocationConfigurationSettings_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -116,7 +115,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void OnNewFilePathSet_HlcdFilePathNull_ThrowsArgumentNullException()
+        public void ImportHydraulicLocationConfigurationSettings_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -136,7 +135,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void OnNewFilePathSet_WithValidFilePath_SetsHydraulicLocationConfigurationDatabaseSettings()
+        public void ImportHydraulicLocationConfigurationSettings_WithValidFilePath_SetsHydraulicLocationConfigurationDatabaseSettings()
         {
             // Setup
             string newHlcdFilePath = Path.Combine(testDataDirectory, "hlcdWithScenarioInformation.sqlite");
