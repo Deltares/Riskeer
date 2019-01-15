@@ -405,18 +405,6 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-SELECT
-	"18.1",
-	"19.1",
-	"* Er kan een andere HLCD bestand worden gekoppeld worden in het werkpaneel 'Eigenschappen' van de 'Hydraulische belastingen'."
-	FROM SOURCEPROJECT.AssessmentSectionEntity
-	WHERE [HydraulicDatabaseLocation] IS NOT NULL
-	LIMIT 1;
-
-INSERT INTO [LOGDATABASE].MigrationLogEntity (
-	[FromVersion],
-	[ToVersion],
-	[LogMessage])
 WITH RECURSIVE
 FailureMechanismMessages
 (
