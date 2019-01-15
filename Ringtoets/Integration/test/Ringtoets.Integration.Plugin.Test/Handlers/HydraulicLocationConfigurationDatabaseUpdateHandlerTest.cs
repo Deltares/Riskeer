@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -129,7 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_ReadHydraulicLocationConfigurationDatabaseSettingsNull_SetsDefaultValues()
+        public void Update_ReadHydraulicLocationConfigurationDatabaseSettingsNull_SetsDefaultValuesAndLogsWarning()
         {
             // Setup
             const string hlcdFilePath = "some/file/path";
@@ -137,9 +138,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            handler.Update(hydraulicBoundaryDatabase, null, hlcdFilePath);
+            Action call = () => handler.Update(hydraulicBoundaryDatabase, null, hlcdFilePath);
 
             // Assert
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaard waarden " +
+                                           "conform WBI2017 voor de HLCD bestand informatie gebruikt.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hlcdFilePath, settings.FilePath);
             Assert.AreEqual("WBI2017", settings.ScenarioName);
@@ -154,7 +159,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_WithReadHydraulicLocationConfigurationDatabaseSettings_SetsExpectedValues()
+        public void Update_WithReadHydraulicLocationConfigurationDatabaseSettings_SetsExpectedValuesAndDoesNotLog()
         {
             // Setup
             const string hlcdFilePath = "some/file/path";
@@ -163,9 +168,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             ReadHydraulicLocationConfigurationDatabaseSettings readSettings = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
 
             // Call
-            handler.Update(hydraulicBoundaryDatabase, readSettings, hlcdFilePath);
+            Action call = () => handler.Update(hydraulicBoundaryDatabase, readSettings, hlcdFilePath);
 
             // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hlcdFilePath, settings.FilePath);
             Assert.AreEqual(readSettings.ScenarioName, settings.ScenarioName);

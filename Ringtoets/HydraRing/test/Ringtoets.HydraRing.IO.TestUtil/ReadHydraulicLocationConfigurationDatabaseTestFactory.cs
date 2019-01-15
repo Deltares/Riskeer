@@ -66,11 +66,7 @@ namespace Ringtoets.HydraRing.IO.TestUtil
                 ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create()
             };
 
-            return Create(new long[]
-            {
-                1,
-                2
-            }, settings);
+            return CreateWithConfigurationSettings(settings);
         }
 
         /// <summary>

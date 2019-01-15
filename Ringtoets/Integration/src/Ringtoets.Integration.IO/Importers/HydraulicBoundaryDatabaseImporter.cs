@@ -92,13 +92,9 @@ namespace Ringtoets.Integration.IO.Importers
             }
 
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = readHydraulicLocationConfigurationDatabaseResult.Items.Single();
-            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> hydraulicLocationConfigurationDatabaseSettings = 
+            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> hydraulicLocationConfigurationDatabaseSettings =
                 readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
-            if (hydraulicLocationConfigurationDatabaseSettings == null)
-            {
-                Log.Warn(Resources.HydraulicBoundaryDatabaseImporter_HLCD_No_ScenarioInformation_entries_present);
-            }
-            else if (hydraulicLocationConfigurationDatabaseSettings.Count() != 1)
+            if (hydraulicLocationConfigurationDatabaseSettings != null && hydraulicLocationConfigurationDatabaseSettings.Count() != 1)
             {
                 Log.Error(BuildErrorMessage(GetHlcdFilePath(), Resources.HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries));
                 return false;

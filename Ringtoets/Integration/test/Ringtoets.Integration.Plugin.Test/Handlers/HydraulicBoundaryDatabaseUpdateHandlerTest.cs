@@ -658,7 +658,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_ReadHydraulicLocationConfigurationDatabaseWithScenarioInformation_SetsHydraulicLocationConfigurationSettings()
+        public void Update_ReadHydraulicLocationConfigurationDatabaseWithScenarioInformation_SetsHydraulicLocationConfigurationSettingsAndDoesNotLog()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -680,14 +680,16 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
 
             // Call
-            handler.Update(hydraulicBoundaryDatabase,
-                           ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                           readHydraulicLocationConfigurationDatabase,
-                           Enumerable.Empty<long>(),
-                           hydraulicBoundaryDatabaseFilePath,
-                           hlcdFilePath);
+            Action call = () => handler.Update(hydraulicBoundaryDatabase,
+                                               ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                               readHydraulicLocationConfigurationDatabase,
+                                               Enumerable.Empty<long>(),
+                                               hydraulicBoundaryDatabaseFilePath,
+                                               hlcdFilePath);
 
             // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+
             ReadHydraulicLocationConfigurationDatabaseSettings expectedSettings = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
                                                                                                                             .Single();
             HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
@@ -705,7 +707,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Update_ReadHydraulicLocationConfigurationDatabaseWithoutScenarioInformation_SetsDefaultHydraulicLocationConfigurationSettings()
+        public void Update_ReadHydraulicLocationConfigurationDatabaseWithoutScenarioInformation_SetsDefaultHydraulicLocationConfigurationSettingsAndLogsWarning()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -726,14 +728,18 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             // Call
-            handler.Update(hydraulicBoundaryDatabase,
-                           ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                           readHydraulicLocationConfigurationDatabase,
-                           Enumerable.Empty<long>(),
-                           hydraulicBoundaryDatabaseFilePath,
-                           hlcdFilePath);
+            Action call = () => handler.Update(hydraulicBoundaryDatabase,
+                                               ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                               readHydraulicLocationConfigurationDatabase,
+                                               Enumerable.Empty<long>(),
+                                               hydraulicBoundaryDatabaseFilePath,
+                                               hlcdFilePath);
 
             // Assert
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaard waarden " +
+                                           "conform WBI2017 voor de HLCD bestand informatie gebruikt.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+
             HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hlcdFilePath, actualSettings.FilePath);
             Assert.AreEqual("WBI2017", actualSettings.ScenarioName);

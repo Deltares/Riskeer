@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using log4net;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Helpers
 {
@@ -30,6 +32,8 @@ namespace Ringtoets.Integration.Plugin.Helpers
     /// </summary>
     public static class HydraulicLocationConfigurationSettingsUpdateHelper
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationSettingsUpdateHelper));
+
         /// <summary>
         /// Sets the hydraulic location configuration settings.
         /// </summary>
@@ -68,6 +72,8 @@ namespace Ringtoets.Integration.Plugin.Helpers
             }
             else
             {
+                log.Warn(Resources.HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present);
+
                 hydraulicLocationConfigurationSettings.SetValues(
                     hlcdFilePath,
                     HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,

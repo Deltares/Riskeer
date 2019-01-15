@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
@@ -56,16 +57,20 @@ namespace Ringtoets.Integration.Plugin.Test.Helpers
         }
 
         [Test]
-        public void SetHydraulicLocationConfigurationSettings_ReadHydraulicLocationConfigurationDatabaseSettingsNull_SetDefaultValues()
+        public void SetHydraulicLocationConfigurationSettings_ReadHydraulicLocationConfigurationDatabaseSettingsNull_SetDefaultValuesAndLogsWarning()
         {
             // Setup
             const string filePath = "some/file/path";
             var settings = new HydraulicLocationConfigurationSettings();
             
             // Call
-            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(settings, null, filePath);
+            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(settings, null, filePath);
 
             // Assert
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaard waarden " +
+                                           "conform WBI2017 voor de HLCD bestand informatie gebruikt.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+
             Assert.AreEqual(filePath, settings.FilePath);
             Assert.AreEqual("WBI2017", settings.ScenarioName);
             Assert.AreEqual(2023, settings.Year);
@@ -79,7 +84,7 @@ namespace Ringtoets.Integration.Plugin.Test.Helpers
         }
 
         [Test]
-        public void SetHydraulicLocationConfigurationSettings_ReadHydraulicLocationConfigurationDatabaseSettingsNotNull_SetExpectedValues()
+        public void SetHydraulicLocationConfigurationSettings_ReadHydraulicLocationConfigurationDatabaseSettingsNotNull_SetExpectedValuesAndDoesNotLog()
         {
             // Setup
             const string filePath = "some/file/path";
@@ -87,9 +92,11 @@ namespace Ringtoets.Integration.Plugin.Test.Helpers
             ReadHydraulicLocationConfigurationDatabaseSettings readSettings = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
 
             // Call
-            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(settings, readSettings, filePath);
+            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(settings, readSettings, filePath);
 
             // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+
             Assert.AreEqual(filePath, settings.FilePath);
             Assert.AreEqual(readSettings.ScenarioName, settings.ScenarioName);
             Assert.AreEqual(readSettings.Year, settings.Year);

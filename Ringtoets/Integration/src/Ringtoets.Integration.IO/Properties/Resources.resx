@@ -188,9 +188,6 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
     <value>De tabel 'ScenarioInformation' moet exact 1 rij bevatten.</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseImporter_HLCD_No_ScenarioInformation_entries_present" xml:space="preserve">
-    <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaard waarden conform WBI2017 voor de HLCD bestand informatie gebruikt.</value>
-  </data>
   <data name="HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
     <value>HLCD importeren afgebroken. Geen gegevens gewijzigd.</value>
   </data>
