@@ -82,6 +82,7 @@
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoriesProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryProperties.cs" />
+    <Compile Include="Editors\HlcdFileNameEditor.cs" />
     <Compile Include="PropertyClasses\IHydraulicLocationConfigurationDatabaseImportHandler.cs" />
     <Compile Include="PropertyClasses\NormProperties.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionCompositionProperties.cs" />
@@ -419,4 +420,5 @@
   <ItemGroup>
     <None Include="Resources\AddFolder-stand32.png" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

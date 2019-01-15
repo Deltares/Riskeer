@@ -646,6 +646,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HLCD bestand|*.sqlite.
+        /// </summary>
+        public static string HlcdFileNameEditor_InitializeDialog_FileFilter {
+            get {
+                return ResourceManager.GetString("HlcdFileNameEditor_InitializeDialog_FileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Koppel aan database....
         /// </summary>
         public static string HydraulicBoundaryDatabase_Connect {

@@ -29,6 +29,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
@@ -43,6 +44,7 @@
     <Compile Include="Factories\PipingStructureAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Editors\HlcdFileNameEditorTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergeDataProviderDialogTest.cs" />
     <Compile Include="Dialogs\BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />

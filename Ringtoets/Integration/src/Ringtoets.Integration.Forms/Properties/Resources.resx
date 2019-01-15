@@ -448,4 +448,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="HydraulicLocationConfigurationSettings_Year_DisplayName" xml:space="preserve">
     <value>Zichtjaar</value>
   </data>
+  <data name="HlcdFileNameEditor_InitializeDialog_FileFilter" xml:space="preserve">
+    <value>HLCD bestand|*.sqlite</value>
+  </data>
 </root>

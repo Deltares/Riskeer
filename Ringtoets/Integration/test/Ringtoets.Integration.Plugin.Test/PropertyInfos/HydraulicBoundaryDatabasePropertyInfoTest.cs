@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -60,6 +63,16 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_ReturnHydraulicBoundaryDatabaseProperties()
         {
             // Setup
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 

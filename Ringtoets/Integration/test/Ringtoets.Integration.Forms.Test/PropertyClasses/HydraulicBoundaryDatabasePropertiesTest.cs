@@ -21,12 +21,14 @@
 
 using System;
 using System.ComponentModel;
+using System.Windows.Forms.Design;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Integration.Forms.Editors;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -441,6 +443,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "HLCD database locatie",
                                                                             "Locatie van het HLCD bestand.",
                                                                             !isLinked);
+            if (isLinked)
+            {
+                object hlcdFilePathEditor = hlcdFilePathProperty.GetEditor(typeof(FileNameEditor));
+                Assert.IsInstanceOf<HlcdFileNameEditor>(hlcdFilePathEditor);
+            }
 
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
