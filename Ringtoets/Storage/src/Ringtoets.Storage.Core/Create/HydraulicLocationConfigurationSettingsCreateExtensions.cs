@@ -51,8 +51,8 @@ namespace Ringtoets.Storage.Core.Create
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             return new HydraulicBoundaryDatabaseEntity
             {
-                HydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabase.FilePath.DeepClone(),
-                HydraulicBoundaryDatabaseVersion = hydraulicBoundaryDatabase.Version.DeepClone(),
+                FilePath = hydraulicBoundaryDatabase.FilePath.DeepClone(),
+                Version = hydraulicBoundaryDatabase.Version.DeepClone(),
                 HydraulicLocationConfigurationSettingsFilePath = settings.FilePath.DeepClone(),
                 HydraulicLocationConfigurationSettingsScenarioName = settings.ScenarioName.DeepClone(),
                 HydraulicLocationConfigurationSettingsYear = settings.Year,

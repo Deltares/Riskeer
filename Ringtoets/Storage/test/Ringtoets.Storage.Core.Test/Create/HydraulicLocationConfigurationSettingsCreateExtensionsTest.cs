@@ -67,11 +67,11 @@ namespace Ringtoets.Storage.Core.Test.Create
             HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryDatabase.Create();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.FilePath, entity.HydraulicBoundaryDatabaseFilePath);
-            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.Version, entity.HydraulicBoundaryDatabaseVersion);
+            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.FilePath, entity.FilePath);
+            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.Version, entity.Version);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
-            TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.Version, entity.HydraulicBoundaryDatabaseVersion);
+            TestHelper.AssertAreEqualButNotSame(settings.FilePath, entity.HydraulicLocationConfigurationSettingsFilePath);
             TestHelper.AssertAreEqualButNotSame(settings.ScenarioName, entity.HydraulicLocationConfigurationSettingsScenarioName);
             TestHelper.AssertAreEqualButNotSame(settings.Year, entity.HydraulicLocationConfigurationSettingsYear);
             TestHelper.AssertAreEqualButNotSame(settings.Scope, entity.HydraulicLocationConfigurationSettingsScope);

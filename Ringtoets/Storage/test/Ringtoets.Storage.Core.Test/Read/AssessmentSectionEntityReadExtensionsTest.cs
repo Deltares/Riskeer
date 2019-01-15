@@ -391,8 +391,8 @@ namespace Ringtoets.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var hydraulicBoundaryDatabaseEntity = new HydraulicBoundaryDatabaseEntity
             {
-                HydraulicBoundaryDatabaseFilePath = "hydraulicBoundaryDatabaseFilePath",
-                HydraulicBoundaryDatabaseVersion = "hydraulicBoundaryDatabaseVersion",
+                FilePath = "hydraulicBoundaryDatabaseFilePath",
+                Version = "hydraulicBoundaryDatabaseVersion",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
                 HydraulicLocationConfigurationSettingsYear = random.Next(),
@@ -423,8 +423,8 @@ namespace Ringtoets.Storage.Core.Test.Read
 
             // Assert
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicBoundaryDatabaseVersion, hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryDatabase.Version);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath, settings.FilePath);
@@ -1171,8 +1171,8 @@ namespace Ringtoets.Storage.Core.Test.Read
         {
             return new HydraulicBoundaryDatabaseEntity
             {
-                HydraulicBoundaryDatabaseFilePath = "hydraulicBoundaryDatabaseFilePath",
-                HydraulicBoundaryDatabaseVersion = "hydraulicBoundaryDatabaseVersion",
+                FilePath = "hydraulicBoundaryDatabaseFilePath",
+                Version = "hydraulicBoundaryDatabaseVersion",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
                 HydraulicLocationConfigurationSettingsYear = 1,

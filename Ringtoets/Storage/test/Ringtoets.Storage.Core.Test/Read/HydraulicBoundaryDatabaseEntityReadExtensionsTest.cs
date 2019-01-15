@@ -62,8 +62,8 @@ namespace Ringtoets.Storage.Core.Test.Read
             var random = new Random(21);
             var entity = new HydraulicBoundaryDatabaseEntity
             {
-                HydraulicBoundaryDatabaseFilePath = "hydraulicBoundaryDatabaseFilePath",
-                HydraulicBoundaryDatabaseVersion = "hydraulicBoundaryDatabaseVersion",
+                FilePath = "hydraulicBoundaryDatabaseFilePath",
+                Version = "hydraulicBoundaryDatabaseVersion",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
                 HydraulicLocationConfigurationSettingsYear = random.Next(),
@@ -82,8 +82,8 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.Read(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.AreEqual(entity.HydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(entity.HydraulicBoundaryDatabaseVersion, hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(entity.FilePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(entity.Version, hydraulicBoundaryDatabase.Version);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsFilePath, settings.FilePath);

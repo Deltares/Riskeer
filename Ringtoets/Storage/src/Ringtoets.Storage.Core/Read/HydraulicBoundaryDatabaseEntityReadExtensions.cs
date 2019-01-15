@@ -50,8 +50,8 @@ namespace Ringtoets.Storage.Core.Read
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            hydraulicBoundaryDatabase.FilePath = entity.HydraulicBoundaryDatabaseFilePath;
-            hydraulicBoundaryDatabase.Version = entity.HydraulicBoundaryDatabaseVersion;
+            hydraulicBoundaryDatabase.FilePath = entity.FilePath;
+            hydraulicBoundaryDatabase.Version = entity.Version;
 
             hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(entity.HydraulicLocationConfigurationSettingsFilePath,
                                                                                        entity.HydraulicLocationConfigurationSettingsScenarioName,
