@@ -23,7 +23,8 @@ using System;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read {
+namespace Ringtoets.Storage.Core.Read
+{
     /// <summary>
     /// This class defines  extension methods for read operations for a <see cref="HydraulicBoundaryDatabaseEntity"/>.
     /// </summary>
