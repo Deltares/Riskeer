@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -212,6 +213,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             IEnumerable<HydraulicBoundaryLocationCalculation> locations = GetLocationCalculations(assessmentSection);
             IEnumerable<DuneLocationCalculation> duneLocations = GetDuneLocationCalculations(assessmentSection);
+            ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
+                                                                     .SelectMany(fm => fm.Calculations)
+                                                                     .Where(c => c.HasOutput)
+                                                                     .ToArray();
 
             // Precondition
             Assert.IsTrue(locations.All(l => l.HasOutput));
@@ -223,11 +228,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             Assert.IsTrue(locations.All(l => !l.HasOutput));
             Assert.IsTrue(duneLocations.All(l => l.Output == null));
+            Assert.IsTrue(calculationsWithOutput.All(c => !c.HasOutput));
 
             IEnumerable<IObservable> expectedChangedObjects = new IObservable[]
             {
                 assessmentSection.HydraulicBoundaryDatabase
-            }.Concat(locations).Concat(duneLocations);
+            }.Concat(locations).Concat(duneLocations).Concat(calculationsWithOutput);
 
             CollectionAssert.AreEquivalent(expectedChangedObjects, changedObjects);
         }

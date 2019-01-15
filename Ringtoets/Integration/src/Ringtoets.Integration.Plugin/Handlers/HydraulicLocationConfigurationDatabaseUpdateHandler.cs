@@ -89,6 +89,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             };
 
             changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));
+            changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection));
 
             return changedObjects;
         }
