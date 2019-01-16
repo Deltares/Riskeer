@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Windows.Forms.Design;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -412,7 +411,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_WithVariousLinkedDatabaseStatuses_HlcdFilePathHaveExpectedAttributeValue(bool isLinked)
+        public void Constructor_WithLinkedDatabaseStatus_HlcdFilePathHaveExpectedAttributeValue(bool isLinked)
         {
             // Setup
             var mocks = new MockRepository();
@@ -620,6 +619,55 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
             Assert.AreEqual(canUsePreprocessor && usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
             Assert.AreEqual(canUsePreprocessor && !usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
+
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ScenarioName)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Year)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Scope)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.SeaLevel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.RiverDischarge)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LakeLevel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindDirection)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindSpeed)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Comment)));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnHydraulicDatabaseLinkStatus_ReturnsExpectedVisibility(bool isHydraulicBoundaryDatabaseLinked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var importHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseImportHandler>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = isHydraulicBoundaryDatabaseLinked
+                                                                      ? CreateLinkedHydraulicBoundaryDatabase()
+                                                                      : new HydraulicBoundaryDatabase();
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
+
+            // Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.HrdFilePath)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
+
+            Assert.AreEqual(isHydraulicBoundaryDatabaseLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePath)));
+            Assert.AreEqual(!isHydraulicBoundaryDatabaseLinked, properties.DynamicVisibleValidationMethod(nameof(properties.HlcdFilePathReadOnly)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.ScenarioName)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Year)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Scope)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.SeaLevel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.RiverDischarge)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.LakeLevel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindDirection)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.WindSpeed)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Comment)));
             mocks.VerifyAll();
         }
 

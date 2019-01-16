@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.FilePath ?? string.Empty;
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
             }
             set
             {
@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.FilePath ?? string.Empty;
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
             }
         }
 
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.ScenarioName ?? string.Empty;
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.ScenarioName : string.Empty;
             }
         }
 
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.Scope ?? string.Empty;
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.Scope : string.Empty;
             }
         }
 
@@ -164,7 +164,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.SeaLevel ?? string.Empty;
+                string seaLevel = data.HydraulicLocationConfigurationSettings.SeaLevel;
+                return data.IsLinked() && seaLevel != null ? seaLevel : string.Empty;
             }
         }
 
@@ -176,7 +177,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.RiverDischarge ?? string.Empty;
+                string riverDischarge = data.HydraulicLocationConfigurationSettings.RiverDischarge;
+                return data.IsLinked() && riverDischarge != null ? riverDischarge : string.Empty;
             }
         }
 
@@ -188,7 +190,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.LakeLevel ?? string.Empty;
+                string lakeLevel = data.HydraulicLocationConfigurationSettings.LakeLevel;
+                return data.IsLinked() && lakeLevel != null ? lakeLevel : string.Empty;
             }
         }
 
@@ -200,7 +203,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.WindDirection ?? string.Empty;
+                string windDirection = data.HydraulicLocationConfigurationSettings.WindDirection;
+                return data.IsLinked() && windDirection != null ? windDirection : string.Empty;
             }
         }
 
@@ -212,7 +216,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.WindSpeed ?? string.Empty;
+                string windSpeed = data.HydraulicLocationConfigurationSettings.WindSpeed;
+                return data.IsLinked() && windSpeed != null ? windSpeed : string.Empty;
             }
         }
 
@@ -224,7 +229,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.Comment ?? string.Empty;
+                string comment = data.HydraulicLocationConfigurationSettings.Comment;
+                return data.IsLinked() && comment != null ? comment : string.Empty;
             }
         }
 
