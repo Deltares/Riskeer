@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImportHandler(null, updateHandler);
+            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImportHandler(null, updateHandler, new HydraulicBoundaryDatabase());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,11 +68,29 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, null);
+            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, null, new HydraulicBoundaryDatabase());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("updateHandler", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IWin32Window>();
+            var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -86,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
+            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, new HydraulicBoundaryDatabase());
 
             // Assert
             Assert.IsInstanceOf<IHydraulicLocationConfigurationDatabaseImportHandler>(importHandler);
@@ -94,7 +112,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ImportHydraulicLocationConfigurationSettings_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void ImportHydraulicLocationConfigurationSettings_HydraulicLocationConfigurationSettingsNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -102,14 +120,14 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
+            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, new HydraulicBoundaryDatabase());
 
             // Call
             TestDelegate call = () => importHandler.ImportHydraulicLocationConfigurationSettings(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
+            Assert.AreEqual("hydraulicLocationConfigurationSettings", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -122,10 +140,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, hydraulicBoundaryDatabase);
 
             // Call
-            TestDelegate call = () => importHandler.ImportHydraulicLocationConfigurationSettings(new HydraulicBoundaryDatabase(), null);
+            TestDelegate call = () => importHandler.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                                                                 null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -155,10 +175,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 // Activity closes itself
             };
 
-            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
+            var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler, hydraulicBoundaryDatabase);
 
             // Call
-            importHandler.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase, newHlcdFilePath);
+            importHandler.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, newHlcdFilePath);
 
             // Assert
             mocks.VerifyAll();

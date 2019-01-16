@@ -38,15 +38,18 @@ namespace Ringtoets.Integration.Plugin.Handlers
     {
         private readonly IWin32Window viewParent;
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
+        private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImportHandler"/>.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
         /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to import the data to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public HydraulicLocationConfigurationDatabaseImportHandler(IWin32Window viewParent,
-                                                                   IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler)
+                                                                   IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
+                                                                   HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (viewParent == null)
             {
@@ -58,15 +61,21 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(updateHandler));
             }
 
-            this.viewParent = viewParent;
-            this.updateHandler = updateHandler;
-        }
-
-        public void ImportHydraulicLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath)
-        {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            this.viewParent = viewParent;
+            this.updateHandler = updateHandler;
+            this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+        }
+
+        public void ImportHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings, string hlcdFilePath)
+        {
+            if (hydraulicLocationConfigurationSettings == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationSettings));
             }
 
             if (hlcdFilePath == null)
@@ -75,7 +84,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             var importSettingsActivity = new FileImportActivity(
-                new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                new HydraulicLocationConfigurationDatabaseImporter(hydraulicLocationConfigurationSettings,
                                                                    updateHandler,
                                                                    hydraulicBoundaryDatabase,
                                                                    hlcdFilePath),

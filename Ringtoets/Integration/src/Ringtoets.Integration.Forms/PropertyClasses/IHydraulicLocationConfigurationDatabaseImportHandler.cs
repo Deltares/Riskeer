@@ -31,12 +31,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     {
         /// <summary>
         /// Imports the information from the <paramref name="hlcdFilePath"/>
-        /// and updates the <paramref name="hydraulicBoundaryDatabase"/>.
+        /// and updates the <paramref name="hydraulicLocationConfigurationSettings"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
-        /// to update.</param>
+        /// <param name="hydraulicLocationConfigurationSettings">The hydraulic location configuration
+        /// settings to update.</param>
         /// <param name="hlcdFilePath">The file path to import the data from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        void ImportHydraulicLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string hlcdFilePath);
+        void ImportHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings, string hlcdFilePath);
     }
 }

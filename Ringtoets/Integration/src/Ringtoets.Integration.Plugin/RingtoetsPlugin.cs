@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Plugin
                     context.WrappedData,
                     new HydraulicLocationConfigurationDatabaseImportHandler(
                         Gui.MainWindow,
-                        new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection)))
+                        new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection), context.WrappedData))
             };
             yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
             {
