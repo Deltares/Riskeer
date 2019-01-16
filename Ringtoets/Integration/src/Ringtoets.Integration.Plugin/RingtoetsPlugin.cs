@@ -303,9 +303,11 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
             {
-                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData,
-                                                                                    new HydraulicLocationConfigurationDatabaseImportHandler(Gui.MainWindow,
-                                                                                                                                            new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection)))
+                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(
+                    context.WrappedData,
+                    new HydraulicLocationConfigurationDatabaseImportHandler(
+                        Gui.MainWindow,
+                        new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection)))
             };
             yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
             {

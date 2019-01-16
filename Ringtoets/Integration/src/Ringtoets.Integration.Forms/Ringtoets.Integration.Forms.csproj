@@ -420,5 +420,4 @@
   <ItemGroup>
     <None Include="Resources\AddFolder-stand32.png" />
   </ItemGroup>
-  <ItemGroup />
 </Project>

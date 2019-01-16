@@ -20,15 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.IO.Handlers;
@@ -38,7 +37,7 @@ using Ringtoets.Integration.TestUtil;
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationDatabaseImportHandlerTest
+    public class HydraulicLocationConfigurationDatabaseImportHandlerTest : NUnitFormTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin);
         private static readonly string testDataDirectory = Path.Combine(testDataPath, nameof(HydraulicLocationConfigurationDatabaseImportHandler));
@@ -135,7 +134,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void ImportHydraulicLocationConfigurationSettings_WithValidFilePath_SetsHydraulicLocationConfigurationDatabaseSettings()
+        public void ImportHydraulicLocationConfigurationSettings_WithValidFilePath_RunsActivity()
         {
             // Setup
             string newHlcdFilePath = Path.Combine(testDataDirectory, "hlcdWithScenarioInformation.sqlite");
@@ -148,16 +147,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             var mocks = new MockRepository();
             var viewParent = mocks.Stub<IWin32Window>();
-            var updateHandler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
-            updateHandler.Expect(uh => uh.InquireConfirmation()).Return(true);
-            updateHandler.Expect(uh => uh.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
-                                                 Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.NotNull,
-                                                 Arg<string>.Is.Equal(newHlcdFilePath)))
-                         .WhenCalled(invoke =>
-                         {
-                             Assert.AreEqual(1, (IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings>) invoke.Arguments[1]);
-                         });
+            var updateHandler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             mocks.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity closes itself
+            };
 
             var importHandler = new HydraulicLocationConfigurationDatabaseImportHandler(viewParent, updateHandler);
 
