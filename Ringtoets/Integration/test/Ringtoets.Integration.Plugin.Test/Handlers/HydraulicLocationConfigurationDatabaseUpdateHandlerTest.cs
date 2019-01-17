@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => handler.Update(hydraulicBoundaryDatabase, null, hlcdFilePath);
 
             // Assert
-            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaard waarden " +
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden " +
                                            "conform WBI2017 voor de HLCD bestand informatie gebruikt.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 

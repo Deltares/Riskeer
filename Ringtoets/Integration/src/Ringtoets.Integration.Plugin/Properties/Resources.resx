@@ -238,6 +238,6 @@ Wilt u doorgaan?</value>
     <value>Importeren van het HLCD bestand</value>
   </data>
   <data name="HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present" xml:space="preserve">
-    <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaard waarden conform WBI2017 voor de HLCD bestand informatie gebruikt.</value>
+    <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt.</value>
   </data>
 </root>
