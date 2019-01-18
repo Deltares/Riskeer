@@ -226,7 +226,7 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HLCD importeren afgebroken. Geen gegevens gewijzigd..
+        ///   Looks up a localized string similar to HLCD bestand importeren afgebroken. Geen gegevens gewijzigd..
         /// </summary>
         internal static string HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
             get {

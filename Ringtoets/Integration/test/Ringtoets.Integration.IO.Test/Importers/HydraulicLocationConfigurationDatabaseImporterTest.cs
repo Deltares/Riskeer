@@ -345,7 +345,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            const string expectedMessage = "HLCD importeren afgebroken. Geen gegevens gewijzigd.";
+            const string expectedMessage = "HLCD bestand importeren afgebroken. Geen gegevens gewijzigd.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
@@ -406,7 +406,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importResult = importer.Import();
 
             // Assert
-            const string expectedMessage = "HLCD importeren afgebroken. Geen gegevens gewijzigd.";
+            const string expectedMessage = "HLCD bestand importeren afgebroken. Geen gegevens gewijzigd.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Info), 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();

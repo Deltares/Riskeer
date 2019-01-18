@@ -110,7 +110,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void Read_DatabaseWithoutTrackId_ThrowsCriticalFileReadException()
         {
             // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptySchemaGeneral.sqlite");
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptyGeneral.sqlite");
 
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
@@ -189,7 +189,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void ReadTrackId_EmptyDatabase_ThrowsCriticalFileReadException()
         {
             // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptySchemaGeneral.sqlite");
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptyGeneral.sqlite");
 
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
@@ -204,7 +204,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         }
 
         [Test]
-        public void ReadTrackId_InvalidTrackIdColumn_ThrowsCriticalFileReadException()
+        public void ReadTrackId_InvalidDatabaseWithoutGeneralTable_ThrowsCriticalFileReadException()
         {
             // Setup
             string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "empty.sqlite");
@@ -219,6 +219,25 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadTrackId_InvalidTrackIdColumn_ThrowsLineParseException()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "corruptSchema.sqlite");
+
+            using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                TestDelegate test = () => reader.ReadTrackId();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(test);
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }
         }
 
@@ -242,7 +261,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void ReadVersion_EmptyDatabase_ThrowsCriticalFileReadException()
         {
             // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptySchemaGeneral.sqlite");
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptyGeneral.sqlite");
 
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
