@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsEmpty(properties.HlcdFilePath);
             Assert.IsEmpty(properties.HlcdFilePathReadOnly);
             Assert.IsEmpty(properties.ScenarioName);
-            Assert.AreEqual(0, properties.Year);
+            Assert.IsEmpty(properties.Year);
             Assert.IsEmpty(properties.Scope);
             Assert.IsEmpty(properties.SeaLevel);
             Assert.IsEmpty(properties.RiverDischarge);
@@ -183,7 +183,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePathReadOnly);
             Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
-            Assert.AreEqual(configurationSettings.Year, properties.Year);
+            Assert.AreEqual(configurationSettings.Year.ToString(), properties.Year);
             Assert.AreEqual(configurationSettings.Scope, properties.Scope);
             Assert.AreEqual(configurationSettings.SeaLevel, properties.SeaLevel);
             Assert.AreEqual(configurationSettings.RiverDischarge, properties.RiverDischarge);

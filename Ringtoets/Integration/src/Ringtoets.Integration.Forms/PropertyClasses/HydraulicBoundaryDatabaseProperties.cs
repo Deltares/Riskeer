@@ -137,11 +137,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_Description))]
-        public int Year
+        public string Year
         {
             get
             {
-                return data.HydraulicLocationConfigurationSettings.Year;
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.Year.ToString() : string.Empty;
             }
         }
 
