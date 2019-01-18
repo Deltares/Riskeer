@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_FilePathIsDifferentFromHydraulicBoundaryDatabasesFilePath_CancelImportWithErrorMessage()
+        public void Import_HlcdInDifferentDirectoryThanHydraulicBoundaryDatabase_CancelImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
@@ -108,10 +108,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
                                                                                            nameof(HydraulicBoundaryDatabaseImporter)), "complete.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = hydraulicBoundaryDatabasePath
-            };
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(hydraulicBoundaryDatabasePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, validHlcdFilePath);
@@ -137,11 +135,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "CorruptHrd");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(path, "corruptschema.sqlite")
-            };
-
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(Path.Combine(path, "corruptschema.sqlite"));
+            
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, Path.Combine(path, "HLCD.sqlite"));
 
@@ -166,10 +161,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "EmptyHrd");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(path, "empty.sqlite")
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(Path.Combine(path, "empty.sqlite"));
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, Path.Combine(path, "HLCD.sqlite"));
@@ -195,10 +187,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "empty.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, path);
@@ -224,10 +213,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, "invalid.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, path);
@@ -255,10 +241,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             string path = Path.Combine(testDataPath, $"{fileName}.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, path);
@@ -313,10 +296,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, validHlcdFilePath);
@@ -348,10 +328,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, validHlcdFilePath);
@@ -384,10 +361,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, validHlcdFilePath);
@@ -421,10 +395,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, validHlcdFilePath);
@@ -505,10 +476,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         public void DoPostImportUpdates_WhenImportSuccessful_NotifyObserversOfReturnedObjects()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHrdFilePath
-            };
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
 
             var mocks = new MockRepository();
             var observable1 = mocks.StrictMock<IObservable>();
@@ -539,6 +507,14 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on updated observables
+        }
+
+        private static HydraulicBoundaryDatabase CreateHydraulicBoundaryDatabase(string filePath)
+        {
+            return new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath
+            };
         }
 
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)

@@ -51,8 +51,8 @@ namespace Ringtoets.Integration.IO.Importers
         /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseImporter"/>.
         /// </summary>
         /// <param name="importTarget">The hydraulic location configuration settings to import to.</param>
-        /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database the settings belongs to.</param>
+        /// <param name="updateHandler">The handler responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database the settings belong to.</param>
         /// <param name="filePath">The path of the hydraulic location configuration settings file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicLocationConfigurationDatabaseImporter(HydraulicLocationConfigurationSettings importTarget,
