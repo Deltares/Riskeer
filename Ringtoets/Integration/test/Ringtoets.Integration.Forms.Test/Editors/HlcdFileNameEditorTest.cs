@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Reflection;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using NUnit.Framework;
 using Ringtoets.Integration.Forms.Editors;
@@ -36,6 +38,28 @@ namespace Ringtoets.Integration.Forms.Test.Editors
 
             // Assert
             Assert.IsInstanceOf<FileNameEditor>(editor);
+        }
+
+        [Test]
+        public void InitializeDialog_Always_SetsOpenFileDialogFilter()
+        {
+            // Setup
+            var editor = new HlcdFileNameEditor();
+            MethodInfo methodInfo = editor.GetType().GetMethod("InitializeDialog", BindingFlags.NonPublic | BindingFlags.Instance);
+            var dialog = new OpenFileDialog();
+
+            // Precondition
+            Assert.IsNotNull(methodInfo, "No method available");
+            Assert.IsEmpty(dialog.Filter);
+
+            // Call
+            methodInfo.Invoke(editor, new object[]
+            {
+                dialog
+            });
+
+            // Assert
+            Assert.AreEqual("HLCD bestand|*.sqlite", dialog.Filter);
         }
     }
 }
