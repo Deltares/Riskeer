@@ -362,7 +362,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to U heeft een ander HLCD bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle HB berekeningen verwijderd worden.
+        ///   Looks up a localized string similar to Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van al de berekeningen verwijderd worden.
         ///
         ///Wilt u doorgaan?.
         /// </summary>

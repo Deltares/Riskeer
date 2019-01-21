@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual(clickOk, result);
 
             Assert.AreEqual("Bevestigen", dialogTitle);
-            Assert.AreEqual("U heeft een ander HLCD bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle HB berekeningen verwijderd worden." +
+            Assert.AreEqual("Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van al de berekeningen verwijderd worden." +
                             Environment.NewLine +
                             Environment.NewLine +
                             "Wilt u doorgaan?",
