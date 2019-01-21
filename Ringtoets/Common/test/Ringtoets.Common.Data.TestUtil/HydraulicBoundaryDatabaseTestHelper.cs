@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
+using Core.Common.TestUtil;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -28,13 +30,16 @@ namespace Ringtoets.Common.Data.TestUtil
     /// </summary>
     public static class HydraulicBoundaryDatabaseTestHelper
     {
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
+                                                                                 "HydraulicLocationConfigurationDatabaseImporter");
+
         /// <summary>
         /// Sets valid values on the <see cref="HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to set the values to.</param>
         public static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("some\\Path\\ToHlcd",
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(Path.Combine(testDataPath, "HLCD.sqlite"),
                                                                                        "ScenarioName",
                                                                                        1337,
                                                                                        "Scope",
