@@ -26,7 +26,7 @@ using System.Runtime.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.Storage.Core.Serializers
+namespace Riskeer.Storage.Core.Serializers
 {
     /// <summary>
     /// Converter class that converts between a collection of <see cref="MacroStabilityInwardsSlice"/> 

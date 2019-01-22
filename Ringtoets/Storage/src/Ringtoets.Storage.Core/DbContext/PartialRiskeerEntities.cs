@@ -21,7 +21,7 @@
 
 using System.Data.Entity;
 
-namespace Ringtoets.Storage.Core.DbContext
+namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
     /// Partial implementation of <see cref="RiskeerEntities"/> that support a connection string 

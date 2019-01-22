@@ -22,9 +22,9 @@
 using System;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read.StabilityPointStructures
+namespace Riskeer.Storage.Core.Read.StabilityPointStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> based on the

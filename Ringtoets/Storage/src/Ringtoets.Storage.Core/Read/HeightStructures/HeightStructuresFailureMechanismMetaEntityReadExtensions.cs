@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read.HeightStructures
+namespace Riskeer.Storage.Core.Read.HeightStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GeneralHeightStructuresInput"/>

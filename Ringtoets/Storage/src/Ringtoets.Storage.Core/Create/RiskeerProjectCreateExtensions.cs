@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Integration.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create
+namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="RingtoetsProject"/> related to creating database entities.

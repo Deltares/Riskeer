@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.DuneErosion
+namespace Riskeer.Storage.Core.Create.DuneErosion
 {
     /// <summary>
     /// Extension methods for <see cref="DuneLocationCalculationOutput"/> related to creating

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Storage.Core
+namespace Riskeer.Storage.Core
 {
     /// <summary>
     /// Class that contains extension methods for <see cref="double"/> to convert them to

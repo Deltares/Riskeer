@@ -24,10 +24,10 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
 using Ringtoets.Piping.Primitives;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Serializers;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Create.Piping
+namespace Riskeer.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extensions methods for <see cref="PipingSurfaceLine"/> related to creating

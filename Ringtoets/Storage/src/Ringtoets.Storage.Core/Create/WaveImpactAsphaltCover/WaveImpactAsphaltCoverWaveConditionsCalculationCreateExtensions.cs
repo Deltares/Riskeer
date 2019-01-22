@@ -23,10 +23,10 @@ using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover
+namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
 {
     /// <summary>
     /// Extension methods for <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> related to creating a

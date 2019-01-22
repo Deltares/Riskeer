@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Piping.Primitives;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.Piping
+namespace Riskeer.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingSoilProfile"/> related to creating a <see cref="PipingSoilProfileEntity"/>.

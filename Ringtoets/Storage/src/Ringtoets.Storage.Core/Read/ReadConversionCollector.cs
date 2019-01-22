@@ -35,9 +35,9 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read
+namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
     /// Class that can be used to keep track of data model objects which were initialized during a read operation

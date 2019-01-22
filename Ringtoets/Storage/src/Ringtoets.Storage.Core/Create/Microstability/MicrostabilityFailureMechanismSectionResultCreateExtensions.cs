@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.Microstability
+namespace Riskeer.Storage.Core.Create.Microstability
 {
     /// <summary>
     /// Extension methods for <see cref="MicrostabilityFailureMechanismSectionResult"/> related to creating a 

@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.DuneErosion
+namespace Riskeer.Storage.Core.Create.DuneErosion
 {
     /// <summary>
     /// Extension methods for <see cref="DuneLocation"/> related to creating a <see cref="DuneLocationEntity"/>.

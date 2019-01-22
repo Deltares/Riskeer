@@ -23,7 +23,7 @@ using System;
 using System.Data.Entity.Core.EntityClient;
 using Core.Common.IO;
 
-namespace Ringtoets.Storage.Core
+namespace Riskeer.Storage.Core
 {
     /// <summary>
     /// This class builds a connection string to a SQLite database file.

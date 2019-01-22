@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Storage.Core.Exceptions
+namespace Riskeer.Storage.Core.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when an entity is not found.

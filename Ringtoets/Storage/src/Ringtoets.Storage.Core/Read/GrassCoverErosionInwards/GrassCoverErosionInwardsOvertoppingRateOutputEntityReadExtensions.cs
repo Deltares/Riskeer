@@ -22,10 +22,10 @@
 using System;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read.IllustrationPoints;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.IllustrationPoints;
 
-namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
+namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionInwardsOvertoppingRateOutputEntity"/>

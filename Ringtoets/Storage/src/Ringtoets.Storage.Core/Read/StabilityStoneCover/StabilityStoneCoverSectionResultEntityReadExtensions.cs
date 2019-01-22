@@ -23,9 +23,9 @@ using System;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read.StabilityStoneCover
+namespace Riskeer.Storage.Core.Read.StabilityStoneCover
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> based on the

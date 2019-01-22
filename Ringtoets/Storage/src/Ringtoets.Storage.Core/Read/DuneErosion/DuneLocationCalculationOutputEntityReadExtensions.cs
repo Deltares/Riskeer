@@ -22,9 +22,9 @@
 using System;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read.DuneErosion
+namespace Riskeer.Storage.Core.Read.DuneErosion
 {
     /// <summary>
     /// Extension methods for <see cref="DuneLocationCalculationOutputEntity"/> related to creating 

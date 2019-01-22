@@ -28,7 +28,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Storage.Core.DbContext
+namespace Riskeer.Storage.Core.DbContext
 {
     public class MacroStabilityInwardsSectionResultEntity
     {
