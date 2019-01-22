@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> related to creating a 

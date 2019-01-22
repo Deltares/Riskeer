@@ -25,9 +25,9 @@ using Core.Common.Util.Extensions;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

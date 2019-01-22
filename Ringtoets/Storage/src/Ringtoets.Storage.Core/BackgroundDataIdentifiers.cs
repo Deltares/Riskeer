@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.Storage.Core
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// Container of general identifiers related to background data.

@@ -22,9 +22,9 @@
 using System;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> based on the

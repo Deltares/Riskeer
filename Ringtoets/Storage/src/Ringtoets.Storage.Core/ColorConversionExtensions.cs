@@ -22,7 +22,7 @@
 using System;
 using System.Drawing;
 
-namespace Riskeer.Storage.Core
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// Class that contains extension methods for <see cref="Color"/> to convert them to

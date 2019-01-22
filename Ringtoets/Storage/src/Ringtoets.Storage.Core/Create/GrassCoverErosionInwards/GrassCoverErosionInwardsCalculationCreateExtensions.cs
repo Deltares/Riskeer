@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionInwardsCalculation"/> related

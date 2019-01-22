@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="HydraulicBoundaryLocation"/> based on the

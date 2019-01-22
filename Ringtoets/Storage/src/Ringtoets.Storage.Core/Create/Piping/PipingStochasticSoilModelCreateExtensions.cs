@@ -22,10 +22,10 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Piping.Data.SoilProfile;
-using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Riskeer.Storage.Core.Create.Piping
+namespace Ringtoets.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingStochasticSoilModel"/> related to creating

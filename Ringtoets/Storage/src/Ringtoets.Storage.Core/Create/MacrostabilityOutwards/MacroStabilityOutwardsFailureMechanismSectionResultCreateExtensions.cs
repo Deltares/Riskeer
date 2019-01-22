@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.MacroStabilityOutwards
+namespace Ringtoets.Storage.Core.Create.MacroStabilityOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> related to creating a 

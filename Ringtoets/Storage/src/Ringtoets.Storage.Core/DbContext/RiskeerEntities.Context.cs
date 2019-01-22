@@ -31,7 +31,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace Riskeer.Storage.Core.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     public partial class RiskeerEntities : System.Data.Entity.DbContext
     {

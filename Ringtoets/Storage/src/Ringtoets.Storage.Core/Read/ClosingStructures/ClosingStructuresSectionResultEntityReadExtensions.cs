@@ -22,9 +22,9 @@
 using System;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Primitives;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.ClosingStructures
+namespace Ringtoets.Storage.Core.Read.ClosingStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="ClosingStructuresFailureMechanismSectionResult"/> based on the

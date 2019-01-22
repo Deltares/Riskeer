@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Riskeer.Storage.Core.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     /// <summary>
     /// Interface for a general result entity.

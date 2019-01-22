@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.Integration.Data.StandAlone.Input;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.MacroStabilityOutwards
+namespace Ringtoets.Storage.Core.Read.MacroStabilityOutwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/> 

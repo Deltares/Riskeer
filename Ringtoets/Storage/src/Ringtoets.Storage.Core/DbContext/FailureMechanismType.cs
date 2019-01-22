@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.Storage.Core.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     /// <summary>
     /// The type failure mechanism available in the application.

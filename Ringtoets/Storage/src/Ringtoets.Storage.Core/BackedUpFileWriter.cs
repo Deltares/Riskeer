@@ -22,10 +22,10 @@
 using System;
 using System.IO;
 using Core.Common.Util;
-using Riskeer.Storage.Core.Exceptions;
-using Riskeer.Storage.Core.Properties;
+using Ringtoets.Storage.Core.Exceptions;
+using Ringtoets.Storage.Core.Properties;
 
-namespace Riskeer.Storage.Core
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// Class for providing a safe way of writing files by creating a temporary backup file of targeted files.

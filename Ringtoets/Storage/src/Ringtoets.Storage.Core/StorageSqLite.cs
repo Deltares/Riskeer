@@ -32,14 +32,14 @@ using Core.Common.Util.Builders;
 using log4net;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
-using Riskeer.Storage.Core.Create;
-using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Exceptions;
-using Riskeer.Storage.Core.Properties;
-using Riskeer.Storage.Core.Read;
+using Ringtoets.Storage.Core.Create;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Exceptions;
+using Ringtoets.Storage.Core.Properties;
+using Ringtoets.Storage.Core.Read;
 using UtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Riskeer.Storage.Core
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// This class interacts with an SQLite database file using the Entity Framework.

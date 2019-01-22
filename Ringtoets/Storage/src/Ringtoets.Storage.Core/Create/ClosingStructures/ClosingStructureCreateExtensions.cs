@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.ClosingStructures
+namespace Ringtoets.Storage.Core.Create.ClosingStructures
 {
     /// <summary>
     /// Extension methods for <see cref="ClosingStructure"/> related to creating

@@ -31,7 +31,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Riskeer.Storage.Core.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     public class HydraulicLocationCalculationEntity
     {

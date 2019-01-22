@@ -22,10 +22,10 @@
 using System;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
-using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Riskeer.Storage.Core.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="FailureMechanismSection"/> based on the

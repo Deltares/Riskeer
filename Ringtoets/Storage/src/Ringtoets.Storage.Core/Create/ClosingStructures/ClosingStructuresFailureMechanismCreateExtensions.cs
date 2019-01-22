@@ -25,9 +25,9 @@ using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.ClosingStructures
+namespace Ringtoets.Storage.Core.Create.ClosingStructures
 {
     /// <summary>
     /// Extension methods for <see cref="ClosingStructuresFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

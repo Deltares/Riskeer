@@ -21,9 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// Extensions methods for read operations based on the <see cref="BackgroundDataMetaEntity"/>.

@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Primitives;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.Piping
+namespace Ringtoets.Storage.Core.Read.Piping
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingSoilLayer"/> based on the

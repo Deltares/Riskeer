@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.Piping.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.Piping
+namespace Ringtoets.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingOutput"/> related to creating a <see cref="PipingCalculationOutputEntity"/>.

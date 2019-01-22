@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.HeightStructures.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.HeightStructures
+namespace Ringtoets.Storage.Core.Create.HeightStructures
 {
     /// <summary>
     /// Extension methods for <see cref="HeightStructure"/> related to creating

@@ -24,10 +24,10 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
-using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read.IllustrationPoints;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.IllustrationPoints;
 
-namespace Riskeer.Storage.Core.Read.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Read.StabilityPointStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="StructuresCalculation{T}"/>

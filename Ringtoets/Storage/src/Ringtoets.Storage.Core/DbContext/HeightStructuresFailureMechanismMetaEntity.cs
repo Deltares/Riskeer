@@ -28,7 +28,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Riskeer.Storage.Core.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     public class HeightStructuresFailureMechanismMetaEntity
     {

@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.IllustrationPoints
+namespace Ringtoets.Storage.Core.Create.IllustrationPoints
 {
     /// <summary>
     /// Extension methods for <see cref="Stochast"/> related to creating an instance of <see cref="StochastEntity"/>.

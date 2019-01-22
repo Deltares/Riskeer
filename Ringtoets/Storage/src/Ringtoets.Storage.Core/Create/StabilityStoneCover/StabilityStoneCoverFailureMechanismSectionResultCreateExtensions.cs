@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.StabilityStoneCover.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.StabilityStoneCover
+namespace Ringtoets.Storage.Core.Create.StabilityStoneCover
 {
     /// <summary>
     /// Extension methods for <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> related to creating a 

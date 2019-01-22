@@ -25,12 +25,12 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.Piping.Data.SoilProfile;
-using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read.MacroStabilityInwards;
-using Riskeer.Storage.Core.Read.Piping;
-using Riskeer.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Read.Piping;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Riskeer.Storage.Core.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a stochastic soil model

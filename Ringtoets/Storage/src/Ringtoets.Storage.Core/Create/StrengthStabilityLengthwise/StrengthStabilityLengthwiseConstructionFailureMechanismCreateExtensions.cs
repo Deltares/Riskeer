@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.StrengthStabilityLengthwise
+namespace Ringtoets.Storage.Core.Create.StrengthStabilityLengthwise
 {
     /// <summary>
     /// Extension methods for <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

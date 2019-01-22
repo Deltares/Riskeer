@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GeneralGrassCoverErosionInwardsInput"/>

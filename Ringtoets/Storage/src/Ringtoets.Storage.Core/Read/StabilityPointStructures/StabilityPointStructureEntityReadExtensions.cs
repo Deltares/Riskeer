@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.StabilityPointStructures.Data;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Read.StabilityPointStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="StabilityPointStructure"/>

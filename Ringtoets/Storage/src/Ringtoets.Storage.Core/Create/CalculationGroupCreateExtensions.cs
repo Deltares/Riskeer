@@ -31,16 +31,16 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.Create.GrassCoverErosionInwards;
+using Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards;
+using Ringtoets.Storage.Core.Create.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Create.Piping;
+using Ringtoets.Storage.Core.Create.StabilityStoneCover;
+using Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover;
+using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
-using Riskeer.Storage.Core.Create.GrassCoverErosionOutwards;
-using Riskeer.Storage.Core.Create.MacroStabilityInwards;
-using Riskeer.Storage.Core.Create.Piping;
-using Riskeer.Storage.Core.Create.StabilityStoneCover;
-using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
-using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="CalculationGroup"/> related to creating a <see cref="CalculationGroupEntity"/>.

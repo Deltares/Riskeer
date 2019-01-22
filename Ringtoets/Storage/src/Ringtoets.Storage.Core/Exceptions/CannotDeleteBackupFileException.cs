@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Riskeer.Storage.Core.Exceptions
+namespace Ringtoets.Storage.Core.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when the original file cannot be restored by <see cref="BackedUpFileWriter"/>.

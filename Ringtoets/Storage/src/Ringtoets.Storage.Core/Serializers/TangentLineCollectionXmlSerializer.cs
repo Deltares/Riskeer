@@ -25,7 +25,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Core.Common.Base.Data;
 
-namespace Riskeer.Storage.Core.Serializers
+namespace Ringtoets.Storage.Core.Serializers
 {
     /// <summary>
     /// Converter class that converts between collections of tangent lines and an XML representation of that data.

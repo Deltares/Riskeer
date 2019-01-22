@@ -22,10 +22,10 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
-using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Riskeer.Storage.Core.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="ForeshoreProfile"/> related to creating a <see cref="ForeshoreProfileEntity"/>.

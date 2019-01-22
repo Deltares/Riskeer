@@ -22,10 +22,10 @@
 using System;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
+namespace Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> based on the

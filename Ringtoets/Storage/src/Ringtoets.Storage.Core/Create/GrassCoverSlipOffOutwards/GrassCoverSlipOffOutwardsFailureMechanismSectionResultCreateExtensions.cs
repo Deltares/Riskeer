@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffOutwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverSlipOffOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> related to creating a 

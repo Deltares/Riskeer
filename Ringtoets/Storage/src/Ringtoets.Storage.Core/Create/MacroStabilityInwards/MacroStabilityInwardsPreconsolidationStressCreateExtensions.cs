@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsPreconsolidationStress"/> related to creating 

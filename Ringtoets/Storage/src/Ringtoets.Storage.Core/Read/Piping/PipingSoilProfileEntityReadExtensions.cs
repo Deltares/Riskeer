@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Piping.Primitives;
-using Riskeer.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.Piping
+namespace Ringtoets.Storage.Core.Read.Piping
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingSoilProfile"/> based on the
