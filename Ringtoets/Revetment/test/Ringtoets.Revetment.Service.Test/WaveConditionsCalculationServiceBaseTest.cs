@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
@@ -47,7 +48,7 @@ namespace Ringtoets.Revetment.Service.Test
     {
         private const double validNorm = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
@@ -125,7 +126,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                           GetValidAssessmentLevel(),
                                                                                           new HydraulicBoundaryDatabase
                                                                                           {
-                                                                                              FilePath = validFilePath,
+                                                                                              FilePath = validHydraulicBoundaryDatabaseFilePath,
                                                                                               CanUsePreprocessor = true,
                                                                                               UsePreprocessor = true,
                                                                                               PreprocessorDirectory = invalidPreprocessorDirectory
@@ -494,8 +495,6 @@ namespace Ringtoets.Revetment.Service.Test
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
 
-            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             // Call
             TestDelegate test = () => new TestWaveConditionsCalculationService().PublicCalculate(a,
                                                                                                  b,
@@ -503,12 +502,34 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                  norm,
                                                                                                  null,
                                                                                                  GetValidAssessmentLevel(),
-                                                                                                 hcldFilePath,
-                                                                                                 string.Empty);
+                                                                                                 GetValidHydraulicBoundaryDatabase());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("waveConditionsInput", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var a = (RoundedDouble) 1.0;
+            var b = (RoundedDouble) 0.8;
+            var c = (RoundedDouble) 0.4;
+            const double norm = 0.2;
+
+            // Call
+            TestDelegate call = () => new TestWaveConditionsCalculationService().PublicCalculate(a,
+                                                                                                 b,
+                                                                                                 c,
+                                                                                                 norm,
+                                                                                                 GetDefaultValidationInput(),
+                                                                                                 GetValidAssessmentLevel(),
+                                                                                                 null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
         [Test]
@@ -534,15 +555,14 @@ namespace Ringtoets.Revetment.Service.Test
                 Orientation = (RoundedDouble) 0
             };
 
-            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var calculator = new TestWaveConditionsCosineCalculator();
             RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).ToArray();
             int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(calculator)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -557,8 +577,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                            norm,
                                                                            input,
                                                                            waterLevel,
-                                                                           hcldFilePath,
-                                                                           string.Empty);
+                                                                           GetValidHydraulicBoundaryDatabase());
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -599,8 +618,6 @@ namespace Ringtoets.Revetment.Service.Test
                 }
             };
 
-            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var calculator = new TestWaveConditionsCosineCalculator();
             RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).ToArray();
 
@@ -608,7 +625,8 @@ namespace Ringtoets.Revetment.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(calculator)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -623,8 +641,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                            norm,
                                                                            input,
                                                                            waterLevel,
-                                                                           hcldFilePath,
-                                                                           validPreprocessorDirectory);
+                                                                           GetValidHydraulicBoundaryDatabase());
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -638,15 +655,11 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Calculate_PreprocessorDirectorySet_StartsCalculationWithRightParameters(bool usePreprocessor)
+        [TestCaseSource(nameof(GetHydraulicBoundaryDatabaseConfigurations))]
+        public void Calculate_VariousHydraulicBoundaryDatabaseConfigurations_StartsCalculationWithRightParameters(
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             // Setup
-            string preprocessorDirectory = usePreprocessor
-                                               ? validPreprocessorDirectory
-                                               : string.Empty;
-
             var waterLevel = (RoundedDouble) 4.20;
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
@@ -662,14 +675,18 @@ namespace Ringtoets.Revetment.Service.Test
                 Orientation = (RoundedDouble) 0
             };
 
-            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var calculator = new TestWaveConditionsCosineCalculator();
             int nrOfCalculators = input.GetWaterLevels(waterLevel).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, preprocessorDirectory))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
                              .Return(calculator)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -684,13 +701,13 @@ namespace Ringtoets.Revetment.Service.Test
                                                                            norm,
                                                                            input,
                                                                            waterLevel,
-                                                                           hcldFilePath,
-                                                                           preprocessorDirectory);
+                                                                           hydraulicBoundaryDatabase);
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
-                    Assert.AreEqual(usePreprocessor, calculator.ReceivedInputs.ElementAt(i).PreprocessorSetting.RunPreprocessor);
+                    Assert.AreEqual(hydraulicBoundaryDatabase.UsePreprocessor,
+                                    calculator.ReceivedInputs.ElementAt(i).PreprocessorSetting.RunPreprocessor);
                 }
             }
 
@@ -729,7 +746,8 @@ namespace Ringtoets.Revetment.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(calculatorThatFails)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -740,7 +758,6 @@ namespace Ringtoets.Revetment.Service.Test
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
 
-            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             HydraRingCalculationException exception = null;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -756,8 +773,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                    norm,
                                                                                    input,
                                                                                    waterLevel,
-                                                                                   hcldFilePath,
-                                                                                   string.Empty);
+                                                                                   GetValidHydraulicBoundaryDatabase());
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -814,9 +830,14 @@ namespace Ringtoets.Revetment.Service.Test
             };
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(calculatorThatFails);
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(calculatorThatFails);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Twice();
             mockRepository.ReplayAll();
 
             var waterLevelUpperBoundary = new RoundedDouble(2, 4.00);
@@ -834,8 +855,6 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = waterLevelLowerBoundary
             };
 
-            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var service = new TestWaveConditionsCalculationService();
@@ -847,8 +866,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                             norm,
                                                             input,
                                                             waterLevel,
-                                                            hcldFilePath,
-                                                            string.Empty);
+                                                            GetValidHydraulicBoundaryDatabase());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -902,7 +920,9 @@ namespace Ringtoets.Revetment.Service.Test
             var calculator = new TestWaveConditionsCosineCalculator();
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -917,8 +937,7 @@ namespace Ringtoets.Revetment.Service.Test
                                         norm,
                                         input,
                                         waterLevel,
-                                        validFilePath,
-                                        validPreprocessorDirectory);
+                                        GetValidHydraulicBoundaryDatabase());
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -947,15 +966,19 @@ namespace Ringtoets.Revetment.Service.Test
 
         private static HydraulicBoundaryDatabase GetValidHydraulicBoundaryDatabase()
         {
-            return new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
+                FilePath = validHydraulicBoundaryDatabaseFilePath,
                 CanUsePreprocessor = true,
                 PreprocessorDirectory = validPreprocessorDirectory
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            return hydraulicBoundaryDatabase;
         }
 
-        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
+        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm,
+                                                                        WaveConditionsInput input, bool useForeshore, bool useBreakWater)
         {
             return new WaveConditionsCosineCalculationInput(1,
                                                             input.Orientation,
@@ -978,6 +1001,35 @@ namespace Ringtoets.Revetment.Service.Test
             return (RoundedDouble) 12;
         }
 
+        private static IEnumerable<TestCaseData> GetHydraulicBoundaryDatabaseConfigurations()
+        {
+            var hydraulicBoundaryDatabaseUsePreprocessorTrue = new HydraulicBoundaryDatabase
+            {
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                FilePath = validHydraulicBoundaryDatabaseFilePath,
+                PreprocessorDirectory = validPreprocessorDirectory
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorTrue);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorTrue).SetName("UsePreprocessorTrue");
+
+            var hydraulicBoundaryDatabaseUsePreprocessorFalse = new HydraulicBoundaryDatabase
+            {
+                CanUsePreprocessor = true,
+                FilePath = validHydraulicBoundaryDatabaseFilePath,
+                PreprocessorDirectory = validPreprocessorDirectory
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorFalse);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorFalse).SetName("UsePreprocessorFalse");
+
+            var hydraulicBoundaryDatabaseCanUsePreprocessorFalse = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydraulicBoundaryDatabaseFilePath
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseCanUsePreprocessorFalse);
+            yield return new TestCaseData(hydraulicBoundaryDatabaseCanUsePreprocessorFalse).SetName("CanUsePreprocessorFalse");
+        }
+
         private class TestWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
         {
             public IEnumerable<WaveConditionsOutput> Outputs;
@@ -988,8 +1040,7 @@ namespace Ringtoets.Revetment.Service.Test
                                         double norm,
                                         WaveConditionsInput input,
                                         RoundedDouble assessmentLevel,
-                                        string dbFilePath,
-                                        string preprocessorDirectory)
+                                        HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
             {
                 Outputs = CalculateWaveConditions(input,
                                                   assessmentLevel,
@@ -997,8 +1048,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                   b,
                                                   c,
                                                   norm,
-                                                  dbFilePath,
-                                                  preprocessorDirectory);
+                                                  hydraulicBoundaryDatabase);
             }
         }
     }

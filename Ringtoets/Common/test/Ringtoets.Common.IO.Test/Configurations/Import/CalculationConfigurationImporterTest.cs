@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Import;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.Configurations.Import
 {
@@ -154,45 +155,22 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         {
             // Given
             string filePath = Path.Combine(readerPath, "validConfiguration.xml");
-            var importer = new CalculationConfigurationImporter(filePath,
-                                                                new CalculationGroup());
+            var progressChangeNotifications = new List<ProgressNotification>();
 
-            var expectedProgressMessages = new[]
-            {
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen berekeningenconfiguratie.",
-                    CurrentStep = 1,
-                    TotalNumberOfSteps = 3
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Valideren berekeningenconfiguratie.",
-                    CurrentStep = 2,
-                    TotalNumberOfSteps = 3
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.",
-                    CurrentStep = 3,
-                    TotalNumberOfSteps = 3
-                }
-            };
-
-            var progressChangedCallCount = 0;
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
-                progressChangedCallCount++;
-            });
+            var importer = new CalculationConfigurationImporter(filePath, new CalculationGroup());
+            importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // When
             importer.Import();
 
             // Then
-            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
+            var expectedProgressNotifications = new[]
+            {
+                new ProgressNotification("Inlezen berekeningenconfiguratie.", 1, 3),
+                new ProgressNotification("Valideren berekeningenconfiguratie.", 2, 3),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 3, 3)
+            };
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
         }
 
         [Test]
@@ -883,13 +861,6 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             }
 
             public string Name { get; }
-        }
-
-        private class ExpectedProgressNotification
-        {
-            public string Text { get; set; }
-            public int CurrentStep { get; set; }
-            public int TotalNumberOfSteps { get; set; }
         }
 
         private static CalculationGroup GetExpectedNestedData()

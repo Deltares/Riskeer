@@ -33,6 +33,7 @@
     <Compile Include="Calculator\WaveConditionsCosineCalculatorTest.cs" />
     <Compile Include="Calculator\WaveHeightCalculatorTest.cs" />
     <Compile Include="Data\HydraRingBreakWaterTest.cs" />
+    <Compile Include="Data\Input\HydraRingCalculationSettingsTest.cs" />
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
     <Compile Include="Data\Input\Hydraulics\OvertoppingRateCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\HydraulicLoadsCalculationInputTest.cs" />

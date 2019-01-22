@@ -33,7 +33,9 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
@@ -104,8 +106,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel);
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -182,7 +185,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationActivity>(activity);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activity,
                                                                           calculation,
-                                                                          assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result);
+                                                                          assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result, 
+                                                                          assessmentSection.HydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -266,8 +270,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel);
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
         }
 
         private static void SetHydraulicBoundaryLocationToAssessmentSection(AssessmentSectionStub assessmentSection, TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -289,13 +294,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
         private static AssessmentSectionStub CreateAssessmentSection()
         {
-            return new AssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            return assessmentSection;
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -325,15 +333,24 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(Activity activity,
                                                                                           WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                                                                                          RoundedDouble assessmentLevel)
+                                                                                          RoundedDouble assessmentLevel, 
+                                                                                          HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
 
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
-                             .Return(testCalculator).Repeat.Times(nrOfCalculations);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings)invocation.Arguments[0]);
+                             })
+                             .Return(testCalculator)
+                             .Repeat
+                             .Times(nrOfCalculations);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

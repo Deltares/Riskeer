@@ -82,8 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 calculation,
                 assessmentSection,
                 failureMechanism.GeneralInput,
-                failureMechanism.Contribution,
-                assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                failureMechanism.Contribution);
         }
 
         protected override void OnCancel()

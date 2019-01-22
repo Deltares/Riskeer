@@ -25,6 +25,7 @@
     <Compile Include="FailureMechanismSectionResultTestFactoryTest.cs" />
     <Compile Include="FailureMechanismSectionTestFactoryTest.cs" />
     <Compile Include="ForeshoreProfilePermutationHelperTest.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseTestHelperTest.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTestFactoryTest.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultFaultTreeIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultSubMechanismIllustrationPointTest.cs" />

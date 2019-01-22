@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="Calculator\HydraRingCalculatorFactoryConfig.cs" />
     <Compile Include="Calculator\HydraRingCalculatorTestCaseProvider.cs" />
+    <Compile Include="HydraRingCalculationSettingsTestFactory.cs" />
     <Compile Include="HydraRingDataEqualityHelper.cs" />
     <Compile Include="IllustrationPoints\GeneralResultTestFactory.cs" />
     <Compile Include="IllustrationPoints\TestFaultTreeIllustrationPoint.cs" />

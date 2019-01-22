@@ -42,6 +42,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             CanUsePreprocessor = false;
             Locations = new ObservableList<HydraulicBoundaryLocation>();
+            HydraulicLocationConfigurationSettings = new HydraulicLocationConfigurationSettings();
         }
 
         /// <summary>
@@ -129,5 +130,10 @@ namespace Ringtoets.Common.Data.Hydraulics
                 preprocessorDirectory = value;
             }
         }
+
+        /// <summary>
+        /// Gets the <see cref="Hydraulics.HydraulicLocationConfigurationSettings"/>.
+        /// </summary>
+        public HydraulicLocationConfigurationSettings HydraulicLocationConfigurationSettings { get; }
     }
 }

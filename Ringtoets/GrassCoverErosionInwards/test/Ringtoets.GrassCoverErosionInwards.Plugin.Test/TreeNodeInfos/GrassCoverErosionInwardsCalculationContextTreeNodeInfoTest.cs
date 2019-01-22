@@ -47,6 +47,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -60,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateIndex = 7;
         private const int contextMenuCalculateIndex = 8;
         private const int contextMenuClearIndex = 10;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
@@ -761,11 +762,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "random",
@@ -773,7 +770,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     hydraulicBoundaryLocation
                 }
-            });
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -794,7 +797,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(new TestOvertoppingCalculator());
+                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(new TestOvertoppingCalculator());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

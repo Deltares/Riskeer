@@ -45,6 +45,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.StabilityPointStructures.Data;
@@ -64,7 +65,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndex = 5;
         private const int contextMenuClearAllIndex = 7;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         private MockRepository mocksRepository;
 
@@ -629,15 +630,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            });
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -650,7 +652,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>())
                                  .Repeat
                                  .Times(nrOfCalculators);

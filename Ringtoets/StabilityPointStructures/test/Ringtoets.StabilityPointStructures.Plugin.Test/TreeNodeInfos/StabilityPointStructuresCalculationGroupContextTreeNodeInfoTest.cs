@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.StabilityPointStructures.Data;
@@ -74,7 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndexNestedGroup = 12;
         private const int contextMenuCalculateAllIndexNestedGroup = 13;
         private const int contextMenuClearAllIndexNestedGroup = 15;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         private IGui gui;
         private TreeNodeInfo info;
@@ -1249,15 +1250,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            });
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var groupContext = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    null,
@@ -1273,7 +1275,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>())
                                  .Repeat
                                  .Times(nrOfCalculators);

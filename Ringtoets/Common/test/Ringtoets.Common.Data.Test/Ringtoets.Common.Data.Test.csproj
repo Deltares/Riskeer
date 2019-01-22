@@ -51,12 +51,15 @@
     <Compile Include="HasSectionResultsHelperTest.cs" />
     <Compile Include="Helpers\SoilLayerDataHelperTest.cs" />
     <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettingsFactoryTest.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettingsTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensionsTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInputTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationOutputTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />
+    <Compile Include="Hydraulics\HydraulicLocationConfigurationSettingsTest.cs" />
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointExtensionsTest.cs" />
     <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointExtensionsTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNodeExtensionsTest.cs" />

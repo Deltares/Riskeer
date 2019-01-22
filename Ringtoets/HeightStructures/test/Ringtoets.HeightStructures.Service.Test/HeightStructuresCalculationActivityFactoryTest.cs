@@ -33,9 +33,11 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -121,7 +123,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresCalculationActivity>(activity);
-            AssertHeightStructuresCalculationActivity(activity, calculation);
+            AssertHeightStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryDatabase);
             mocks.VerifyAll();
         }
 
@@ -208,8 +210,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(HeightStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            AssertHeightStructuresCalculationActivity(activities.First(), calculation1);
-            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
+            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
             mocks.VerifyAll();
         }
 
@@ -270,8 +273,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(HeightStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            AssertHeightStructuresCalculationActivity(activities.First(), calculation1);
-            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertHeightStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
+            AssertHeightStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
             mocks.VerifyAll();
         }
 
@@ -288,12 +292,20 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         private static void AssertHeightStructuresCalculationActivity(Activity activity,
-                                                                      ICalculation<HeightStructuresInput> calculation)
+                                                                      ICalculation<HeightStructuresInput> calculation,
+                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, ""))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
                              .Return(testCalculator);
             mocks.ReplayAll();
 

@@ -111,6 +111,131 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kon het rekeninstellingen bestand niet openen. {0}.
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_ {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file" +
+                        "_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///Er is geen hydraulische belastingen database gekoppeld..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_Hydrauli" +
+                        "cBoundaryDatabase_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand moet exact 1 rij bevatten..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entr" +
+                        "ies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het hydraulische locatie configuratie bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het rekeninstellingen bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///Er is geen HLCD geïmporteerd..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicLocationConfigurationDatabase_imported {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_" +
+                        "0_No_HydraulicLocationConfigurationDatabase_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 of meerdere locaties komen niet voor in de HLCD..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; moet exact 1 rij bevatten..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformat" +
+                        "ion_entries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HLCD bestand importeren afgebroken. Geen gegevens gewijzigd..
+        /// </summary>
+        internal static string HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_da" +
+                        "ta_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         internal static string SerializableAssembly_IdPrefix {

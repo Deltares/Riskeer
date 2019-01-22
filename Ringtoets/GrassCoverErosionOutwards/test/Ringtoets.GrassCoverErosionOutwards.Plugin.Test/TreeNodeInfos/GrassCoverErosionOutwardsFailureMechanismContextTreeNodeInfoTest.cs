@@ -52,6 +52,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -531,6 +532,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     FilePath = validFilePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -574,9 +576,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
 
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(designWaterLevelCalculator).Repeat.Times(5);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator).Repeat.Times(5);
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(waveConditionsCalculator).Repeat.Times(3);
+                HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings,
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(designWaterLevelCalculator)
+                                 .Repeat
+                                 .Times(5);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings,
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator)
+                                 .Repeat
+                                 .Times(5);
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings,
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveConditionsCalculator)
+                                 .Repeat
+                                 .Times(3);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

@@ -193,8 +193,7 @@ namespace Ringtoets.Storage.Core.Test.Create
             AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
 
             // Assert
-            Assert.IsNull(entity.HydraulicDatabaseLocation);
-            Assert.IsNull(entity.HydraulicDatabaseVersion);
+            CollectionAssert.IsEmpty(entity.HydraulicBoundaryDatabaseEntities);
             CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
 
             AssertHydraulicLocationCalculationCollectionEntities(assessmentSection, entity);
@@ -228,10 +227,25 @@ namespace Ringtoets.Storage.Core.Test.Create
             AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(testFilePath, entity.HydraulicDatabaseLocation);
-            TestHelper.AssertAreEqualButNotSame(testVersion, entity.HydraulicDatabaseVersion);
+            HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.Single();
 
-            int expectedNrOfHydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.Count;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            Assert.AreEqual(hydraulicBoundaryDatabase.FilePath, hydraulicBoundaryDatabaseEntity.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabaseEntity.Version);
+
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(settings.FilePath, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath);
+            Assert.AreEqual(settings.ScenarioName, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScenarioName);
+            Assert.AreEqual(settings.Year, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsYear);
+            Assert.AreEqual(settings.Scope, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScope);
+            Assert.AreEqual(settings.SeaLevel, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsSeaLevel);
+            Assert.AreEqual(settings.RiverDischarge, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsRiverDischarge);
+            Assert.AreEqual(settings.LakeLevel, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsLakeLevel);
+            Assert.AreEqual(settings.WindDirection, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindDirection);
+            Assert.AreEqual(settings.WindSpeed, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindSpeed);
+            Assert.AreEqual(settings.Comment, hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsComment);
+
+            int expectedNrOfHydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations.Count;
             Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicLocationEntities.Count);
 
             AssertHydraulicLocationCalculationCollectionEntities(assessmentSection, entity);

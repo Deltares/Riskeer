@@ -37,6 +37,7 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
@@ -48,7 +49,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnFalse()
@@ -705,8 +705,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(null,
                                                                                                  assessmentSection,
                                                                                                  failureMechanism.GeneralInput,
-                                                                                                 failureMechanism.Contribution,
-                                                                                                 string.Empty);
+                                                                                                 failureMechanism.Contribution);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -725,8 +724,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                  null,
                                                                                                  failureMechanism.GeneralInput,
-                                                                                                 failureMechanism.Contribution,
-                                                                                                 string.Empty);
+                                                                                                 failureMechanism.Contribution);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -748,8 +746,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                  assessmentSection,
                                                                                                  null,
-                                                                                                 failureMechanism.Contribution,
-                                                                                                 string.Empty);
+                                                                                                 failureMechanism.Contribution);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -774,22 +771,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(new TestOvertoppingCalculator
-            {
-                IllustrationPointsResult = new TestGeneralResult()
-            });
-            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(new TestHydraulicLoadsCalculator
-            {
-                IllustrationPointsResult = new TestGeneralResult()
-            });
-            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(new TestHydraulicLoadsCalculator
-            {
-                IllustrationPointsResult = new TestGeneralResult()
-            });
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
                                                                                                            validFilePath);
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestOvertoppingCalculator
+                             {
+                                 IllustrationPointsResult = new TestGeneralResult()
+                             });
+            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestHydraulicLoadsCalculator
+                             {
+                                 IllustrationPointsResult = new TestGeneralResult()
+                             });
+            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestHydraulicLoadsCalculator
+                             {
+                                 IllustrationPointsResult = new TestGeneralResult()
+                             });
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -815,8 +818,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFilePath);
+                                                                           failureMechanism.Contribution);
             }
 
             // Assert
@@ -887,8 +889,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -911,8 +917,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 }
             };
 
@@ -960,8 +965,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -984,8 +993,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 }
             };
 
@@ -1027,7 +1035,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1049,8 +1059,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 service.Calculate(calculation,
                                   assessmentSection,
                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                  grassCoverErosionInwardsFailureMechanism.Contribution,
-                                  validFilePath);
+                                  grassCoverErosionInwardsFailureMechanism.Contribution);
 
                 // Assert
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
@@ -1075,9 +1084,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1108,8 +1121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 service.Calculate(calculation,
                                   assessmentSection,
                                   failureMechanism.GeneralInput,
-                                  failureMechanism.Contribution,
-                                  validFilePath);
+                                  failureMechanism.Contribution);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -1136,9 +1148,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(new TestHydraulicLoadsCalculator());
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestHydraulicLoadsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -1169,8 +1187,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 service.Calculate(calculation,
                                   assessmentSection,
                                   failureMechanism.GeneralInput,
-                                  failureMechanism.Contribution,
-                                  validFilePath);
+                                  failureMechanism.Contribution);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -1195,7 +1212,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 EndInFailure = true
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1221,8 +1240,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSection,
                                                                                    failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFilePath);
+                                                                                   failureMechanism.Contribution);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -1267,7 +1285,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 EndInFailure = true
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1293,8 +1313,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSection,
                                                                                    failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFilePath);
+                                                                                   failureMechanism.Contribution);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -1340,7 +1359,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 EndInFailure = false
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1366,8 +1387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSection,
                                                                                    failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFilePath);
+                                                                                   failureMechanism.Contribution);
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -1417,8 +1437,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1441,8 +1465,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 };
 
                 // Assert
@@ -1488,8 +1511,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1512,8 +1539,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 };
 
                 // Assert
@@ -1560,8 +1586,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1584,8 +1614,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 };
 
                 // Assert
@@ -1633,9 +1662,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
 
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(new TestHydraulicLoadsCalculator());
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestHydraulicLoadsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1658,8 +1693,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 };
 
                 // Assert
@@ -1705,9 +1739,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(new TestHydraulicLoadsCalculator());
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestHydraulicLoadsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1730,8 +1770,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 };
 
                 // Assert
@@ -1773,13 +1812,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var overtoppingCalculator = new TestOvertoppingCalculator();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 EndInFailure = false,
                 LastErrorFileContent = "An error occurred"
             };
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -1802,8 +1845,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
                                                                                failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFilePath);
+                                                                               failureMechanism.Contribution);
                 };
 
                 // Assert
@@ -1855,9 +1897,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
 
@@ -1869,8 +1917,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -1937,9 +1984,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
 
@@ -1952,8 +2005,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2019,9 +2071,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsParserErrorMessage = parserError
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
 
@@ -2033,8 +2091,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2101,9 +2158,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsParserErrorMessage = parserError
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
 
@@ -2116,8 +2179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2183,9 +2245,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
 
@@ -2197,8 +2265,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2265,9 +2332,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
 
@@ -2280,8 +2353,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2346,9 +2418,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
@@ -2359,8 +2437,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2429,9 +2506,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
@@ -2442,8 +2525,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2514,9 +2596,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
@@ -2527,8 +2615,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2597,9 +2684,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
@@ -2610,8 +2703,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2682,9 +2774,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
@@ -2695,8 +2793,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2765,9 +2862,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 IllustrationPointsResult = new TestGeneralResult()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(null))
+                             .IgnoreArguments()
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
@@ -2778,8 +2881,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution,
-                                                                                               validFilePath);
+                                                                                               failureMechanism.Contribution);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2837,13 +2939,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
                                                                                                            validFilePath);
+            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
 
@@ -2864,8 +2986,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFilePath);
+                                                                           failureMechanism.Contribution);
             }
 
             // Assert
@@ -2882,18 +3003,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
                                                                                                            validFilePath);
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = TestHelper.GetScratchPadPath();
+
+            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, validPreprocessorDirectory)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, validPreprocessorDirectory)).Return(overtoppingRateCalculator);
-
-            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
-
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -2913,8 +3053,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFilePath);
+                                                                           failureMechanism.Contribution);
             }
 
             // Assert
@@ -2931,19 +3070,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            var overtoppingCalculator = new TestOvertoppingCalculator();
-            var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
-            var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
-            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
-
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
+            HydraulicBoundaryCalculationSettings calculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            var overtoppingCalculator = new TestOvertoppingCalculator();
+            var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
+            var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(dikeHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     calculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -2963,8 +3121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution,
-                                                                           validFilePath);
+                                                                           failureMechanism.Contribution);
             }
 
             // Assert
@@ -2986,7 +3143,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -3007,8 +3166,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 service.Calculate(calculation,
                                   assessmentSection,
                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                  grassCoverErosionInwardsFailureMechanism.Contribution,
-                                  validFilePath);
+                                  grassCoverErosionInwardsFailureMechanism.Contribution);
 
                 // Assert
                 Assert.IsNull(calculation.Output.DikeHeightOutput);
@@ -3027,7 +3185,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
+                             .IgnoreArguments()
+                             .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -3048,8 +3208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 service.Calculate(calculation,
                                   assessmentSection,
                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                  grassCoverErosionInwardsFailureMechanism.Contribution,
-                                  validFilePath);
+                                  grassCoverErosionInwardsFailureMechanism.Contribution);
 
                 // Assert
                 Assert.IsNull(calculation.Output.OvertoppingRateOutput);

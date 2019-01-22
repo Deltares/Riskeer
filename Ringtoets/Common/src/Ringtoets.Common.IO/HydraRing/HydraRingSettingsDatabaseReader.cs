@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.HydraRing
     /// This class is responsible for reading values from the Hydra-Ring settings database and creating
     /// settings from them.
     /// </summary>
-    internal class HydraRingSettingsDatabaseReader : SqLiteDatabaseReaderBase
+    public class HydraRingSettingsDatabaseReader : SqLiteDatabaseReaderBase
     {
         private const string calculationTechniqueIdColumn = "CalculationMethod";
         private const string formStartMethodColumn = "FORM_StartMethod";

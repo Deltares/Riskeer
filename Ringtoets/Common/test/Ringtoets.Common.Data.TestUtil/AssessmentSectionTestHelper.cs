@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
         private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string filePath)
         {
-            return new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
                 Locations =
@@ -163,6 +163,13 @@ namespace Ringtoets.Common.Data.TestUtil
                     new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                 }
             };
+
+            if (filePath != null)
+            {
+                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            }
+
+            return hydraulicBoundaryDatabase;
         }
     }
 }

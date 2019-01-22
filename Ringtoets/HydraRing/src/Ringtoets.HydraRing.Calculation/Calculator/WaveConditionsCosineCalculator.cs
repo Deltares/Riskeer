@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Parsers;
 
@@ -40,14 +41,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Create a new instance of <see cref="WaveConditionsCosineCalculator"/>.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory" />
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        internal WaveConditionsCosineCalculator(string hlcdDirectory, string preprocessorDirectory)
-            : base(hlcdDirectory, preprocessorDirectory)
+        internal WaveConditionsCosineCalculator(HydraRingCalculationSettings calculationSettings) : base(calculationSettings)
         {
             waveConditionsCalculationParser = new WaveConditionsCalculationParser();
             reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();

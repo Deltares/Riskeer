@@ -41,10 +41,12 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -258,7 +260,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite")
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
             });
 
             var nodeData = new GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
@@ -303,14 +305,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
+            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             var mockRepository = new MockRepository();
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    FilePath = filePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -345,7 +349,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator).Repeat.Times(5);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator).Repeat.Times(5);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

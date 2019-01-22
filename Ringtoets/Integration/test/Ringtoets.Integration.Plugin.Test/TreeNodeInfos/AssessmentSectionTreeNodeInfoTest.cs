@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -53,6 +54,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
@@ -501,14 +503,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
+            string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                    FilePath = hydraulicBoundaryDatabaseFilePath
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {
@@ -530,40 +534,100 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
+            HydraulicBoundaryCalculationSettings expectedCalculationSettings =
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             using (mocks.Ordered())
             {
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestDesignWaterLevelCalculator
                                  {
                                      DesignWaterLevel = 2.0
                                  }).Repeat.Times(4);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(4);
 
-                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestOvertoppingCalculator());
 
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(9);
 
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(3);
 
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);
 
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
 
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
 
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
 
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestDunesBoundaryConditionsCalculator()).Repeat.Times(5);
             }
 

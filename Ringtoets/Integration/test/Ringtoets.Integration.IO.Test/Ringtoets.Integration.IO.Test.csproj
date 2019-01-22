@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{06C448C6-CBDE-4579-B5B6-1B8074E022ED}</ProjectGuid>
@@ -15,6 +15,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net40\System.Data.SQLite.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssembliesTest.cs" />
@@ -89,6 +92,8 @@
     <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactoryTest.cs" />
     <Compile Include="Helpers\ExportableFailureMechanismSectionHelperTest.cs" />
     <Compile Include="Helpers\IdentifierGeneratorTest.cs" />
+    <Compile Include="Importers\HydraulicBoundaryDatabaseImporterTest.cs" />
+    <Compile Include="Importers\HydraulicLocationConfigurationDatabaseImporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +135,10 @@
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
       <Name>Ringtoets.Common.Primitives</Name>
@@ -165,6 +174,10 @@
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
+      <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
+      <Name>Ringtoets.HydraRing.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
@@ -202,5 +215,16 @@
       <Project>{1C002B07-DDF6-4849-B8ED-551163AC9423}</Project>
       <Name>Ringtoets.Integration.IO.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
+      <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
+      <Name>Ringtoets.Integration.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
 </Project>

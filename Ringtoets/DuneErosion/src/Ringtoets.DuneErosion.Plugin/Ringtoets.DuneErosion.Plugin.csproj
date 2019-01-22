@@ -16,6 +16,7 @@
     <Compile Include="DuneErosionPlugin.cs" />
     <Compile Include="FileImporters\DuneErosionFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="Handlers\DuneLocationsReplacementHandler.cs" />
+    <Compile Include="Handlers\IDuneLocationsReplacementHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

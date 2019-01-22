@@ -153,4 +153,45 @@
   <data name="AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results" xml:space="preserve">
     <value>Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file" xml:space="preserve">
+    <value>Inlezen van het hydraulische belastingen bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported" xml:space="preserve">
+    <value>{0}
+Er is geen hydraulische belastingen database gekoppeld.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file" xml:space="preserve">
+    <value>Inlezen van het hydraulische locatie configuratie bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
+    <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file" xml:space="preserve">
+    <value>Inlezen van het rekeninstellingen bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_" xml:space="preserve">
+    <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
+    <value>De tabel 'ScenarioInformation' in het HLCD bestand moet exact 1 rij bevatten.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicLocationConfigurationDatabase_imported" xml:space="preserve">
+    <value>{0}
+Er is geen HLCD geïmporteerd.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD" xml:space="preserve">
+    <value>Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries" xml:space="preserve">
+    <value>De tabel 'ScenarioInformation' moet exact 1 rij bevatten.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>HLCD bestand importeren afgebroken. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds" xml:space="preserve">
+    <value>1 of meerdere locaties komen niet voor in de HLCD.</value>
+  </data>
 </root>

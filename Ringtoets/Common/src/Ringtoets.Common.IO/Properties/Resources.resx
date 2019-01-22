@@ -372,12 +372,6 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
-    <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read" xml:space="preserve">
-    <value>De hydraulische belastingenlocaties zijn ingelezen.</value>
-  </data>
   <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline" xml:space="preserve">
     <value>De profiellocatie met ID '{0}' ligt niet op de referentielijn.</value>
   </data>
@@ -455,9 +449,6 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="settings_schema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\settings-schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_" xml:space="preserve">
-    <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
-  </data>
   <data name="HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema" xml:space="preserve">
     <value>De rekeninstellingen database heeft niet het juiste schema.</value>
   </data>
@@ -473,8 +464,11 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length" xml:space="preserve">
     <value>De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte</value>
   </data>
-  <data name="Importer_ProgressText_Adding_imported_data_to_data_model" xml:space="preserve">
+  <data name="Importer_ProgressText_Adding_imported_data_to_FailureMechanism" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan het toetsspoor.</value>
+  </data>
+  <data name="Importer_ProgressText_Adding_imported_data_to_AssessmentSection" xml:space="preserve">
+    <value>Geïmporteerde data toevoegen aan het traject.</value>
   </data>
   <data name="CalculationConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2" xml:space="preserve">
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}</value>

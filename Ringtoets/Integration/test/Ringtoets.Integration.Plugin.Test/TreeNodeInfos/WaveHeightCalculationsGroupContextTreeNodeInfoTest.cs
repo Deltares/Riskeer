@@ -42,8 +42,10 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Plugin.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -251,7 +253,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite")
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
             });
 
             var nodeData = new WaveHeightCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
@@ -293,14 +295,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             var mockRepository = new MockRepository();
+            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    FilePath = filePath
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
@@ -325,7 +329,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator).Repeat.Times(4);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator).Repeat.Times(4);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

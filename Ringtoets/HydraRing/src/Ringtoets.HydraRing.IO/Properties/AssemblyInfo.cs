@@ -25,3 +25,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("Ringtoets.HydraRing.IO")]
 [assembly: AssemblyProduct("Ringtoets.HydraRing.IO")]
 [assembly: InternalsVisibleTo("Ringtoets.HydraRing.IO.Test")]
+[assembly: InternalsVisibleTo("Ringtoets.HydraRing.IO.TestUtil")]

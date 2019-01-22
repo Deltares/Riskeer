@@ -38,9 +38,11 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -53,7 +55,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuRunWaveHeightCalculationsIndex = 2;
         private MockRepository mockRepository;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
         [SetUp]
         public void SetUp()
@@ -254,7 +257,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite"),
                 Version = "1.0"
             });
 
@@ -311,7 +314,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite"),
                 Version = "1.0"
             });
 
@@ -376,7 +379,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
+                failureMechanism, mockRepository, validFilePath);
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations[0]);
 
@@ -401,7 +404,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         EndInFailure = true
                     };
                     var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                    calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
+                    calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                     .WhenCalled(invocation =>
+                                     {
+                                         HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                             HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                             (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                     })
+                                     .Return(waveHeightCalculator);
                     mockRepository.ReplayAll();
 
                     plugin.Gui = gui;
@@ -427,15 +437,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
-            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 5
             };
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mockRepository, filePath);
+                failureMechanism, mockRepository, validFilePath);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
@@ -453,7 +461,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -485,16 +500,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
-            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 5
             };
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mockRepository, filePath);
+                failureMechanism, mockRepository, validFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -516,7 +529,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, preprocessorDirectory)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -548,15 +568,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
-            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 5
             };
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
-                failureMechanism, mockRepository, filePath);
+                failureMechanism, mockRepository, validFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
@@ -578,7 +596,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())

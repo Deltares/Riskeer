@@ -32,19 +32,9 @@ namespace Ringtoets.HydraRing.Calculation
         internal const string DesignTablesFileName = "designTable.txt";
 
         /// <summary>
-        /// The file name of the working database which contains input and output.
-        /// </summary>
-        internal const string WorkingDatabaseFileName = "temp.sqlite";
-
-        /// <summary>
         /// The tail and extension of the output database which contains output for a calculation.
         /// </summary>
         internal const string OutputDatabaseFileNameSuffix = "-output.sqlite";
-
-        /// <summary>
-        /// The file name of the HLCD database.
-        /// </summary>
-        internal const string HlcdDatabaseFileName = "HLCD.sqlite";
 
         /// <summary>
         /// The file name of the executable of Hydra-Ring.

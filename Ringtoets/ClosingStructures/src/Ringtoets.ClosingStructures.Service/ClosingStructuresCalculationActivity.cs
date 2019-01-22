@@ -81,8 +81,7 @@ namespace Ringtoets.ClosingStructures.Service
 
             calculationService.Calculate(calculation,
                                          failureMechanism.GeneralInput,
-                                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase));
         }
 
         protected override void OnCancel()

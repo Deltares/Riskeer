@@ -27,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Integration.Forms.Editors;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -37,27 +38,50 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
+        private const int hrdFilePathPropertyIndex = 0;
+        private const int hlcdFilePathPropertyIndex = 1;
+        private const int scenarioNamePropertyIndex = 2;
+        private const int yearPropertyIndex = 3;
+        private const int scopePropertyIndex = 4;
+        private const int seaLevelPropertyIndex = 5;
+        private const int riverDischargePropertyIndex = 6;
+        private const int lakeLevelPropertyIndex = 7;
+        private const int windDirectionPropertyIndex = 8;
+        private const int windSpeedPropertyIndex = 9;
+        private const int commentPropertyIndex = 10;
+        private const int usePreprocessorPropertyIndex = 11;
+        private const int preprocessorDirectoryPropertyIndex = 12;
+
+        private readonly IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
-        /// is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <param name="hydraulicLocationConfigurationDatabaseImportHandler">The handler to update the hydraulic location configuration settings.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                   IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
+            if (hydraulicLocationConfigurationDatabaseImportHandler == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicLocationConfigurationDatabaseImportHandler));
+            }
+
+            this.hydraulicLocationConfigurationDatabaseImportHandler = hydraulicLocationConfigurationDatabaseImportHandler;
             Data = hydraulicBoundaryDatabase;
         }
 
-        [PropertyOrder(1)]
+        [PropertyOrder(hrdFilePathPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_Description))]
-        public string FilePath
+        public string HrdFilePath
         {
             get
             {
@@ -65,7 +89,153 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(hlcdFilePathPropertyIndex)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
+        [Editor(typeof(HlcdFileNameEditor), typeof(UITypeEditor))]
+        public string HlcdFilePath
+        {
+            get
+            {
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
+            }
+            set
+            {
+                hydraulicLocationConfigurationDatabaseImportHandler.ImportHydraulicLocationConfigurationSettings(
+                    data.HydraulicLocationConfigurationSettings, value);
+            }
+        }
+
+        [PropertyOrder(hlcdFilePathPropertyIndex)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_FilePath_Description))]
+        public string HlcdFilePathReadOnly
+        {
+            get
+            {
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
+            }
+        }
+
+        [PropertyOrder(scenarioNamePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_ScenarioName_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_ScenarioName_Description))]
+        public string ScenarioName
+        {
+            get
+            {
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.ScenarioName : string.Empty;
+            }
+        }
+
+        [PropertyOrder(yearPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Year_Description))]
+        public string Year
+        {
+            get
+            {
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.Year.ToString() : string.Empty;
+            }
+        }
+
+        [PropertyOrder(scopePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Scope_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Scope_Description))]
+        public string Scope
+        {
+            get
+            {
+                return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.Scope : string.Empty;
+            }
+        }
+
+        [PropertyOrder(seaLevelPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_SeaLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_SeaLevel_Description))]
+        public string SeaLevel
+        {
+            get
+            {
+                string seaLevel = data.HydraulicLocationConfigurationSettings.SeaLevel;
+                return data.IsLinked() && seaLevel != null ? seaLevel : string.Empty;
+            }
+        }
+
+        [PropertyOrder(riverDischargePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_RiverDischarge_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_RiverDischarge_Description))]
+        public string RiverDischarge
+        {
+            get
+            {
+                string riverDischarge = data.HydraulicLocationConfigurationSettings.RiverDischarge;
+                return data.IsLinked() && riverDischarge != null ? riverDischarge : string.Empty;
+            }
+        }
+
+        [PropertyOrder(lakeLevelPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_LakeLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_LakeLevel_Description))]
+        public string LakeLevel
+        {
+            get
+            {
+                string lakeLevel = data.HydraulicLocationConfigurationSettings.LakeLevel;
+                return data.IsLinked() && lakeLevel != null ? lakeLevel : string.Empty;
+            }
+        }
+
+        [PropertyOrder(windDirectionPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindDirection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindDirection_Description))]
+        public string WindDirection
+        {
+            get
+            {
+                string windDirection = data.HydraulicLocationConfigurationSettings.WindDirection;
+                return data.IsLinked() && windDirection != null ? windDirection : string.Empty;
+            }
+        }
+
+        [PropertyOrder(windSpeedPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindSpeed_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_WindSpeed_Description))]
+        public string WindSpeed
+        {
+            get
+            {
+                string windSpeed = data.HydraulicLocationConfigurationSettings.WindSpeed;
+                return data.IsLinked() && windSpeed != null ? windSpeed : string.Empty;
+            }
+        }
+
+        [PropertyOrder(commentPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Comment_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_Comment_Description))]
+        public string Comment
+        {
+            get
+            {
+                string comment = data.HydraulicLocationConfigurationSettings.Comment;
+                return data.IsLinked() && comment != null ? comment : string.Empty;
+            }
+        }
+
+        [PropertyOrder(usePreprocessorPropertyIndex)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessor_DisplayName))]
@@ -83,7 +253,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(3)]
+        [PropertyOrder(preprocessorDirectoryPropertyIndex)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName))]
@@ -101,7 +271,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(preprocessorDirectoryPropertyIndex)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName))]
@@ -130,6 +300,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
 
             if (propertyName.Equals(nameof(PreprocessorDirectoryReadOnly)) && (!canUsePreprocessor || UsePreprocessor))
+            {
+                return false;
+            }
+
+            if (propertyName.Equals(nameof(HlcdFilePath)) && !data.IsLinked())
+            {
+                return false;
+            }
+
+            if (propertyName.Equals(nameof(HlcdFilePathReadOnly)) && data.IsLinked())
             {
                 return false;
             }

@@ -519,8 +519,10 @@ namespace Ringtoets.Migration.Test
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 18.1 naar versie 19.1:");
                 migrationLog.AppendLine("* Traject: 'assessmentSection'");
+                migrationLog.AppendLine("  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt.");
                 migrationLog.AppendLine("  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60.");
                 migrationLog.AppendLine("* Traject: 'Demo traject'");
+                migrationLog.AppendLine("  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt.");
                 migrationLog.AppendLine("  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60.");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =

@@ -33,13 +33,15 @@ using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Integration.Test
 {
@@ -92,16 +94,14 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation
@@ -156,16 +156,14 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation
@@ -201,16 +199,14 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation
@@ -259,16 +255,14 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(null))
+                             .IgnoreArguments()
                              .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
@@ -303,12 +297,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         public void Run_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, string.Empty))
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -316,6 +304,21 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                     FilePath = validFilePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+            mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation();
@@ -338,12 +341,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ExpectedPreprocessorDirectorySetToCalculator()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, validPreprocessorDirectory))
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -354,6 +351,20 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                     PreprocessorDirectory = validPreprocessorDirectory
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+            mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation();
@@ -376,12 +387,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, string.Empty))
-                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-            mockRepository.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -392,6 +397,20 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                     PreprocessorDirectory = "NonExistingPreprocessorDirectory"
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                         Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+            mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation();

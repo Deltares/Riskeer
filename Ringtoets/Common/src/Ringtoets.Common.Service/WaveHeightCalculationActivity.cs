@@ -31,8 +31,7 @@ namespace Ringtoets.Common.Service
     internal class WaveHeightCalculationActivity : CalculatableActivity
     {
         private readonly double norm;
-        private readonly string hydraulicBoundaryDatabaseFilePath;
-        private readonly string preprocessorDirectory;
+        private readonly HydraulicBoundaryCalculationSettings calculationSettings;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly WaveHeightCalculationService calculationService;
         private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
@@ -41,25 +40,28 @@ namespace Ringtoets.Common.Service
         /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="categoryBoundaryName">The category boundary name of the calculation.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
+        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public WaveHeightCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                             string hydraulicBoundaryDatabaseFilePath,
-                                             string preprocessorDirectory,
+                                             HydraulicBoundaryCalculationSettings calculationSettings,
                                              double norm,
                                              string categoryBoundaryName)
             : base(hydraulicBoundaryLocationCalculation)
         {
+            if (calculationSettings == null)
+            {
+                throw new ArgumentNullException(nameof(calculationSettings));
+            }
+
             messageProvider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
 
             this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
-            this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
-            this.preprocessorDirectory = preprocessorDirectory;
+            this.calculationSettings = calculationSettings;
             this.norm = norm;
 
             calculationService = new WaveHeightCalculationService();
@@ -69,16 +71,13 @@ namespace Ringtoets.Common.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(hydraulicBoundaryDatabaseFilePath,
-                                               preprocessorDirectory,
-                                               norm);
+            return calculationService.Validate(calculationSettings, norm);
         }
 
         protected override void PerformCalculation()
         {
             calculationService.Calculate(hydraulicBoundaryLocationCalculation,
-                                         hydraulicBoundaryDatabaseFilePath,
-                                         preprocessorDirectory,
+                                         calculationSettings,
                                          norm,
                                          messageProvider);
         }

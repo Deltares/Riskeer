@@ -41,6 +41,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -226,7 +227,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Times(nrOfCalculators);
@@ -283,7 +285,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(waveConditionsCosineCalculator)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -344,7 +347,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -404,7 +409,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -454,7 +461,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Times(nrOfCalculators);
@@ -503,7 +511,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(calculator)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -558,7 +567,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(waveConditionsCosineCalculator)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -599,7 +609,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Times(nrOfCalculators);
@@ -642,7 +658,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Times(nrOfCalculators);
@@ -685,7 +707,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Times(nrOfCalculators);
@@ -712,7 +740,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator
                              {
                                  EndInFailure = endInFailure
@@ -775,13 +804,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
         private static AssessmentSectionStub CreateAssessmentSection()
         {
-            return new AssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            return assessmentSection;
         }
 
         private static IEnumerable<RoundedDouble> GetWaterLevels(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using log4net;
@@ -52,29 +51,28 @@ namespace Ringtoets.Common.Service
         /// Performs a calculation for wave height.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> or
-        /// <paramref name="messageProvider"/> is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/>,
+        /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
-        /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
+        /// <item>the hydraulic boundary database filepath contains invalid characters.</item>
         /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// <item>No settings database file could be found at the location of hydraulic boundary database file path
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                              string hydraulicBoundaryDatabaseFilePath,
-                              string preprocessorDirectory,
+                              HydraulicBoundaryCalculationSettings calculationSettings,
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
@@ -83,25 +81,28 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
             }
 
+            if (calculationSettings == null)
+            {
+                throw new ArgumentNullException(nameof(calculationSettings));
+            }
+
             if (messageProvider == null)
             {
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation;
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(hlcdDirectory, preprocessorDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings));
 
             var exceptionThrown = false;
 
             try
             {
                 PerformCalculation(hydraulicBoundaryLocationCalculation,
-                                   hydraulicBoundaryDatabaseFilePath,
-                                   !string.IsNullOrEmpty(preprocessorDirectory),
+                                   calculationSettings,
                                    norm,
                                    messageProvider);
             }
@@ -150,27 +151,26 @@ namespace Ringtoets.Common.Service
         /// Performs a calculation for the wave height.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path.
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private void PerformCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                        string hydraulicBoundaryDatabaseFilePath,
-                                        bool usePreprocessor,
+                                        HydraulicBoundaryCalculationSettings calculationSettings,
                                         double norm,
                                         ICalculationMessageProvider messageProvider)
         {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation;
 
-            WaveHeightCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation.Id, norm, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+            WaveHeightCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation.Id, norm, calculationSettings);
 
             calculator.Calculate(calculationInput);
 
@@ -265,15 +265,14 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
-        /// boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
+        /// hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="WaveHeightCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary location file path 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -281,12 +280,13 @@ namespace Ringtoets.Common.Service
         /// </exception>
         private static WaveHeightCalculationInput CreateInput(long hydraulicBoundaryLocationId,
                                                               double norm,
-                                                              string hydraulicBoundaryDatabaseFilePath,
-                                                              bool usePreprocessor)
+                                                              HydraulicBoundaryCalculationSettings calculationSettings)
         {
             var waveHeightCalculationInput = new WaveHeightCalculationInput(1, hydraulicBoundaryLocationId, norm);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput,
+                                                                       calculationSettings.HydraulicBoundaryDatabaseFilePath,
+                                                                       !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
 
             return waveHeightCalculationInput;
         }

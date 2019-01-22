@@ -61,9 +61,9 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(calculations));
             }
 
+            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
-                                                                                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                        settings,
                                                                                         norm,
                                                                                         categoryBoundaryName)).ToArray();
         }
@@ -96,9 +96,9 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(calculations));
             }
 
+            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
-                                                                                              assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                              assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                              settings,
                                                                                               norm,
                                                                                               categoryBoundaryName)).ToArray();
         }

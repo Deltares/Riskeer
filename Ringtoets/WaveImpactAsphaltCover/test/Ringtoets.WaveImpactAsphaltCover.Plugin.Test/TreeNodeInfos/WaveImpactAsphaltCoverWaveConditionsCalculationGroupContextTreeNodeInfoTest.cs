@@ -45,6 +45,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -788,7 +789,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+                                                                                   Path.Combine(nameof(HydraulicBoundaryDatabase), "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1170,7 +1171,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                       .Sum(c => c.InputParameters.GetWaterLevels(assessmentSection.GetAssessmentLevel(c.InputParameters.HydraulicBoundaryLocation,
                                                                                                                                       c.InputParameters.CategoryType)).Count());
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestWaveConditionsCosineCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -1897,7 +1904,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

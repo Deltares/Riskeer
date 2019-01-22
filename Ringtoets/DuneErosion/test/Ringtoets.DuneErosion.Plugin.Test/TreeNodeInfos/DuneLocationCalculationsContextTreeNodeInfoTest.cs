@@ -44,6 +44,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -59,7 +60,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         private DuneErosionPlugin plugin;
         private TreeNodeInfo info;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [SetUp]
         public void SetUp()
@@ -228,8 +230,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_InvalidNorm_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -286,8 +286,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -343,7 +341,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
                 var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
                 {
                     new DuneLocationCalculation(new DuneLocation(1300001, locationName1, new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -367,12 +364,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Contribution = 10
                 };
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath
-                });
+                };
+                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
                 assessmentSection.Stub(a => a.Id).Return("13-1");
                 assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
                 {
@@ -399,7 +398,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = duneLocationCalculations.Count;
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(null))
+                                 .IgnoreArguments()
                                  .Return(new TestDunesBoundaryConditionsCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -448,9 +448,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
-
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
                 new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -466,13 +463,15 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 Contribution = 10
             };
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath
-            });
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -495,9 +494,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(dunesBoundaryConditionsCalculator);
-
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -523,7 +527,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
@@ -542,15 +545,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 Contribution = 10
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
-            });
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -573,7 +578,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, preprocessorDirectory))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();
@@ -601,8 +612,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
                 new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -619,15 +628,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 Contribution = 10
             };
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            });
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -650,7 +661,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();

@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -46,20 +45,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism, which contains general parameters that apply to all 
         /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> instances.</param>
-        /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="failureMechanism"/>
         /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="hlcdFilePath"/> contains invalid characters.</item>
+        /// <item>the hydraulic boundary database file path contains invalid characters.</item>
         /// <item><paramref name="failureMechanism"/> has no (0) contribution.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hlcdFilePath"/>
+        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -71,8 +69,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         public void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                               GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                              IAssessmentSection assessmentSection,
-                              string hlcdFilePath)
+                              IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
@@ -96,8 +93,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             RoundedDouble c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
 
             double norm = failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType);
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                 calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                 calculation.InputParameters.CategoryType);
@@ -112,8 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                                                     b,
                                                                                     c,
                                                                                     norm,
-                                                                                    hlcdFilePath,
-                                                                                    preprocessorDirectory);
+                                                                                    assessmentSection.HydraulicBoundaryDatabase);
 
                 if (!Canceled)
                 {

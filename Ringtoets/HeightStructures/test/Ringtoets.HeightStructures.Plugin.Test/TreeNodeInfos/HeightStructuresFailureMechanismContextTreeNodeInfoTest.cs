@@ -48,6 +48,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -64,26 +65,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndex = 5;
         private const int contextMenuClearAllIndex = 7;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         private MockRepository mocksRepository;
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
-
-        public override void Setup()
-        {
-            mocksRepository = new MockRepository();
-            plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocksRepository.VerifyAll();
-
-            base.TearDown();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -690,15 +676,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            });
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -710,7 +697,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
                                  .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -813,6 +807,21 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     });
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            mocksRepository = new MockRepository();
+            plugin = new HeightStructuresPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+
+            base.TearDown();
         }
     }
 }

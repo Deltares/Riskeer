@@ -25,6 +25,7 @@ using System.Reflection;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Services
@@ -35,14 +36,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         private readonly string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
 
         [Test]
+        public void Constructor_SettingsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => new HydraRingInitializationService(random.NextEnumValue<HydraRingFailureMechanismType>(),
+                                                                         random.Next(),
+                                                                         "D:\\work",
+                                                                         null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("settings", exception.ParamName);
+        }
+
+        [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
+            // Setup
+            var settings = new HydraRingCalculationSettings("D:\\hlcd\\hlcdFilePath", "D:\\preprocessor");
+
             // Call
             var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.AssessmentLevel,
                                                                                     700001,
-                                                                                    "D:\\hlcd",
                                                                                     "D:\\work",
-                                                                                    "D:\\preprocessor");
+                                                                                    settings);
 
             // Assert
             Assert.AreEqual("D:\\work\\700001.ini", hydraRingInitializationService.IniFilePath);
@@ -51,19 +71,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             Assert.AreEqual("D:\\work", hydraRingInitializationService.TemporaryWorkingDirectory);
         }
 
-        [TestCase(null)]
+        [Test]
         [TestCase("")]
         [TestCase("D:\\preprocessor")]
         public void GenerateInitializationScript_ReturnsExpectedInitializationScript(string preprocessorDirectory)
         {
             // Setup
-            const string hlcdDirectory = "D:\\hlcd";
+            const string hlcdFilePath = "D:\\hlcd\\HlcdFile.sqlite";
 
+            var settings = new HydraRingCalculationSettings(hlcdFilePath, preprocessorDirectory);
             var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.StructuresStructuralFailure,
                                                                                     700001,
-                                                                                    hlcdDirectory,
                                                                                     TestHelper.GetScratchPadPath(),
-                                                                                    preprocessorDirectory);
+                                                                                    settings);
 
             string expectedInitializationScript = "section                 = 700001" + Environment.NewLine +
                                                   "mechanism               = 112" + Environment.NewLine +
@@ -75,10 +95,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                                   "projectdbfilename       = 700001.sql" + Environment.NewLine +
                                                   "outputfilename          = designTable.txt" + Environment.NewLine +
                                                   "configdbfilename        = " + Path.Combine(hydraRingDirectory, "config.sqlite") + Environment.NewLine +
-                                                  "hydraulicdbfilename     = " + Path.Combine(hlcdDirectory, "HLCD.sqlite") + Environment.NewLine +
+                                                  "hydraulicdbfilename     = " + hlcdFilePath + Environment.NewLine +
                                                   "designpointOutput       = sqlite";
 
-            if (!string.IsNullOrEmpty(preprocessorDirectory))
+            if (preprocessorDirectory != string.Empty)
             {
                 expectedInitializationScript += Environment.NewLine + "preprocessordbdirectory = " + preprocessorDirectory;
             }

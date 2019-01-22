@@ -148,10 +148,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Koppel aan hydraulische belastingendatabase.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
-    <value>Locatie van het hydraulische belastingendatabase bestand.</value>
+    <value>Locatie van het HRD bestand.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
-    <value>Hydraulische belastingendatabase</value>
+    <value>HRD database locatie</value>
   </data>
   <data name="RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
     <value>Database op pad '{0}' gekoppeld.</value>
@@ -387,5 +387,68 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   </data>
   <data name="AssemblyResultPerSectionMapView_DisplayName" xml:space="preserve">
     <value>Assemblagekaart</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_Comment_Description" xml:space="preserve">
+    <value>Overige informatie.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_Comment_DisplayName" xml:space="preserve">
+    <value>Overig</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_FilePath_Description" xml:space="preserve">
+    <value>Locatie van het HLCD bestand.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_FilePath_DisplayName" xml:space="preserve">
+    <value>HLCD database locatie</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_LakeLevel_Description" xml:space="preserve">
+    <value>Klimaatinformatie met betrekking tot het meerpeil/de meerpeilen.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_LakeLevel_DisplayName" xml:space="preserve">
+    <value>Meerpeil</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_RiverDischarge_Description" xml:space="preserve">
+    <value>Klimaatinformatie met betrekking tot de rivierafvoer.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_RiverDischarge_DisplayName" xml:space="preserve">
+    <value>Rivierafvoer</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_ScenarioName_Description" xml:space="preserve">
+    <value>Algemene naam van het klimaatscenario.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_ScenarioName_DisplayName" xml:space="preserve">
+    <value>Klimaatscenario</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_Scope_Description" xml:space="preserve">
+    <value>Projectkader waarin de statistiek bedoeld is te gebruiken.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_Scope_DisplayName" xml:space="preserve">
+    <value>Toepassingskader</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_SeaLevel_Description" xml:space="preserve">
+    <value>Klimaatinformatie met betrekking tot de zeewaterstand.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_SeaLevel_DisplayName" xml:space="preserve">
+    <value>Zeewaterstand</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_WindDirection_Description" xml:space="preserve">
+    <value>Klimaatinformatie met betrekking tot de windrichting.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_WindDirection_DisplayName" xml:space="preserve">
+    <value>Windrichting</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_WindSpeed_Description" xml:space="preserve">
+    <value>Klimaatinformatie met betrekking tot de windsnelheid.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_WindSpeed_DisplayName" xml:space="preserve">
+    <value>Windsnelheid</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_Year_Description" xml:space="preserve">
+    <value>Jaartal van het jaar waarop de statistiek van toepassing is.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_Year_DisplayName" xml:space="preserve">
+    <value>Zichtjaar</value>
+  </data>
+  <data name="HlcdFileNameEditor_InitializeDialog_FileFilter" xml:space="preserve">
+    <value>HLCD bestand|*.sqlite</value>
   </data>
 </root>

@@ -92,6 +92,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                     NormativeNorm = NormType.Signaling
                 }
             };
+            SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -203,6 +204,20 @@ namespace Ringtoets.Storage.Core.TestUtil
                 }
             };
             return fullTestProject;
+        }
+
+        private static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("some\\Path\\ToHlcd",
+                                                                                       "ScenarioName",
+                                                                                       1337,
+                                                                                       "Scope",
+                                                                                       "SeaLevel",
+                                                                                       "RiverDischarge",
+                                                                                       "LakeLevel",
+                                                                                       "WindDirection",
+                                                                                       "WindSpeed",
+                                                                                       "Comment");
         }
 
         private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)

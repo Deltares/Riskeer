@@ -30,10 +30,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -109,8 +112,9 @@ namespace Ringtoets.DuneErosion.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DuneLocationCalculationActivity));
             Assert.AreEqual(2, activities.Length);
 
-            AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, duneLocation1.Id, norm, usePreprocessor);
-            AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, duneLocation2.Id, norm, usePreprocessor);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, duneLocation1.Id, norm, hydraulicBoundaryDatabase);
+            AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, duneLocation2.Id, norm, hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -171,19 +175,20 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Assert
             Assert.AreEqual(10, activities.Length);
 
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             double mechanismSpecificFactorizedSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm);
             AssertDuneLocationCalculationActivity(activities[0],
                                                   "Iv",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[1],
                                                   "Iv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
 
             double mechanismSpecificSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm);
             AssertDuneLocationCalculationActivity(activities[2],
@@ -191,13 +196,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   mechanismSpecificSignalingNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[3],
                                                   "IIv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   mechanismSpecificSignalingNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
 
             double mechanismSpecificLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[4],
@@ -205,13 +210,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   mechanismSpecificLowerLimitNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[5],
                                                   "IIIv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   mechanismSpecificLowerLimitNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
 
             double lowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[6],
@@ -219,13 +224,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   lowerLimitNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[7],
                                                   "IVv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   lowerLimitNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
 
             double factorizedLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[8],
@@ -233,13 +238,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   factorizedLowerLimitNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[9],
                                                   "Vv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   factorizedLowerLimitNorm,
-                                                  usePreprocessor);
+                                                  hydraulicBoundaryDatabase);
         }
 
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessor)
@@ -250,6 +255,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             return assessmentSection;
         }
@@ -259,13 +265,20 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                   string locationName,
                                                                   long locationId,
                                                                   double norm,
-                                                                  bool usePreprocessor)
+                                                                  HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var calculator = new TestDunesBoundaryConditionsCalculator();
 
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : ""))
+
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase), 
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
                              .Return(calculator);
             mocks.ReplayAll();
 

@@ -44,6 +44,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -812,11 +813,8 @@ namespace Demo.Ringtoets.Commands
                                                                                    "HLCD.sqlite",
                                                                                    "HRD dutch coast south.config.sqlite"))
             {
-                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
-                {
-                    string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                    hydraulicBoundaryDatabaseImporter.Import(demoAssessmentSection, filePath);
-                }
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
+                DataImportHelper.ImportHydraulicBoundaryDatabase(demoAssessmentSection, filePath);
             }
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;

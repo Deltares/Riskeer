@@ -49,6 +49,10 @@
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Ringtoets.Common.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
       <Name>Ringtoets.Common.Service.TestUtil</Name>
@@ -64,6 +68,10 @@
     <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
+      <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
+      <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>

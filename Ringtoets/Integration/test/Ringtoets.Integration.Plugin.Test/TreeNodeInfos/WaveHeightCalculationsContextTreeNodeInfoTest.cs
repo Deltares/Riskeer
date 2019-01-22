@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
@@ -57,7 +58,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         private const int contextMenuRunWaveHeightCalculationsIndex = 2;
         private MockRepository mockRepository;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -269,7 +271,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite")
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
             };
 
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
@@ -316,7 +318,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite")
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
             };
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -366,10 +368,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    FilePath = validFilePath
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -395,7 +398,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -437,13 +447,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
+                    FilePath = validFilePath,
                     CanUsePreprocessor = true,
                     UsePreprocessor = true,
                     PreprocessorDirectory = preprocessorDirectory
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -469,7 +480,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, preprocessorDirectory)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -510,13 +528,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
+                    FilePath = validFilePath,
                     CanUsePreprocessor = true,
                     UsePreprocessor = false,
                     PreprocessorDirectory = "InvalidPreprocessorDirectory"
                 }
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             Func<double> getNormFunc = () => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
@@ -542,7 +561,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -584,11 +610,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                    FilePath = validFilePath
                 },
                 Id = string.Empty
             };
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             const string categoryBoundaryName = "A";
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));
@@ -617,7 +644,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(calculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(null))
+                                 .IgnoreArguments()
+                                 .Return(calculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

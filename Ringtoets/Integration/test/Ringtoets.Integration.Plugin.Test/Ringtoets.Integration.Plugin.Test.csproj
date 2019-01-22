@@ -57,6 +57,12 @@
     <Compile Include="FileImporters\MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
+    <Compile Include="Handlers\HydraulicBoundaryDatabaseUpdateHandlerTest.cs" />
+    <Compile Include="Handlers\HydraulicLocationConfigurationDatabaseImportHandlerTest.cs" />
+    <Compile Include="Handlers\HydraulicLocationConfigurationDatabaseUpdateHandlerTest.cs" />
+    <Compile Include="Helpers\HydraulicLocationConfigurationSettingsConstantsTest.cs" />
+    <Compile Include="Helpers\HydraulicLocationConfigurationSettingsUpdateHelperTest.cs" />
+    <Compile Include="ImportInfos\HydraulicBoundaryDatabaseContextImportInfoTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandlerTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergerTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
@@ -302,6 +308,10 @@
       <Project>{EC2DEF03-71FE-48A0-AB85-31E13112E4A1}</Project>
       <Name>Ringtoets.DuneErosion.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Plugin\Ringtoets.DuneErosion.Plugin.csproj">
+      <Project>{83885FB9-A87B-4D43-AF27-43EA44A84E42}</Project>
+      <Name>Ringtoets.DuneErosion.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\test\Ringtoets.DuneErosion.Data.TestUtil\Ringtoets.DuneErosion.Data.TestUtil.csproj">
       <Project>{7BE6B522-02E3-4143-8508-C021A211DE54}</Project>
       <Name>Ringtoets.DuneErosion.Data.TestUtil</Name>
@@ -342,9 +352,17 @@
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
+      <Project>{b69d5b6c-6e14-4fa9-9ebc-8f97678cdb70}</Project>
+      <Name>Ringtoets.HydraRing.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.IO.TestUtil\Ringtoets.HydraRing.IO.TestUtil.csproj">
+      <Project>{7FB79768-1A8B-41CA-9614-8EC6C3C79482}</Project>
+      <Name>Ringtoets.HydraRing.IO.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>

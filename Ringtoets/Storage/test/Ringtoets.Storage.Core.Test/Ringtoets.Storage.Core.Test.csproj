@@ -58,6 +58,7 @@
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCalculationCollectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCalculationOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\HydraulicLocationConfigurationSettingsCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensionsTest.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\HydraulicBoundaryDatabaseEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationCalculationCollectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationOutputEntityReadExtensionsTest.cs" />

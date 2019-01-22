@@ -24,10 +24,15 @@
     <Compile Include="HydraulicBoundaryDatabase\HrdLocationsTableDefinitions.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseReader.cs" />
+    <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryDatabase.cs" />
     <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryLocation.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseReader.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\LocationsTableDefinitions.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabase.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabaseSettings.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationMapping.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ScenarioInformationTableDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

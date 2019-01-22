@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -31,6 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.ReferenceLines
 {
@@ -129,36 +131,21 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var expectedProgressMessages = new[]
-            {
-                new ExpectedProgressNotification
-                {
-                    Text = "Inlezen referentielijn.",
-                    CurrentStep = 1,
-                    TotalNumberOfSteps = 2
-                },
-                new ExpectedProgressNotification
-                {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.",
-                    CurrentStep = 2,
-                    TotalNumberOfSteps = 2
-                }
-            };
-            var progressChangedCallCount = 0;
+            var progressChangeNotifications = new List<ProgressNotification>();
+
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
-            importer.SetProgressChanged((description, step, steps) =>
-            {
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
-                progressChangedCallCount++;
-            });
+            importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
             importer.Import();
 
             // Assert
-            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
+            var expectedProgressNotifications = new[]
+            {
+                new ProgressNotification("Inlezen referentielijn.", 1, 2),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het traject.", 2, 2)
+            };
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressNotifications, progressChangeNotifications);
             mocks.VerifyAll();
         }
 
@@ -211,7 +198,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_CancelImportDuringDialogInteraction_ReturnsFalseAndNoChanges()
+        public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -222,30 +209,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
-
-            // Call
-            bool importSuccessful = importer.Import();
-
-            // Assert
-            Assert.IsFalse(importSuccessful);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse(bool acceptRemovalOfReferenceLineDependentData)
-        {
-            // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
-            handler.Expect(h => h.ConfirmUpdate())
-                   .WhenCalled(invocation => importer.Cancel())
-                   .Return(acceptRemovalOfReferenceLineDependentData);
-            mocks.ReplayAll();
 
             var importResult = true;
 
@@ -304,7 +267,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
-                if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
+                if (description.Contains("Geïmporteerde data toevoegen aan het traject."))
                 {
                     importer.Cancel();
                 }
@@ -476,13 +439,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
-        }
-
-        private class ExpectedProgressNotification
-        {
-            public string Text { get; set; }
-            public int CurrentStep { get; set; }
-            public int TotalNumberOfSteps { get; set; }
         }
     }
 }

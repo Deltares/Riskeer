@@ -37,5 +37,34 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
                    $"WHERE {LocationsTableDefinitions.TrackId} = @{LocationsTableDefinitions.TrackId} " +
                    $"ORDER BY {LocationsTableDefinitions.HrdLocationId};";
         }
+
+        /// <summary>
+        /// Gets the query to determine whether data related to the scenario information is present in the database.
+        /// </summary>
+        /// <returns>The query to determine the presence of the scenario information in the database.</returns>
+        public static string GetIsScenarioInformationPresentQuery()
+        {
+            return $"SELECT COUNT() = 1 AS {ScenarioInformationTableDefinitions.IsScenarioInformationPresent} " +
+                   "FROM sqlite_master WHERE type = 'table' " +
+                   $"AND name='{ScenarioInformationTableDefinitions.TableName}';";
+        }
+
+        /// <summary>
+        /// Gets the query to get the scenario information from the database.
+        /// </summary>
+        /// <returns>The query to get the scenario information from the database.</returns>
+        public static string GetScenarioInformationQuery()
+        {
+            return $"SELECT {ScenarioInformationTableDefinitions.ScenarioName}, " +
+                   $"{ScenarioInformationTableDefinitions.Year}, " +
+                   $"{ScenarioInformationTableDefinitions.Scope}, " +
+                   $"{ScenarioInformationTableDefinitions.SeaLevel}, " +
+                   $"{ScenarioInformationTableDefinitions.RiverDischarge}, " +
+                   $"{ScenarioInformationTableDefinitions.LakeLevel}, " +
+                   $"{ScenarioInformationTableDefinitions.WindDirection}, " +
+                   $"{ScenarioInformationTableDefinitions.WindSpeed}, " +
+                   $"{ScenarioInformationTableDefinitions.Comment} " +
+                   $"FROM {ScenarioInformationTableDefinitions.TableName};";
+        }
     }
 }

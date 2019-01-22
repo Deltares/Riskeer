@@ -33,99 +33,99 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <summary>
         /// Creates a calculator for calculating a design water level.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for performing an overtopping calculation.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IOvertoppingCalculator CreateOvertoppingCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for calculating a dike height.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IHydraulicLoadsCalculator CreateDikeHeightCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for calculating an overtopping rate.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for calculating wave conditions.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IWaveConditionsCosineCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IWaveConditionsCosineCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for calculating a wave height.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IWaveHeightCalculator CreateWaveHeightCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for performing a calculation for dunes boundary conditions.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for performing a calculation for structures.
         /// </summary>
         /// <typeparam name="TCalculationInput">The type of the input.</typeparam>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <returns>A new <see cref="IStructuresCalculator{TInput}"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IStructuresCalculator{T}"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory, string preprocessorDirectory)
+        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(HydraRingCalculationSettings calculationSettings)
             where TCalculationInput : ExceedanceProbabilityCalculationInput;
     }
 }

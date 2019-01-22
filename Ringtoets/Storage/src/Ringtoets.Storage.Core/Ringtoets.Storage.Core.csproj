@@ -47,6 +47,7 @@
     <Compile Include="Create\HydraulicBoundaryLocationCalculationCollectionCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCalculationOutputCreateExtensions.cs" />
+    <Compile Include="Create\HydraulicLocationConfigurationSettingsCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensions.cs" />
@@ -187,6 +188,9 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HeightStructuresSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\HydraulicBoundaryDatabaseEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationCalculationCollectionEntity.cs">
@@ -387,6 +391,7 @@
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\HydraulicBoundaryDatabaseEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationCalculationCollectionReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationOutputEntityReadExtensions.cs" />

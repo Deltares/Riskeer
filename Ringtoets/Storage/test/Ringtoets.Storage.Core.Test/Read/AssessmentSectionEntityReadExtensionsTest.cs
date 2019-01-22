@@ -107,6 +107,18 @@ namespace Ringtoets.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
+
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.IsNull(settings.FilePath);
+            Assert.IsNull(settings.ScenarioName);
+            Assert.AreEqual(0, settings.Year);
+            Assert.IsNull(settings.Scope);
+            Assert.IsNull(settings.SeaLevel);
+            Assert.IsNull(settings.RiverDischarge);
+            Assert.IsNull(settings.LakeLevel);
+            Assert.IsNull(settings.WindDirection);
+            Assert.IsNull(settings.WindSpeed);
+            Assert.IsNull(settings.Comment);
         }
 
         [Test]
@@ -195,11 +207,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            const string testLocation = "testLocation";
-            const string testVersion = "testVersion";
-            entity.HydraulicDatabaseLocation = testLocation;
-            entity.HydraulicDatabaseVersion = testVersion;
+            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
@@ -330,11 +338,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            const string testLocation = "testLocation";
-            const string testVersion = "testVersion";
-            entity.HydraulicDatabaseLocation = testLocation;
-            entity.HydraulicDatabaseVersion = testVersion;
+            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             HydraulicLocationEntity hydraulicLocationEntityOne = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
@@ -380,16 +384,29 @@ namespace Ringtoets.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithHydraulicBoundaryLocationDatabase_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
+        public void Read_WithHydraulicBoundaryLocationDatabase_ReturnsNewAssessmentSectionWithHydraulicLocationConfigurationSettingsSet()
         {
             // Setup
+            var random = new Random(21);
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var hydraulicBoundaryDatabaseEntity = new HydraulicBoundaryDatabaseEntity
+            {
+                FilePath = "hydraulicBoundaryDatabaseFilePath",
+                Version = "hydraulicBoundaryDatabaseVersion",
+                HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
+                HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
+                HydraulicLocationConfigurationSettingsYear = random.Next(),
+                HydraulicLocationConfigurationSettingsScope = "Scope",
+                HydraulicLocationConfigurationSettingsSeaLevel = "SeaLevel",
+                HydraulicLocationConfigurationSettingsRiverDischarge = "RiverDischarge",
+                HydraulicLocationConfigurationSettingsLakeLevel = "LakeLevel",
+                HydraulicLocationConfigurationSettingsWindDirection = "WindDirection",
+                HydraulicLocationConfigurationSettingsWindSpeed = "WindSpeed",
+                HydraulicLocationConfigurationSettingsComment = "Comment"
+            };
 
-            const string testLocation = "testLocation";
-            const string testVersion = "testVersion";
-            entity.HydraulicDatabaseLocation = testLocation;
-            entity.HydraulicDatabaseVersion = testVersion;
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+            entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabaseEntity);
             entity.HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity();
             entity.HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity();
             entity.HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity();
@@ -405,8 +422,21 @@ namespace Ringtoets.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(testLocation, section.HydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(testVersion, section.HydraulicBoundaryDatabase.Version);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.FilePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.Version, hydraulicBoundaryDatabase.Version);
+
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsFilePath, settings.FilePath);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScenarioName, settings.ScenarioName);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsYear, settings.Year);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsScope, settings.Scope);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsSeaLevel, settings.SeaLevel);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsRiverDischarge, settings.RiverDischarge);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsLakeLevel, settings.LakeLevel);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindDirection, settings.WindDirection);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsWindSpeed, settings.WindSpeed);
+            Assert.AreEqual(hydraulicBoundaryDatabaseEntity.HydraulicLocationConfigurationSettingsComment, settings.Comment);
         }
 
         [Test]
@@ -1134,6 +1164,19 @@ namespace Ringtoets.Storage.Core.Test.Read
                         Value = "0"
                     }
                 }
+            };
+        }
+
+        private static HydraulicBoundaryDatabaseEntity CreateHydraulicDatabaseEntity()
+        {
+            return new HydraulicBoundaryDatabaseEntity
+            {
+                FilePath = "hydraulicBoundaryDatabaseFilePath",
+                Version = "hydraulicBoundaryDatabaseVersion",
+                HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
+                HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
+                HydraulicLocationConfigurationSettingsYear = 1,
+                HydraulicLocationConfigurationSettingsScope = "Scope"
             };
         }
 

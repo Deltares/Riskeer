@@ -322,6 +322,68 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_file_filter_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sqlite.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_FilePath_Extension {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+        ///
+        ///Wilt u doorgaan?.
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_dependent_data {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseUpdateHandler_Confirm_clear_hydraulicBoundaryDatabase_de" +
+                        "pendent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeren van het HLCD bestand.
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfigurationSettings_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfig" +
+                        "urationSettings_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van al de berekeningen verwijderd worden.
+        ///
+        ///Wilt u doorgaan?.
+        /// </summary>
+        public static string HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocati" +
+                        "onConfigurationDatabase_dependent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand is niet aanwezig, er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigura" +
+                        "tionDatabaseSettings_No_ScenarioInformation_entries_present", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
         ///
         ///Wilt u doorgaan?.

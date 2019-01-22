@@ -34,6 +34,7 @@
     <Compile Include="Calculator\HydraRingCalculatorBase.cs" />
     <Compile Include="Calculator\OvertoppingCalculator.cs" />
     <Compile Include="Data\HydraRingBreakWater.cs" />
+    <Compile Include="Data\Input\HydraRingCalculationSettings.cs" />
     <Compile Include="Data\Settings\PreprocessorSetting.cs" />
     <Compile Include="Data\HydraRingSection.cs" />
     <Compile Include="Data\HydraRingForelandPoint.cs" />

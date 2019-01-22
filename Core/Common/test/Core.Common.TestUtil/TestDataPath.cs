@@ -100,6 +100,7 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath Service = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Service.Test");
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.IO.Test");
                 public static readonly TestDataPath Plugin = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Plugin.Test");
+                public static readonly TestDataPath TestUtil = System.IO.Path.Combine("Ringtoets", "Integration", "test", "ringtoets.Integration.TestUtil.Test");
             }
 
             public static class MacroStabilityInwards

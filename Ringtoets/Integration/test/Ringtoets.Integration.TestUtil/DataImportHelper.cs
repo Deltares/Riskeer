@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,7 +37,9 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
+using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.IO.Importers;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -158,10 +161,10 @@ namespace Ringtoets.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="IAssessmentSection"/>.
+        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <remarks>This will import 19 Hydraulic boundary locations.</remarks>
+        /// <remarks>This will import 18 Hydraulic boundary locations.</remarks>
         public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
@@ -169,11 +172,38 @@ namespace Ringtoets.Integration.TestUtil
                                                                                    "HRD dutch coast south.sqlite",
                                                                                    "HLCD.sqlite",
                                                                                    "HRD dutch coast south.config.sqlite"))
-            using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                hydraulicBoundaryDatabaseImporter.Import(assessmentSection, filePath);
+
+                ImportHydraulicBoundaryDatabase(assessmentSection, filePath);
             }
+        }
+
+        /// <summary>
+        /// Imports the <see cref="HydraulicBoundaryDatabase"/> for the given <see cref="AssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <param name="filePath">The filePath to import from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection, string filePath)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                          new HydraulicBoundaryDatabaseUpdateHandler(
+                                                                                              assessmentSection,
+                                                                                              new DuneLocationsReplacementHandler(viewCommands, assessmentSection.DuneErosion)),
+                                                                                          filePath);
+            hydraulicBoundaryDatabaseImporter.Import();
+            mocks.VerifyAll();
         }
 
         private static FailureMechanismSection DeepCloneSection(FailureMechanismSection section)

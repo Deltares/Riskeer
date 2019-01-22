@@ -41,11 +41,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// </summary>
     internal abstract class HydraRingCalculatorBase
     {
+        private readonly HydraRingCalculationSettings calculationSettings;
         private readonly LastErrorFileParser lastErrorFileParser;
         private readonly IllustrationPointsParser illustrationPointsParser;
-
-        private readonly string hlcdDirectory;
-        private readonly string preprocessorDirectory;
 
         private Process hydraRingProcess;
 
@@ -53,26 +51,19 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Creates a new instance of <see cref="HydraRingCalculatorBase"/> with a default Hydra-Ring file parser
         /// initialized.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// Hydra-Ring calculation settings.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        protected HydraRingCalculatorBase(string hlcdDirectory, string preprocessorDirectory)
+        protected HydraRingCalculatorBase(HydraRingCalculationSettings calculationSettings)
         {
-            if (hlcdDirectory == null)
+            if (calculationSettings == null)
             {
-                throw new ArgumentNullException(nameof(hlcdDirectory));
+                throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            if (preprocessorDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(preprocessorDirectory));
-            }
-
-            this.hlcdDirectory = hlcdDirectory;
-            this.preprocessorDirectory = preprocessorDirectory;
+            this.calculationSettings = calculationSettings;
 
             lastErrorFileParser = new LastErrorFileParser();
             illustrationPointsParser = new IllustrationPointsParser();
@@ -135,7 +126,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             try
             {
-                if (string.IsNullOrEmpty(preprocessorDirectory) && hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
+                if (string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory) && hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
                 {
                     throw new InvalidOperationException("Preprocessor directory required but not specified.");
                 }
@@ -149,9 +140,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 var hydraRingInitializationService = new HydraRingInitializationService(
                     hydraRingCalculationInput.FailureMechanismType,
                     sectionId,
-                    hlcdDirectory,
                     OutputDirectory,
-                    preprocessorDirectory);
+                    calculationSettings);
                 hydraRingInitializationService.WriteInitializationScript();
                 hydraRingConfigurationService.WriteDatabaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 

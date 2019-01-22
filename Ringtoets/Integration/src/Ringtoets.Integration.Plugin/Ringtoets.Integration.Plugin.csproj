@@ -33,6 +33,11 @@
     <Compile Include="FileImporters\MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="Handlers\HydraulicBoundaryDatabaseUpdateHandler.cs" />
+    <Compile Include="Helpers\HydraulicLocationConfigurationSettingsConstants.cs" />
+    <Compile Include="Helpers\HydraulicLocationConfigurationSettingsUpdateHelper.cs" />
+    <Compile Include="Handlers\HydraulicLocationConfigurationDatabaseUpdateHandler.cs" />
+    <Compile Include="Handlers\HydraulicLocationConfigurationDatabaseImportHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMerger.cs" />
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />
@@ -134,6 +139,11 @@
     <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Plugin\Ringtoets.DuneErosion.Plugin.csproj">
       <Project>{83885FB9-A87B-4D43-AF27-43EA44A84E42}</Project>
       <Name>Ringtoets.DuneErosion.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
+      <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
+      <Name>Ringtoets.HydraRing.IO</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">

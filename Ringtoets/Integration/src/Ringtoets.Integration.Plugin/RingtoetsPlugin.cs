@@ -27,7 +27,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -90,6 +89,7 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.IO.Exporters;
+using Ringtoets.Integration.IO.Importers;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Merge;
@@ -112,7 +112,6 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
@@ -304,7 +303,11 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
             {
-                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(
+                    context.WrappedData,
+                    new HydraulicLocationConfigurationDatabaseImportHandler(
+                        Gui.MainWindow,
+                        new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection), context.WrappedData))
             };
             yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
             {
@@ -458,7 +461,10 @@ namespace Ringtoets.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -472,7 +478,10 @@ namespace Ringtoets.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -763,6 +772,20 @@ namespace Ringtoets.Integration.Plugin
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => HasGeometry(context.ParentAssessmentSection.ReferenceLine),
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
+            };
+
+            yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
+            {
+                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = RingtoetsCommonFormsResources.DatabaseIcon,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
+                                                              Resources.HydraulicBoundaryDatabase_file_filter_Description),
+                CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
+                    context.WrappedData, new HydraulicBoundaryDatabaseUpdateHandler(context.AssessmentSection,
+                                                                                    new DuneLocationsReplacementHandler(
+                                                                                        Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
+                    filePath)
             };
         }
 
@@ -1723,7 +1746,10 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
-                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
+                });
 
             var importItem = new StrictContextMenuItem(
                 GuiResources.Import,
@@ -2250,11 +2276,6 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var connectionItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
-                RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData.AssessmentSection));
-
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
                 RingtoetsCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
@@ -2270,7 +2291,9 @@ namespace Ringtoets.Integration.Plugin
                                                         calculateAllItem);
 
             return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(connectionItem)
+                      .AddCustomImportItem(RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
+                                           RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                                           RingtoetsCommonFormsResources.DatabaseIcon)
                       .AddExportItem()
                       .AddSeparator()
                       .AddCustomItem(calculateAllItem)
@@ -2280,135 +2303,6 @@ namespace Ringtoets.Integration.Plugin
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
-        }
-
-        private void SelectDatabaseFile(AssessmentSection assessmentSection)
-        {
-            using (var dialog = new OpenFileDialog
-            {
-                Filter = $@"{RingtoetsFormsResources.HydraulicBoundaryDatabase_FilePath_DisplayName} (*.sqlite)|*.sqlite",
-                Title = GuiResources.OpenFileDialog_Title
-            })
-            {
-                if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
-                {
-                    try
-                    {
-                        ImportHydraulicBoundaryDatabase(dialog.FileName, assessmentSection);
-                    }
-                    catch (CriticalFileReadException exception)
-                    {
-                        log.Error(exception.Message, exception);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Attempts to update the <paramref name="assessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> 
-        /// imported from the <paramref name="databaseFile"/>.
-        /// </summary>
-        /// <param name="databaseFile">The file to use to import a <see cref="HydraulicBoundaryDatabase"/> from.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to which the imported 
-        /// <see cref="HydraulicBoundaryDatabase"/> will be assigned.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when importing from the <paramref name="databaseFile"/>
-        /// failed.</exception>
-        private void ImportHydraulicBoundaryDatabase(string databaseFile, AssessmentSection assessmentSection)
-        {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-
-            if (HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile))
-            {
-                if (hydraulicBoundaryDatabase.FilePath != databaseFile)
-                {
-                    hydraulicBoundaryDatabase.FilePath = databaseFile;
-                    hydraulicBoundaryDatabase.NotifyObservers();
-                }
-            }
-            else
-            {
-                bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsLinked();
-                if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
-                {
-                    return;
-                }
-
-                using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
-                {
-                    if (!hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
-                    {
-                        return;
-                    }
-
-                    HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
-
-                    assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-                    assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-
-                    var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
-                    duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
-                    duneLocationsReplacementHandler.DoPostReplacementUpdates();
-
-                    NotifyObservers(assessmentSection);
-
-                    if (isClearConfirmationRequired)
-                    {
-                        ClearCalculations(assessmentSection);
-                    }
-                }
-            }
-
-            log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
-                           assessmentSection.HydraulicBoundaryDatabase.FilePath);
-        }
-
-        private static void NotifyObservers(AssessmentSection assessmentSection)
-        {
-            assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-            assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.NotifyObservers();
-            assessmentSection.WaterLevelCalculationsForSignalingNorm.NotifyObservers();
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.NotifyObservers();
-            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.NotifyObservers();
-            assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.NotifyObservers();
-            assessmentSection.WaveHeightCalculationsForSignalingNorm.NotifyObservers();
-            assessmentSection.WaveHeightCalculationsForLowerLimitNorm.NotifyObservers();
-            assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.NotifyObservers();
-
-            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
-            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
-            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
-            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
-            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
-            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
-
-            assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
-
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.NotifyObservers();
-        }
-
-        private static bool IsClearCalculationConfirmationGiven()
-        {
-            DialogResult confirmation = MessageBox.Show(
-                RingtoetsFormsResources.Delete_Calculations_Text,
-                BaseResources.Confirm,
-                MessageBoxButtons.OKCancel);
-
-            return confirmation == DialogResult.OK;
-        }
-
-        private static void ClearCalculations(IAssessmentSection nodeData)
-        {
-            var affectedCalculations = new List<IObservable>();
-            affectedCalculations.AddRange(RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(nodeData));
-            affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
-
-            log.Info(RingtoetsFormsResources.Calculations_Cleared);
         }
 
         private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)

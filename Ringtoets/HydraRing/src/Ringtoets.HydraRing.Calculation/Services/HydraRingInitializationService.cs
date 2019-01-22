@@ -24,6 +24,7 @@ using System.IO;
 using System.Reflection;
 using System.Security;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Services
@@ -60,24 +61,29 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// </summary>
         /// <param name="failureMechanismType">The failure mechanism type.</param>
         /// <param name="sectionId">The section id.</param>
-        /// <param name="hlcdDirectory">The HLCD directory.</param>
         /// <param name="temporaryWorkingDirectory">The working directory.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
-        /// matches <see cref="string.IsNullOrEmpty"/>.</remarks>
+        /// <param name="settings">The <see cref="HydraRingCalculationSettings"/>
+        /// which holds all the general information to start a Hydra-Ring calculation.</param>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
+        /// matches <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="settings"/> is <c>null</c>.</exception>
         public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType,
                                               int sectionId,
-                                              string hlcdDirectory,
                                               string temporaryWorkingDirectory,
-                                              string preprocessorDirectory)
+                                              HydraRingCalculationSettings settings)
         {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
             mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
             this.sectionId = sectionId;
             TemporaryWorkingDirectory = temporaryWorkingDirectory;
-            hlcdFilePath = Path.Combine(hlcdDirectory, HydraRingFileConstants.HlcdDatabaseFileName);
+            hlcdFilePath = settings.HlcdFilePath;
             hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), hydraRingBinariesSubDirectory);
             configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
-            this.preprocessorDirectory = preprocessorDirectory;
+            preprocessorDirectory = settings.PreprocessorDirectory;
         }
 
         /// <summary>
@@ -142,7 +148,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                                            "hydraulicdbfilename     = " + hlcdFilePath,
                                                            "designpointOutput       = sqlite");
 
-            if (!string.IsNullOrEmpty(preprocessorDirectory))
+            if (preprocessorDirectory != string.Empty)
             {
                 initializationFileContent += Environment.NewLine + "preprocessordbdirectory = " + preprocessorDirectory;
             }

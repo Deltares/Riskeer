@@ -204,29 +204,23 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void GetTestDataPath_Always_VerifiedTestPaths()
         {
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Storage.Core);
-            Assert.IsTrue(Directory.Exists(path));
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);
+            string path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO);
+            Assert.IsTrue(Directory.Exists(path));
+            
+            path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.AssemblyTool.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO);
             Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO);
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.Service);
-            Assert.IsTrue(Directory.Exists(path));
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation);
-            Assert.IsTrue(Directory.Exists(path));
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service);
             Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO);
@@ -242,10 +236,26 @@ namespace Core.Common.TestUtil.Test
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.Integration);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.TestUtil);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core);
             Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
@@ -254,7 +264,10 @@ namespace Core.Common.TestUtil.Test
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.AssemblyTool.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Storage.Core);
             Assert.IsTrue(Directory.Exists(path));
         }
 

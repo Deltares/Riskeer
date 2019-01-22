@@ -86,7 +86,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
                 }
             }
 
-            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
+            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_FailureMechanism, 3, 3);
 
             AddItemsToModel(parsedCalculationItems);
 

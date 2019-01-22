@@ -2086,9 +2086,28 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             Assert.IsNotNull(expectedBoundaryDatabase);
             Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
             Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
+
+            AssertHydraulicLocationConfigurationSettings(expectedBoundaryDatabase.HydraulicLocationConfigurationSettings, 
+                                                         actualBoundaryDatabase.HydraulicLocationConfigurationSettings);
+
             Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
 
             AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
+        }
+
+        private static void AssertHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings expectedSettings,
+                                                                         HydraulicLocationConfigurationSettings actualSettings)
+        {
+            Assert.AreEqual(expectedSettings.FilePath, actualSettings.FilePath);
+            Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
+            Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
+            Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
+            Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
+            Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
+            Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
+            Assert.AreEqual(expectedSettings.WindDirection, actualSettings.WindDirection);
+            Assert.AreEqual(expectedSettings.WindSpeed, actualSettings.WindSpeed);
+            Assert.AreEqual(expectedSettings.Comment, actualSettings.Comment);
         }
 
         private static void AssertHydraulicBoundaryLocations(IEnumerable<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations,

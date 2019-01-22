@@ -31,7 +31,9 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -113,8 +115,9 @@ namespace Ringtoets.Common.Service.Test
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
 
-            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, usePreprocessor);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, usePreprocessor);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
 
             mocks.VerifyAll();
         }
@@ -188,8 +191,9 @@ namespace Ringtoets.Common.Service.Test
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
 
-            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, usePreprocessor);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, usePreprocessor);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
 
             mocks.VerifyAll();
         }
@@ -198,12 +202,19 @@ namespace Ringtoets.Common.Service.Test
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                 string categoryBoundaryName,
                                                                 double norm,
-                                                                bool usePreprocessor)
+                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var calculator = new TestWaveHeightCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(calculator);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -225,12 +236,19 @@ namespace Ringtoets.Common.Service.Test
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                       string categoryBoundaryName,
                                                                       double norm,
-                                                                      bool usePreprocessor)
+                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(calculator);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -254,6 +272,7 @@ namespace Ringtoets.Common.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
         }
     }
 }

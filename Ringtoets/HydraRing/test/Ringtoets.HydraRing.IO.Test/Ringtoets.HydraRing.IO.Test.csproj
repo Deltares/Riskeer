@@ -24,10 +24,15 @@
     <Compile Include="HydraulicBoundaryDatabase\HrdLocationsTableDefinitionsTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseReaderTest.cs" />
+    <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryLocationTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseReaderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\LocationsTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabaseSettingsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationConfigurationDatabaseTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ReadHydraulicLocationMappingTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\ScenarioInformationTableDefinitionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

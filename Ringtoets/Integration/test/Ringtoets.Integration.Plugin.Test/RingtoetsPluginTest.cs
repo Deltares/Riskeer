@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+            string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
             string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
@@ -698,10 +698,11 @@ namespace Ringtoets.Integration.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, importInfos.Length);
+                Assert.AreEqual(4, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HydraulicBoundaryDatabaseContext)));
             }
         }
 

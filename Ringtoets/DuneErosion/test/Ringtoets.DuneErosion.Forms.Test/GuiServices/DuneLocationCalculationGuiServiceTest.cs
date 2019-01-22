@@ -28,11 +28,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
@@ -40,7 +42,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
     [TestFixture]
     public class DuneLocationCalculationGuiServiceTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
         private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -180,6 +182,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             {
                 FilePath = validFilePath
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -216,6 +219,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 UsePreprocessor = true,
                 PreprocessorDirectory = validPreprocessorDirectory
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             const string categoryBoundaryName = "A";
             const string duneLocationName = "duneLocationName";
@@ -223,7 +227,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             var mockRepository = new MockRepository();
             var viewParent = mockRepository.Stub<IWin32Window>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
                              .Return(new TestDunesBoundaryConditionsCalculator());
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)

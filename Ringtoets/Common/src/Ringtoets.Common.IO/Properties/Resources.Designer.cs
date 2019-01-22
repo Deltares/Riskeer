@@ -928,34 +928,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon het rekeninstellingen bestand niet openen. {0}.
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_ {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file" +
-                        "_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De hydraulische belastingenlocaties zijn ingelezen..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} Er zijn geen hydraulische belastingenlocaties geëxporteerd..
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported {
@@ -1104,11 +1076,20 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het traject..
+        /// </summary>
+        public static string Importer_ProgressText_Adding_imported_data_to_AssessmentSection {
+            get {
+                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
         /// </summary>
-        public static string Importer_ProgressText_Adding_imported_data_to_data_model {
+        public static string Importer_ProgressText_Adding_imported_data_to_FailureMechanism {
             get {
-                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_data_model", resourceCulture);
+                return ResourceManager.GetString("Importer_ProgressText_Adding_imported_data_to_FailureMechanism", resourceCulture);
             }
         }
         

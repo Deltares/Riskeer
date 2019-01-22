@@ -31,7 +31,9 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -88,93 +90,94 @@ namespace Ringtoets.Integration.Service.Test
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             double factorizedLowerLimitNorm = lowerLimitNorm * 30;
 
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
                                                       factorizedSignalingNorm,
                                                       expectedCategoryBoundaryName1,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
                                                       hydraulicBoundaryLocation2,
                                                       factorizedSignalingNorm,
                                                       expectedCategoryBoundaryName1,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
                                                       hydraulicBoundaryLocation1,
                                                       signalingNorm,
                                                       expectedCategoryBoundaryName2,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
                                                       hydraulicBoundaryLocation2,
                                                       signalingNorm,
                                                       expectedCategoryBoundaryName2,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(4),
                                                       hydraulicBoundaryLocation1,
                                                       lowerLimitNorm,
                                                       expectedCategoryBoundaryName3,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(5),
                                                       hydraulicBoundaryLocation2,
                                                       lowerLimitNorm,
                                                       expectedCategoryBoundaryName3,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(6),
                                                       hydraulicBoundaryLocation1,
                                                       factorizedLowerLimitNorm,
                                                       expectedCategoryBoundaryName4,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(7),
                                                       hydraulicBoundaryLocation2,
                                                       factorizedLowerLimitNorm,
                                                       expectedCategoryBoundaryName4,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(8),
                                                 hydraulicBoundaryLocation1,
                                                 factorizedSignalingNorm,
                                                 expectedCategoryBoundaryName1,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(9),
                                                 hydraulicBoundaryLocation2,
                                                 factorizedSignalingNorm,
                                                 expectedCategoryBoundaryName1,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(10),
                                                 hydraulicBoundaryLocation1,
                                                 signalingNorm,
                                                 expectedCategoryBoundaryName2,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(11),
                                                 hydraulicBoundaryLocation2,
                                                 signalingNorm,
                                                 expectedCategoryBoundaryName2,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(12),
                                                 hydraulicBoundaryLocation1,
                                                 lowerLimitNorm,
                                                 expectedCategoryBoundaryName3,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(13),
                                                 hydraulicBoundaryLocation2,
                                                 lowerLimitNorm,
                                                 expectedCategoryBoundaryName3,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(14),
                                                 hydraulicBoundaryLocation1,
                                                 factorizedLowerLimitNorm,
                                                 expectedCategoryBoundaryName4,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(15),
                                                 hydraulicBoundaryLocation2,
                                                 factorizedLowerLimitNorm,
                                                 expectedCategoryBoundaryName4,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -216,49 +219,50 @@ namespace Ringtoets.Integration.Service.Test
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             double factorizedLowerLimitNorm = lowerLimitNorm * 30;
 
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
                                                       factorizedSignalingNorm,
                                                       expectedCategoryBoundaryName1,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
                                                       hydraulicBoundaryLocation2,
                                                       factorizedSignalingNorm,
                                                       expectedCategoryBoundaryName1,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
                                                       hydraulicBoundaryLocation1,
                                                       signalingNorm,
                                                       expectedCategoryBoundaryName2,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
                                                       hydraulicBoundaryLocation2,
                                                       signalingNorm,
                                                       expectedCategoryBoundaryName2,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(4),
                                                       hydraulicBoundaryLocation1,
                                                       lowerLimitNorm,
                                                       expectedCategoryBoundaryName3,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(5),
                                                       hydraulicBoundaryLocation2,
                                                       lowerLimitNorm,
                                                       expectedCategoryBoundaryName3,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(6),
                                                       hydraulicBoundaryLocation1,
                                                       factorizedLowerLimitNorm,
                                                       expectedCategoryBoundaryName4,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(7),
                                                       hydraulicBoundaryLocation2,
                                                       factorizedLowerLimitNorm,
                                                       expectedCategoryBoundaryName4,
-                                                      usePreprocessor);
+                                                      hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -300,49 +304,50 @@ namespace Ringtoets.Integration.Service.Test
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             double factorizedLowerLimitNorm = lowerLimitNorm * 30;
 
+            var hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertWaveHeightCalculationActivity(activities.ElementAt(0),
                                                 hydraulicBoundaryLocation1,
                                                 factorizedSignalingNorm,
                                                 expectedCategoryBoundaryName1,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(1),
                                                 hydraulicBoundaryLocation2,
                                                 factorizedSignalingNorm,
                                                 expectedCategoryBoundaryName1,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(2),
                                                 hydraulicBoundaryLocation1,
                                                 signalingNorm,
                                                 expectedCategoryBoundaryName2,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(3),
                                                 hydraulicBoundaryLocation2,
                                                 signalingNorm,
                                                 expectedCategoryBoundaryName2,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(4),
                                                 hydraulicBoundaryLocation1,
                                                 lowerLimitNorm,
                                                 expectedCategoryBoundaryName3,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(5),
                                                 hydraulicBoundaryLocation2,
                                                 lowerLimitNorm,
                                                 expectedCategoryBoundaryName3,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(6),
                                                 hydraulicBoundaryLocation1,
                                                 factorizedLowerLimitNorm,
                                                 expectedCategoryBoundaryName4,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
             AssertWaveHeightCalculationActivity(activities.ElementAt(7),
                                                 hydraulicBoundaryLocation2,
                                                 factorizedLowerLimitNorm,
                                                 expectedCategoryBoundaryName4,
-                                                usePreprocessor);
+                                                hydraulicBoundaryDatabase);
         }
 
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessor)
@@ -353,7 +358,8 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
-
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            
             return assessmentSection;
         }
 
@@ -361,12 +367,19 @@ namespace Ringtoets.Integration.Service.Test
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                       double norm,
                                                                       string categoryBoundaryName,
-                                                                      bool usePreprocessor)
+                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(designWaterLevelCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(designWaterLevelCalculator);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -388,12 +401,18 @@ namespace Ringtoets.Integration.Service.Test
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                 double norm,
                                                                 string categoryBoundaryName,
-                                                                bool usePreprocessor)
+                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var waveHeightCalculator = new TestWaveHeightCalculator();
             var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(waveHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             }).Return(waveHeightCalculator);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

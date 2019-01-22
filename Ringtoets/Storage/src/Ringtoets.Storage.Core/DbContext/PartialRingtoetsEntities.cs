@@ -80,6 +80,7 @@ namespace Ringtoets.Storage.Core.DbContext
             HeightStructuresFailureMechanismMetaEntities.Load();
             HeightStructuresOutputEntities.Load();
             HeightStructuresSectionResultEntities.Load();
+            HydraulicBoundaryDatabaseEntities.Load();
             HydraulicLocationEntities.Load();
             HydraulicLocationCalculationCollectionEntities.Include(e => e.HydraulicLocationCalculationEntities)
                                                           .Load();

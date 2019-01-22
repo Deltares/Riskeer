@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.Common.Forms.Test.GuiServices
@@ -124,6 +125,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -156,6 +158,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -183,6 +186,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -217,10 +221,18 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, "")).Return(new TestDesignWaterLevelCalculator());
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(new TestDesignWaterLevelCalculator());
             mockRepository.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -316,6 +328,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -348,6 +361,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             using (var viewParent = new Form())
             {
@@ -375,6 +389,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -409,10 +424,18 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, "")).Return(new TestWaveHeightCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
+                             })
+                             .Return(new TestWaveHeightCalculator());
             mockRepository.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             DialogBoxHandler = (name, wnd) =>
             {

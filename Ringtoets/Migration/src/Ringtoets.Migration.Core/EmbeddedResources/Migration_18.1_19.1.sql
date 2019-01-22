@@ -7,7 +7,47 @@ PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
-INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
+INSERT INTO AssessmentSectionEntity (
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[HydraulicLocationCalculationCollectionEntity1Id],
+	[HydraulicLocationCalculationCollectionEntity2Id],
+	[HydraulicLocationCalculationCollectionEntity3Id],
+	[HydraulicLocationCalculationCollectionEntity4Id],
+	[HydraulicLocationCalculationCollectionEntity5Id],
+	[HydraulicLocationCalculationCollectionEntity6Id],
+	[HydraulicLocationCalculationCollectionEntity7Id],
+	[HydraulicLocationCalculationCollectionEntity8Id],
+	[Id],
+	[Name],
+	[Comments],
+	[LowerLimitNorm],
+	[SignalingNorm],
+	[NormativeNormType],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order])
+SELECT 
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[HydraulicLocationCalculationCollectionEntity1Id],
+	[HydraulicLocationCalculationCollectionEntity2Id],
+	[HydraulicLocationCalculationCollectionEntity3Id],
+	[HydraulicLocationCalculationCollectionEntity4Id],
+	[HydraulicLocationCalculationCollectionEntity5Id],
+	[HydraulicLocationCalculationCollectionEntity6Id],
+	[HydraulicLocationCalculationCollectionEntity7Id],
+	[HydraulicLocationCalculationCollectionEntity8Id],
+	[Id],
+	[Name],
+	[Comments],
+	[LowerLimitNorm],
+	[SignalingNorm],
+	[NormativeNormType],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order]
+FROM SOURCEPROJECT.AssessmentSectionEntity;
 INSERT INTO BackgroundDataEntity (
 	[BackgroundDataEntityId],
 	[AssessmentSectionEntityId],
@@ -179,6 +219,42 @@ INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
+/*
+Insert new data
+*/
+
+-- Directory retrieval was taken from https://stackoverflow.com/questions/21388820/how-to-get-the-last-index-of-a-substring-in-sqlite
+INSERT INTO HydraulicBoundaryDatabaseEntity (
+	[AssessmentSectionEntityId],
+	[Version],
+	[FilePath],
+	[HydraulicLocationConfigurationSettingsFilePath],
+	[HydraulicLocationConfigurationSettingsScenarioName],
+	[HydraulicLocationConfigurationSettingsYear],
+	[HydraulicLocationConfigurationSettingsScope],
+	[HydraulicLocationConfigurationSettingsSeaLevel],
+	[HydraulicLocationConfigurationSettingsRiverDischarge],
+	[HydraulicLocationConfigurationSettingsLakeLevel],
+	[HydraulicLocationConfigurationSettingsWindDirection],
+	[HydraulicLocationConfigurationSettingsWindSpeed],
+	[HydraulicLocationConfigurationSettingsComment])
+SELECT 
+	[AssessmentSectionEntityId],
+	[HydraulicDatabaseVersion],
+	[HydraulicDatabaseLocation],
+	rtrim([HydraulicDatabaseLocation], replace([HydraulicDatabaseLocation], '\', '')) || 'hlcd.sqlite', 
+	"Conform WBI2017",
+	2023,
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Conform WBI2017",
+	"Gegenereerd door Ringtoets (conform WBI2017)"
+FROM SOURCEPROJECT.AssessmentSectionEntity
+WHERE [HydraulicDatabaseLocation] IS NOT NULL;
+
 /* 
 Write migration logging
 */
@@ -248,6 +324,16 @@ SELECT
 	asfm.[AssessmentSectionId],
 	asfm.[AssessmentSectionName],
 	0,
+	"Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."
+FROM HydraulicBoundaryDatabaseEntity
+JOIN AssessmentSectionEntity AS ase USING(AssessmentSectionEntityId)
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[AssessmentSectionId] = ase.AssessmentSectionEntityId;
+
+INSERT INTO TempAssessmentSectionChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	1,
 	"De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."
 FROM AssessmentSectionEntity AS ase
 JOIN BackgroundDataEntity AS bd USING(AssessmentSectionEntityId)

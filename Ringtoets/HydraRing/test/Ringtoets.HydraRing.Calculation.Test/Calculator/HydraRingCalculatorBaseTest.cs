@@ -31,6 +31,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
@@ -38,25 +39,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     public class HydraRingCalculatorBaseTest
     {
         [Test]
-        public void Constructor_HlcdDirectoryNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraRingCalculator(null, "");
+            TestDelegate call = () => new TestHydraRingCalculator(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hlcdDirectory", paramName);
-        }
-
-        [Test]
-        public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new TestHydraRingCalculator("", null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("preprocessorDirectory", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationSettings", exception.ParamName);
         }
 
         [Test]
@@ -64,7 +54,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         {
             // Setup
             var parser = new TestParser();
-            var calculator = new TestHydraRingCalculator("", "", parser);
+            var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlite", string.Empty);
+            var calculator = new TestHydraRingCalculator(settings, parser);
             var hydraRingCalculationInput = new TestHydraRingCalculationInput();
 
             hydraRingCalculationInput.PreprocessorSetting = new PreprocessorSetting(1, 2, new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6));
@@ -82,7 +73,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         {
             // Setup
             var parser = new TestParser();
-            var calculator = new TestHydraRingCalculator("", "", parser);
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         parser);
 
             // Call
             calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -98,7 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             // Setup
             var parseException = new HydraRingFileParserException("message", new Exception());
             var parser = new TestParser(parseException);
-            var calculator = new TestHydraRingCalculator("", "", parser);
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         parser);
 
             // Call
             TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -123,7 +116,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
                                                                           "Exception message",
                                                                           new Exception("InnerException"));
             var parser = new TestParser(supportedException);
-            var calculator = new TestHydraRingCalculator("", "", parser);
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         parser);
 
             // Call
             TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -141,20 +135,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void Calculate_LastErrorFilePresent_LastErrorFileContentSet()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator("", "", new TestParser());
+            var settings = new HydraRingCalculationSettings("D:\\HLCD.sqlite", string.Empty);
+            var calculator = new TestHydraRingCalculator(settings, new TestParser());
 
             // Call
             calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
-            Assert.AreEqual("Hydraulic database HLCD.sqlite not found.\r\n", calculator.LastErrorFileContent);
+            string expectedContent = $"Hydraulic database {settings.HlcdFilePath} not found.\r\n";
+            Assert.AreEqual(expectedContent, calculator.LastErrorFileContent);
         }
 
         [Test]
         public void Calculate_IllustrationPointsParserThrowsException_SetsIllustrationPointsParserError()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator("", "", new TestParser());
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         new TestParser());
 
             // Call
             calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -164,93 +161,93 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.AreEqual(expectedMessage, calculator.IllustrationPointsParserErrorMessage);
             Assert.IsNull(calculator.IllustrationPointsResult);
         }
-    }
 
-    internal class TestHydraRingCalculator : HydraRingCalculatorBase
-    {
-        private readonly IHydraRingFileParser parser;
-
-        public TestHydraRingCalculator(string hlcdDirectory, string preprocessorDirectory) : base(hlcdDirectory, preprocessorDirectory) {}
-
-        public TestHydraRingCalculator(string hlcdDirectory, string preprocessorDirectory, IHydraRingFileParser parser) : base(hlcdDirectory, preprocessorDirectory)
+        private class TestHydraRingCalculator : HydraRingCalculatorBase
         {
-            this.parser = parser;
-        }
+            private readonly IHydraRingFileParser parser;
 
-        public void PublicCalculate(HydraRingCalculationInput hydraRingCalculationInput)
-        {
-            Calculate(HydraRingUncertaintiesType.All, hydraRingCalculationInput);
-        }
+            public TestHydraRingCalculator(HydraRingCalculationSettings calculationSettings) : base(calculationSettings) {}
 
-        protected override void SetOutputs() {}
-
-        protected override IEnumerable<IHydraRingFileParser> GetParsers()
-        {
-            yield return parser;
-        }
-    }
-
-    internal class TestHydraRingCalculationInput : HydraRingCalculationInput
-    {
-        public TestHydraRingCalculationInput() : base(12)
-        {
-            PreprocessorSetting = new PreprocessorSetting();
-            DesignTablesSetting = new DesignTablesSetting(0, 0);
-            NumericsSettings = new Dictionary<int, NumericsSetting>
+            public TestHydraRingCalculator(HydraRingCalculationSettings calculationSettings, IHydraRingFileParser parser) : base(calculationSettings)
             {
+                this.parser = parser;
+            }
+
+            public void PublicCalculate(HydraRingCalculationInput hydraRingCalculationInput)
+            {
+                Calculate(HydraRingUncertaintiesType.All, hydraRingCalculationInput);
+            }
+
+            protected override void SetOutputs() {}
+
+            protected override IEnumerable<IHydraRingFileParser> GetParsers()
+            {
+                yield return parser;
+            }
+        }
+
+        private class TestHydraRingCalculationInput : HydraRingCalculationInput
+        {
+            public TestHydraRingCalculationInput() : base(12)
+            {
+                PreprocessorSetting = new PreprocessorSetting();
+                DesignTablesSetting = new DesignTablesSetting(0, 0);
+                NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
-                    1, new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25)
+                    {
+                        1, new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25)
+                    }
+                };
+                TimeIntegrationSetting = new TimeIntegrationSetting(1);
+            }
+
+            public override HydraRingFailureMechanismType FailureMechanismType
+            {
+                get
+                {
+                    return HydraRingFailureMechanismType.AssessmentLevel;
                 }
-            };
-            TimeIntegrationSetting = new TimeIntegrationSetting(1);
-        }
-
-        public override HydraRingFailureMechanismType FailureMechanismType
-        {
-            get
-            {
-                return HydraRingFailureMechanismType.AssessmentLevel;
-            }
-        }
-
-        public override int CalculationTypeId
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public override int VariableId
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public override HydraRingSection Section { get; } = new HydraRingSection(12, 12, 12);
-    }
-
-    internal class TestParser : IHydraRingFileParser
-    {
-        private readonly Exception exception;
-
-        public TestParser(Exception exception = null)
-        {
-            this.exception = exception;
-        }
-
-        public bool Parsed { get; private set; }
-
-        public void Parse(string workingDirectory, int sectionId)
-        {
-            if (exception != null)
-            {
-                throw exception;
             }
 
-            Parsed = true;
+            public override int CalculationTypeId
+            {
+                get
+                {
+                    return 0;
+                }
+            }
+
+            public override int VariableId
+            {
+                get
+                {
+                    return 0;
+                }
+            }
+
+            public override HydraRingSection Section { get; } = new HydraRingSection(12, 12, 12);
+        }
+
+        private class TestParser : IHydraRingFileParser
+        {
+            private readonly Exception exception;
+
+            public TestParser(Exception exception = null)
+            {
+                this.exception = exception;
+            }
+
+            public bool Parsed { get; private set; }
+
+            public void Parse(string workingDirectory, int sectionId)
+            {
+                if (exception != null)
+                {
+                    throw exception;
+                }
+
+                Parsed = true;
+            }
         }
     }
 }

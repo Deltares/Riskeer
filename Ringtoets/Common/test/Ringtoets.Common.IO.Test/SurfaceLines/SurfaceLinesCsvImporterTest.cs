@@ -267,7 +267,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string[] mesages =
+            string[] messages =
             {
                 $"Begonnen met het inlezen van profielschematisaties uit bestand '{validFilePath}'.",
                 "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd.",
@@ -275,7 +275,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 $"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv")})"
             };
 
-            TestHelper.AssertLogMessagesAreGenerated(call, mesages, 4);
+            TestHelper.AssertLogMessagesAreGenerated(call, messages, 4);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(validFilePath, surfaceLineUpdateStrategy.FilePath);
