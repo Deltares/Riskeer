@@ -74,185 +74,185 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\BackgroundDataCreateExtensions.cs" />
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\BackgroundDataEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\BackgroundDataMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\CalculationGroupEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\ClosingStructureEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\ClosingStructuresCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\ClosingStructuresFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\ClosingStructuresOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\ClosingStructuresSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DikeProfileEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DuneErosionFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DuneErosionSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DuneLocationCalculationCollectionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DuneLocationCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DuneLocationCalculationOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DuneLocationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FaultTreeIllustrationPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\ForeshoreProfileEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GeneralResultFaultTreeIllustrationPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GeneralResultSubMechanismIllustrationPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsDikeHeightOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsOvertoppingRateOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionOutwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionOutwardsSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionOutwardsWaveConditionsCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionOutwardsWaveConditionsOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverSlipOffInwardsSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverSlipOffOutwardsSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HeightStructureEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HeightStructuresCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HeightStructuresFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HeightStructuresOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HeightStructuresSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicBoundaryDatabaseEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationCalculationCollectionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
     <Compile Include="DbContext\IGeneralResultEntity.cs" />
     <Compile Include="DbContext\IHasGeneralResultFaultTreeIllustrationPointEntity.cs" />
     <Compile Include="DbContext\IllustrationPointResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsCalculationOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsCharacteristicPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsCharacteristicPointType.cs" />
     <Compile Include="DbContext\MacroStabilityInwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsPreconsolidationStressEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSoilLayerOneDEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSoilLayerTwoDEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSoilProfileOneDEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSoilProfileTwoDEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsStochasticSoilProfileEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityOutwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityOutwardsSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PartialClosingStructuresOutputEntity.cs" />
     <Compile Include="DbContext\IStructuresOutputEntity.cs" />
@@ -265,110 +265,125 @@
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingCalculationOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingCharacteristicPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingSoilLayerEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingSoilProfileEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingStochasticSoilProfileEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingStructureFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingStructureSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\ProjectEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\RiskeerEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiskeerEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\RiskeerEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\RiskeerEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiskeerEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityPointStructureEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityPointStructuresCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityPointStructuresFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityPointStructuresOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityPointStructuresSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityStoneCoverFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityStoneCoverSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityStoneCoverWaveConditionsCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityStoneCoverWaveConditionsOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StochastEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StochasticSoilModelEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StrengthStabilityLengthwiseConstructionSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\SubMechanismIllustrationPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\SubMechanismIllustrationPointStochastEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\SurfaceLineEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\TopLevelFaultTreeIllustrationPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\TopLevelSubMechanismIllustrationPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\VersionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\WaterPressureAsphaltCoverSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\WaveConditionsOutputType.cs" />
     <Compile Include="DbContext\WaveImpactAsphaltCoverFailureMechanismMetaEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\WaveImpactAsphaltCoverSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsCalculationEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+      <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\CannotDetermineFingerprintException.cs" />
     <Compile Include="Read\BackgroundDataMetaEntityReadExtensions.cs" />
@@ -527,24 +542,9 @@
     <Compile Include="Read\ProjectEntityReadExtensions.cs" />
     <Compile Include="Serializers\TangentLineCollectionXmlSerializer.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
-    <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
+    <Compile Include="DbContext\PartialRiskeerEntities.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DbContext\RingtoetsEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RingtoetsEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\RingtoetsEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\RingtoetsEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -672,22 +672,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <EntityDeploy Include="DbContext\RingtoetsEntities.edmx">
+    <EntityDeploy Include="DbContext\RiskeerEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RingtoetsEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>RiskeerEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DbContext\RingtoetsEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
-      <LastGenOutput>RingtoetsEntities.Context.cs</LastGenOutput>
-    </None>
-    <None Include="DbContext\RingtoetsEntities.edmx.diagram">
-      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
-    </None>
-    <None Include="DbContext\RingtoetsEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
-      <LastGenOutput>RingtoetsEntities.cs</LastGenOutput>
+    <None Include="DbContext\RiskeerEntities.edmx.diagram">
+      <DependentUpon>RiskeerEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -699,6 +689,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DbContext\RiskeerEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RiskeerEntities.Context.cs</LastGenOutput>
+      <DependentUpon>RiskeerEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="DbContext\RiskeerEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RiskeerEntities.cs</LastGenOutput>
+      <DependentUpon>RiskeerEntities.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

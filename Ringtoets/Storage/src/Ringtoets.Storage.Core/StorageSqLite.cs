@@ -116,7 +116,7 @@ namespace Ringtoets.Storage.Core
             try
             {
                 RingtoetsProject project;
-                using (var dbContext = new RingtoetsEntities(connectionString))
+                using (var dbContext = new RiskeerEntities(connectionString))
                 {
                     ValidateDatabaseVersion(dbContext, databaseFilePath);
 
@@ -164,7 +164,7 @@ namespace Ringtoets.Storage.Core
             try
             {
                 byte[] originalHash;
-                using (var dbContext = new RingtoetsEntities(connectionString))
+                using (var dbContext = new RiskeerEntities(connectionString))
                     originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
 
                 byte[] hash = FingerprintHelper.Get(stagedProject.Entity);
@@ -184,7 +184,7 @@ namespace Ringtoets.Storage.Core
         private void SaveProjectInDatabase(string databaseFilePath)
         {
             string connectionString = GetConnectionToNewFile(databaseFilePath);
-            using (var dbContext = new RingtoetsEntities(connectionString))
+            using (var dbContext = new RiskeerEntities(connectionString))
             {
                 try
                 {
@@ -219,11 +219,11 @@ namespace Ringtoets.Storage.Core
             }
         }
 
-        private static void ValidateDatabaseVersion(RingtoetsEntities ringtoetsEntities, string databaseFilePath)
+        private static void ValidateDatabaseVersion(RiskeerEntities riskeerEntities, string databaseFilePath)
         {
             try
             {
-                string databaseVersion = ringtoetsEntities.VersionEntities.Select(v => v.Version).Single();
+                string databaseVersion = riskeerEntities.VersionEntities.Select(v => v.Version).Single();
                 if (!RingtoetsVersionHelper.IsValidVersion(databaseVersion))
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid,
@@ -308,7 +308,7 @@ namespace Ringtoets.Storage.Core
         {
             string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
 
-            using (var dbContext = new RingtoetsEntities(connectionString))
+            using (var dbContext = new RiskeerEntities(connectionString))
             {
                 try
                 {

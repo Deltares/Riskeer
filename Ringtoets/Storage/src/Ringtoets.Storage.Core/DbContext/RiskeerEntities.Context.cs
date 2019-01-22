@@ -33,7 +33,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace Ringtoets.Storage.Core.DbContext
 {
-    public partial class RingtoetsEntities : System.Data.Entity.DbContext
+    public partial class RiskeerEntities : System.Data.Entity.DbContext
     {
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<BackgroundDataEntity> BackgroundDataEntities { get; set; }

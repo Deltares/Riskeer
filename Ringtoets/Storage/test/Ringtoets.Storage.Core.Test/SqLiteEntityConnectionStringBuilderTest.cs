@@ -53,7 +53,7 @@ namespace Ringtoets.Storage.Core.Test
             // Assert
             Assert.That(!string.IsNullOrEmpty(connectionString));
             StringAssert.Contains(string.Format("metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;",
-                                                "DbContext.RingtoetsEntities"), connectionString);
+                                                "DbContext.RiskeerEntities"), connectionString);
             StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
             StringAssert.Contains($"data source={pathToSqLiteFile}", connectionString);
@@ -76,7 +76,7 @@ namespace Ringtoets.Storage.Core.Test
             // Assert
             Assert.That(!string.IsNullOrEmpty(connectionString));
             StringAssert.Contains(string.Format("metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;",
-                                                "DbContext.RingtoetsEntities"), connectionString);
+                                                "DbContext.RiskeerEntities"), connectionString);
             StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
             StringAssert.Contains($@"data source=\\{uncPathToSqlFile}", connectionString);

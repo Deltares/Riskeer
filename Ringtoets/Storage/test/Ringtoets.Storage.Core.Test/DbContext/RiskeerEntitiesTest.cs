@@ -27,11 +27,11 @@ using Ringtoets.Storage.Core.DbContext;
 namespace Ringtoets.Storage.Core.Test.DbContext
 {
     [TestFixture]
-    public class RingtoetsEntitiesTest
+    public class RiskeerEntitiesTest
     {
         private const string entityConnectionString = "metadata=res://*/DbContext.RingtoetsEntities.csdl|" +
-                                                      "res://*/DbContext.RingtoetsEntities.ssdl|" +
-                                                      "res://*/DbContext.RingtoetsEntities.msl;" +
+                                                      "res://*/DbContext.RiskeerEntities.ssdl|" +
+                                                      "res://*/DbContext.RiskeerEntities.msl;" +
                                                       "provider=System.Data.SQLite.EF6;" +
                                                       "provider connection string=\"{0}\"";
 
@@ -49,7 +49,7 @@ namespace Ringtoets.Storage.Core.Test.DbContext
                                                         connectionString);
 
             // Call
-            using (var ringtoetsEntities = new RingtoetsEntities(fullConnectionString))
+            using (var ringtoetsEntities = new RiskeerEntities(fullConnectionString))
             {
                 // Assert
                 Assert.IsInstanceOf<System.Data.Entity.DbContext>(ringtoetsEntities);
@@ -66,7 +66,7 @@ namespace Ringtoets.Storage.Core.Test.DbContext
                                                         connectionString);
 
             // Call
-            using (var ringtoetsEntities = new TestRingtoetsEntities(fullConnectionString))
+            using (var ringtoetsEntities = new TestRiskeerEntities(fullConnectionString))
             {
                 TestDelegate test = () => ringtoetsEntities.CallOnModelCreating();
 
@@ -75,9 +75,9 @@ namespace Ringtoets.Storage.Core.Test.DbContext
             }
         }
 
-        private class TestRingtoetsEntities : RingtoetsEntities
+        private class TestRiskeerEntities : RiskeerEntities
         {
-            public TestRingtoetsEntities(string connString) : base(connString) {}
+            public TestRiskeerEntities(string connString) : base(connString) {}
 
             public void CallOnModelCreating()
             {

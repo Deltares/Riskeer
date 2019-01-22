@@ -24,16 +24,16 @@ using System.Data.Entity;
 namespace Ringtoets.Storage.Core.DbContext
 {
     /// <summary>
-    /// Partial implementation of <see cref="RingtoetsEntities"/> that support a connection string 
+    /// Partial implementation of <see cref="RiskeerEntities"/> that support a connection string 
     /// and does not read the connection string from the configuration.
     /// </summary>
-    public partial class RingtoetsEntities
+    public partial class RiskeerEntities
     {
         /// <summary>
-        /// A new instance of <see cref="RingtoetsEntities"/>.
+        /// A new instance of <see cref="RiskeerEntities"/>.
         /// </summary>
         /// <param name="connString">A connection string.</param>
-        public RingtoetsEntities(string connString) : base(connString)
+        public RiskeerEntities(string connString) : base(connString)
         {
             Configuration.LazyLoadingEnabled = false;
         }

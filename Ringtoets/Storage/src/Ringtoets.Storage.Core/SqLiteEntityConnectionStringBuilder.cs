@@ -45,7 +45,7 @@ namespace Ringtoets.Storage.Core
 
             return new EntityConnectionStringBuilder
             {
-                Metadata = string.Format(@"res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "DbContext.RingtoetsEntities"),
+                Metadata = string.Format(@"res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "DbContext.RiskeerEntities"),
                 Provider = @"System.Data.SQLite.EF6",
                 ProviderConnectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(GetDataSourceLocation(filePath), false)
             }.ConnectionString;
