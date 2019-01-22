@@ -68,7 +68,7 @@ namespace Ringtoets.Storage.Core.TestUtil
     /// <summary>
     /// This class can be used to create <see cref="RingtoetsProject"/> instances which have their properties set and can be used in tests.
     /// </summary>
-    public static class RingtoetsProjectTestHelper
+    public static class RiskeerProjectTestHelper
     {
         /// <summary>
         /// Returns a new complete instance of <see cref="RingtoetsProject"/>.

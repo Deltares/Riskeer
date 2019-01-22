@@ -76,8 +76,8 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
         public void SaveProjectAs_DuplicateItemsInProjectSaveAsNewFile_ProjectAsEntitiesInFile()
         {
             // Setup
-            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
-            RingtoetsProject duplicateProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RingtoetsProject duplicateProject = RiskeerProjectTestHelper.GetFullTestProject();
 
             AssessmentSection duplicateAssessmentSection = duplicateProject.AssessmentSections.First();
             fullProject.AssessmentSections.Add(duplicateAssessmentSection);
@@ -99,7 +99,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
-            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string firstRingtoetsFile = GetRandomRingtoetsFile();
             string secondRingtoetsFile = GetRandomRingtoetsFile();
 
@@ -121,7 +121,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
         public void GivenRingtoetsProject_WhenComparingFingerPrintsVariousScenariosUnchangedData_ThenFingerprintUnchanged()
         {
             // Given
-            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string tempRingtoetsFile = GetRandomRingtoetsFile();
 
             // When
@@ -151,7 +151,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
         {
             // Setup
             var storage = new StorageSqLite();
-            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             storage.StageProject(fullProject);
             string tempRingtoetsFile = GetRandomRingtoetsFile();
             storage.SaveProjectAs(tempRingtoetsFile);
@@ -209,7 +209,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
 
             var projectStore = new StorageSqLite();
 
-            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string expectedProjectDescription = fullProject.Description;
 
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);

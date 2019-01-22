@@ -29,7 +29,7 @@ namespace Ringtoets.Storage.Core.Create
     /// <summary>
     /// Extension methods for <see cref="RingtoetsProject"/> related to creating database entities.
     /// </summary>
-    internal static class RingtoetsProjectCreateExtensions
+    internal static class RiskeerProjectCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="RingtoetsProject"/>.

@@ -496,7 +496,7 @@
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
     <Compile Include="Create\PersistenceRegistry.cs" />
-    <Compile Include="Create\RingtoetsProjectCreateExtensions.cs" />
+    <Compile Include="Create\RiskeerProjectCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="DbContext\PipingCharacteristicPointType.cs" />

@@ -50,7 +50,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 namespace Ringtoets.Storage.Core.TestUtil.Test
 {
     [TestFixture]
-    public class RingtoetsProjectTestHelperTest
+    public class RiskeerProjectTestHelperTest
     {
         [Test]
         public void GetFullTestProject_Always_ReturnsFullProject()
@@ -61,7 +61,7 @@ namespace Ringtoets.Storage.Core.TestUtil.Test
             const string expectedAssessmentSectionName = "assessmentSection";
 
             // Call
-            RingtoetsProject project = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject project = RiskeerProjectTestHelper.GetFullTestProject();
 
             // Assert
             Assert.AreEqual(expectedProjectName, project.Name);

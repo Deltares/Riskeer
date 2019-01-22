@@ -487,7 +487,7 @@ namespace Ringtoets.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            RingtoetsProject storedProject = RingtoetsProjectTestHelper.GetFullTestProject();
+            RingtoetsProject storedProject = RiskeerProjectTestHelper.GetFullTestProject();
             const string changedDescription = "some description";
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithAffectedChange_ReturnsTrue));
 

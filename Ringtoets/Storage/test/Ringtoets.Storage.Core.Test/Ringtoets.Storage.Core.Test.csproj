@@ -196,7 +196,7 @@
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
-    <Compile Include="Create\RingtoetsProjectCreateExtensionsTest.cs" />
+    <Compile Include="Create\RiskeerProjectCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="DoubleConversionExtensionsTest.cs" />
@@ -239,7 +239,7 @@
     <Compile Include="Read\HydraulicLocationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />
-    <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
+    <Compile Include="RiskeerDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -28,15 +28,15 @@ using Ringtoets.Storage.Core.TestUtil;
 namespace Ringtoets.Storage.Core.Test
 {
     [TestFixture]
-    [Explicit("Creates a new Ringtoets.rtd file in the root of the Ringtoets.Storage.Core")]
-    public class RingtoetsDatabaseCreatorTest
+    [Explicit("Creates a new Riskeer.rtd file in the root of the Ringtoets.Storage.Core")]
+    public class RiskeerDatabaseCreatorTest
     {
         /// <summary>
-        /// Creates a new Ringtoets.rtd file in the root of the <see cref="Core"/>, 
+        /// Creates a new Riskeer.rtd file in the root of the <see cref="Core"/>, 
         /// which is used to auto-generate the database code.
         /// </summary>
         [Test]
-        public void RingtoetsDatabaseCreator_Explicit_CreatesRingtoetsProjectDatabaseFile()
+        public void RingtoetsDatabaseCreator_Explicit_CreatesRiskeerProjectDatabaseFile()
         {
             // Setup
             string storageFile = GetPathToStorageFile();
@@ -55,7 +55,7 @@ namespace Ringtoets.Storage.Core.Test
 
         private static string GetPathToStorageFile()
         {
-            return Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Ringtoets", "Storage", "src", "Ringtoets.Storage.Core", "Ringtoets.rtd");
+            return Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Ringtoets", "Storage", "src", "Ringtoets.Storage.Core", "Riskeer.rtd");
         }
     }
 }

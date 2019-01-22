@@ -29,7 +29,7 @@ using Ringtoets.Storage.Core.DbContext;
 namespace Ringtoets.Storage.Core.Test.Create
 {
     [TestFixture]
-    public class RingtoetsProjectCreateExtensionsTest
+    public class RiskeerProjectCreateExtensionsTest
     {
         [Test]
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
