@@ -45,14 +45,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             Assert.AreEqual(0.5, designVariable.Percentile);
         }
 
-        /// <summary>
-        /// Tests the <see cref="LogNormalDistributionDesignVariable.GetDesignValue"/>
-        /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
-        /// </summary>
-        /// <param name="expectedValue">MEAN.</param>
-        /// <param name="variance">VARIANCE.</param>
-        /// <param name="percentile">Percentile.</param>
-        /// <param name="expectedResult">Rekenwaarde.</param>
         [Test]
         [TestCase(75, 70, 0.95, 89.49908018)]
         [TestCase(75, 70, 0.5, 74.53764421)]
@@ -86,15 +78,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
-        /// <summary>
-        /// Tests the <see cref="LogNormalDistributionDesignVariable.GetDesignValue"/>
-        /// against the values calculated with the excel sheet in WTI-688 (timestamp: 04-08-2016 09:59).
-        /// </summary>
-        /// <param name="expectedValue">MEAN.</param>
-        /// <param name="variance">VARIANCE.</param>
-        /// <param name="shift">SHIFT.</param>
-        /// <param name="percentile">Percentile.</param>
-        /// <param name="expectedResult">Rekenwaarde.</param>
         [Test]
         [TestCase(75, 20, 10, 0.95, 82.60703184)]
         [TestCase(75, 70, 10, 0.5, 74.46813834)]

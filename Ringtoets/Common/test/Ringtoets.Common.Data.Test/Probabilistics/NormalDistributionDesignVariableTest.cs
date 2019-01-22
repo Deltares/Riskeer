@@ -44,14 +44,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             Assert.AreEqual(0.5, designVariable.Percentile);
         }
 
-        /// <summary>
-        /// Tests the <see cref="NormalDistributionDesignVariable.GetDesignValue"/>
-        /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
-        /// </summary>
-        /// <param name="expectedValue">MEAN.</param>
-        /// <param name="variance">VARIANCE.</param>
-        /// <param name="percentile">Percentile.</param>
-        /// <param name="expectedResult">Rekenwaarde.</param>
         [Test]
         [TestCase(75, 70, 0.95, 88.76183279)]
         [TestCase(75, 70, 0.5, 75)]
