@@ -20,7 +20,7 @@ All names, logos, and references to "Deltares" are registered trademarks of
 Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
-<Application x:Class="Application.Ringtoets.App"
+<Application x:Class="Application.Riskeer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Startup="App_Startup" ShutdownMode="OnLastWindowClose">

@@ -22,6 +22,7 @@
 using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using Application.Riskeer;
 using Core.Common.TestUtil;
 using Core.Common.Util.Settings;
 using NUnit.Framework;

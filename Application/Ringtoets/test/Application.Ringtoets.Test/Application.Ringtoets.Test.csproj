@@ -42,9 +42,9 @@
       <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>
       <Name>Ringtoets.Integration.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Application.Ringtoets\Application.Ringtoets.csproj">
+    <ProjectReference Include="..\..\src\Application.Ringtoets\Application.Riskeer.csproj">
       <Project>{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}</Project>
-      <Name>Application.Ringtoets</Name>
+      <Name>Application.Riskeer</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
