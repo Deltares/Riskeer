@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{F7E70C59-3747-4871-B741-BE3619B77C92}</ProjectGuid>
@@ -63,9 +63,9 @@
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
       <Name>Ringtoets.Common.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Storage\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
+    <ProjectReference Include="..\..\..\Storage\src\Ringtoets.Storage.Core\Riskeer.Storage.Core.csproj">
       <Project>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</Project>
-      <Name>Ringtoets.Storage.Core</Name>
+      <Name>Riskeer.Storage.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Migration.Core\Ringtoets.Migration.Core.csproj">
       <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>

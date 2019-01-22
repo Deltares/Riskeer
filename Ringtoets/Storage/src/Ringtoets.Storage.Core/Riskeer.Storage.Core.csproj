@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</ProjectGuid>
-    <RootNamespace>Ringtoets.Storage.Core</RootNamespace>
-    <AssemblyName>Ringtoets.Storage.Core</AssemblyName>
+    <RootNamespace>Riskeer.Storage.Core</RootNamespace>
+    <AssemblyName>Riskeer.Storage.Core</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>

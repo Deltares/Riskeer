@@ -176,9 +176,9 @@
       <Name>Ringtoets.StabilityPointStructures.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Storage\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
+    <ProjectReference Include="..\..\..\Storage\src\Ringtoets.Storage.Core\Riskeer.Storage.Core.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
-      <Name>Ringtoets.Storage.Core</Name>
+      <Name>Riskeer.Storage.Core</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
