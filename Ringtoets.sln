@@ -1911,7 +1911,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7B44214E-442
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7504E03B-CF6B-4071-BDCD-E93BF55BD811}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Storage.Core", "Ringtoets\Storage\src\Ringtoets.Storage.Core\Riskeer.Storage.Core.csproj", "{50963F12-448C-41BA-A62C-CDB0AB8D21E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Storage.Core", "Ringtoets\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj", "{50963F12-448C-41BA-A62C-CDB0AB8D21E0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
