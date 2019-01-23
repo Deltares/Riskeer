@@ -25,9 +25,8 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
-using Riskeer.Storage.Core.TestUtil;
 
-namespace Ringtoets.Storage.Core.TestUtil.Test
+namespace Riskeer.Storage.Core.TestUtil.Test
 {
     [TestFixture]
     public class SqLiteDatabaseHelperTest

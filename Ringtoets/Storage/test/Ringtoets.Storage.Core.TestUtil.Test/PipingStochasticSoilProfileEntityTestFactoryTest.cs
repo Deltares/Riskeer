@@ -21,9 +21,8 @@
 
 using NUnit.Framework;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.TestUtil;
 
-namespace Ringtoets.Storage.Core.TestUtil.Test
+namespace Riskeer.Storage.Core.TestUtil.Test
 {
     [TestFixture]
     public class PipingStochasticSoilProfileEntityTestFactoryTest

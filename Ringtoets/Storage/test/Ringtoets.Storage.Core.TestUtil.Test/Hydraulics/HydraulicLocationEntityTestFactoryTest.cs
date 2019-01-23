@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.TestUtil.Hydraulics;
 
-namespace Ringtoets.Storage.Core.TestUtil.Test.Hydraulics
+namespace Riskeer.Storage.Core.TestUtil.Test.Hydraulics
 {
     [TestFixture]
     public class HydraulicLocationEntityTestFactoryTest

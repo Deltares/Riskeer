@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 
-namespace Ringtoets.Storage.Core.TestUtil.Test.MacroStabilityInwards
+namespace Riskeer.Storage.Core.TestUtil.Test.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilProfileEntityTestFactoryTest
