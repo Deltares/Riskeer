@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Contribution;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 
-namespace Ringtoets.Migration.Integration.Test
+namespace Riskeer.Migration.Integration.Test
 {
     public class MigrationTo172IntegrationTest
     {

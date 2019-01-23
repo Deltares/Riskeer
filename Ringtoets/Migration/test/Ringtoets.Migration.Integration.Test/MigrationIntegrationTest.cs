@@ -28,7 +28,7 @@ using Ringtoets.Common.Util;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 
-namespace Ringtoets.Migration.Integration.Test
+namespace Riskeer.Migration.Integration.Test
 {
     [TestFixture]
     public class MigrationIntegrationTest
