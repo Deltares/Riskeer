@@ -1967,7 +1967,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Migration.Core.Test
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Migration.Core.TestUtil.Test", "Ringtoets\Migration\test\Ringtoets.Migration.Core.TestUtil.Test\Riskeer.Migration.Core.TestUtil.Test.csproj", "{F7E70C59-3747-4871-B741-BE3619B77C92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Migration.Core.TestUtil.Test", "Ringtoets\Migration\test\Riskeer.Migration.Core.TestUtil.Test\Riskeer.Migration.Core.TestUtil.Test.csproj", "{F7E70C59-3747-4871-B741-BE3619B77C92}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
