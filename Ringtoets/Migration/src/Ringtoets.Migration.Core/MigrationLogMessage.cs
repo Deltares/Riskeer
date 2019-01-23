@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Migration.Core
+namespace Riskeer.Migration.Core
 {
     /// <summary>
     /// Class that provides properties for logging messages that occurred during migration.

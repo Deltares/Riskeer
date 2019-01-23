@@ -24,6 +24,7 @@ using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Migration.Core;
 
 namespace Ringtoets.Migration.Core.Test
 {

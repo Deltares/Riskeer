@@ -24,9 +24,9 @@ using System.Data.SQLite;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using Ringtoets.Common.Util;
-using Ringtoets.Migration.Core.Properties;
+using Riskeer.Migration.Core.Properties;
 
-namespace Ringtoets.Migration.Core
+namespace Riskeer.Migration.Core
 {
     /// <summary>
     /// Class that provides methods for creating a <see cref="RingtoetsVersionedFile"/> for a specific version.

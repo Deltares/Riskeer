@@ -23,7 +23,7 @@ using System;
 using Core.Common.Util;
 using Migration.Scripts.Data;
 
-namespace Ringtoets.Migration.Core
+namespace Riskeer.Migration.Core
 {
     /// <summary>
     /// Class that defines a Ringtoets database file that has a version.

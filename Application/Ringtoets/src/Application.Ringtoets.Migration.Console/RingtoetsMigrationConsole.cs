@@ -24,9 +24,9 @@ using Application.Ringtoets.Migration.Console.Properties;
 using Core.Common.Util;
 using Migration.Console;
 using Ringtoets.Common.Util;
-using Ringtoets.Migration.Core;
+using Riskeer.Migration.Core;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
-using RingtoetsMigrationCoreResources = Ringtoets.Migration.Core.Properties.Resources;
+using RiskeerMigrationCoreResources = Riskeer.Migration.Core.Properties.Resources;
 
 namespace Application.Ringtoets.Migration.Console
 {
@@ -103,7 +103,7 @@ namespace Application.Ringtoets.Migration.Console
         {
             if (!IOUtils.IsValidFilePath(location))
             {
-                throw new ArgumentException(RingtoetsMigrationCoreResources.CommandSupported_Source_Not_Valid_Path);
+                throw new ArgumentException(RiskeerMigrationCoreResources.CommandSupported_Source_Not_Valid_Path);
             }
         }
 

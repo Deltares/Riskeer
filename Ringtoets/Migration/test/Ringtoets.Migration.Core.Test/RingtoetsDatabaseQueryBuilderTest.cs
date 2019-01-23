@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.Migration.Core;
 
 namespace Ringtoets.Migration.Core.Test
 {

@@ -25,6 +25,7 @@ using Core.Common.Base.Storage;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Migration.Core;
 
 namespace Ringtoets.Migration.Core.Test
 {

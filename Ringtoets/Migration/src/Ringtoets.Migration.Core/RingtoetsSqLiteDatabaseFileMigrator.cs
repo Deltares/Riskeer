@@ -27,9 +27,9 @@ using System.Text.RegularExpressions;
 using Migration.Core.Storage;
 using Migration.Scripts.Data;
 using Ringtoets.Common.Util;
-using Ringtoets.Migration.Core.Properties;
+using Riskeer.Migration.Core.Properties;
 
-namespace Ringtoets.Migration.Core
+namespace Riskeer.Migration.Core
 {
     /// <summary>
     /// Class that provides methods for migrating a <see cref="RingtoetsVersionedFile"/>.

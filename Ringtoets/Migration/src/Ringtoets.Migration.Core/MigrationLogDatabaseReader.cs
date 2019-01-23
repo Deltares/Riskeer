@@ -26,9 +26,9 @@ using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using Ringtoets.Migration.Core.Properties;
+using Riskeer.Migration.Core.Properties;
 
-namespace Ringtoets.Migration.Core
+namespace Riskeer.Migration.Core
 {
     /// <summary>
     /// This class reads an SqLite database file and constructs <see cref="MigrationLogMessage"/> 

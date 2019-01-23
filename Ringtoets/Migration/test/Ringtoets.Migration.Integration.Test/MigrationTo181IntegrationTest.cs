@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Migration.Core;
 using Ringtoets.Migration.Core.TestUtil;
+using Riskeer.Migration.Core;
 
 namespace Ringtoets.Migration.Integration.Test
 {

@@ -27,6 +27,7 @@ using Migration.Core.Storage;
 using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
 using Ringtoets.Migration.Core.TestUtil;
+using Riskeer.Migration.Core;
 
 namespace Ringtoets.Migration.Core.Test
 {
