@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
-using Ringtoets.Storage.Core.TestUtil;
+using Riskeer.Storage.Core.TestUtil;
 
 namespace Riskeer.Storage.Core.Test
 {

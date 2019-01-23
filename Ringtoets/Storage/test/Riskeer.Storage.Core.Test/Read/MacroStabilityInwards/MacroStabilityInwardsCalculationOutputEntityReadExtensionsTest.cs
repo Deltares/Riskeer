@@ -26,10 +26,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Serializers;
+using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
 {

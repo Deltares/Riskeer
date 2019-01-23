@@ -21,7 +21,7 @@
 
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.TestUtil.Hydraulics
+namespace Riskeer.Storage.Core.TestUtil.Hydraulics
 {
     /// <summary>
     /// Factory for creating <see cref="HydraulicLocationEntity"/>

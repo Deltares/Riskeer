@@ -24,7 +24,7 @@ using Core.Common.Base.Geometry;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
+namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
 {
     /// <summary>
     /// Factory for creating a <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> that can 

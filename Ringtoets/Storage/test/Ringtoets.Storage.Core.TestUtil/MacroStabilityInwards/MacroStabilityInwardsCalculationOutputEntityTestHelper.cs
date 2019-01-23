@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
+namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
 {
     /// <summary>
     /// Class to assert the properties of macro stability inwards calculation output entities.

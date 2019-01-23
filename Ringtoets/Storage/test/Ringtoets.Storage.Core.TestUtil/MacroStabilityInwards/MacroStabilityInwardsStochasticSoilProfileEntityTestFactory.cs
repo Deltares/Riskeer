@@ -21,7 +21,7 @@
 
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
+namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
 {
     /// <summary>
     /// Factory for creating a <see cref="MacroStabilityInwardsStochasticSoilProfileEntity"/> that can 

@@ -21,7 +21,7 @@
 
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.TestUtil
+namespace Riskeer.Storage.Core.TestUtil
 {
     /// <summary>
     /// Factory for creating a <see cref="PipingStochasticSoilProfileEntity"/> that can 

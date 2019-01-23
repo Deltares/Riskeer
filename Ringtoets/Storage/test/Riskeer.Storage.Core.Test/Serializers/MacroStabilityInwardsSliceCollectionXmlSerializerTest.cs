@@ -25,8 +25,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.Storage.Core.TestUtil.Serializers;
 using Riskeer.Storage.Core.Serializers;
+using Riskeer.Storage.Core.TestUtil.Serializers;
 
 namespace Riskeer.Storage.Core.Test.Serializers
 {

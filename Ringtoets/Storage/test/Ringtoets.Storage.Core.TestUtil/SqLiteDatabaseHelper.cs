@@ -25,10 +25,9 @@ using Core.Common.IO;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
-using Riskeer.Storage.Core;
 using Riskeer.Storage.Core.Properties;
 
-namespace Ringtoets.Storage.Core.TestUtil
+namespace Riskeer.Storage.Core.TestUtil
 {
     /// <summary>
     /// This class is used to prepare test databases for test.

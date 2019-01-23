@@ -21,9 +21,9 @@
 
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
+using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.TestUtil.Test.MacroStabilityInwards
 {

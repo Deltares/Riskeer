@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.TestUtil.Test.MacroStabilityInwards
 {

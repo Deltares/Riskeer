@@ -25,7 +25,7 @@ using System.Runtime.Serialization;
 using NUnit.Framework;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.TestUtil.Serializers
+namespace Riskeer.Storage.Core.TestUtil.Serializers
 {
     /// <summary>
     /// A test helper to assert implementations of <see cref="DataCollectionSerializer{TData,TSerializedData}"/>.

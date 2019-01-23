@@ -23,9 +23,9 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Storage.Core.TestUtil.IllustrationPoints;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.TestUtil.IllustrationPoints;
 
 namespace Riskeer.Storage.Core.Test.Create
 {

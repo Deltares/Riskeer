@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Storage.Core.TestUtil.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.TestUtil.Hydraulics;
 
 namespace Ringtoets.Storage.Core.TestUtil.Test.Hydraulics
 {

@@ -25,11 +25,11 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Storage.Core.TestUtil;
-using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;
+using Riskeer.Storage.Core.TestUtil;
+using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Riskeer.Storage.Core.Test.Read
 {

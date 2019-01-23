@@ -24,9 +24,9 @@ using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
-using Ringtoets.Storage.Core.TestUtil;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.TestUtil;
 
 namespace Riskeer.Storage.Core.Test
 {

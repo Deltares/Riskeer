@@ -45,13 +45,13 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.Storage.Core.TestUtil;
-using Ringtoets.Storage.Core.TestUtil.Hydraulics;
-using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;
+using Riskeer.Storage.Core.TestUtil;
+using Riskeer.Storage.Core.TestUtil.Hydraulics;
+using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Riskeer.Storage.Core.Test.Read
 {

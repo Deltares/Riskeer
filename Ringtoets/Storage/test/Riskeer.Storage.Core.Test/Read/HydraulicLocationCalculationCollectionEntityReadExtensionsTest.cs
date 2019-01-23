@@ -25,9 +25,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Storage.Core.TestUtil.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.TestUtil.Hydraulics;
 
 namespace Riskeer.Storage.Core.Test.Read
 {

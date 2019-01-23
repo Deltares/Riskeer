@@ -22,8 +22,8 @@
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Storage.Core.TestUtil;
 using Riskeer.Storage.Core.Properties;
+using Riskeer.Storage.Core.TestUtil;
 
 namespace Riskeer.Storage.Core.Test
 {

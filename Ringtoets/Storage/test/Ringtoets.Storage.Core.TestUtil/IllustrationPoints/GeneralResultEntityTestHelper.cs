@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.TestUtil.IllustrationPoints
+namespace Riskeer.Storage.Core.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// Class to assert the properties of general result entities.

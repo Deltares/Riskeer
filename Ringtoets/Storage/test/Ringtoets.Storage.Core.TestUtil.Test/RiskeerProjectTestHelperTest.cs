@@ -46,6 +46,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.TestUtil.Test
 {

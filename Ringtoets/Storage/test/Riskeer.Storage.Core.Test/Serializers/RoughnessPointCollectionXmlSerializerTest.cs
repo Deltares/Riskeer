@@ -23,8 +23,8 @@ using System.Collections;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Storage.Core.TestUtil.Serializers;
 using Riskeer.Storage.Core.Serializers;
+using Riskeer.Storage.Core.TestUtil.Serializers;
 
 namespace Riskeer.Storage.Core.Test.Serializers
 {
