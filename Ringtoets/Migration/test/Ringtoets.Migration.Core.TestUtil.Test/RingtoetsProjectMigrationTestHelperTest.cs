@@ -27,11 +27,9 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
-using Riskeer.Migration.Core;
-using Riskeer.Migration.Core.TestUtil;
 using Riskeer.Storage.Core;
 
-namespace Ringtoets.Migration.Core.TestUtil.Test
+namespace Riskeer.Migration.Core.TestUtil.Test
 {
     [TestFixture]
     public class RingtoetsProjectMigrationTestHelperTest
