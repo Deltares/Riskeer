@@ -119,9 +119,9 @@
       <Project>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</Project>
       <Name>Riskeer.Storage.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Storage.Core.TestUtil\Ringtoets.Storage.Core.TestUtil.csproj">
+    <ProjectReference Include="..\Ringtoets.Storage.Core.TestUtil\Riskeer.Storage.Core.TestUtil.csproj">
       <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
-      <Name>Ringtoets.Storage.Core.TestUtil</Name>
+      <Name>Riskeer.Storage.Core.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
