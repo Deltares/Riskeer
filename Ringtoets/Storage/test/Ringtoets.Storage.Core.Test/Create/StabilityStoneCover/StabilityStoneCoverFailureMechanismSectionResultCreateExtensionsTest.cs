@@ -26,8 +26,8 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.Storage.Core.Create.StabilityStoneCover;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create.StabilityStoneCover;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.StabilityStoneCover
 {

@@ -23,9 +23,9 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 
 namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {

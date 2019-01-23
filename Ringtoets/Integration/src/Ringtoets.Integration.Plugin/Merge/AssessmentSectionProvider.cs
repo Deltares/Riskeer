@@ -26,7 +26,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Service.Merge;
-using Ringtoets.Storage.Core;
+using Riskeer.Storage.Core;
 
 namespace Ringtoets.Integration.Plugin.Merge
 {

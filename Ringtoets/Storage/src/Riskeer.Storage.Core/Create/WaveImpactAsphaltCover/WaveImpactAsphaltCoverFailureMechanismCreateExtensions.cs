@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover
+namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
 {
     /// <summary>
     /// Extension methods for <see cref="WaveImpactAsphaltCoverFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

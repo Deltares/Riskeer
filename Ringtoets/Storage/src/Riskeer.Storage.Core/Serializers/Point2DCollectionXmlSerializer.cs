@@ -25,7 +25,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.Storage.Core.Serializers
+namespace Riskeer.Storage.Core.Serializers
 {
     /// <summary>
     /// Converter class that converts between a collection of <see cref="Point2D"/> and an

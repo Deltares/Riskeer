@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read;
-using Ringtoets.Storage.Core.Serializers;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Read
 {

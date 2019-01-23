@@ -26,9 +26,9 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.HeightStructures;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.HeightStructures;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
 {

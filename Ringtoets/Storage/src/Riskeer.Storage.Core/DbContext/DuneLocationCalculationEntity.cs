@@ -31,7 +31,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Ringtoets.Storage.Core.DbContext
+namespace Riskeer.Storage.Core.DbContext
 {
     public class DuneLocationCalculationEntity
     {

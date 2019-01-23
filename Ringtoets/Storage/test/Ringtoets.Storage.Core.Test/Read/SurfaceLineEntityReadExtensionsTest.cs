@@ -27,9 +27,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Primitives;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read;
-using Ringtoets.Storage.Core.Serializers;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Read
 {

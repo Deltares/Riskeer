@@ -31,11 +31,11 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read;
-using Ringtoets.Storage.Core.Read.StabilityStoneCover;
-using Ringtoets.Storage.Core.Serializers;
 using Ringtoets.Storage.Core.TestUtil.Hydraulics;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.Read.StabilityStoneCover;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
 {

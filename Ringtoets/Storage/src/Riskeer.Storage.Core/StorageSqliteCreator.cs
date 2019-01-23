@@ -26,9 +26,9 @@ using Core.Common.Base.Storage;
 using Core.Common.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
-using Ringtoets.Storage.Core.Properties;
+using Riskeer.Storage.Core.Properties;
 
-namespace Ringtoets.Storage.Core
+namespace Riskeer.Storage.Core
 {
     /// <summary>
     /// This class interacts with an empty or new SQLite database file.

@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.DuneErosion
+namespace Riskeer.Storage.Core.Create.DuneErosion
 {
     /// <summary>
     /// Extension methods for collections of <see cref="DuneLocationCalculation"/> related to creating a 

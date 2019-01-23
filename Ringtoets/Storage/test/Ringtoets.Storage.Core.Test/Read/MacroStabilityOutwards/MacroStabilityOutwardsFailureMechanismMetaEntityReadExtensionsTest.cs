@@ -22,8 +22,8 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone.Input;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read.MacroStabilityOutwards;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.MacroStabilityOutwards;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityOutwards
 {

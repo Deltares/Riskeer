@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.TechnicalInnovation
+namespace Riskeer.Storage.Core.Create.TechnicalInnovation
 {
     /// <summary>
     /// Extension methods for <see cref="TechnicalInnovationFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

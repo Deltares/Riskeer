@@ -23,9 +23,9 @@ using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.StabilityStoneCover
+namespace Riskeer.Storage.Core.Create.StabilityStoneCover
 {
     /// <summary>
     /// Extension methods for <see cref="StabilityStoneCoverWaveConditionsCalculation"/> related to creating a

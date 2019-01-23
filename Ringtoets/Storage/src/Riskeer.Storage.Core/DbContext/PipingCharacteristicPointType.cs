@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Storage.Core.DbContext
+namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
     /// Denotes a <see cref="Point3D"/> as being used to mark a particular

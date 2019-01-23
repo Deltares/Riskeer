@@ -25,9 +25,9 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.DuneErosion;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.DuneErosion;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
 {

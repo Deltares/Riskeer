@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsSoilLayer1D"/> 

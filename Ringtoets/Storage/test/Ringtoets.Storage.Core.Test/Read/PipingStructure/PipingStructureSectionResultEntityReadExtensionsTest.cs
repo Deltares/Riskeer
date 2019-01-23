@@ -25,8 +25,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read.PipingStructure;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.PipingStructure;
 
 namespace Ringtoets.Storage.Core.Test.Read.PipingStructure
 {

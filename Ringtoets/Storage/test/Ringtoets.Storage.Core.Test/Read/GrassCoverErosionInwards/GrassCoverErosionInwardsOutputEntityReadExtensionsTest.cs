@@ -22,9 +22,9 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read.GrassCoverErosionInwards;
 using Ringtoets.Storage.Core.TestUtil.IllustrationPoints;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 
 namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
 {

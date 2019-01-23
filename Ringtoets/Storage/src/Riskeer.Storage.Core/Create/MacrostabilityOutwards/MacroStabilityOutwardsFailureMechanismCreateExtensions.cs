@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.MacroStabilityOutwards
+namespace Riskeer.Storage.Core.Create.MacroStabilityOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityOutwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

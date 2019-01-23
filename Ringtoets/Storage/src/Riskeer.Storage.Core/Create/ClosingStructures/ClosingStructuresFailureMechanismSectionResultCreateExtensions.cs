@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.ClosingStructures
+namespace Riskeer.Storage.Core.Create.ClosingStructures
 {
     /// <summary>
     /// Extension methods for <see cref="ClosingStructuresFailureMechanismSectionResult"/> related to creating a 

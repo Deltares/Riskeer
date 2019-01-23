@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.IllustrationPoints
+namespace Riskeer.Storage.Core.Create.IllustrationPoints
 {
     /// <summary>
     /// Extension methods for <see cref="FaultTreeIllustrationPoint"/> 

@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using System.Runtime.Serialization;
 using NUnit.Framework;
-using Ringtoets.Storage.Core.Serializers;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.TestUtil.Serializers
 {

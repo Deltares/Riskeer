@@ -23,9 +23,9 @@ using System;
 using NUnit.Framework;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read;
-using Ringtoets.Storage.Core.Read.StabilityPointStructures;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.Read.StabilityPointStructures;
 
 namespace Ringtoets.Storage.Core.Test.Read.StabilityPointStructures
 {

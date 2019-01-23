@@ -30,12 +30,12 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read;
-using Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover;
-using Ringtoets.Storage.Core.Serializers;
 using Ringtoets.Storage.Core.TestUtil.Hydraulics;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {

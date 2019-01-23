@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
-using Ringtoets.Storage.Core.Create.GrassCoverErosionInwards;
-using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.TestUtil.IllustrationPoints;
+using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 {

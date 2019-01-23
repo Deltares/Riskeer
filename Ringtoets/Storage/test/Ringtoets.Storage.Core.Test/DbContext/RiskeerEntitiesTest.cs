@@ -22,7 +22,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Globalization;
 using NUnit.Framework;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.DbContext
 {

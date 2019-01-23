@@ -22,8 +22,8 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read.ClosingStructures;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.ClosingStructures;
 
 namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
 {

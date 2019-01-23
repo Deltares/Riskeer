@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.StabilityPointStructures
+namespace Riskeer.Storage.Core.Create.StabilityPointStructures
 {
     /// <summary>
     /// Extension methods for <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> related to creating a 

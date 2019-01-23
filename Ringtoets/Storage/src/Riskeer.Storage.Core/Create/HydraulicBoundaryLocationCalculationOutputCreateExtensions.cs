@@ -21,10 +21,10 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Storage.Core.Create.IllustrationPoints;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create.IllustrationPoints;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create
+namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="HydraulicBoundaryLocationCalculationOutput"/> related to creating a hydraulic boundary location output entity.

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Storage.Core;
 
 namespace Ringtoets.Storage.Core.Test
 {

@@ -27,8 +27,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read;
 
 namespace Ringtoets.Storage.Core.Test.Read
 {

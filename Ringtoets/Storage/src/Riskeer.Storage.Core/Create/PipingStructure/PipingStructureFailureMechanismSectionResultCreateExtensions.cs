@@ -21,9 +21,9 @@
 
 using System;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.PipingStructure
+namespace Riskeer.Storage.Core.Create.PipingStructure
 {
     /// <summary>
     /// Extension methods for <see cref="PipingStructureFailureMechanismSectionResult"/> related to creating a 

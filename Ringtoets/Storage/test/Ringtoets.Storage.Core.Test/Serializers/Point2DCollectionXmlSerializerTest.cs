@@ -21,8 +21,8 @@
 
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Storage.Core.Serializers;
 using Ringtoets.Storage.Core.TestUtil.Serializers;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {

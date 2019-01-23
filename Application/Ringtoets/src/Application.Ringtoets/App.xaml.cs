@@ -59,8 +59,8 @@ using Ringtoets.Migration;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.StabilityStoneCover.Plugin;
-using Ringtoets.Storage.Core;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
+using Riskeer.Storage.Core;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 #if DEVELOPMENT

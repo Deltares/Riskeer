@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read.ClosingStructures
+namespace Riskeer.Storage.Core.Read.ClosingStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="ClosingStructure"/>

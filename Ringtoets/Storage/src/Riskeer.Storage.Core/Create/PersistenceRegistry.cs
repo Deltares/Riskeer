@@ -36,9 +36,9 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create
+namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// This class can be used to keep track of create and update operations on a database.

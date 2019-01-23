@@ -24,8 +24,8 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {

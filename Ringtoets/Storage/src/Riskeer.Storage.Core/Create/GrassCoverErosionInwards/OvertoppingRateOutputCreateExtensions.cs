@@ -21,10 +21,10 @@
 
 using System;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Storage.Core.Create.IllustrationPoints;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create.IllustrationPoints;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
+namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="OvertoppingRateOutput"/> related to creating a

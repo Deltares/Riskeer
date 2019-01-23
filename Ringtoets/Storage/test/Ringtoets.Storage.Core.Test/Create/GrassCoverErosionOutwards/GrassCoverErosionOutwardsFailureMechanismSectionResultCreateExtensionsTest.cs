@@ -26,8 +26,8 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create.GrassCoverErosionOutwards;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
 {

@@ -25,9 +25,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.WaterPressureAsphaltCover;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.WaterPressureAsphaltCover;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.WaterPressureAsphaltCover
 {

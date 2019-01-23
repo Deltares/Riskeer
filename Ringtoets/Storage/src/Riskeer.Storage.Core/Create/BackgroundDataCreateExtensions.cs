@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create
+namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extensions methods for <see cref="BackgroundData"/> related to 

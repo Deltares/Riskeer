@@ -22,9 +22,9 @@
 using System;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read
+namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> based on the

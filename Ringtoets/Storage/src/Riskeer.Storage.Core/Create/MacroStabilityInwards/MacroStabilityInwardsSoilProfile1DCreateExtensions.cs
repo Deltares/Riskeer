@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsSoilProfile1D"/> related to creating 

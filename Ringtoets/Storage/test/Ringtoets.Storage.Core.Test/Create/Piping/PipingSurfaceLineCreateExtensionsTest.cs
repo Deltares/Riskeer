@@ -26,10 +26,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.Piping;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Serializers;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.Piping;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Create.Piping
 {

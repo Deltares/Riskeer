@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Riskeer.Storage.Core;
 
 namespace Ringtoets.Storage.Core.Test
 {

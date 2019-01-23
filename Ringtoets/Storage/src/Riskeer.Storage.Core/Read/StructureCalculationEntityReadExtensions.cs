@@ -24,9 +24,9 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read
+namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for the common code

@@ -23,10 +23,10 @@ using System;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read;
-using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
 using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {

@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Serializers;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsSoilLayer2D"/> 

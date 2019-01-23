@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Storage.Core.DbContext
+namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
     /// Partial implementation of <see cref="ClosingStructuresOutputEntity"/> that implements 

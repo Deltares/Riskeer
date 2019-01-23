@@ -59,10 +59,11 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Storage.Core;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {

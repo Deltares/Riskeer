@@ -26,8 +26,9 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create
 {

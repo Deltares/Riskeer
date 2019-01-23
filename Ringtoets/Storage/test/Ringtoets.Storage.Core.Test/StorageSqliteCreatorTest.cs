@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Storage.Core;
 
 namespace Ringtoets.Storage.Core.Test
 {

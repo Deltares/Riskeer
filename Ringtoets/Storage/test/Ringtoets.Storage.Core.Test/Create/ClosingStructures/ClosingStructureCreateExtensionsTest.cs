@@ -25,9 +25,9 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.ClosingStructures;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.ClosingStructures;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
 {

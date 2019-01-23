@@ -26,8 +26,8 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Read.DuneErosion;
+using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.DuneErosion;
 
 namespace Ringtoets.Storage.Core.Test.Read.DuneErosion
 {

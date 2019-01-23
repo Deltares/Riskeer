@@ -26,9 +26,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.StabilityStoneCover;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.StabilityStoneCover;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.StabilityStoneCover
 {

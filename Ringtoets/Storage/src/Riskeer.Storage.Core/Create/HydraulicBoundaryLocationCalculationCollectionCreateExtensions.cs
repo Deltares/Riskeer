@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Create
+namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for collections of <see cref="HydraulicBoundaryLocationCalculation"/> related to creating a 

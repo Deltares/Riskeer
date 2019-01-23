@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Storage.Core.DbContext
+namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
     /// Interface for an entity that contains a general result fault tree illustration point.

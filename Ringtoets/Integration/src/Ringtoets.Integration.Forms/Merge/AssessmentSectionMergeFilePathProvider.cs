@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Gui;
-using RingtoetsStorageCoreResources = Ringtoets.Storage.Core.Properties.Resources;
+using RingtoetsStorageCoreResources = Riskeer.Storage.Core.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Merge
 {

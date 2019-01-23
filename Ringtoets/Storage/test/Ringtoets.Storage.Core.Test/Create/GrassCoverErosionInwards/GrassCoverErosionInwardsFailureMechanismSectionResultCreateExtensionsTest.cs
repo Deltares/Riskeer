@@ -25,9 +25,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.GrassCoverErosionInwards;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 {

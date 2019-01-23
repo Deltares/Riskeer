@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Geometry;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Read.DuneErosion
+namespace Riskeer.Storage.Core.Read.DuneErosion
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="DuneLocation"/> based on the

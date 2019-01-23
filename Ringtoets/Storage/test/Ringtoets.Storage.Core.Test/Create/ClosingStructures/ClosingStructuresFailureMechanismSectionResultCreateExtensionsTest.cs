@@ -26,9 +26,9 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.ClosingStructures;
-using Ringtoets.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.ClosingStructures;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
 {

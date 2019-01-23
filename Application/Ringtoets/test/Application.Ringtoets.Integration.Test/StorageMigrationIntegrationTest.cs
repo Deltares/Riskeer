@@ -33,7 +33,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Migration;
 using Ringtoets.Migration.Core;
 using Ringtoets.Migration.Core.TestUtil;
-using Ringtoets.Storage.Core;
+using Riskeer.Storage.Core;
 
 namespace Application.Ringtoets.Integration.Test
 {

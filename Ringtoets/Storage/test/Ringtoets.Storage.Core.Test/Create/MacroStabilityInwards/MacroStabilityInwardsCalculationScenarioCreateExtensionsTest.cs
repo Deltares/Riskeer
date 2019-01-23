@@ -30,10 +30,10 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.Storage.Core.Create;
-using Ringtoets.Storage.Core.Create.MacroStabilityInwards;
-using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
+using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.MacroStabilityInwards;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
