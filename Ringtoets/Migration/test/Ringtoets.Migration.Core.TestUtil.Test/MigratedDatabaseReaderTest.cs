@@ -23,6 +23,7 @@ using System.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Migration.Core.TestUtil;
 
 namespace Ringtoets.Migration.Core.TestUtil.Test
 {

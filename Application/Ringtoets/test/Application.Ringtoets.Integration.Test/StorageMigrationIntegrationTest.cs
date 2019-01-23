@@ -31,9 +31,9 @@ using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 using Ringtoets.Migration;
-using Ringtoets.Migration.Core.TestUtil;
 using Riskeer.Migration;
 using Riskeer.Migration.Core;
+using Riskeer.Migration.Core.TestUtil;
 using Riskeer.Storage.Core;
 
 namespace Application.Ringtoets.Integration.Test

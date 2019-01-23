@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.Migration.Core;
 
-namespace Ringtoets.Migration.Core.TestUtil
+namespace Riskeer.Migration.Core.TestUtil
 {
     /// <summary>
     /// Helper class for asserting content of migration log messages.

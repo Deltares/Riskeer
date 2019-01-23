@@ -28,8 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Migration.Core;
-using Ringtoets.Migration.Core.TestUtil;
 using Riskeer.Migration.Core;
+using Riskeer.Migration.Core.TestUtil;
 
 namespace Ringtoets.Migration.Integration.Test
 {
