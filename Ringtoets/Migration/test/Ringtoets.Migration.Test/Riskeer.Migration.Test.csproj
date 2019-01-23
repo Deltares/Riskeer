@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{408F6A6B-7BF7-4F59-A5D4-893A777921D3}</ProjectGuid>
-    <RootNamespace>Ringtoets.Migration.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Migration.Test</AssemblyName>
+    <RootNamespace>Riskeer.Migration.Test</RootNamespace>
+    <AssemblyName>Riskeer.Migration.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>

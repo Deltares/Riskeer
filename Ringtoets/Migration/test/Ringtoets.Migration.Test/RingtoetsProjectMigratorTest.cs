@@ -32,11 +32,10 @@ using Core.Common.Util.TestUtil.Settings;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
-using Riskeer.Migration;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 
-namespace Ringtoets.Migration.Test
+namespace Riskeer.Migration.Test
 {
     [TestFixture]
     public class RingtoetsProjectMigratorTest
