@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{594C5C6D-5833-4E1C-9F30-13A202628EEF}</ProjectGuid>
-    <RootNamespace>Ringtoets.Storage.Core.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Storage.Core.Test</AssemblyName>
+    <RootNamespace>Riskeer.Storage.Core.Test</RootNamespace>
+    <AssemblyName>Riskeer.Storage.Core.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -382,7 +382,7 @@
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Ringtoets.StabilityStoneCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Storage.Core\Riskeer.Storage.Core.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
       <Name>Riskeer.Storage.Core</Name>
     </ProjectReference>

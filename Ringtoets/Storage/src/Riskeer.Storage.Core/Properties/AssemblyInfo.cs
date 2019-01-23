@@ -24,6 +24,6 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer.Storage.Core")]
 [assembly: AssemblyProduct("Riskeer.Storage.Core")]
-[assembly: InternalsVisibleTo("Ringtoets.Storage.Core.Test")]
+[assembly: InternalsVisibleTo("Riskeer.Storage.Core.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.Storage.Core.TestUtil")]
 [assembly: InternalsVisibleTo("Ringtoets.Storage.Core.TestUtil.Test")]
