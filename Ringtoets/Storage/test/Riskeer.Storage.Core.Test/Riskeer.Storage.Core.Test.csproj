@@ -386,7 +386,7 @@
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
       <Name>Riskeer.Storage.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Storage.Core.TestUtil\Riskeer.Storage.Core.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Storage.Core.TestUtil\Riskeer.Storage.Core.TestUtil.csproj">
       <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
       <Name>Riskeer.Storage.Core.TestUtil</Name>
     </ProjectReference>
