@@ -110,7 +110,7 @@ namespace Core.Common.TestUtil
 
             public static class Migration
             {
-                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Migration", "test", "Ringtoets.Migration.Core.Test");
+                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Migration", "test", "Riskeer.Migration.Core.Test");
             }
 
             public static class Piping
