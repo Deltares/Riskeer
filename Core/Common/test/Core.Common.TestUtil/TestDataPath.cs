@@ -130,7 +130,7 @@ namespace Core.Common.TestUtil
 
             public static class Storage
             {
-                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Storage", "test", "Ringtoets.Storage.Core.Test");
+                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Storage", "test", "Riskeer.Storage.Core.Test");
             }
         }
     }
