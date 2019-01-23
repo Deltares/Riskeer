@@ -67,8 +67,8 @@
       <Project>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</Project>
       <Name>Riskeer.Storage.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Migration.Core\Riskeer.Migration.Core.csproj">
-      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
+    <ProjectReference Include="..\..\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj">
+      <Project>{fac55b92-e259-43d6-b9a1-5bda6c834359}</Project>
       <Name>Riskeer.Migration.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Migration.Core.TestUtil\Ringtoets.Migration.Core.TestUtil.csproj">

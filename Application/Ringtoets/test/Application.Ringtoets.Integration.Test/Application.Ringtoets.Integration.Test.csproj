@@ -90,7 +90,7 @@
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Ringtoets.Migration.Core\Riskeer.Migration.Core.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj">
       <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
       <Name>Riskeer.Migration.Core</Name>
     </ProjectReference>
