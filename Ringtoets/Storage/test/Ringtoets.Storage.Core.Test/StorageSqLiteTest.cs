@@ -31,9 +31,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 using Ringtoets.Storage.Core.TestUtil;
-using Riskeer.Storage.Core;
 
-namespace Ringtoets.Storage.Core.Test
+namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
     public class StorageSqLiteTest

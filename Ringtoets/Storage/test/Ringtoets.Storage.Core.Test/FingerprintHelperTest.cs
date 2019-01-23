@@ -25,11 +25,10 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
 using Ringtoets.Storage.Core.TestUtil;
-using Riskeer.Storage.Core;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test
+namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
     public class FingerprintHelperTest

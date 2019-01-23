@@ -27,7 +27,7 @@ using Ringtoets.Revetment.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
+namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest

@@ -28,11 +28,10 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Riskeer.Storage.Core;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayer1DCreateExtensionsTest

@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Storage.Core.TestUtil.Serializers;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Serializers
+namespace Riskeer.Storage.Core.Test.Serializers
 {
     [TestFixture]
     public class Point3DCollectionXmlSerializerTest

@@ -26,11 +26,10 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Riskeer.Storage.Core;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 
-namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayerOneDEntityReadExtensionsTest

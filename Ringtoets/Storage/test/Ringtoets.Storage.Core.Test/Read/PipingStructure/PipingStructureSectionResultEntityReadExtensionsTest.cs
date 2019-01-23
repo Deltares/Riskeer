@@ -28,7 +28,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.PipingStructure;
 
-namespace Ringtoets.Storage.Core.Test.Read.PipingStructure
+namespace Riskeer.Storage.Core.Test.Read.PipingStructure
 {
     [TestFixture]
     public class PipingStructureSectionResultEntityReadExtensionsTest

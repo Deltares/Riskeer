@@ -30,7 +30,7 @@ using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 
-namespace Ringtoets.Storage.Core.Test.Read.StabilityPointStructures
+namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
 {
     [TestFixture]
     public class StabilityPointStructuresSectionResultEntityReadExtensionsTest

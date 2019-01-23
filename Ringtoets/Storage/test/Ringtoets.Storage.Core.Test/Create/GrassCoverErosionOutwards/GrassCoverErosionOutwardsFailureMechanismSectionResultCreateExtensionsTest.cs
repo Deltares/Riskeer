@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Riskeer.Storage.Core.Create.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
+namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest

@@ -27,7 +27,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 
-namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
+namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismMetaEntityReadExtensionsTest

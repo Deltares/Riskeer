@@ -24,7 +24,7 @@ using System.Globalization;
 using NUnit.Framework;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.DbContext
+namespace Riskeer.Storage.Core.Test.DbContext
 {
     [TestFixture]
     public class RiskeerEntitiesTest

@@ -27,7 +27,7 @@ using Ringtoets.HeightStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.HeightStructures;
 
-namespace Ringtoets.Storage.Core.Test.Read.HeightStructures
+namespace Riskeer.Storage.Core.Test.Read.HeightStructures
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismMetaEntityReadExtensionsTest

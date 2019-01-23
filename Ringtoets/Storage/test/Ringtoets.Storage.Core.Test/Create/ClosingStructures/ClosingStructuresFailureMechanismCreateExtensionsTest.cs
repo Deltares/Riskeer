@@ -32,7 +32,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.ClosingStructures;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
+namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismCreateExtensionsTest

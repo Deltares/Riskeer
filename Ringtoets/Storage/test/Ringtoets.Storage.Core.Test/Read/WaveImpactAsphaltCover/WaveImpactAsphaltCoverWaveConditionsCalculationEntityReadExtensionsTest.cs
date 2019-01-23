@@ -37,7 +37,7 @@ using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
+namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensionsTest

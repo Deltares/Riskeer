@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.GrassCoverSlipOffInwards
+namespace Riskeer.Storage.Core.Test.Create.GrassCoverSlipOffInwards
 {
     [TestFixture]
     public class GrassCoverSlipOffInwardsFailureMechanismCreateExtensionsTest

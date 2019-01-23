@@ -30,7 +30,7 @@ using Riskeer.Storage.Core.Create.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineCreateExtensionsTest

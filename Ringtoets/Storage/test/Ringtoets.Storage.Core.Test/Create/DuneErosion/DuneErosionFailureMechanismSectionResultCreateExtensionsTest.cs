@@ -29,7 +29,7 @@ using Ringtoets.DuneErosion.Data;
 using Riskeer.Storage.Core.Create.DuneErosion;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
+namespace Riskeer.Storage.Core.Test.Create.DuneErosion
 {
     [TestFixture]
     public class DuneErosionFailureMechanismSectionResultCreateExtensionsTest

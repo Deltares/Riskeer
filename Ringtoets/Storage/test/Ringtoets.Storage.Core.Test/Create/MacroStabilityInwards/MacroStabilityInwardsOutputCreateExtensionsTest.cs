@@ -31,7 +31,7 @@ using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsOutputCreateExtensionsTest

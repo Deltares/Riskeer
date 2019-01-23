@@ -23,9 +23,8 @@ using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Storage.Core;
 
-namespace Ringtoets.Storage.Core.Test
+namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
     public class StorageSqliteCreatorTest

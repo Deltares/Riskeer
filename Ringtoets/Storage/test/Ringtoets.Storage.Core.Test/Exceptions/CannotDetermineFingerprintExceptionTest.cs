@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Storage.Core.Exceptions;
 
-namespace Ringtoets.Storage.Core.Test.Exceptions
+namespace Riskeer.Storage.Core.Test.Exceptions
 {
     [TestFixture]
     public class CannotDetermineFingerprintExceptionTest :

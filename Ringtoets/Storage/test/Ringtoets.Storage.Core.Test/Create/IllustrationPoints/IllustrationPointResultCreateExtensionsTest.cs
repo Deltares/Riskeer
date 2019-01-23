@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Storage.Core.Create.IllustrationPoints;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.IllustrationPoints
+namespace Riskeer.Storage.Core.Test.Create.IllustrationPoints
 {
     [TestFixture]
     public class IllustrationPointResultCreateExtensionsTest

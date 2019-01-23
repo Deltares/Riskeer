@@ -29,7 +29,7 @@ using Ringtoets.Storage.Core.TestUtil.IllustrationPoints;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 
-namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
+namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
 {
     [TestFixture]
     public class GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensionsTest

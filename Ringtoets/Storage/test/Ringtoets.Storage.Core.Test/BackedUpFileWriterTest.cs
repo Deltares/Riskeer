@@ -24,10 +24,9 @@ using System.IO;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Storage.Core;
 using Riskeer.Storage.Core.Exceptions;
 
-namespace Ringtoets.Storage.Core.Test
+namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
     public class BackedUpFileWriterTest

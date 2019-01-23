@@ -28,13 +28,12 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
-using Riskeer.Storage.Core;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Read.HeightStructures
+namespace Riskeer.Storage.Core.Test.Read.HeightStructures
 {
     [TestFixture]
     public class HeightStructuresCalculationEntityReadExtensionsTest

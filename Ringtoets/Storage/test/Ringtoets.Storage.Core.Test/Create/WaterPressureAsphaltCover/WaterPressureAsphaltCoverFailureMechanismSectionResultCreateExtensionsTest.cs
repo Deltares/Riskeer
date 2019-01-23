@@ -28,7 +28,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.Create.WaterPressureAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.WaterPressureAsphaltCover
+namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
 {
     [TestFixture]
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest

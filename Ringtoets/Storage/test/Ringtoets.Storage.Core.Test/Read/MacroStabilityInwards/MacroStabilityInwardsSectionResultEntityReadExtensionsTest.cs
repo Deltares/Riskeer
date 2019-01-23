@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 
-namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
+namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSectionResultEntityReadExtensionsTest

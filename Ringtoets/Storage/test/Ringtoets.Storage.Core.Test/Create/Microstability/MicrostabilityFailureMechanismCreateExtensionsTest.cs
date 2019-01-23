@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.Microstability;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.Microstability
+namespace Riskeer.Storage.Core.Test.Create.Microstability
 {
     [TestFixture]
     public class MicrostabilityFailureMechanismCreateExtensionsTest

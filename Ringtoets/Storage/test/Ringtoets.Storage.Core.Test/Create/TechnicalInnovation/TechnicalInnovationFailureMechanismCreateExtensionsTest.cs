@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.TechnicalInnovation;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.TechnicalInnovation
+namespace Riskeer.Storage.Core.Test.Create.TechnicalInnovation
 {
     [TestFixture]
     public class TechnicalInnovationFailureMechanismCreateExtensionsTest

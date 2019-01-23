@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Create
+namespace Riskeer.Storage.Core.Test.Create
 {
     [TestFixture]
     public class ForeshoreProfileCreateExtensionsTest

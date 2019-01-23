@@ -37,7 +37,7 @@ using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionOutwards
+namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensionsTest

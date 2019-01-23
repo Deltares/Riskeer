@@ -29,7 +29,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
 
-namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
+namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
 {
     [TestFixture]
     public class StabilityStoneCoverSectionResultEntityReadExtensionsTest

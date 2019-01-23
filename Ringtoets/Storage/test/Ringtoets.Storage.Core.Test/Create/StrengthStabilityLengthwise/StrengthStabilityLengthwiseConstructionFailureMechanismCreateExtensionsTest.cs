@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.StrengthStabilityLengthwise;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.StrengthStabilityLengthwise
+namespace Riskeer.Storage.Core.Test.Create.StrengthStabilityLengthwise
 {
     [TestFixture]
     public class StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest

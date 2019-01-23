@@ -27,7 +27,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 
-namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionOutwards
+namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest

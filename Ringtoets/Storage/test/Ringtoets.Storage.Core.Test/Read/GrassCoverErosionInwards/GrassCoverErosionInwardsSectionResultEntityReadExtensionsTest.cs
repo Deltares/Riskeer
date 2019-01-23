@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 
-namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
+namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
 {
     [TestFixture]
     public class GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest

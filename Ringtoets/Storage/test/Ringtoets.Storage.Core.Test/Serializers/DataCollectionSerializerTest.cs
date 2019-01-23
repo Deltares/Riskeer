@@ -26,7 +26,7 @@ using System.Runtime.Serialization;
 using NUnit.Framework;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Serializers
+namespace Riskeer.Storage.Core.Test.Serializers
 {
     [TestFixture]
     public class DataCollectionSerializerTest

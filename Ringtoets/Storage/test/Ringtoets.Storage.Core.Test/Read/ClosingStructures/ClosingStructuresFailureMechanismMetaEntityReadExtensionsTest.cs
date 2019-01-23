@@ -25,7 +25,7 @@ using Ringtoets.ClosingStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 
-namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
+namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest

@@ -25,14 +25,14 @@ using NUnit.Framework;
 using Ringtoets.Storage.Core.TestUtil;
 using Riskeer.Storage.Core.Properties;
 
-namespace Ringtoets.Storage.Core.Test
+namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
     [Explicit("Creates a new Riskeer.rtd file in the root of the Ringtoets.Storage.Core")]
     public class RiskeerDatabaseCreatorTest
     {
         /// <summary>
-        /// Creates a new Riskeer.rtd file in the root of the <see cref="Core"/>, 
+        /// Creates a new Riskeer.rtd file in the root of the <see cref="Ringtoets.Storage.Core"/>, 
         /// which is used to auto-generate the database code.
         /// </summary>
         [Test]

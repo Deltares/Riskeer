@@ -29,7 +29,7 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.DuneErosion;
 
-namespace Ringtoets.Storage.Core.Test.Read.DuneErosion
+namespace Riskeer.Storage.Core.Test.Read.DuneErosion
 {
     [TestFixture]
     public class DuneLocationCalculationEntityReadExtensionsTest

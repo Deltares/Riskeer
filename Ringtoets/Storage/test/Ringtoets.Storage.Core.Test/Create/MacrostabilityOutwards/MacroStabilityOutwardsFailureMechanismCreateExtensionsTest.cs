@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.MacroStabilityOutwards;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityOutwards
+namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
 {
     [TestFixture]
     public class MacroStabilityOutwardsFailureMechanismCreateExtensionsTest

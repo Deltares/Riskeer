@@ -31,7 +31,7 @@ using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Read
+namespace Riskeer.Storage.Core.Test.Read
 {
     [TestFixture]
     public class StochasticSoilModelEntityReadExtensionsTest

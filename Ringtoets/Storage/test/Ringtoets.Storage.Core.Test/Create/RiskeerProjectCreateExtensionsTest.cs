@@ -26,7 +26,7 @@ using Ringtoets.Integration.Data;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create
+namespace Riskeer.Storage.Core.Test.Create
 {
     [TestFixture]
     public class RiskeerProjectCreateExtensionsTest

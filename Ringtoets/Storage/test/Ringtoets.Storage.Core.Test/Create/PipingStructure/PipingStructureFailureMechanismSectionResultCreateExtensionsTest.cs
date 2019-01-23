@@ -28,7 +28,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.Create.PipingStructure;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.PipingStructure
+namespace Riskeer.Storage.Core.Test.Create.PipingStructure
 {
     [TestFixture]
     public class PipingStructureFailureMechanismSectionResultCreateExtensionsTest

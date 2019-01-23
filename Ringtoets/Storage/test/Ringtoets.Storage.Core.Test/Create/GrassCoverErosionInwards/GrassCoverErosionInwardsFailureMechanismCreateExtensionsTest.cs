@@ -30,7 +30,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
+namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
 {
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest

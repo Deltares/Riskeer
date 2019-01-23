@@ -37,7 +37,7 @@ using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
 using Riskeer.Storage.Core.Serializers;
 
-namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
+namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest

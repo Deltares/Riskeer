@@ -28,7 +28,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Ringtoets.Storage.Core.Test.Create.Piping
+namespace Riskeer.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
     public class PipingSoilProfileCreateExtensionsTest

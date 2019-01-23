@@ -36,7 +36,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 
-namespace Ringtoets.Storage.Core.Test.Read
+namespace Riskeer.Storage.Core.Test.Read
 {
     [TestFixture]
     public class CalculationGroupEntityReadExtensionsTest
