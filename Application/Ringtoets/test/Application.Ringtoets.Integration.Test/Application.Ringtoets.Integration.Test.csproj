@@ -98,9 +98,9 @@
       <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
       <Name>Riskeer.Migration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\test\Ringtoets.Migration.Core.TestUtil\Ringtoets.Migration.Core.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\test\Ringtoets.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj">
       <Project>{C98D99C5-2ADD-4693-916C-71BF78750412}</Project>
-      <Name>Ringtoets.Migration.Core.TestUtil</Name>
+      <Name>Riskeer.Migration.Core.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
       <Project>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</Project>
