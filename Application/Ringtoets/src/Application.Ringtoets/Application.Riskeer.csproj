@@ -154,7 +154,7 @@
       <Name>Ringtoets.MacroStabilityInwards.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Ringtoets.Migration\Riskeer.Migration.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj">
       <Project>{ac4f7f48-f674-4e32-ab35-9c726605f684}</Project>
       <Name>Riskeer.Migration</Name>
       <Private>False</Private>
