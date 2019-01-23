@@ -31,11 +31,11 @@ using Core.Common.Util.Settings;
 using log4net;
 using Migration.Scripts.Data.Exceptions;
 using Ringtoets.Common.Util;
-using Riskeer.Migration.Properties;
 using Riskeer.Migration.Core;
+using Riskeer.Migration.Properties;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 
-namespace Ringtoets.Migration
+namespace Riskeer.Migration
 {
     /// <summary>
     /// A GUI implementation to migrate a Ringtoets database file to a newer version.
