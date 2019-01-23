@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.Migration.Core")]
-[assembly: AssemblyProduct("Ringtoets.Migration.Core")]
+[assembly: AssemblyTitle("Riskeer.Migration.Core")]
+[assembly: AssemblyProduct("Riskeer.Migration.Core")]
