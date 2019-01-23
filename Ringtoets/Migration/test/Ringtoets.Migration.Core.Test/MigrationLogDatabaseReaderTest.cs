@@ -27,9 +27,8 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Migration.Core.TestUtil;
-using Riskeer.Migration.Core;
 
-namespace Ringtoets.Migration.Core.Test
+namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
     public class MigrationLogDatabaseReaderTest

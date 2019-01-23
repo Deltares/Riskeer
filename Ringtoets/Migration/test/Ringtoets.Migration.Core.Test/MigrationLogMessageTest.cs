@@ -22,9 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Migration.Core;
 
-namespace Ringtoets.Migration.Core.Test
+namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
     public class MigrationLogMessageTest

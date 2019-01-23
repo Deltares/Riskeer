@@ -24,9 +24,8 @@ using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Migration.Core;
 
-namespace Ringtoets.Migration.Core.Test
+namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
     public class RingtoetsVersionedFileTest
