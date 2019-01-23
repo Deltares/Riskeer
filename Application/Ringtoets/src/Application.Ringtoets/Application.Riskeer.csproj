@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
@@ -164,9 +164,9 @@
       <Name>Ringtoets.StabilityPointStructures.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Storage\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
-      <Name>Ringtoets.Storage.Core</Name>
+      <Name>Riskeer.Storage.Core</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj">
