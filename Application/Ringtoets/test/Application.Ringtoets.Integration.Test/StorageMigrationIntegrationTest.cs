@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
-using Ringtoets.Migration;
 using Riskeer.Migration;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;

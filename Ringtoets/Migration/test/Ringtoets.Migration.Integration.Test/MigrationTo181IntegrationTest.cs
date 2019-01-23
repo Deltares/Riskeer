@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Migration.Core;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 
