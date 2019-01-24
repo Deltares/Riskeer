@@ -24,5 +24,5 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer.AssemblyTool.KernelWrapper")]
 [assembly: AssemblyProduct("Riskeer.AssemblyTool.KernelWrapper")]
-[assembly: InternalsVisibleTo("Ringtoets.AssemblyTool.KernelWrapper.Test")]
+[assembly: InternalsVisibleTo("Riskeer.AssemblyTool.KernelWrapper.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.AssemblyTool.KernelWrapper.TestUtil")]
