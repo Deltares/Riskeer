@@ -26,7 +26,7 @@ using Ringtoets.AssemblyTool.IO.TestUtil;
 using Riskeer.AssemblyTool.IO.Model.Gml;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
+namespace Riskeer.AssemblyTool.IO.Test.Model.Gml
 {
     [TestFixture]
     public class SerializableEnvelopeTest

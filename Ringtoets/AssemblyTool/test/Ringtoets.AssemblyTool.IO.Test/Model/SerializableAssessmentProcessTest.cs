@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 using Riskeer.AssemblyTool.IO.Model;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
     public class SerializableAssessmentProcessTest

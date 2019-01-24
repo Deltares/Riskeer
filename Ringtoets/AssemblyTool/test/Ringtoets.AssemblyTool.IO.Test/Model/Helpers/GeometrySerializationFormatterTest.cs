@@ -28,7 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
+namespace Riskeer.AssemblyTool.IO.Test.Model.Helpers
 {
     [TestFixture]
     public class GeometrySerializationFormatterTest

@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
+namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
 {
     [TestFixture]
     public class SerializableFailureMechanismSectionTypeTest : EnumWithXmlEnumNameTestFixture<SerializableFailureMechanismSectionType>

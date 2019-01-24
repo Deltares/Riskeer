@@ -27,7 +27,7 @@ using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
     public class SerializableFailureMechanismTest

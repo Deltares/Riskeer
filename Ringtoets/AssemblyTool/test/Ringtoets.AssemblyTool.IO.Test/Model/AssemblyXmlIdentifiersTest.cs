@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model
+namespace Riskeer.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
     public class AssemblyXmlIdentifiersTest
