@@ -22,7 +22,7 @@
   </Target>
   
    <Target Name="RunPDF2LaTeX" DependsOnTargets="RunDoxygen">
-	<Exec Command='$(MSBuildProjectDirectory)\Technical_documentation\replace_string_in_file.cmd "pdflatex " "pdflatex.exe -quiet -shell-escape --pool-size=10000000 --extra-mem-bot=10000000 -interaction=nonstopmode " "make.bat" "makeDeltares.bat"' WorkingDirectory="$(DoxygenOutputDirectory)latex"/>
+	<Exec Command='$(MSBuildProjectDirectory)\Technical_documentation\replace_string_in_file.cmd "pdflatex " "pdflatex.exe -quiet -shell-escape --pool-size=10000000 --extra-mem-bot=40000000 -interaction=nonstopmode " "make.bat" "makeDeltares.bat"' WorkingDirectory="$(DoxygenOutputDirectory)latex"/>
 	<Exec Command='$(MSBuildProjectDirectory)\Technical_documentation\replace_string_in_file.cmd "setcounter{tocdepth}{3}" "setcounter{tocdepth}{2}" "refman.tex"' WorkingDirectory="$(DoxygenOutputDirectory)latex"/>
 	<Exec Command="makeDeltares.bat > makeDeltares.log" WorkingDirectory="$(DoxygenOutputDirectory)latex" IgnoreExitCode="true"/>
   </Target>
