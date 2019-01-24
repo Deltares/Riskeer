@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
+namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class AssemblyCalculatorInputCreatorTest

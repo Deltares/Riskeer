@@ -34,7 +34,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
     [TestFixture]
     public class AssemblyCategoriesCalculatorTest

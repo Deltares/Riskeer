@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
+namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class AssemblyErrorMessageCreatorTest

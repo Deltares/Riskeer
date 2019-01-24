@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
     [TestFixture]
     public class AssessmentSectionAssemblyCalculatorExceptionTest :
