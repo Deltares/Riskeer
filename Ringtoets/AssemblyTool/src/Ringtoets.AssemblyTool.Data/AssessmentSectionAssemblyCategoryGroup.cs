@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
+using Riskeer.AssemblyTool.Data.Properties;
 
 namespace Riskeer.AssemblyTool.Data
 {
