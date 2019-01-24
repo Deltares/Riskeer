@@ -115,9 +115,9 @@
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Riskeer.AssemblyTool.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.IO\Ringtoets.AssemblyTool.IO.csproj">
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.IO\Riskeer.AssemblyTool.IO.csproj">
       <Project>{B9838495-B090-4B84-A387-A8974F4F9CC4}</Project>
-      <Name>Ringtoets.AssemblyTool.IO</Name>
+      <Name>Riskeer.AssemblyTool.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
