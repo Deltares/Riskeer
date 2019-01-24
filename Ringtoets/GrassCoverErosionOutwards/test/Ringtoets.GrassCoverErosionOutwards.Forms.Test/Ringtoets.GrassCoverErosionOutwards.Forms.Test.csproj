@@ -88,9 +88,9 @@
       <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
       <Name>Riskeer.AssemblyTool.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Forms\Ringtoets.AssemblyTool.Forms.csproj">
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
       <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
-      <Name>Ringtoets.AssemblyTool.Forms</Name>
+      <Name>Riskeer.AssemblyTool.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>

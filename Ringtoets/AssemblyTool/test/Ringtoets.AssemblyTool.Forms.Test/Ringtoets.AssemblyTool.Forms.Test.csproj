@@ -39,9 +39,9 @@
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Riskeer.AssemblyTool.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.AssemblyTool.Forms\Ringtoets.AssemblyTool.Forms.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
       <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
-      <Name>Ringtoets.AssemblyTool.Forms</Name>
+      <Name>Riskeer.AssemblyTool.Forms</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

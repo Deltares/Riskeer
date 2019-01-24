@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</ProjectGuid>
-    <RootNamespace>Ringtoets.AssemblyTool.Forms</RootNamespace>
-    <AssemblyName>Ringtoets.AssemblyTool.Forms</AssemblyName>
+    <RootNamespace>Riskeer.AssemblyTool.Forms</RootNamespace>
+    <AssemblyName>Riskeer.AssemblyTool.Forms</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
