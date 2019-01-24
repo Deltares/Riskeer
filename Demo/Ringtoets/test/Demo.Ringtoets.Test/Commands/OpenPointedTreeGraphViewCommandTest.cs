@@ -24,7 +24,7 @@ using Demo.Riskeer.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Demo.Ringtoets.Test.Commands
+namespace Demo.Riskeer.Test.Commands
 {
     [TestFixture]
     public class OpenPointedTreeGraphViewCommandTest

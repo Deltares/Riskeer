@@ -25,12 +25,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Demo.Riskeer.Ribbons;
 using NUnit.Framework;
 using Rhino.Mocks;
 using RingtoetsDemoProjectRibbon = Demo.Riskeer.Ribbons.RingtoetsDemoProjectRibbon;
 
-namespace Demo.Ringtoets.Test.Ribbons
+namespace Demo.Riskeer.Test.Ribbons
 {
     [TestFixture]
     public class RingtoetsDemoProjectRibbonTest

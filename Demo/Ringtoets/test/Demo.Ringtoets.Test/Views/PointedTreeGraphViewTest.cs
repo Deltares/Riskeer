@@ -26,7 +26,7 @@ using Core.Components.PointedTree.Data;
 using Demo.Riskeer.Views;
 using NUnit.Framework;
 
-namespace Demo.Ringtoets.Test.Views
+namespace Demo.Riskeer.Test.Views
 {
     [TestFixture]
     public class PointedTreeGraphViewTest

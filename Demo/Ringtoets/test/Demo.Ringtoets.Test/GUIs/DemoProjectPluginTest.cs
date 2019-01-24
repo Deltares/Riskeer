@@ -33,7 +33,7 @@ using Demo.Riskeer.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Demo.Ringtoets.Test.GUIs
+namespace Demo.Riskeer.Test.GUIs
 {
     [TestFixture]
     public class DemoProjectPluginTest

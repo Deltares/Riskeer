@@ -52,7 +52,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Demo.Ringtoets.Test.Commands
+namespace Demo.Riskeer.Test.Commands
 {
     [TestFixture]
     public class AddNewDemoAssessmentSectionCommandTest
