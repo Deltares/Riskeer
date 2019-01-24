@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</ProjectGuid>
-    <RootNamespace>Ringtoets.AssemblyTool.KernelWrapper</RootNamespace>
-    <AssemblyName>Ringtoets.AssemblyTool.KernelWrapper</AssemblyName>
+    <RootNamespace>Riskeer.AssemblyTool.KernelWrapper</RootNamespace>
+    <AssemblyName>Riskeer.AssemblyTool.KernelWrapper</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>

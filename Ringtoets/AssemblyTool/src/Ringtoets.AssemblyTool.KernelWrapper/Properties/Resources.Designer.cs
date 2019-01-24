@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
+namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.AssemblyTool.KernelWrapper.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Riskeer.AssemblyTool.KernelWrapper.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

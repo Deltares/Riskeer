@@ -119,9 +119,9 @@
       <Project>{B9838495-B090-4B84-A387-A8974F4F9CC4}</Project>
       <Name>Riskeer.AssemblyTool.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
+      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Ringtoets.AssemblyTool.KernelWrapper.TestUtil.csproj">
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>

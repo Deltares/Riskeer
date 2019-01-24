@@ -1758,7 +1758,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AssemblyTool", "AssemblyToo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{22080BD7-677C-48FA-AD1A-8CCF7457B984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.AssemblyTool.KernelWrapper", "Ringtoets\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj", "{358B6DA2-A1DF-477F-B6AC-C30204265CB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.KernelWrapper", "Ringtoets\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj", "{358B6DA2-A1DF-477F-B6AC-C30204265CB0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
