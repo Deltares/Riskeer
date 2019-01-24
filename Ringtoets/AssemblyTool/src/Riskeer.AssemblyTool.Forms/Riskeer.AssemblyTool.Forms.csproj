@@ -38,7 +38,7 @@
       <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
+    <ProjectReference Include="..\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
