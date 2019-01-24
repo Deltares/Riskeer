@@ -26,6 +26,7 @@ using Core.Common.Gui.Commands;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Demo.Riskeer.Properties;
 
 namespace Demo.Riskeer.Commands
 {
@@ -113,7 +114,7 @@ namespace Demo.Riskeer.Commands
             waddenMapDataCollection.Add(emptyMapDataCollection);
             waddenMapDataCollection.Add(nestedWaddenMapDataCollection);
             mapDataCollection.Add(waddenMapDataCollection);
-            
+
             mapDataCollection.Add(new MapPointData(Resources.OpenMapViewCommand_Execute_Randstad)
             {
                 Features = GetFeatureWithPoints(new[]

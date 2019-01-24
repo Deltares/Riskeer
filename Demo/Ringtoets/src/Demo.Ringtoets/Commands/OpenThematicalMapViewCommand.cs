@@ -31,6 +31,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
+using Demo.Riskeer.Properties;
 
 namespace Demo.Riskeer.Commands
 {

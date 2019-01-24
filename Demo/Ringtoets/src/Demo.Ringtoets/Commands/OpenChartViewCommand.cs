@@ -25,6 +25,7 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
+using Demo.Riskeer.Properties;
 
 namespace Demo.Riskeer.Commands
 {

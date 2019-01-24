@@ -26,7 +26,7 @@ All rights reserved.
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
-             xmlns:resx="clr-namespace:Demo.Ringtoets.Properties"
+             xmlns:resx="clr-namespace:Demo.Riskeer.Properties"
              xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="350">

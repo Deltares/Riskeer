@@ -26,6 +26,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
 using Core.Components.PointedTree.Data;
 using Core.Components.Stack.Data;
+using Demo.Riskeer.Properties;
 using Demo.Riskeer.Ribbons;
 using Demo.Riskeer.Views;
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
