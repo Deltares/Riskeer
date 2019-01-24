@@ -21,7 +21,7 @@
 
 using System.Xml.Serialization;
 
-namespace Ringtoets.AssemblyTool.IO.Model.Enums
+namespace Riskeer.AssemblyTool.IO.Model.Enums
 {
     /// <summary>
     /// Serializable enum defining the assembly categories for a failure mechanism section.

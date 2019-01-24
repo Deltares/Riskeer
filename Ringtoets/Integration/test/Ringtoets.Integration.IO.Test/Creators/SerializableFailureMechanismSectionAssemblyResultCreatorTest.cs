@@ -22,13 +22,13 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
-using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.TestUtil;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

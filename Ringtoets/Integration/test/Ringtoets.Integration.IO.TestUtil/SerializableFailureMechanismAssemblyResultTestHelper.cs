@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Riskeer.AssemblyTool.IO.Model.DataTypes;
 
 namespace Ringtoets.Integration.IO.TestUtil
 {

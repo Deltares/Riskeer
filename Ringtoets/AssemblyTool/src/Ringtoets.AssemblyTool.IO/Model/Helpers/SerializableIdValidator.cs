@@ -21,7 +21,7 @@
 
 using System.Text.RegularExpressions;
 
-namespace Ringtoets.AssemblyTool.IO.Model.Helpers
+namespace Riskeer.AssemblyTool.IO.Model.Helpers
 {
     /// <summary>
     /// Validator to validate the id of a serializable object.

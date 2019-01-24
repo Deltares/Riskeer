@@ -31,9 +31,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
-using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO;
+using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Ringtoets.AssemblyTool.IO.Test
 {

@@ -21,9 +21,9 @@
 
 using System;
 using System.Xml.Serialization;
-using Ringtoets.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.Model.Helpers;
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
     /// Class describing a serializable assessment process.

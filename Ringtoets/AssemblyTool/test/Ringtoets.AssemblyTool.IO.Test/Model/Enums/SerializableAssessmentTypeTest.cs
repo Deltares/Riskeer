@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
 {

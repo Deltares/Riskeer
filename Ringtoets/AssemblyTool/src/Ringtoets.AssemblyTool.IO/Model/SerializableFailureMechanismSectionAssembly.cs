@@ -21,10 +21,10 @@
 
 using System;
 using System.Xml.Serialization;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
-using Ringtoets.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Helpers;
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
     /// Class describing a serializable failure mechanism section assembly.

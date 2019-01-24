@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model
 {

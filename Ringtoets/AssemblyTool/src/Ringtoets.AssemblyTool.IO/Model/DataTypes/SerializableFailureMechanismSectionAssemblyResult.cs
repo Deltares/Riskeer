@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Xml.Serialization;
-using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 
-namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
+namespace Riskeer.AssemblyTool.IO.Model.DataTypes
 {
     /// <summary>
     /// Class describing a serializable failure mechanism section assembly result.

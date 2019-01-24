@@ -23,7 +23,7 @@ using System;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.AssemblyTool.IO.Model.Gml
+namespace Riskeer.AssemblyTool.IO.Model.Gml
 {
     /// <summary>
     /// Class describing a boundary object.

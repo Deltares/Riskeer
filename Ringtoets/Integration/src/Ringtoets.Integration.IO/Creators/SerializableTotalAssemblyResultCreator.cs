@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.IO.Model;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;
+using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.DataTypes;
 
 namespace Ringtoets.Integration.IO.Creators
 {

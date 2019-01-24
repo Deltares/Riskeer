@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Xml.Serialization;
-using Ringtoets.AssemblyTool.IO.Properties;
+using Riskeer.AssemblyTool.IO.Properties;
 
-namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
+namespace Riskeer.AssemblyTool.IO.Model.DataTypes
 {
     /// <summary>
     /// Class describing a serializable measure.

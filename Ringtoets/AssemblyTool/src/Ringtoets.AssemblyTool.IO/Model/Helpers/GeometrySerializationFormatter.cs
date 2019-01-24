@@ -25,7 +25,7 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.AssemblyTool.IO.Model.Helpers
+namespace Riskeer.AssemblyTool.IO.Model.Helpers
 {
     /// <summary>
     /// Helper methods to format geometry for serialization.

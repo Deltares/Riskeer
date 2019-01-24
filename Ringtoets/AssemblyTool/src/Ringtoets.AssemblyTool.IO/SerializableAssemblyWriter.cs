@@ -23,10 +23,10 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using Core.Common.IO.Exceptions;
-using Ringtoets.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.AssemblyTool.IO
+namespace Riskeer.AssemblyTool.IO
 {
     /// <summary>
     /// Writer for saving instances of <see cref="SerializableAssembly"/> to a file.

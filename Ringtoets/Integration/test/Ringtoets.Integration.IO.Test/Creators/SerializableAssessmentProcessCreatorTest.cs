@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.Helpers;
+using Riskeer.AssemblyTool.IO.Model;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

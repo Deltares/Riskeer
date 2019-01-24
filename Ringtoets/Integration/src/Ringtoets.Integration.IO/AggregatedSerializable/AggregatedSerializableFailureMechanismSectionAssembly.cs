@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model;
 
 namespace Ringtoets.Integration.IO.AggregatedSerializable
 {

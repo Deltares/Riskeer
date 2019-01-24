@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.TestUtil;
+using Riskeer.AssemblyTool.IO.Model;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model
 {

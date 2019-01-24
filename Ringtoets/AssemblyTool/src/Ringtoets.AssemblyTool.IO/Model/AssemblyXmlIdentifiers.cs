@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
     /// Class containing definitions for XML identifiers and namespaces for

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model;
 
 namespace Ringtoets.Integration.IO.AggregatedSerializable
 {

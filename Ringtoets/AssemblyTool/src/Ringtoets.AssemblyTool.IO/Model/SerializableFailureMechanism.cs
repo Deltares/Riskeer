@@ -21,12 +21,12 @@
 
 using System;
 using System.Xml.Serialization;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
-using Ringtoets.AssemblyTool.IO.Model.Enums;
-using Ringtoets.AssemblyTool.IO.Model.Helpers;
-using Ringtoets.AssemblyTool.IO.Properties;
+using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.Properties;
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Riskeer.AssemblyTool.IO.Model
 {
     /// <summary>
     /// Class describing a serializable failure mechanism.
