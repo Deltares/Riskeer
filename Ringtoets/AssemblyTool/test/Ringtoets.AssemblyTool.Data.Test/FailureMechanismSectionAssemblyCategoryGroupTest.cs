@@ -22,9 +22,8 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.Data.Test
+namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyCategoryGroupTest : EnumValuesTestFixture<FailureMechanismSectionAssemblyCategoryGroup, int>
