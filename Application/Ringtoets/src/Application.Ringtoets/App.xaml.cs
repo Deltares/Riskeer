@@ -43,7 +43,6 @@ using Core.Plugins.Chart;
 using Core.Plugins.CommonTools;
 using Core.Plugins.Map;
 using Core.Plugins.ProjectExplorer;
-using Demo.Ringtoets.GUIs;
 using log4net;
 using log4net.Appender;
 using Ringtoets.ClosingStructures.Plugin;
@@ -64,6 +63,7 @@ using Riskeer.Storage.Core;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 #if DEVELOPMENT
+using Demo.Ringtoets.GUIs;
 
 #endif
 
