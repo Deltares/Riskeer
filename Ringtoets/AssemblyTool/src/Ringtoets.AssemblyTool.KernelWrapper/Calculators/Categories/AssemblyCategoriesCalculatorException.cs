@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing an assembly categories calculation.

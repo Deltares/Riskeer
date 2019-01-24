@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 {

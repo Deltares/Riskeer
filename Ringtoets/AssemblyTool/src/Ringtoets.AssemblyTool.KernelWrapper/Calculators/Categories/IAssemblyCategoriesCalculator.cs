@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
     /// Interface representing an assembly categories calculator.

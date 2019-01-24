@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing a failure mechanism section assembly.

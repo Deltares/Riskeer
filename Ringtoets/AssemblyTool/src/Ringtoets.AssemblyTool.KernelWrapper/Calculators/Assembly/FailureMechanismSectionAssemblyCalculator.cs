@@ -26,13 +26,13 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
 using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
-using Ringtoets.AssemblyTool.KernelWrapper.Creators;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Creators;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using IFailureMechanismSectionAssemblyCalculatorKernel = Assembly.Kernel.Interfaces.IAssessmentResultsTranslator;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
     /// Class representing a failure mechanism section assembly calculator.

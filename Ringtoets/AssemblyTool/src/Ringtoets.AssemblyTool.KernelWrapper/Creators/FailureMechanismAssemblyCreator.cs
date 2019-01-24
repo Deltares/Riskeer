@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
+namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="FailureMechanismAssembly"/> instances and

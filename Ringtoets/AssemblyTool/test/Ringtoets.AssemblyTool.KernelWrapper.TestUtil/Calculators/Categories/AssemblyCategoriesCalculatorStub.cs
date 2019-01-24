@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {

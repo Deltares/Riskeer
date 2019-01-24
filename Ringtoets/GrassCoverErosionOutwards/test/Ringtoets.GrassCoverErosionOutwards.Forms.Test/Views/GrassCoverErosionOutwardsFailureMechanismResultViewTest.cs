@@ -24,7 +24,6 @@ using System.Windows.Forms;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.TestUtil;
@@ -36,6 +35,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 {

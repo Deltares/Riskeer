@@ -21,7 +21,7 @@
 
 using Assembly.Kernel.Interfaces;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
+namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
 {
     /// <summary>
     /// Factory responsible for creating kernels that can be used for performing an assembly tool calculation.

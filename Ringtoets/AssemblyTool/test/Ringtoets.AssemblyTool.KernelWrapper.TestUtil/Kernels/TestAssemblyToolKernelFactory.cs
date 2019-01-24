@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Assembly.Kernel.Interfaces;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {

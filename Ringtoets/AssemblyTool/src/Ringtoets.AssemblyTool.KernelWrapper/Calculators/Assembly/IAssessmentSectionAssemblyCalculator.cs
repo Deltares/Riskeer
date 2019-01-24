@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
     /// Interface representing an assessment section assembly calculator.

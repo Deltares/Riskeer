@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
 {

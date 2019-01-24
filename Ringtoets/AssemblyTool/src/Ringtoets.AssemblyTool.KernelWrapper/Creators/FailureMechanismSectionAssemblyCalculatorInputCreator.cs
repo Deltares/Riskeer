@@ -29,7 +29,7 @@ using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
+namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates input instances that can be used in <see cref="IAssessmentResultsTranslator"/>.

@@ -22,9 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
@@ -41,6 +38,9 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.Integration.Data.Assembly
 {

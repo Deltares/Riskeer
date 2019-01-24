@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,6 +33,7 @@ using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Integration.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {

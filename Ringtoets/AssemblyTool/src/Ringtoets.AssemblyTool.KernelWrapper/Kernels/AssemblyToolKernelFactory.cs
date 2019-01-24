@@ -22,7 +22,7 @@
 using Assembly.Kernel.Implementations;
 using Assembly.Kernel.Interfaces;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
+namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
 {
     /// <summary>
     /// Factory that creates the assembly tool kernels.

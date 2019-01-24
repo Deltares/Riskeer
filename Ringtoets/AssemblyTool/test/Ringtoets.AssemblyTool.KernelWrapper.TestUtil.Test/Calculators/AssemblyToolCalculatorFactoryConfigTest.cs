@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
 {

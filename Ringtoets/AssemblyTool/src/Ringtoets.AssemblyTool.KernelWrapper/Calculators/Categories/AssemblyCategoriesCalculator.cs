@@ -25,11 +25,11 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
-using Ringtoets.AssemblyTool.KernelWrapper.Creators;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Creators;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
     /// Class representing an assembly categories calculator.

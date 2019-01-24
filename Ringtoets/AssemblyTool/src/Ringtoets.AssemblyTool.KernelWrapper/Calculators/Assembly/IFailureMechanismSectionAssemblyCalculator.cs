@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
     /// Interface representing a failure mechanism section assembly calculator.

@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {

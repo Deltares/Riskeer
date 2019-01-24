@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {

@@ -25,7 +25,7 @@ using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Creators;
+using Riskeer.AssemblyTool.KernelWrapper.Creators;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {

@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
 {
     /// <summary>
     /// Interface for a factory which creates calculators for performing assembly tool calculations.
