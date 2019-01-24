@@ -23,6 +23,7 @@ using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 
 namespace Ringtoets.AssemblyTool.Forms.Test
 {

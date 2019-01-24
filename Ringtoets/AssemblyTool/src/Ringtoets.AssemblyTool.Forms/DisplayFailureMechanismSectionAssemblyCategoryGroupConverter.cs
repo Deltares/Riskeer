@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.Forms
+namespace Riskeer.AssemblyTool.Forms
 {
     /// <summary>
     /// Converter to convert <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>

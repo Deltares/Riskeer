@@ -34,7 +34,6 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -50,6 +49,7 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Util;
 using Ringtoets.Piping.Data;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views

@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Primitives;
+using Riskeer.AssemblyTool.Forms;
 
 namespace Ringtoets.Common.Forms.Builders
 {

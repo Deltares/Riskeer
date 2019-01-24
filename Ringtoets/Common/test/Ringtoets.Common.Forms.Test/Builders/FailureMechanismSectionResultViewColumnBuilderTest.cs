@@ -27,9 +27,9 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Primitives;
+using Riskeer.AssemblyTool.Forms;
 
 namespace Ringtoets.Common.Forms.Test.Builders
 {

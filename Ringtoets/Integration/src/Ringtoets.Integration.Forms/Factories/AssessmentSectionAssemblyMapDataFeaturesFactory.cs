@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.Util;
 using Core.Components.Gis.Features;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Util;
+using Riskeer.AssemblyTool.Forms;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Factories

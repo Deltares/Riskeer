@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
-namespace Ringtoets.AssemblyTool.Forms
+namespace Riskeer.AssemblyTool.Forms
 {
     /// <summary>
     /// Enum defining the assembly categories that can be selected for a failure mechanism section.

@@ -28,13 +28,13 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.AssemblyTool.Forms.Properties;
+using Riskeer.AssemblyTool.Forms.Properties;
 using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
-namespace Ringtoets.AssemblyTool.Forms
+namespace Riskeer.AssemblyTool.Forms
 {
     /// <summary>
     /// Enum defining the assembly categories to display for a failure mechanism section.

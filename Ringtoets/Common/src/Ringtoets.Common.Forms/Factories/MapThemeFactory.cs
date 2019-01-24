@@ -23,8 +23,8 @@ using System.Drawing;
 using Core.Common.Util;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Properties;
+using Riskeer.AssemblyTool.Forms;
 
 namespace Ringtoets.Common.Forms.Factories
 {

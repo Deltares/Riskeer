@@ -27,7 +27,6 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -40,6 +39,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 {

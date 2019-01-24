@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Forms;
+using Riskeer.AssemblyTool.Forms;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {
