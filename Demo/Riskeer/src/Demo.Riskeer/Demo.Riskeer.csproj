@@ -34,8 +34,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Ribbons\RingtoetsDemoProjectRibbon.xaml.cs">
-      <DependentUpon>RingtoetsDemoProjectRibbon.xaml</DependentUpon>
+    <Compile Include="Ribbons\RiskeerDemoProjectRibbon.xaml.cs">
+      <DependentUpon>RiskeerDemoProjectRibbon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChartDataView.cs">
       <SubType>UserControl</SubType>
@@ -253,7 +253,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Ribbons\RingtoetsDemoProjectRibbon.xaml">
+    <Page Include="Ribbons\RiskeerDemoProjectRibbon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

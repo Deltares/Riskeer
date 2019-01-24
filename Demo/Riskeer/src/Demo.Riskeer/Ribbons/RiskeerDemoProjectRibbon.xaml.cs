@@ -30,9 +30,9 @@ using Fluent;
 namespace Demo.Riskeer.Ribbons
 {
     /// <summary>
-    /// Interaction logic for RingtoetsDemoProjectRibbon.xaml
+    /// Interaction logic for RiskeerDemoProjectRibbon.xaml
     /// </summary>
-    public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
+    public partial class RiskeerDemoProjectRibbon : IRibbonCommandHandler
     {
         private readonly ICommand addNewAssessmentSection,
                                   openMapViewCommand,
@@ -41,7 +41,7 @@ namespace Demo.Riskeer.Ribbons
                                   openStackChartViewCommand,
                                   openPointedTreeGraphViewCommand;
 
-        public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
+        public RiskeerDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
         {
             InitializeComponent();
 

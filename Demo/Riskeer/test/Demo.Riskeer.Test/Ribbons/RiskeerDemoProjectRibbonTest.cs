@@ -25,14 +25,14 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Demo.Riskeer.Ribbons;
 using NUnit.Framework;
 using Rhino.Mocks;
-using RingtoetsDemoProjectRibbon = Demo.Riskeer.Ribbons.RingtoetsDemoProjectRibbon;
 
 namespace Demo.Riskeer.Test.Ribbons
 {
     [TestFixture]
-    public class RingtoetsDemoProjectRibbonTest
+    public class RiskeerDemoProjectRibbonTest
     {
         [Test]
         [Apartment(ApartmentState.STA)]
@@ -45,7 +45,7 @@ namespace Demo.Riskeer.Test.Ribbons
             mocks.ReplayAll();
 
             // Call
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
 
             // Assert
             Assert.IsNotNull(ribbon);
@@ -65,7 +65,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenChartViewButton") as Button;
 
             // Precondition
@@ -90,7 +90,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
 
             var button = ribbon.GetRibbonControl().FindName("OpenMapViewButton") as Button;
 
@@ -116,7 +116,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
 
             var button = ribbon.GetRibbonControl().FindName("OpenThematicMapViewButton") as Button;
 
@@ -142,7 +142,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenStackChartViewButton") as Button;
 
             // Precondition
@@ -167,7 +167,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenPointedTreeGraphViewButton") as Button;
 
             // Precondition
