@@ -55,7 +55,7 @@ namespace Demo.Riskeer.Ribbons
 
         public Ribbon GetRibbonControl()
         {
-            return RingtoetsDemoProjectRibbonControl;
+            return RiskeerDemoProjectRibbonControl;
         }
 
         public void ValidateItems() {}
