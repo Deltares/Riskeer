@@ -87,9 +87,9 @@
       <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
       <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
-      <Name>Ringtoets.AssemblyTool.Data</Name>
+      <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Forms\Ringtoets.AssemblyTool.Forms.csproj">
