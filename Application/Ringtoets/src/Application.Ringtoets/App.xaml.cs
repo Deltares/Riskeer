@@ -63,7 +63,7 @@ using Riskeer.Storage.Core;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 #if DEVELOPMENT
-using Demo.Ringtoets.GUIs;
+using Demo.Riskeer.GUIs;
 
 #endif
 

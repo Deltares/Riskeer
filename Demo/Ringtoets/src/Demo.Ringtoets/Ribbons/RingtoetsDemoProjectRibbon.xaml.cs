@@ -24,10 +24,10 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
-using Demo.Ringtoets.Commands;
+using Demo.Riskeer.Commands;
 using Fluent;
 
-namespace Demo.Ringtoets.Ribbons
+namespace Demo.Riskeer.Ribbons
 {
     /// <summary>
     /// Interaction logic for RingtoetsDemoProjectRibbon.xaml

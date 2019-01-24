@@ -28,6 +28,7 @@ using Core.Common.Gui.Commands;
 using Demo.Ringtoets.Ribbons;
 using NUnit.Framework;
 using Rhino.Mocks;
+using RingtoetsDemoProjectRibbon = Demo.Riskeer.Ribbons.RingtoetsDemoProjectRibbon;
 
 namespace Demo.Ringtoets.Test.Ribbons
 {

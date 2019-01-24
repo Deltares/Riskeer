@@ -53,7 +53,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Demo.Ringtoets.Commands
+namespace Demo.Riskeer.Commands
 {
     /// <summary>
     /// Command that adds a new <see cref="AssessmentSection"/> with demo data to the project tree.

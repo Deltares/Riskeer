@@ -26,9 +26,8 @@ using Core.Common.Gui.Commands;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-using Demo.Ringtoets.Properties;
 
-namespace Demo.Ringtoets.Commands
+namespace Demo.Riskeer.Commands
 {
     /// <summary>
     /// The command for opening a view for <see cref="MapData"/> with some arbitrary data.

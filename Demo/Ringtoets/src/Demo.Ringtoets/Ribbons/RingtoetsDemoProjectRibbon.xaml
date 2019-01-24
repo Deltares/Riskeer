@@ -20,7 +20,7 @@ All names, logos, and references to "Deltares" are registered trademarks of
 Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
-<UserControl x:Class="Demo.Ringtoets.Ribbons.RingtoetsDemoProjectRibbon"
+<UserControl x:Class="Demo.Riskeer.Ribbons.RingtoetsDemoProjectRibbon"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

@@ -21,7 +21,7 @@
 
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
-using Demo.Ringtoets.Commands;
+using Demo.Riskeer.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 

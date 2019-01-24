@@ -26,13 +26,12 @@ using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
 using Core.Components.PointedTree.Data;
 using Core.Components.Stack.Data;
-using Demo.Ringtoets.Properties;
-using Demo.Ringtoets.Ribbons;
-using Demo.Ringtoets.Views;
+using Demo.Riskeer.Ribbons;
+using Demo.Riskeer.Views;
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Demo.Ringtoets.GUIs
+namespace Demo.Riskeer.GUIs
 {
     /// <summary>
     /// UI plug-in that provides access to the demo projects for Ringtoets.

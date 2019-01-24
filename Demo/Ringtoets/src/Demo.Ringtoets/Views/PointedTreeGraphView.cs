@@ -23,7 +23,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.PointedTree.Data;
 
-namespace Demo.Ringtoets.Views
+namespace Demo.Riskeer.Views
 {
     /// <summary>
     /// This class represents a simple view with a pointed tree, to which data can be added.

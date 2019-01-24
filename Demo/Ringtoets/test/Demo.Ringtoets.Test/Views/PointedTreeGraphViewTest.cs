@@ -23,7 +23,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Components.GraphSharp.Forms;
 using Core.Components.PointedTree.Data;
-using Demo.Ringtoets.Views;
+using Demo.Riskeer.Views;
 using NUnit.Framework;
 
 namespace Demo.Ringtoets.Test.Views

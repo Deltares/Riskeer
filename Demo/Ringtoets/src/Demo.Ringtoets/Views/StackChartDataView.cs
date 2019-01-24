@@ -23,7 +23,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.Stack.Data;
 
-namespace Demo.Ringtoets.Views
+namespace Demo.Riskeer.Views
 {
     /// <summary>
     /// This class represents a simple view with a stack chart, to which data can be added.

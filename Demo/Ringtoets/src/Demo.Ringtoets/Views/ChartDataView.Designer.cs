@@ -21,7 +21,7 @@
 
 using Core.Components.OxyPlot.Forms;
 
-namespace Demo.Ringtoets.Views
+namespace Demo.Riskeer.Views
 {
     partial class ChartDataView
     {

@@ -22,7 +22,7 @@
 using System.Windows.Forms;
 using Core.Components.OxyPlot.Forms;
 using Core.Components.Stack.Data;
-using Demo.Ringtoets.Views;
+using Demo.Riskeer.Views;
 using NUnit.Framework;
 
 namespace Demo.Ringtoets.Test.Views

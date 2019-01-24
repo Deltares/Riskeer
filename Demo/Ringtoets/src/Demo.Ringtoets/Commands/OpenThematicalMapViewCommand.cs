@@ -31,9 +31,8 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
-using Demo.Ringtoets.Properties;
 
-namespace Demo.Ringtoets.Commands
+namespace Demo.Riskeer.Commands
 {
     /// <summary>
     /// The command for opening a view for <see cref="MapData"/> with 

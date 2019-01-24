@@ -23,7 +23,7 @@ using System.Windows.Forms;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 
-namespace Demo.Ringtoets.Views
+namespace Demo.Riskeer.Views
 {
     /// <summary>
     /// This class represents a simple view with a chart, to which data can be added.

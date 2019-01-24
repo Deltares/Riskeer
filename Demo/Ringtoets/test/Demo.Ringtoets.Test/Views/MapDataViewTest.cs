@@ -27,7 +27,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-using Demo.Ringtoets.Views;
+using Demo.Riskeer.Views;
 using NUnit.Framework;
 
 namespace Demo.Ringtoets.Test.Views

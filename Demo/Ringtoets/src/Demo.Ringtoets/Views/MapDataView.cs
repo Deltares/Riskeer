@@ -23,7 +23,7 @@ using System.Windows.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 
-namespace Demo.Ringtoets.Views
+namespace Demo.Riskeer.Views
 {
     /// <summary>
     /// This class represents a simple view with a map, to which data can be added.

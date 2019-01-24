@@ -24,7 +24,7 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
 using Core.Components.Stack.Data;
 
-namespace Demo.Ringtoets.Commands
+namespace Demo.Riskeer.Commands
 {
     /// <summary>
     /// This class describes the command for opening a view for <see cref="StackChartData"/> with some arbitrary data.

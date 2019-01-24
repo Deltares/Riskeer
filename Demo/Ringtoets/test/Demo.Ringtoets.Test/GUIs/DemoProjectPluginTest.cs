@@ -28,8 +28,8 @@ using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
 using Core.Components.PointedTree.Data;
 using Core.Components.Stack.Data;
-using Demo.Ringtoets.GUIs;
-using Demo.Ringtoets.Views;
+using Demo.Riskeer.GUIs;
+using Demo.Riskeer.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
 

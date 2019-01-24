@@ -25,9 +25,8 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
-using Demo.Ringtoets.Properties;
 
-namespace Demo.Ringtoets.Commands
+namespace Demo.Riskeer.Commands
 {
     /// <summary>
     /// This class describes the command for opening a view for <see cref="ChartData"/> with some arbitrary data.
