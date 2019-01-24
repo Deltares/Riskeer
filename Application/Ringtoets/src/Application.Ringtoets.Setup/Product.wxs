@@ -51,7 +51,7 @@
               <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Ringtoets.rtd" Name="FriendlyTypeName" Value="!(loc.RtdDescription)" Type="string" />
               <ProgId Id="Ringtoets.rtd" Description="!(loc.RtdDescription)" Icon="Ringtoets.ico">
                 <Extension Id="rtd" ContentType="application/rtd">
-                  <Verb Id="open" TargetFile="fil758A597518BF1005624609D5C6DDF60D" Command="Open" Argument="&quot;%1&quot;"/>
+                  <Verb Id="open" TargetFile="fil91CB09E13AB30875601EC5267FEE0EB4" Command="Open" Argument="&quot;%1&quot;"/>
                   <MIME ContentType="application/rtd" Default="yes" />
                 </Extension>
               </ProgId>
@@ -62,7 +62,7 @@
               <Shortcut Id="ApplicationInstallDirShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
-                        Target="[BINDIR]$(var.Application.Ringtoets.TargetFileName)"
+                        Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
                         WorkingDirectory="INSTALLDIR"
                         Icon="Ringtoets.ico"/>
               
@@ -93,7 +93,7 @@
               <Shortcut Id="ApplicationStartMenuShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
-                        Target="[BINDIR]$(var.Application.Ringtoets.TargetFileName)"
+                        Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
                         WorkingDirectory="INSTALLDIR"
                         Icon="Ringtoets.ico"/>
               <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRingtoets" On="uninstall" />
@@ -121,7 +121,7 @@
           <Shortcut Id="ApplicationDesktopShortcut"
                     Name="!(loc.ApplicationLongName)"
                     Description="!(loc.StartApplicationDescription)"
-                    Target="[BINDIR]$(var.Application.Ringtoets.TargetFileName)"
+                    Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
                     WorkingDirectory="INSTALLDIR"
                     Icon="Ringtoets.ico"/>
 
