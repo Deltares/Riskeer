@@ -1840,7 +1840,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.Forms"
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.AssemblyTool.Forms.Test", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.Forms.Test\Ringtoets.AssemblyTool.Forms.Test.csproj", "{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.Forms.Test", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.Forms.Test\Riskeer.AssemblyTool.Forms.Test.csproj", "{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
