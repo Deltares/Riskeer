@@ -1770,7 +1770,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.Data",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{614D79BC-9919-4AC8-A2B1-9DD89BCB0653}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.AssemblyTool.Data.Test", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.Data.Test\Ringtoets.AssemblyTool.Data.Test.csproj", "{980ADCAB-D8F7-4BE0-A2AF-EFB0A93AD277}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.Data.Test", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.Data.Test\Riskeer.AssemblyTool.Data.Test.csproj", "{980ADCAB-D8F7-4BE0-A2AF-EFB0A93AD277}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
