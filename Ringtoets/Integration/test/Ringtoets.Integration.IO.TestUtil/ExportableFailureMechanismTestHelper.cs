@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.IO.Assembly;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.TestUtil
 {

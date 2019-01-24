@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {

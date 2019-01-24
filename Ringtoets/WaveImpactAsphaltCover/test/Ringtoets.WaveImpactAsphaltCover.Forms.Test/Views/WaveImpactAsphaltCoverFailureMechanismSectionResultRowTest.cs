@@ -27,7 +27,6 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -40,6 +39,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 {

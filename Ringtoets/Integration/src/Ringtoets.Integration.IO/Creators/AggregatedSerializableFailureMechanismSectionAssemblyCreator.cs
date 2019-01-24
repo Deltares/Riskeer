@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
@@ -30,6 +29,7 @@ using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Creators
 {

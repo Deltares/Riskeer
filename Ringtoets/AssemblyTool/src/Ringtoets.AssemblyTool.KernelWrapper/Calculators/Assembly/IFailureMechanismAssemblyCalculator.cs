@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 {

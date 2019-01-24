@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Gml;
@@ -33,6 +32,7 @@ using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.TestUtil;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

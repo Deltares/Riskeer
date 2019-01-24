@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Model;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {

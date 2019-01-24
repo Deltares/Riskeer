@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data.StandAlone;
@@ -29,6 +28,7 @@ using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Factories
 {

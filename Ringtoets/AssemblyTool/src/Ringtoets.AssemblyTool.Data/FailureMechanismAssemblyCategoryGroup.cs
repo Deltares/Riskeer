@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.AssemblyTool.Data.Properties;
 
-namespace Ringtoets.AssemblyTool.Data
+namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
     /// Enum defining the assembly categories for a failure mechanism.

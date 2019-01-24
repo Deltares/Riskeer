@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Plugin.FileImporters;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.DuneErosion.Plugin.Test.FileImporters
 {

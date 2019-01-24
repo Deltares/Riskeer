@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.AssemblyTool.Data
+namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
     /// Assembly for the combined failure mechanism section.

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.Data.TestUtil
 {

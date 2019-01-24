@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.Views
 {

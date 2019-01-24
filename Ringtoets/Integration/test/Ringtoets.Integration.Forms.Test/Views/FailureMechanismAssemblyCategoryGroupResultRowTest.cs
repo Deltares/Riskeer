@@ -26,11 +26,11 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.Views;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

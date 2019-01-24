@@ -24,7 +24,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
@@ -34,6 +33,7 @@ using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Integration.IO.Properties;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Exporters
 {

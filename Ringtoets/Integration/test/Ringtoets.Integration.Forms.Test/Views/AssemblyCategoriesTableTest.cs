@@ -25,8 +25,8 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.Forms.Views;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

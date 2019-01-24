@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {

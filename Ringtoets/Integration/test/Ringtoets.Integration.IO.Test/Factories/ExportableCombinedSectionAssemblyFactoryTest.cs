@@ -25,12 +25,12 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Integration.Util;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {

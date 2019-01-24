@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.Helpers;
@@ -32,6 +31,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRows
 {

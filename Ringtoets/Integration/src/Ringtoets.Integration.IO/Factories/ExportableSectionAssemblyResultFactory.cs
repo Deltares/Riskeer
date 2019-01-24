@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.IO.Assembly;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Factories
 {

@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.Util;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Factories
 {

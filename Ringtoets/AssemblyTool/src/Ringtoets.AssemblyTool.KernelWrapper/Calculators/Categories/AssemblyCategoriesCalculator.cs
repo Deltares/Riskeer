@@ -25,9 +25,9 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 {

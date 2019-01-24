@@ -21,7 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.Forms
 {

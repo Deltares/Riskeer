@@ -22,10 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
 

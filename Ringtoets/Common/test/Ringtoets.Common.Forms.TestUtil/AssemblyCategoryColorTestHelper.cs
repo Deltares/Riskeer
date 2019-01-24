@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {

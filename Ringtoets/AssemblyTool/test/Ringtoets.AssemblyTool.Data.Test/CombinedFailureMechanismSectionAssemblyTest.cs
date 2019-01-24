@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.Data.Test
 {

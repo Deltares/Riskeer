@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Exceptions;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Creators
 {

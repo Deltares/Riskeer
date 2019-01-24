@@ -32,7 +32,6 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -46,6 +45,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.Views;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 {

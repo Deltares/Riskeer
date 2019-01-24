@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.Helpers
 {

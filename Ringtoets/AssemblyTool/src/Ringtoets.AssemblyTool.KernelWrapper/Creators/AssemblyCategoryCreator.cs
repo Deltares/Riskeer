@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {

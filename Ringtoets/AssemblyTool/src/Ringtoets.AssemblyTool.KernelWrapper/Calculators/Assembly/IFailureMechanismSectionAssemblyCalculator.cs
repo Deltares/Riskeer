@@ -21,8 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 {

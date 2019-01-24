@@ -23,9 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Creators;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

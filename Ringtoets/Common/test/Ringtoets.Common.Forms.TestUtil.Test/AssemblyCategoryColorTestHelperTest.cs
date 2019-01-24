@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {

@@ -26,10 +26,10 @@ using Core.Common.Controls;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Forms.Controls;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Controls
 {

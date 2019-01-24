@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
@@ -30,6 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {

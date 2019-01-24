@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Data.Assembly
 {

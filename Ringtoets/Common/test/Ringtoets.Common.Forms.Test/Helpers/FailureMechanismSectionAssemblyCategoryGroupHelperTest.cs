@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
 {

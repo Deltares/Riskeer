@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -40,6 +39,7 @@ using Ringtoets.Integration.Data.TestUtil;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {

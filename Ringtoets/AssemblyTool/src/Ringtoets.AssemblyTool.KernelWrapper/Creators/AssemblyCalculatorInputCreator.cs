@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model.FmSectionTypes;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {

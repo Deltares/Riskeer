@@ -22,13 +22,13 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Data.Test.AssemblyTool
 {

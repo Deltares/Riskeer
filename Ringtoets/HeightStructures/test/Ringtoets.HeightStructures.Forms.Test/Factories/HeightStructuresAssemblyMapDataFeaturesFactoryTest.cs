@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -34,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Factories;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Test.Factories
 {

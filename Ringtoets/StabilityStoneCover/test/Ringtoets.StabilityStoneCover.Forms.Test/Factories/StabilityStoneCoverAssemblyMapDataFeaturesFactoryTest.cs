@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -32,6 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.Factories;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.Factories
 {

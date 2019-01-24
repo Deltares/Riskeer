@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -40,6 +39,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 {

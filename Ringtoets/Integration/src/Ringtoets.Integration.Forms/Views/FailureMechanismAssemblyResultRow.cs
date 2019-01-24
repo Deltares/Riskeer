@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Views
 {

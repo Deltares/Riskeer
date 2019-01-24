@@ -27,11 +27,11 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

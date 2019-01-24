@@ -25,8 +25,8 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.AssemblyTool.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses

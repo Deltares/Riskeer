@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.Data.Test
 {

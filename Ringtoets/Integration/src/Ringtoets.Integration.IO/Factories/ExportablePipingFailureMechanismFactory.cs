@@ -22,12 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Piping.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Factories
 {

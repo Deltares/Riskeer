@@ -26,13 +26,13 @@ using Assembly.Kernel.Model.CategoryLimits;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {

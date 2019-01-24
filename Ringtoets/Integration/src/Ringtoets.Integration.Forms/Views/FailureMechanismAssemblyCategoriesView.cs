@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Views
 {

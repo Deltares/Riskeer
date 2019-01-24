@@ -24,9 +24,9 @@ using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

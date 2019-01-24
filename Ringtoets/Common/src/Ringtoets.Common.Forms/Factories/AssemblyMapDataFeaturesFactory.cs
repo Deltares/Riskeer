@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util;
 using Core.Components.Gis.Features;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.AssemblyTool.Data;
 using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Factories

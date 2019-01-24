@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Assembly;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {

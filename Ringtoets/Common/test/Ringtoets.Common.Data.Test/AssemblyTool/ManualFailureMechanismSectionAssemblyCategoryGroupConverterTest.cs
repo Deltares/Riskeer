@@ -22,9 +22,9 @@
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Primitives;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Data.Test.AssemblyTool
 {

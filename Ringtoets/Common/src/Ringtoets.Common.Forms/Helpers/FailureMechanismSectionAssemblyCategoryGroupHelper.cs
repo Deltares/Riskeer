@@ -22,8 +22,8 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Util;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.Helpers
 {

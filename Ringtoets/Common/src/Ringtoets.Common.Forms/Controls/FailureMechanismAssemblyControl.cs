@@ -22,9 +22,9 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Util;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Forms.Controls
 {

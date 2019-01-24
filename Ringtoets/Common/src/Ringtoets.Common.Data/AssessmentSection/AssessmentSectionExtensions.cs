@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Data.AssessmentSection
 {

@@ -21,8 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.IO.Creators
 {

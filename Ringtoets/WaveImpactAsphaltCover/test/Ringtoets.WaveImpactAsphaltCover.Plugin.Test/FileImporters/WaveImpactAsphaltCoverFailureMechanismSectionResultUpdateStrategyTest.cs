@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Plugin.FileImporters;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.FileImporters
 {

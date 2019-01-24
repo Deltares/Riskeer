@@ -22,10 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
 

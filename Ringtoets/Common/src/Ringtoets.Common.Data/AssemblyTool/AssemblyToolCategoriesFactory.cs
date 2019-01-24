@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.Exceptions;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Common.Data.AssemblyTool
 {

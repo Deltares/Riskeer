@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -33,6 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {

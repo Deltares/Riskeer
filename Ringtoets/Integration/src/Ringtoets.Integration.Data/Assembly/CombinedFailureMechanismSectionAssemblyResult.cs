@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Data.Assembly
 {
