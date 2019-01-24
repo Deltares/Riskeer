@@ -1,0 +1,61 @@
+﻿<!--
+Copyright (C) Stichting Deltares 2018. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<UserControl x:Class="Demo.Riskeer.Ribbons.RingtoetsDemoProjectRibbon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
+             xmlns:resx="clr-namespace:Demo.Riskeer.Properties"
+             xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="350">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <converters:PngToIconConverter x:Key="IconConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <fluent:Ribbon x:Name="RingtoetsDemoProjectRibbonControl" x:FieldModifier="private">
+        <fluent:RibbonTabItem Header="{x:Static resx:Resources.Demo}" fluent:KeyTip.Keys="D">
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.ExampleData}" fluent:KeyTip.Keys="E" Height="Auto">
+                <fluent:Button LargeIcon="{Binding Source={x:Static resx:Resources.FolderIconLarge}, Converter={StaticResource IconConverter}}" Icon="{Binding Source={x:Static resx:Resources.FolderIcon}, Converter={StaticResource IconConverter}}" Header="{x:Static resx:Resources.DemoAssessmentSection}" SizeDefinition="Large,Medium,Small" fluent:KeyTip.Keys="P" Click="AddNewDemoAssessmentSectionButton_Click"/>
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_Map}" fluent:KeyTip.Keys="M" Height="Auto">
+                <fluent:Button x:Name="OpenMapViewButton" Header="{x:Static resx:Resources.General_Map}" ToolTip="{x:Static resx:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click" fluent:KeyTip.Keys="K"/>
+                <fluent:Button x:Name="OpenThematicMapViewButton" Header="{x:Static resx:Resources.General_ThematicMap}" ToolTip="{x:Static resx:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenThematicMapView_Click" fluent:KeyTip.Keys="K"/>
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_Chart}" fluent:KeyTip.Keys="C">
+                <fluent:Button x:Name="OpenChartViewButton" Header="{x:Static resx:Resources.General_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
+                <fluent:Button x:Name="OpenStackChartViewButton" Header="{x:Static resx:Resources.Column_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ColumnChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenStackChartView_Click" fluent:KeyTip.Keys="O"/>
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_FaultTree}" fluent:KeyTip.Keys="F">
+                <fluent:Button x:Name="OpenPointedTreeGraphViewButton" Header="{x:Static resx:Resources.General_FaultTree}" ToolTip="{x:Static resx:Resources.OpenFaultTree_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.FaultTreeIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="OpenPointedTreeGraphViewButton_OnClick" fluent:KeyTip.Keys="B"/>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+    </fluent:Ribbon>
+</UserControl>

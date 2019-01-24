@@ -156,7 +156,7 @@
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Demo.Ringtoets\Demo.Riskeer.csproj">
+    <ProjectReference Include="..\..\src\Demo.Riskeer\Demo.Riskeer.csproj">
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Demo.Riskeer</Name>
     </ProjectReference>
