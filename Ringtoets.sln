@@ -438,7 +438,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Riskeer", "Demo\Ringto
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Riskeer.Test", "Demo\Ringtoets\test\Demo.Ringtoets.Test\Demo.Riskeer.Test.csproj", "{C48E2C11-3FDA-4356-A10F-757469A108FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Riskeer.Test", "Demo\Ringtoets\test\Demo.Riskeer.Test\Demo.Riskeer.Test.csproj", "{C48E2C11-3FDA-4356-A10F-757469A108FD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
