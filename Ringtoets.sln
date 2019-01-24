@@ -433,7 +433,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F2C4C4F7-405
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7E26AAA5-22ED-43CC-9B21-23EEA60A5A87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Ringtoets", "Demo\Ringtoets\src\Demo.Ringtoets\Demo.Ringtoets.csproj", "{FFE3A667-3A4C-4F48-BC6B-1589867FCB41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Riskeer", "Demo\Ringtoets\src\Demo.Ringtoets\Demo.Riskeer.csproj", "{FFE3A667-3A4C-4F48-BC6B-1589867FCB41}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
