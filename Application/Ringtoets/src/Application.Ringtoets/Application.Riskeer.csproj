@@ -129,7 +129,7 @@
       <Name>Core.Plugins.ProjectExplorer</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Demo\Ringtoets\src\Demo.Riskeer\Demo.Riskeer.csproj" Condition="$(DefineConstants.Contains('DEVELOPMENT'))">
+    <ProjectReference Include="..\..\..\..\Demo\Riskeer\src\Demo.Riskeer\Demo.Riskeer.csproj" Condition="$(DefineConstants.Contains('DEVELOPMENT'))">
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Demo.Riskeer</Name>
       <Private>False</Private>
