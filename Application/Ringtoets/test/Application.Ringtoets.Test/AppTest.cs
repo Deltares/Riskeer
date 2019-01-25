@@ -22,13 +22,12 @@
 using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
-using Application.Riskeer;
 using Core.Common.TestUtil;
 using Core.Common.Util.Settings;
 using NUnit.Framework;
 using Ringtoets.Integration.Forms;
 
-namespace Application.Ringtoets.Test
+namespace Application.Riskeer.Test
 {
     [TestFixture]
     public class AppTest
