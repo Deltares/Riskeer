@@ -165,7 +165,7 @@ namespace Application.Riskeer.Migration.Console.Test
         public void GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion()
         {
             // Given
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RiskeerMigrationConsoleTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion)}");
             var console = new RiskeerMigrationConsole();
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
@@ -188,7 +188,7 @@ namespace Application.Riskeer.Migration.Console.Test
                     string consoleText = consoleOutput.GetConsoleOutput();
                     Assert.AreEqual(expected, consoleText);
 
-                    var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
+                    var toVersionedFile = new ProjectVersionedFile(targetFilePath);
                     Assert.AreEqual(expectedVersion, toVersionedFile.GetVersion());
                 }
             }
@@ -200,7 +200,7 @@ namespace Application.Riskeer.Migration.Console.Test
         public void GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode()
         {
             // Given
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RiskeerMigrationConsoleTest)}.{nameof(GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode)}");
 
             var console = new RiskeerMigrationConsole();
@@ -257,12 +257,12 @@ namespace Application.Riskeer.Migration.Console.Test
 
         private static IEnumerable<TestCaseData> RingtoetsFilesToMigrate()
         {
-            string unsupportedProjectFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
-            var unsupportedVersionedFile = new RingtoetsVersionedFile(unsupportedProjectFilePath);
+            string unsupportedProjectFilePath = ProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
+            var unsupportedVersionedFile = new ProjectVersionedFile(unsupportedProjectFilePath);
             string unsupportedVersion = unsupportedVersionedFile.GetVersion();
 
-            string supportedProjectFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
-            var supportedVersionedFile = new RingtoetsVersionedFile(supportedProjectFilePath);
+            string supportedProjectFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            var supportedVersionedFile = new ProjectVersionedFile(supportedProjectFilePath);
             string supportedVersion = supportedVersionedFile.GetVersion();
 
             yield return new TestCaseData(unsupportedProjectFilePath, unsupportedVersion, false).SetName("UnsupportedRingtoetsVersion");

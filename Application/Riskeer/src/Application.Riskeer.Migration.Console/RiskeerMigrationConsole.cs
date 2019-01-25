@@ -82,8 +82,8 @@ namespace Application.Riskeer.Migration.Console
         {
             ValidateIsVersionSupportedArgument(location);
 
-            var versionedFile = new RingtoetsVersionedFile(location);
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var versionedFile = new ProjectVersionedFile(location);
+            var migrator = new ProjectFileMigrator();
             string version = versionedFile.GetVersion();
 
             bool isSupported = migrator.IsVersionSupported(version);
@@ -116,8 +116,8 @@ namespace Application.Riskeer.Migration.Console
         private static void MigrateCommand(string filePath, string toFilePath)
         {
             ValidateMigrationArguments(filePath, toFilePath);
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
-            var sourceFile = new RingtoetsVersionedFile(filePath);
+            var migrator = new ProjectFileMigrator();
+            var sourceFile = new ProjectVersionedFile(filePath);
 
             migrator.Migrate(sourceFile, currentDatabaseVersion, toFilePath);
             System.Console.WriteLine(Resources.CommandMigrate_Successful_Migration_From_Location_0_To_Location_1_Version_2,
