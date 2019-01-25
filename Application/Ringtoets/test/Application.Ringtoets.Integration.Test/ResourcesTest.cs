@@ -29,7 +29,7 @@ using System.Text.RegularExpressions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Integration.Test
+namespace Application.Riskeer.Integration.Test
 {
     [TestFixture]
     [Explicit("Ignored because the test is too expensive to run on every commit.")]

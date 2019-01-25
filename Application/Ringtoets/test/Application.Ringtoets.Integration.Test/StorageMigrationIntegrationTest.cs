@@ -35,7 +35,7 @@ using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 using Riskeer.Storage.Core;
 
-namespace Application.Ringtoets.Integration.Test
+namespace Application.Riskeer.Integration.Test
 {
     [TestFixture]
     public class StorageMigrationIntegrationTest
