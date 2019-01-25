@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9E35F3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{FE36E7E0-D5F7-48E3-9730-D05443351EAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer", "Application\Ringtoets\src\Application.Ringtoets\Application.Riskeer.csproj", "{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer", "Application\Ringtoets\src\Application.Riskeer\Application.Riskeer.csproj", "{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EC2DEF03-71FE-48A0-AB85-31E13112E4A1} = {EC2DEF03-71FE-48A0-AB85-31E13112E4A1}
 		{C6309704-D67B-434C-BC98-9F8910BC1D10} = {C6309704-D67B-434C-BC98-9F8910BC1D10}
