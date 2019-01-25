@@ -45,7 +45,7 @@ namespace Riskeer.Migration
         private static readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
         private readonly ILog log = LogManager.GetLogger(typeof(ProjectMigrator));
-        private readonly RingtoetsSqLiteDatabaseFileMigrator fileMigrator;
+        private readonly ProjectFileMigrator fileMigrator;
         private readonly IInquiryHelper inquiryHelper;
         private readonly FileFilterGenerator fileFilter;
 
@@ -66,7 +66,7 @@ namespace Riskeer.Migration
                                             "RingtoetsMigrationLog.sqlite");
 
             this.inquiryHelper = inquiryHelper;
-            fileMigrator = new RingtoetsSqLiteDatabaseFileMigrator
+            fileMigrator = new ProjectFileMigrator
             {
                 LogPath = migrationLogPath
             };

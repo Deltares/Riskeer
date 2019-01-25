@@ -164,7 +164,7 @@ namespace Application.Riskeer.Integration.Test
         {
             string newVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
         }

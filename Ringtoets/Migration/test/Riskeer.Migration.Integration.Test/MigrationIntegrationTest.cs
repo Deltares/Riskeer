@@ -53,7 +53,7 @@ namespace Riskeer.Migration.Integration.Test
             string name = $"{nameof(GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException)} \'[]!`~@#$%^€&()-_=+;,";
             string targetFilePath = TestHelper.GetScratchPadPath(name);
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(name, sourceFile, ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
             };
@@ -88,7 +88,7 @@ namespace Riskeer.Migration.Integration.Test
                 nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
             string logFilePath = TestHelper.GetScratchPadPath(
                 string.Concat(nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
             };

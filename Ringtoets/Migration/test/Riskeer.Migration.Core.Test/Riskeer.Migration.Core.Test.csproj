@@ -26,7 +26,7 @@
     <Compile Include="ProjectDatabaseFileTest.cs" />
     <Compile Include="ProjectDatabaseQueryBuilderTest.cs" />
     <Compile Include="ProjectDatabaseSourceFileTest.cs" />
-    <Compile Include="RingtoetsSqLiteDatabaseFileMigratorTest.cs" />
+    <Compile Include="ProjectFileMigratorTest.cs" />
     <Compile Include="RingtoetsUpgradeScriptTest.cs" />
     <Compile Include="RingtoetsVersionedFileTest.cs" />
   </ItemGroup>

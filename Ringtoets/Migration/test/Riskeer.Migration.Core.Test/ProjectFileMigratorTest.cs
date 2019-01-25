@@ -31,7 +31,7 @@ using Riskeer.Migration.Core.TestUtil;
 namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
-    public class RingtoetsSqLiteDatabaseFileMigratorTest
+    public class ProjectFileMigratorTest
     {
         private static TestCaseData[] ValidFromVersions
         {
@@ -51,7 +51,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_ReturnsExpectedValues()
         {
             // Call
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Assert
             Assert.IsInstanceOf<VersionedFileMigrator>(migrator);
@@ -62,7 +62,7 @@ namespace Riskeer.Migration.Core.Test
         public void IsVersionSupported_SupportedVersion_ReturnsTrue(string fromVersion)
         {
             // Setup
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Call
             bool isSupported = migrator.IsVersionSupported(fromVersion);
@@ -77,7 +77,7 @@ namespace Riskeer.Migration.Core.Test
         public void IsVersionSupported_UnsupportedVersion_ReturnsFalse(string fromVersion)
         {
             // Setup
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Call
             bool isSupported = migrator.IsVersionSupported(fromVersion);
@@ -92,7 +92,7 @@ namespace Riskeer.Migration.Core.Test
             // Setup
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Call
             bool needsMigrate = migrator.NeedsMigrate(versionedFile, "17.1");
@@ -107,7 +107,7 @@ namespace Riskeer.Migration.Core.Test
             // Setup
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Call
             bool needsMigrate = migrator.NeedsMigrate(versionedFile, "4");
@@ -125,7 +125,7 @@ namespace Riskeer.Migration.Core.Test
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithoutLogFile_SavesFileAtNewLocation));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             using (new FileDisposeHelper(targetFilePath))
             {
@@ -148,7 +148,7 @@ namespace Riskeer.Migration.Core.Test
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithLogFile_SavesFileAtNewLocation));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Migrate_ValidFilesWithLogFile_SavesFileAtNewLocation), ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
             };
@@ -175,7 +175,7 @@ namespace Riskeer.Migration.Core.Test
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithNonExistingLogFile_ThrowsCriticalDatabaseMigrationException));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Migrate_ValidFilesWithNonExistingLogFile_ThrowsCriticalDatabaseMigrationException), ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
             };
@@ -200,7 +200,7 @@ namespace Riskeer.Migration.Core.Test
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_TargetFileInUse_ThrowsCriticalDatabaseMigrationException));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             {
@@ -225,7 +225,7 @@ namespace Riskeer.Migration.Core.Test
             const string newVersion = "17.1";
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Call
             TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, sourceFilePath);
@@ -245,7 +245,7 @@ namespace Riskeer.Migration.Core.Test
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_TargetFileNotWritable_ThrowsCriticalDatabaseMigrationException));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             using (new FileDisposeHelper(targetFilePath))
             {
@@ -281,7 +281,7 @@ namespace Riskeer.Migration.Core.Test
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_InvalidToVersion_ThrowsCriticalDatabaseMigrationException));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Call
             TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
@@ -299,7 +299,7 @@ namespace Riskeer.Migration.Core.Test
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_UnsupportedVersion_ThrowsCriticalDatabaseMigrationException));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
 
             // Call
             TestDelegate call = () => migrator.Migrate(fromVersionedFile, "17.1", targetFilePath);

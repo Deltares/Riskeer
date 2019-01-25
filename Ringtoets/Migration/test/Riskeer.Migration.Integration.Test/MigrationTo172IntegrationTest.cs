@@ -46,7 +46,7 @@ namespace Riskeer.Migration.Integration.Test
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given171Project_WhenUpgradedTo172_ThenProjectAsExpected));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given171Project_WhenUpgradedTo172_ThenProjectAsExpected), ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
             };
@@ -119,7 +119,7 @@ namespace Riskeer.Migration.Integration.Test
             string targetFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Target", ".sql"));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, ".log"));
 
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
             };
@@ -204,7 +204,7 @@ namespace Riskeer.Migration.Integration.Test
             string sourceFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Source", ".sql"));
             string targetFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Target", ".sql"));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
             };

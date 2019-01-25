@@ -75,7 +75,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
 
             var versionedFile = new RingtoetsVersionedFile(projectFilePath);
             string actualTestProjectVersion = versionedFile.GetVersion();
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
             Assert.IsTrue(migrator.IsVersionSupported(actualTestProjectVersion));
         }
 
@@ -112,7 +112,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
 
             var versionedFile = new RingtoetsVersionedFile(projectFilePath);
             string actualTestProjectVersion = versionedFile.GetVersion();
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
+            var migrator = new ProjectFileMigrator();
             Assert.IsFalse(migrator.IsVersionSupported(actualTestProjectVersion));
         }
 

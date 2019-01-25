@@ -34,14 +34,14 @@ namespace Riskeer.Migration.Core
     /// <summary>
     /// Class that provides methods for migrating a <see cref="RingtoetsVersionedFile"/>.
     /// </summary>
-    public class RingtoetsSqLiteDatabaseFileMigrator : VersionedFileMigrator
+    public class ProjectFileMigrator : VersionedFileMigrator
     {
         private readonly Assembly scriptResource;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsSqLiteDatabaseFileMigrator"/> class.
+        /// Creates a new instance of the <see cref="ProjectFileMigrator"/> class.
         /// </summary>
-        public RingtoetsSqLiteDatabaseFileMigrator() : base(new RingtoetsVersionComparer())
+        public ProjectFileMigrator() : base(new RingtoetsVersionComparer())
         {
             scriptResource = typeof(Resources).Assembly;
         }
