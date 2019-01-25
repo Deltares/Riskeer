@@ -234,7 +234,7 @@
     <Folder Include="IHW" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Application.Ringtoets\Application.Riskeer.csproj">
+    <ProjectReference Include="..\Application.Riskeer\Application.Riskeer.csproj">
       <Name>Application.Riskeer</Name>
       <Project>{4a7d6720-4aa1-4f0b-a796-a0436db3d7d7}</Project>
       <Private>True</Private>
