@@ -33,14 +33,14 @@ namespace Application.Riskeer.Migration.Console
     /// <summary>
     /// Console application that can migrate a Ringtoets database file to a newer version.
     /// </summary>
-    public class RingtoetsMigrationConsole : ConsoleBase
+    public class RiskeerMigrationConsole : ConsoleBase
     {
         private static readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsMigrationConsole"/>. 
+        /// Creates a new instance of <see cref="RiskeerMigrationConsole"/>. 
         /// </summary>
-        public RingtoetsMigrationConsole() : base(Resources.RingtoetsMigrationTool_ApplicationName,
+        public RiskeerMigrationConsole() : base(Resources.RingtoetsMigrationTool_ApplicationName,
                                                   GetApplicationDescription()) {}
 
         protected override void ExecuteCommand(string[] args)

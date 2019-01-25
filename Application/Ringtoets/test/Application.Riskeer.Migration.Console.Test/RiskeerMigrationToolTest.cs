@@ -33,9 +33,10 @@ namespace Application.Riskeer.Migration.Console.Test
 {
     [TestFixture]
     [Explicit("Migration Console tests are disabled.")]
-    public class RingtoetsMigrationConsoleTest
+    public class RiskeerMigrationToolTest
     {
         private TestEnvironmentControl environmentControl;
+        private readonly TestDataPath testPath = TestDataPath.Ringtoets.Migration.Core;
 
         [SetUp]
         public void SetUp()
@@ -45,40 +46,27 @@ namespace Application.Riskeer.Migration.Console.Test
         }
 
         [Test]
-        public void Constructor_ExpectedProperties()
-        {
-            // Call
-            var console = new RingtoetsMigrationConsole();
-
-            // Assert
-            Assert.IsInstanceOf<ConsoleBase>(console);
-        }
-
-        [Test]
-        public void ExecuteConsoleTool_NoArguments_WritesHelpToConsole()
+        public void Main_NoArguments_WritesHelpToConsole()
         {
             // Setup
-            var console = new RingtoetsMigrationConsole();
-
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call
-                console.ExecuteConsoleTool(new string[]
-                                               {});
+                RiskeerMigrationTool.Main(new string[]
+                                                {});
 
                 // Assert
-                string expectedText = Environment.NewLine + GetConsoleFullDescription();
                 string consoleText = consoleOutput.GetConsoleOutput();
+                string expectedText = Environment.NewLine + GetConsoleFullDescription();
                 Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
             }
         }
 
         [Test]
-        public void ExecuteConsoleTool_InvalidArguments_WritesHelpToConsoleWithErrorCode()
+        public void Main_InvalidArguments_WritesHelpToConsoleWithErrorCode()
         {
             // Setup
-            var console = new RingtoetsMigrationConsole();
             string[] invalidCommand =
             {
                 "0",
@@ -89,43 +77,17 @@ namespace Application.Riskeer.Migration.Console.Test
             using (var consoleOutput = new ConsoleOutput())
             {
                 // Call
-                console.ExecuteConsoleTool(invalidCommand);
+                RiskeerMigrationTool.Main(invalidCommand);
 
                 // Assert
+                string consoleText = consoleOutput.GetConsoleOutput();
+
                 string expectedText = Environment.NewLine
                                       + $"{string.Join(" ", invalidCommand)} is geen geldige opdracht."
                                       + Environment.NewLine + Environment.NewLine
                                       + GetConsoleFullDescription();
-                string consoleText = consoleOutput.GetConsoleOutput();
                 Assert.AreEqual(expectedText, consoleText);
                 Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
-            }
-        }
-
-        [Test]
-        public void ExecuteConsoleTool_InvalidArgumentsForMigrate_WritesHelpToConsoleWithErrorCode()
-        {
-            // Setup
-            var console = new RingtoetsMigrationConsole();
-            string[] invalidCommand =
-            {
-                "",
-                ""
-            };
-
-            using (var consoleOutput = new ConsoleOutput())
-            {
-                // Call
-                console.ExecuteConsoleTool(invalidCommand);
-
-                // Assert
-                string expectedText = Environment.NewLine
-                                      + "Bron- en doelprojectpad moeten geldige bestandspaden zijn."
-                                      + Environment.NewLine + Environment.NewLine
-                                      + GetConsoleFullDescription();
-                string consoleText = consoleOutput.GetConsoleOutput();
-                Assert.AreEqual(expectedText, consoleText);
-                Assert.AreEqual(ErrorCode.ErrorInvalidCommandLine, environmentControl.ErrorCodeCalled);
             }
         }
 
@@ -134,14 +96,12 @@ namespace Application.Riskeer.Migration.Console.Test
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, string fileVersion, bool isSupported)
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core, file);
-            var console = new RingtoetsMigrationConsole();
+            string sourceFilePath = TestHelper.GetTestDataPath(testPath, file);
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-
             using (var consoleOutput = new ConsoleOutput())
             {
                 // When
-                console.ExecuteConsoleTool(new[]
+                RiskeerMigrationTool.Main(new[]
                 {
                     sourceFilePath
                 });
@@ -166,8 +126,7 @@ namespace Application.Riskeer.Migration.Console.Test
         {
             // Given
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
-            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsMigrationConsoleTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion)}");
-            var console = new RingtoetsMigrationConsole();
+            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RiskeerMigrationToolTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion)}");
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             using (new FileDisposeHelper(targetFilePath))
@@ -175,19 +134,19 @@ namespace Application.Riskeer.Migration.Console.Test
                 using (var consoleOutput = new ConsoleOutput())
                 {
                     // When
-                    console.ExecuteConsoleTool(new[]
+                    RiskeerMigrationTool.Main(new[]
                     {
                         sourceFilePath,
                         targetFilePath
                     });
 
                     // Then
-                    string expected = Environment.NewLine
-                                      + $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' (versie {expectedVersion})."
-                                      + Environment.NewLine;
                     string consoleText = consoleOutput.GetConsoleOutput();
+                    string expected = Environment.NewLine
+                                      + $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar "
+                                      + $"'{targetFilePath}' (versie {expectedVersion})."
+                                      + Environment.NewLine;
                     Assert.AreEqual(expected, consoleText);
-
                     var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
                     Assert.AreEqual(expectedVersion, toVersionedFile.GetVersion());
                 }
@@ -201,9 +160,7 @@ namespace Application.Riskeer.Migration.Console.Test
         {
             // Given
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
-            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsMigrationConsoleTest)}.{nameof(GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode)}");
-
-            var console = new RingtoetsMigrationConsole();
+            string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RiskeerMigrationToolTest)}.{nameof(GivenConsole_WhenMigrateCalledUnableToSaveTarget_ThenExitWithErrorCode)}");
 
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             using (var consoleOutput = new ConsoleOutput())
@@ -211,7 +168,7 @@ namespace Application.Riskeer.Migration.Console.Test
                 fileDisposeHelper.LockFiles();
 
                 // When
-                console.ExecuteConsoleTool(new[]
+                RiskeerMigrationTool.Main(new[]
                 {
                     sourceFilePath,
                     targetFilePath
@@ -219,17 +176,18 @@ namespace Application.Riskeer.Migration.Console.Test
 
                 // Then
                 string consoleText = consoleOutput.GetConsoleOutput();
-                StringAssert.StartsWith(Environment.NewLine + "Het gemigreerde projectbestand is aangemaakt op '",
+                StringAssert.StartsWith(Environment.NewLine
+                                        + "Het gemigreerde projectbestand is aangemaakt op '",
                                         consoleText);
                 StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{targetFilePath}'."
                                       + Environment.NewLine
-                                      + "Het besturingssysteem geeft de volgende melding: "
-                                      + Environment.NewLine
+                                      + "Het besturingssysteem geeft de volgende melding: " + Environment.NewLine
                                       + $"The process cannot access the file '{targetFilePath}' because it is being used by another process."
                                       + Environment.NewLine + Environment.NewLine
                                       + GetConsoleFullDescription(), consoleText);
-                Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
             }
+
+            Assert.AreEqual(ErrorCode.ErrorBadCommand, environmentControl.ErrorCodeCalled);
         }
 
         private static string GetConsoleFullDescription()
@@ -250,7 +208,8 @@ namespace Application.Riskeer.Migration.Console.Test
                    + Environment.NewLine
                    + "          bronprojectpad en slaat het resulterende projectbestand op in het doe"
                    + Environment.NewLine
-                   + "          lprojectpad." + Environment.NewLine + Environment.NewLine;
+                   + "          lprojectpad."
+                   + Environment.NewLine + Environment.NewLine;
         }
 
         #region Test cases

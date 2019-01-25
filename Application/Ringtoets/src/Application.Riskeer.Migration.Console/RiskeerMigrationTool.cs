@@ -24,7 +24,7 @@ namespace Application.Riskeer.Migration.Console
     /// <summary>
     /// Entry point to the console application that can migrate a Ringtoets database file to a newer version.
     /// </summary>
-    public static class RingtoetsMigrationTool
+    public static class RiskeerMigrationTool
     {
         /// <summary>
         /// Main Ringtoets migration application.
@@ -37,7 +37,7 @@ namespace Application.Riskeer.Migration.Console
         /// </list></remarks>
         public static void Main(string[] args)
         {
-            var ringtoetsMigrationTool = new RingtoetsMigrationConsole();
+            var ringtoetsMigrationTool = new RiskeerMigrationConsole();
             ringtoetsMigrationTool.ExecuteConsoleTool(args);
         }
     }

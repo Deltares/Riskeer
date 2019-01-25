@@ -18,8 +18,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsMigrationConsole.cs" />
-    <Compile Include="RingtoetsMigrationTool.cs" />
+    <Compile Include="RiskeerMigrationConsole.cs" />
+    <Compile Include="RiskeerMigrationTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
