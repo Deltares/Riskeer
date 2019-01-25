@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.Data.TestUtil
+namespace Riskeer.AssemblyTool.Data.TestUtil
 {
     /// <summary>
     /// Helper class to test assembly tool data objects.
