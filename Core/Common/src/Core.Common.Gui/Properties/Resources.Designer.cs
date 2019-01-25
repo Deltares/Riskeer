@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -40,7 +40,7 @@ namespace Core.Common.Gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -100,21 +100,21 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan niet meerdere instanties van Ringtoets starten. Sluit eerst de andere instantie..
+        ///   Looks up a localized string similar to Kan niet meerdere instanties van Riskeer starten. Sluit eerst de andere instantie..
         /// </summary>
-        public static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Please_close_the_other_instance_first {
+        public static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first {
             get {
-                return ResourceManager.GetString("App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Pleas" +
-                        "e_close_the_other_instance_first", resourceCulture);
+                return ResourceManager.GetString("App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_" +
+                        "close_the_other_instance_first", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets versie {0} wordt gestart door {1}....
+        ///   Looks up a localized string similar to Riskeer versie {0} wordt gestart door {1}....
         /// </summary>
-        public static string App_Starting_Ringtoets_version_0_by_user_0 {
+        public static string App_Starting_Riskeer_version_0_by_user_0 {
             get {
-                return ResourceManager.GetString("App_Starting_Ringtoets_version_0_by_user_0", resourceCulture);
+                return ResourceManager.GetString("App_Starting_Riskeer_version_0_by_user_0", resourceCulture);
             }
         }
         

@@ -93,7 +93,7 @@ namespace Application.Riskeer
             SetLanguage();
 
             string userDisplay = UserDisplay();
-            log.Info(string.Format(CoreCommonGuiResources.App_Starting_Ringtoets_version_0_by_user_0,
+            log.Info(string.Format(CoreCommonGuiResources.App_Starting_Riskeer_version_0_by_user_0,
                                    SettingsHelper.Instance.ApplicationVersion,
                                    userDisplay));
         }
@@ -107,9 +107,9 @@ namespace Application.Riskeer
         }
 
         /// <summary>
-        /// Runs the main Ringtoets application.
+        /// Runs the main Riskeer application.
         /// </summary>
-        private static void RunRingtoets()
+        private static void RunRiskeer()
         {
             string loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (loaderDirectory != null)
@@ -127,7 +127,7 @@ namespace Application.Riskeer
 
             gui.Run(fileToOpen);
 
-            // Ringtoets started, clean-up all possible memory
+            // Riskeer started, clean-up all possible memory
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -150,7 +150,7 @@ namespace Application.Riskeer
             {
                 SupportEmailAddress = "www.helpdeskwater.nl",
                 SupportPhoneNumber = "+31 (0)88-797 7102",
-                MainWindowTitle = "Ringtoets",
+                MainWindowTitle = "Riskeer",
                 ManualFilePath = "..\\Gebruikershandleiding Ringtoets 18.1.1.pdf"
             };
             var mainWindow = new MainWindow();
@@ -181,7 +181,7 @@ namespace Application.Riskeer
                 }
             };
 
-            RunRingtoets();
+            RunRiskeer();
 
             mainWindow.Show();
         }
@@ -204,7 +204,7 @@ namespace Application.Riskeer
 
         /// <summary>
         /// <code>app.config</code> has been configured to use <see cref="RingtoetsUserDataFolderConverter"/>
-        /// to write log files to the ringtoets user data folder. This method deletes the old log files
+        /// to write log files to the Riskeer user data folder. This method deletes the old log files
         /// that have been written there.
         /// </summary>
         private void DeleteOldLogFiles()
@@ -234,7 +234,7 @@ namespace Application.Riskeer
                 {
                     if (!AcquireSingleInstancePerUserMutex())
                     {
-                        MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Please_close_the_other_instance_first);
+                        MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
                         Shutdown(1);
                         return true; //done here
                     }
@@ -259,7 +259,7 @@ namespace Application.Riskeer
         /// </summary>
         private static void WaitForPreviousInstanceToExit()
         {
-            // Wait until previous version of Ringtoets has exited
+            // Wait until previous version of Riskeer has exited
             if (waitForProcessId == -1)
             {
                 return;
@@ -290,7 +290,7 @@ namespace Application.Riskeer
                                              ? ConfigurationManager.AppSettings["applicationName"]
                                              : string.Empty;
 
-                string mutexName = $"Ringtoets-single-instance-mutex-{Environment.UserName}-{applicationName}";
+                string mutexName = $"Riskeer-single-instance-mutex-{Environment.UserName}-{applicationName}";
                 singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
             }
             catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
