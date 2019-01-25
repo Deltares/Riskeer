@@ -58,7 +58,7 @@ namespace Application.Riskeer.Integration.Test
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var projectMigrator = new ProjectMigrator(inquiryHelper);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
@@ -97,7 +97,7 @@ namespace Application.Riskeer.Integration.Test
                          .Return(targetFilePath);
             mocks.ReplayAll();
 
-            var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var projectMigrator = new ProjectMigrator(inquiryHelper);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {
@@ -130,7 +130,7 @@ namespace Application.Riskeer.Integration.Test
                          .Return(false);
             mocks.ReplayAll();
 
-            var projectMigrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var projectMigrator = new ProjectMigrator(inquiryHelper);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
             {

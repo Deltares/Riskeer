@@ -38,13 +38,13 @@ using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resource
 namespace Riskeer.Migration
 {
     /// <summary>
-    /// A GUI implementation to migrate a Ringtoets database file to a newer version.
+    /// A GUI implementation to migrate a project database file to a newer version.
     /// </summary>
-    public class RingtoetsProjectMigrator : IMigrateProject
+    public class ProjectMigrator : IMigrateProject
     {
         private static readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-        private readonly ILog log = LogManager.GetLogger(typeof(RingtoetsProjectMigrator));
+        private readonly ILog log = LogManager.GetLogger(typeof(ProjectMigrator));
         private readonly RingtoetsSqLiteDatabaseFileMigrator fileMigrator;
         private readonly IInquiryHelper inquiryHelper;
         private readonly FileFilterGenerator fileFilter;
@@ -52,10 +52,10 @@ namespace Riskeer.Migration
         private readonly string migrationLogPath;
 
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsProjectMigrator"/>.
+        /// Creates a new instance of <see cref="ProjectMigrator"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the data.</param>
-        public RingtoetsProjectMigrator(IInquiryHelper inquiryHelper)
+        public ProjectMigrator(IInquiryHelper inquiryHelper)
         {
             if (inquiryHelper == null)
             {

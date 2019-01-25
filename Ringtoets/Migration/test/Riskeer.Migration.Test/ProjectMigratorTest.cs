@@ -38,9 +38,9 @@ using Riskeer.Migration.Core.TestUtil;
 namespace Riskeer.Migration.Test
 {
     [TestFixture]
-    public class RingtoetsProjectMigratorTest
+    public class ProjectMigratorTest
     {
-        private const string testDirectory = nameof(RingtoetsProjectMigratorTest);
+        private const string testDirectory = nameof(ProjectMigratorTest);
         private readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
         private DirectoryDisposeHelper directoryDisposeHelper;
 
@@ -60,7 +60,7 @@ namespace Riskeer.Migration.Test
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new RingtoetsProjectMigrator(null);
+            TestDelegate call = () => new ProjectMigrator(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -76,7 +76,7 @@ namespace Riskeer.Migration.Test
             mocks.ReplayAll();
 
             // Call
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<IMigrateProject>(migrator);
@@ -92,7 +92,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
             TestDelegate call = () => migrator.ShouldMigrate(null);
@@ -113,7 +113,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
             TestDelegate call = () => migrator.ShouldMigrate(invalidFilePath);
@@ -139,7 +139,7 @@ namespace Riskeer.Migration.Test
             var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
             string fileVersion = versionedFile.GetVersion();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
             var shouldMigrate = MigrationRequired.Yes;
 
             // Call
@@ -169,7 +169,7 @@ namespace Riskeer.Migration.Test
 
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
             var shouldMigrate = MigrationRequired.No;
@@ -201,7 +201,7 @@ namespace Riskeer.Migration.Test
 
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
             MigrationRequired shouldMigrate = migrator.ShouldMigrate(sourceFilePath);
@@ -219,7 +219,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
             TestDelegate call = () => migrator.DetermineMigrationLocation(null);
@@ -240,7 +240,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
             TestDelegate call = () => migrator.DetermineMigrationLocation(invalidFilePath);
@@ -275,7 +275,7 @@ namespace Riskeer.Migration.Test
                          .Return(expectedReturnPath);
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             // Call
             string targetFilePath = migrator.DetermineMigrationLocation(validFilePath);
@@ -304,7 +304,7 @@ namespace Riskeer.Migration.Test
                          .Return(null);
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
             var targetFilePath = "arbitraryPath";
 
             // Call
@@ -328,9 +328,9 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
-            string targetFileName = $"{nameof(RingtoetsProjectMigratorTest)}." +
+            string targetFileName = $"{nameof(ProjectMigratorTest)}." +
                                     $"{nameof(Migrate_SourcePathNull_ThrowsArgumentNullException)}.rtd";
             string targetFilePath = TestHelper.GetScratchPadPath(targetFileName);
 
@@ -350,7 +350,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
@@ -371,9 +371,9 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
-            string targetFileName = $"{nameof(RingtoetsProjectMigratorTest)}." +
+            string targetFileName = $"{nameof(ProjectMigratorTest)}." +
                                     $"{nameof(Migrate_InvalidSourceFilePath_ThrowsArgumentException)}.rtd";
             string targetFilePath = TestHelper.GetScratchPadPath(targetFileName);
 
@@ -398,7 +398,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+            var migrator = new ProjectMigrator(inquiryHelper);
 
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
@@ -420,7 +420,7 @@ namespace Riskeer.Migration.Test
             // Given
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
-            string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
+            string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
@@ -435,7 +435,7 @@ namespace Riskeer.Migration.Test
                 TempPath = TestHelper.GetScratchPadPath(logDirectory)
             }))
             {
-                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+                var migrator = new ProjectMigrator(inquiryHelper);
 
                 var migrationSuccessful = false;
 
@@ -549,7 +549,7 @@ namespace Riskeer.Migration.Test
         {
             // Setup
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
-            string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
+            string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
@@ -568,7 +568,7 @@ namespace Riskeer.Migration.Test
             }))
             using (var fileDisposeHelper = new FileDisposeHelper(logPath))
             {
-                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+                var migrator = new ProjectMigrator(inquiryHelper);
                 fileDisposeHelper.LockFiles();
 
                 var migrationSuccessful = true;
@@ -594,7 +594,7 @@ namespace Riskeer.Migration.Test
         {
             // Setup
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
-            string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
+            string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
@@ -610,7 +610,7 @@ namespace Riskeer.Migration.Test
             }))
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             {
-                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+                var migrator = new ProjectMigrator(inquiryHelper);
 
                 fileDisposeHelper.LockFiles();
 
@@ -640,7 +640,7 @@ namespace Riskeer.Migration.Test
         {
             // Setup
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
-            string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
+            string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
@@ -655,7 +655,7 @@ namespace Riskeer.Migration.Test
                 TempPath = TestHelper.GetScratchPadPath(logDirectory)
             }))
             {
-                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+                var migrator = new ProjectMigrator(inquiryHelper);
 
                 var migrationSuccessful = true;
 
@@ -695,7 +695,7 @@ namespace Riskeer.Migration.Test
                 TempPath = TestHelper.GetScratchPadPath(logDirectory)
             }))
             {
-                var migrator = new RingtoetsProjectMigrator(inquiryHelper);
+                var migrator = new ProjectMigrator(inquiryHelper);
 
                 var migrationSuccessful = true;
 
