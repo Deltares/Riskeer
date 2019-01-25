@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {
     /// <summary>
     /// Assembly categories calculator stub for testing purposes.

@@ -29,7 +29,8 @@ using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 {

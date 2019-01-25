@@ -22,8 +22,8 @@
 using Assembly.Kernel.Implementations;
 using Assembly.Kernel.Interfaces;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
 {

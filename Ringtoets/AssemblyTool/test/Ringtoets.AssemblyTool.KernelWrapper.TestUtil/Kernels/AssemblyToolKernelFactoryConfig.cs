@@ -22,7 +22,7 @@
 using System;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestAssemblyToolKernelFactory"/> 

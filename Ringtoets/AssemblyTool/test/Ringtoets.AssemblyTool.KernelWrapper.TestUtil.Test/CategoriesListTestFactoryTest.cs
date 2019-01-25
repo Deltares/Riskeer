@@ -21,6 +21,7 @@
 
 using Assembly.Kernel.Model.CategoryLimits;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test
 {

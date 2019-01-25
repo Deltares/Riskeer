@@ -24,7 +24,7 @@ using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 {
     /// <summary>
     /// Failure mechanism section assembly calculator stub for testing purposes.

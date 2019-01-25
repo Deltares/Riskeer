@@ -24,8 +24,6 @@ using System.Windows.Forms;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
@@ -36,6 +34,8 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 {

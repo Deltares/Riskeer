@@ -25,7 +25,7 @@ using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
     /// Class that creates valid instances of <see cref="CategoriesList{TCategory}"/>

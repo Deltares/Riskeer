@@ -27,7 +27,7 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
     /// Failure mechanism assembly kernel stub for testing purposes.

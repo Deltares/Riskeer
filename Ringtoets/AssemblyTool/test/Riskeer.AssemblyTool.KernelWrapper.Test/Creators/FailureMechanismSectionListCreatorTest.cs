@@ -27,9 +27,9 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {

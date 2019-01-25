@@ -28,7 +28,7 @@ using Assembly.Kernel.Model.FmSectionTypes;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
     /// Class for asserting categories result.

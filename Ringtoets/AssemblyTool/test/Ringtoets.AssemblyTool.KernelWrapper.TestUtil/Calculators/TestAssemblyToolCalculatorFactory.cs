@@ -19,14 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
 {
     /// <summary>
     /// Factory which creates assembly tool calculator stubs for testing purposes.

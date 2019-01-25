@@ -22,7 +22,7 @@
 using System;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestAssemblyToolCalculatorFactory"/> 

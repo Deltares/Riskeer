@@ -25,7 +25,7 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
     /// Combined failure mechanism section assembly kernel stub for testing purposes.

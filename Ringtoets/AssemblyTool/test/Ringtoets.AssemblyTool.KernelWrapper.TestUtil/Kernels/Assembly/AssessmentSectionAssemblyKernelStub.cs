@@ -26,7 +26,7 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
     /// Assessment section assembly kernel stub for testing purposes.

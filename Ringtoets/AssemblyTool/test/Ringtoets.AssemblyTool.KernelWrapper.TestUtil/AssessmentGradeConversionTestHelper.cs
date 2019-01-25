@@ -24,7 +24,7 @@ using Assembly.Kernel.Model;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
     /// Class that can be used to assert the conversions of <see cref="EAssessmentGrade"/>.
