@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Migration.Console.Properties;
+using Application.Riskeer.Migration.Console.Properties;
 using Core.Common.Util;
 using Migration.Console;
 using Ringtoets.Common.Util;
@@ -28,7 +28,7 @@ using Riskeer.Migration.Core;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 using RiskeerMigrationCoreResources = Riskeer.Migration.Core.Properties.Resources;
 
-namespace Application.Ringtoets.Migration.Console
+namespace Application.Riskeer.Migration.Console
 {
     /// <summary>
     /// Console application that can migrate a Ringtoets database file to a newer version.

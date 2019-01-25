@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Application.Riskeer.Migration.Console;
 using Core.Common.TestUtil;
 using Migration.Console;
 using Migration.Console.TestUtil;

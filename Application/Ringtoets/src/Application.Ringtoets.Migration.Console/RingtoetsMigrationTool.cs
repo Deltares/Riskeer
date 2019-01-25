@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Application.Ringtoets.Migration.Console
+namespace Application.Riskeer.Migration.Console
 {
     /// <summary>
     /// Entry point to the console application that can migrate a Ringtoets database file to a newer version.
