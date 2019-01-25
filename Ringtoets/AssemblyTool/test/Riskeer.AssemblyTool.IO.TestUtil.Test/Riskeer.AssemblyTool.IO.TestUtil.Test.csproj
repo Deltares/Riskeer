@@ -24,7 +24,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ringtoets.AssemblyTool.IO.TestUtil\Riskeer.AssemblyTool.IO.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.AssemblyTool.IO.TestUtil\Riskeer.AssemblyTool.IO.TestUtil.csproj">
       <Project>{C7023D25-F8DF-4E3F-BF5D-A8F961CC63F7}</Project>
       <Name>Riskeer.AssemblyTool.IO.TestUtil</Name>
     </ProjectReference>

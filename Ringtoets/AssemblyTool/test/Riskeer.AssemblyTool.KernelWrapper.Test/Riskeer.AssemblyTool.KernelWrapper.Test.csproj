@@ -64,7 +64,7 @@
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>

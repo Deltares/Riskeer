@@ -75,7 +75,7 @@
       <Project>{b9838495-b090-4b84-a387-a8974f4f9cc4}</Project>
       <Name>Riskeer.AssemblyTool.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.AssemblyTool.IO.TestUtil\Riskeer.AssemblyTool.IO.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.AssemblyTool.IO.TestUtil\Riskeer.AssemblyTool.IO.TestUtil.csproj">
       <Project>{C7023D25-F8DF-4E3F-BF5D-A8F961CC63F7}</Project>
       <Name>Riskeer.AssemblyTool.IO.TestUtil</Name>
     </ProjectReference>
