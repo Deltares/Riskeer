@@ -741,7 +741,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Map.Test", "Co
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Integration.Test", "Application\Ringtoets\test\Application.Ringtoets.Integration.Test\Application.Riskeer.Integration.Test.csproj", "{F3695FB7-4C1F-499D-B283-2CF159500117}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Integration.Test", "Application\Ringtoets\test\Application.Riskeer.Integration.Test\Application.Riskeer.Integration.Test.csproj", "{F3695FB7-4C1F-499D-B283-2CF159500117}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
