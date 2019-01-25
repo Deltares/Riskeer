@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{C6EE9E6A-6578-49DF-914F-CDB531E61891}</ProjectGuid>
-    <RootNamespace>Ringtoets.AssemblyTool.Data.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.AssemblyTool.Data.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.AssemblyTool.Data.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.AssemblyTool.Data.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
