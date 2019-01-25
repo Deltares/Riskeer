@@ -24,7 +24,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectCreateScriptTest.cs" />
     <Compile Include="ProjectDatabaseFileTest.cs" />
-    <Compile Include="RingtoetsDatabaseQueryBuilderTest.cs" />
+    <Compile Include="ProjectDatabaseQueryBuilderTest.cs" />
     <Compile Include="RingtoetsDatabaseSourceFileTest.cs" />
     <Compile Include="RingtoetsSqLiteDatabaseFileMigratorTest.cs" />
     <Compile Include="RingtoetsUpgradeScriptTest.cs" />

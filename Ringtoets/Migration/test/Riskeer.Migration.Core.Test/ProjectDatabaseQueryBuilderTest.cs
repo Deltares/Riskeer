@@ -24,13 +24,13 @@ using NUnit.Framework;
 namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
-    public class RingtoetsDatabaseQueryBuilderTest
+    public class ProjectDatabaseQueryBuilderTest
     {
         [Test]
         public void GetVersionQuery_ReturnsExpectedQuery()
         {
             // Call
-            string getVersionQuery = RingtoetsDatabaseQueryBuilder.GetVersionQuery();
+            string getVersionQuery = ProjectDatabaseQueryBuilder.GetVersionQuery();
 
             // Assert
             Assert.AreEqual("SELECT Version FROM VersionEntity Order by Timestamp DESC LIMIT 1",

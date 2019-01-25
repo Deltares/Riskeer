@@ -54,7 +54,7 @@ namespace Riskeer.Migration.Core
         /// Ringtoets database source file.</exception>
         public string GetVersion()
         {
-            string versionQuery = RingtoetsDatabaseQueryBuilder.GetVersionQuery();
+            string versionQuery = ProjectDatabaseQueryBuilder.GetVersionQuery();
             try
             {
                 using (IDataReader dataReader = CreateDataReader(versionQuery, null))

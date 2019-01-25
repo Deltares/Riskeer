@@ -22,14 +22,14 @@
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Defines queries to execute on a Ringtoets database.
+    /// Defines queries to execute on a project database.
     /// </summary>
-    public static class RingtoetsDatabaseQueryBuilder
+    public static class ProjectDatabaseQueryBuilder
     {
         /// <summary>
-        /// Returns the query to get the version from the Ringtoets database.
+        /// Returns the query to get the version from the project database.
         /// </summary>
-        /// <returns>The query to get the version from the Ringtoets database.</returns>
+        /// <returns>The query to get the version from the project database.</returns>
         public static string GetVersionQuery()
         {
             return $"SELECT {VersionTableDefinitions.Version} "
