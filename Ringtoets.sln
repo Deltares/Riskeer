@@ -1997,7 +1997,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.IO.Te
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.IO.TestUtil.Test", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.IO.TestUtil.Test\Riskeer.AssemblyTool.IO.TestUtil.Test.csproj", "{13622063-46EC-41FA-8DB8-D8C11B6C802A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.IO.TestUtil.Test", "Ringtoets\AssemblyTool\test\Riskeer.AssemblyTool.IO.TestUtil.Test\Riskeer.AssemblyTool.IO.TestUtil.Test.csproj", "{13622063-46EC-41FA-8DB8-D8C11B6C802A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
