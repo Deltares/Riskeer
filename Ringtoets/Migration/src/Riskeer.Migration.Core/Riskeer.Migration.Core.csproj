@@ -30,7 +30,7 @@
     <Compile Include="ProjectDatabaseQueryBuilder.cs" />
     <Compile Include="ProjectDatabaseSourceFile.cs" />
     <Compile Include="ProjectFileMigrator.cs" />
-    <Compile Include="RingtoetsUpgradeScript.cs" />
+    <Compile Include="ProjectUpgradeScript.cs" />
     <Compile Include="RingtoetsVersionedFile.cs" />
     <Compile Include="VersionTableDefinitions.cs" />
   </ItemGroup>

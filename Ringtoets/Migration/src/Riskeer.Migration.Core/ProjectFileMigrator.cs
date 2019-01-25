@@ -89,7 +89,7 @@ namespace Riskeer.Migration.Core
 
             string upgradeQuery = GetStringOfStream(upgradeStream);
 
-            return new RingtoetsUpgradeScript(fromVersion, toVersion, upgradeQuery, LogPath);
+            return new ProjectUpgradeScript(fromVersion, toVersion, upgradeQuery, LogPath);
         }
 
         #endregion

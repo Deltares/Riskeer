@@ -31,7 +31,7 @@ using Ringtoets.Common.Util;
 namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
-    public class RingtoetsUpgradeScriptTest
+    public class ProjectUpgradeScriptTest
     {
         [Test]
         [TestCase("")]
@@ -43,7 +43,7 @@ namespace Riskeer.Migration.Core.Test
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -60,7 +60,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -76,7 +76,7 @@ namespace Riskeer.Migration.Core.Test
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string expectedMessage = $@"'{fromVersion}' is geen geldige Ringtoets versie.";
@@ -92,7 +92,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string expectedMessage = $@"'{toVersion}' is geen geldige Ringtoets versie.";
@@ -110,7 +110,7 @@ namespace Riskeer.Migration.Core.Test
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new RingtoetsUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -126,7 +126,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = ";";
 
             // Call
-            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, query, string.Empty);
+            var upgradeScript = new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
             Assert.IsInstanceOf<UpgradeScript>(upgradeScript);
@@ -142,7 +142,7 @@ namespace Riskeer.Migration.Core.Test
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string fileLocation = TestHelper.GetScratchPadPath(nameof(Upgrade_UpgradeFails_ThrowsCriticalMigrationException));
-            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, "THIS WILL FAIL", string.Empty);
+            var upgradeScript = new ProjectUpgradeScript(fromVersion, toVersion, "THIS WILL FAIL", string.Empty);
 
             using (new FileDisposeHelper(fileLocation))
             {
@@ -165,7 +165,7 @@ namespace Riskeer.Migration.Core.Test
             string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
-            var upgradeScript = new RingtoetsUpgradeScript(fromVersion, toVersion, ";", "");
+            var upgradeScript = new ProjectUpgradeScript(fromVersion, toVersion, ";", "");
 
             // Call
             upgradeScript.Upgrade("c:\\file.ext", filePath);

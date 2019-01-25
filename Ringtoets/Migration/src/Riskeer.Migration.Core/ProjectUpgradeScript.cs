@@ -31,13 +31,13 @@ namespace Riskeer.Migration.Core
     /// <summary>
     /// Class that provides methods for the upgrading a <see cref="RingtoetsVersionedFile"/> for a specific version.
     /// </summary>
-    public class RingtoetsUpgradeScript : UpgradeScript
+    public class ProjectUpgradeScript : UpgradeScript
     {
         private readonly string upgradeQuery;
         private readonly string logDatabaseLocation;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsUpgradeScript"/> class.
+        /// Creates a new instance of the <see cref="ProjectUpgradeScript"/> class.
         /// </summary>
         /// <param name="fromVersion">The source version <paramref name="query"/> was designed for.</param>
         /// <param name="toVersion">The target version <paramref name="query"/> was designed for.</param>
@@ -45,11 +45,11 @@ namespace Riskeer.Migration.Core
         /// <param name="logDatabaseLocation">The location to the log database.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="fromVersion"/> is not a valid Ringtoets database version,</item>
-        /// <item><paramref name="toVersion"/> is not a valid Ringtoets database version,</item>
+        /// <item><paramref name="fromVersion"/> is not a valid project version,</item>
+        /// <item><paramref name="toVersion"/> is not a valid project version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consists out of only whitespace characters.</item>
         /// </list></exception>
-        public RingtoetsUpgradeScript(string fromVersion, string toVersion, string query, string logDatabaseLocation)
+        public ProjectUpgradeScript(string fromVersion, string toVersion, string query, string logDatabaseLocation)
             : base(fromVersion, toVersion)
         {
             if (string.IsNullOrWhiteSpace(query))
