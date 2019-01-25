@@ -26,18 +26,18 @@ using Ringtoets.Common.Util;
 namespace Riskeer.Migration.Core.TestUtil
 {
     /// <summary>
-    /// Class which provides file paths of the Ringtoets project files that can 
+    /// Class which provides file paths of the project files that can 
     /// be used for testing migration functionality.
     /// </summary>
-    public static class RingtoetsProjectMigrationTestHelper
+    public static class ProjectMigrationTestHelper
     {
         private static readonly TestDataPath testDataPath = TestDataPath.Ringtoets.Migration.Core;
 
         /// <summary>
-        /// Retrieves the file path of a Ringtoets project with the latest database version
+        /// Retrieves the file path of a project with the latest database version
         /// format.
         /// </summary>
-        /// <returns>A file path to a Ringtoets project file with the latest database version.</returns>
+        /// <returns>A file path to a project file with the latest database version.</returns>
         public static string GetLatestProjectFilePath()
         {
             string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
@@ -48,10 +48,10 @@ namespace Riskeer.Migration.Core.TestUtil
         }
 
         /// <summary>
-        /// Retrieves the file path of a Ringtoets project with an older database version,
+        /// Retrieves the file path of a project with an older database version,
         /// which is supported for migration.
         /// </summary>
-        /// <returns>A file path to an outdated Ringtoets project which is supported 
+        /// <returns>A file path to an outdated project which is supported 
         /// for migration.</returns>
         public static string GetOutdatedSupportedProjectFilePath()
         {
@@ -60,11 +60,11 @@ namespace Riskeer.Migration.Core.TestUtil
         }
 
         /// <summary>
-        /// Retrieves the version numbers of all Ringtoets projects with an older database version,
+        /// Retrieves the version numbers of all projects with an older database version,
         /// which are supported for the migration.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of all the version numbers of supported
-        /// outdated Ringtoets projects.</returns>
+        /// outdated projects.</returns>
         public static IEnumerable<string> GetAllOutdatedSupportedProjectFileVersions()
         {
             yield return "164";
@@ -75,10 +75,10 @@ namespace Riskeer.Migration.Core.TestUtil
         }
 
         /// <summary>
-        /// Retrieves the file path of a Ringtoets project with an unsupported database version
+        /// Retrieves the file path of a project with an unsupported database version
         /// which is unsupported for migration.
         /// </summary>
-        /// <returns>A file path to an outdated Ringtoets project which is unsupported for 
+        /// <returns>A file path to an outdated project which is unsupported for 
         /// migration.</returns>
         public static string GetOutdatedUnSupportedProjectFilePath()
         {

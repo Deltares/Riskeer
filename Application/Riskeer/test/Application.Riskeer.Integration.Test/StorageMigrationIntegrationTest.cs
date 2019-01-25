@@ -44,7 +44,7 @@ namespace Application.Riskeer.Integration.Test
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
-        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
+        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string version)
         {
@@ -78,7 +78,7 @@ namespace Application.Riskeer.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
+        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string version)
         {
@@ -116,7 +116,7 @@ namespace Application.Riskeer.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
+        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
         public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string version)
         {

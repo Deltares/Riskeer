@@ -32,7 +32,7 @@ using Riskeer.Storage.Core;
 namespace Riskeer.Migration.Core.TestUtil.Test
 {
     [TestFixture]
-    public class RingtoetsProjectMigrationTestHelperTest
+    public class ProjectMigrationTestHelperTest
     {
         private readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
@@ -40,7 +40,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
         public void GetLatestProjectFilePath_Always_ReturnsProjectFilePathToLatestProjectVersion()
         {
             // Call
-            string latestProjectFilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
+            string latestProjectFilePath = ProjectMigrationTestHelper.GetLatestProjectFilePath();
 
             // Assert
             AssertFilePath(latestProjectFilePath);
@@ -55,7 +55,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
         public void GetLatestProjectFilePath_Always_ReturnsProjectThatCanBeLoaded()
         {
             // Setup
-            string latestProjectFilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
+            string latestProjectFilePath = ProjectMigrationTestHelper.GetLatestProjectFilePath();
 
             // Call
             IProject project = new StorageSqLite().LoadProject(latestProjectFilePath);
@@ -68,7 +68,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
         public void GetOutdatedSupportedProjectFilePath_Always_ReturnsProjectFilePathToSupportedProjectVersion()
         {
             // Call
-            string projectFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string projectFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             // Assert
             AssertFilePath(projectFilePath);
@@ -83,7 +83,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
         public void GetAllOutdatedSupportedProjectFileVersions_Always_ReturnsAllProjectFilePathsToSupportedProjectVersions()
         {
             // Setup
-            string[] versions = RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
+            string[] versions = ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
 
             // Call
             List<string> returnedProjectVersions = versions.Select(v => new ProjectVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
@@ -105,7 +105,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
         public void GetOutdatedUnsupportedProjectFilePath_Always_ReturnsProjectFilePathToUnsupportedProjectVersion()
         {
             // Call
-            string projectFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
+            string projectFilePath = ProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
 
             // Assert
             AssertFilePath(projectFilePath);

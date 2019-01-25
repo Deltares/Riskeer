@@ -90,7 +90,7 @@ namespace Riskeer.Migration.Core.Test
         public void NeedsMigrate_NeedsMigrate_ReturnsTrue()
         {
             // Setup
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var versionedFile = new ProjectVersionedFile(sourceFilePath);
             var migrator = new ProjectFileMigrator();
 
@@ -105,7 +105,7 @@ namespace Riskeer.Migration.Core.Test
         public void NeedsMigrate_DoesNotNeedMigration_ReturnsFalse()
         {
             // Setup
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var versionedFile = new ProjectVersionedFile(sourceFilePath);
             var migrator = new ProjectFileMigrator();
 
@@ -121,7 +121,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithoutLogFile_SavesFileAtNewLocation));
@@ -143,7 +143,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithLogFile_SavesFileAtNewLocation));
@@ -170,7 +170,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_ValidFilesWithNonExistingLogFile_ThrowsCriticalDatabaseMigrationException));
@@ -196,7 +196,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_TargetFileInUse_ThrowsCriticalDatabaseMigrationException));
@@ -223,7 +223,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
             var migrator = new ProjectFileMigrator();
 
@@ -241,7 +241,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string newVersion = "17.1";
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_TargetFileNotWritable_ThrowsCriticalDatabaseMigrationException));
@@ -277,7 +277,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string newVersion = "6";
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_InvalidToVersion_ThrowsCriticalDatabaseMigrationException));
@@ -295,7 +295,7 @@ namespace Riskeer.Migration.Core.Test
         public void Migrate_UnsupportedVersion_ThrowsCriticalDatabaseMigrationException()
         {
             // Setup
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Migrate_UnsupportedVersion_ThrowsCriticalDatabaseMigrationException));

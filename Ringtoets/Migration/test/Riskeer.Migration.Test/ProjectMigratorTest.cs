@@ -135,7 +135,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
             var versionedFile = new ProjectVersionedFile(sourceFilePath);
             string fileVersion = versionedFile.GetVersion();
 
@@ -167,7 +167,7 @@ namespace Riskeer.Migration.Test
             inquiryHelper.Expect(h => h.InquireContinuation(question)).Return(confirmContinuation);
             mocks.ReplayAll();
 
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             var migrator = new ProjectMigrator(inquiryHelper);
 
@@ -199,7 +199,7 @@ namespace Riskeer.Migration.Test
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetLatestProjectFilePath();
 
             var migrator = new ProjectMigrator(inquiryHelper);
 
@@ -352,7 +352,7 @@ namespace Riskeer.Migration.Test
 
             var migrator = new ProjectMigrator(inquiryHelper);
 
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             // Call
             TestDelegate call = () => migrator.Migrate(sourceFilePath, null);
@@ -400,7 +400,7 @@ namespace Riskeer.Migration.Test
 
             var migrator = new ProjectMigrator(inquiryHelper);
 
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             // Call
             TestDelegate call = () => migrator.Migrate(sourceFilePath, invalidFilePath);
@@ -418,7 +418,7 @@ namespace Riskeer.Migration.Test
         public void GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates()
         {
             // Given
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}.rtd";
@@ -548,7 +548,7 @@ namespace Riskeer.Migration.Test
         public void Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError()
         {
             // Setup
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
@@ -593,7 +593,7 @@ namespace Riskeer.Migration.Test
         public void Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError()
         {
             // Setup
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(Migrate_UnableToSaveAtTargetFilePath_MigrationFailsAndLogsError)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
@@ -639,7 +639,7 @@ namespace Riskeer.Migration.Test
         public void Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError()
         {
             // Setup
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
             string targetFile = $"{nameof(ProjectMigratorTest)}." +
                                 $"{nameof(Migrate_UnsupportedSourceFileVersion_MigrationFailsAndLogsError)}";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
@@ -682,7 +682,7 @@ namespace Riskeer.Migration.Test
         public void Migrate_TargetFileSameAsSourceFile_MigrationFailsAndLogsError()
         {
             // Setup
-            string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
+            string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
