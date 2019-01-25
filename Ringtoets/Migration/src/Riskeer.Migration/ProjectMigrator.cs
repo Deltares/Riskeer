@@ -83,7 +83,7 @@ namespace Riskeer.Migration
 
             ValidateProjectPath(filePath, nameof(filePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
 
-            var versionedFile = new RingtoetsVersionedFile(filePath);
+            var versionedFile = new ProjectVersionedFile(filePath);
             string version = versionedFile.GetVersion();
 
             if (version.Equals(currentDatabaseVersion))
@@ -156,7 +156,7 @@ namespace Riskeer.Migration
 
             try
             {
-                var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
+                var versionedFile = new ProjectVersionedFile(sourceFilePath);
                 fileMigrator.Migrate(versionedFile, currentDatabaseVersion, targetLocation);
                 string message = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
                                                sourceFilePath, targetLocation, currentDatabaseVersion);

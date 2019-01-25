@@ -136,7 +136,7 @@ namespace Riskeer.Migration.Test
             mocks.ReplayAll();
 
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
-            var versionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            var versionedFile = new ProjectVersionedFile(sourceFilePath);
             string fileVersion = versionedFile.GetVersion();
 
             var migrator = new ProjectMigrator(inquiryHelper);
@@ -534,7 +534,7 @@ namespace Riskeer.Migration.Test
 
                 Assert.IsTrue(migrationSuccessful);
 
-                var toVersionedFile = new RingtoetsVersionedFile(targetFilePath);
+                var toVersionedFile = new ProjectVersionedFile(targetFilePath);
                 Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
             }
 

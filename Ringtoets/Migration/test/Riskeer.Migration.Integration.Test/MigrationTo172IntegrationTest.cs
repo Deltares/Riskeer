@@ -42,7 +42,7 @@ namespace Riskeer.Migration.Integration.Test
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                "MigrationTestProject171.rtd");
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given171Project_WhenUpgradedTo172_ThenProjectAsExpected));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given171Project_WhenUpgradedTo172_ThenProjectAsExpected), ".log"));
@@ -133,7 +133,7 @@ namespace Riskeer.Migration.Integration.Test
                           sourceFilePath, true
                 );
 
-                var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+                var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
                 using (var databaseFile = new ProjectDatabaseFile(sourceFilePath))
                 {
                     databaseFile.OpenDatabaseConnection();
@@ -218,7 +218,7 @@ namespace Riskeer.Migration.Integration.Test
                           sourceFilePath, true
                 );
 
-                var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+                var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
                 using (var databaseFile = new ProjectDatabaseFile(sourceFilePath))
                 {
                     databaseFile.OpenDatabaseConnection();

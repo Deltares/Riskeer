@@ -28,7 +28,7 @@ using NUnit.Framework;
 namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
-    public class RingtoetsVersionedFileTest
+    public class ProjectVersionedFileTest
     {
         [Test]
         [TestCase("")]
@@ -37,7 +37,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_InvalidPath_ThrowsArgumentException(string filePath)
         {
             // Call
-            TestDelegate call = () => new RingtoetsVersionedFile(filePath);
+            TestDelegate call = () => new ProjectVersionedFile(filePath);
 
             // Assert
             string message = Assert.Throws<ArgumentException>(call).Message;
@@ -51,7 +51,7 @@ namespace Riskeer.Migration.Core.Test
             string filePath = TestHelper.GetTestDataPath(nameof(Constructor_ValidfilePath_ExpectedProperties));
 
             // Call
-            var versionedFile = new RingtoetsVersionedFile(filePath);
+            var versionedFile = new ProjectVersionedFile(filePath);
 
             // Assert
             Assert.AreEqual(filePath, versionedFile.Location);
@@ -63,7 +63,7 @@ namespace Riskeer.Migration.Core.Test
             // Setup
             string filePath = TestHelper.GetTestDataPath(nameof(GetVersion_FileDoesNotExist_ThrowsCriticalFileReadException));
 
-            var sourceFile = new RingtoetsVersionedFile(filePath);
+            var sourceFile = new ProjectVersionedFile(filePath);
 
             // Precondition
             Assert.IsFalse(File.Exists(filePath), $"File should not exist at location '{filePath}'");
@@ -82,7 +82,7 @@ namespace Riskeer.Migration.Core.Test
             string file = Path.GetRandomFileName();
             string filePath = TestHelper.GetScratchPadPath(file);
 
-            var sourceFile = new RingtoetsVersionedFile(filePath);
+            var sourceFile = new ProjectVersionedFile(filePath);
 
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))
             {
@@ -102,7 +102,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core, file);
-            var sourceFile = new RingtoetsVersionedFile(filePath);
+            var sourceFile = new ProjectVersionedFile(filePath);
 
             // Call
             string version = sourceFile.GetVersion();

@@ -26,14 +26,14 @@ using Migration.Scripts.Data;
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Class that defines a Ringtoets database file that has a version.
+    /// Class that defines a project database file that has a version.
     /// </summary>
-    public class RingtoetsVersionedFile : IVersionedFile
+    public class ProjectVersionedFile : IVersionedFile
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsVersionedFile"/> class.
+        /// Creates a new instance of the <see cref="ProjectVersionedFile"/> class.
         /// </summary>
-        /// <param name="path">Path to the Ringtoets versioned file.</param>
+        /// <param name="path">Path to the project versioned file.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">
@@ -42,7 +42,7 @@ namespace Riskeer.Migration.Core
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public RingtoetsVersionedFile(string path)
+        public ProjectVersionedFile(string path)
         {
             IOUtils.ValidateFilePath(path);
             Location = path;

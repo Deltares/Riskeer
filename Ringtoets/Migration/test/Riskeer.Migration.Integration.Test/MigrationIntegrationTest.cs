@@ -48,7 +48,7 @@ namespace Riskeer.Migration.Integration.Test
 
             // Precondition
             Assert.IsTrue(File.Exists(sourceFilePath));
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string name = $"{nameof(GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException)} \'[]!`~@#$%^€&()-_=+;,";
             string targetFilePath = TestHelper.GetScratchPadPath(name);
@@ -82,7 +82,7 @@ namespace Riskeer.Migration.Integration.Test
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                "Empty valid Release 16.4.rtd");
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(
                 nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade));

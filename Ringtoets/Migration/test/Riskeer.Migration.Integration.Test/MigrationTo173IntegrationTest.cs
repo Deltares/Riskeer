@@ -37,7 +37,7 @@ namespace Riskeer.Migration.Integration.Test
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                "MigrationTestProject172.rtd");
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given172Project_WhenUpgradedTo173_ThenProjectAsExpected));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given172Project_WhenUpgradedTo173_ThenProjectAsExpected), ".log"));

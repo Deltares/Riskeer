@@ -28,7 +28,7 @@
     <Compile Include="ProjectDatabaseSourceFileTest.cs" />
     <Compile Include="ProjectFileMigratorTest.cs" />
     <Compile Include="ProjectUpgradeScriptTest.cs" />
-    <Compile Include="RingtoetsVersionedFileTest.cs" />
+    <Compile Include="ProjectVersionedFileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

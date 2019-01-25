@@ -32,7 +32,7 @@ using Riskeer.Migration.Core.Properties;
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Class that provides methods for migrating a <see cref="RingtoetsVersionedFile"/>.
+    /// Class that provides methods for migrating a <see cref="ProjectVersionedFile"/>.
     /// </summary>
     public class ProjectFileMigrator : VersionedFileMigrator
     {

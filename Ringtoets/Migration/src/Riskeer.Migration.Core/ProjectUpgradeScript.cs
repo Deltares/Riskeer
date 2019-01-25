@@ -29,7 +29,7 @@ using Riskeer.Migration.Core.Properties;
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Class that provides methods for the upgrading a <see cref="RingtoetsVersionedFile"/> for a specific version.
+    /// Class that provides methods for the upgrading a <see cref="ProjectVersionedFile"/> for a specific version.
     /// </summary>
     public class ProjectUpgradeScript : UpgradeScript
     {

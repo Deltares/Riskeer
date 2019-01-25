@@ -163,7 +163,7 @@ namespace Application.Riskeer.Integration.Test
         private static void MigrateFile(string sourceFilePath, string targetFilePath)
         {
             string newVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+            var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
             var migrator = new ProjectFileMigrator();
 
             migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);

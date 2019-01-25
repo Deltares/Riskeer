@@ -29,7 +29,7 @@ using Riskeer.Migration.Core.Properties;
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Class that provides methods for creating a <see cref="RingtoetsVersionedFile"/> for a specific version.
+    /// Class that provides methods for creating a <see cref="ProjectVersionedFile"/> for a specific version.
     /// </summary>
     public class ProjectCreateScript : CreateScript
     {
@@ -67,7 +67,7 @@ namespace Riskeer.Migration.Core
                     databaseFile.ExecuteQuery(createQuery);
                 }
 
-                return new RingtoetsVersionedFile(location);
+                return new ProjectVersionedFile(location);
             }
             catch (SQLiteException exception)
             {

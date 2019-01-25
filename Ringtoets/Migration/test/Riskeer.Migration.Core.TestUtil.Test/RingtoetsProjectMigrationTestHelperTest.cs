@@ -45,7 +45,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
             // Assert
             AssertFilePath(latestProjectFilePath);
 
-            var versionedFile = new RingtoetsVersionedFile(latestProjectFilePath);
+            var versionedFile = new ProjectVersionedFile(latestProjectFilePath);
             string actualTestProjectVersion = versionedFile.GetVersion();
             string assertionMessage = $"Database version {actualTestProjectVersion} of the testproject must match with the current database version {currentDatabaseVersion}.";
             Assert.AreEqual(currentDatabaseVersion, actualTestProjectVersion, assertionMessage);
@@ -73,7 +73,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
             // Assert
             AssertFilePath(projectFilePath);
 
-            var versionedFile = new RingtoetsVersionedFile(projectFilePath);
+            var versionedFile = new ProjectVersionedFile(projectFilePath);
             string actualTestProjectVersion = versionedFile.GetVersion();
             var migrator = new ProjectFileMigrator();
             Assert.IsTrue(migrator.IsVersionSupported(actualTestProjectVersion));
@@ -86,7 +86,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
             string[] versions = RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
 
             // Call
-            List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
+            List<string> returnedProjectVersions = versions.Select(v => new ProjectVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                                                                               $"MigrationTestProject{v}.rtd")).GetVersion()).ToList();
 
             // Assert
@@ -110,7 +110,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
             // Assert
             AssertFilePath(projectFilePath);
 
-            var versionedFile = new RingtoetsVersionedFile(projectFilePath);
+            var versionedFile = new ProjectVersionedFile(projectFilePath);
             string actualTestProjectVersion = versionedFile.GetVersion();
             var migrator = new ProjectFileMigrator();
             Assert.IsFalse(migrator.IsVersionSupported(actualTestProjectVersion));
