@@ -25,13 +25,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Security;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Calculator;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.TestUtil;
+using Riskeer.HydraRing.Calculation.Calculator;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Settings;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {

@@ -1,4 +1,4 @@
-﻿using Ringtoets.HydraRing.Calculation.Data.Input;
+﻿using Riskeer.HydraRing.Calculation.Data.Input;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil
 {

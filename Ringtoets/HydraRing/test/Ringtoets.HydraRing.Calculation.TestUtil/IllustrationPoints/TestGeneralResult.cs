@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 {

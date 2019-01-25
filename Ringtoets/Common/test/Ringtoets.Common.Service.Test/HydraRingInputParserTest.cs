@@ -31,7 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data;
 
 namespace Ringtoets.Common.Service.Test
 {

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Riskeer.HydraRing.Calculation
 {
     /// <summary>
     /// Class containing (parts of) file names that are generated during a Hydra-Ring calculation.

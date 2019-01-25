@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input;
 
 namespace Ringtoets.Common.Service.Test
 {

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
-using Ringtoets.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
+using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.HydraRing.Calculation.Calculator
+namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
     /// Interface for a calculator which calculates values for a wave at a water level.

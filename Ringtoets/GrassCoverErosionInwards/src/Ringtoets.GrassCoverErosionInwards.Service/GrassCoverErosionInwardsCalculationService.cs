@@ -39,15 +39,15 @@ using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
-using Ringtoets.HydraRing.Calculation.Calculator;
-using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Calculator;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
+using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Exceptions;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
-using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
+using HydraRingGeneralResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {

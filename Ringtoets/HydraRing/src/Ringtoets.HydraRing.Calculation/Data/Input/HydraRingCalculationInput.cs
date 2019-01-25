@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Settings;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input
+namespace Riskeer.HydraRing.Calculation.Data.Input
 {
     /// <summary>
     /// Container of all data necessary for performing a Hydra-Ring calculation.

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
+namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
 {
     /// <summary>
     /// Container for all data necessary for performing a hydraulic loads calculation via Hydra-Ring.

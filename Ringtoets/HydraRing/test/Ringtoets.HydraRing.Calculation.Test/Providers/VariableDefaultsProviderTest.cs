@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Defaults;
-using Ringtoets.HydraRing.Calculation.Providers;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Defaults;
+using Riskeer.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Providers
 {

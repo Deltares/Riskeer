@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Settings
+namespace Riskeer.HydraRing.Calculation.Data.Settings
 {
     /// <summary>
     /// Container for preprocessor settings.

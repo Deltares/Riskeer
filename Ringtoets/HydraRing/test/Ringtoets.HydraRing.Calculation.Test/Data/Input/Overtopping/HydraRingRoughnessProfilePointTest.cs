@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
 {

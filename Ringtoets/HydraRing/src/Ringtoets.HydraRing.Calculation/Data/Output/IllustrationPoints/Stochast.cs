@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// Container of alpha value definitions read from a Hydra-Ring output database.

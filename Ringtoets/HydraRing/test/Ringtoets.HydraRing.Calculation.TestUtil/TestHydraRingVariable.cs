@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil
 {

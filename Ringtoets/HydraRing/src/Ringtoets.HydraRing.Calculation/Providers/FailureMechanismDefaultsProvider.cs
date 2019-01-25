@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Defaults;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Defaults;
 
-namespace Ringtoets.HydraRing.Calculation.Providers
+namespace Riskeer.HydraRing.Calculation.Providers
 {
     /// <summary>
     /// Provider of <see cref="FailureMechanismDefaults"/>.

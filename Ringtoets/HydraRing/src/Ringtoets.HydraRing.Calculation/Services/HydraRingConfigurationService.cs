@@ -26,14 +26,14 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Defaults;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
-using Ringtoets.HydraRing.Calculation.Providers;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Defaults;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Settings;
+using Riskeer.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Providers;
 
-namespace Ringtoets.HydraRing.Calculation.Services
+namespace Riskeer.HydraRing.Calculation.Services
 {
     /// <summary>
     /// Service for generating the database creation script that is necessary for performing Hydra-Ring calculations.

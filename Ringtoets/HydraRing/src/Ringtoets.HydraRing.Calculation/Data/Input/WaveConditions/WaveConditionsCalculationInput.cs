@@ -21,9 +21,9 @@
 
 using System.Collections.Generic;
 using Core.Common.Util;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
+namespace Riskeer.HydraRing.Calculation.Data.Input.WaveConditions
 {
     /// <summary>
     /// Container of all data necessary for performing a wave conditions calculation (Q-variant) via Hydra-Ring.

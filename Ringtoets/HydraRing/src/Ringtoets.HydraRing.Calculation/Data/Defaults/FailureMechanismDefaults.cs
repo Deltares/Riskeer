@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Defaults
+namespace Riskeer.HydraRing.Calculation.Data.Defaults
 {
     /// <summary>
     /// Container for failure mechanism defaults.

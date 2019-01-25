@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Properties;
+using Riskeer.HydraRing.Calculation.Properties;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// A node that is part of a tree, that has illustration point data attached to it.

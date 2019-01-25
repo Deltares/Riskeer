@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers
+namespace Riskeer.HydraRing.Calculation.Parsers
 {
     /// <summary>
     /// This interface describes components that obtain results from the output files of a Hydra-Ring calculation.

@@ -27,9 +27,9 @@ using Core.Common.Base.IO;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
+using Riskeer.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service
 {

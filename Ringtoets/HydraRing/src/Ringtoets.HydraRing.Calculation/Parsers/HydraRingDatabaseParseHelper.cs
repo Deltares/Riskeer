@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.Calculation.Readers;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Properties;
+using Riskeer.HydraRing.Calculation.Readers;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers
+namespace Riskeer.HydraRing.Calculation.Parsers
 {
     /// <summary>
     /// Helper class for methods that apply for parsing output from a Hydra-Ring database.

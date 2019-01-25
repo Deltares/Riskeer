@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
+namespace Riskeer.HydraRing.Calculation.Data.Input.Overtopping
 {
     /// <summary>
     /// Container of all data necessary for performing an overtopping calculation via Hydra-Ring.

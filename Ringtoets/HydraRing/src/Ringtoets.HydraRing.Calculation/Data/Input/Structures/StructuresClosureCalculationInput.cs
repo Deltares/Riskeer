@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
+namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
 {
     /// <summary>
     /// Container of all data necessary for performing a structures closure calculation via Hydra-Ring.

@@ -25,7 +25,7 @@ using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Readers;
+using Riskeer.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Readers
 {

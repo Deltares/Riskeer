@@ -21,9 +21,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
+namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
 {
     /// <summary>
     /// Container of all data necessary for performing a quadratic flooded culvert based structures stability point calculation via Hydra-Ring.

@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
-using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
 namespace Ringtoets.StabilityPointStructures.Service
 {

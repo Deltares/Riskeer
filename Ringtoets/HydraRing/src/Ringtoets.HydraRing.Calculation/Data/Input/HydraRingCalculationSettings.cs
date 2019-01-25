@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input
+namespace Riskeer.HydraRing.Calculation.Data.Input
 {
     /// <summary>
     /// Class which holds all the general information to run a Hydra-Ring calculation.

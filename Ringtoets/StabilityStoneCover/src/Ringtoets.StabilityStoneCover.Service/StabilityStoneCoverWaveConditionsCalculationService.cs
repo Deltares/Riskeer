@@ -27,11 +27,11 @@ using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
-using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
+using Riskeer.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {

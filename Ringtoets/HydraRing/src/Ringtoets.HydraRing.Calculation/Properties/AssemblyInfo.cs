@@ -22,7 +22,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.HydraRing.Calculation")]
-[assembly: AssemblyProduct("Ringtoets.HydraRing.Calculation")]
+[assembly: AssemblyTitle("Riskeer.HydraRing.Calculation")]
+[assembly: AssemblyProduct("Riskeer.HydraRing.Calculation")]
 [assembly: InternalsVisibleTo("Ringtoets.HydraRing.Calculation.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.HydraRing.Calculation.TestUtil")]

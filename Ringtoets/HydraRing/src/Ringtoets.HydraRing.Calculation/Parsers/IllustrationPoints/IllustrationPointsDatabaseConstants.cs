@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
 {
     /// <summary>
     /// Constants which are used for assigning values in database columns to values of

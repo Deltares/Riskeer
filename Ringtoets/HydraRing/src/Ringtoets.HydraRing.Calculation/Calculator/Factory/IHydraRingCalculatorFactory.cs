@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
+namespace Riskeer.HydraRing.Calculation.Calculator.Factory
 {
     /// <summary>
     /// Interface for a factory which creates calculators that are used to perform a calculation using

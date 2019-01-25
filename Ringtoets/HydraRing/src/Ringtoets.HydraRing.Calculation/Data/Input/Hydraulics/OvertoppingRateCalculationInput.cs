@@ -21,10 +21,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
+namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
 {
     /// <summary>
     /// Container for all data necessary for performing an overtopping rate calculation via Hydra-Ring.

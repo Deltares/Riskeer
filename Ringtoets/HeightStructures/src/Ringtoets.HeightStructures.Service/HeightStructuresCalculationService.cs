@@ -22,7 +22,7 @@
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
 namespace Ringtoets.HeightStructures.Service
 {

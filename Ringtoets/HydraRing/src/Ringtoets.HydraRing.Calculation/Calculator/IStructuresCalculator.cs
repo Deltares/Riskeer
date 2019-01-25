@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.HydraRing.Calculation.Calculator
+namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
     /// Interface for a calculator calculating probability of failure by a structure. 

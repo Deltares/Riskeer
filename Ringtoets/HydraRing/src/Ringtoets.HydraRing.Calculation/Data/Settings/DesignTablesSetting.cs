@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data.Settings
+namespace Riskeer.HydraRing.Calculation.Data.Settings
 {
     /// <summary>
     /// Container for design tables settings.

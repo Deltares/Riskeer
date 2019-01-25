@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.Calculation.Readers;
+using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Properties;
+using Riskeer.HydraRing.Calculation.Readers;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints
 {
     /// <summary>
     /// Parser for transforming values for illustration points from the database into a data structure.

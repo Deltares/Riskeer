@@ -26,10 +26,10 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Parsers;
+using Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 {

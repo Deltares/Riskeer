@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 {

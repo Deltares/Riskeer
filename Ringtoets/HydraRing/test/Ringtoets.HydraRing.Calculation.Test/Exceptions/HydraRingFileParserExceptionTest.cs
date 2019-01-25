@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Exceptions
 {

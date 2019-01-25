@@ -21,7 +21,7 @@
 
 using System.Diagnostics;
 
-namespace Ringtoets.HydraRing.Calculation.Services
+namespace Riskeer.HydraRing.Calculation.Services
 {
     /// <summary>
     /// Factory for creating <see cref="Process"/> instances that can be used for performing Hydra-Ring calculations.

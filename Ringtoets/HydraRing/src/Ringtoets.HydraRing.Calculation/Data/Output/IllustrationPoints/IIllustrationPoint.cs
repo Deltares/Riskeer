@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// Placeholder interface for an illustration point.

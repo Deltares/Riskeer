@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// An output variable for a sub mechanism illustration point.

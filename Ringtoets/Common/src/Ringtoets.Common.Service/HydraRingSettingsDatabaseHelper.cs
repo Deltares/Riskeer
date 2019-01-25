@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input;
 
 namespace Ringtoets.Common.Service
 {

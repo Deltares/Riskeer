@@ -22,11 +22,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
 using Ringtoets.HydraRing.Calculation.TestUtil;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
 {

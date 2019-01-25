@@ -36,11 +36,11 @@ using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.Common.Service.ValidationRules;
-using Ringtoets.HydraRing.Calculation.Calculator;
-using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
+using Riskeer.HydraRing.Calculation.Calculator;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using HydraRingGeneralResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
 namespace Ringtoets.Common.Service.Structures
 {

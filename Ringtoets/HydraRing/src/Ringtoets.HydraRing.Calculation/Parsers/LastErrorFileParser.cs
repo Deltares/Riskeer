@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.IO;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Properties;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Properties;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers
+namespace Riskeer.HydraRing.Calculation.Parsers
 {
     /// <summary>
     /// Parser for the Hydra-Ring last_err file.

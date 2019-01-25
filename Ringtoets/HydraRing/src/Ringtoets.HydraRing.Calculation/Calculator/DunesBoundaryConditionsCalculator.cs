@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Parsers;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
+using Riskeer.HydraRing.Calculation.Parsers;
 
-namespace Ringtoets.HydraRing.Calculation.Calculator
+namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
     /// Calculator which calculates the dunes boundary conditions associated to the result of iterating towards a

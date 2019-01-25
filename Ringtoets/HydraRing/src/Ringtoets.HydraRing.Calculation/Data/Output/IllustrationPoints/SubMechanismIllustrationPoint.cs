@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// Illustration point which contains the result of applying the sub mechanism.

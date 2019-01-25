@@ -35,9 +35,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
-      <Name>Ringtoets.HydraRing.Calculation</Name>
+      <Name>Riskeer.HydraRing.Calculation</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

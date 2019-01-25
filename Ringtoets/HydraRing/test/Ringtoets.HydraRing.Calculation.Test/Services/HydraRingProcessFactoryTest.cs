@@ -21,7 +21,7 @@
 
 using System.Diagnostics;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Services;
+using Riskeer.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Services
 {

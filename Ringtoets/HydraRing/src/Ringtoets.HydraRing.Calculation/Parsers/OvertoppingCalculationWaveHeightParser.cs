@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Properties;
+using Riskeer.HydraRing.Calculation.Data.Output;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Properties;
 
-namespace Ringtoets.HydraRing.Calculation.Parsers
+namespace Riskeer.HydraRing.Calculation.Parsers
 {
     /// <summary>
     /// Parser for overtopping results.

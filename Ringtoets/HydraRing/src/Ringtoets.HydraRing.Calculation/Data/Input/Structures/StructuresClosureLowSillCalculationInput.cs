@@ -21,9 +21,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
+namespace Riskeer.HydraRing.Calculation.Data.Input.Structures
 {
     /// <summary>
     /// Container of all data necessary for performing a low sill based structures closure calculation via Hydra-Ring.

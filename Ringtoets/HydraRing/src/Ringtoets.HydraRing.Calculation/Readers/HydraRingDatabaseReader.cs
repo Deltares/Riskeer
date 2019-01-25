@@ -26,7 +26,7 @@ using System.Data.SQLite;
 using System.IO;
 using Core.Common.Util;
 
-namespace Ringtoets.HydraRing.Calculation.Readers
+namespace Riskeer.HydraRing.Calculation.Readers
 {
     /// <summary>
     /// Class for reading the output database of a Hydra-Ring calculation.

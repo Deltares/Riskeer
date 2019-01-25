@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
     /// <summary>
     /// An illustration point which uses the results of two sub illustration points

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data
+namespace Riskeer.HydraRing.Calculation.Data
 {
     /// <summary>
     /// Container for Hydra-Ring break water related data.

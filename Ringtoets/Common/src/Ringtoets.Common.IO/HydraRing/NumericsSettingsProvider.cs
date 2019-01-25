@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.IO;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Defaults;
-using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Providers;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Defaults;
+using Riskeer.HydraRing.Calculation.Data.Settings;
+using Riskeer.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.Common.IO.HydraRing
 {

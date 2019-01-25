@@ -25,16 +25,16 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Exceptions;
-using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.Calculation.Services;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Parsers;
+using Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Properties;
+using Riskeer.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Calculator
+namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
     /// Base implementation for a calculator which uses Hydra-Ring to perform different calculations.

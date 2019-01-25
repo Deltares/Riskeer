@@ -25,12 +25,12 @@ using System.IO;
 using System.Reflection;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Data.Variables;
-using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Calculation.TestUtil;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Settings;
+using Riskeer.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Services
 {

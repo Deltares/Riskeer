@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data.Output
+namespace Riskeer.HydraRing.Calculation.Data.Output
 {
     /// <summary>
     /// Class containing the results of a Hydra-Ring dunes boundary conditions calculation.

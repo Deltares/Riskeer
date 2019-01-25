@@ -23,11 +23,11 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Security;
-using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Providers;
+using Riskeer.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Providers;
 
-namespace Ringtoets.HydraRing.Calculation.Services
+namespace Riskeer.HydraRing.Calculation.Services
 {
     /// <summary>
     /// Service for:

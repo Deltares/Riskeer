@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
+namespace Riskeer.HydraRing.Calculation.Data.Input.Overtopping
 {
     /// <summary>
     /// Container for Hydra-Ring profile point related data with roughness.

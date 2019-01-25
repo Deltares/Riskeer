@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
+using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.HydraRing.Calculation.Calculator
+namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
     /// Interface for a calculator which calculates probability of failure by overtopping or overflow

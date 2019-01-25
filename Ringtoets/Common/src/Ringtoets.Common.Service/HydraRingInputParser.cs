@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Calculation.Data;
+using Riskeer.HydraRing.Calculation.Data;
 
 namespace Ringtoets.Common.Service
 {

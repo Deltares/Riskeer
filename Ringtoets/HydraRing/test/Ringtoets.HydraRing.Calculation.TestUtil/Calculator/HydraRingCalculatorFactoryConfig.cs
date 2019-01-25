@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 {

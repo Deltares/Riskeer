@@ -21,7 +21,7 @@
 
 using Core.Common.Util;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input
+namespace Riskeer.HydraRing.Calculation.Data.Input
 {
     /// <summary>
     /// Container of all data necessary for performing Hydra-Ring calculations that

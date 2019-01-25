@@ -348,9 +348,9 @@
       <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
       <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
-      <Name>Ringtoets.HydraRing.Calculation</Name>
+      <Name>Riskeer.HydraRing.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
       <Project>{b69d5b6c-6e14-4fa9-9ebc-8f97678cdb70}</Project>

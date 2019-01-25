@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
+namespace Riskeer.HydraRing.Calculation.Calculator.Factory
 {
     /// <summary>
     /// The factory for creating <see cref="HydraRingCalculatorBase"/> instances.

@@ -120,9 +120,9 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
-      <Name>Ringtoets.HydraRing.Calculation</Name>
+      <Name>Riskeer.HydraRing.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
