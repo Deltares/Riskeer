@@ -28,7 +28,7 @@ using NUnit.Framework;
 namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
-    public class RingtoetsDatabaseFileTest
+    public class ProjectDatabaseFileTest
     {
         [Test]
         [TestCase("")]
@@ -39,7 +39,7 @@ namespace Riskeer.Migration.Core.Test
             // Call
             TestDelegate call = () =>
             {
-                using (new RingtoetsDatabaseFile(filePath)) {}
+                using (new ProjectDatabaseFile(filePath)) {}
             };
 
             // Assert
@@ -51,7 +51,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_FileNotWritable_ThrowsArgumentException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(RingtoetsDatabaseFileTest)}.{nameof(Constructor_FileNotWritable_ThrowsArgumentException)}");
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(ProjectDatabaseFileTest)}.{nameof(Constructor_FileNotWritable_ThrowsArgumentException)}");
 
             using (var helper = new FileDisposeHelper(filePath))
             {
@@ -60,7 +60,7 @@ namespace Riskeer.Migration.Core.Test
                 // Call
                 TestDelegate call = () =>
                 {
-                    using (new RingtoetsDatabaseFile(filePath)) {}
+                    using (new ProjectDatabaseFile(filePath)) {}
                 };
 
                 // Assert
@@ -80,7 +80,7 @@ namespace Riskeer.Migration.Core.Test
             string filePath = TestHelper.GetScratchPadPath(nameof(ExecuteQuery_QueryIsNullOrWhiteSpace_ThrowsArgumentException) + filename);
 
             using (new FileDisposeHelper(filePath))
-            using (var databaseFile = new RingtoetsDatabaseFile(filePath))
+            using (var databaseFile = new ProjectDatabaseFile(filePath))
             {
                 databaseFile.OpenDatabaseConnection();
 
@@ -100,7 +100,7 @@ namespace Riskeer.Migration.Core.Test
             string filePath = TestHelper.GetScratchPadPath(nameof(ExecuteQuery_InvalidQuery_ThrowsSQLiteException) + filename);
 
             using (new FileDisposeHelper(filePath))
-            using (var databaseFile = new RingtoetsDatabaseFile(filePath))
+            using (var databaseFile = new ProjectDatabaseFile(filePath))
             {
                 databaseFile.OpenDatabaseConnection();
 
@@ -119,7 +119,7 @@ namespace Riskeer.Migration.Core.Test
             string filename = Path.GetRandomFileName();
             string filePath = TestHelper.GetScratchPadPath(filename);
 
-            using (var databaseFile = new RingtoetsDatabaseFile(filePath))
+            using (var databaseFile = new ProjectDatabaseFile(filePath))
             {
                 databaseFile.OpenDatabaseConnection();
 
@@ -143,7 +143,7 @@ namespace Riskeer.Migration.Core.Test
             // Call
             TestDelegate call = () =>
             {
-                using (var databaseFile = new RingtoetsDatabaseFile(filePath))
+                using (var databaseFile = new ProjectDatabaseFile(filePath))
                 {
                     databaseFile.Dispose();
                 }

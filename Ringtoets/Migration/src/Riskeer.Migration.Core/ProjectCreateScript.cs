@@ -61,7 +61,7 @@ namespace Riskeer.Migration.Core
         {
             try
             {
-                using (var databaseFile = new RingtoetsDatabaseFile(location))
+                using (var databaseFile = new ProjectDatabaseFile(location))
                 {
                     databaseFile.OpenDatabaseConnection();
                     databaseFile.ExecuteQuery(createQuery);

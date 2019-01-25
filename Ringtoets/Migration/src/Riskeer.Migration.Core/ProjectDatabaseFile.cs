@@ -27,16 +27,16 @@ using Core.Common.Util;
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Class that provides methods for the migration of a Ringtoets database target file.
+    /// Class that provides methods for the migration of a project database target file.
     /// </summary>
-    public class RingtoetsDatabaseFile : IDisposable
+    public class ProjectDatabaseFile : IDisposable
     {
         private readonly string filePath;
         private SQLiteConnection connection;
         private bool disposed;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsDatabaseFile"/> class.
+        /// Creates a new instance of the <see cref="ProjectDatabaseFile"/> class.
         /// </summary>
         /// <param name="path">The path to the target file.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="path"/>:
@@ -48,14 +48,14 @@ namespace Riskeer.Migration.Core
         /// <item>is not writable.</item>
         /// </list></exception>
         /// <remarks>Creates the file if it does not exist.</remarks>
-        public RingtoetsDatabaseFile(string path)
+        public ProjectDatabaseFile(string path)
         {
             IOUtils.CreateFileIfNotExists(path);
             filePath = path;
         }
 
         /// <summary>
-        /// Opens the connection to the Ringtoets database file.
+        /// Opens the connection to the project database file.
         /// </summary>
         public void OpenDatabaseConnection()
         {
@@ -64,7 +64,7 @@ namespace Riskeer.Migration.Core
         }
 
         /// <summary>
-        /// Executes the <paramref name="query"/> on the Ringtoets database file.
+        /// Executes the <paramref name="query"/> on the project database file.
         /// </summary>
         /// <param name="query">Create structure query to execute.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="query"/> is <c>null</c> 

@@ -134,7 +134,7 @@ namespace Riskeer.Migration.Integration.Test
                 );
 
                 var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
-                using (var databaseFile = new RingtoetsDatabaseFile(sourceFilePath))
+                using (var databaseFile = new ProjectDatabaseFile(sourceFilePath))
                 {
                     databaseFile.OpenDatabaseConnection();
 
@@ -219,7 +219,7 @@ namespace Riskeer.Migration.Integration.Test
                 );
 
                 var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
-                using (var databaseFile = new RingtoetsDatabaseFile(sourceFilePath))
+                using (var databaseFile = new ProjectDatabaseFile(sourceFilePath))
                 {
                     databaseFile.OpenDatabaseConnection();
 
