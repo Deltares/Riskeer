@@ -23,5 +23,5 @@ using System.Reflection;
 using log4net.Config;
 
 [assembly: XmlConfigurator(Watch = true)]
-[assembly: AssemblyTitle("Ringtoets")]
-[assembly: AssemblyProduct("Ringtoets")]
+[assembly: AssemblyTitle("Riskeer")]
+[assembly: AssemblyProduct("Riskeer")]
