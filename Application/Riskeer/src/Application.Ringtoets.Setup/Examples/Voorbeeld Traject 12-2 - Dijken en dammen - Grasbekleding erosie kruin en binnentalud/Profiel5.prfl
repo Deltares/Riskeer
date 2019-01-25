@@ -1,0 +1,20 @@
+VERSIE	4.0
+ID	10000
+
+RICHTING	62
+
+DAM	0
+DAMHOOGTE	0
+
+VOORLAND	0
+
+DAMWAND	0
+KRUINHOOGTE 4.21
+DIJK	3
+-5.500	-3.000	0.900
+11.250	2.890	1.000
+15.000	4.210	1.000
+
+MEMO
+Eerste poging opstellen prfl-format.
+Geschematiseerd profiel 10000 uit traject 12_2.

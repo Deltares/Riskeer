@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Profiel 1">
+    <hblocatie>YM_2_12-2_dk_00012</hblocatie>
+    <dijkprofiel>01200</dijkprofiel>
+    <orientatie>62</orientatie>
+    <dijkhoogte>4.33</dijkhoogte>
+    <illustratiepunteninlezen>false</illustratiepunteninlezen>
+    <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+    <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
+    <hbnberekenen>niet</hbnberekenen>
+    <overslagdebietberekenen>niet</overslagdebietberekenen>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>false</voorlandgebruiken>
+    </golfreductie>
+    <stochasten>
+      <stochast naam="overslagdebiet">
+        <verwachtingswaarde>0.004</verwachtingswaarde>
+        <standaardafwijking>0.0006</standaardafwijking>
+      </stochast>
+    </stochasten>
+  </berekening>
+  <berekening naam="Profiel 2 met Illustratiepunten">
+    <hblocatie>YM_1_12-2_dk_00022</hblocatie>
+    <dijkprofiel>03100</dijkprofiel>
+    <orientatie>62</orientatie>
+    <dijkhoogte>4.18</dijkhoogte>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+    <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
+    <hbnberekenen>niet</hbnberekenen>
+    <overslagdebietberekenen>niet</overslagdebietberekenen>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>false</voorlandgebruiken>
+    </golfreductie>
+    <stochasten>
+      <stochast naam="overslagdebiet">
+        <verwachtingswaarde>0.004</verwachtingswaarde>
+        <standaardafwijking>0.0006</standaardafwijking>
+      </stochast>
+    </stochasten>
+  </berekening>
+  <map naam="Profiel 3">
+    <berekening naam="Profiel 3">
+      <hblocatie>YM_2_12-2_dk_00035</hblocatie>
+      <dijkprofiel>05000</dijkprofiel>
+      <orientatie>59</orientatie>
+      <dijkhoogte>4.28</dijkhoogte>
+      <illustratiepunteninlezen>false</illustratiepunteninlezen>
+      <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+      <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
+      <hbnberekenen>niet</hbnberekenen>
+      <overslagdebietberekenen>niet</overslagdebietberekenen>
+      <golfreductie>
+        <damgebruiken>false</damgebruiken>
+        <damtype>havendam</damtype>
+        <damhoogte>0</damhoogte>
+        <voorlandgebruiken>false</voorlandgebruiken>
+      </golfreductie>
+      <stochasten>
+        <stochast naam="overslagdebiet">
+          <verwachtingswaarde>0.004</verwachtingswaarde>
+          <standaardafwijking>0.0006</standaardafwijking>
+        </stochast>
+      </stochasten>
+    </berekening>
+    <berekening naam="Profiel 3 met HBN en overslag">
+      <hblocatie>YM_2_12-2_dk_00035</hblocatie>
+      <dijkprofiel>05000</dijkprofiel>
+      <orientatie>59</orientatie>
+      <dijkhoogte>4.28</dijkhoogte>
+      <illustratiepunteninlezen>true</illustratiepunteninlezen>
+      <hbnillustratiepunteninlezen>true</hbnillustratiepunteninlezen>
+      <overslagdebietillustratiepunteninlezen>true</overslagdebietillustratiepunteninlezen>
+      <hbnberekenen>norm</hbnberekenen>
+      <overslagdebietberekenen>norm</overslagdebietberekenen>
+      <golfreductie>
+        <damgebruiken>false</damgebruiken>
+        <damtype>havendam</damtype>
+        <damhoogte>0</damhoogte>
+        <voorlandgebruiken>false</voorlandgebruiken>
+      </golfreductie>
+      <stochasten>
+        <stochast naam="overslagdebiet">
+          <verwachtingswaarde>0.004</verwachtingswaarde>
+          <standaardafwijking>0.0006</standaardafwijking>
+        </stochast>
+      </stochasten>
+    </berekening>
+  </map>
+</configuratie>

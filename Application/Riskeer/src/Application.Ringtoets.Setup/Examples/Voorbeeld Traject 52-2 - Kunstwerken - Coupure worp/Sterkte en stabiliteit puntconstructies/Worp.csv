@@ -1,0 +1,50 @@
+Namespace;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;NumeriekeWaarde;Standaardafwijking.variatie;Boolean;Beschrijving;;;;;;;;Boolean 0=vc, 1=sa. Let op: wijkt af van Ringtoets-handleiding
+52-2;KWK_1;KW_HOOGTE1;;45;0;;Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden;;;;;;;;
+52-2;KWK_1;KW_HOOGTE2;;8.25;0.05;1;Kerende hoogte van het kunstwerk;;;;;;;;
+52-2;KWK_1;KW_HOOGTE3;;10.0;0.05;1;Stroomvoerende breedte bodembescherming;;;;;;;;
+52-2;KWK_1;KW_HOOGTE4;;0.05;0.15;0;Kritiek instromend debiet directe invoer per strekkende meter;;;;;;;;
+52-2;KWK_1;KW_HOOGTE5;;9.5;0.05;1;Breedte van de doorstroomopening;;;;;;;;Let op: boolean moet eigenlijk 1 zijn
+52-2;KWK_1;KW_HOOGTE6;;1;0;;Faalkans kunstwerk gegeven erosie bodem;;;;;;;;
+52-2;KWK_1;KW_HOOGTE7;;1000000;0.1;0;Kombergend oppervlak;;;;;;;;
+52-2;KWK_1;KW_HOOGTE8;;10;0.05;1;Toegestane peilverhoging komberging;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT1;;1000000;0.1;0;Kombergend oppervlak;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT2;;10;0.05;1;Toegestane peilverhoging komberging;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT3;;45;0;1;Oriëntatie van de normaal van het kunstwerk t.o.v. Noord;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT4;;9.5;0.05;0;Breedte van de doorstroomopening;;;;;;;;Let op: boolean moet eigenlijk 1 zijn
+52-2;KWK_1;KW_BETSLUIT5;;7.0;0.05;1;Niveau kruin bij niet gesloten maximaal kerende keermiddelen;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT6;;7.0;0.05;1;Binnenwaterstand;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT7;;7.0;0.05;1;Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT8;;100;0.05;1;Doorstroomoppervlak van doorstroomopeningen;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT9;;0.1;0.15;0;Kritiek instromend debiet directe invoer per strekkende meter;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT10;;10.0;0.05;1;Stroomvoerende breedte bodembescherming;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT11;;1.0;0;1;Kans op open staan bij naderend hoogwater;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT12;;0.01;0;1;Kans op mislukken sluiting van geopend kunstwerk;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT13;;1.0;0;1;Aantal identieke doorstroomopeningen;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT14;;0.1;0;1;Faalkans herstel van gefaalde situatie;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT15;LageDrempel;;;1;Instroommodel van het kunstwerk;;;;Keuze uit: VerdronkenKoker, LageDrempel, VerticaleWand;;;;
+52-2;KWK_1;KW_STERSTAB1;;45;0;1;Oriëntatie van de normaal van het kunstwerk t.o.v. Noord;;;;;;;;
+52-2;KWK_1;KW_STERSTAB2;;1000000;0.1;0;Kombergend oppervlak;;;;;;;;
+52-2;KWK_1;KW_STERSTAB3;;10;0.05;1;Toegestane peilverhoging komberging;;;;;;;;
+52-2;KWK_1;KW_STERSTAB4;;9.5;0.05;0;Breedte van de doorstroomopening;;;;;;;;Let op: boolean moet eigenlijk 1 zijn
+52-2;KWK_1;KW_STERSTAB5;;7.0;0.05;1;Binnenwaterstand;;;;;;;;
+52-2;KWK_1;KW_STERSTAB6;;7.0;0.05;1;Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel;;;;;;;;
+52-2;KWK_1;KW_STERSTAB7;;0.1;0.15;0;Kritiek instromend debiet directe invoer per strekkende meter;;;;;;;;
+52-2;KWK_1;KW_STERSTAB8;;10.0;0.05;1;Stroomvoerende breedte bodembescherming;;;;;;;;
+52-2;KWK_1;KW_STERSTAB9;;42.0;0.1;0;Kritieke sterkte constructie volgens de lineaire belastingschematisatie;;;;;;;;Vc=0.20 beton 0.1 staal 0.25 hout 0.30 metstelwerk 
+52-2;KWK_1;KW_STERSTAB10;;1000.0;0.1;0;Kritieke sterkte constructie volgens de kwadratische belastingschematisatie;;;;;;;;Vc=0.20 beton 0.1 staal 0.25 hout 0.30 metstelwerk 
+52-2;KWK_1;KW_STERSTAB11;;0;0;1;Bermbreedte;;;;;;;;
+52-2;KWK_1;KW_STERSTAB12;;7.0;0.05;1;Binnenwaterstand bij constructief falen;;;;;;;;
+52-2;KWK_1;KW_STERSTAB13;;7.0;0.05;1;Hoogte waarop de constructieve sterkte wordt beoordeeld;;;;;;;;
+52-2;KWK_1;KW_STERSTAB14;;8.25;0.05;1;Kerende hoogte van het kunstwerk;;;;;;;;
+52-2;KWK_1;KW_STERSTAB15;;0;0;1;Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm;;;;;;;;
+52-2;KWK_1;KW_STERSTAB16;;1;0;1;Faalkans herstel van gefaalde situatie;;;;;;;;
+52-2;KWK_1;KW_STERSTAB17;;1000000;0.3;0;Bezwijkwaarde aanvaarenergie;;;;;;;;
+52-2;KWK_1;KW_STERSTAB18;;1;0.2;0;Massa van het schip;;;;;;;;
+52-2;KWK_1;KW_STERSTAB19;;0.1;0.5;0;Aanvaarsnelheid;;;;;;;;
+52-2;KWK_1;KW_STERSTAB20;;0;0;1;Aantal nivelleringen per jaar;;;;;;;;
+52-2;KWK_1;KW_STERSTAB21;;0.000030303;0;1;Kans op aanvaring tweede keermiddel per nivellering;;;;;;;;
+52-2;KWK_1;KW_STERSTAB22;;1;0.2;1;Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten;;;;;;;;
+52-2;KWK_1;KW_STERSTAB23;;1000;0.1;0;Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie;;;;;;;;Vc=0.20 beton 0.1 staal 0.25 hout 0.30 metstelwerk 
+52-2;KWK_1;KW_STERSTAB24;;1000;0.1;0;Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie;;;;;;;;Vc=0.20 beton 0.1 staal 0.25 hout 0.30 metstelwerk 
+52-2;KWK_1;KW_STERSTAB25;;100;0.05;1;Doorstroomoppervlak van doorstroomopeningen;;;;;;;;
+52-2;KWK_1;KW_STERSTAB26;LageDrempel;;;1;Instroommodel van het kunstwerk;Keuze uit: VerdronkenKoker, LageDrempel;;;;;;;

@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9E35F3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{FE36E7E0-D5F7-48E3-9730-D05443351EAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer", "Application\Ringtoets\src\Application.Riskeer\Application.Riskeer.csproj", "{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer", "Application\Riskeer\src\Application.Riskeer\Application.Riskeer.csproj", "{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EC2DEF03-71FE-48A0-AB85-31E13112E4A1} = {EC2DEF03-71FE-48A0-AB85-31E13112E4A1}
 		{C6309704-D67B-434C-BC98-9F8910BC1D10} = {C6309704-D67B-434C-BC98-9F8910BC1D10}
@@ -265,7 +265,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Integration.Tes
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Application.Ringtoets.Setup", "Application\Ringtoets\src\Application.Ringtoets.Setup\Application.Ringtoets.Setup.wixproj", "{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Application.Ringtoets.Setup", "Application\Riskeer\src\Application.Ringtoets.Setup\Application.Ringtoets.Setup.wixproj", "{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Base.Test", "Core\Common\test\Core.Common.Base.Test\Core.Common.Base.Test.csproj", "{FAFDB463-9612-41F4-B3DD-FF9C6E7023BA}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -384,7 +384,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot.Tes
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ringtoets", "Ringtoets", "{85F88AB0-CA03-48D3-B5A0-DF0848C24AB0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Riskeer", "Riskeer", "{85F88AB0-CA03-48D3-B5A0-DF0848C24AB0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{39EB5D07-C076-484C-9621-B34C4E5BF64C}"
 EndProject
@@ -716,7 +716,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosion
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Test", "Application\Ringtoets\test\Application.Riskeer.Test\Application.Riskeer.Test.csproj", "{A2451981-99DA-4605-8396-F2222D25EBB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Test", "Application\Riskeer\test\Application.Riskeer.Test\Application.Riskeer.Test.csproj", "{A2451981-99DA-4605-8396-F2222D25EBB7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -741,7 +741,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Map.Test", "Co
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Integration.Test", "Application\Ringtoets\test\Application.Riskeer.Integration.Test\Application.Riskeer.Integration.Test.csproj", "{F3695FB7-4C1F-499D-B283-2CF159500117}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Integration.Test", "Application\Riskeer\test\Application.Riskeer.Integration.Test\Application.Riskeer.Integration.Test.csproj", "{F3695FB7-4C1F-499D-B283-2CF159500117}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1318,12 +1318,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Console.TestUtil.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Migration.Console", "Application\Ringtoets\src\Application.Riskeer.Migration.Console\Application.Riskeer.Migration.Console.csproj", "{23C45BFD-0A07-400F-B216-DF0C74CC99A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Migration.Console", "Application\Riskeer\src\Application.Riskeer.Migration.Console\Application.Riskeer.Migration.Console.csproj", "{23C45BFD-0A07-400F-B216-DF0C74CC99A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Migration.Console.Test", "Application\Ringtoets\test\Application.Riskeer.Migration.Console.Test\Application.Riskeer.Migration.Console.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Migration.Console.Test", "Application\Riskeer\test\Application.Riskeer.Migration.Console.Test\Application.Riskeer.Migration.Console.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

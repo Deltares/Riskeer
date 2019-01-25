@@ -1,0 +1,21 @@
+VERSIE	4.0
+ID	01200
+
+RICHTING	62
+
+DAM	0
+DAMHOOGTE	0
+
+VOORLAND	0
+
+DAMWAND	0
+KRUINHOOGTE 4.33
+DIJK	4
+-5.750	-3.000	0.900
+3.250	-0.130	1.000
+13.250	3.060	1.000
+17.250	4.330	1.000
+
+MEMO
+Eerste poging opstellen prfl-format.
+Geschematiseerd profiel 01200 uit traject 12_2.

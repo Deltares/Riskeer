@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="BINDIR">
+            <Component Id="cmp03AEE4474A08A9C2F51394A306A9D5CB" Guid="{87C4C4DD-1EAC-4034-90C7-B076C55BEDE4}">
+                <File Id="fil826700436099CB7BA46F090D4FD7325A" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\COPYING.LESSER.txt" />
+            </Component>
+            <Component Id="cmpA0BCA81C84390A91F24268F38CD02840" Guid="{9F2F9D47-9B60-4EC4-B04D-7A7433AD29C2}">
+                <File Id="filEF2965ABF4A1159002E671A18861A31F" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\COPYING.txt" />
+            </Component>
+            <Component Id="cmp06B2AD42B8FD185D006B6EC76448F185" Guid="{03288A89-F168-4438-95BE-CB42BE577AB6}">
+                <File Id="filF313C12A966B362BB6D4689A4F036971" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseApache2.txt" />
+            </Component>
+            <Component Id="cmp08F1B2A08E9DF24900C941F04FE2824A" Guid="{79073155-9189-4600-84AD-25933808800C}">
+                <File Id="filF7E8C89A7D1427D8C138EACE9FB73A6D" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseAvalonDock.txt" />
+            </Component>
+            <Component Id="cmp9AAEFC524965AA362FA41C6E339512EE" Guid="{8D646481-DD67-4342-9000-0C89FD9D8186}">
+                <File Id="fil30E6F5604EAAFAB195E9B29D939A1357" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseBruTile.txt" />
+            </Component>
+            <Component Id="cmp6FB66DB3C5B9CC5F3FF69D057BC7FD9F" Guid="{4D6BC9B4-5C47-4270-8C4E-8599D133AF35}">
+                <File Id="filBE932DA5E488424EC30D87D3269EF277" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseDotSpatial.txt" />
+            </Component>
+            <Component Id="cmp2079D2FC605A08A0B8683256496EE358" Guid="{115F37F7-5C7C-4D36-BC93-4D6AAAA23D3A}">
+                <File Id="filA16CD248A4A698875560DD1FDB17D9F1" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseDotSpatialPlugins.txt" />
+            </Component>
+            <Component Id="cmpCE8BFDA04427A6260C5CA1A5F9C7AB19" Guid="{659212DF-A352-491B-AEB5-CA2AF87DBA34}">
+                <File Id="fil64B698F2F6299ED15047A954F27F7861" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseEntityFramework.txt" />
+            </Component>
+            <Component Id="cmp342F2C94AC93B337FEC527E977569BC9" Guid="{BA9D2DD6-43E8-4DA9-A4E7-9A0C3E57C94E}">
+                <File Id="fil0C19C082704E513E0B73D308034FFC69" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseFluentRibbon.txt" />
+            </Component>
+            <Component Id="cmp91B2E33C2AA4AE4102436BA44CAE3073" Guid="{91F90396-848D-4A47-92BB-311D9822D5A0}">
+                <File Id="fil97AA6837F379983270EFD137D056B04D" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseGeoAPI.txt" />
+            </Component>
+            <Component Id="cmp4E40ACCA36A423FE86030EDCACBE4B52" Guid="{35AF6268-FFC5-4EDE-9662-30700B3B7BBC}">
+                <File Id="filF9384E34158D8D4CDC4E674B31BC0622" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseGPL.txt" />
+            </Component>
+            <Component Id="cmp0B7AFA0D619D54C54629AA16E90192F4" Guid="{E2593530-A1D7-4849-848C-0324A8A9DF0F}">
+                <File Id="fil77FEF2E631374384331FA44E3B8EC10E" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseGraphSharp.txt" />
+            </Component>
+            <Component Id="cmp20D48AAFA7F62AB83B561619BE0A509A" Guid="{93FDA1D9-61F0-4738-8841-16BD25025FD5}">
+                <File Id="fil405E3CBA36BA93CCCB48A0FF876291B1" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseLGPL.txt" />
+            </Component>
+            <Component Id="cmpE24A36807D194D9EC5F7A285577A5211" Guid="{E633BA0E-9BA4-4175-813A-CD0199360C89}">
+                <File Id="filFBFB63E807B26017940606A5B46A1F9A" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\Licenselog4net.txt" />
+            </Component>
+            <Component Id="cmp8CDFE15C274F5FAC5333E37C43D7B031" Guid="{453805C6-D83F-4D6C-9084-226B7924E429}">
+                <File Id="fil4CC219E12F648DEB4FF46638E64CAB78" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseMathNetNumerics.txt" />
+            </Component>
+            <Component Id="cmp7F0CE2A061707D7578FB09D3C06A3B4E" Guid="{FE3B637D-4833-4960-9D2E-5B32B0D74379}">
+                <File Id="filD636A53028F3937B2E03F51B676120E1" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseMathNetSpatial.txt" />
+            </Component>
+            <Component Id="cmp21E0165FCC7CC134F6E31390F11E62C0" Guid="{AD5BA77D-3C08-4303-9189-B98BEFB19A43}">
+                <File Id="fil8D19A13EC666D65E5697A558D4B68BA2" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseNetTopologySuite.txt" />
+            </Component>
+            <Component Id="cmp52040728250F48A85BEECE0EA117F96D" Guid="{54E8EB4B-EC1E-4050-BFE2-99FA690C1DEB}">
+                <File Id="fil34D0FED6EF185FB2D545454F9711520A" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseOxyPlot.txt" />
+            </Component>
+            <Component Id="cmpCABAC12E4BFB0232D14C867B389B9EC9" Guid="{090D9A30-8C12-4260-A144-E6CC09930DC7}">
+                <File Id="filDB43F0E7E48FE10EB79496258894D008" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicensePowerCollections.txt" />
+            </Component>
+            <Component Id="cmp506863D30F7DB445AF3A966F23367F04" Guid="{C728CF11-1C6B-4011-87C9-FB53A5084BC0}">
+                <File Id="filBC10C3261ED10BF818FCB79CFBEEEC28" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseQuickGraph.txt" />
+            </Component>
+            <Component Id="cmp40A821259C5E43C388FCF12240B118B3" Guid="{79897582-7E98-4E77-A34F-0DB4FE2A2A74}">
+                <File Id="filB792425B2FDA29148B9B4592629C7DF5" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseSmartThreadPool.txt" />
+            </Component>
+            <Component Id="cmpEFBBB5C2A0FA79295C4E0838065B2610" Guid="{7A54EF95-5817-49EF-8A76-9DA01C0D6FFD}">
+                <File Id="fil1A5737EFA72FA6F288402308339B6F2C" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseSQLiteEF6.txt" />
+            </Component>
+            <Component Id="cmp5B9F4AA91230EB16739E71F8CE5CA48D" Guid="{069926E5-0D19-49C6-ACB9-54CB728D1EED}">
+                <File Id="fil8921749E967D06A306857DDC1050D5AA" KeyPath="yes" Source="$(var.InstallerLicensesFolder)\LicenseWPFExtensions.txt" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="ThirdPartyLicenseComponents">
+            <ComponentRef Id="cmp03AEE4474A08A9C2F51394A306A9D5CB" />
+            <ComponentRef Id="cmpA0BCA81C84390A91F24268F38CD02840" />
+            <ComponentRef Id="cmp06B2AD42B8FD185D006B6EC76448F185" />
+            <ComponentRef Id="cmp08F1B2A08E9DF24900C941F04FE2824A" />
+            <ComponentRef Id="cmp9AAEFC524965AA362FA41C6E339512EE" />
+            <ComponentRef Id="cmp6FB66DB3C5B9CC5F3FF69D057BC7FD9F" />
+            <ComponentRef Id="cmp2079D2FC605A08A0B8683256496EE358" />
+            <ComponentRef Id="cmpCE8BFDA04427A6260C5CA1A5F9C7AB19" />
+            <ComponentRef Id="cmp342F2C94AC93B337FEC527E977569BC9" />
+            <ComponentRef Id="cmp91B2E33C2AA4AE4102436BA44CAE3073" />
+            <ComponentRef Id="cmp4E40ACCA36A423FE86030EDCACBE4B52" />
+            <ComponentRef Id="cmp0B7AFA0D619D54C54629AA16E90192F4" />
+            <ComponentRef Id="cmp20D48AAFA7F62AB83B561619BE0A509A" />
+            <ComponentRef Id="cmpE24A36807D194D9EC5F7A285577A5211" />
+            <ComponentRef Id="cmp8CDFE15C274F5FAC5333E37C43D7B031" />
+            <ComponentRef Id="cmp7F0CE2A061707D7578FB09D3C06A3B4E" />
+            <ComponentRef Id="cmp21E0165FCC7CC134F6E31390F11E62C0" />
+            <ComponentRef Id="cmp52040728250F48A85BEECE0EA117F96D" />
+            <ComponentRef Id="cmpCABAC12E4BFB0232D14C867B389B9EC9" />
+            <ComponentRef Id="cmp506863D30F7DB445AF3A966F23367F04" />
+            <ComponentRef Id="cmp40A821259C5E43C388FCF12240B118B3" />
+            <ComponentRef Id="cmpEFBBB5C2A0FA79295C4E0838065B2610" />
+            <ComponentRef Id="cmp5B9F4AA91230EB16739E71F8CE5CA48D" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>
