@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.TestUtil;
 using Riskeer.AssemblyTool.IO.Model.Gml;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model.Gml
 {

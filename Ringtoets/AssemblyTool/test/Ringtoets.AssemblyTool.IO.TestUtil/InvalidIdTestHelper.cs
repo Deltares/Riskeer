@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Ringtoets.AssemblyTool.IO.TestUtil
+namespace Riskeer.AssemblyTool.IO.TestUtil
 {
     /// <summary>
     /// Class that can be used to generate invalid ids for the serializable components.

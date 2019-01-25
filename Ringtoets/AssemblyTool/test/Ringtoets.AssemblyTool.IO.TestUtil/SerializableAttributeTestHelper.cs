@@ -26,7 +26,7 @@ using System.Xml.Serialization;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 
-namespace Ringtoets.AssemblyTool.IO.TestUtil
+namespace Riskeer.AssemblyTool.IO.TestUtil
 {
     /// <summary>
     /// Test helper for asserting serialization attributes on properties and types.

@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.TestUtil.Test
 {

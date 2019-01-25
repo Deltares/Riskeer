@@ -25,8 +25,8 @@ using System.Linq;
 using System.Xml.Serialization;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.TestUtil;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
 {
