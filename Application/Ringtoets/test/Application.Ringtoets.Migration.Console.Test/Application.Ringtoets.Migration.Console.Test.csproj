@@ -58,7 +58,7 @@
       <Project>{C98D99C5-2ADD-4693-916C-71BF78750412}</Project>
       <Name>Riskeer.Migration.Core.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Application.Ringtoets.Migration.Console\Application.Riskeer.Migration.Console.csproj">
+    <ProjectReference Include="..\..\src\Application.Riskeer.Migration.Console\Application.Riskeer.Migration.Console.csproj">
       <Project>{23C45BFD-0A07-400F-B216-DF0C74CC99A1}</Project>
       <Name>Application.Riskeer.Migration.Console</Name>
     </ProjectReference>
