@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
 {
     [TestFixture]
     public class TestAssemblyToolKernelFactoryTest

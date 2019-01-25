@@ -21,9 +21,8 @@
 
 using Assembly.Kernel.Model.CategoryLimits;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
     public class CategoriesListTestFactoryTest

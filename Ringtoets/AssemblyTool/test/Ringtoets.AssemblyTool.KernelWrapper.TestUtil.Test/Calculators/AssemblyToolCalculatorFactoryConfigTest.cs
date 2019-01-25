@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
 {
     [TestFixture]
     public class AssemblyToolCalculatorFactoryConfigTest

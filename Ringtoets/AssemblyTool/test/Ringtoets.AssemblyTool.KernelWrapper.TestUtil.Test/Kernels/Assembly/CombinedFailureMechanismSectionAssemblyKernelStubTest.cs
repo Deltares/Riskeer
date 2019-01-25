@@ -29,7 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 {
     [TestFixture]
     public class CombinedFailureMechanismSectionAssemblyKernelStubTest

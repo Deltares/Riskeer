@@ -24,9 +24,8 @@ using System.Linq;
 using Assembly.Kernel.Model;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
     public class AssessmentGradeConversionTestHelperTest

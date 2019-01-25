@@ -27,10 +27,9 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 {
     [TestFixture]
     public class AssemblyCategoriesKernelStubTest

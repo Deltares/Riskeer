@@ -27,7 +27,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembly
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembly
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyCalculatorStubTest
