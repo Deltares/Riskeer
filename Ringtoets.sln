@@ -716,7 +716,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosion
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Test", "Application\Ringtoets\test\Application.Ringtoets.Test\Application.Ringtoets.Test.csproj", "{A2451981-99DA-4605-8396-F2222D25EBB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Test", "Application\Ringtoets\test\Application.Riskeer.Test\Application.Riskeer.Test.csproj", "{A2451981-99DA-4605-8396-F2222D25EBB7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
