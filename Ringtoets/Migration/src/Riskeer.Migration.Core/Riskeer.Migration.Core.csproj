@@ -25,7 +25,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsCreateScript.cs" />
+    <Compile Include="ProjectCreateScript.cs" />
     <Compile Include="RingtoetsDatabaseFile.cs" />
     <Compile Include="RingtoetsDatabaseQueryBuilder.cs" />
     <Compile Include="RingtoetsDatabaseSourceFile.cs" />

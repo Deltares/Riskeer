@@ -110,12 +110,12 @@ namespace Riskeer.Migration.Core
             return match.Success ? match.Groups[2].Value : null;
         }
 
-        private RingtoetsCreateScript CreateNewCreateScript(string resourceName)
+        private ProjectCreateScript CreateNewCreateScript(string resourceName)
         {
             string version = GetCreateScriptVersion(resourceName);
             Stream createStream = scriptResource.GetManifestResourceStream(resourceName);
             string query = GetStringOfStream(createStream);
-            return new RingtoetsCreateScript(version, query);
+            return new ProjectCreateScript(version, query);
         }
 
         #endregion

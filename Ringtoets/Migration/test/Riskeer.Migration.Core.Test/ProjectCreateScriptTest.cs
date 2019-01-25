@@ -31,7 +31,7 @@ using Ringtoets.Common.Util;
 namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
-    public class RingtoetsCreateScriptTest
+    public class ProjectCreateScriptTest
     {
         [Test]
         [TestCase("")]
@@ -42,7 +42,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new RingtoetsCreateScript(version, query);
+            TestDelegate call = () => new ProjectCreateScript(version, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -57,7 +57,7 @@ namespace Riskeer.Migration.Core.Test
             const string query = "Valid query";
 
             // Call
-            TestDelegate call = () => new RingtoetsCreateScript(version, query);
+            TestDelegate call = () => new ProjectCreateScript(version, query);
 
             // Assert
             string expectedMessage = $@"'{version}' is geen geldige Ringtoets versie.";
@@ -74,7 +74,7 @@ namespace Riskeer.Migration.Core.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            TestDelegate call = () => new RingtoetsCreateScript(version, query);
+            TestDelegate call = () => new ProjectCreateScript(version, query);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -89,7 +89,7 @@ namespace Riskeer.Migration.Core.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            var createScript = new RingtoetsCreateScript(version, query);
+            var createScript = new ProjectCreateScript(version, query);
 
             // Assert
             Assert.IsInstanceOf<CreateScript>(createScript);
@@ -104,7 +104,7 @@ namespace Riskeer.Migration.Core.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileDoesNotExist_ReturnsVersionedFile));
-            var createScript = new RingtoetsCreateScript(version, query);
+            var createScript = new ProjectCreateScript(version, query);
 
             // Call
             IVersionedFile versionedFile = createScript.CreateEmptyVersionedFile(filePath);
@@ -122,7 +122,7 @@ namespace Riskeer.Migration.Core.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileExistsButNotWritable_ThrowsArgumentException));
-            var createScript = new RingtoetsCreateScript(version, query);
+            var createScript = new ProjectCreateScript(version, query);
 
             using (new FileDisposeHelper(filePath))
             {
@@ -147,7 +147,7 @@ namespace Riskeer.Migration.Core.Test
             string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_QueryFails_ThrowsCriticalMigrationException));
-            var createScript = new RingtoetsCreateScript(version, query);
+            var createScript = new ProjectCreateScript(version, query);
 
             // Call
             TestDelegate call = () => createScript.CreateEmptyVersionedFile(filePath);

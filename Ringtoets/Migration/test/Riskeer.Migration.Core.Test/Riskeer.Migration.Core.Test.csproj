@@ -22,7 +22,7 @@
     <Compile Include="MigrationLogDatabaseReaderTest.cs" />
     <Compile Include="MigrationLogMessageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RingtoetsCreateScriptTest.cs" />
+    <Compile Include="ProjectCreateScriptTest.cs" />
     <Compile Include="RingtoetsDatabaseFileTest.cs" />
     <Compile Include="RingtoetsDatabaseQueryBuilderTest.cs" />
     <Compile Include="RingtoetsDatabaseSourceFileTest.cs" />

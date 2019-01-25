@@ -31,21 +31,21 @@ namespace Riskeer.Migration.Core
     /// <summary>
     /// Class that provides methods for creating a <see cref="RingtoetsVersionedFile"/> for a specific version.
     /// </summary>
-    public class RingtoetsCreateScript : CreateScript
+    public class ProjectCreateScript : CreateScript
     {
         private readonly string createQuery;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsCreateScript"/> class.
+        /// Creates a new instance of the <see cref="ProjectCreateScript"/> class.
         /// </summary>
         /// <param name="version">The version <paramref name="query"/> was designed for.</param>
         /// <param name="query">The SQL query that belongs to <paramref name="version"/>.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="version"/> is not a valid Ringtoets database version,</item>
+        /// <item><paramref name="version"/> is not a valid project version,</item>
         /// <item><paramref name="query"/> is empty, <c>null</c>, or consist out of only whitespace characters.</item>
         /// </list></exception>
-        public RingtoetsCreateScript(string version, string query) : base(version)
+        public ProjectCreateScript(string version, string query) : base(version)
         {
             RingtoetsVersionHelper.ValidateVersion(version);
 
