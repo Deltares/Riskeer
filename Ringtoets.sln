@@ -1780,7 +1780,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.Kernel
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.KernelWrapper.TestUtil", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj", "{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.AssemblyTool.KernelWrapper.TestUtil", "Ringtoets\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj", "{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
