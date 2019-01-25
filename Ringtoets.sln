@@ -1323,7 +1323,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Migrati
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Console.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Console.Test\Application.Ringtoets.Migration.Console.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Migration.Console.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Console.Test\Application.Riskeer.Migration.Console.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

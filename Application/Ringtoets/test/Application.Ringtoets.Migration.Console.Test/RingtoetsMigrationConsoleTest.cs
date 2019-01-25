@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Riskeer.Migration.Console;
 using Core.Common.TestUtil;
 using Migration.Console;
 using Migration.Console.TestUtil;
@@ -30,7 +29,7 @@ using Ringtoets.Common.Util;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 
-namespace Application.Ringtoets.Migration.Console.Test
+namespace Application.Riskeer.Migration.Console.Test
 {
     [TestFixture]
     [Explicit("Migration Console tests are disabled.")]
