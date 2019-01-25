@@ -29,7 +29,7 @@ using NUnit.Framework;
 namespace Riskeer.Migration.Core.Test
 {
     [TestFixture]
-    public class RingtoetsDatabaseSourceFileTest
+    public class ProjectDatabaseSourceFileTest
     {
         private static readonly TestDataPath testPath = TestDataPath.Ringtoets.Migration.Core;
 
@@ -43,7 +43,7 @@ namespace Riskeer.Migration.Core.Test
             // Call
             TestDelegate test = () =>
             {
-                using (new RingtoetsDatabaseSourceFile(filePath)) {}
+                using (new ProjectDatabaseSourceFile(filePath)) {}
             };
 
             // Assert
@@ -60,7 +60,7 @@ namespace Riskeer.Migration.Core.Test
             // Call
             TestDelegate test = () =>
             {
-                using (new RingtoetsDatabaseSourceFile(filePath)) {}
+                using (new ProjectDatabaseSourceFile(filePath)) {}
             };
 
             // Assert
@@ -78,7 +78,7 @@ namespace Riskeer.Migration.Core.Test
 
             // Call
             using (new FileDisposeHelper(filePath))
-            using (var file = new RingtoetsDatabaseSourceFile(filePath))
+            using (var file = new ProjectDatabaseSourceFile(filePath))
             {
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(file);
@@ -93,7 +93,7 @@ namespace Riskeer.Migration.Core.Test
             string filePath = TestHelper.GetTestDataPath(testPath, fileName);
 
             using (new FileDisposeHelper(filePath))
-            using (var file = new RingtoetsDatabaseSourceFile(filePath))
+            using (var file = new ProjectDatabaseSourceFile(filePath))
             {
                 // Call
                 TestDelegate call = () => file.GetVersion();
@@ -111,7 +111,7 @@ namespace Riskeer.Migration.Core.Test
             // Setup
             string filePath = TestHelper.GetTestDataPath(testPath, "EmptyDatabase.rtd");
 
-            using (var file = new RingtoetsDatabaseSourceFile(filePath))
+            using (var file = new ProjectDatabaseSourceFile(filePath))
             {
                 // Call
                 string version = file.GetVersion();

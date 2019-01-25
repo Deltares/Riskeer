@@ -31,10 +31,10 @@ namespace Riskeer.Migration.Core
     /// <summary>
     /// Class that provides methods for the migration database source file.
     /// </summary>
-    public class RingtoetsDatabaseSourceFile : SqLiteDatabaseReaderBase
+    public class ProjectDatabaseSourceFile : SqLiteDatabaseReaderBase
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsDatabaseSourceFile"/> class.
+        /// Creates a new instance of the <see cref="ProjectDatabaseSourceFile"/> class.
         /// </summary>
         /// <param name="databaseFilePath">The path to the source file.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -44,14 +44,14 @@ namespace Riskeer.Migration.Core
         /// <item>Unable to open database file.</item>
         /// </list>
         /// </exception>
-        public RingtoetsDatabaseSourceFile(string databaseFilePath) : base(databaseFilePath) {}
+        public ProjectDatabaseSourceFile(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
-        /// Gets the version of the Ringtoets database source file at location <see cref="SqLiteDatabaseReaderBase.Path"/>.
+        /// Gets the version of the project source file at location <see cref="SqLiteDatabaseReaderBase.Path"/>.
         /// </summary>
         /// <returns>The version of the file.</returns>
         /// <exception cref="StorageValidationException">Thrown when the file is not a valid 
-        /// Ringtoets database source file.</exception>
+        /// project source file.</exception>
         public string GetVersion()
         {
             string versionQuery = ProjectDatabaseQueryBuilder.GetVersionQuery();

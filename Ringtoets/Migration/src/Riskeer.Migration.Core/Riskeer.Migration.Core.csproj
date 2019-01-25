@@ -28,7 +28,7 @@
     <Compile Include="ProjectCreateScript.cs" />
     <Compile Include="ProjectDatabaseFile.cs" />
     <Compile Include="ProjectDatabaseQueryBuilder.cs" />
-    <Compile Include="RingtoetsDatabaseSourceFile.cs" />
+    <Compile Include="ProjectDatabaseSourceFile.cs" />
     <Compile Include="RingtoetsSqLiteDatabaseFileMigrator.cs" />
     <Compile Include="RingtoetsUpgradeScript.cs" />
     <Compile Include="RingtoetsVersionedFile.cs" />

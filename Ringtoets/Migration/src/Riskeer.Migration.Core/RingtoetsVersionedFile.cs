@@ -52,7 +52,7 @@ namespace Riskeer.Migration.Core
 
         public string GetVersion()
         {
-            using (var sourceFile = new RingtoetsDatabaseSourceFile(Location))
+            using (var sourceFile = new ProjectDatabaseSourceFile(Location))
             {
                 return sourceFile.GetVersion();
             }
