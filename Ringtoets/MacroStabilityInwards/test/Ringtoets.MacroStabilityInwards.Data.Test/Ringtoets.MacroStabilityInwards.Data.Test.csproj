@@ -89,9 +89,9 @@
       <Project>{C6EE9E6A-6578-49DF-914F-CDB531E61891}</Project>
       <Name>Riskeer.AssemblyTool.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Ringtoets.AssemblyTool.KernelWrapper.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Ringtoets.AssemblyTool.KernelWrapper.TestUtil</Name>
+      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
