@@ -175,7 +175,7 @@
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.IO\Riskeer.HydraRing.IO.csproj">
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.IO\Riskeer.HydraRing.IO.csproj">
       <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
       <Name>Riskeer.HydraRing.IO</Name>
     </ProjectReference>
