@@ -22,8 +22,8 @@
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses

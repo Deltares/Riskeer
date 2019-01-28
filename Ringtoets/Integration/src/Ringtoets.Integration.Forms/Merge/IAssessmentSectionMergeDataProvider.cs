@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Merge;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Forms.Merge
 {

@@ -22,7 +22,7 @@
 using System;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Data.Assembly
+namespace Riskeer.Integration.Data.Assembly
 {
     /// <summary>
     /// Assembly result for the combined failure mechanism section.

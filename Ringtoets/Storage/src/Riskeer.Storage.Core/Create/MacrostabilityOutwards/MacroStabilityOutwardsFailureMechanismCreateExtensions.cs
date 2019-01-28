@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.MacroStabilityOutwards

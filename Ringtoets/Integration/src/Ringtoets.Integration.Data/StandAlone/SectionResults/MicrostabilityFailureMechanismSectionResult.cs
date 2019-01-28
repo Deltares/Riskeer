@@ -22,7 +22,7 @@
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
 
-namespace Ringtoets.Integration.Data.StandAlone.SectionResults
+namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the

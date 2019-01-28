@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.Integration.Data.Merge
+namespace Riskeer.Integration.Data.Merge
 {
     /// <summary>
     /// Class that holds a collection of <see cref="AssessmentSection"/>. 

@@ -30,8 +30,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Data;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos

@@ -24,7 +24,7 @@ using System.Data.SQLite;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 
 namespace Riskeer.Storage.Core.TestUtil.Test
 {

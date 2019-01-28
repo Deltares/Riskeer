@@ -30,8 +30,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Integration.Data.Assembly;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.TestUtil;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
@@ -40,6 +38,9 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {

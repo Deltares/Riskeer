@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {

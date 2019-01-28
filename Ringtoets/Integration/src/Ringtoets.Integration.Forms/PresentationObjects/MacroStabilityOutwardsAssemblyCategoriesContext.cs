@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {

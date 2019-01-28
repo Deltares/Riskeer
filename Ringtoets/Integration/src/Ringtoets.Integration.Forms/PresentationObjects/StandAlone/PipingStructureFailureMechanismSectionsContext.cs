@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects.StandAlone
 {

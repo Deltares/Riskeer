@@ -21,7 +21,7 @@
 
 using System;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Plugin.FileImporters
 {

@@ -27,8 +27,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Integration.IO.TestUtil;
@@ -36,6 +34,8 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {

@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.Create.MacroStabilityOutwards;
 using Riskeer.Storage.Core.DbContext;
 

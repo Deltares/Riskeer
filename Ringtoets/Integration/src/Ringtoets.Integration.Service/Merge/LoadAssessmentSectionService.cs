@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Storage;
 using log4net;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Service.Exceptions;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Service.Merge
 {

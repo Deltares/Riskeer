@@ -25,9 +25,9 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Service.Exceptions;
 using Ringtoets.Integration.Service.Merge;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Service.Test.Merge
 {

@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Integration.Data.StandAlone.Input
+namespace Riskeer.Integration.Data.StandAlone.Input
 {
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a macro stability outwards assessment.

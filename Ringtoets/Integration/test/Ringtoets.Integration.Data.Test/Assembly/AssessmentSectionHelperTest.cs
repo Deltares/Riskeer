@@ -28,7 +28,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data.Assembly;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {

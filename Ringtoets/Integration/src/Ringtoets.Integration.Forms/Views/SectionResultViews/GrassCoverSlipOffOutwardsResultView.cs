@@ -23,10 +23,10 @@ using Core.Common.Base;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 {

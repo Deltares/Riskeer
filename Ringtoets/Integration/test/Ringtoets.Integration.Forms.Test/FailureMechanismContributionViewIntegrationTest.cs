@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test
 {

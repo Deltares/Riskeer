@@ -26,11 +26,11 @@ using Core.Common.Util;
 using Core.Components.Gis.Features;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Util;
 using Riskeer.AssemblyTool.Forms;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Factories

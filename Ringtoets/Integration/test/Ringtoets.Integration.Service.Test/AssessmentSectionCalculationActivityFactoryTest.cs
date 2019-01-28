@@ -39,6 +39,10 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -55,6 +59,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Service.Test
 {

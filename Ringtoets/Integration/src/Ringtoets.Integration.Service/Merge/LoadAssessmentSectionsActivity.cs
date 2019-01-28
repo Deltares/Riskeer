@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Service;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Service.Properties;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Service.Merge
 {

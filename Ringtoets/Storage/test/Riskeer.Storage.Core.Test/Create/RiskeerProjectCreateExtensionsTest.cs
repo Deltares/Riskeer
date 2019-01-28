@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 

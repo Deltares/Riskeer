@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.StandAlone.SectionResults
+namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the

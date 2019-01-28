@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Integration.Data.StandAlone.Input;
+using Riskeer.Integration.Data.StandAlone.Input;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone.Input
 {

@@ -31,6 +31,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

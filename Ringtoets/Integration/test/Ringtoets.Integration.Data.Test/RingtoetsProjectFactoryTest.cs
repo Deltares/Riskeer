@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Data.Test
 {

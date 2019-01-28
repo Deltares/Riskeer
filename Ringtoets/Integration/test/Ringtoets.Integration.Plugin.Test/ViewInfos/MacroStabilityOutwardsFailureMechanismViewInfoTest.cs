@@ -29,10 +29,10 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.Views;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos

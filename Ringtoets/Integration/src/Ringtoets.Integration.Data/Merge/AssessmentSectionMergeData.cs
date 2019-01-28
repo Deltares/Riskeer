@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Integration.Data.Merge
+namespace Riskeer.Integration.Data.Merge
 {
     /// <summary>
     /// Class that holds the merge data.

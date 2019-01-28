@@ -38,9 +38,9 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.Integration.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos

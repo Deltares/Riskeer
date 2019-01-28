@@ -26,8 +26,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Assembly;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {

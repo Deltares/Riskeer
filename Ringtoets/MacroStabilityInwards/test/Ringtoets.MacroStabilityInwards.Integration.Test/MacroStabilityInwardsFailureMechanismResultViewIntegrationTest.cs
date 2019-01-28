@@ -27,12 +27,12 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Service;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.MacroStabilityInwards.Integration.Test
 {

@@ -24,11 +24,11 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {

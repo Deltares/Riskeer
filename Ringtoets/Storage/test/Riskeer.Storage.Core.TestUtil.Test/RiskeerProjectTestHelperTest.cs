@@ -35,8 +35,6 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -46,6 +44,8 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Riskeer.Storage.Core.TestUtil.Test
 {

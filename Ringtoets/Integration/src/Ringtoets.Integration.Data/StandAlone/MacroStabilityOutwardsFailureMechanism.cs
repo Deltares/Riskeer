@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.Input;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Data.StandAlone.Input;
+using Riskeer.Integration.Data.Properties;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.StandAlone
+namespace Riskeer.Integration.Data.StandAlone
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

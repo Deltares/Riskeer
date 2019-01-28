@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Data.Test
 {

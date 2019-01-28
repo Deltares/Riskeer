@@ -33,14 +33,15 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.TestUtil
 {

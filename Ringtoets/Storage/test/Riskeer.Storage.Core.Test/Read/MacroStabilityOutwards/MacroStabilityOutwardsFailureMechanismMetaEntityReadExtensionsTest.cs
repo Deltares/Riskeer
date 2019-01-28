@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.StandAlone.Input;
+using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.MacroStabilityOutwards;
 

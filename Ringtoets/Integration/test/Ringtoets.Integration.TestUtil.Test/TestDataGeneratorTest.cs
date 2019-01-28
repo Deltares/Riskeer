@@ -33,7 +33,6 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.Piping.Data;
@@ -41,6 +40,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.TestUtil.Test
 {

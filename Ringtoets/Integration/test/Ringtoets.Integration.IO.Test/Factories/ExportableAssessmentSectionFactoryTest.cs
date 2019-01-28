@@ -27,8 +27,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Piping.Data;
@@ -36,6 +34,8 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {

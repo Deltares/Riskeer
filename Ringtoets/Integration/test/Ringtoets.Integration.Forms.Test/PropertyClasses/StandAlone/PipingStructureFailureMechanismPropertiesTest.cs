@@ -28,8 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
 {

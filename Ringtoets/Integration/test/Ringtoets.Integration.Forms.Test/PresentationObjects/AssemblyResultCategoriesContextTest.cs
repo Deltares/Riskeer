@@ -29,6 +29,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {

@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Properties;
 
-namespace Ringtoets.Integration.Data
+namespace Riskeer.Integration.Data
 {
     public class RingtoetsProject : Observable, IProject
     {

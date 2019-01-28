@@ -30,13 +30,13 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 {

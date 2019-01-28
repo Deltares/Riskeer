@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.TechnicalInnovation

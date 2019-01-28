@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {

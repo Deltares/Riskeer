@@ -30,8 +30,6 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -41,8 +39,10 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.Integration.Data.Properties;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 
-namespace Ringtoets.Integration.Data.Assembly
+namespace Riskeer.Integration.Data.Assembly
 {
     /// <summary>
     /// Factory for assembling the assembly results for an assessment section.

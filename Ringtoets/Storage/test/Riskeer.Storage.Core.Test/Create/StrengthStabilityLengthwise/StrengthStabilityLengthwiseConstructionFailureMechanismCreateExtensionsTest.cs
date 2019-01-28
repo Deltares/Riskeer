@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.StrengthStabilityLengthwise;
 using Riskeer.Storage.Core.DbContext;

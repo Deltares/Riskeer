@@ -25,7 +25,7 @@ using System.Linq;
 using Ringtoets.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Data.Assembly
+namespace Riskeer.Integration.Data.Assembly
 {
     /// <summary>
     /// Factory that creates <see cref="CombinedFailureMechanismSectionAssemblyResult"/> instances.

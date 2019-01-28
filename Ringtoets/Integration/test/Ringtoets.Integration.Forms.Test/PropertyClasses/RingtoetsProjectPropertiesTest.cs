@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {

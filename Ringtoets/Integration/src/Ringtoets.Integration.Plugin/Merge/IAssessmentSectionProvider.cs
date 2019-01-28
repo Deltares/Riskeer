@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Plugin.Merge
 {

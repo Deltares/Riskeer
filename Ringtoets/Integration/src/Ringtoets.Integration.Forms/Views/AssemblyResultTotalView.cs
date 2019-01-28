@@ -32,10 +32,6 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Assembly;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -43,6 +39,10 @@ using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views

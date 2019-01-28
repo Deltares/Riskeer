@@ -30,15 +30,15 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Merge;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.Data.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 

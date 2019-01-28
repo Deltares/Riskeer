@@ -25,9 +25,9 @@ using System.Linq;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Service.Merge;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Service.Test.Merge
 {

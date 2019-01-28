@@ -22,7 +22,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.TestUtil.Test
 {

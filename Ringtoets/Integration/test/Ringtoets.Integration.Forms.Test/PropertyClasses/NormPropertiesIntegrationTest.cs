@@ -40,6 +40,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {

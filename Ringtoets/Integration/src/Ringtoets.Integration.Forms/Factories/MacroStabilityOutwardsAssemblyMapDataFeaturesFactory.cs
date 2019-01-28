@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using Core.Components.Gis.Features;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Factories
 {

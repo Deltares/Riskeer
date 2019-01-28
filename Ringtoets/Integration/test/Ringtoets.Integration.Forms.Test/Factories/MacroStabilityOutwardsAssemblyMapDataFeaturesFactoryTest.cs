@@ -28,12 +28,12 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Factories;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.Test.Factories
 {

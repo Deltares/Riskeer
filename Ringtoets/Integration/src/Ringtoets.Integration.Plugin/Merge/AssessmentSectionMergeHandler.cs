@@ -35,8 +35,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
@@ -44,6 +42,8 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Plugin.Merge
 {

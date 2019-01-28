@@ -23,7 +23,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.TestUtil;

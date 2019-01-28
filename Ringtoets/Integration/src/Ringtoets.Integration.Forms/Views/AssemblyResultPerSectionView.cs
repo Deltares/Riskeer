@@ -26,15 +26,15 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using MacroStabilityInwardsDataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
-using IntegrationDataResources = Ringtoets.Integration.Data.Properties.Resources;
+using IntegrationDataResources = Riskeer.Integration.Data.Properties.Resources;
 using StabilityStoneCoverDataResources = Ringtoets.StabilityStoneCover.Data.Properties.Resources;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
 using GrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="Integration.Data.AssessmentSection"/> the view belongs to.
+        /// Gets the <see cref="Riskeer.Integration.Data.AssessmentSection"/> the view belongs to.
         /// </summary>
         public AssessmentSection AssessmentSection { get; }
 

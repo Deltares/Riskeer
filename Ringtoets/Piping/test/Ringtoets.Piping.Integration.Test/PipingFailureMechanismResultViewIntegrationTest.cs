@@ -28,12 +28,12 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Service;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Piping.Integration.Test
 {

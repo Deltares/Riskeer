@@ -42,7 +42,6 @@ using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.Piping.Data;
@@ -52,6 +51,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data;
 
 namespace Demo.Riskeer.Commands
 {

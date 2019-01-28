@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.Util;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data.Assembly;
 
 namespace Ringtoets.Integration.IO.Factories
 {

@@ -52,15 +52,15 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test

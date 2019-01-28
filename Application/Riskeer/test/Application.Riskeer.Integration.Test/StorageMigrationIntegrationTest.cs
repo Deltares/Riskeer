@@ -29,7 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 using Riskeer.Migration;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;

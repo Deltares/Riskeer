@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read

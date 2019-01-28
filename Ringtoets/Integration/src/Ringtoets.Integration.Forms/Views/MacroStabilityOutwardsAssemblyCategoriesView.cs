@@ -27,8 +27,8 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.Views
 {

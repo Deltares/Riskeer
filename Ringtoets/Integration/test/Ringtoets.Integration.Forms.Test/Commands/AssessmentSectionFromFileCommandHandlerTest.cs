@@ -42,6 +42,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Commands
 {

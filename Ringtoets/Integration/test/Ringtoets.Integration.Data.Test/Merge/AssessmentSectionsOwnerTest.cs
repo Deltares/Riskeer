@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Integration.Data.Merge;
+using Riskeer.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Data.Test.Merge
 {

@@ -32,6 +32,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.TestUtil;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {

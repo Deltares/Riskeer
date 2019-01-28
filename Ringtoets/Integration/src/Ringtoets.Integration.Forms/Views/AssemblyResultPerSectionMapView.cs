@@ -27,11 +27,11 @@ using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Factories;
 using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="Integration.Data.AssessmentSection"/> the view belongs to.
+        /// Gets the <see cref="Riskeer.Integration.Data.AssessmentSection"/> the view belongs to.
         /// </summary>
         public AssessmentSection AssessmentSection { get; }
 

@@ -34,9 +34,9 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {

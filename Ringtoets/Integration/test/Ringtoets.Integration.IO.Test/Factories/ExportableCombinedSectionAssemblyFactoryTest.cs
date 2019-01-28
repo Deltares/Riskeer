@@ -26,11 +26,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Integration.Util;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data.Assembly;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {

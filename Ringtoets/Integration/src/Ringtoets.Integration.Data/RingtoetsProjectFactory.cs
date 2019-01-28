@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Integration.Data
+namespace Riskeer.Integration.Data
 {
     public class RingtoetsProjectFactory : IProjectFactory
     {

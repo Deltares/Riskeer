@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Service.Exceptions;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Service.Merge
 {

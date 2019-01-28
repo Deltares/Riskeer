@@ -31,7 +31,7 @@ using Core.Common.Util;
 using Core.Common.Util.Builders;
 using log4net;
 using Ringtoets.Common.Util;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Exceptions;

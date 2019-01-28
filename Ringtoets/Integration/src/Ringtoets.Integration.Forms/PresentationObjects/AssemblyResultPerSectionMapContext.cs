@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {

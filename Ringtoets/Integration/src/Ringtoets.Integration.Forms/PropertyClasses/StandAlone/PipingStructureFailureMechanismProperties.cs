@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone

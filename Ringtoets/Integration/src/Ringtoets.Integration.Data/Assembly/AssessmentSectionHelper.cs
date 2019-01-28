@@ -24,7 +24,7 @@ using System.Linq;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Integration.Data.Assembly
+namespace Riskeer.Integration.Data.Assembly
 {
     /// <summary>
     /// Class containing helper methods for <see cref="AssessmentSection"/>.

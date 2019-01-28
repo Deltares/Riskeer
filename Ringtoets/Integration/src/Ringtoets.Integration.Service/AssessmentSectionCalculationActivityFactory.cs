@@ -27,12 +27,12 @@ using Ringtoets.DuneErosion.Service;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HeightStructures.Service;
-using Ringtoets.Integration.Data;
 using Ringtoets.MacroStabilityInwards.Service;
 using Ringtoets.Piping.Service;
 using Ringtoets.StabilityPointStructures.Service;
 using Ringtoets.StabilityStoneCover.Service;
 using Ringtoets.WaveImpactAsphaltCover.Service;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Service
 {

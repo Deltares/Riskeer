@@ -40,8 +40,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -52,6 +50,8 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Service.Test
 {

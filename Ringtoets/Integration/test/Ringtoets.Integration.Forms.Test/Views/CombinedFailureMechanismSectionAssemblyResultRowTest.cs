@@ -28,9 +28,9 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Views;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data.Assembly;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

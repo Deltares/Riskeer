@@ -41,7 +41,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Util;
 using Ringtoets.Piping.Data;
@@ -50,6 +49,8 @@ using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Assembly;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views

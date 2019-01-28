@@ -26,14 +26,14 @@ using System.Linq;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
+namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
     /// Factory for creating assembly results for a piping structure failure mechanism.

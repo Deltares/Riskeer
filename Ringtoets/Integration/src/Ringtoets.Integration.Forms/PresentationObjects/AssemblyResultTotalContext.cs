@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {

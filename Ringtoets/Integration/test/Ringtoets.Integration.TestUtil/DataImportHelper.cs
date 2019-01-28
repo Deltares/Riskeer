@@ -38,7 +38,6 @@ using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.DuneErosion.Plugin.Handlers;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Importers;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -49,6 +48,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
+using Riskeer.Integration.Data;
 using PipingSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 

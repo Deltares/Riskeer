@@ -30,9 +30,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Views;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

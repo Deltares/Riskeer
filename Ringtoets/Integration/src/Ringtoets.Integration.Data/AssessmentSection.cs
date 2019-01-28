@@ -34,15 +34,15 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Data.Properties;
+using Riskeer.Integration.Data.StandAlone;
 
-namespace Ringtoets.Integration.Data
+namespace Riskeer.Integration.Data
 {
     /// <summary>
     /// The section to be assessed by the user for safety in regards of various failure mechanisms.
