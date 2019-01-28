@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.Piping.KernelWrapper.TestUtil")]
-[assembly: AssemblyProduct("Ringtoets.Piping.KernelWrapper.TestUtil")]
+[assembly: AssemblyTitle("Riskeer.Piping.KernelWrapper.TestUtil")]
+[assembly: AssemblyProduct("Riskeer.Piping.KernelWrapper.TestUtil")]

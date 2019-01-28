@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.GrassCoverErosionOutwards.Util")]
-[assembly: AssemblyProduct("Ringtoets.GrassCoverErosionOutwards.Util")]
+[assembly: AssemblyTitle("Riskeer.GrassCoverErosionOutwards.Util")]
+[assembly: AssemblyProduct("Riskeer.GrassCoverErosionOutwards.Util")]

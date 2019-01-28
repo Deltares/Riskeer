@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.DuneErosion.Forms")]
-[assembly: AssemblyProduct("Ringtoets.DuneErosion.Forms")]
-[assembly: InternalsVisibleTo("Ringtoets.DuneErosion.Forms.Test")]
+[assembly: AssemblyTitle("Riskeer.DuneErosion.Forms")]
+[assembly: AssemblyProduct("Riskeer.DuneErosion.Forms")]
+[assembly: InternalsVisibleTo("Riskeer.DuneErosion.Forms.Test")]

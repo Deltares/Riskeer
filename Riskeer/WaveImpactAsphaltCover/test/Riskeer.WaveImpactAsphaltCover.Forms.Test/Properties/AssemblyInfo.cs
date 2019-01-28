@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.WaveImpactAsphaltCover.Forms.Test")]
-[assembly: AssemblyProduct("Ringtoets.WaveImpactAsphaltCover.Forms.Test")]
+[assembly: AssemblyTitle("Riskeer.WaveImpactAsphaltCover.Forms.Test")]
+[assembly: AssemblyProduct("Riskeer.WaveImpactAsphaltCover.Forms.Test")]

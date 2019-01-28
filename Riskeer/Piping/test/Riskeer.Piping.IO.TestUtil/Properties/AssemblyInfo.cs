@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.Piping.IO.TestUtil")]
-[assembly: AssemblyProduct("Ringtoets.Piping.IO.TestUtil")]
+[assembly: AssemblyTitle("Riskeer.Piping.IO.TestUtil")]
+[assembly: AssemblyProduct("Riskeer.Piping.IO.TestUtil")]

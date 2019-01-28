@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.Common.Data")]
-[assembly: AssemblyProduct("Ringtoets.Common.Data")]
-[assembly: InternalsVisibleTo("Ringtoets.Common.Data.Test")]
+[assembly: AssemblyTitle("Riskeer.Common.Data")]
+[assembly: AssemblyProduct("Riskeer.Common.Data")]
+[assembly: InternalsVisibleTo("Riskeer.Common.Data.Test")]

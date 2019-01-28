@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.WaveImpactAsphaltCover.Forms")]
-[assembly: AssemblyProduct("Ringtoets.WaveImpactAsphaltCover.Forms")]
-[assembly: InternalsVisibleTo("Ringtoets.WaveImpactAsphaltCover.Forms.Test")]
+[assembly: AssemblyTitle("Riskeer.WaveImpactAsphaltCover.Forms")]
+[assembly: AssemblyProduct("Riskeer.WaveImpactAsphaltCover.Forms")]
+[assembly: InternalsVisibleTo("Riskeer.WaveImpactAsphaltCover.Forms.Test")]

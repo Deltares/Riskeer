@@ -24,4 +24,4 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer.Integration.Data")]
 [assembly: AssemblyProduct("Riskeer.Integration.Data")]
-[assembly: InternalsVisibleTo("Ringtoets.Integration.Data.Test")]
+[assembly: InternalsVisibleTo("Riskeer.Integration.Data.Test")]

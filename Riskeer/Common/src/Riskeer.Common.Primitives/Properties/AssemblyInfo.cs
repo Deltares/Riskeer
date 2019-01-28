@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.Common.Primitives")]
-[assembly: AssemblyProduct("Ringtoets.Common.Primitives")]
+[assembly: AssemblyTitle("Riskeer.Common.Primitives")]
+[assembly: AssemblyProduct("Riskeer.Common.Primitives")]

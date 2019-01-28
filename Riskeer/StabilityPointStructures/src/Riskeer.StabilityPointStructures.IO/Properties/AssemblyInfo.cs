@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.StabilityPointStructures.IO")]
-[assembly: AssemblyProduct("Ringtoets.StabilityPointStructures.IO")]
-[assembly: InternalsVisibleTo("Ringtoets.StabilityPointStructures.IO.Test")]
+[assembly: AssemblyTitle("Riskeer.StabilityPointStructures.IO")]
+[assembly: AssemblyProduct("Riskeer.StabilityPointStructures.IO")]
+[assembly: InternalsVisibleTo("Riskeer.StabilityPointStructures.IO.Test")]

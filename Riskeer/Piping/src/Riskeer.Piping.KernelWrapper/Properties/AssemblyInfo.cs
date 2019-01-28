@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.Piping.KernelWrapper")]
-[assembly: AssemblyProduct("Ringtoets.Piping.KernelWrapper")]
-[assembly: InternalsVisibleTo("Ringtoets.Piping.KernelWrapper.Test")]
+[assembly: AssemblyTitle("Riskeer.Piping.KernelWrapper")]
+[assembly: AssemblyProduct("Riskeer.Piping.KernelWrapper")]
+[assembly: InternalsVisibleTo("Riskeer.Piping.KernelWrapper.Test")]

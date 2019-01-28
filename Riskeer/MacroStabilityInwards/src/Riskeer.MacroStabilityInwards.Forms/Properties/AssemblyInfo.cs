@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.Forms")]
-[assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.Forms")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Forms.Test")]
+[assembly: AssemblyTitle("Riskeer.MacroStabilityInwards.Forms")]
+[assembly: AssemblyProduct("Riskeer.MacroStabilityInwards.Forms")]
+[assembly: InternalsVisibleTo("Riskeer.MacroStabilityInwards.Forms.Test")]

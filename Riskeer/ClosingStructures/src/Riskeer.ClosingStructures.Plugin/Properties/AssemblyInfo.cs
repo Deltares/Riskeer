@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.ClosingStructures.Plugin")]
-[assembly: AssemblyProduct("Ringtoets.ClosingStructures.Plugin")]
+[assembly: AssemblyTitle("Riskeer.ClosingStructures.Plugin")]
+[assembly: AssemblyProduct("Riskeer.ClosingStructures.Plugin")]

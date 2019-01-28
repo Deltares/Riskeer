@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.Piping.IO")]
-[assembly: AssemblyProduct("Ringtoets.Piping.IO")]
-[assembly: InternalsVisibleTo("Ringtoets.Piping.IO.Test")]
+[assembly: AssemblyTitle("Riskeer.Piping.IO")]
+[assembly: AssemblyProduct("Riskeer.Piping.IO")]
+[assembly: InternalsVisibleTo("Riskeer.Piping.IO.Test")]

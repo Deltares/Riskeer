@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.IO.TestUtil.Test")]
-[assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.IO.TestUtil.Test")]
+[assembly: AssemblyTitle("Riskeer.MacroStabilityInwards.IO.TestUtil.Test")]
+[assembly: AssemblyProduct("Riskeer.MacroStabilityInwards.IO.TestUtil.Test")]

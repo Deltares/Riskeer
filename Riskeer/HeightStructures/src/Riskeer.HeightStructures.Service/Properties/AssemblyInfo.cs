@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.HeightStructures.Service")]
-[assembly: AssemblyProduct("Ringtoets.HeightStructures.Service")]
-[assembly: InternalsVisibleTo("Ringtoets.HeightStructures.Service.Test")]
+[assembly: AssemblyTitle("Riskeer.HeightStructures.Service")]
+[assembly: AssemblyProduct("Riskeer.HeightStructures.Service")]
+[assembly: InternalsVisibleTo("Riskeer.HeightStructures.Service.Test")]

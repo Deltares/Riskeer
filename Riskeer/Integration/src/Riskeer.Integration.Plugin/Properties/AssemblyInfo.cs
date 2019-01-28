@@ -24,4 +24,4 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer.Integration.Plugin")]
 [assembly: AssemblyProduct("Riskeer.Integration.Plugin")]
-[assembly: InternalsVisibleTo("Ringtoets.Integration.Plugin.Test")]
+[assembly: InternalsVisibleTo("Riskeer.Integration.Plugin.Test")]

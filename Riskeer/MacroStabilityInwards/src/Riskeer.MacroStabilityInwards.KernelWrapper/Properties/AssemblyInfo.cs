@@ -22,8 +22,8 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.KernelWrapper")]
-[assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.KernelWrapper")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.Test")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Service.Test")]
+[assembly: AssemblyTitle("Riskeer.MacroStabilityInwards.KernelWrapper")]
+[assembly: AssemblyProduct("Riskeer.MacroStabilityInwards.KernelWrapper")]
+[assembly: InternalsVisibleTo("Riskeer.MacroStabilityInwards.KernelWrapper.Test")]
+[assembly: InternalsVisibleTo("Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil")]
+[assembly: InternalsVisibleTo("Riskeer.MacroStabilityInwards.Service.Test")]

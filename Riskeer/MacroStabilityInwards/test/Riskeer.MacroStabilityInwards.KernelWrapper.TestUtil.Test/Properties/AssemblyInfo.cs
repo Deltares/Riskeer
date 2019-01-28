@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test")]
-[assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test")]
+[assembly: AssemblyTitle("Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test")]
+[assembly: AssemblyProduct("Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test")]

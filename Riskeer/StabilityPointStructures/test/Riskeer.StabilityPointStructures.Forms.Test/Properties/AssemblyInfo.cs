@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.StabilityPointStructures.Forms.Test")]
-[assembly: AssemblyProduct("Ringtoets.StabilityPointStructures.Forms.Test")]
+[assembly: AssemblyTitle("Riskeer.StabilityPointStructures.Forms.Test")]
+[assembly: AssemblyProduct("Riskeer.StabilityPointStructures.Forms.Test")]

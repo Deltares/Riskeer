@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Ringtoets.Piping.InputParameterCalculation.Test")]
-[assembly: AssemblyProduct("Ringtoets.Piping.InputParameterCalculation.Test")]
+[assembly: AssemblyTitle("Riskeer.Piping.InputParameterCalculation.Test")]
+[assembly: AssemblyProduct("Riskeer.Piping.InputParameterCalculation.Test")]
