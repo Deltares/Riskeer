@@ -360,9 +360,9 @@
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.IO.TestUtil\Ringtoets.HydraRing.IO.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.IO.TestUtil\Riskeer.HydraRing.IO.TestUtil.csproj">
       <Project>{7FB79768-1A8B-41CA-9614-8EC6C3C79482}</Project>
-      <Name>Ringtoets.HydraRing.IO.TestUtil</Name>
+      <Name>Riskeer.HydraRing.IO.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
