@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Exceptions;
 
-namespace Ringtoets.Integration.IO.Creators
+namespace Riskeer.Integration.IO.Creators
 {
     /// <summary>
     /// Creator to create instances of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>

@@ -25,17 +25,17 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Creators;
-using Ringtoets.Integration.IO.Exceptions;
-using Ringtoets.Integration.IO.Factories;
-using Ringtoets.Integration.IO.Properties;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Creators;
+using Riskeer.Integration.IO.Exceptions;
+using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Properties;
 
-namespace Ringtoets.Integration.IO.Exporters
+namespace Riskeer.Integration.IO.Exporters
 {
     /// <summary>
     /// Exports assembly results of the assessment section.

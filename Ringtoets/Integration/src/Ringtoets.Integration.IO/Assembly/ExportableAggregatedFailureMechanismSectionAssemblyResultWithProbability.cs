@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly
 {
     /// <summary>
     /// Class that holds all the information to export a failure mechanism section assembly result with probability.

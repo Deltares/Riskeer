@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Helpers;
 
-namespace Ringtoets.Integration.IO.Factories
+namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
     /// Factory to create instances of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>

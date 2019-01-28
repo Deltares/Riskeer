@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly
 {
     /// <summary>
     /// Class that holds all the information to export the assembly of a failure mechanism.

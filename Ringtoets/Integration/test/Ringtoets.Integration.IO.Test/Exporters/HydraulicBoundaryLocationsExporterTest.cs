@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Integration.IO.Exporters;
+using Riskeer.Integration.IO.Exporters;
 
 namespace Ringtoets.Integration.IO.Test.Exporters
 {

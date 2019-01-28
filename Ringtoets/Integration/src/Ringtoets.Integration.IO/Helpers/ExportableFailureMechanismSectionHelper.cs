@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.Helpers
+namespace Riskeer.Integration.IO.Helpers
 {
     /// <summary>
     /// Class containing helper methods for <see cref="ExportableFailureMechanismSection"/>.

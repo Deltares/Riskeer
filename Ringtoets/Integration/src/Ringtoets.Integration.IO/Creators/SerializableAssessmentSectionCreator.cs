@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Helpers;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Helpers;
 
-namespace Ringtoets.Integration.IO.Creators
+namespace Riskeer.Integration.IO.Creators
 {
     /// <summary>
     /// Creator to create instances of <see cref="SerializableAssessmentSection"/>.

@@ -21,15 +21,15 @@
 
 using System;
 using System.Linq;
-using Ringtoets.Integration.IO.AggregatedSerializable;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Exceptions;
-using Ringtoets.Integration.IO.Helpers;
-using Ringtoets.Integration.IO.Properties;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.Integration.IO.AggregatedSerializable;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Exceptions;
+using Riskeer.Integration.IO.Helpers;
+using Riskeer.Integration.IO.Properties;
 
-namespace Ringtoets.Integration.IO.Creators
+namespace Riskeer.Integration.IO.Creators
 {
     /// <summary>
     /// Creator to create instances of <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssembly"/>.

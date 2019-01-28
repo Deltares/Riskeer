@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.IO.Model;
 
-namespace Ringtoets.Integration.IO.AggregatedSerializable
+namespace Riskeer.Integration.IO.AggregatedSerializable
 {
     /// <summary>
     /// Class that holds all the information that is related when creating a collection of  <see cref="SerializableCombinedFailureMechanismSectionAssembly"/>.

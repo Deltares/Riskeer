@@ -27,7 +27,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Writers;
 using Ringtoets.Common.Util;
 
-namespace Ringtoets.Integration.IO.Exporters
+namespace Riskeer.Integration.IO.Exporters
 {
     /// <summary>
     /// Shapefile writer that writes the locations of a collection of

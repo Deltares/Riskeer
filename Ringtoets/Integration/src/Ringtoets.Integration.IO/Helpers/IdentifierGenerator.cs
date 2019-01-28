@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Properties;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Properties;
 
-namespace Ringtoets.Integration.IO.Helpers
+namespace Riskeer.Integration.IO.Helpers
 {
     /// <summary>
     /// Class to generate unique ids.

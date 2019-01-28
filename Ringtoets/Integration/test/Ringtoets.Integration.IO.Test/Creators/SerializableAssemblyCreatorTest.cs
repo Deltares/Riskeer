@@ -25,14 +25,14 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Gml;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Creators;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

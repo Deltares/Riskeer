@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly
 {
     /// <summary>
     /// Class that holds all the information to export an assembly result with a combined assembly result

@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Integration.IO.Assembly;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.TestUtil
 {

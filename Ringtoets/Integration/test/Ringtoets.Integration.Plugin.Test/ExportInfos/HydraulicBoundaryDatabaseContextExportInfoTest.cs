@@ -27,9 +27,9 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.IO.Exporters;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.IO.Exporters;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ExportInfos

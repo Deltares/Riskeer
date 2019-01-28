@@ -21,10 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.Integration.IO.Assembly;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.Creators
+namespace Riskeer.Integration.IO.Creators
 {
     /// <summary>
     /// Creator to create <see cref="SerializableFailureMechanismGroup"/>

@@ -22,12 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.Util;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.Factories
+namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
     /// Factory to create instances of <see cref="ExportableCombinedSectionAssembly"/>

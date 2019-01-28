@@ -24,10 +24,10 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.IO.Handlers;
-using Ringtoets.Integration.IO.Importers;
 using Ringtoets.Integration.Plugin.Properties;
 using Riskeer.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.IO.Handlers;
+using Riskeer.Integration.IO.Importers;
 
 namespace Ringtoets.Integration.Plugin.Handlers
 {

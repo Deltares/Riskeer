@@ -21,11 +21,11 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Creators;
-using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.TestUtil;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Creators;
+using Riskeer.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

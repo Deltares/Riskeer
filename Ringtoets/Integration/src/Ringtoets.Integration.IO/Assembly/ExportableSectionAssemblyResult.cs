@@ -21,7 +21,7 @@
 
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly
 {
     /// <summary>
     /// Class that holds all the information to export an assembly result for a failure mechanism section.

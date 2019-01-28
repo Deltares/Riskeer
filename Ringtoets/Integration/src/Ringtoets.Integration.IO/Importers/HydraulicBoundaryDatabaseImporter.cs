@@ -30,13 +30,13 @@ using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.Integration.IO.Handlers;
-using Ringtoets.Integration.IO.Properties;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Riskeer.Integration.IO.Handlers;
+using Riskeer.Integration.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Integration.IO.Importers
+namespace Riskeer.Integration.IO.Importers
 {
     /// <summary>
     /// Importer for hydraulic boundary database files and corresponding configuration files.

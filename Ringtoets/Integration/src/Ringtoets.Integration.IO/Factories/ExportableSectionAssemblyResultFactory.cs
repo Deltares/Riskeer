@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Integration.IO.Assembly;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.Factories
+namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
     /// Factory to create instances of <see cref="ExportableSectionAssemblyResult"/>.

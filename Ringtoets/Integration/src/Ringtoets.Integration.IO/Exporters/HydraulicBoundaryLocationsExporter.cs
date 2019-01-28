@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Util;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Integration.IO.Exporters
+namespace Riskeer.Integration.IO.Exporters
 {
     /// <summary>
     /// Exports hydraulic boundary locations and stores them as a shapefile.

@@ -28,11 +28,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.IO.Handlers;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {

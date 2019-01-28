@@ -25,8 +25,8 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Helpers;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Test.Helpers
 {

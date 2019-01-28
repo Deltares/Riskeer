@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Common.Util;
 using Ringtoets.Common.Util.TestUtil;
-using Ringtoets.Integration.IO.Exporters;
+using Riskeer.Integration.IO.Exporters;
 
 namespace Ringtoets.Integration.IO.Test.Exporters
 {

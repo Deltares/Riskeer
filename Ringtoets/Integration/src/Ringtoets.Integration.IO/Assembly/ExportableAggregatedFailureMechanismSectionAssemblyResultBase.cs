@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly
 {
     /// <summary>
     /// Base implementation to hold all information for exporting assembly results of a failure mechanism section.

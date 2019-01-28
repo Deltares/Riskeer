@@ -22,9 +22,9 @@
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Creators;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Creators;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

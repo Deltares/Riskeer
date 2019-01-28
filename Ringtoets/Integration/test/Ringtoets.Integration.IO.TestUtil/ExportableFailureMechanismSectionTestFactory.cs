@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-using Ringtoets.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.TestUtil
 {

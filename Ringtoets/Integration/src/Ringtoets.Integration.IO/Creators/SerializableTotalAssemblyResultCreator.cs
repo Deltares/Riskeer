@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Integration.IO.Helpers;
-using Ringtoets.Integration.IO.Properties;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.Integration.IO.Helpers;
+using Riskeer.Integration.IO.Properties;
 
-namespace Ringtoets.Integration.IO.Creators
+namespace Riskeer.Integration.IO.Creators
 {
     /// <summary>
     /// Creator to create instances of <see cref="SerializableTotalAssemblyResult"/>

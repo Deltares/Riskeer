@@ -24,15 +24,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.IO.AggregatedSerializable;
-using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Creators;
-using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.Integration.IO.AggregatedSerializable;
+using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Creators;
+using Riskeer.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

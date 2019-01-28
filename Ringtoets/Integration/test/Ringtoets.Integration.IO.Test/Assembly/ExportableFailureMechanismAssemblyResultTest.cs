@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.IO.Assembly;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
 {

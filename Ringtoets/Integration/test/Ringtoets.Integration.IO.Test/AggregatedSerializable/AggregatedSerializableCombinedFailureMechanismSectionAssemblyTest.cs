@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Integration.IO.AggregatedSerializable;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.Integration.IO.AggregatedSerializable;
 
 namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
 {

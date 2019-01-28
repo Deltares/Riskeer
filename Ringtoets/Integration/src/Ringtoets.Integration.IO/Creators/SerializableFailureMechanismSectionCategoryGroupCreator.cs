@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
-namespace Ringtoets.Integration.IO.Creators
+namespace Riskeer.Integration.IO.Creators
 {
     /// <summary>
     /// Creator to create <see cref="SerializableFailureMechanismSectionCategoryGroup"/>.

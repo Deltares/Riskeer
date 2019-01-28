@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Integration.IO.Exceptions
+namespace Riskeer.Integration.IO.Exceptions
 {
     /// <summary>
     /// Exception thrown when the assembly result cannot be created.
