@@ -36,8 +36,6 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Service;
@@ -46,6 +44,8 @@ using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.TestUtil;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 {

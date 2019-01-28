@@ -22,7 +22,7 @@
 using System;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
+namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="IHydraRingCalculatorFactory"/>

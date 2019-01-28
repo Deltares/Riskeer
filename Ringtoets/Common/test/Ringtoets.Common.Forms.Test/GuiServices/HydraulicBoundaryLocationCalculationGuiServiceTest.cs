@@ -32,9 +32,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.Common.Forms.Test.GuiServices
 {

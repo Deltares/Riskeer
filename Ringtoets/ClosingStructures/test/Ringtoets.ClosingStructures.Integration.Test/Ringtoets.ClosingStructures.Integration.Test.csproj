@@ -61,9 +61,9 @@
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
       <Name>Riskeer.HydraRing.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
-      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+      <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>

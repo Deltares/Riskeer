@@ -22,10 +22,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.Data.Variables;
+using Riskeer.HydraRing.Calculation.TestUtil;
 
 namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Structures
 {

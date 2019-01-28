@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
 {
     public static class GeneralResultTestFactory
     {

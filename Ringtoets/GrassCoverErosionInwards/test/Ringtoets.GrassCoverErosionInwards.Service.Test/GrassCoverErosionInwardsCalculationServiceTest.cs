@@ -36,11 +36,11 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 {

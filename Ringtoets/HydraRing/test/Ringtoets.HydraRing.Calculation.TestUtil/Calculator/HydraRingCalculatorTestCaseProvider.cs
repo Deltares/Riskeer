@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
+namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
 {
     /// <summary>
     /// Class that provide test cases which can be used to test objects using hydra ring calculators.

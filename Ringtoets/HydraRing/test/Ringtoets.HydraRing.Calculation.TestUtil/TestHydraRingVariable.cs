@@ -22,7 +22,7 @@
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil
+namespace Riskeer.HydraRing.Calculation.TestUtil
 {
     /// <summary>
     /// Test class for Hydra-Ring variables.

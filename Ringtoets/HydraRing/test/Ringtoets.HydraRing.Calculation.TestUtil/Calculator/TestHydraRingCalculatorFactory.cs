@@ -29,7 +29,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
+namespace Riskeer.HydraRing.Calculation.TestUtil.Calculator
 {
     public class TestWaveHeightCalculator : TestHydraRingCalculator<WaveHeightCalculationInput>, IWaveHeightCalculator
     {

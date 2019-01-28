@@ -25,7 +25,7 @@ using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil
+namespace Riskeer.HydraRing.Calculation.TestUtil
 {
     /// <summary>
     /// Assert methods for <see cref="HydraRingCalculationInput"/>.

@@ -21,7 +21,7 @@
 
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// A simple <see cref="WindDirection"/> class which can be used for testing.

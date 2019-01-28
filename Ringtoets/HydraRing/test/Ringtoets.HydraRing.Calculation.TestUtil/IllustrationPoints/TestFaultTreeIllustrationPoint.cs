@@ -22,7 +22,7 @@
 using System.Linq;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// Simple <see cref="FaultTreeIllustrationPoint"/> that can be used in tests.

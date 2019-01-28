@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -42,6 +41,7 @@ using Ringtoets.StabilityPointStructures.Service;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.StabilityPointStructures.Integration.Test
 {

@@ -35,13 +35,13 @@ using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.HydraRing.Calculation.TestUtil;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.HeightStructures.Service.Test
 {

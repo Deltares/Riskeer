@@ -1,6 +1,6 @@
 ﻿using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil
+namespace Riskeer.HydraRing.Calculation.TestUtil
 {
     /// <summary>
     /// Factory that creates simple instances of <see cref="HydraRingCalculationSettings"/>
