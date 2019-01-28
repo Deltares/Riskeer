@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Integration.Util
+namespace Riskeer.Integration.Util
 {
     /// <summary>
     /// Class containing helper methods for <see cref="FailureMechanismSection"/>.
