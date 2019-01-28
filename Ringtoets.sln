@@ -288,7 +288,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{14E296C8-B6B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{88E04195-C43E-40D3-B5F2-3A25E1E79E03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Data", "Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj", "{11F1F874-45AF-43E4-8AE5-15A5C9593E28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Integration.Data", "Ringtoets\Integration\src\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj", "{11F1F874-45AF-43E4-8AE5-15A5C9593E28}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

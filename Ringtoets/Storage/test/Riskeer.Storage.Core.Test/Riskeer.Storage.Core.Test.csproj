@@ -362,9 +362,9 @@
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+    <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
-      <Name>Ringtoets.Integration.Data</Name>
+      <Name>Riskeer.Integration.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>

@@ -99,9 +99,9 @@
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
-      <Name>Ringtoets.Integration.Data</Name>
+      <Name>Riskeer.Integration.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>

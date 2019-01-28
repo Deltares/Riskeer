@@ -341,9 +341,9 @@
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+    <ProjectReference Include="..\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
-      <Name>Ringtoets.Integration.Data</Name>
+      <Name>Riskeer.Integration.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Util\Ringtoets.Integration.Util.csproj">

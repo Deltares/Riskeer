@@ -65,9 +65,9 @@
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+    <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
-      <Name>Ringtoets.Integration.Data</Name>
+      <Name>Riskeer.Integration.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
