@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</ProjectGuid>
+    <RootNamespace>Riskeer.Integration.IO</RootNamespace>
+    <AssemblyName>Riskeer.Integration.IO</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssemblies.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssembly.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanism.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanismSectionAssembly.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultBase.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult.cs" />
+    <Compile Include="Assembly\ExportableAssessmentSection.cs" />
+    <Compile Include="Assembly\ExportableAssessmentSectionAssemblyResult.cs" />
+    <Compile Include="Assembly\ExportableCombinedFailureMechanismSection.cs" />
+    <Compile Include="Assembly\ExportableCombinedSectionAssembly.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismCombinedSectionAssemblyResult.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanism.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismAssemblyResult.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultWithProbability.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismGroup.cs" />
+    <Compile Include="Assembly\ExportableAssemblyMethod.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismSection.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismType.cs" />
+    <Compile Include="Assembly\ExportableSectionAssemblyResult.cs" />
+    <Compile Include="Assembly\ExportableSectionAssemblyResultWithProbability.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResult.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability.cs" />
+    <Compile Include="Creators\AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.cs" />
+    <Compile Include="Creators\AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.cs" />
+    <Compile Include="Creators\AggregatedSerializableFailureMechanismCreator.cs" />
+    <Compile Include="Creators\SerializableAssemblyCreator.cs" />
+    <Compile Include="Creators\SerializableAssemblyMethodCreator.cs" />
+    <Compile Include="Creators\SerializableAssessmentProcessCreator.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionAssemblyResultCreator.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionCategoryGroupCreator.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionCreator.cs" />
+    <Compile Include="Creators\SerializableCombinedFailureMechanismSectionAssemblyResultCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismCategoryGroupCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismGroupCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismResultCreator.cs" />
+    <Compile Include="Creators\AggregatedSerializableFailureMechanismSectionAssemblyCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismSectionCategoryGroupCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismSectionAssemblyResultCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismSectionCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismTypeCreator.cs" />
+    <Compile Include="Creators\SerializableTotalAssemblyResultCreator.cs" />
+    <Compile Include="Exceptions\AssemblyCreatorException.cs" />
+    <Compile Include="Exporters\AssemblyExporter.cs" />
+    <Compile Include="Exporters\HydraulicBoundaryLocationsExporter.cs" />
+    <Compile Include="Exporters\HydraulicBoundaryLocationsWriter.cs" />
+    <Compile Include="Factories\ExportableAssessmentSectionFactory.cs" />
+    <Compile Include="Factories\ExportableClosingStructuresFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableCombinedSectionAssemblyFactory.cs" />
+    <Compile Include="Factories\ExportableDuneErosionFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableGrassCoverErosionInwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableGrassCoverErosionOutwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableGrassCoverSlipOffOutwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableHeightStructuresFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableMacroStabilityOutwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableMicrostabilityFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportablePipingFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportablePipingStructureFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableSectionAssemblyResultFactory.cs" />
+    <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableStabilityStoneCoverFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableTechnicalInnovationFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableWaterPressureAsphaltCoverFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactory.cs" />
+    <Compile Include="Handlers\IHydraulicBoundaryDatabaseUpdateHandler.cs" />
+    <Compile Include="Handlers\IHydraulicLocationConfigurationDatabaseUpdateHandler.cs" />
+    <Compile Include="Helpers\ExportableFailureMechanismSectionHelper.cs" />
+    <Compile Include="Helpers\IdentifierGenerator.cs" />
+    <Compile Include="Importers\HydraulicBoundaryDatabaseImporter.cs" />
+    <Compile Include="Importers\HydraulicLocationConfigurationDatabaseImporter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
+      <Name>Core.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj">
+      <Project>{FD264FAD-E6F9-47CC-97CD-770199A8E629}</Project>
+      <Name>Core.Components.Gis.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
+      <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
+      <Name>Riskeer.AssemblyTool.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.IO\Riskeer.AssemblyTool.IO.csproj">
+      <Project>{b9838495-b090-4b84-a387-a8974f4f9cc4}</Project>
+      <Name>Riskeer.AssemblyTool.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+      <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
+      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+      <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
+      <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
+      <Name>Ringtoets.HydraRing.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+      <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
+      <Name>Riskeer.Integration.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Util\Ringtoets.Integration.Util.csproj">
+      <Project>{d4d21027-b2cd-47e2-a299-70885cc93ab4}</Project>
+      <Name>Ringtoets.Integration.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
