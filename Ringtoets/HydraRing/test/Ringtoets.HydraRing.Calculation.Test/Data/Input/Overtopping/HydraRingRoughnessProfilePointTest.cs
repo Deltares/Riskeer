@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
+namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Overtopping
 {
     [TestFixture]
     public class HydraRingRoughnessProfilePointTest

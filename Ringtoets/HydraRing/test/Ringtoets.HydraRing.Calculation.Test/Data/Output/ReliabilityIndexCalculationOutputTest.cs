@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data.Output;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
+namespace Riskeer.HydraRing.Calculation.Test.Data.Output
 {
     [TestFixture]
     public class ReliabilityIndexCalculationOutputTest

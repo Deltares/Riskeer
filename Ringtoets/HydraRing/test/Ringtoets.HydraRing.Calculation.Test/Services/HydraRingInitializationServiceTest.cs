@@ -28,7 +28,7 @@ using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Services
+namespace Riskeer.HydraRing.Calculation.Test.Services
 {
     [TestFixture]
     public class HydraRingInitializationServiceTest

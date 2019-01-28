@@ -27,7 +27,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
+namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
 {
     [TestFixture]
     public class WaveHeightCalculationInputTest

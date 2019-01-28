@@ -25,7 +25,7 @@ using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Defaults;
 using Riskeer.HydraRing.Calculation.Providers;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Providers
+namespace Riskeer.HydraRing.Calculation.Test.Providers
 {
     [TestFixture]
     public class FailureMechanismDefaultsProviderTest

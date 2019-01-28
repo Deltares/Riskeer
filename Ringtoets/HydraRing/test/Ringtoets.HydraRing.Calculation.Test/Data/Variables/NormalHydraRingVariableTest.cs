@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Variables
+namespace Riskeer.HydraRing.Calculation.Test.Data.Variables
 {
     [TestFixture]
     public class NormalHydraRingVariableTest

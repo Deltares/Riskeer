@@ -32,7 +32,7 @@ using Riskeer.HydraRing.Calculation.Data.Settings;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 using Riskeer.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Services
+namespace Riskeer.HydraRing.Calculation.Test.Services
 {
     [TestFixture]
     public class HydraRingConfigurationServiceTest

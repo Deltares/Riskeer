@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Exceptions
+namespace Riskeer.HydraRing.Calculation.Test.Exceptions
 {
     [TestFixture]
     public class HydraRingFileParserExceptionTest :

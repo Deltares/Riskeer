@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
+namespace Riskeer.HydraRing.Calculation.Test.Data.Settings
 {
     [TestFixture]
     public class TimeIntegrationSettingTest

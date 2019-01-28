@@ -31,7 +31,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Parsers;
 using Riskeer.HydraRing.Calculation.Parsers.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 {
     [TestFixture]
     public class IllustrationPointsParserTest

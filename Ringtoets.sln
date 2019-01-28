@@ -459,7 +459,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.HydraRing.Calculati
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Calculation.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Calculation.Test\Ringtoets.HydraRing.Calculation.Test.csproj", "{175406DB-C0DA-42A7-968C-0C17CF2257B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.HydraRing.Calculation.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Calculation.Test\Riskeer.HydraRing.Calculation.Test.csproj", "{175406DB-C0DA-42A7-968C-0C17CF2257B1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

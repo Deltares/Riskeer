@@ -24,7 +24,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Calculator
+namespace Riskeer.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
     public class StructuresCalculatorTest

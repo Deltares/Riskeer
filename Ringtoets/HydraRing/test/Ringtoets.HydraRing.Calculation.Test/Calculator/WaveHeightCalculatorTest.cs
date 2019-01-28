@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Calculator
+namespace Riskeer.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
     public class WaveHeightCalculatorTest

@@ -28,7 +28,7 @@ using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
+namespace Riskeer.HydraRing.Calculation.Test.Data.Input.WaveConditions
 {
     [TestFixture]
     public class WaveConditionsTrapezoidCalculationInputTest

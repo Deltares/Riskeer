@@ -33,7 +33,7 @@ using Riskeer.HydraRing.Calculation.Data.Settings;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Parsers;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Calculator
+namespace Riskeer.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
     public class HydraRingCalculatorBaseTest

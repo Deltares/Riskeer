@@ -28,7 +28,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
+namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Overtopping
 {
     [TestFixture]
     public class OvertoppingCalculationInputTest

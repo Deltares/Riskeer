@@ -23,7 +23,7 @@ using System.Diagnostics;
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Services
+namespace Riskeer.HydraRing.Calculation.Test.Services
 {
     [TestFixture]
     public class HydraRingProcessFactoryTest

@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Readers;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Readers
+namespace Riskeer.HydraRing.Calculation.Test.Readers
 {
     [TestFixture]
     public class HydraRingDatabaseReaderTest

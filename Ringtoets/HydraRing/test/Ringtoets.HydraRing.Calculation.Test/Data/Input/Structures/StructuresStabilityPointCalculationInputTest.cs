@@ -29,7 +29,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.Data.Variables;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
+namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Structures
 {
     [TestFixture]
     public class StructuresStabilityPointCalculationInputTest

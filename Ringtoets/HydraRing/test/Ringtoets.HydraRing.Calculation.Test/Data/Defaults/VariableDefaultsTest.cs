@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data.Defaults;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Defaults
+namespace Riskeer.HydraRing.Calculation.Test.Data.Defaults
 {
     [TestFixture]
     public class VariableDefaultsTest

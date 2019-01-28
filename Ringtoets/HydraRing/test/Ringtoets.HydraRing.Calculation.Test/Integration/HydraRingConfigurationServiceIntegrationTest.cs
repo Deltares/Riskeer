@@ -33,7 +33,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 using Riskeer.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Integration
+namespace Riskeer.HydraRing.Calculation.Test.Integration
 {
     [TestFixture]
     public class HydraRingConfigurationServiceIntegrationTest

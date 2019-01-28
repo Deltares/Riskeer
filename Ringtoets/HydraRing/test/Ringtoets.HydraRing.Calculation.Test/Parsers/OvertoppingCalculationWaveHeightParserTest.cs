@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Parsers;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Parsers
+namespace Riskeer.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
     public class OvertoppingCalculationWaveHeightParserTest
