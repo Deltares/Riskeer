@@ -261,22 +261,22 @@
       <Name>Ringtoets.StabilityStoneCover.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
+    <ProjectReference Include="..\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Riskeer.Integration.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Forms\Riskeer.Integration.Forms.csproj">
+    <ProjectReference Include="..\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj">
       <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>
       <Name>Riskeer.Integration.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.IO\Riskeer.Integration.IO.csproj">
+    <ProjectReference Include="..\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj">
       <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
       <Name>Riskeer.Integration.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Service\Riskeer.Integration.Service.csproj">
+    <ProjectReference Include="..\Riskeer.Integration.Service\Riskeer.Integration.Service.csproj">
       <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
       <Name>Riskeer.Integration.Service</Name>
       <Private>False</Private>

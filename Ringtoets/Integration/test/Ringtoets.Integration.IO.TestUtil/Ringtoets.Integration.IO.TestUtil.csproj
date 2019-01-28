@@ -49,7 +49,7 @@
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.IO\Riskeer.Integration.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj">
       <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
       <Name>Riskeer.Integration.IO</Name>
     </ProjectReference>

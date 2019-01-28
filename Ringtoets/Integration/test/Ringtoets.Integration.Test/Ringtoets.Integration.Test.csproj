@@ -110,11 +110,11 @@
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Riskeer.Integration.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Riskeer.Integration.Plugin</Name>
     </ProjectReference>

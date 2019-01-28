@@ -28,7 +28,7 @@
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Riskeer.AssemblyTool.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.IO\Riskeer.Integration.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj">
       <Project>{d693d18e-c257-4fde-96bc-f6e6fb043ecf}</Project>
       <Name>Riskeer.Integration.IO</Name>
     </ProjectReference>

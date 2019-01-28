@@ -144,7 +144,7 @@
       <Name>Ringtoets.DuneErosion.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Forms\Riskeer.Integration.Forms.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj">
       <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>
       <Name>Riskeer.Integration.Forms</Name>
       <Private>False</Private>
@@ -189,12 +189,12 @@
       <Name>Ringtoets.HeightStructures.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Riskeer.Integration.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Riskeer.Integration.Plugin</Name>
       <Private>False</Private>

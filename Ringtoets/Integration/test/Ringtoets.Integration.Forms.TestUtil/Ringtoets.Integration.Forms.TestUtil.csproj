@@ -32,7 +32,7 @@
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Riskeer.AssemblyTool.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Forms\Riskeer.Integration.Forms.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj">
       <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>
       <Name>Riskeer.Integration.Forms</Name>
     </ProjectReference>
