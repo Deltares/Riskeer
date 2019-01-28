@@ -27,7 +27,7 @@ using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// This class defines a table in which properties of <see cref="AssemblyCategory"/> instances are displayed.

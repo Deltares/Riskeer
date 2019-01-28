@@ -23,7 +23,7 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for presenting the assembly results of an <see cref="AssessmentSection"/> on a per section basis.

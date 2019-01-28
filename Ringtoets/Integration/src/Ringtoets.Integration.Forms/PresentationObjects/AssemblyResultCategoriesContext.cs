@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for presenting the category boundaries used in the overall assembly results of an <see cref="AssessmentSection"/>.

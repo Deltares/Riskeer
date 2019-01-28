@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 
-namespace Ringtoets.Integration.Forms.Merge
+namespace Riskeer.Integration.Forms.Merge
 {
     /// <summary>
     /// Interface for providing the data to merge.

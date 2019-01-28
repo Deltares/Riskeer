@@ -26,10 +26,10 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// Object properties class for <see cref="CalculationGroup"/>.

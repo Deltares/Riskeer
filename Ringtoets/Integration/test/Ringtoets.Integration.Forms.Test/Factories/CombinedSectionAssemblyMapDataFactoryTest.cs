@@ -24,7 +24,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Integration.Forms.Factories;
+using Riskeer.Integration.Forms.Factories;
 
 namespace Ringtoets.Integration.Forms.Test.Factories
 {

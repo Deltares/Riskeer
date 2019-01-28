@@ -29,10 +29,10 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of the norm values in the <see cref="FailureMechanismContribution"/> for properties panel.

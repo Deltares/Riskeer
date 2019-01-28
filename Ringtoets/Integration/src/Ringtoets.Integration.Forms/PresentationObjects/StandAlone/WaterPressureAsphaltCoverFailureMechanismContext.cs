@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects.StandAlone
+namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
 {
     /// <summary>
     /// This class is a presentation object for an instance of <see cref="WaterPressureAsphaltCoverFailureMechanism"/>.

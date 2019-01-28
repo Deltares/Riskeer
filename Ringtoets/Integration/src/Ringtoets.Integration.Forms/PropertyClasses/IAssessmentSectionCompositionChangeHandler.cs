@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// Interface for an object that can properly change the <see cref="IAssessmentSection.Composition"/>

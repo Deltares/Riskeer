@@ -29,10 +29,10 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of a <see cref="ReferenceLine"/> for properties panel.

@@ -27,7 +27,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.StandAlone;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for failure mechanism category boundaries for a

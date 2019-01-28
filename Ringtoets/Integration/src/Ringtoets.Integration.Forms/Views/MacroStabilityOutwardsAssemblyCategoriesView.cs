@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Views;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.StandAlone;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// View for a <see cref="MacroStabilityOutwardsFailureMechanism"/> to show

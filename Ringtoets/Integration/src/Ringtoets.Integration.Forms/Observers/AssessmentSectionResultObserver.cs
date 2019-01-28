@@ -39,7 +39,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Forms.Observers
+namespace Riskeer.Integration.Forms.Observers
 {
     /// <summary>
     /// Class that observes all objects in an <see cref="AssessmentSection"/> related to

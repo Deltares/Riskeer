@@ -27,7 +27,7 @@ using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Forms.Factories
+namespace Riskeer.Integration.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for assembly results in a <see cref="PipingStructureFailureMechanism"/>.

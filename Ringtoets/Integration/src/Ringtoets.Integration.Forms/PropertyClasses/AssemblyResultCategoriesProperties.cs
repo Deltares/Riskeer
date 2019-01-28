@@ -28,12 +28,12 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Integration.Forms.Properties;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of a collection of <see cref="FailureMechanismAssemblyCategory"/> for properties panel.

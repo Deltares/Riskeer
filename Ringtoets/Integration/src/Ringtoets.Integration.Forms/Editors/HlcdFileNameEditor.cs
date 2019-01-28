@@ -21,9 +21,9 @@
 
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.Editors
+namespace Riskeer.Integration.Forms.Editors
 {
     /// <summary>
     /// This class provides a dialog to select a hydraulic location configuration database.

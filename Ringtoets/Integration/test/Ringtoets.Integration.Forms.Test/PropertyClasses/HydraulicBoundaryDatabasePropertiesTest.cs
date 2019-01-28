@@ -28,8 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Forms.Editors;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.Forms.Editors;
+using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {

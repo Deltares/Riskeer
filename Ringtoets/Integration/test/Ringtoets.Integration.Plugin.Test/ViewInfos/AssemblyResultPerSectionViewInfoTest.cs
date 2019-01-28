@@ -26,10 +26,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.Properties;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {

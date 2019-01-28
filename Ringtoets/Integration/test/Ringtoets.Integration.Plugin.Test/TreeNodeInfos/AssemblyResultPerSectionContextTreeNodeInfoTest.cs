@@ -29,9 +29,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.Properties;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {

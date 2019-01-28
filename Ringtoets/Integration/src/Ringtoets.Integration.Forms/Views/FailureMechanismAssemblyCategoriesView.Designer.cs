@@ -21,7 +21,7 @@
 
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class FailureMechanismAssemblyCategoriesView
     {
@@ -39,8 +39,8 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.failureMechanismSectionAssemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup>();
-            this.failureMechanismAssemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>();
+            this.failureMechanismSectionAssemblyCategoriesTable = new AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup>();
+            this.failureMechanismAssemblyCategoriesTable = new AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>();
             this.failureMechanismAssemblyGroupBox = new System.Windows.Forms.GroupBox();
             this.failureMechanismSectionAssemblyGroupBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -70,14 +70,14 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismAssemblyGroupBox.Controls.Add(this.failureMechanismAssemblyCategoriesTable);
             this.failureMechanismAssemblyGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.failureMechanismAssemblyGroupBox.Name = "failureMechanismAssemblyGroupBox";
-            this.failureMechanismAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismAssemblyCategories_DisplayName;
+            this.failureMechanismAssemblyGroupBox.Text = global::Riskeer.Integration.Forms.Properties.Resources.FailureMechanismAssemblyCategories_DisplayName;
             // 
             // failureMechanismSectionAssemblyGroupBox
             // 
             this.failureMechanismSectionAssemblyGroupBox.Controls.Add(this.failureMechanismSectionAssemblyCategoriesTable);
             this.failureMechanismSectionAssemblyGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.failureMechanismSectionAssemblyGroupBox.Name = "failureMechanismSectionAssemblyGroupBox";
-            this.failureMechanismSectionAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismSectionAssemblyCategories_DisplayName;
+            this.failureMechanismSectionAssemblyGroupBox.Text = global::Riskeer.Integration.Forms.Properties.Resources.FailureMechanismSectionAssemblyCategories_DisplayName;
             // 
             // tableLayoutPanel
             // 
@@ -110,8 +110,8 @@ namespace Ringtoets.Integration.Forms.Views
 
         #endregion
 
-        private Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionAssemblyCategoriesTable;
-        private Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyCategoriesTable;
+        private AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionAssemblyCategoriesTable;
+        private AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyCategoriesTable;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.GroupBox failureMechanismAssemblyGroupBox;
         private System.Windows.Forms.GroupBox failureMechanismSectionAssemblyGroupBox;

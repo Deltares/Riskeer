@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a failure mechanism without a detailed assessment.

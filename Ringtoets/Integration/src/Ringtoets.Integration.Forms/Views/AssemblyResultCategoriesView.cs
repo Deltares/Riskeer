@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// View to show a collection of <see cref="FailureMechanismAssemblyCategory"/>.

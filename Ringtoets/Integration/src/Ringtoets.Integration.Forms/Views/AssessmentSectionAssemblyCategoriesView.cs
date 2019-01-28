@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// View for a <see cref="FailureMechanismContribution"/> to show 

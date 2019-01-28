@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Controls.Commands;
 
-namespace Ringtoets.Integration.Forms.Commands
+namespace Riskeer.Integration.Forms.Commands
 {
     /// <summary>
     /// This class describes commands which are used to execute <see cref="AssessmentSectionFromFileCommandHandler"/> in the GUI.

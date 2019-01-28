@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class AssessmentSectionView
     {
@@ -59,6 +59,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         #endregion
 
-        private Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
+        private Ringtoets.Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
     }
 }

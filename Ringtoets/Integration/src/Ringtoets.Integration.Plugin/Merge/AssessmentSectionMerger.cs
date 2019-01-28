@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Comparers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.Forms.Merge;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Merge

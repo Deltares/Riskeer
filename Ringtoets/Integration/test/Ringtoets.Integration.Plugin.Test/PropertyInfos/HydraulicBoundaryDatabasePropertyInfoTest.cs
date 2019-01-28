@@ -27,9 +27,9 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {

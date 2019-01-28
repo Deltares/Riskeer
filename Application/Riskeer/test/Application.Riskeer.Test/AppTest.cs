@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util.Settings;
 using NUnit.Framework;
-using Ringtoets.Integration.Forms;
+using Riskeer.Integration.Forms;
 
 namespace Application.Riskeer.Test
 {

@@ -22,7 +22,7 @@
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Integration.Forms.Commands
+namespace Riskeer.Integration.Forms.Commands
 {
     /// <summary>
     /// Interface for handling commands related to adding <see cref="IAssessmentSection"/> to a <see cref="IProject"/>.

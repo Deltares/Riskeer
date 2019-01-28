@@ -23,7 +23,7 @@ using System;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Forms.Merge;
+using Riskeer.Integration.Forms.Merge;
 
 namespace Ringtoets.Integration.Forms.Test.Merge
 {

@@ -21,7 +21,7 @@
 
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class MacroStabilityOutwardsAssemblyCategoriesView
     {
@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.failureMechanismSectionAssemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup>();
+            this.failureMechanismSectionAssemblyCategoriesTable = new AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup>();
             this.failureMechanismSectionAssemblyGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBoxPanel = new System.Windows.Forms.Panel();
             this.groupBoxPanel.SuspendLayout();
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismSectionAssemblyGroupBox.Controls.Add(this.failureMechanismSectionAssemblyCategoriesTable);
             this.failureMechanismSectionAssemblyGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.failureMechanismSectionAssemblyGroupBox.Name = "failureMechanismSectionAssemblyGroupBox";
-            this.failureMechanismSectionAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismSectionAssemblyCategories_DisplayName;
+            this.failureMechanismSectionAssemblyGroupBox.Text = global::Riskeer.Integration.Forms.Properties.Resources.FailureMechanismSectionAssemblyCategories_DisplayName;
             // 
             // FailureMechanismAssemblyCategoriesView
             // 
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         #endregion
 
-        private Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionAssemblyCategoriesTable;
+        private AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionAssemblyCategoriesTable;
         private System.Windows.Forms.GroupBox failureMechanismSectionAssemblyGroupBox;
         private System.Windows.Forms.Panel groupBoxPanel;
     }

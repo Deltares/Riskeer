@@ -27,10 +27,10 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
+namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
     /// ViewModel of <see cref="IFailureMechanism"/> properties panel.

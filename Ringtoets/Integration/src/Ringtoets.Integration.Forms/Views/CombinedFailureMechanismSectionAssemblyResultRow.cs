@@ -28,7 +28,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.Assembly;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// This class represents a row displaying the properties of the <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.

@@ -26,10 +26,10 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Integration.Forms.Observers;
-using Ringtoets.Integration.Forms.Properties;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Forms.Observers;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
@@ -43,7 +43,7 @@ using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properti
 using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// The view for the assembly result per section for all failure mechanisms of 

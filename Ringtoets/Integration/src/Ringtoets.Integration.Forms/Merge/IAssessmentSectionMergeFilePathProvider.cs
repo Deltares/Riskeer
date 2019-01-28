@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Integration.Forms.Merge
+namespace Riskeer.Integration.Forms.Merge
 {
     /// <summary>
     /// Interface for providing a file path of a project that might contain assessment sections that can be merged.

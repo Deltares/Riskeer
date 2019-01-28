@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Ringtoets.Integration.Forms.Merge
+namespace Riskeer.Integration.Forms.Merge
 {
     partial class AssessmentSectionMergeDataProviderDialog
     {

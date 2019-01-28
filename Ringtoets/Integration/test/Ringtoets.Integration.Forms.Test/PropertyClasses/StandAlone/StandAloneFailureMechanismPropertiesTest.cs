@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
+using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
 {

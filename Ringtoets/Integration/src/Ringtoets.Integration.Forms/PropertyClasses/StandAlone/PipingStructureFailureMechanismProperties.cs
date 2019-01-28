@@ -27,7 +27,7 @@ using Core.Common.Util.Attributes;
 using Riskeer.Integration.Data.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
+namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
     /// ViewModel of <see cref="PipingStructureFailureMechanism"/> properties panel.

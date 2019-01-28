@@ -23,7 +23,7 @@ using System;
 using Core.Common.Gui;
 using RingtoetsStorageCoreResources = Riskeer.Storage.Core.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Merge
+namespace Riskeer.Integration.Forms.Merge
 {
     /// <summary>
     /// Class for providing a file path of a project that might contain assessment sections that can be merged.

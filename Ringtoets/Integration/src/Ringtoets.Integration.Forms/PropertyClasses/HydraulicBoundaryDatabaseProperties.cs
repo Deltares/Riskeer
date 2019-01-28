@@ -27,11 +27,11 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Forms.Editors;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Editors;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.

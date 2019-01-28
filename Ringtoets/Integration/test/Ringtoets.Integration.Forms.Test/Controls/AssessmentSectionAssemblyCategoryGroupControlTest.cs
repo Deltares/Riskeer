@@ -28,8 +28,8 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.Forms.Controls;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Forms.Controls;
 
 namespace Ringtoets.Integration.Forms.Test.Controls
 {

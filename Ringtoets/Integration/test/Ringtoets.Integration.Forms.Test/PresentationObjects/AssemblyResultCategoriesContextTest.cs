@@ -24,12 +24,12 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {

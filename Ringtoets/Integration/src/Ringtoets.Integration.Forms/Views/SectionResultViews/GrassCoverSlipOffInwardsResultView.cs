@@ -23,12 +23,12 @@ using Core.Common.Base;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Forms.Views.SectionResultRows;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultViews
+namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.

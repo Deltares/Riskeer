@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.Merge;
+using Riskeer.Integration.Forms.Merge;
 
 namespace Ringtoets.Integration.Forms.Test.Merge
 {

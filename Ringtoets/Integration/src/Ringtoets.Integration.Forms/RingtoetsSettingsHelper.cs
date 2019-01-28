@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.Util.Settings;
 
-namespace Ringtoets.Integration.Forms
+namespace Riskeer.Integration.Forms
 {
     /// <summary>
     /// Class that defines helper methods related to Ringtoets settings.

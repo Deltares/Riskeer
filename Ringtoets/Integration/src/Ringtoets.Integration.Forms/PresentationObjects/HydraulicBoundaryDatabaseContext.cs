@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.

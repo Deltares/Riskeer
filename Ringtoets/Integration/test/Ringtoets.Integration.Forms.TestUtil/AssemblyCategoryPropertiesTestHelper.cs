@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Integration.Forms.PropertyClasses;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.TestUtil
 {

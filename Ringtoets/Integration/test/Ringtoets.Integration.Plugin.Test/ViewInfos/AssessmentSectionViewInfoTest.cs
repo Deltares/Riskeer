@@ -27,8 +27,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.Views;
-using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using Riskeer.Integration.Forms.Views;
+using RingtoetsFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {

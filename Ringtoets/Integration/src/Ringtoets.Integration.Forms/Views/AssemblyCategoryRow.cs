@@ -26,7 +26,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// This class represents a row displaying the properties of a <see cref="AssemblyCategory"/>.

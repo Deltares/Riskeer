@@ -27,13 +27,13 @@ using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.Forms.Factories;
-using Ringtoets.Integration.Forms.Observers;
-using Ringtoets.Integration.Forms.Properties;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Forms.Factories;
+using Riskeer.Integration.Forms.Observers;
+using Riskeer.Integration.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// The map view for the assembly result per section for all failure mechanisms of 

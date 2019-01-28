@@ -30,7 +30,6 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.Factories;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.Integration.Util;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -41,6 +40,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Forms.Factories;
 
 namespace Ringtoets.Integration.Forms.Test.Factories
 {

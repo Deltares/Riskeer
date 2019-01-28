@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Integration.Forms.Dialogs;
+using Riskeer.Integration.Forms.Dialogs;
 
 namespace Ringtoets.Integration.Forms.Test.Dialogs
 {

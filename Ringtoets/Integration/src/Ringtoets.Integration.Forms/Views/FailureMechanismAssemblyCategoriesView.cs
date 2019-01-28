@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
     /// View for an <see cref="IFailureMechanism"/> to show 

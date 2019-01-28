@@ -26,7 +26,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Forms.Commands;
+using Riskeer.Integration.Forms.Commands;
 
 namespace Ringtoets.Integration.Forms.Test.Commands
 {

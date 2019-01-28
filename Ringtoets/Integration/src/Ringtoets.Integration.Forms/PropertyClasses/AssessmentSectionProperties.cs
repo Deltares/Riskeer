@@ -22,11 +22,11 @@
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.Properties;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="AssessmentSection"/> for properties panel.

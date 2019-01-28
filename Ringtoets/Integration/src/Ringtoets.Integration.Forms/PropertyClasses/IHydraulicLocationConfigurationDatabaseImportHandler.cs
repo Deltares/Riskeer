@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// Interface for an object that can properly import a <see cref="HydraulicLocationConfigurationSettings"/>.

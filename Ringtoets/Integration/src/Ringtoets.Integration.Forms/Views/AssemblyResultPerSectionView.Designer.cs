@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class AssemblyResultPerSectionView
     {
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.refreshAssemblyResultsButton.Name = "refreshAssemblyResultsButton";
             this.refreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 23);
             this.refreshAssemblyResultsButton.TabIndex = 0;
-            this.refreshAssemblyResultsButton.Text = global::Ringtoets.Integration.Forms.Properties.Resources.RefreshAssemblyResultsButton_Text;
+            this.refreshAssemblyResultsButton.Text = global::Riskeer.Integration.Forms.Properties.Resources.RefreshAssemblyResultsButton_Text;
             this.refreshAssemblyResultsButton.UseVisualStyleBackColor = true;
             this.refreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
             // 

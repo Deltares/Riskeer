@@ -29,7 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Dialogs
+namespace Riskeer.Integration.Forms.Dialogs
 {
     /// <summary>
     /// A dialog which allows the user to make a selection from a given set of background layers. Upon

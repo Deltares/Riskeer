@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Controls
+namespace Riskeer.Integration.Forms.Controls
 {
     /// <summary>
     /// Control to display a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.

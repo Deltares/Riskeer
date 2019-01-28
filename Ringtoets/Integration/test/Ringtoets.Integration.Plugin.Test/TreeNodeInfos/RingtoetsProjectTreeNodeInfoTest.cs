@@ -30,7 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Data;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 

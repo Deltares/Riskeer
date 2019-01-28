@@ -21,7 +21,7 @@
 
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class AssemblyResultCategoriesView
     {
@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.assemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>();
+            this.assemblyCategoriesTable = new AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>();
             this.groupBoxPanel = new System.Windows.Forms.Panel();
             this.groupBoxPanel.SuspendLayout();
             this.groupBox = new System.Windows.Forms.GroupBox();
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.groupBox.Size = new System.Drawing.Size(150, 150);
             this.groupBox.TabIndex = 0;
             this.groupBox.TabStop = false;
-            this.groupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.AssemblyResultCategories_DisplayName;
+            this.groupBox.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultCategories_DisplayName;
             // 
             // AssemblyResultCategoriesView
             // 
@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         #endregion
 
-        private Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> assemblyCategoriesTable;
+        private AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> assemblyCategoriesTable;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Panel groupBoxPanel;
     }

@@ -36,8 +36,8 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.Views;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

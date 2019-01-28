@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class AssemblyResultPerSectionMapView
     {
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         #endregion
 
-        private Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
+        private Ringtoets.Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
         private Panel warningPanel;
         private PictureBox warningIcon;
         private Label warningText;

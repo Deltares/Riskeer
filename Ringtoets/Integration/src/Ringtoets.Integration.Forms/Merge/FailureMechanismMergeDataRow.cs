@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Integration.Forms.Merge
+namespace Riskeer.Integration.Forms.Merge
 {
     /// <summary>
     /// Row representing the information of a <see cref="IFailureMechanism"/> to be

@@ -29,10 +29,10 @@ using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Dialogs
+namespace Riskeer.Integration.Forms.Dialogs
 {
     /// <summary>
     /// A dialog which allows the user to make a selection from a given set of <see cref="ReferenceLineMeta"/>. Upon

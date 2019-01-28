@@ -28,9 +28,9 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.IO.Exporters;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ExportInfos

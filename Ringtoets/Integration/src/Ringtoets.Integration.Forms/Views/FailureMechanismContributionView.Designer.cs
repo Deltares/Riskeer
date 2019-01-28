@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class FailureMechanismContributionView
     {

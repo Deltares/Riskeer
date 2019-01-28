@@ -36,13 +36,13 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.ReferenceLines;
-using Ringtoets.Integration.Forms.Dialogs;
-using Ringtoets.Integration.Forms.Properties;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Dialogs;
 using IntegrationResources = Riskeer.Integration.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Commands
+namespace Riskeer.Integration.Forms.Commands
 {
     /// <summary>
     /// This class is responsible for adding an <see cref="AssessmentSection"/> from a predefined location.

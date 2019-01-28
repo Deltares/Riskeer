@@ -37,7 +37,7 @@ using Core.Components.Gis.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Forms.Dialogs;
+using Riskeer.Integration.Forms.Dialogs;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Dialogs

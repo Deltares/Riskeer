@@ -30,8 +30,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Integration.Forms.Views;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

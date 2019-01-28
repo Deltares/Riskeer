@@ -22,9 +22,9 @@
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Integration.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.Factories
+namespace Riskeer.Integration.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="FeatureBasedMapData"/> for combined section assembly results.

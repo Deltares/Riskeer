@@ -21,7 +21,7 @@
 
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class AssessmentSectionAssemblyCategoriesView
     {
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyCategoriesView));
-            this.assemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>();
+            this.assemblyCategoriesTable = new AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>();
             this.SuspendLayout();
             // 
             // assessmentSectionAssemblyCategoriesTable

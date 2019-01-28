@@ -40,9 +40,9 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.Commands;
-using Ringtoets.Integration.Forms.Dialogs;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.Commands;
+using Riskeer.Integration.Forms.Dialogs;
 
 namespace Ringtoets.Integration.Forms.Test.Commands
 {

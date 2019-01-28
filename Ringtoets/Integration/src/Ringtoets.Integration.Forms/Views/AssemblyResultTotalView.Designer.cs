@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
+using Riskeer.Integration.Forms.Controls;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class AssemblyResultTotalView
     {
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.totalResultLabel = new System.Windows.Forms.Label();
             this.failureMechanismsWithProbabilityLabel = new System.Windows.Forms.Label();
             this.failureMechanismsWithoutProbabilityLabel = new System.Windows.Forms.Label();
-            this.totalAssemblyCategoryGroupControl = new Ringtoets.Integration.Forms.Controls.AssessmentSectionAssemblyCategoryGroupControl();
+            this.totalAssemblyCategoryGroupControl = new AssessmentSectionAssemblyCategoryGroupControl();
             this.failureMechanismsWithProbabilityAssemblyControl = new Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyControl();
             this.failureMechanismsWithoutProbabilityAssemblyControl = new Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.refreshAssemblyResultsButton.Name = "refreshAssemblyResultsButton";
             this.refreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 25);
             this.refreshAssemblyResultsButton.TabIndex = 0;
-            this.refreshAssemblyResultsButton.Text = global::Ringtoets.Integration.Forms.Properties.Resources.RefreshAssemblyResultsButton_Text;
+            this.refreshAssemblyResultsButton.Text = global::Riskeer.Integration.Forms.Properties.Resources.RefreshAssemblyResultsButton_Text;
             this.refreshAssemblyResultsButton.UseVisualStyleBackColor = true;
             this.refreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
             // 
@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.totalResultLabel.Name = "totalResultLabel";
             this.totalResultLabel.Size = new System.Drawing.Size(81, 30);
             this.totalResultLabel.TabIndex = 0;
-            this.totalResultLabel.Text = global::Ringtoets.Integration.Forms.Properties.Resources.AssemblyResultTotalView_TotalResultLabel_Text;
+            this.totalResultLabel.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_TotalResultLabel_Text;
             this.totalResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // failureMechanismsWithProbabilityLabel
@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismsWithProbabilityLabel.Name = "failureMechanismsWithProbabilityLabel";
             this.failureMechanismsWithProbabilityLabel.Size = new System.Drawing.Size(81, 30);
             this.failureMechanismsWithProbabilityLabel.TabIndex = 1;
-            this.failureMechanismsWithProbabilityLabel.Text = global::Ringtoets.Integration.Forms.Properties.Resources.AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text;
+            this.failureMechanismsWithProbabilityLabel.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text;
             this.failureMechanismsWithProbabilityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // failureMechanismsWithoutProbabilityLabel
@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismsWithoutProbabilityLabel.Name = "failureMechanismsWithoutProbabilityLabel";
             this.failureMechanismsWithoutProbabilityLabel.Size = new System.Drawing.Size(81, 31);
             this.failureMechanismsWithoutProbabilityLabel.TabIndex = 2;
-            this.failureMechanismsWithoutProbabilityLabel.Text = global::Ringtoets.Integration.Forms.Properties.Resources.AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text;
+            this.failureMechanismsWithoutProbabilityLabel.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text;
             this.failureMechanismsWithoutProbabilityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // totalAssemblyCategoryGroupControl

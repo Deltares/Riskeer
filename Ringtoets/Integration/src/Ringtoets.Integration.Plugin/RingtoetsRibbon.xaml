@@ -28,7 +28,7 @@ All rights reserved.
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
              xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              xmlns:resx="clr-namespace:Ringtoets.Integration.Plugin.Properties"
-             xmlns:properties="clr-namespace:Ringtoets.Integration.Forms.Properties;assembly=Ringtoets.Integration.Forms"
+             xmlns:properties="clr-namespace:Riskeer.Integration.Forms.Properties;assembly=Riskeer.Integration.Forms"
              xmlns:guiProperties="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>

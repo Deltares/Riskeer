@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Riskeer.Integration.Forms.Views
 {
     partial class FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>
     {

@@ -26,11 +26,11 @@ using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Merge;
 using Ringtoets.Integration.Service.Comparers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.Forms.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
 {

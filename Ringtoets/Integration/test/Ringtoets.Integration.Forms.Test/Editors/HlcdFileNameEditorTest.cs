@@ -23,7 +23,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using NUnit.Framework;
-using Ringtoets.Integration.Forms.Editors;
+using Riskeer.Integration.Forms.Editors;
 
 namespace Ringtoets.Integration.Forms.Test.Editors
 {
