@@ -90,8 +90,8 @@ namespace Core.Common.TestUtil
 
             public static class HydraRing
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Ringtoets.HydraRing.IO.Test");
-                public static readonly TestDataPath Calculation = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Ringtoets.HydraRing.Calculation.Test");
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Riskeer.HydraRing.IO.Test");
+                public static readonly TestDataPath Calculation = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Riskeer.HydraRing.Calculation.Test");
             }
 
             public static class Integration
