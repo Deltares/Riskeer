@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Integration.Service.Exceptions;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Service.Exceptions;
 
-namespace Ringtoets.Integration.Service.Merge
+namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
     /// Interface for reading and providing <see cref="AssessmentSection"/> instances.

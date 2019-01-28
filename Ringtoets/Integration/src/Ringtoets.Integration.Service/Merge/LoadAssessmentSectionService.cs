@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Storage;
 using log4net;
-using Ringtoets.Integration.Service.Exceptions;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Service.Exceptions;
 
-namespace Ringtoets.Integration.Service.Merge
+namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
     /// Service to load a <see cref="RingtoetsProject"/> from a file.

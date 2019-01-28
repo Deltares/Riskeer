@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Service.Comparers
+namespace Riskeer.Integration.Service.Comparers
 {
     /// <summary>
     /// Class which compares <see cref="AssessmentSection"/> to

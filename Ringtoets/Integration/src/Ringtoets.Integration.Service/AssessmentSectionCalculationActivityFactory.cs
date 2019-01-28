@@ -34,7 +34,7 @@ using Ringtoets.StabilityStoneCover.Service;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Service
+namespace Riskeer.Integration.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for

@@ -29,8 +29,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Integration.Service;
 using Riskeer.Integration.Plugin.Properties;
+using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Handlers

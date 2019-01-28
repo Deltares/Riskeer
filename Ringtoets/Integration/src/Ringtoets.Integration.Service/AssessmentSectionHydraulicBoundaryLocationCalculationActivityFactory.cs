@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Service
+namespace Riskeer.Integration.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for

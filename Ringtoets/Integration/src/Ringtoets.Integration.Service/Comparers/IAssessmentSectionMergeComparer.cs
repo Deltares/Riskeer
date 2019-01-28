@@ -22,7 +22,7 @@
 using System;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Service.Comparers
+namespace Riskeer.Integration.Service.Comparers
 {
     /// <summary>
     /// Specifies the interface for defining classes that can be used to compare assessment sections

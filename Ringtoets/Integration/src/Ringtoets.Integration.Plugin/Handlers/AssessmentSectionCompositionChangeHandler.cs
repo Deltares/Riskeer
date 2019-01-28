@@ -31,11 +31,11 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.Integration.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Properties;
+using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Handlers

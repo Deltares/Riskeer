@@ -27,8 +27,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Integration.Service.Comparers;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Service.Comparers;
 
 namespace Ringtoets.Integration.Service.Test.Comparers
 {

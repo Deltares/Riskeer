@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
-using Ringtoets.Integration.Service.Merge;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.Service.Merge;
 using Riskeer.Storage.Core;
 
 namespace Riskeer.Integration.Plugin.Merge

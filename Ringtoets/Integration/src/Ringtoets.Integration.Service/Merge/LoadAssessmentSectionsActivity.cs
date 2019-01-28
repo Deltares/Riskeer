@@ -21,11 +21,11 @@
 
 using System;
 using Core.Common.Base.Service;
-using Ringtoets.Integration.Service.Properties;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.Service.Properties;
 
-namespace Ringtoets.Integration.Service.Merge
+namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
     /// Activity to load a collection of <see cref="AssessmentSection"/> from a file.

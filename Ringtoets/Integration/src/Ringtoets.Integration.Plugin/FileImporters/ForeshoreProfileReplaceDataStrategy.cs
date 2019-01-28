@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Integration.Service;
+using Riskeer.Integration.Service;
 
 namespace Riskeer.Integration.Plugin.FileImporters
 {

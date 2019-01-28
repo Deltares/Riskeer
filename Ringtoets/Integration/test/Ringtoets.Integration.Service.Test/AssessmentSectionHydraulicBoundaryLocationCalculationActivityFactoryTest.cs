@@ -36,6 +36,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Integration.Service;
 
 namespace Ringtoets.Integration.Service.Test
 {

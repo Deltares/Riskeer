@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Integration.Service.Exceptions
+namespace Riskeer.Integration.Service.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when something went wrong while loading assessment sections.

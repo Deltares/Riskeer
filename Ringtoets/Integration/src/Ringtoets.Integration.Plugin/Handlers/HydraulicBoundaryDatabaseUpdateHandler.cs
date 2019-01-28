@@ -26,15 +26,13 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Plugin.Handlers;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
-using Ringtoets.Integration.Service;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Helpers;
 using Riskeer.Integration.Plugin.Properties;
+using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Handlers

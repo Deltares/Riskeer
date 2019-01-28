@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Service.Exceptions;
+using Riskeer.Integration.Service.Exceptions;
 
 namespace Ringtoets.Integration.Service.Test.Exceptions
 {

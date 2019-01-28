@@ -52,6 +52,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Service;
 
 namespace Ringtoets.Integration.Service.Test
 {

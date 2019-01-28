@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -53,7 +52,7 @@ using Ringtoets.StabilityStoneCover.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 
-namespace Ringtoets.Integration.Service
+namespace Riskeer.Integration.Service
 {
     /// <summary>
     /// Service for synchronizing ringtoets.

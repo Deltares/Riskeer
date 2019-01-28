@@ -24,7 +24,7 @@ using Core.Common.Base.Service;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 
-namespace Ringtoets.Integration.Service.Merge
+namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instance of <see cref="Activity"/>
