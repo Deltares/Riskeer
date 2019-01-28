@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</ProjectGuid>
+    <RootNamespace>Riskeer.Integration.Forms</RootNamespace>
+    <AssemblyName>Riskeer.Integration.Forms</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Factories\CombinedSectionAssemblyMapDataFactory.cs" />
+    <Compile Include="Factories\AssessmentSectionAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\TechnicalInnovationAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\PipingStructureAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.Designer.cs">
+      <DependentUpon>AssessmentSectionMergeDataProviderDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.Designer.cs">
+      <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
+    <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
+    <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
+    <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Merge\AssessmentSectionMergeFilePathProvider.cs" />
+    <Compile Include="Merge\FailureMechanismMergeDataRow.cs" />
+    <Compile Include="Merge\IAssessmentSectionMergeFilePathProvider.cs" />
+    <Compile Include="Merge\IAssessmentSectionMergeDataProvider.cs" />
+    <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultCategoriesContext.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultPerSectionMapContext.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultsContext.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityOutwardsAssemblyCategoriesContext.cs" />
+    <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
+    <Compile Include="PropertyClasses\AssemblyResultCategoriesProperties.cs" />
+    <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />
+    <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
+    <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoriesProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryProperties.cs" />
+    <Compile Include="Editors\HlcdFileNameEditor.cs" />
+    <Compile Include="PropertyClasses\IHydraulicLocationConfigurationDatabaseImportHandler.cs" />
+    <Compile Include="PropertyClasses\NormProperties.cs" />
+    <Compile Include="PropertyClasses\AssessmentSectionCompositionProperties.cs" />
+    <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismProperties.cs" />
+    <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismProperties.cs" />
+    <Compile Include="PropertyClasses\ReferenceLineProperties.cs" />
+    <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />
+    <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismProperties.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyClasses\AssessmentSectionProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryDatabaseProperties.cs" />
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialog.Designer.cs">
+      <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RingtoetsSettingsHelper.cs" />
+    <Compile Include="Views\AssemblyResultCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultCategoriesView.Designer.cs">
+      <DependentUpon>AssemblyResultCategoriesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionMapView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionMapView.Designer.cs">
+      <DependentUpon>AssemblyResultPerSectionMapView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionView.Designer.cs">
+      <DependentUpon>AssemblyResultPerSectionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssemblyResultTotalView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultTotalView.Designer.cs">
+      <DependentUpon>AssemblyResultTotalView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssessmentSectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssessmentSectionView.Designer.cs">
+      <DependentUpon>AssessmentSectionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CombinedFailureMechanismSectionAssemblyResultRow.cs" />
+    <Compile Include="Views\FailureMechanismWithoutDetailedAssessmentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismWithoutDetailedAssessmentView.Designer.cs">
+      <DependentUpon>FailureMechanismWithoutDetailedAssessmentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FailureMechanismWithDetailedAssessmentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismWithDetailedAssessmentView.Designer.cs">
+      <DependentUpon>FailureMechanismWithDetailedAssessmentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.Designer.cs">
+      <DependentUpon>MacroStabilityOutwardsAssemblyCategoriesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FailureMechanismAssemblyCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismAssemblyCategoriesView.Designer.cs">
+      <DependentUpon>FailureMechanismAssemblyCategoriesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FailureMechanismAssemblyCategoryGroupResultRow.cs" />
+    <Compile Include="Views\FailureMechanismAssemblyResultRowBase.cs" />
+    <Compile Include="Views\FailureMechanismAssemblyResultRow.cs" />
+    <Compile Include="Views\FailureMechanismContributionItemRow.cs" />
+    <Compile Include="Views\FailureMechanismContributionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
+      <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyClasses\IAssessmentSectionCompositionChangeHandler.cs" />
+    <Compile Include="Views\AssemblyCategoryRow.cs" />
+    <Compile Include="Views\AssemblyCategoriesTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssessmentSectionAssemblyCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssessmentSectionAssemblyCategoriesView.Designer.cs">
+      <DependentUpon>AssessmentSectionAssemblyCategoriesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\MacroStabilityOutwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\MicrostabilitySectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\PipingStructureSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\TechnicalInnovationSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultViews\MacroStabilityOutwardsResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultViews\MicrostabilityResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultViews\PipingStructureResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultViews\StrengthStabilityLengthwiseConstructionResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultViews\TechnicalInnovationResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile.Forms\Core.Components.BruTile.Forms.csproj">
+      <Project>{1BA9EBD0-AA64-4BE3-9791-B2EE344EC938}</Project>
+      <Name>Core.Components.BruTile.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Riskeer.AssemblyTool.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
+      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
+      <Name>Riskeer.AssemblyTool.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
+      <Name>Ringtoets.Common.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+      <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
+      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+      <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
+      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
+      <Name>Riskeer.Storage.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+      <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
+      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
+      <Name>Riskeer.Integration.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Util\Ringtoets.Integration.Util.csproj">
+      <Project>{d4d21027-b2cd-47e2-a299-70885cc93ab4}</Project>
+      <Name>Ringtoets.Integration.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dialogs\BackgroundMapDataSelectionDialog.resx">
+      <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Merge\AssessmentSectionMergeDataProviderDialog.resx">
+      <DependentUpon>AssessmentSectionMergeDataProviderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ReferenceLineMetaSelectionDialog.resx">
+      <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssemblyResultCategoriesView.resx">
+      <DependentUpon>AssemblyResultCategoriesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssemblyResultPerSectionMapView.resx">
+      <DependentUpon>AssemblyResultPerSectionMapView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssemblyResultPerSectionView.resx">
+      <DependentUpon>AssemblyResultPerSectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssemblyResultTotalView.resx">
+      <DependentUpon>AssemblyResultTotalView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssessmentSectionView.resx">
+      <DependentUpon>AssessmentSectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismWithoutDetailedAssessmentView.resx">
+      <DependentUpon>FailureMechanismWithoutDetailedAssessmentView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismWithDetailedAssessmentView.resx">
+      <DependentUpon>FailureMechanismWithDetailedAssessmentView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.resx">
+      <DependentUpon>MacroStabilityOutwardsAssemblyCategoriesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismAssemblyCategoriesView.resx">
+      <DependentUpon>FailureMechanismAssemblyCategoriesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismContributionView.resx">
+      <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssessmentSectionAssemblyCategoriesView.resx">
+      <DependentUpon>AssessmentSectionAssemblyCategoriesView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Resources\folder-stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder-stand32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddFolder-stand32.png" />
+  </ItemGroup>
+</Project>

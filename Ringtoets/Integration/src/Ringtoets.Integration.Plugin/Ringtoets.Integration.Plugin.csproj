@@ -266,9 +266,9 @@
       <Name>Riskeer.Integration.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
+    <ProjectReference Include="..\Ringtoets.Integration.Forms\Riskeer.Integration.Forms.csproj">
       <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>
-      <Name>Ringtoets.Integration.Forms</Name>
+      <Name>Riskeer.Integration.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">

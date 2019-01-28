@@ -144,9 +144,9 @@
       <Name>Ringtoets.DuneErosion.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Forms\Riskeer.Integration.Forms.csproj">
       <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>
-      <Name>Ringtoets.Integration.Forms</Name>
+      <Name>Riskeer.Integration.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Plugin\Ringtoets.MacroStabilityInwards.Plugin.csproj">

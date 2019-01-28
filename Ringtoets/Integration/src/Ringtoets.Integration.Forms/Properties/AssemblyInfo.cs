@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("Ringtoets.Integration.Forms")]
-[assembly: AssemblyProduct("Ringtoets.Integration.Forms")]
+[assembly: AssemblyTitle("Riskeer.Integration.Forms")]
+[assembly: AssemblyProduct("Riskeer.Integration.Forms")]
 [assembly: InternalsVisibleTo("Ringtoets.Integration.Forms.Test")]
