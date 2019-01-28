@@ -290,9 +290,9 @@
       <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
       <Name>Riskeer.Integration.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
-      <Name>Ringtoets.Integration.Plugin</Name>
+      <Name>Riskeer.Integration.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Util\Ringtoets.Integration.Util.csproj">
       <Project>{D4D21027-B2CD-47E2-A299-70885CC93AB4}</Project>
