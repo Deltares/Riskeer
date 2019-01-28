@@ -356,7 +356,7 @@
       <Project>{b69d5b6c-6e14-4fa9-9ebc-8f97678cdb70}</Project>
       <Name>Riskeer.HydraRing.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
