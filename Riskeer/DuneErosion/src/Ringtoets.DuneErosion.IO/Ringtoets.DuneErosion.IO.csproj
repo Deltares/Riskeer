@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</ProjectGuid>
+    <RootNamespace>Ringtoets.DuneErosion.IO</RootNamespace>
+    <AssemblyName>Ringtoets.DuneErosion.IO</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DuneLocationCalculationsExporter.cs" />
+    <Compile Include="ExportableDuneLocationCalculation.cs" />
+    <Compile Include="DuneLocationCalculationsWriter.cs" />
+    <Compile Include="ReadDuneLocation.cs" />
+    <Compile Include="DuneLocationsReader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <EmbeddedResource Include="EmbeddedResources\RSPstelsel.cpg" />
+    <EmbeddedResource Include="EmbeddedResources\RSPstelsel.dbf" />
+    <EmbeddedResource Include="EmbeddedResources\RSPstelsel.sbn" />
+    <EmbeddedResource Include="EmbeddedResources\RSPstelsel.sbx" />
+    <EmbeddedResource Include="EmbeddedResources\RSPstelsel.shp" />
+    <EmbeddedResource Include="EmbeddedResources\RSPstelsel.shx" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
+      <Name>Core.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj">
+      <Project>{FD264FAD-E6F9-47CC-97CD-770199A8E629}</Project>
+      <Name>Core.Components.Gis.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
+      <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+      <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
+      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

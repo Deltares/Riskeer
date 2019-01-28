@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
+    <dijktype>kleidijkopklei</dijktype>
+    <waterspanningen>
+      <gemiddeldhoogwater>10.5</gemiddeldhoogwater>
+      <drainage>
+        <aanwezig>true</aanwezig>
+        <x>10.6</x>
+      </drainage>
+      <initielehoogtepl1>
+        <buitenkruin>10.9</buitenkruin>
+      </initielehoogtepl1>
+      <leklengtespl3>
+        <binnenwaarts>10.1</binnenwaarts>
+        <buitenwaarts>10.2</buitenwaarts>
+      </leklengtespl3>
+      <stijghoogtespl2>
+        <binnenwaarts>20.1</binnenwaarts>
+        <buitenwaarts>20.2</buitenwaarts>
+      </stijghoogtespl2>
+      <dagelijks>
+        <polderpeil>NaN</polderpeil>
+        <offsets>
+          <gebruikdefaults>true</gebruikdefaults>
+          <buitenkruin>2.21</buitenkruin>
+          <binnenkruin>2.22</binnenkruin>
+          <insteekbinnenberm>2.23</insteekbinnenberm>
+          <teendijkbinnenwaarts>2.24</teendijkbinnenwaarts>
+        </offsets>
+      </dagelijks>
+    </waterspanningen>
+    <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
+    <zonering>
+      <bepaling>true</bepaling>
+    </zonering>
+    <grids>
+      <verplaatsgrid>true</verplaatsgrid>
+      <bepaling>automatisch</bepaling>
+      <tangentlijnen>
+        <bepalingtangentlijnen>laagscheiding</bepalingtangentlijnen>
+        <zboven>10</zboven>
+        <zonder>1</zonder>
+        <aantal>5</aantal>
+      </tangentlijnen>
+      <linkergrid>
+        <xlinks>NaN</xlinks>
+        <xrechts>NaN</xrechts>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
+        <aantalpuntenverticaal>5</aantalpuntenverticaal>
+        <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
+      </linkergrid>
+    </grids>
+  </berekening>
+</configuratie>

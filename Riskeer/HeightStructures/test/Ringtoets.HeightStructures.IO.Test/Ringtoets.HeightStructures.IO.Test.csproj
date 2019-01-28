@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{D3ACB74A-D916-4750-B72F-8276D2E93791}</ProjectGuid>
+    <RootNamespace>Ringtoets.HeightStructures.IO.Test</RootNamespace>
+    <AssemblyName>Ringtoets.HeightStructures.IO.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations\HeightStructuresCalculationConfigurationImporterTest.cs" />
+    <Compile Include="Configurations\HeightStructuresCalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\HeightStructuresCalculationConfigurationTest.cs" />
+    <Compile Include="Configurations\HeightStructuresCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\HeightStructuresCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\HeightStructuresCalculationStochastAssignerTest.cs" />
+    <Compile Include="HeightStructuresImporterTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
+      <Name>Ringtoets.Common.IO.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.IO\Ringtoets.HeightStructures.IO.csproj">
+      <Project>{D63FCFEC-34E8-4C68-8B4F-99338D2447AC}</Project>
+      <Name>Ringtoets.HeightStructures.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Plugin\Ringtoets.HeightStructures.Plugin.csproj">
+      <Project>{9AF85B2B-8D78-43C5-9542-FBB3A14EAB36}</Project>
+      <Name>Ringtoets.HeightStructures.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.HeightStructures.Data.TestUtil\Ringtoets.HeightStructures.Data.TestUtil.csproj">
+      <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
+      <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

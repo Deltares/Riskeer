@@ -1,0 +1,85 @@
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using Core.Common.Data.TestUtil;
+using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
+
+namespace Ringtoets.Common.Data.Test.IllustrationPoints
+{
+    [TestFixture]
+    public class StochastTest
+    {
+        [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            double duration = random.NextDouble();
+            double alpha = random.NextDouble();
+
+            // Call
+            TestDelegate call = () => new Stochast(null, duration, alpha);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidArguments_ReturnExpectedValues()
+        {
+            // Setup
+            const string name = "Stochast name";
+
+            var random = new Random(21);
+            double duration = random.NextDouble();
+            double alpha = random.NextDouble();
+
+            // Call
+            var stochast = new Stochast(name, duration, alpha);
+
+            // Assert
+            Assert.IsInstanceOf<ICloneable>(stochast);
+            Assert.AreEqual(name, stochast.Name);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(1, stochast.Duration.NumberOfDecimalPlaces);
+            Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.AreEqual(5, stochast.Alpha.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new Stochast("Random name", random.NextDouble(), random.NextDouble());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
+        }
+    }
+}

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="PK001_0001 W1-6_0_1D1">
+    <hblocatie>PUNT_KAT_18</hblocatie>
+    <profielschematisatie>PK001_0001</profielschematisatie>
+    <intredepunt>0</intredepunt>
+    <uittredepunt>10</uittredepunt>
+    <stochasten>
+      <stochast naam="polderpeil">
+        <verwachtingswaarde>0</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="dempingsfactor">
+        <verwachtingswaarde>0.7</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>100</bijdrage>
+    </scenario>
+  </berekening>
+</configuratie>

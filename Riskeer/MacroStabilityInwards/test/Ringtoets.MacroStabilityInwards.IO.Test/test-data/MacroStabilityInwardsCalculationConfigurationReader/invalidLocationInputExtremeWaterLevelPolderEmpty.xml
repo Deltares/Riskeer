@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <extreem>
+        <polderpeil />
+        <indringingslengte>16.2</indringingslengte>
+        <offsets>
+          <gebruikdefaults>false</gebruikdefaults>
+          <buitenkruin>15.21</buitenkruin>
+          <binnenkruin>15.22</binnenkruin>
+          <insteekbinnenberm>15.23</insteekbinnenberm>
+          <teendijkbinnenwaarts>15.24</teendijkbinnenwaarts>
+        </offsets>
+      </extreem>
+    </waterspanningen>
+  </berekening>
+</configuratie>

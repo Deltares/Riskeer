@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Calculation">
-    <ondergrenswaterstanden>1.1</ondergrenswaterstanden>
-    <ondergrenswaterstanden>2.2</ondergrenswaterstanden>
-  </berekening>
-</configuratie>

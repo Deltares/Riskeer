@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{18078167-A1C8-4545-BFAC-236E5386D4AA}</ProjectGuid>
+    <RootNamespace>Ringtoets.HeightStructures.Data.Test</RootNamespace>
+    <AssemblyName>Ringtoets.HeightStructures.Data.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GeneralHeightStructuresInputTest.cs" />
+    <Compile Include="HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest.cs" />
+    <Compile Include="HeightStructuresFailureMechanismAssemblyFactoryTest.cs" />
+    <Compile Include="HeightStructuresFailureMechanismSectionResultTest.cs" />
+    <Compile Include="HeightStructuresFailureMechanismTest.cs" />
+    <Compile Include="HeightStructuresInputTest.cs" />
+    <Compile Include="HeightStructuresProbabilityAssessmentOutputFactoryTest.cs" />
+    <Compile Include="HeightStructureTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj">
+      <Project>{0b0d2dff-7e7e-4bb0-a007-61800c85809a}</Project>
+      <Name>Core.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Riskeer.AssemblyTool.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
+      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.Data.TestUtil\Riskeer.AssemblyTool.Data.TestUtil.csproj">
+      <Project>{C6EE9E6A-6578-49DF-914F-CDB531E61891}</Project>
+      <Name>Riskeer.AssemblyTool.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
+      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
+      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.HeightStructures.Data.TestUtil\Ringtoets.HeightStructures.Data.TestUtil.csproj">
+      <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
+      <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <grids>
+      <rechtergrid>
+        <xlinks />
+      </rechtergrid>
+    </grids>
+  </berekening>
+</configuratie>

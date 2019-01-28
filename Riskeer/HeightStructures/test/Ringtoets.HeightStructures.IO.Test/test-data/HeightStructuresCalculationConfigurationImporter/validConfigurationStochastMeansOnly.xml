@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <kunstwerk>kunstwerk1</kunstwerk>
+    <stochasten>
+      <stochast naam="stormduur">
+        <verwachtingswaarde>6.0</verwachtingswaarde>
+      </stochast>
+      <stochast naam="modelfactoroverloopdebiet">
+        <verwachtingswaarde>1.10</verwachtingswaarde>
+      </stochast>
+      <stochast naam="breedtebodembescherming">
+        <verwachtingswaarde>15.2</verwachtingswaarde>
+      </stochast>
+      <stochast naam="breedtedoorstroomopening">
+        <verwachtingswaarde>15.2</verwachtingswaarde>
+      </stochast>
+      <stochast naam="kombergendoppervlak">
+        <verwachtingswaarde>15000</verwachtingswaarde>
+      </stochast>
+      <stochast naam="peilverhogingkomberging">
+        <verwachtingswaarde>0.2</verwachtingswaarde>
+      </stochast>
+      <stochast naam="kerendehoogte">
+        <verwachtingswaarde>4.3</verwachtingswaarde>
+      </stochast>
+      <stochast naam="kritiekinstromenddebiet">
+        <verwachtingswaarde>2</verwachtingswaarde>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

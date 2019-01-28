@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{52BA7627-CBAB-4209-BE77-3B5F31378277}</ProjectGuid>
+    <RootNamespace>Ringtoets.Common.IO</RootNamespace>
+    <AssemblyName>Ringtoets.Common.IO</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssessmentSectionSettings.cs" />
+    <Compile Include="AssessmentSectionSettingsReader.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationValidationExtensions.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationImportHelper.cs" />
+    <Compile Include="Configurations\Helpers\DistributionConversionExtensions.cs" />
+    <Compile Include="Configurations\Helpers\LogExtensions.cs" />
+    <Compile Include="Configurations\Helpers\CalculationScenarioConversionExtensions.cs" />
+    <Compile Include="Configurations\Helpers\WaveReductionConversionExtensions.cs" />
+    <Compile Include="Configurations\IConfigurationItem.cs" />
+    <Compile Include="Configurations\StochastConfiguration.cs" />
+    <Compile Include="Configurations\ScenarioConfiguration.cs" />
+    <Compile Include="Configurations\StructuresCalculationStochastAssigner.cs" />
+    <Compile Include="Configurations\WaveReductionConfiguration.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverter.cs" />
+    <Compile Include="DikeProfiles\DamType.cs" />
+    <Compile Include="DikeProfiles\DikeProfileData.cs" />
+    <Compile Include="DikeProfiles\DikeProfileDataReader.cs" />
+    <Compile Include="DikeProfiles\ProfileLocation.cs" />
+    <Compile Include="DikeProfiles\ProfileLocationReader.cs" />
+    <Compile Include="DikeProfiles\SheetPileType.cs" />
+    <Compile Include="Exceptions\CriticalFileValidationException.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationImporter.cs" />
+    <Compile Include="Exceptions\DistributionValidationException.cs" />
+    <Compile Include="FileImporters\DikeProfilesImporter.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionReplaceStrategy.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionUpdateStrategy.cs" />
+    <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
+    <Compile Include="FileImporters\IDikeProfileUpdateDataStrategy.cs" />
+    <Compile Include="FileImporters\IFailureMechanismSectionUpdateStrategy.cs" />
+    <Compile Include="FileImporters\IForeshoreProfileUpdateDataStrategy.cs" />
+    <Compile Include="FileImporters\IFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\MessageProviders\IImporterMessageProvider.cs" />
+    <Compile Include="FileImporters\MessageProviders\ImportMessageProvider.cs" />
+    <Compile Include="FileImporters\MessageProviders\UpdateMessageProvider.cs" />
+    <Compile Include="HydraRing\DesignTablesSettingsProvider.cs" />
+    <Compile Include="HydraRing\HydraRingSettingsDatabaseReader.cs" />
+    <Compile Include="HydraRing\HydraRingSettingsDatabaseValidator.cs" />
+    <Compile Include="FileImporters\ProfilesImporter.cs" />
+    <Compile Include="FileImporters\StructuresImporter.cs" />
+    <Compile Include="HydraRing\HydraulicBoundaryDatabaseHelper.cs" />
+    <Compile Include="HydraRing\PreprocessorSettingsProvider.cs" />
+    <Compile Include="HydraRing\ReadPreprocessorSetting.cs" />
+    <Compile Include="HydraRing\TimeIntegrationSettingsProvider.cs" />
+    <Compile Include="HydraRing\NumericsSettingsProvider.cs" />
+    <Compile Include="IConfirmDataChangeHandler.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationReader.cs" />
+    <Compile Include="Configurations\ConfigurationBreakWaterType.cs" />
+    <Compile Include="Configurations\Helpers\XElementExtensions.cs" />
+    <Compile Include="Configurations\CalculationGroupConfiguration.cs" />
+    <Compile Include="Configurations\Import\CombinedXmlSchemaDefinition.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SoilProfile\PreconsolidationStress.cs" />
+    <Compile Include="ReferenceLines\IReferenceLineUpdateHandler.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />
+    <Compile Include="ReferenceLines\ReferenceLinesMetaReader.cs" />
+    <Compile Include="FailureMechanismSectionReader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineImporter.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
+    <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
+    <Compile Include="SoilProfile\CriticalProfileProperties.cs" />
+    <Compile Include="SoilProfile\ISoilProfile.cs" />
+    <Compile Include="SoilProfile\IStochasticSoilModelMechanismFilter.cs" />
+    <Compile Include="SoilProfile\IStochasticSoilModelUpdateModelStrategy.cs" />
+    <Compile Include="SoilProfile\LayerProperties.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStressReadValues.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStressReader.cs" />
+    <Compile Include="SoilProfile\Schema\FailureMechanismType.cs" />
+    <Compile Include="SoilProfile\Schema\MechanismTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\MetaTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\PreconsolidationStressTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\SegmentPointsTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\SegmentTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\SoilProfileTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\StochasticSoilModelTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\StochasticSoilProfileTableDefinitions.cs" />
+    <Compile Include="SoilProfile\SegmentPointReader.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseConstraintsReader.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseQueryBuilder.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
+    <Compile Include="SoilProfile\SoilLayer1D.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DGeometry.cs" />
+    <Compile Include="SoilProfile\SoilLayer2D.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DGeometryReader.cs" />
+    <Compile Include="SoilProfile\SoilLayerBase.cs" />
+    <Compile Include="SoilProfile\SoilLayerColorConverter.cs" />
+    <Compile Include="Exceptions\SoilLayerConversionException.cs" />
+    <Compile Include="SoilProfile\SoilLayerConstants.cs" />
+    <Compile Include="SoilProfile\DistributionHelper.cs" />
+    <Compile Include="SoilProfile\SoilLayerHelper.cs" />
+    <Compile Include="SoilProfile\SoilLayerIsAquiferConverter.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DLoop.cs" />
+    <Compile Include="SoilProfile\SoilProfile1D.cs" />
+    <Compile Include="SoilProfile\SoilProfile1DReader.cs" />
+    <Compile Include="SoilProfile\SoilProfile2D.cs" />
+    <Compile Include="SoilProfile\SoilProfile2DReader.cs" />
+    <Compile Include="Exceptions\SoilProfileReadException.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModel.cs" />
+    <Compile Include="Exceptions\StochasticSoilModelException.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelImporter.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelImporterConfiguration.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfile.cs" />
+    <Compile Include="SoilProfile\IStochasticSoilModelTransformer.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfileHelper.cs" />
+    <Compile Include="Structures\IStructureUpdateStrategy.cs" />
+    <Compile Include="Structures\StructureFilesKeywords.cs" />
+    <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
+    <Compile Include="Structures\StructureLocation.cs" />
+    <Compile Include="Structures\StructuresParameterRowsValidator.cs" />
+    <Compile Include="Structures\StructuresParameterRow.cs" />
+    <Compile Include="Structures\StructureLocationReader.cs" />
+    <Compile Include="Structures\VarianceType.cs" />
+    <Compile Include="Structures\ValidationResult.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\Export\StructureCalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\Helpers\XmlWriterExtensions.cs" />
+    <Compile Include="SurfaceLines\CharacteristicPoints.cs" />
+    <Compile Include="SurfaceLines\CharacteristicPointsCsvReader.cs" />
+    <Compile Include="SurfaceLines\ISurfaceLineTransformer.cs" />
+    <Compile Include="SurfaceLines\ISurfaceLineUpdateDataStrategy.cs" />
+    <Compile Include="SurfaceLines\SurfaceLine.cs" />
+    <Compile Include="SurfaceLines\SurfaceLineExtensions.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvImporter.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvImporterConfiguration.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvReader.cs" />
+    <Compile Include="Exceptions\ImportedDataTransformException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Resources\20160624v3 N-waarden voor GEKB en HTKW.csv" />
+    <None Include="Resources\ConfiguratieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\GolfReductieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\HbLocatieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\KunstwerkenBasisSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\OrientatieSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\ScenarioSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\StochastSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\StochastStandaardafwijkingSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\StochastVariatiecoefficientSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\VoorlandProfielSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\XmlGeometrySchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj">
+      <Project>{fd264fad-e6f9-47cc-97cd-770199a8e629}</Project>
+      <Name>Core.Components.Gis.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
+      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
+      <Name>Riskeer.HydraRing.Calculation</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.IO\Riskeer.HydraRing.IO.csproj">
+      <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
+      <Name>Riskeer.HydraRing.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings-schema.sql" />
+    <None Include="Resources\settings-schema-preprocessor.sql" />
+  </ItemGroup>
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
+</Project>

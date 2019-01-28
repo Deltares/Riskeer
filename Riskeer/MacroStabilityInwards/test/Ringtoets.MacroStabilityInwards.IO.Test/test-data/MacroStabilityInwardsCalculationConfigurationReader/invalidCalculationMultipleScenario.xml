@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <scenario>
+      <bijdrage>1.1</bijdrage>
+      <gebruik>true</gebruik>
+    </scenario>
+    <scenario>
+      <bijdrage>2.2</bijdrage>
+      <gebruik>false</gebruik>
+    </scenario>
+  </berekening>
+</configuratie>

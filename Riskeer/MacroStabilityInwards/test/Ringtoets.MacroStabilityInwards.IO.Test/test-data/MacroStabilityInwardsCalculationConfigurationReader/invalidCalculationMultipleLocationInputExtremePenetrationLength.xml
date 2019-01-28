@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <extreem>
+        <indringingslengte>NaN</indringingslengte>
+        <indringingslengte>16.2</indringingslengte>
+      </extreem>
+    </waterspanningen>
+    <zonering />
+  </berekening>
+</configuratie>

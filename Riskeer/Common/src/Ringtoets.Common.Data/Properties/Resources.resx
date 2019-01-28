@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Contribution_Value_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="ReferenceLine_SetGeometry_New_geometry_cannot_be_null" xml:space="preserve">
+    <value>De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.</value>
+  </data>
+  <data name="ReferenceLine_SetGeometry_New_geometry_has_null_coordinate" xml:space="preserve">
+    <value>Een punt in de geometrie voor de referentielijn heeft geen waarde.</value>
+  </data>
+  <data name="FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_existing_sections" xml:space="preserve">
+    <value>Vak '{0}' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.</value>
+  </data>
+  <data name="FailureMechanismSection_Section_must_have_at_least_1_geometry_point" xml:space="preserve">
+    <value>Vak moet minstens uit één punt bestaan.</value>
+  </data>
+  <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Overig</value>
+  </data>
+  <data name="ReferenceLine_DisplayName" xml:space="preserve">
+    <value>Referentielijn</value>
+  </data>
+  <data name="DesignVariable_Distribution_must_be_set" xml:space="preserve">
+    <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
+  </data>
+  <data name="DesignVariable_Percentile_must_be_in_Range_0_" xml:space="preserve">
+    <value>Percentiel moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="LogNormalDistribution_Mean_must_be_greater_than_zero" xml:space="preserve">
+    <value>Gemiddelde moet groter zijn dan 0.</value>
+  </data>
+  <data name="StandardDeviation_Should_be_greater_or_equal_zero" xml:space="preserve">
+    <value>Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.</value>
+  </data>
+  <data name="CalculationGroup_DefaultName" xml:space="preserve">
+    <value>Nieuwe map</value>
+  </data>
+  <data name="OtherFailureMechanism_Code" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="FailureMechanism_Calculations_DisplayName" xml:space="preserve">
+    <value>Berekeningen</value>
+  </data>
+  <data name="ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de faalkans moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="Probability_Must_be_in_Range_0_" xml:space="preserve">
+    <value>Kans moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="LogNormalDistribution_Shift_may_not_exceed_Mean" xml:space="preserve">
+    <value>De verschuiving mag niet groter zijn dan de verwachtingswaarde.</value>
+  </data>
+  <data name="ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
+    <value>Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.</value>
+  </data>
+  <data name="DikeProfile_SetGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
+    <value>Een punt in de geometrie voor het dijkprofiel heeft geen waarde.</value>
+  </data>
+  <data name="DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null" xml:space="preserve">
+    <value>De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.</value>
+  </data>
+  <data name="BreakWaterType_Caisson_DisplayName" xml:space="preserve">
+    <value>Caisson</value>
+  </data>
+  <data name="BreakWaterType_Dam_DisplayName" xml:space="preserve">
+    <value>Havendam</value>
+  </data>
+  <data name="BreakWaterType_Wall_DisplayName" xml:space="preserve">
+    <value>Muur</value>
+  </data>
+  <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
+    <value>Hydraulische belastingen</value>
+  </data>
+  <data name="N_Value_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor 'N' moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="FailureProbability_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de faalkans moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="Calculation_DefaultName" xml:space="preserve">
+    <value>Nieuwe berekening</value>
+  </data>
+  <data name="CoefficientOfVariation_Should_be_greater_or_equal_to_zero" xml:space="preserve">
+    <value>Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.</value>
+  </data>
+  <data name="Orientation_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de oriëntatie moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="ICalculation_DisplayName" xml:space="preserve">
+    <value>Berekening</value>
+  </data>
+  <data name="StructureInflowModelType_FloodedCulvert_DisplayName" xml:space="preserve">
+    <value>Verdronken koker</value>
+  </data>
+  <data name="StructureInflowModelType_LowSill_DisplayName" xml:space="preserve">
+    <value>Lage drempel</value>
+  </data>
+  <data name="DeviationWaveDirection_Value_needs_to_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor de afwijking van de golfrichting moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="CalculationConvergence_CalculatedConverged" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="CalculationConvergence_CalculatedNotConverged" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="CalculationConvergence_NotCalculated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssessmentSectionComposition_Dike" xml:space="preserve">
+    <value>Dijk</value>
+  </data>
+  <data name="AssessmentSectionComposition_DikeAndDune" xml:space="preserve">
+    <value>Dijk / Duin</value>
+  </data>
+  <data name="AssessmentSectionComposition_Dune" xml:space="preserve">
+    <value>Duin</value>
+  </data>
+  <data name="BackgroundData_Transparency_Value_must_be_in_Range_0_" xml:space="preserve">
+    <value>De transparantie moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="RingtoetsWellKnownTileSource_BingAerial_DisplayName" xml:space="preserve">
+    <value>Bing Maps - Satelliet</value>
+  </data>
+  <data name="RingtoetsWellKnownTileSource_BingHybrid_DisplayName" xml:space="preserve">
+    <value>Bing Maps - Satelliet + Wegen</value>
+  </data>
+  <data name="RingtoetsWellKnownTileSource_BingRoads_DisplayName" xml:space="preserve">
+    <value>Bing Maps - Wegen</value>
+  </data>
+  <data name="RingtoetsWellKnownTileSource_EsriWorldShadedRelief_DisplayName" xml:space="preserve">
+    <value>Esri World - Reliëf</value>
+  </data>
+  <data name="RingtoetsWellKnownTileSource_EsriWorldTopo_DisplayName" xml:space="preserve">
+    <value>Esri World - Topografisch</value>
+  </data>
+  <data name="RingtoetsWellKnownTileSource_OpenStreetMap_DisplayName" xml:space="preserve">
+    <value>OpenStreetMap</value>
+  </data>
+  <data name="UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_unique_items" xml:space="preserve">
+    <value>Geïmporteerde data moet unieke elementen bevatten.</value>
+  </data>
+  <data name="DikeProfileCollection_TypeDescriptor" xml:space="preserve">
+    <value>Dijkprofielen</value>
+  </data>
+  <data name="ForeshoreProfileCollection_TypeDescriptor" xml:space="preserve">
+    <value>Voorlandprofielen</value>
+  </data>
+  <data name="ProfileCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
+    <value>id</value>
+  </data>
+  <data name="StructureCollection_TypeDescriptor" xml:space="preserve">
+    <value>Kunstwerken</value>
+  </data>
+  <data name="StructureCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
+    <value>id</value>
+  </data>
+  <data name="IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes" xml:space="preserve">
+    <value>Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.</value>
+  </data>
+  <data name="SurfaceLineCollection_TypeDescriptor" xml:space="preserve">
+    <value>Profielschematisaties</value>
+  </data>
+  <data name="CharacteristicPoint_DitchDikeSide" xml:space="preserve">
+    <value>Insteek sloot dijkzijde</value>
+  </data>
+  <data name="CharacteristicPoint_DitchPolderSide" xml:space="preserve">
+    <value>Insteek sloot polderzijde</value>
+  </data>
+  <data name="CharacteristicPoint_BottomDitchDikeSide" xml:space="preserve">
+    <value>Slootbodem dijkzijde</value>
+  </data>
+  <data name="CharacteristicPoint_BottomDitchPolderSide" xml:space="preserve">
+    <value>Slootbodem polderzijde</value>
+  </data>
+  <data name="CharacteristicPoint_DikeToeAtPolder" xml:space="preserve">
+    <value>Teen dijk binnenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_DikeToeAtRiver" xml:space="preserve">
+    <value>Teen dijk buitenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_DikeTopAtPolder" xml:space="preserve">
+    <value>Kruin binnentalud</value>
+  </data>
+  <data name="CharacteristicPoint_ShoulderBaseInside" xml:space="preserve">
+    <value>Insteek binnenberm</value>
+  </data>
+  <data name="CharacteristicPoint_ShoulderTopInside" xml:space="preserve">
+    <value>Kruin binnenberm</value>
+  </data>
+  <data name="CharacteristicPoint_SurfaceLevelInside" xml:space="preserve">
+    <value>Maaiveld binnenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_SurfaceLevelOutside" xml:space="preserve">
+    <value>Maaiveld buitenwaarts</value>
+  </data>
+  <data name="MechanismSurfaceLineBase_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l" xml:space="preserve">
+    <value>Kan geen hoogte bepalen op het punt met de lokale coördinaat {0}, omdat de profielschematisatie verticaal loopt op dat punt.</value>
+  </data>
+  <data name="MechanismSurfaceLineBase_A_point_in_the_collection_was_null" xml:space="preserve">
+    <value>Een punt in de geometrie voor de profielschematisatie heeft geen waarde.</value>
+  </data>
+  <data name="MechanismSurfaceLineBase_Collection_of_points_for_geometry_is_null" xml:space="preserve">
+    <value>De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde.</value>
+  </data>
+  <data name="MechanismSurfaceLineBase_0_L_needs_to_be_in_Range_1_" xml:space="preserve">
+    <value>{0} De lokale coördinaat moet in het bereik {1} liggen.</value>
+  </data>
+  <data name="MechanismSurfaceLineBase_SurfaceLine_has_no_Geometry" xml:space="preserve">
+    <value>De profielschematisatie heeft geen geometrie.</value>
+  </data>
+  <data name="MechanismSurfaceLineBase_GetZAtL_Cannot_determine_height" xml:space="preserve">
+    <value>Kan geen hoogte bepalen.</value>
+  </data>
+  <data name="MechanismSurfaceLineBase_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_" xml:space="preserve">
+    <value>De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.</value>
+  </data>
+  <data name="NormType_LowerLimit_DisplayName" xml:space="preserve">
+    <value>Ondergrens</value>
+  </data>
+  <data name="NormType_Signaling_DisplayName" xml:space="preserve">
+    <value>Signaleringswaarde</value>
+  </data>
+  <data name="Norm_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde van de norm moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm" xml:space="preserve">
+    <value>De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.</value>
+  </data>
+  <data name="StochasticSoilModelCollection_TypeDescriptor" xml:space="preserve">
+    <value>Stochastische ondergrondmodellen</value>
+  </data>
+  <data name="FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm" xml:space="preserve">
+    <value>De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
+  </data>
+  <data name="CharacteristicPoint_DikeTopAtRiver" xml:space="preserve">
+    <value>Kruin buitentalud</value>
+  </data>
+  <data name="GeneralResult_Imported_non_unique_stochasts" xml:space="preserve">
+    <value>Een of meerdere stochasten hebben dezelfde naam.</value>
+  </data>
+  <data name="GeneralResult_ValidateTopLevelIllustrationPoints_ClosingSituation_or_windDirection_not_unique" xml:space="preserve">
+    <value>Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting.</value>
+  </data>
+  <data name="SubMechanismIllustrationPoint_ValidateResults_Results_not_unique" xml:space="preserve">
+    <value>Een of meerdere uitvoer variabelen hebben dezelfde naam.</value>
+  </data>
+  <data name="Child_stochasts_not_same_as_parent_stochasts" xml:space="preserve">
+    <value>De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten.</value>
+  </data>
+  <data name="IllustrationPointNode_ValidateChildNames_Child_names_not_unique" xml:space="preserve">
+    <value>Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam.</value>
+  </data>
+  <data name="StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.</value>
+  </data>
+  <data name="StochasticSoilModel_No_stochasticSoilProfiles_found_for_StochasticSoilModelName_0" xml:space="preserve">
+    <value>Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{0}'.</value>
+  </data>
+  <data name="SoilLayerDataHelper_GetValidName_Unknown" xml:space="preserve">
+    <value>Onbekend</value>
+  </data>
+  <data name="StochasticSoilProfile_Probability_Should_be_in_range_0_" xml:space="preserve">
+    <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_PreprocessorDirectory_Path_must_have_a_value" xml:space="preserve">
+    <value>De bestandsmap waar de preprocessor bestanden opslaat moet een waarde hebben.</value>
+  </data>
+  <data name="ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor 'a' moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName" xml:space="preserve">
+    <value>A+</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
+    <value>Iv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName" xml:space="preserve">
+    <value>IIv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>IIIv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>IVv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>Vv</value>
+  </data>
+  <data name="Hydraulic_category_boundary_0_" xml:space="preserve">
+    <value>Categoriegrens {0}</value>
+  </data>
+  <data name="FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism" xml:space="preserve">
+    <value>Voor een of meerdere vakken kan geen resultaat worden bepaald.</value>
+  </data>
+</root>

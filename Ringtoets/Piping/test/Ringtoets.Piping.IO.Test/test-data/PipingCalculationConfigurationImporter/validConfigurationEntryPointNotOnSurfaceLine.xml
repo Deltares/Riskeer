@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Calculation">
-    <profielschematisatie>Profielschematisatie</profielschematisatie>
-    <intredepunt>-10</intredepunt>
-    <uittredepunt>2.2</uittredepunt>
-  </berekening>
-</configuratie>

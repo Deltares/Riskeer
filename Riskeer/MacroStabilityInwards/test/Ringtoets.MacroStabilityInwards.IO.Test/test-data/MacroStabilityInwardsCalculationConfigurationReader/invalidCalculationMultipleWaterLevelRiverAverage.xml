@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <gemiddeldhoogwater>NaN</gemiddeldhoogwater>
+      <gemiddeldhoogwater>10.5</gemiddeldhoogwater>
+    </waterspanningen>
+  </berekening>
+</configuratie>

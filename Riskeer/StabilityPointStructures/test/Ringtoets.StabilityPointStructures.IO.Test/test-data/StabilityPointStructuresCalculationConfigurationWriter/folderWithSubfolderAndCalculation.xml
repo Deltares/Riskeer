@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <map naam="Testmap">
+    <berekening naam="Berekening 1">
+      <hblocatie>Locatie1</hblocatie>
+      <kunstwerk>kunstwerk1</kunstwerk>
+      <orientatie>6.6</orientatie>
+      <faalkansgegevenerosiebodem>3.3</faalkansgegevenerosiebodem>
+      <voorlandprofiel>profiel1</voorlandprofiel>
+      <analysehoogte>1.1</analysehoogte>
+      <factorstormduur>1.123</factorstormduur>
+      <faalkansherstel>2.2</faalkansherstel>
+      <instroommodel>verdronkenkoker</instroommodel>
+      <belastingschematisering>lineair</belastingschematisering>
+      <nrnivelleringen>4</nrnivelleringen>
+      <kansaanvaringtweedekeermiddel>5.5</kansaanvaringtweedekeermiddel>
+      <afstandonderkantwandteendijk>7.7</afstandonderkantwandteendijk>
+      <volumiekgewichtwater>9.9</volumiekgewichtwater>
+      <golfreductie>
+        <damgebruiken>true</damgebruiken>
+        <damtype>havendam</damtype>
+        <damhoogte>8.8</damhoogte>
+        <voorlandgebruiken>true</voorlandgebruiken>
+      </golfreductie>
+      <stochasten>
+        <stochast naam="breedtebodembescherming">
+          <verwachtingswaarde>0.09</verwachtingswaarde>
+          <standaardafwijking>0.19</standaardafwijking>
+        </stochast>
+        <stochast naam="breedtedoorstroomopening">
+          <verwachtingswaarde>0.21</verwachtingswaarde>
+          <standaardafwijking>0.31</standaardafwijking>
+        </stochast>
+        <stochast naam="kombergendoppervlak">
+          <verwachtingswaarde>0.19</verwachtingswaarde>
+          <variatiecoefficient>0.29</variatiecoefficient>
+        </stochast>
+        <stochast naam="kritiekinstromenddebiet">
+          <verwachtingswaarde>0.06</verwachtingswaarde>
+          <variatiecoefficient>0.16</variatiecoefficient>
+        </stochast>
+        <stochast naam="peilverhogingkomberging">
+          <verwachtingswaarde>0.01</verwachtingswaarde>
+          <standaardafwijking>0.11</standaardafwijking>
+        </stochast>
+        <stochast naam="stormduur">
+          <verwachtingswaarde>0.18</verwachtingswaarde>
+          <variatiecoefficient>0.28</variatiecoefficient>
+        </stochast>
+        <stochast naam="doorstroomoppervlak">
+          <verwachtingswaarde>0.02</verwachtingswaarde>
+          <standaardafwijking>0.12</standaardafwijking>
+        </stochast>
+        <stochast naam="bermbreedte">
+          <verwachtingswaarde>0.03</verwachtingswaarde>
+          <standaardafwijking>0.13</standaardafwijking>
+        </stochast>
+        <stochast naam="lineairebelastingschematiseringsterkte">
+          <verwachtingswaarde>0.04</verwachtingswaarde>
+          <variatiecoefficient>0.14</variatiecoefficient>
+        </stochast>
+        <stochast naam="kwadratischebelastingschematiseringsterkte">
+          <verwachtingswaarde>0.05</verwachtingswaarde>
+          <variatiecoefficient>0.15</variatiecoefficient>
+        </stochast>
+        <stochast naam="afvoercoefficient">
+          <verwachtingswaarde>0.01</verwachtingswaarde>
+          <standaardafwijking>0.02</standaardafwijking>
+        </stochast>
+        <stochast naam="bezwijkwaardeaanvaarenergie">
+          <verwachtingswaarde>0.07</verwachtingswaarde>
+          <variatiecoefficient>0.17</variatiecoefficient>
+        </stochast>
+        <stochast naam="kritiekestroomsnelheid">
+          <verwachtingswaarde>0.08</verwachtingswaarde>
+          <variatiecoefficient>0.18</variatiecoefficient>
+        </stochast>
+        <stochast naam="binnenwaterstand">
+          <verwachtingswaarde>0.1</verwachtingswaarde>
+          <standaardafwijking>0.2</standaardafwijking>
+        </stochast>
+        <stochast naam="binnenwaterstandbijfalen">
+          <verwachtingswaarde>0.11</verwachtingswaarde>
+          <standaardafwijking>0.21</standaardafwijking>
+        </stochast>
+        <stochast naam="kerendehoogte">
+          <verwachtingswaarde>0.12</verwachtingswaarde>
+          <standaardafwijking>0.22</standaardafwijking>
+        </stochast>
+        <stochast naam="massaschip">
+          <verwachtingswaarde>0.14</verwachtingswaarde>
+          <variatiecoefficient>0.24</variatiecoefficient>
+        </stochast>
+        <stochast naam="aanvaarsnelheid">
+          <verwachtingswaarde>0.15</verwachtingswaarde>
+          <variatiecoefficient>0.25</variatiecoefficient>
+        </stochast>
+        <stochast naam="lineairebelastingschematiseringstabiliteit">
+          <verwachtingswaarde>0.16</verwachtingswaarde>
+          <variatiecoefficient>0.26</variatiecoefficient>
+        </stochast>
+        <stochast naam="kwadratischebelastingschematiseringstabiliteit">
+          <verwachtingswaarde>0.17</verwachtingswaarde>
+          <variatiecoefficient>0.27</variatiecoefficient>
+        </stochast>
+        <stochast naam="drempelhoogte">
+          <verwachtingswaarde>0.2</verwachtingswaarde>
+          <standaardafwijking>0.3</standaardafwijking>
+        </stochast>
+      </stochasten>
+      <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    </berekening>
+    <map naam="Nested">
+      <berekening naam="Berekening 2">
+        <stochasten />
+      </berekening>
+    </map>
+  </map>
+</configuratie>

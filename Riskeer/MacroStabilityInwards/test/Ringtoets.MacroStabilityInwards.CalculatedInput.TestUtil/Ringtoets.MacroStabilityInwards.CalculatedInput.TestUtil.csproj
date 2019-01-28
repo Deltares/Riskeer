@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}</ProjectGuid>
+    <RootNamespace>Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil</RootNamespace>
+    <AssemblyName>Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalculatorOutputAssert.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CalculatorInputAssert.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.KernelWrapper\Ringtoets.MacroStabilityInwards.KernelWrapper.csproj">
+      <Project>{3C0D3B38-A9F7-4B22-9705-513DA26AE2CC}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

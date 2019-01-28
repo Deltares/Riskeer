@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</ProjectGuid>
+    <RootNamespace>Ringtoets.Common.Data</RootNamespace>
+    <AssemblyName>Ringtoets.Common.Data</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=3.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\MathNet.Numerics.3.19.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyTool\FailureMechanismAssemblyResultFactory.cs" />
+    <Compile Include="AssemblyTool\AssemblyCategoriesInputFactory.cs" />
+    <Compile Include="AssemblyTool\AssemblyToolCategoriesFactory.cs" />
+    <Compile Include="AssemblyTool\ManualFailureMechanismSectionAssemblyCategoryGroupConverter.cs" />
+    <Compile Include="AssessmentSection\AssessmentSectionCategoryType.cs" />
+    <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
+    <Compile Include="AssessmentSection\AssessmentSectionExtensions.cs" />
+    <Compile Include="AssessmentSection\BackgroundData.cs" />
+    <Compile Include="AssessmentSection\IAssessmentSection.cs" />
+    <Compile Include="AssessmentSection\IBackgroundDataConfiguration.cs" />
+    <Compile Include="AssessmentSection\ReferenceLine.cs" />
+    <Compile Include="AssessmentSection\ReferenceLineMeta.cs" />
+    <Compile Include="AssessmentSection\RingtoetsWellKnownTileSource.cs" />
+    <Compile Include="AssessmentSection\RingtoetsWellKnownTileSourceExtension.cs" />
+    <Compile Include="AssessmentSection\WellKnownBackgroundDataConfiguration.cs" />
+    <Compile Include="AssessmentSection\WmtsBackgroundDataConfiguration.cs" />
+    <Compile Include="Calculation\ICalculatable.cs" />
+    <Compile Include="Calculation\ICalculationInputWithHydraulicBoundaryLocation.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="Contribution\NormType.cs" />
+    <Compile Include="DikeProfiles\BreakWater.cs" />
+    <Compile Include="DikeProfiles\BreakWaterType.cs" />
+    <Compile Include="Calculation\CalculationScenarioStatus.cs" />
+    <Compile Include="DikeProfiles\DikeProfile.cs" />
+    <Compile Include="DikeProfiles\DikeProfileCollection.cs" />
+    <Compile Include="DikeProfiles\ForeshoreProfile.cs" />
+    <Compile Include="DikeProfiles\ForeshoreProfileCollection.cs" />
+    <Compile Include="DikeProfiles\IHasForeshoreProfile.cs" />
+    <Compile Include="DikeProfiles\IUseBreakWater.cs" />
+    <Compile Include="DikeProfiles\IUseForeshore.cs" />
+    <Compile Include="Exceptions\AssemblyException.cs" />
+    <Compile Include="Exceptions\IllustrationPointConversionException.cs" />
+    <Compile Include="Exceptions\MechanismSurfaceLineException.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismCategoryType.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismSectionCollection.cs" />
+    <Compile Include="HasSectionResultsHelper.cs" />
+    <Compile Include="Helpers\SoilLayerDataHelper.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettingsFactory.cs" />
+    <Compile Include="Hydraulics\CalculationConvergence.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettings.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensions.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocation.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculation.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInput.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationOutput.cs" />
+    <Compile Include="Hydraulics\HydraulicLocationConfigurationSettings.cs" />
+    <Compile Include="IllustrationPoints\CombinationType.cs" />
+    <Compile Include="IllustrationPoints\FaultTreeIllustrationPoint.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointNodeExtensions.cs" />
+    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointExtensions.cs" />
+    <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointExtensions.cs" />
+    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointExtensions.cs" />
+    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointExtensions.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointNode.cs" />
+    <Compile Include="IllustrationPoints\GeneralResult.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointBase.cs" />
+    <Compile Include="IllustrationPoints\StochastValidator.cs" />
+    <Compile Include="IllustrationPoints\SubMechanismIllustrationPoint.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointResult.cs" />
+    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPoint.cs" />
+    <Compile Include="IllustrationPoints\TopLevelIllustrationPointBase.cs" />
+    <Compile Include="IllustrationPoints\WindDirection.cs" />
+    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointStochast.cs" />
+    <Compile Include="IllustrationPoints\Stochast.cs" />
+    <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPoint.cs" />
+    <Compile Include="IMechanismStochasticSoilModel.cs" />
+    <Compile Include="IMechanismSurfaceLine.cs" />
+    <Compile Include="MechanismSurfaceLineBase.cs" />
+    <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
+    <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />
+    <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculator.cs" />
+    <Compile Include="Probabilistics\VariationCoefficientLogNormalDistributionDesignVariable.cs" />
+    <Compile Include="Probabilistics\VariationCoefficientDesignVariable.cs" />
+    <Compile Include="Probabilistics\DeterministicDesignVariable.cs" />
+    <Compile Include="Probabilistics\IVariationCoefficientDistribution.cs" />
+    <Compile Include="Probabilistics\PercentileBasedDesignVariable.cs" />
+    <Compile Include="Probabilistics\TruncatedNormalDistribution.cs" />
+    <Compile Include="Probabilistics\VariationCoefficientLogNormalDistribution.cs" />
+    <Compile Include="Probabilistics\VariationCoefficientNormalDistribution.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentInputExtensions.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentInput.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentOutput.cs" />
+    <Compile Include="Calculation\ICalculationInput.cs" />
+    <Compile Include="Calculation\CalculationGroup.cs" />
+    <Compile Include="Calculation\ICalculationOutput.cs" />
+    <Compile Include="Contribution\FailureMechanismContribution.cs" />
+    <Compile Include="Contribution\OtherFailureMechanism.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismSectionResult.cs" />
+    <Compile Include="FailureMechanism\ICalculatableFailureMechanism.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismBase.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismSection.cs" />
+    <Compile Include="Calculation\ICalculation.cs" />
+    <Compile Include="Calculation\ICalculationScenario.cs" />
+    <Compile Include="FailureMechanism\IFailureMechanism.cs" />
+    <Compile Include="Calculation\CalculationGroupExtensions.cs" />
+    <Compile Include="FailureMechanism\IHasSectionResults.cs" />
+    <Compile Include="Calculation\ICalculationBase.cs" />
+    <Compile Include="Probabilistics\DesignVariable.cs" />
+    <Compile Include="Probabilistics\IDistribution.cs" />
+    <Compile Include="Probabilistics\LogNormalDistribution.cs" />
+    <Compile Include="Probabilistics\LogNormalDistributionDesignVariable.cs" />
+    <Compile Include="Probabilistics\NormalDistribution.cs" />
+    <Compile Include="Probabilistics\NormalDistributionDesignVariable.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentOutputFactory.cs" />
+    <Compile Include="Probability\ProbabilityHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DikeProfiles\RoughnessPoint.cs" />
+    <Compile Include="StructureBase.cs" />
+    <Compile Include="StructureCollection.cs" />
+    <Compile Include="Structures\IStructuresCalculation.cs" />
+    <Compile Include="Structures\IStructuresCalculationInput.cs" />
+    <Compile Include="Structures\StructuresCalculation.cs" />
+    <Compile Include="Structures\StructuresInputBase.cs" />
+    <Compile Include="Exceptions\UpdateDataException.cs" />
+    <Compile Include="Structures\StructuresOutput.cs" />
+    <Compile Include="UpdateDataStrategies\ReplaceDataStrategyBase.cs" />
+    <Compile Include="UpdateDataStrategies\UpdateDataStrategyBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Riskeer.AssemblyTool.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
+      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

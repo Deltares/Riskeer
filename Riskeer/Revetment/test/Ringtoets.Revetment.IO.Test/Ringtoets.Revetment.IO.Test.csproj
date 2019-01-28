@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{58463630-E5FD-431F-9C2E-52E88641C63E}</ProjectGuid>
+    <RootNamespace>Ringtoets.Revetment.IO.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Revetment.IO.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporterTest.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationTest.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryTypeTest.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationAssessmentSectionCategoryTypeConverterTest.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationExporterTest.cs" />
+    <Compile Include="WaveConditions\CoverTypeTest.cs" />
+    <Compile Include="WaveConditions\ExportableWaveConditionsFactoryTest.cs" />
+    <Compile Include="WaveConditions\ExportableWaveConditionsTest.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationImporterTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationTest.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationWriterTest.cs" />
+    <Compile Include="WaveConditions\WaveConditionsExporterBaseTest.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationWaveConditionsInputStepSizeConverterTest.cs" />
+    <Compile Include="WaveConditions\WaveConditionsWriterTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
+      <Name>Ringtoets.Common.IO.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+      <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
+      <Name>Ringtoets.Revetment.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
+      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

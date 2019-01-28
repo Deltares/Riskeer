@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
+    <minimaleglijvlaklengte />
+    <maximalelamelbreedte>0.6</maximalelamelbreedte>
+  </berekening>
+</configuratie>

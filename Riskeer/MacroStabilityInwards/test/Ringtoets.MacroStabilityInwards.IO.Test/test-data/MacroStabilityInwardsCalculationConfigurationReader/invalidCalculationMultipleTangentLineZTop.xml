@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <grids>
+      <tangentlijnen>
+        <zboven>0</zboven>
+        <zboven>10</zboven>
+      </tangentlijnen>
+    </grids>
+  </berekening>
+</configuratie>

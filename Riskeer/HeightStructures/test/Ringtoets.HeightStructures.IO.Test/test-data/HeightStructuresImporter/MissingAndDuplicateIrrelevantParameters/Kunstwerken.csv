@@ -1,0 +1,8 @@
+Namespace;Identificatie;Versie;Kunstwerken.identificatie;Parameter.code;Parameter.omschrijving;Grootheid.code;Grootheid.omschrijving;Eenheid.code;Eenheid.omschrijving;Hoedanigheid.code;Hoedanigheid.omschrijving;Waardebepalingsmethode.code;Waardebepalingsmethode.codespace;Waardebewerkingsmethode.code;Waardebewerkingsmethode.codespace;AlfanumeriekeWaarde;NumeriekeWaarde;Standaardafwijking.variatie;Boolean;Kwaliteitsoordeel.code
+12;KUNST1;1;KW_ONBEKEND;KRUIN;Kruin;NIVEAU;Niveau;m;meter;;;Schematiseringshandleiding;;;;;5.9;0.01;1;
+12;KUNST1;1;KW_ONBEKEND;KRUIN;Kruin;NIVEAU;Niveau;m;meter;;;Schematiseringshandleiding;;;;;5.9;0.01;1;
+12;KUNST1;1;KW_HOOGTE2;KRUIN;Kruin;NIVEAU;Niveau;m;meter;;;Schematiseringshandleiding;;;;;5.9;0.01;1;
+12;KUNST1;1;KW_HOOGTE4;OVS;Overslag;DEBIET;Debiet;m3/s/m;kubieke meter per seconden per meter;;;Schematiseringshandleiding;;;;;0.1;0.15;0;
+12;KUNST1;1;KW_HOOGTE5;KRUIN;Kruin;BREEDTE;Breedte;m;meter;;;Schematiseringshandleiding;;;;;4;0.05;1;
+12;KUNST1;1;KW_HOOGTE7;KOMBERG;Komberging;OPPERVLAKTE;Oppervlakte;m2;vierkante meter;;;Schematiseringshandleiding;;;;;500000;0.1;0;
+12;KUNST1;1;KW_HOOGTE8;PEIL;Peil;VERHOGING;Verhoging;m;meter;;;Schematiseringshandleiding;;;;;6.5;0.1;0;

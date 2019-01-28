@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{69EBF07F-20E5-4B5A-8620-C2638191AFED}</ProjectGuid>
+    <RootNamespace>Ringtoets.MacroStabilityInwards.Forms</RootNamespace>
+    <AssemblyName>Ringtoets.MacroStabilityInwards.Forms</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Factories\MacroStabilityInwardsSliceChartDataFactory.cs" />
+    <Compile Include="Factories\MacroStabilityInwardsSliceChartDataPointsFactory.cs" />
+    <Compile Include="Factories\MacroStabilityInwardsAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="MacroStabilityInwardsCalculationConfigurationHelper.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismSectionsContext.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremeProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputDailyProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DTopLevelProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetLineProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsPhreaticLineProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressLinesProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsPreconsolidationStressProperties.cs" />
+    <Compile Include="MacroStabilityInwardsSurfaceLineSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationObjects\MacroStabilityInwardsOutputContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsScenariosContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationScenarioContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationGroupContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsInputContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsSurfaceLinesContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsStochasticSoilModelCollectionContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyClasses\MacroStabilityInwardsDrainageProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsGridProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsGridSettingsProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputOffsetProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsOutputProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputBaseProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DBaseProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilProfileProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressesProperties.cs" />
+    <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditor.cs" />
+    <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor.cs" />
+    <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextSurfaceLineSelectionEditor.cs" />
+    <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactory.cs" />
+    <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactory.cs" />
+    <Compile Include="Views\MacroStabilityInwardsSliceRow.cs" />
+    <Compile Include="Views\MacroStabilityInwardsFormattedSoilLayerDataRow.cs" />
+    <Compile Include="Views\MacroStabilityInwardsOutputChartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsOutputChartControl.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsOutputChartControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsOutputView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsOutputView.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsOutputView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsScenarioRow.cs" />
+    <Compile Include="Views\MacroStabilityInwardsScenariosView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsScenariosView.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsScenariosView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\MacroStabilityInwardsChartDataFactory.cs" />
+    <Compile Include="Views\MacroStabilityInwardsInputView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsInputView.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsInputView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsCalculationRow.cs" />
+    <Compile Include="Views\MacroStabilityInwardsCalculationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsCalculationsView.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsCalculationsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsFailureMechanismResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsFailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\MacroStabilityInwardsFailureMechanismView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsFailureMechanismView.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsFailureMechanismView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsSlicesTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsSoilLayerDataTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
+      <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
+      <Name>Core.Components.Chart.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj">
+      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Name>Core.Components.Chart</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
+      <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
+      <Name>Core.Components.OxyPlot.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Riskeer.AssemblyTool.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
+      <Name>Ringtoets.Common.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+      <Project>{6a074d65-a81c-4c1c-8e24-f36c916e4ed7}</Project>
+      <Name>Ringtoets.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Service\Ringtoets.MacroStabilityInwards.Service.csproj">
+      <Project>{55be9a1b-68ab-488f-af20-e037a50063db}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsOutputChartControl.resx">
+      <DependentUpon>MacroStabilityInwardsOutputChartControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsOutputView.resx">
+      <DependentUpon>MacroStabilityInwardsOutputView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsScenariosView.resx">
+      <DependentUpon>MacroStabilityInwardsScenariosView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsInputView.resx">
+      <DependentUpon>MacroStabilityInwardsInputView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsCalculationsView.resx">
+      <DependentUpon>MacroStabilityInwardsCalculationsView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsFailureMechanismView.resx">
+      <DependentUpon>MacroStabilityInwardsFailureMechanismView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table-import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chart_curve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue-document-list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shovel.png" />
+  </ItemGroup>
+</Project>

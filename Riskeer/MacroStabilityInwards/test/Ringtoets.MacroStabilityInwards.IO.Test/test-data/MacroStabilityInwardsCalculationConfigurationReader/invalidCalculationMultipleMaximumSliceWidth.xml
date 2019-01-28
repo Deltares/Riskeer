@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <maximalelamelbreedte>0.6</maximalelamelbreedte>
+    <maximalelamelbreedte>0.7</maximalelamelbreedte>
+  </berekening>
+</configuratie>

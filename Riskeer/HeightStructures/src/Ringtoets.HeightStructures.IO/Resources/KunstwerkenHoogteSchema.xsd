@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Copyright (C) Stichting Deltares 2018. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--Basis elementen voor een kunstwerken configuratie.-->
+  <xs:include schemaLocation="KunstwerkenBasisSchema.xsd" />
+  
+  <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
+  <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+    <xs:complexType name="berekeningType">
+      <xs:complexContent>
+        <xs:extension base="berekeningType">
+          <xs:all>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
+            <xs:element ref="kunstwerk" minOccurs="0"/>
+            <xs:element ref="orientatie" minOccurs="0"/>
+            <xs:element ref="faalkansgegevenerosiebodem" minOccurs="0"/>
+            <xs:element ref="voorlandprofiel" minOccurs="0"/>
+            <xs:element ref="golfreductie" minOccurs="0"/>
+            <xs:element ref="stochasten" minOccurs="0"/>
+            <xs:element ref="illustratiepunteninlezen" minOccurs="0"/>
+          </xs:all>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:redefine>
+  
+  <!--Herdefinieer stochastnamen. Voor dit toetsspoor zijn alleen de onderstaande
+  namen voor stochasten toegestaan (en ze mogen ook maar maximaal 1 keer voorkomen).-->
+  <xs:redefine schemaLocation="StochastSchema.xsd">
+    <xs:simpleType name="nameType">
+      <xs:restriction base="nameType">
+        <xs:enumeration value="stormduur"/>
+        <xs:enumeration value="modelfactoroverloopdebiet"/>
+        <xs:enumeration value="breedtebodembescherming"/>
+        <xs:enumeration value="breedtedoorstroomopening"/>
+        <xs:enumeration value="kombergendoppervlak"/>
+        <xs:enumeration value="peilverhogingkomberging"/>
+        <xs:enumeration value="kerendehoogte"/>
+        <xs:enumeration value="kritiekinstromenddebiet"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:redefine>
+  
+</xs:schema>

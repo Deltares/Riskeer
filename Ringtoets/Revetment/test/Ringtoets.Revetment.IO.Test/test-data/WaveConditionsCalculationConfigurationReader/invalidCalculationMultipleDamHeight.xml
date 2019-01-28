@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Berekening 1">
-	<golfreductie>
-	  <damhoogte>1.3</damhoogte>
-	  <damhoogte>1.2</damhoogte>
-	</golfreductie>
-  </berekening>
-</configuratie>

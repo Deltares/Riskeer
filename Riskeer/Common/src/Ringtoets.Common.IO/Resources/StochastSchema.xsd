@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+Copyright (C) Stichting Deltares 2018. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--Hoofdelement waarin alle stochasten kunnen worden opgenomen. 
+  Restrictie per stochast is dat de naam alleen mag voorkomen in de lijst 
+  gedefinieerd door het "nameType" type en ook maximaal 1 keer mag 
+  voorkomen in een berekening.-->
+  <xs:element name="stochasten">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="stochast"/>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="uniqueStochastNameConstraint">
+      <xs:selector xpath="stochast"/>
+      <xs:field xpath="@naam"/>
+    </xs:unique>
+  </xs:element>
+
+  <!--Algemene definitie van een stochast, waarbij een verplichte 
+  verwachtingswaarde moet worden gedefinieerd en daarnaast optioneel 
+  een standaardafwijking of variatiecoefficient kan worden gegeven.-->
+  <xs:element name="stochast">
+    <xs:complexType>
+      <xs:all>
+        <xs:element minOccurs="0" ref="verwachtingswaarde"/>
+        <xs:element minOccurs="0" ref="standaardafwijking-of-variatiecoefficient"/>
+      </xs:all>
+      <xs:attribute name="naam" type="nameType" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Dit type definieert de toegestane namen van de stochasten die 
+  kunnen worden opgenomen. Bij gebruik van deze generieke xsd moet 
+  dit type worden geherdefinieerd (in deze basisimplementatie worden 
+  alle strings goedgekeurd).-->
+  <xs:simpleType name="nameType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <!--Element definitie voor het opgeven van een verwachtingswaarde.-->
+  <xs:element name="verwachtingswaarde">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de keuze van een standaardafwijking of een variatiecoefficient.-->
+  <xs:element name="standaardafwijking-of-variatiecoefficient" abstract="true" />
+  
+</xs:schema>

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{BDBF07E1-704D-4455-B923-795F6C34C217}</ProjectGuid>
+    <RootNamespace>Ringtoets.MacroStabilityInwards.Plugin.Test</RootNamespace>
+    <AssemblyName>Ringtoets.MacroStabilityInwards.Plugin.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NUnitForms, Version=2.0.5821.13987, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExportInfos\MacroStabilityInwardsCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\MacroStabilityInwardsCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactoryTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsStochasticSoilModelReplaceDataStrategyTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsStochasticSoilModelUpdateDataStrategyTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineReplaceDataStrategyTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineUpdateDataStrategyTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
+    <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactoryTest.cs" />
+    <Compile Include="ImportInfos\MacroStabilityInwardsCalculationGroupContextImportInfoTest.cs" />
+    <Compile Include="ImportInfos\MacroStabilityInwardsSurfaceLinesContextImportInfoTest.cs" />
+    <Compile Include="ImportInfos\MacroStabilityInwardsStochasticSoilModelCollectionContextImportInfoTest.cs" />
+    <Compile Include="MacroStabilityInwardsPluginTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsFailureMechanismSectionsContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsOutputPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsStochasticSoilModelPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsSurfaceLineCollectionContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsStochasticSoilProfilePropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsStochasticSoilModelCollectionContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsInputContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\MacroStabilityInwardsFailureMechanismPropertyInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsCalculationGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsCalculationScenarioContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsOutputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsScenariosContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsSurfaceLineCollectionTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsSurfaceLineTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsStochasticSoilModelCollectionContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsStochasticSoilModelTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityInwardsStochasticSoilProfileTreeNodeInfoTest.cs" />
+    <Compile Include="UpdateInfos\MacroStabilityInwardsSurfaceLinesContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\MacroStabilityInwardsStochasticSoilModelCollectionContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\MacroStabilityInwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismSectionsProbabilityAssessmentViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsInputViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsCalculationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsOutputViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsScenariosViewInfoTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
+      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
+      <Name>Core.Common.Controls.TreeView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
+      <Project>{26214bd0-dafb-4cfc-8eb2-80c5d53c859e}</Project>
+      <Name>Core.Common.Gui.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
+      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
+      <Name>Core.Components.Chart.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
+      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
+      <Name>Core.Components.Gis.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Riskeer.AssemblyTool.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
+      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
+      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
+      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
+      <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Plugin.TestUtil\Ringtoets.Common.Plugin.TestUtil.csproj">
+      <Project>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</Project>
+      <Name>Ringtoets.Common.Plugin.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
+      <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
+      <Name>Ringtoets.Common.Service.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Forms\Ringtoets.MacroStabilityInwards.Forms.csproj">
+      <Project>{69ebf07f-20e5-4b5a-8620-c2638191afed}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.IO\Ringtoets.MacroStabilityInwards.IO.csproj">
+      <Project>{0943dda8-8fab-4d0b-8e9c-8a1a9b3273b4}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Plugin\Ringtoets.MacroStabilityInwards.Plugin.csproj">
+      <Project>{b6b27968-6b39-48df-b2e5-cbabf362808c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
+      <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
+      <Project>{3810D738-6412-47D1-8BC0-729D55BC951F}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

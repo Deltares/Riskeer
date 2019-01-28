@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <kunstwerk>kunstwerk1</kunstwerk>
+    <stochasten>
+      <stochast naam="stormduur" />
+      <stochast naam="binnenwaterstand">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="binnenwaterstandbijfalen">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="modelfactoroverloopdebiet" />
+      <stochast naam="afvoercoefficient" />
+      <stochast naam="breedtedoorstroomopening">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="doorstroomoppervlak">
+        <standaardafwijking>1</standaardafwijking>
+      </stochast>
+      <stochast naam="breedtebodembescherming">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="kombergendoppervlak">
+        <variatiecoefficient>0.01</variatiecoefficient>
+      </stochast>
+      <stochast naam="peilverhogingkomberging">
+        <standaardafwijking>0.01</standaardafwijking>
+      </stochast>
+      <stochast naam="kerendehoogte">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="drempelhoogte">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="kritiekinstromenddebiet">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="kritiekestroomsnelheid" />
+      <stochast naam="kwadratischebelastingschematiseringsterkte">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="lineairebelastingschematiseringsterkte">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="bermbreedte">
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="bezwijkwaardeaanvaarenergie">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="massaschip">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="aanvaarsnelheid">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="kwadratischebelastingschematiseringstabiliteit">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="lineairebelastingschematiseringstabiliteit">
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

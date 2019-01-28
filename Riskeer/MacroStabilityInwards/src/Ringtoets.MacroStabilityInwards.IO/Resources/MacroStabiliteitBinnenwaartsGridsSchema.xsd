@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Copyright (C) Stichting Deltares 2018. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--Dit element bevat een definitie voor de rekengrids die tijdens een 
+  berekening voor macrostabiliteit kunnen worden gebruikt.-->
+  <xs:element name="grids">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="verplaatsgrid" minOccurs="0"/>
+        <xs:element ref="bepaling" minOccurs="0"/>
+        <xs:element ref="tangentlijnen" minOccurs="0"/>
+        <xs:element name="linkergrid" type="slopestabilitygrid" minOccurs="0"/>
+        <xs:element name="rechtergrid" type="slopestabilitygrid" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Specificeert of het grid automatisch mag worden aangepast.-->
+  <xs:element name="verplaatsgrid">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert of rekengrids automatisch bepaald of handmatig ingevuld moeten worden.-->
+  <xs:element name="bepaling">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="automatisch"/>
+        <xs:enumeration value="handmatig"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert hoe de raaklijnen bepaald moeten worden.-->
+  <xs:element name="tangentlijnen">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="bepalingtangentlijnen" minOccurs="0"/>
+        <xs:element ref="zboven" minOccurs="0"/>
+        <xs:element ref="zonder" minOccurs="0"/>
+        <xs:element ref="aantal" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--Specificeert eigenschappen van een grid.-->
+  <xs:complexType name="slopestabilitygrid">
+    <xs:all>
+      <xs:element ref="xlinks" minOccurs="0"/>
+      <xs:element ref="xrechts" minOccurs="0"/>
+      <xs:element ref="zboven" minOccurs="0"/>
+      <xs:element ref="zonder" minOccurs="0"/>
+      <xs:element ref="aantalpuntenverticaal" minOccurs="0"/>
+      <xs:element ref="aantalpuntenhorizontaal" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <!--Specificeert of raaklijnen op basis van grondlaagscheiding bepaald of handmatig ingevuld moeten worden.-->
+  <xs:element name="bepalingtangentlijnen">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="laagscheiding"/>
+        <xs:enumeration value="gespecificeerd"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de verticale coördinaat van de bovenste raaklijn.-->
+  <xs:element name="zboven">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <!--Specificeert de verticale coördinaat van de onderste raaklijn.-->
+  <xs:element name="zonder">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <!--Specificeert het aantal raaklijnen dat bepaald moet worden.-->
+  <xs:element name="aantal">
+    <xs:simpleType>
+      <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de horizontale coördinaat van de linkerkant van het rekengrid.-->
+  <xs:element name="xlinks">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de horizontale coördinaat van de rechterkant van het rekengrid.-->
+  <xs:element name="xrechts">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert het aantal punten waarmee het grid wordt samengesteld in horizontale richting.-->
+  <xs:element name="aantalpuntenhorizontaal">
+    <xs:simpleType>
+      <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <!--Specificeert het aantal punten waarmee het grid wordt samengesteld in verticale richting.-->
+  <xs:element name="aantalpuntenverticaal">
+    <xs:simpleType>
+      <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+  </xs:element>
+</xs:schema>

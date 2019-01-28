@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{3C95DD33-659C-4596-AF93-D51D0F96E16B}</ProjectGuid>
+    <RootNamespace>Ringtoets.MacroStabilityInwards.IO.Test</RootNamespace>
+    <AssemblyName>Ringtoets.MacroStabilityInwards.IO.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations\ConfigurationDikeSoilScenarioTest.cs" />
+    <Compile Include="Configurations\ConfigurationZoningBoundariesDeterminationTypeTest.cs" />
+    <Compile Include="Configurations\ConfigurationGridDeterminationTypeTest.cs" />
+    <Compile Include="Configurations\ConfigurationTangentLineDeterminationTypeTest.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationDikeSoilScenarioTypeConverterTest.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationZoningBoundariesDeterminationTypeConverterTest.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationGridDeterminationTypeConverterTest.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationTangentLineDeterminationTypeConverterTest.cs" />
+    <Compile Include="Configurations\Helpers\MacroStabilityInwardsGridConversionExtensionsTest.cs" />
+    <Compile Include="Configurations\Helpers\MacroStabilityInwardsLocationInputConversionExtensionsTest.cs" />
+    <Compile Include="Configurations\Helpers\MacroStabilityInwardsXElementExtensionsTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporterTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsGridConfigurationTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsLocationInputConfigurationTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsLocationInputExtremeConfigurationTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsPreconsolidationStressTransformerTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformerTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformerTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelFilterTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelTransformerTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilProfileTransformerTest.cs" />
+    <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineTransformerTest.cs" />
+    <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineExtensionsTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
+      <Name>Ringtoets.Common.IO.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.IO\Ringtoets.MacroStabilityInwards.IO.csproj">
+      <Project>{0943dda8-8fab-4d0b-8e9c-8a1a9b3273b4}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
+      <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.IO.TestUtil\Ringtoets.MacroStabilityInwards.IO.TestUtil.csproj">
+      <Project>{c83b2091-339a-4f35-a874-a4c807f55cae}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.IO.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

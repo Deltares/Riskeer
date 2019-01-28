@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Berekening 1">
-    <bovengrensbekleding>1.1</bovengrensbekleding>
-    <ondergrensbekleding>2.2</ondergrensbekleding>
-  </berekening>
-</configuratie>

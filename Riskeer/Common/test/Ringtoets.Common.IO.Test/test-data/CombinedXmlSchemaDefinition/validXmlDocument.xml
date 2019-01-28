@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container>
+  <item naam="Item">
+    <genericElement>Test</genericElement>
+  </item>
+</container>

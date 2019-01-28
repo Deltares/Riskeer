@@ -1,0 +1,885 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ReferenceLineReader_File_contains_unsupported_multi_polyline" xml:space="preserve">
+    <value>Het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.</value>
+  </data>
+  <data name="ReferenceLineReader_File_must_contain_1_polyline" xml:space="preserve">
+    <value>Het bestand moet exact één gehele polylijn bevatten.</value>
+  </data>
+  <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
+    <value>Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
+  </data>
+  <data name="ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported" xml:space="preserve">
+    <value>{0} 
+Er is geen referentielijn geïmporteerd.</value>
+  </data>
+  <data name="ReferenceLineImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Referentielijn importeren afgebroken. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="ReferenceLineImporter_ProgressText_Reading_referenceline" xml:space="preserve">
+    <value>Inlezen referentielijn.</value>
+  </data>
+  <data name="ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections" xml:space="preserve">
+    <value>Wissen rekenresultaten en vakindelingen van toetsspoor.</value>
+  </data>
+  <data name="Shape_file_filter_Description" xml:space="preserve">
+    <value>Shapebestand</value>
+  </data>
+  <data name="Shape_file_filter_Extension" xml:space="preserve">
+    <value>shp</value>
+  </data>
+  <data name="ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_" xml:space="preserve">
+    <value>Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="IHW_filecontents" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\20160624v3 N-waarden voor GEKB en HTKW.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_" xml:space="preserve">
+    <value>Geen shapebestand om trajecten te specificeren gevonden in de map '{0}'.</value>
+  </data>
+  <data name="ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1" xml:space="preserve">
+    <value>Meerdere shapebestanden gevonden in '{0}'. Het bestand '{1}' is gebruikt.</value>
+  </data>
+  <data name="ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique" xml:space="preserve">
+    <value>Meerdere trajecten met dezelfde identificatiecode (attribuut 'TRAJECT_ID') gevonden.</value>
+  </data>
+  <data name="ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids" xml:space="preserve">
+    <value>Trajecten gevonden zonder een geldige identificatiecode (attribuut 'TRAJECT_ID').</value>
+  </data>
+  <data name="ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid" xml:space="preserve">
+    <value>De map met specificaties voor trajecten '{0}' is niet gevonden.</value>
+  </data>
+  <data name="FailureMechanismSectionReader_File_lacks_required_Attribute_0_" xml:space="preserve">
+    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
+  </data>
+  <data name="ReferenceLineExporter_Error_0_no_ReferenceLine_exported" xml:space="preserve">
+    <value>{0}
+Er is geen referentielijn geëxporteerd.</value>
+  </data>
+  <data name="ReferenceLineWriter_CreateMapLineData_Traject_id" xml:space="preserve">
+    <value>TRAJECT_ID</value>
+  </data>
+  <data name="ReferenceLineWriter_CreateMapLineData_Traject_cannot_be_empty" xml:space="preserve">
+    <value>Traject id mag niet leeg zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid" xml:space="preserve">
+    <value>De regel ('{0}') bevat ongeldige tekst.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number" xml:space="preserve">
+    <value>De ingelezen damhoogte ('{0}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows" xml:space="preserve">
+    <value>De ingelezen damhoogte ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range" xml:space="preserve">
+    <value>Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number" xml:space="preserve">
+    <value>De ingelezen dijkhoogte ('{0}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows" xml:space="preserve">
+    <value>De ingelezen dijkhoogte ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
+    <value>Het aantal punten van de dijkgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows" xml:space="preserve">
+    <value>Het gespecificeerde aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer" xml:space="preserve">
+    <value>Het aantal punten van de voorlandgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows" xml:space="preserve">
+    <value>Het gespecificeerde aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_not_double" xml:space="preserve">
+    <value>De ingelezen oriëntatie ('{0}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_overflows" xml:space="preserve">
+    <value>De oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number" xml:space="preserve">
+    <value>De ingelezen {0} ('{1}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_overflows" xml:space="preserve">
+    <value>De in te lezen {0} ('{1}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range" xml:space="preserve">
+    <value>Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative" xml:space="preserve">
+    <value>Het aantal punten van de dijkgeometrie ('{0}') mag niet negatief zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative" xml:space="preserve">
+    <value>Het aantal punten van de voorlandgeometrie ('{0}') mag niet negatief zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition" xml:space="preserve">
+    <value>De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_Range_1_" xml:space="preserve">
+    <value>De ingelezen ruwheid ('{0}') moet in het bereik {1} liggen.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName" xml:space="preserve">
+    <value>ruwheid</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_X_DisplayName" xml:space="preserve">
+    <value>X-coördinaat</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName" xml:space="preserve">
+    <value>Z-coördinaat</value>
+  </data>
+  <data name="DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
+    <value>Het aantal punten van de dijkgeometrie gevonden in het bestand '{0}' komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
+  </data>
+  <data name="DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
+    <value>Het aantal punten van de voorlandgeometrie gevonden in het bestand '{0}' komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
+    <value>De X-coördinaten van de dijkgeometriepunten moeten strikt toenemend zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
+    <value>De X-coördinaten van de voorlandgeometriepunten moeten strikt toenemend zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space" xml:space="preserve">
+    <value>De ingelezen ID ('{0}') bevat spaties. Spaties zijn niet toegestaan.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateId_Id_0_not_valid" xml:space="preserve">
+    <value>De ingelezen ID ('{0}') is ongeldig.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_" xml:space="preserve">
+    <value>De volgende parameters zijn niet aanwezig in het bestand: {0}</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined" xml:space="preserve">
+    <value>De parameter {0} is al eerder in het bestand gedefinieerd.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_Range_1_" xml:space="preserve">
+    <value>De oriëntatie ('{0}') moet in het bereik {1} liggen.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported" xml:space="preserve">
+    <value>Enkel bestanden van versie '4.0' worden ondersteund.</value>
+  </data>
+  <data name="ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_" xml:space="preserve">
+    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
+  </data>
+  <data name="ProfileLocationReader_GetProfileLocations_Invalid_X0" xml:space="preserve">
+    <value>Het profiel heeft geen geldige waarde voor attribuut 'X0'.</value>
+  </data>
+  <data name="PointShapefileReader_File_can_only_contain_points" xml:space="preserve">
+    <value>Kon geen punten vinden in dit bestand.</value>
+  </data>
+  <data name="ProfileLocation_ProfileLocation_Id_is_invalid" xml:space="preserve">
+    <value>De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.</value>
+  </data>
+  <data name="ProfileLocation_ProfileLocation_Id_is_null" xml:space="preserve">
+    <value>De locatie parameter 'ID' heeft geen waarde.</value>
+  </data>
+  <data name="ProfileLocation_ProfileLocation_Point_is_null" xml:space="preserve">
+    <value>De locatie heeft geen coördinaten.</value>
+  </data>
+  <data name="ProfileLocation_ProfileLocation_X0_is_invalid" xml:space="preserve">
+    <value>De locatie parameter 'X0' bevat een ongeldig getal.</value>
+  </data>
+  <data name="HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported" xml:space="preserve">
+    <value>{0} Er zijn geen hydraulische belastingenlocaties geëxporteerd.</value>
+  </data>
+  <data name="StructuresReader_GetNextStructure_Invalid_KWKIDENT" xml:space="preserve">
+    <value>Het kunstwerk heeft geen geldige waarde voor attribuut '{0}'.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_Column_0_must_be_defined_only_once" xml:space="preserve">
+    <value>De kolom '{0}' mag maar één keer gedefinieerd zijn.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_ValidateRequiredColumnIndices_Invalid_header_Must_have_columns_0_" xml:space="preserve">
+    <value>Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:
+{0}
+
+Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_TokenizeString_Line_lacks_SeparatorCharacter_0_" xml:space="preserve">
+    <value>Ontbrekend scheidingsteken '{0}'.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_CreateStructuresParameterRow_Line_should_have_NumberOfExpectedElements_0_but_has_ActualNumberOfElements_1_" xml:space="preserve">
+    <value>Regel verwacht {0} elementen, maar het zijn er {1}.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_ParseIdString_ParameterName_0_cannot_be_empty" xml:space="preserve">
+    <value>'{0}' mag niet leeg zijn.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number" xml:space="preserve">
+    <value>De waarde voor '{0}' kan niet worden omgezet naar een getal.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_overflow_error" xml:space="preserve">
+    <value>De waarde voor '{0}' is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values" xml:space="preserve">
+    <value>De waarde voor '{0}' moet '0', '1' of leeg zijn.</value>
+  </data>
+  <data name="StructuresImporter_AddNextStructureLocation_Location_0_outside_referenceline" xml:space="preserve">
+    <value>Een kunstwerklocatie met KWKIDENT '{0}' ligt niet op de referentielijn.</value>
+  </data>
+  <data name="StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read" xml:space="preserve">
+    <value>Kunstwerklocatie met KWKIDENT '{0}' is opnieuw ingelezen.</value>
+  </data>
+  <data name="StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_" xml:space="preserve">
+    <value>Fout bij het lezen van kunstwerk op regel {0}. {1}</value>
+  </data>
+  <data name="StructuresImporter_GetStructureLocationReadResult_reading_structurelocation" xml:space="preserve">
+    <value>Inlezen van kunstwerklocatie.</value>
+  </data>
+  <data name="StructuresImporter_ReadStructureLocations_reading_structurelocations" xml:space="preserve">
+    <value>Inlezen van kunstwerklocaties uit een shapebestand.</value>
+  </data>
+  <data name="StructuresImporter_ReadStructureParameterRowsData_reading_structure_data" xml:space="preserve">
+    <value>Inlezen van kunstwerkgegevens uit een kommagescheiden bestand.</value>
+  </data>
+  <data name="StructuresImporter_ReadStructureParameterRowsData_reading_structuredata" xml:space="preserve">
+    <value>Inlezen van kunstwerkgegevens.</value>
+  </data>
+  <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
+    <value>Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID '{0}'.</value>
+  </data>
+  <data name="DikeProfilesImporter_No_dike_geometry_file_0_skipped" xml:space="preserve">
+    <value>Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_ProgressText_Reading_file" xml:space="preserve">
+    <value>Inlezen vakindeling.</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections" xml:space="preserve">
+    <value>Valideren ingelezen vakindeling.</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_ReadFile_File_is_empty" xml:space="preserve">
+    <value>Het bestand heeft geen vakindeling</value>
+  </data>
+  <data name="ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_" xml:space="preserve">
+    <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID '{0}'.</value>
+  </data>
+  <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
+    <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
+  </data>
+  <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline" xml:space="preserve">
+    <value>De profiellocatie met ID '{0}' ligt niet op de referentielijn.</value>
+  </data>
+  <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read" xml:space="preserve">
+    <value>Profiellocatie met ID '{0}' is opnieuw ingelezen.</value>
+  </data>
+  <data name="ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1" xml:space="preserve">
+    <value>Fout bij het lezen van profiellocatie {0}. {1}</value>
+  </data>
+  <data name="ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation" xml:space="preserve">
+    <value>Inlezen van profiellocatie.</value>
+  </data>
+  <data name="ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped" xml:space="preserve">
+    <value>Meerdere definities gevonden voor profiel '{0}'. Bestand '{1}' wordt overgeslagen.</value>
+  </data>
+  <data name="ProfilesImporter_ReadDikeProfileData_reading_profiledata" xml:space="preserve">
+    <value>Inlezen van profielgegevens.</value>
+  </data>
+  <data name="ProfilesImporter_ReadDikeProfileData_reading_profile_data" xml:space="preserve">
+    <value>Inlezen van profielgegevens uit een prfl bestand.</value>
+  </data>
+  <data name="ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_" xml:space="preserve">
+    <value>Profielgegevens definiëren een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
+  </data>
+  <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
+    <value>Inlezen van profiellocaties uit een shapebestand.</value>
+  </data>
+  <data name="StructuresImporter_TrySetConstructionProperty_Parameter_0_of_StructureName_1_StructureId_2_missing_or_invalid_default_values_used" xml:space="preserve">
+    <value>Geen definitie gevonden voor parameter '{0}' van kunstwerk '{1}' ({2}). Er wordt een standaard waarde gebruikt.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Parameter_0_repeated" xml:space="preserve">
+    <value>Parameter '{0}' komt meerdere keren voor.</value>
+  </data>
+  <data name="StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_" xml:space="preserve">
+    <value>De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaardafwijking (regel {3}).</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_mean_too_small_for_reliable_variation_value_conversion" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.</value>
+  </data>
+  <data name="StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_" xml:space="preserve">
+    <value>De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3}).</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_Range_3_" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik {3} liggen.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_Range_3_" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik {3} liggen.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_whole_number_greater_or_equal_to_one" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een geheel getal zijn groter of gelijk aan 1.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_structure_type_invalid" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een geldig kunstwerk type zijn.</value>
+  </data>
+  <data name="StructuresImporter_StructureName_0_StructureId_1_" xml:space="preserve">
+    <value>Kunstwerk '{0}' ({1})</value>
+  </data>
+  <data name="StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_" xml:space="preserve">
+    <value>Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
+{0}</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ValidateDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', is geen getal.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_a_positive_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief getal zijn.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_invalid_variancetype_value" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.</value>
+  </data>
+  <data name="StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_" xml:space="preserve">
+    <value>Klik op details voor meer informatie.
+{0}</value>
+  </data>
+  <data name="settings_schema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\settings-schema.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema" xml:space="preserve">
+    <value>De rekeninstellingen database heeft niet het juiste schema.</value>
+  </data>
+  <data name="FailureMechanismSectionReader_File_has_section_without_sectionName" xml:space="preserve">
+    <value>Voor één of meerdere vakken is geen naam opgegeven.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_greater_than_zero" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een getal zijn groter dan 0.</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline" xml:space="preserve">
+    <value>De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length" xml:space="preserve">
+    <value>De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte</value>
+  </data>
+  <data name="Importer_ProgressText_Adding_imported_data_to_FailureMechanism" xml:space="preserve">
+    <value>Geïmporteerde data toevoegen aan het toetsspoor.</value>
+  </data>
+  <data name="Importer_ProgressText_Adding_imported_data_to_AssessmentSection" xml:space="preserve">
+    <value>Geïmporteerde data toevoegen aan het traject.</value>
+  </data>
+  <data name="CalculationConfigurationReader_Configuration_contains_no_valid_xml_line_0_position_1_reason_2" xml:space="preserve">
+    <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding op regel {0}, positie {1}: {2}</value>
+  </data>
+  <data name="CalculationConfigurationReader_No_configuration_items_found" xml:space="preserve">
+    <value>Het XML-document dat de configuratie voor de berekeningen beschrijft, moet mappen en/of berekeningen bevatten.</value>
+  </data>
+  <data name="Importer_ProgressText_Updating_data_in_data_model" xml:space="preserve">
+    <value>Bijwerken data in het toetsspoor.</value>
+  </data>
+  <data name="Importer_ProgressText_Validating_imported_data" xml:space="preserve">
+    <value>Valideren van ingelezen data.</value>
+  </data>
+  <data name="CalculationConfigurationExporter_Export_ExceptionMessage_0_no_configuration_exported" xml:space="preserve">
+    <value>{0} Er is geen configuratie geëxporteerd.</value>
+  </data>
+  <data name="ConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="HbLocatieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HbLocatieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="StochastSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StochastSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CalculationConfigurationImporter_LogImportCanceledMessage_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Berekeningenconfiguratie importeren afgebroken. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ProgressText_Reading_configuration" xml:space="preserve">
+    <value>Inlezen berekeningenconfiguratie.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ProgressText_Validating_imported_data" xml:space="preserve">
+    <value>Valideren berekeningenconfiguratie.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_HandleCriticalFileReadError_Error_0_no_configuration_imported" xml:space="preserve">
+    <value>{0} 
+Er is geen berekeningenconfiguratie geïmporteerd.</value>
+  </data>
+  <data name="ILogExtensions_LogCalculationConversionError_ErrorMessage_0_Calculation_1_skipped" xml:space="preserve">
+    <value>{0} Berekening '{1}' is overgeslagen.</value>
+  </data>
+  <data name="GolfReductieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GolfReductieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="OrientatieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OrientatieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="VoorlandProfielSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VoorlandProfielSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist" xml:space="preserve">
+    <value>De hydraulische belastingenlocatie '{0}' bestaat niet.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist" xml:space="preserve">
+    <value>Het kunstwerk met ID '{0}' bestaat niet.</value>
+  </data>
+  <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_cancelled_No_data_changed" xml:space="preserve">
+    <value>{0} importeren afgebroken. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_cancelled_No_data_changed" xml:space="preserve">
+    <value>{0} bijwerken afgebroken. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0_" xml:space="preserve">
+    <value>Het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding: {0}</value>
+  </data>
+  <data name="IDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_" xml:space="preserve">
+    <value>Een gemiddelde van '{0}' is ongeldig voor stochast '{1}'.</value>
+  </data>
+  <data name="IDistributionExtensions_TrySetStandardDeviation_StandardDeviation_0_is_invalid_for_Stochast_1_" xml:space="preserve">
+    <value>Een standaardafwijking van '{0}' is ongeldig voor stochast '{1}'.</value>
+  </data>
+  <data name="IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_" xml:space="preserve">
+    <value>Een gemiddelde van '{0}' is ongeldig voor stochast '{1}'.</value>
+  </data>
+  <data name="IVariationCoefficientDistributionExtensions_TrySetVariationCoefficient_VariationCoefficient_0_is_invalid_for_Stochast_1_" xml:space="preserve">
+    <value>Een variatiecoëfficiënt van '{0}' is ongeldig voor stochast '{1}'.</value>
+  </data>
+  <data name="KunstwerkenBasisSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KunstwerkenBasisSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="StochastStandaardafwijkingSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\stochaststandaardafwijkingschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="StochastVariatiecoefficientSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\stochastvariatiecoefficientschema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TryReadParameter_Value_0_ParameterName_1_is_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als {1} is ongeldig.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_Orientation_DisplayName" xml:space="preserve">
+    <value>oriëntatie</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ReadForeshoreProfile_ForeshoreProfile_0_does_not_exist" xml:space="preserve">
+    <value>Het voorlandprofiel met ID '{0}' bestaat niet.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ValidateWaveReduction_No_foreshore_profile_provided" xml:space="preserve">
+    <value>Er is geen voorlandprofiel opgegeven om golfreductie parameters aan toe te voegen.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
+    <value>faalkans gegeven erosie bodem</value>
+  </data>
+  <data name="CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_" xml:space="preserve">
+    <value>Er is geen kunstwerk opgegeven om {0} aan toe te voegen.</value>
+  </data>
+  <data name="ReadForeshoreProfile_ForeshoreProfile_0_has_no_geometry_and_cannot_be_used" xml:space="preserve">
+    <value>Het opgegeven voorlandprofiel '{0}' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_StormDuration" xml:space="preserve">
+    <value>Er kan geen spreiding voor stochast 'stormduur' opgegeven worden.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow" xml:space="preserve">
+    <value>Er kan geen spreiding voor stochast 'modelfactoroverloopdebiet' opgegeven worden.</value>
+  </data>
+  <data name="CalculationConfigurationImporter_FailureProbabilityOpenStructure_DisplayName" xml:space="preserve">
+    <value>kans mislukken sluiting</value>
+  </data>
+  <data name="CalculationConfigurationImporter_FailureProbabilityReparation_DisplayName" xml:space="preserve">
+    <value>faalkans herstel van gefaalde situatie</value>
+  </data>
+  <data name="CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
+    <value>kans op open staan bij naderend hoogwater</value>
+  </data>
+  <data name="CalculationConfigurationImporter_IdenticalApertures_DisplayName" xml:space="preserve">
+    <value>aantal identieke doorstroomopeningen</value>
+  </data>
+  <data name="CalculationConfigurationImporter_InflowModelType_DisplayName" xml:space="preserve">
+    <value>instroommodel</value>
+  </data>
+  <data name="ConfigurationImportHelper_TrySetStandardDeviationStochast_Stochast_0_requires_standard_deviation_but_variation_coefficient_found_for_Calculation_1_" xml:space="preserve">
+    <value>Indien voor parameter '{0}' de spreiding wordt opgegeven, moet dit door middel van een standaardafwijking. Voor berekening '{1}' is een variatiecoëfficiënt gevonden.</value>
+  </data>
+  <data name="ConfigurationImportHelper_TrySetVariationCoefficientStochast_Stochast_0_requires_variation_coefficient_but_standard_deviation_found_for_Calculation_1_" xml:space="preserve">
+    <value>Indien voor parameter '{0}' de spreiding wordt opgegeven, moet dit door middel van een variatiecoëfficiënt. Voor berekening '{1}' is een standaardafwijking gevonden.</value>
+  </data>
+  <data name="StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient" xml:space="preserve">
+    <value>Er kan geen spreiding voor stochast 'afvoercoefficient' opgegeven worden.</value>
+  </data>
+  <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
+    <value>Dijkprofiellocaties</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ValidateStructuresParameters_No_parameters_found" xml:space="preserve">
+    <value>Geen geldige parameter definities gevonden.</value>
+  </data>
+  <data name="StructuresCalculationStochastAssigner_ValidateNoParametersDefined_No_structure_defined_to_add_Stochast_0_" xml:space="preserve">
+    <value>Er is geen kunstwerk opgegeven om de stochast '{0}' aan toe te voegen.</value>
+  </data>
+  <data name="Importer_LogMessageText_Update_of_TypeDescriptor_0_failed_Reason__0__No_data_changed" xml:space="preserve">
+    <value>Het bijwerken van de {0} is mislukt: {{0}}. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="Importer_LogMessageText_Import_of_TypeDescriptor_0_failed_Reason__0__No_data_changed" xml:space="preserve">
+    <value>Het importeren van de {0} is mislukt: {{0}}. Geen gegevens gewijzigd.</value>
+  </data>
+  <data name="VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm" xml:space="preserve">
+    <value>Wanneer de kunstwerken wijzigen als gevolg van het bijwerken zullen de resultaten van berekeningen die deze kunstwerken gebruiken worden verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="ScenarioSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScenarioSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CalculationConfigurationImporter_TrySetScenarioParameters_Scenario_empty" xml:space="preserve">
+    <value>In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven.</value>
+  </data>
+  <data name="SurfaceLine_SetGeometry_A_point_in_the_collection_was_null" xml:space="preserve">
+    <value>Een punt in de geometrie voor de profielschematisatie heeft geen waarde.</value>
+  </data>
+  <data name="SurfaceLine_SetGeometry_Collection_of_points_for_geometry_is_null" xml:space="preserve">
+    <value>De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde.</value>
+  </data>
+  <data name="CharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
+    <value>Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>
+  </data>
+  <data name="Error_CharacteristicPoint_has_not_double" xml:space="preserve">
+    <value>Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.</value>
+  </data>
+  <data name="Error_CharacteristicPoint_parsing_causes_overflow" xml:space="preserve">
+    <value>Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.</value>
+  </data>
+  <data name="CharacteristicPointsCsvReader_LocationName_0_" xml:space="preserve">
+    <value>locatie '{0}'</value>
+  </data>
+  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_" xml:space="preserve">
+    <value>Ontbrekend scheidingsteken '{0}'.</value>
+  </data>
+  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points" xml:space="preserve">
+    <value>Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.</value>
+  </data>
+  <data name="CharacteristicPointsCsvReader_ReadLine_Line_lacks_ID" xml:space="preserve">
+    <value>Regel heeft geen ID.</value>
+  </data>
+  <data name="SurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
+    <value>Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).</value>
+  </data>
+  <data name="SurfaceLine_SetGeometry_SurfaceLine_has_reclining_geometry" xml:space="preserve">
+    <value>Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).</value>
+  </data>
+  <data name="SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
+    <value>Ontbrekend scheidingsteken '{0}'.</value>
+  </data>
+  <data name="SurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet" xml:space="preserve">
+    <value>Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+  </data>
+  <data name="SurfaceLinesCsvReader_ReadLine_Line_lacks_ID" xml:space="preserve">
+    <value>Regel heeft geen ID.</value>
+  </data>
+  <data name="SurfaceLinesCsvReader_SurfaceLineName_0_" xml:space="preserve">
+    <value>profielschematisatie '{0}'</value>
+  </data>
+  <data name="SurfaceLine_SetGeometry_SurfaceLine_has_zero_length" xml:space="preserve">
+    <value>Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.</value>
+  </data>
+  <data name="Error_SurfaceLine_has_not_double" xml:space="preserve">
+    <value>Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.</value>
+  </data>
+  <data name="Error_SurfaceLine_parsing_causes_overflow" xml:space="preserve">
+    <value>Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_Read_SurfaceLines_0_" xml:space="preserve">
+    <value>Inlezen '{0}'</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped" xml:space="preserve">
+    <value>{0} 
+Deze profielschematisatie wordt overgeslagen.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
+    <value>Profielschematisatie {0} bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_" xml:space="preserve">
+    <value>Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {0})</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped" xml:space="preserve">
+    <value>{0} 
+Deze locatie met karakteristieke punten wordt overgeslagen.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_Read_CharacteristicPoints_0_" xml:space="preserve">
+    <value>Inlezen '{0}'</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_" xml:space="preserve">
+    <value>Karakteristiek punt van profielschematisatie '{0}' is overgeslagen. {1}</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_" xml:space="preserve">
+    <value>Er konden geen karakteristieke punten gevonden worden voor locatie '{0}'.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_" xml:space="preserve">
+    <value>Begonnen met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_" xml:space="preserve">
+    <value>Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie '{0}'.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_" xml:space="preserve">
+    <value>Meerdere karakteristieke punten definities gevonden voor locatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_" xml:space="preserve">
+    <value>Meerdere definities gevonden voor profielschematisatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
+  </data>
+  <data name="SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline" xml:space="preserve">
+    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.</value>
+  </data>
+  <data name="SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_Could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">
+    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_Reading_characteristic_points_file" xml:space="preserve">
+    <value>Inlezen van het karakteristieke punten-bestand.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_Reading_surface_line_file" xml:space="preserve">
+    <value>Inlezen van het profielschematisatiesbestand.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" xml:space="preserve">
+    <value>Begonnen met het inlezen van profielschematisaties uit bestand '{0}'.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_" xml:space="preserve">
+    <value>Klaar met het inlezen van profielschematisaties uit bestand '{0}'.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_" xml:space="preserve">
+    <value>Klaar met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
+  </data>
+  <data name="SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
+    <value>Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{0}'.</value>
+  </data>
+  <data name="SoilProfileReader_Critical_Unexpected_value_on_column" xml:space="preserve">
+    <value>Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.</value>
+  </data>
+  <data name="SoilProfileReader_Database_incorrect_version_requires_Version_0" xml:space="preserve">
+    <value>De database heeft niet de vereiste versie informatie. Vereiste versie is '{0}'.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing" xml:space="preserve">
+    <value>Kan geen ondergrondmodellen lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_names" xml:space="preserve">
+    <value>Namen van ondergrondmodellen zijn niet uniek.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_unique_StochasticSoilModel_names" xml:space="preserve">
+    <value>Onverwachte fout tijdens het verifiëren van unieke ondergrondmodelnamen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability" xml:space="preserve">
+    <value>Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_valid_StochasticSoilProfile_probability" xml:space="preserve">
+    <value>Onverwachte fout tijdens het verifiëren van kansen van voorkomen voor profielen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing" xml:space="preserve">
+    <value>Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
+  </data>
+  <data name="StochasticSoilModelDatabaseReader_Failed_to_read_database" xml:space="preserve">
+    <value>Kon geen stochastische ondergrondmodellen verkrijgen uit de database.</value>
+  </data>
+  <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
+    <value>De ondergrondschematisatie verwijst naar een ongeldige waarde.</value>
+  </data>
+  <data name="SoilProfileReader_Error_reading_soil_profile_from_database" xml:space="preserve">
+    <value>Kon geen ondergrondschematisaties verkrijgen uit de database.</value>
+  </data>
+  <data name="SoilProfileReader_SoilProfileName_0_" xml:space="preserve">
+    <value>ondergrondschematisatie '{0}'</value>
+  </data>
+  <data name="SoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
+    <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
+  </data>
+  <data name="Loop_contains_disconnected_segments" xml:space="preserve">
+    <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
+  </data>
+  <data name="SoilLayer2DGeometryReader_Could_not_parse_point_location" xml:space="preserve">
+    <value>Coördinaat van een punt bevat ongeldige waarde.</value>
+  </data>
+  <data name="SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml" xml:space="preserve">
+    <value>Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.</value>
+  </data>
+  <data name="SoilLayer2DGeometryReader_Geometry_is_null" xml:space="preserve">
+    <value>De geometrie is leeg.</value>
+  </data>
+  <data name="XmlGeometrySchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XmlGeometrySchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.</value>
+  </data>
+  <data name="StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported" xml:space="preserve">
+    <value>Het faalmechanisme '{0}' wordt niet ondersteund.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_Reading_database" xml:space="preserve">
+    <value>Inlezen van de D-Soil Model database.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database" xml:space="preserve">
+    <value>Inlezen van de stochastische ondergrondmodellen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct" xml:space="preserve">
+    <value>De som van de kansen van voorkomen in het stochastich ondergrondmodel '{0}' is niet gelijk aan 100%.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism" xml:space="preserve">
+    <value>Er zijn geen stochastische ondergrondmodellen gevonden die horen bij het faalmechanisme.</value>
+  </data>
+  <data name="IStochasticSoilModelTransformer_Cannot_transform_FailureMechanismType_0_Only_FailureMechanismType_1_supported" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel met '{0}' als faalmechanisme type is niet ondersteund. Alleen stochastische ondergrondmodellen met '{1}' als faalmechanisme type zijn ondersteund.</value>
+  </data>
+  <data name="SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1" xml:space="preserve">
+    <value>Het lezen van de ondergrondschematisatie '{0}' is mislukt. Geen geldige waarde in kolom '{1}'.</value>
+  </data>
+  <data name="StochasticDistribution_must_be_a_lognormal_distribution" xml:space="preserve">
+    <value>Parameter moet lognormaal verdeeld zijn.</value>
+  </data>
+  <data name="SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported" xml:space="preserve">
+    <value>De ondergrondschematisatie van het type '{0}' is niet ondersteund. Alleen ondergrondschematisaties van het type '{1}' of '{2}' zijn ondersteund.</value>
+  </data>
+  <data name="StochasticDistribution_has_no_shifted_lognormal_distribution" xml:space="preserve">
+    <value>Parameter moet verschoven lognormaal verdeeld zijn.</value>
+  </data>
+  <data name="SoilLayerData_IsAquifer_DisplayName" xml:space="preserve">
+    <value>Is aquifer</value>
+  </data>
+  <data name="Transform_Invalid_value_ParameterName_0" xml:space="preserve">
+    <value>Ongeldige waarde voor parameter '{0}'.</value>
+  </data>
+  <data name="PreconsolidationStressReader_Failed_to_read_database" xml:space="preserve">
+    <value>Kon geen grensspanningen verkrijgen uit de database.</value>
+  </data>
+  <data name="StochasticSoilProfileHelper_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed" xml:space="preserve">
+    <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
+  </data>
+  <data name="StochasticDistribution_must_be_a_lognormal_distribution_with_zero_shift" xml:space="preserve">
+    <value>Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.</value>
+  </data>
+  <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het inlezen van grondlaag '{0}': {1}</value>
+  </data>
+  <data name="Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het inlezen van ondergrondschematisatie '{0}': {1}</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path" xml:space="preserve">
+    <value>De bestandsmap waar de preprocessor bestanden opslaat is ongeldig.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist" xml:space="preserve">
+    <value>De bestandsmap bestaat niet.</value>
+  </data>
+  <data name="settings_schema_preprocessor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\settings-schema-preprocessor.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het inlezen van grondlaag '{0}' voor parameter '{1}': {2}</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_Import_File_contains_unchained_sections" xml:space="preserve">
+    <value>Het bestand moet vakken bevatten die allen op elkaar aansluiten</value>
+  </data>
+  <data name="FailureMechanismSections_TypeDescriptor" xml:space="preserve">
+    <value>Vakindeling</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>
+  </data>
+</root>

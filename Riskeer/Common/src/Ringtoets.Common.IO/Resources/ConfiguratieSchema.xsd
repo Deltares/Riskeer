@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?><!--
+Copyright (C) Stichting Deltares 2018. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--Generieke definitie van het hoogste element in een bestand waarin alle 
+  berekeningen en mappen kunnen worden opgenomen.-->
+  <xs:element name="configuratie">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="berekening"/>
+        <xs:element ref="map"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Definitie van een map die zichzelf recursief kan bevatten, maar ook 
+  berekeningen kan bevatten.-->
+  <xs:element name="map">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="berekening"/>
+        <xs:element ref="map"/>
+      </xs:choice>
+      <xs:attribute name="naam" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Basisdefinitie van een berekening. De berekening maakt gebruik van het 
+  berekeningType. Bij definitie van een toetsspoor specifieke berekening 
+  behoeft alleen het berekeningType te worden uitgebreid, niet deze berekening zelf.-->
+  <xs:element name="berekening" type="berekeningType" />
+
+  <!--Generieke definitie van een berekening, waarin het naam attribuut is opgenomen. 
+  Bij opname van een berekening in een toetsspoor specifieke xsd moet dit type 
+  worden uitgebreid met alle elementen die een berekening kan bevatten. Daarbij 
+  is uitbreiding met de geselecteerde HB locatie niet nodig.-->
+  <xs:complexType name="berekeningType">
+    <xs:attribute name="naam" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+</xs:schema>

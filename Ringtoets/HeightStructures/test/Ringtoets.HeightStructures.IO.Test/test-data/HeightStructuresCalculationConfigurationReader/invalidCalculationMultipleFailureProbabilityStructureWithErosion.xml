@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Calculation">
-    <faalkansgegevenerosiebodem>3.2</faalkansgegevenerosiebodem>
-    <faalkansgegevenerosiebodem>0.54</faalkansgegevenerosiebodem>
-  </berekening>
-</configuratie>

@@ -1,0 +1,4 @@
+﻿<stochast naam="distribution">
+  <verwachtingswaarde>0.2</verwachtingswaarde>
+  <variatiecoefficient>0.1</variatiecoefficient>
+</stochast>

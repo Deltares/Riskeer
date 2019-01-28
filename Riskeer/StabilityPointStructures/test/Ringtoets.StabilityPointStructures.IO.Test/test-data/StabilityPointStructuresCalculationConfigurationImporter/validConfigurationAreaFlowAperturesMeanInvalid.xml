@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <kunstwerk>kunstwerk1</kunstwerk>
+    <stochasten>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>-0.2</verwachtingswaarde>
+        <standaardafwijking>0.01</standaardafwijking>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{7CB3D26F-9FE5-4105-A3BC-36F457C6EA1D}</ProjectGuid>
+    <RootNamespace>Ringtoets.MacroStabilityInwards.Data.TestUtil.Test</RootNamespace>
+    <AssemblyName>Ringtoets.MacroStabilityInwards.Data.TestUtil.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MacroStabilityInwardsCalculationScenarioTestFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsGridTestFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsInputFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsSliceTestFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsStochasticSoilModelTestFactoryTest.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsPreconsolidationStressTestFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsSlidingCircleTestFactoryTest.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer1DTestFactoryTest.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilProfileTestFactoryTest.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer2DTestFactoryTest.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile1DTestFactoryTest.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2DTestFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsTestDataGeneratorTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Segment2DLoopCollectionHelperTest.cs" />
+    <Compile Include="TestMacroStabilityInwardsFailureMechanismTest.cs" />
+    <Compile Include="MacroStabilityInwardsOutputTestFactoryTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Service\Ringtoets.MacroStabilityInwards.Service.csproj">
+      <Project>{55BE9A1B-68AB-488F-AF20-E037A50063DB}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
+      <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

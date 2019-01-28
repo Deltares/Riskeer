@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
-  <berekening naam="Calculation">
-    <minimaleglijvlaklengte>NaN</minimaleglijvlaklengte>
-    <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
-  </berekening>
-</configuratie>

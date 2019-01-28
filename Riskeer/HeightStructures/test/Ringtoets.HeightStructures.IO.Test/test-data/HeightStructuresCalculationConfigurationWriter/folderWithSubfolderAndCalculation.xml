@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <map naam="Testmap">
+    <berekening naam="Berekening 1">
+      <hblocatie>Locatie1</hblocatie>
+      <kunstwerk>kunstwerk1</kunstwerk>
+      <orientatie>67.1</orientatie>
+      <faalkansgegevenerosiebodem>1E-06</faalkansgegevenerosiebodem>
+      <voorlandprofiel>profiel1</voorlandprofiel>
+      <golfreductie>
+        <damgebruiken>true</damgebruiken>
+        <damtype>havendam</damtype>
+        <damhoogte>1.23</damhoogte>
+        <voorlandgebruiken>true</voorlandgebruiken>
+      </golfreductie>
+      <stochasten>
+        <stochast naam="breedtebodembescherming">
+          <verwachtingswaarde>15.2</verwachtingswaarde>
+          <standaardafwijking>0.1</standaardafwijking>
+        </stochast>
+        <stochast naam="breedtedoorstroomopening">
+          <verwachtingswaarde>13.2</verwachtingswaarde>
+          <standaardafwijking>0.3</standaardafwijking>
+        </stochast>
+        <stochast naam="kombergendoppervlak">
+          <verwachtingswaarde>15000</verwachtingswaarde>
+          <variatiecoefficient>0.01</variatiecoefficient>
+        </stochast>
+        <stochast naam="kritiekinstromenddebiet">
+          <verwachtingswaarde>2</verwachtingswaarde>
+          <variatiecoefficient>0.1</variatiecoefficient>
+        </stochast>
+        <stochast naam="peilverhogingkomberging">
+          <verwachtingswaarde>0.2</verwachtingswaarde>
+          <standaardafwijking>0.01</standaardafwijking>
+        </stochast>
+        <stochast naam="stormduur">
+          <verwachtingswaarde>6</verwachtingswaarde>
+          <variatiecoefficient>0.22</variatiecoefficient>
+        </stochast>
+        <stochast naam="modelfactoroverloopdebiet">
+          <verwachtingswaarde>1.1</verwachtingswaarde>
+          <standaardafwijking>0.14</standaardafwijking>
+        </stochast>
+        <stochast naam="kerendehoogte">
+          <verwachtingswaarde>4.3</verwachtingswaarde>
+          <standaardafwijking>0.2</standaardafwijking>
+        </stochast>
+      </stochasten>
+      <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    </berekening>
+    <map naam="Nested">
+      <berekening naam="Berekening 2">
+        <stochasten />
+      </berekening>
+    </map>
+  </map>
+</configuratie>

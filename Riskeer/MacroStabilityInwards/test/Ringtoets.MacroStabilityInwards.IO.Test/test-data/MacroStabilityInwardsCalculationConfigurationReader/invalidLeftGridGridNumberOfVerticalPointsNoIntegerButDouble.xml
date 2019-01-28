@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <grids>
+      <linkergrid>
+        <aantalpuntenverticaal>3.1415</aantalpuntenverticaal>
+      </linkergrid>
+    </grids>
+  </berekening>
+</configuratie>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Copyright (C) Stichting Deltares 2018. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--Dit element bevat een definitie voor de waterspanningen die tijdens een 
+  berekening voor macrostabiliteit kunnen worden gebruikt.-->
+  <xs:element name="waterspanningen">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="gemiddeldhoogwater" minOccurs="0"/>
+        <xs:element ref="drainage" minOccurs="0"/>
+        <xs:element name ="initielehoogtepl1" type="binnenbuitenkruin" minOccurs="0"/>
+        <xs:element ref="corrigeervooropbarsten" minOccurs="0"/>
+        <xs:element name="leklengtespl3" type="binnenbuitenwaarts" minOccurs="0"/>
+        <xs:element name="leklengtespl4" type="binnenbuitenwaarts" minOccurs="0"/>
+        <xs:element name="stijghoogtespl2" type="binnenbuitenwaarts" minOccurs="0"/>
+        <xs:element ref="dagelijks" minOccurs="0"/>
+        <xs:element ref="extreem" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--Specificeert het gemiddeld hoog water.-->
+  <xs:element name="gemiddeldhoogwater">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de eigenschappen van de drainage constructie.-->
+  <xs:element name="drainage">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="aanwezig" type="xs:boolean" minOccurs="0"/>
+        <xs:element name="x" type="xs:double" minOccurs="0"/>
+        <xs:element name="z" type="xs:double" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--Specificeert of de PL 3 en PL 4 voor opbarsten gecorrigeerd moet worden.-->
+  <xs:element name="corrigeervooropbarsten">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <!--Specificeert de PL 1 initiële hoogte onder binnen- en buitenkruin.-->
+  <xs:complexType name="binnenbuitenkruin">
+    <xs:all>
+      <xs:element name="binnenkruin" type="xs:double" minOccurs="0"/>
+      <xs:element name="buitenkruin" type="xs:double" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  
+  <!--Specificeert de leklengtes (PL3 of PL 4) of de stijghoogtes (PL 2) binnen- en buitenwaarts.-->
+  <xs:complexType name="binnenbuitenwaarts">
+    <xs:all>
+      <xs:element name="binnenwaarts" type="xs:double" minOccurs="0"/>
+      <xs:element name="buitenwaarts" type="xs:double" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <!--Specificeert de waterspanningen bij extreme omstandigheden.-->
+  <xs:element name="extreem">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="polderpeil" type="xs:double" minOccurs="0"/>
+        <xs:element name="indringingslengte" type="xs:double" minOccurs="0"/>
+        <xs:element ref="offsets" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Specificeert de waterspanningen bij dagelijkse omstandigheden.-->
+  <xs:element name="dagelijks">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="polderpeil" type="xs:double" minOccurs="0"/>
+        <xs:element ref="offsets" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <!--Specificeert de eigenschappen van offsets PL 1.-->
+  <xs:element name="offsets">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="gebruikdefaults" type="xs:boolean" minOccurs="0"/>
+        <xs:element name="buitenkruin" type="xs:double" minOccurs="0"/>
+        <xs:element name="binnenkruin" type="xs:double" minOccurs="0"/>
+        <xs:element name="insteekbinnenberm" type="xs:double" minOccurs="0"/>
+        <xs:element name="teendijkbinnenwaarts" type="xs:double" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

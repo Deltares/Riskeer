@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <ondergrondmodel>Ondergrondmodel 1</ondergrondmodel>
+    <ondergrondmodel>Ondergrondmodel 2</ondergrondmodel>
+  </berekening>
+</configuratie>

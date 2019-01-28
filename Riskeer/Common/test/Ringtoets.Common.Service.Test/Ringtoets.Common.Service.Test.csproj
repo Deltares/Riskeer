@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{915A3B93-38F6-4D8B-8204-BE7F4FB0043F}</ProjectGuid>
+    <RootNamespace>Ringtoets.Common.Service.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Common.Service.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalculatableActivityTest.cs" />
+    <Compile Include="ClearResultsTest.cs" />
+    <Compile Include="HydraRingCalculationSettingsFactoryTest.cs" />
+    <Compile Include="HydraRingInputParserTest.cs" />
+    <Compile Include="CalculationServiceHelperTest.cs" />
+    <Compile Include="DesignWaterLevelCalculationActivityTest.cs" />
+    <Compile Include="DesignWaterLevelCalculationServiceTest.cs" />
+    <Compile Include="HydraRingSettingsDatabaseHelperTest.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseConnectionValidatorTest.cs" />
+    <Compile Include="HydraulicBoundaryLocationCalculationActivityFactoryTest.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointNodeConverterTest.cs" />
+    <Compile Include="IllustrationPoints\CombinationTypeConverterTest.cs" />
+    <Compile Include="IllustrationPoints\GeneralResultConverterTest.cs" />
+    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointConverterTest.cs" />
+    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointConverterTest.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointResultConverterTest.cs" />
+    <Compile Include="IllustrationPoints\StochastConverterTest.cs" />
+    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointConverterTest.cs" />
+    <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointConverterTest.cs" />
+    <Compile Include="IllustrationPoints\WindDirectionConverterTest.cs" />
+    <Compile Include="MessageProviders\DesignWaterLevelCalculationMessageProviderTest.cs" />
+    <Compile Include="MessageProviders\WaveHeightCalculationMessageProviderTest.cs" />
+    <Compile Include="ParameterNameExtractorTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RingtoetsCommonDataCalculationServiceTest.cs" />
+    <Compile Include="RingtoetsCommonDataSynchronizationServiceTest.cs" />
+    <Compile Include="Structures\StructuresCalculationServiceBaseTest.cs" />
+    <Compile Include="SynchronizeCalculationWithForeshoreProfileHelperTest.cs" />
+    <Compile Include="TargetProbabilityCalculationServiceHelperTest.cs" />
+    <Compile Include="TargetProbabilityCalculationServiceTest.cs" />
+    <Compile Include="ValidationRules\NumericInputRuleTest.cs" />
+    <Compile Include="ValidationRules\UseBreakWaterRuleTest.cs" />
+    <Compile Include="ValidationRules\VariationCoefficientLogNormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\VariationCoefficientNormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\LogNormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\NormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\ValidationRuleTest.cs" />
+    <Compile Include="WaveHeightCalculationActivityTest.cs" />
+    <Compile Include="WaveHeightCalculationServiceTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
+      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
+      <Name>Riskeer.HydraRing.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj">
+      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
+      <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+      <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
+      <Name>Ringtoets.Common.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
+      <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
+      <Name>Ringtoets.Common.Service.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
+</Project>

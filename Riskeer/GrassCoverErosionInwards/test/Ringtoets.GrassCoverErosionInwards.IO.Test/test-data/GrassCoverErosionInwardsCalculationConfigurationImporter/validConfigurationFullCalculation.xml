@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+    <hblocatie>Locatie</hblocatie>
+    <dijkprofiel>Dijkprofiel ID</dijkprofiel>
+    <orientatie>5.5</orientatie>
+    <dijkhoogte>3.45</dijkhoogte>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+    <overslagdebietillustratiepunteninlezen>true</overslagdebietillustratiepunteninlezen>
+    <hbnberekenen>norm</hbnberekenen>
+    <overslagdebietberekenen>doorsnede</overslagdebietberekenen>
+    <golfreductie>
+      <damgebruiken>true</damgebruiken>
+      <damtype>caisson</damtype>
+      <damhoogte>6.6</damhoogte>
+      <voorlandgebruiken>true</voorlandgebruiken>
+    </golfreductie>
+    <stochasten>
+      <stochast naam="overslagdebiet">
+        <verwachtingswaarde>2.0</verwachtingswaarde>
+        <standaardafwijking>1.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+  </berekening>
+</configuratie>

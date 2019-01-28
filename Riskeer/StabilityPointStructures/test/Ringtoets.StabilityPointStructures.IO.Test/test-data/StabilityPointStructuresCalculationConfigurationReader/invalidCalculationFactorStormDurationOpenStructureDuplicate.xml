@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <factorstormduur>0.5</factorstormduur>
+    <factorstormduur>0.5</factorstormduur>
+  </berekening>
+</configuratie>

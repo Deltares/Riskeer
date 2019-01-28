@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{7537DE22-3330-4F21-ABA2-FCEF117B4223}</ProjectGuid>
+    <RootNamespace>Ringtoets.Common.IO.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Common.IO.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
+    <Compile Include="AssessmentSectionSettingsTest.cs" />
+    <Compile Include="Configurations\Helpers\CalculationScenarioConversionExtensionsTest.cs" />
+    <Compile Include="Configurations\Helpers\WaveReductionConversionExtensionsTest.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationValidationExtensionsTest.cs" />
+    <Compile Include="Configurations\Helpers\DistributionConversionExtensionsTest.cs" />
+    <Compile Include="Configurations\Helpers\LogExtensionsTest.cs" />
+    <Compile Include="Configurations\Import\ConfigurationImportHelperTest.cs" />
+    <Compile Include="Configurations\StochastConfigurationTest.cs" />
+    <Compile Include="Configurations\ScenarioConfigurationTest.cs" />
+    <Compile Include="Configurations\StructuresCalculationStochastAssignerTest.cs" />
+    <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverterTest.cs" />
+    <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />
+    <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
+    <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />
+    <Compile Include="DikeProfiles\ProfileLocationTest.cs" />
+    <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationImporterTest.cs" />
+    <Compile Include="Exceptions\DistributionValidationExceptionTest.cs" />
+    <Compile Include="FileImporters\DikeProfilesImporterTest.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionUpdateStrategyTest.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionReplaceStrategyTest.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
+    <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />
+    <Compile Include="FileImporters\MessageProviders\ImportMessageProviderTest.cs" />
+    <Compile Include="FileImporters\MessageProviders\UpdateMessageProviderTest.cs" />
+    <Compile Include="HydraRing\DesignTablesSettingsProviderTest.cs" />
+    <Compile Include="HydraRing\HydraRingSettingsDatabaseValidatorTest.cs" />
+    <Compile Include="FileImporters\ProfilesImporterTest.cs" />
+    <Compile Include="FileImporters\StructuresImporterTest.cs" />
+    <Compile Include="HydraRing\HydraRingSettingsDatabaseReaderTest.cs" />
+    <Compile Include="HydraRing\HydraulicBoundaryDatabaseHelperTest.cs" />
+    <Compile Include="HydraRing\PreprocessorSettingsProviderTest.cs" />
+    <Compile Include="HydraRing\ReadPreprocessorSettingTest.cs" />
+    <Compile Include="HydraRing\TimeIntegrationSettingsProviderTest.cs" />
+    <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
+    <Compile Include="Configurations\Import\CombinedXmlSchemaDefinitionTest.cs" />
+    <Compile Include="Configurations\Helpers\XElementExtensionsTest.cs" />
+    <Compile Include="Configurations\Import\CalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\CalculationGroupConfigurationTest.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineMetaImporterTest.cs" />
+    <Compile Include="ReferenceLines\ReferenceLinesMetaReaderTest.cs" />
+    <Compile Include="FailureMechanismSectionReaderTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineImporterTest.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineReaderTest.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineWriterTest.cs" />
+    <Compile Include="Configurations\ConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Configurations\StructureCalculationConfigurationTest.cs" />
+    <Compile Include="SoilProfile\CriticalProfilePropertiesTest.cs" />
+    <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStressReadValuesTest.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStressReaderTest.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStressTest.cs" />
+    <Compile Include="SoilProfile\Schema\PreconsolidationStressTableDefinitionsTest.cs" />
+    <Compile Include="SoilProfile\SegmentPointReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseQueryBuilderTest.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilLayer1DTest.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DGeometryReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DGeometryTest.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DLoopTest.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DTest.cs" />
+    <Compile Include="SoilProfile\SoilLayerBaseTest.cs" />
+    <Compile Include="SoilProfile\SoilLayerColorConverterTest.cs" />
+    <Compile Include="Exceptions\SoilLayerConversionExceptionTest.cs" />
+    <Compile Include="SoilProfile\DistributionHelperTest.cs" />
+    <Compile Include="SoilProfile\SoilLayerIsAquiferConverterTest.cs" />
+    <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilProfile1DTest.cs" />
+    <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilProfile2DTest.cs" />
+    <Compile Include="Exceptions\SoilProfileReadExceptionTest.cs" />
+    <Compile Include="Exceptions\StochasticSoilModelExceptionTest.cs" />
+    <Compile Include="SoilProfile\SoilLayerHelperTest.cs" />
+    <Compile Include="SoilProfile\Schema\SoilProfileTableDefinitionsTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelImporterConfigurationTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelImporterTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfileHelperTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfileTest.cs" />
+    <Compile Include="Structures\StructureLocationReaderTest.cs" />
+    <Compile Include="Structures\StructureLocationTest.cs" />
+    <Compile Include="Structures\StructuresCharacteristicsCsvReaderTest.cs" />
+    <Compile Include="Structures\StructuresParameterRowsValidatorTest.cs" />
+    <Compile Include="Structures\StructuresParameterRowTest.cs" />
+    <Compile Include="Structures\ValidationResultTest.cs" />
+    <Compile Include="Configurations\Export\CalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\Export\StructureCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\Helpers\XmlWriterExtensionsTest.cs" />
+    <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
+    <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvImporterConfigurationTest.cs" />
+    <Compile Include="Exceptions\ImportedDataTransformExceptionTest.cs" />
+    <Compile Include="SurfaceLines\SurfaceLineExtensionsTest.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvImporterTest.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvReaderTest.cs" />
+    <Compile Include="SurfaceLines\SurfaceLineTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj">
+      <Project>{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}</Project>
+      <Name>Core.Common.Base.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
+      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
+      <Name>Riskeer.HydraRing.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
+      <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
+      <Name>Ringtoets.Common.IO.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
+</Project>

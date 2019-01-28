@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Berekening 1">
+	<bovengrensbekleding>1.1</bovengrensbekleding>
+	<ondergrensbekleding>2.2</ondergrensbekleding>
+	<stapgrootte>0.5</stapgrootte>
+	<golfreductie>
+	  <damgebruiken>true</damgebruiken>
+	  <damtype>caisson</damtype>
+	  <damhoogte>3.3</damhoogte>
+	</golfreductie>
+  </berekening>
+</configuratie>
