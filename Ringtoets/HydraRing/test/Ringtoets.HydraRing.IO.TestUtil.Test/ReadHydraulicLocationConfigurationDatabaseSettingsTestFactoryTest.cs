@@ -21,9 +21,8 @@
 
 using NUnit.Framework;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
-using Riskeer.HydraRing.IO.TestUtil;
 
-namespace Ringtoets.HydraRing.IO.TestUtil.Test
+namespace Riskeer.HydraRing.IO.TestUtil.Test
 {
     [TestFixture]
     public class ReadHydraulicLocationConfigurationDatabaseSettingsTestFactoryTest
