@@ -19,14 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
-namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
+namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
     public class ReadHydraulicLocationConfigurationDatabaseTest

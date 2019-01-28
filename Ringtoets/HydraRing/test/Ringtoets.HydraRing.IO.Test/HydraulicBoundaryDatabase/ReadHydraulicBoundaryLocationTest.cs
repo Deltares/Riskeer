@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 
-namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
+namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
 {
     [TestFixture]
     public class ReadHydraulicBoundaryLocationTest
