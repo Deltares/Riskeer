@@ -36,13 +36,13 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.Integration.Test.FileImporters
 {

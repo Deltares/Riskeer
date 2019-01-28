@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Integration.Plugin.Helpers
+namespace Riskeer.Integration.Plugin.Helpers
 {
     /// <summary>
     /// Constants for dealing with <see cref="HydraulicLocationConfigurationSettings"/>.

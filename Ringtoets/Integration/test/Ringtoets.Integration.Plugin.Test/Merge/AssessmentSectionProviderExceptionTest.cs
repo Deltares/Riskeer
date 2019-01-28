@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Plugin.Merge;
+using Riskeer.Integration.Plugin.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
 {

@@ -35,7 +35,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Revetment.Data;
@@ -44,8 +43,9 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.Merge
+namespace Riskeer.Integration.Plugin.Merge
 {
     /// <summary>
     /// Class responsible for handling the merge of <see cref="AssessmentSection"/> data.

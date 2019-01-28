@@ -61,6 +61,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Forms.Views.SectionResultViews;
+using Riskeer.Integration.Plugin;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test

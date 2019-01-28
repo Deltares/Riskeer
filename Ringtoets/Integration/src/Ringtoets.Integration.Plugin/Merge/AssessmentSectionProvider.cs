@@ -28,7 +28,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Storage.Core;
 
-namespace Ringtoets.Integration.Plugin.Merge
+namespace Riskeer.Integration.Plugin.Merge
 {
     /// <summary>
     /// Class for providing <see cref="AssessmentSection"/> instances.

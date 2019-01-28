@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.FileImporters;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
+using Riskeer.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.UpdateInfos

@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Integration.Plugin.Merge
+namespace Riskeer.Integration.Plugin.Merge
 {
     /// <summary>
     /// The exception that is thrown when something fails while providing assessment sections.

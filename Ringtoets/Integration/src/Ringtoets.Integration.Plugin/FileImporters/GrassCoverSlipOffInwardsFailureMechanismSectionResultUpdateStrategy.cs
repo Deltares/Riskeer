@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> instance with data

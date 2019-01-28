@@ -24,8 +24,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Plugin.FileImporters;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {

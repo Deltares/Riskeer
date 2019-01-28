@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Plugin.Merge
+namespace Riskeer.Integration.Plugin.Merge
 {
     /// <summary>
     /// Interface for providing <see cref="AssessmentSection"/> instances.

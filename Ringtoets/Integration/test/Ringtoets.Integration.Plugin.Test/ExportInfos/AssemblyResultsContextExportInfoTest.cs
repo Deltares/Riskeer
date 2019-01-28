@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.IO.Exporters;
+using Riskeer.Integration.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ExportInfos

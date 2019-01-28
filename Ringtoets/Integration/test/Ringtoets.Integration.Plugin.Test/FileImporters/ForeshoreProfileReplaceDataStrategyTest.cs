@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Integration.Plugin.FileImporters;
+using Riskeer.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {

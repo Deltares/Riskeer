@@ -29,7 +29,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Plugin.Properties;
+using Riskeer.Integration.Plugin;
+using Riskeer.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {

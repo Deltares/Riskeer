@@ -46,6 +46,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Util.TypeConverters;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Forms.Dialogs;
+using Riskeer.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos

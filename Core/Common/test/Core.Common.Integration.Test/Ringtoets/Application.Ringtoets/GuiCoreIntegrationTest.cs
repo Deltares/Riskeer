@@ -31,7 +31,7 @@ using Core.Common.TestUtil;
 using Core.Plugins.ProjectExplorer;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Plugin;
+using Riskeer.Integration.Plugin;
 
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {

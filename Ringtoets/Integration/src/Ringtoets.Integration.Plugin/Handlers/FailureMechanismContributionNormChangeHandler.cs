@@ -29,11 +29,11 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
+using Riskeer.Integration.Plugin.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Handlers
+namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Class responsible for changing the <see cref="FailureMechanismContribution.Norm"/>

@@ -23,14 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Comparers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
+using Riskeer.Integration.Plugin.Properties;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Merge
+namespace Riskeer.Integration.Plugin.Merge
 {
     /// <summary>
     /// Class responsible for merging <see cref="AssessmentSection"/>.

@@ -73,10 +73,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.Integration.Plugin.FileImporters;
-using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.Plugin.Merge;
-using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.Comparers;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -106,6 +102,10 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 using Riskeer.Integration.Forms.Views.SectionResultViews;
 using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Importers;
+using Riskeer.Integration.Plugin.FileImporters;
+using Riskeer.Integration.Plugin.Handlers;
+using Riskeer.Integration.Plugin.Merge;
+using Riskeer.Integration.Plugin.Properties;
 using RingtoetsDataResources = Riskeer.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -114,7 +114,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin
+namespace Riskeer.Integration.Plugin
 {
     /// <summary>
     /// The plug-in for the Ringtoets application.

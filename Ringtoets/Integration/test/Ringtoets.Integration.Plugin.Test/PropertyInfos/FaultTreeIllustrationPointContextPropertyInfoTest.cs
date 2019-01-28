@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Integration.Plugin;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {

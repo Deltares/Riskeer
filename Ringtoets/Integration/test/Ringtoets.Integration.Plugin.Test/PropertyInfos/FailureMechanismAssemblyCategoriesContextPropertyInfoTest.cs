@@ -32,6 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.Plugin;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {

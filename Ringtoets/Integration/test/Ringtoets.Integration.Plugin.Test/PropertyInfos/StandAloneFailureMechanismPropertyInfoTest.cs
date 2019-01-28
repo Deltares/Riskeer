@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
+using Riskeer.Integration.Plugin;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {

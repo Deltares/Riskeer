@@ -27,11 +27,11 @@ using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Service;
-using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
+using Riskeer.Integration.Plugin.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Handlers
+namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Class responsible for updating a <see cref="ReferenceLine"/>.

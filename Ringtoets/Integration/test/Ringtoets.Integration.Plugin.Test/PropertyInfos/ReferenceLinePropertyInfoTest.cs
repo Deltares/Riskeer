@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.Plugin;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {

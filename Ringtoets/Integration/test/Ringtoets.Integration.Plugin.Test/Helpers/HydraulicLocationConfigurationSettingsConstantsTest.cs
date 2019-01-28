@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Integration.Plugin.Helpers;
+using Riskeer.Integration.Plugin.Helpers;
 
 namespace Ringtoets.Integration.Plugin.Test.Helpers
 {

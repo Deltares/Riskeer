@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Integration.Service;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>

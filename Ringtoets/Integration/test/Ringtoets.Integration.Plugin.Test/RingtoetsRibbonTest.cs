@@ -26,6 +26,7 @@ using Core.Common.Controls.Commands;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Integration.Plugin;
 
 namespace Ringtoets.Integration.Plugin.Test
 {

@@ -32,6 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Plugin;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos

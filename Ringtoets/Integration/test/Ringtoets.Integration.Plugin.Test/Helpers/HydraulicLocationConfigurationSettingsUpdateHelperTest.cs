@@ -23,9 +23,9 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Plugin.Helpers;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.HydraRing.IO.TestUtil;
+using Riskeer.Integration.Plugin.Helpers;
 
 namespace Ringtoets.Integration.Plugin.Test.Helpers
 {

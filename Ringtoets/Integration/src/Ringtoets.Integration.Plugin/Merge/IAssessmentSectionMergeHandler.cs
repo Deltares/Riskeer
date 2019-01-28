@@ -23,7 +23,7 @@ using System;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 
-namespace Ringtoets.Integration.Plugin.Merge
+namespace Riskeer.Integration.Plugin.Merge
 {
     /// <summary>
     /// Interface for handling the merge of <see cref="AssessmentSection"/> data.

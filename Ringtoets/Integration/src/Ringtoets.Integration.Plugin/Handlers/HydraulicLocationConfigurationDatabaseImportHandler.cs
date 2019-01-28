@@ -24,12 +24,12 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Plugin.Properties;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Importers;
+using Riskeer.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.Handlers
+namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Class that can properly import <see cref="HydraulicLocationConfigurationSettings"/>.

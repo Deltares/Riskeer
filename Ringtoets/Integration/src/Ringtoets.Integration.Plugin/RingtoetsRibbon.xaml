@@ -20,14 +20,14 @@ All names, logos, and references to "Deltares" are registered trademarks of
 Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
-<UserControl x:Class="Ringtoets.Integration.Plugin.RingtoetsRibbon"
+<UserControl x:Class="Riskeer.Integration.Plugin.RingtoetsRibbon"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
              xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
-             xmlns:resx="clr-namespace:Ringtoets.Integration.Plugin.Properties"
+             xmlns:resx="clr-namespace:Riskeer.Integration.Plugin.Properties"
              xmlns:properties="clr-namespace:Riskeer.Integration.Forms.Properties;assembly=Riskeer.Integration.Forms"
              xmlns:guiProperties="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">

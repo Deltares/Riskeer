@@ -22,10 +22,10 @@
 using System;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Plugin.Properties;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Riskeer.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.Helpers
+namespace Riskeer.Integration.Plugin.Helpers
 {
     /// <summary>
     /// Helper class for dealing with updating <see cref="HydraulicLocationConfigurationSettings"/>

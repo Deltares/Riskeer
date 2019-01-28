@@ -24,7 +24,7 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
 
-namespace Ringtoets.Integration.Plugin
+namespace Riskeer.Integration.Plugin
 {
     /// <summary>
     /// Interaction logic for RingtoetsRibbon.xaml

@@ -28,16 +28,16 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Plugin.Handlers;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
-using Ringtoets.Integration.Plugin.Helpers;
-using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
+using Riskeer.Integration.Plugin.Helpers;
+using Riskeer.Integration.Plugin.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Handlers
+namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Class that can properly update a <see cref="HydraulicBoundaryDatabase"/>.

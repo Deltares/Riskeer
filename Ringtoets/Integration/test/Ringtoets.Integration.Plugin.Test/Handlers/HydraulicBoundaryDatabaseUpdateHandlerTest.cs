@@ -36,13 +36,13 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.HydraRing.IO.TestUtil;
-using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.HydraRing.IO.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
+using Riskeer.Integration.Plugin.Handlers;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {

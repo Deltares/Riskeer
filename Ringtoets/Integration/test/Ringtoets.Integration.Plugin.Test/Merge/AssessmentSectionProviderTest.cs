@@ -28,8 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Plugin.Merge;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Plugin.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
 {

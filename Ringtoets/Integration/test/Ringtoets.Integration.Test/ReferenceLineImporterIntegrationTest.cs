@@ -33,9 +33,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.ReferenceLines;
-using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Plugin.Handlers;
 
 namespace Ringtoets.Integration.Test
 {
