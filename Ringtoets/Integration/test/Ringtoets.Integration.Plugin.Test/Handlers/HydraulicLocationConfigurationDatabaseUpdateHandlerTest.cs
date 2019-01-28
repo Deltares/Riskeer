@@ -31,8 +31,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
-using Ringtoets.HydraRing.IO.TestUtil;
 using Ringtoets.Integration.TestUtil;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.HydraRing.IO.TestUtil;
