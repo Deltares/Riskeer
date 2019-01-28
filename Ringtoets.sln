@@ -298,7 +298,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Data.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Integration.Plugin", "Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Riskeer.Integration.Plugin.csproj", "{C8383B76-B3F1-4E6E-B56C-527B469FA20A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Integration.Plugin", "Ringtoets\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj", "{C8383B76-B3F1-4E6E-B56C-527B469FA20A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

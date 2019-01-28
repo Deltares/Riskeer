@@ -1,0 +1,44 @@
+﻿<!--
+Copyright (C) Stichting Deltares 2018. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<UserControl x:Class="Riskeer.Integration.Plugin.RingtoetsRibbon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
+             xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
+             xmlns:resx="clr-namespace:Riskeer.Integration.Plugin.Properties"
+             xmlns:properties="clr-namespace:Riskeer.Integration.Forms.Properties;assembly=Riskeer.Integration.Forms"
+             xmlns:guiProperties="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
+             mc:Ignorable="d" Width="686.4" Height="168" Background="White">
+    <UserControl.Resources>
+        <converters:PngToIconConverter x:Key="IconConverter" />
+    </UserControl.Resources>
+    <fluent:Ribbon x:Name="RingtoetsRibbonControl" x:FieldModifier="private">
+        <fluent:RibbonTabItem Header="{x:Static guiProperties:Resources.Ribbon_TabItem_Start}" fluent:KeyTip.Keys="S" >
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.RingtoetsRibbon_GroupBox_New}" fluent:KeyTip.Keys="ZN">
+                <fluent:Button x:Name="AddAssessmentSectionButton" Header="{x:Static properties:Resources.RingtoetsRibbon_AddAssessmentSection}" LargeIcon="{Binding Source={x:Static properties:Resources.AddAssessmentSectionFolder}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonAddAssessmentSectionToolWindowClick" fluent:KeyTip.Keys="T" />
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+    </fluent:Ribbon>
+</UserControl>
