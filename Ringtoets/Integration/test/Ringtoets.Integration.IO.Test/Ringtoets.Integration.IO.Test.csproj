@@ -207,9 +207,9 @@
       <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
       <Name>Riskeer.Integration.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Util\Ringtoets.Integration.Util.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Util\Riskeer.Integration.Util.csproj">
       <Project>{D4D21027-B2CD-47E2-A299-70885CC93AB4}</Project>
-      <Name>Ringtoets.Integration.Util</Name>
+      <Name>Riskeer.Integration.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.IO.TestUtil\Ringtoets.Integration.IO.TestUtil.csproj">
       <Project>{1C002B07-DDF6-4849-B8ED-551163AC9423}</Project>

@@ -32,9 +32,9 @@
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Util\Ringtoets.Integration.Util.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Util\Riskeer.Integration.Util.csproj">
       <Project>{D4D21027-B2CD-47E2-A299-70885CC93AB4}</Project>
-      <Name>Ringtoets.Integration.Util</Name>
+      <Name>Riskeer.Integration.Util</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

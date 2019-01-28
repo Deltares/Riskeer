@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{D4D21027-B2CD-47E2-A299-70885CC93AB4}</ProjectGuid>
-    <RootNamespace>Ringtoets.Integration.Util</RootNamespace>
-    <AssemblyName>Ringtoets.Integration.Util</AssemblyName>
+    <RootNamespace>Riskeer.Integration.Util</RootNamespace>
+    <AssemblyName>Riskeer.Integration.Util</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
