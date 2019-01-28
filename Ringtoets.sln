@@ -2027,7 +2027,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Map.TestUtil",
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.HydraRing.IO.TestUtil", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.IO.TestUtil\Riskeer.HydraRing.IO.TestUtil.csproj", "{7FB79768-1A8B-41CA-9614-8EC6C3C79482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.HydraRing.IO.TestUtil", "Ringtoets\HydraRing\test\Riskeer.HydraRing.IO.TestUtil\Riskeer.HydraRing.IO.TestUtil.csproj", "{7FB79768-1A8B-41CA-9614-8EC6C3C79482}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
