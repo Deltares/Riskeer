@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</ProjectGuid>
+    <RootNamespace>Riskeer.Integration.Service</RootNamespace>
+    <AssemblyName>Riskeer.Integration.Service</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssessmentSectionCalculationActivityFactory.cs" />
+    <Compile Include="AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.cs" />
+    <Compile Include="Comparers\AssessmentSectionMergeComparer.cs" />
+    <Compile Include="Comparers\IAssessmentSectionMergeComparer.cs" />
+    <Compile Include="Exceptions\LoadAssessmentSectionException.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionsActivity.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionsActivityFactory.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionService.cs" />
+    <Compile Include="Merge\ILoadAssessmentSectionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RingtoetsDataSynchronizationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Service\Ringtoets.ClosingStructures.Service.csproj">
+      <Project>{2BDF07D4-0E81-4B9E-9618-E7EBD9399912}</Project>
+      <Name>Ringtoets.ClosingStructures.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+      <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
+      <Name>Ringtoets.Common.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+      <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
+      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Service\Ringtoets.DuneErosion.Service.csproj">
+      <Project>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</Project>
+      <Name>Ringtoets.DuneErosion.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Service\Ringtoets.GrassCoverErosionInwards.Service.csproj">
+      <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Util\Ringtoets.GrassCoverErosionInwards.Util.csproj">
+      <Project>{99573570-ee00-4264-8147-26a1b25db23f}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+      <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
+      <Project>{18E9F7C8-3170-4E9D-8D9F-1378225EED90}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Service\Ringtoets.HeightStructures.Service.csproj">
+      <Project>{20DD96D3-001E-407A-AE2E-432887088F1F}</Project>
+      <Name>Ringtoets.HeightStructures.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Service\Ringtoets.MacroStabilityInwards.Service.csproj">
+      <Project>{55BE9A1B-68AB-488F-AF20-E037A50063DB}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
+      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
+      <Name>Ringtoets.Piping.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Service\Ringtoets.StabilityPointStructures.Service.csproj">
+      <Project>{EBCFA2E9-C292-4F22-A4A5-A8CD304ED838}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{B479E3AF-7C34-488C-BB73-D324100D36C9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Service\Ringtoets.StabilityStoneCover.Service.csproj">
+      <Project>{66DD5FFB-EE06-40F2-9260-01F26D6FD1B4}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Service\Ringtoets.WaveImpactAsphaltCover.Service.csproj">
+      <Project>{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Data\Riskeer.Integration.Data.csproj">
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
+      <Name>Riskeer.Integration.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

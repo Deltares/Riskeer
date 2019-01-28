@@ -676,7 +676,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosion
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Service", "Ringtoets\Integration\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj", "{28811C4A-6C18-42C1-88B2-A03A3784E2D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Integration.Service", "Ringtoets\Integration\src\Ringtoets.Integration.Service\Riskeer.Integration.Service.csproj", "{28811C4A-6C18-42C1-88B2-A03A3784E2D0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

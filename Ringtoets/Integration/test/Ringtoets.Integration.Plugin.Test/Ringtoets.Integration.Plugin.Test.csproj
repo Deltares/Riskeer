@@ -456,9 +456,9 @@
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Riskeer.Integration.Plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Riskeer.Integration.Service.csproj">
       <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
+      <Name>Riskeer.Integration.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Forms.TestUtil\Ringtoets.Integration.Forms.TestUtil.csproj">
       <Project>{93C3B757-C591-4451-BA56-140FF91EFE9A}</Project>
