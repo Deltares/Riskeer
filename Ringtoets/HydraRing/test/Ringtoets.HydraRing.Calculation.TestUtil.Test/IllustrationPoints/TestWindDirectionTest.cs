@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
+namespace Riskeer.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
     public class TestWindDirectionTest

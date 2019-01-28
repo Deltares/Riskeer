@@ -1,8 +1,7 @@
 ﻿using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data.Input;
-using Riskeer.HydraRing.Calculation.TestUtil;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
+namespace Riskeer.HydraRing.Calculation.TestUtil.Test
 {
     [TestFixture]
     public class HydraRingCalculationSettingsTestFactoryTest
