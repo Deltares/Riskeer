@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
+namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
     /// Class for holding data that is read from a hydraulic boundary database file.

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil
 {

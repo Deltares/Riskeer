@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil.Test
 {

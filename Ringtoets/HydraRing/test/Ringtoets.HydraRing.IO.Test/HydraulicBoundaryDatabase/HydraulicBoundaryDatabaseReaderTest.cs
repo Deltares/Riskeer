@@ -28,7 +28,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 
 namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
 {

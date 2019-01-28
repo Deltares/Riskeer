@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
+namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
     /// Defines the table and column names of the table 'General' in the hydraulic boundary database.

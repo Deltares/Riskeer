@@ -29,10 +29,10 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
+using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.IO.Importers

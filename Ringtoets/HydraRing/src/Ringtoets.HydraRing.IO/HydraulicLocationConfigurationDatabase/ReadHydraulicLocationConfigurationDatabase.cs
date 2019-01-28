@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
+namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
     /// Class for holding data that is read from a hydraulic location configuration database file.

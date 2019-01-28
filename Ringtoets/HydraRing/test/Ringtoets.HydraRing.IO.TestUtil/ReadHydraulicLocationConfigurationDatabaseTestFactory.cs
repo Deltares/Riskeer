@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil
 {

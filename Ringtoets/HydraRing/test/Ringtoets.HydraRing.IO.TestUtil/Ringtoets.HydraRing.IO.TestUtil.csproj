@@ -22,9 +22,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.IO\Riskeer.HydraRing.IO.csproj">
       <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
-      <Name>Ringtoets.HydraRing.IO</Name>
+      <Name>Riskeer.HydraRing.IO</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

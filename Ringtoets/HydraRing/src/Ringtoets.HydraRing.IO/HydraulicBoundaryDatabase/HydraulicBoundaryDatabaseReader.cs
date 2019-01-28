@@ -28,9 +28,9 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
-using Ringtoets.HydraRing.IO.Properties;
+using Riskeer.HydraRing.IO.Properties;
 
-namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
+namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
     /// This class reads a hydraulic boundary database file and constructs a

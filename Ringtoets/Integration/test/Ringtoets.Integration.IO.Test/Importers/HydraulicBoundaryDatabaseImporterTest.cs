@@ -31,10 +31,10 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Importers;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
+using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.Integration.IO.Test.Importers
 {

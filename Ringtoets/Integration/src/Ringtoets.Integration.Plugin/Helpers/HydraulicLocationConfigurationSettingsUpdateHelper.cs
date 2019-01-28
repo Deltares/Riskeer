@@ -22,8 +22,8 @@
 using System;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.Plugin.Properties;
+using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.Integration.Plugin.Helpers
 {

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 
 namespace Ringtoets.HydraRing.IO.TestUtil
 {

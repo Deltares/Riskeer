@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
+namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
     /// Location that is read from a hydraulic boundary database file.

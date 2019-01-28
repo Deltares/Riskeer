@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 
 namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
 {

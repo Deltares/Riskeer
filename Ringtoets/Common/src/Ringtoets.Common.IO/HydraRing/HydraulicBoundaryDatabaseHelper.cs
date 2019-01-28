@@ -26,9 +26,9 @@ using Core.Common.Base.IO;
 using Core.Common.Util;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Properties;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
-using HydraRingResources = Ringtoets.HydraRing.IO.Properties.Resources;
+using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
+using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using HydraRingResources = Riskeer.HydraRing.IO.Properties.Resources;
 
 namespace Ringtoets.Common.IO.HydraRing
 {
