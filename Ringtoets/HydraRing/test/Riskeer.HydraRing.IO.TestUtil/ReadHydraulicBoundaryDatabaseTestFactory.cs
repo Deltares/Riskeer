@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 
-namespace Ringtoets.HydraRing.IO.TestUtil
+namespace Riskeer.HydraRing.IO.TestUtil
 {
     /// <summary>
     /// Factory that creates simple <see cref="ReadHydraulicBoundaryDatabase"/> instances

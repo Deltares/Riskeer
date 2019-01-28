@@ -21,7 +21,7 @@
 
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
-namespace Ringtoets.HydraRing.IO.TestUtil
+namespace Riskeer.HydraRing.IO.TestUtil
 {
     /// <summary>
     /// Factory that creates simple <see cref="ReadHydraulicLocationConfigurationDatabaseSettings"/> instances

@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
+using Riskeer.HydraRing.IO.TestUtil;
 
 namespace Ringtoets.HydraRing.IO.TestUtil.Test
 {
