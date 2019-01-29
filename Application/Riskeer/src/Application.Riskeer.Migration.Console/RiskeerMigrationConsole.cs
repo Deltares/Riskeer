@@ -41,7 +41,7 @@ namespace Application.Riskeer.Migration.Console
         /// Creates a new instance of <see cref="RiskeerMigrationConsole"/>. 
         /// </summary>
         public RiskeerMigrationConsole() : base(Resources.RingtoetsMigrationTool_ApplicationName,
-                                                  GetApplicationDescription()) {}
+                                                GetApplicationDescription()) {}
 
         protected override void ExecuteCommand(string[] args)
         {

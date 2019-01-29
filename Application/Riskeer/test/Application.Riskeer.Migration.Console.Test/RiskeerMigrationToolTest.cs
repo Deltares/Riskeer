@@ -53,7 +53,7 @@ namespace Application.Riskeer.Migration.Console.Test
             {
                 // Call
                 RiskeerMigrationTool.Main(new string[]
-                                                {});
+                                              {});
 
                 // Assert
                 string consoleText = consoleOutput.GetConsoleOutput();
