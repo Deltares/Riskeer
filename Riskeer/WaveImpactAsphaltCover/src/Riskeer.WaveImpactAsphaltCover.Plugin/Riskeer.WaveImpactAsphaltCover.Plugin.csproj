@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{83A782F1-BA78-4D5C-B213-39066605AFD8}</ProjectGuid>
-    <RootNamespace>Ringtoets.WaveImpactAsphaltCover.Plugin</RootNamespace>
-    <AssemblyName>Ringtoets.WaveImpactAsphaltCover.Plugin</AssemblyName>
+    <RootNamespace>Riskeer.WaveImpactAsphaltCover.Plugin</RootNamespace>
+    <AssemblyName>Riskeer.WaveImpactAsphaltCover.Plugin</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -63,74 +63,74 @@
       <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Plugin\Ringtoets.Common.Plugin.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj">
       <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
-      <Name>Ringtoets.Common.Plugin</Name>
+      <Name>Riskeer.Common.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj">
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
-      <Name>Ringtoets.Revetment.Forms</Name>
+      <Name>Riskeer.Revetment.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.IO\Riskeer.Revetment.IO.csproj">
       <Project>{e3347b16-bb18-41c1-8d34-fbcbf20db695}</Project>
-      <Name>Ringtoets.Revetment.IO</Name>
+      <Name>Riskeer.Revetment.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Service\Ringtoets.Revetment.Service.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Service\Riskeer.Revetment.Service.csproj">
       <Project>{2331235F-1E56-4344-ACC2-191C22A39594}</Project>
-      <Name>Ringtoets.Revetment.Service</Name>
+      <Name>Riskeer.Revetment.Service</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+    <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.Forms\Ringtoets.WaveImpactAsphaltCover.Forms.csproj">
+    <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.Forms\Riskeer.WaveImpactAsphaltCover.Forms.csproj">
       <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Forms</Name>
+      <Name>Riskeer.WaveImpactAsphaltCover.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.IO\Ringtoets.WaveImpactAsphaltCover.IO.csproj">
+    <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.IO\Riskeer.WaveImpactAsphaltCover.IO.csproj">
       <Project>{B388D2BA-FC6E-4EE2-B9B5-38D35F340FF5}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.IO</Name>
+      <Name>Riskeer.WaveImpactAsphaltCover.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.Service\Ringtoets.WaveImpactAsphaltCover.Service.csproj">
+    <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.Service\Riskeer.WaveImpactAsphaltCover.Service.csproj">
       <Project>{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Service</Name>
+      <Name>Riskeer.WaveImpactAsphaltCover.Service</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

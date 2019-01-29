@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{F54583EA-781F-46AA-994E-C923AC6FB04F}</ProjectGuid>
-    <RootNamespace>Ringtoets.HeightStructures.Forms.Test</RootNamespace>
-    <AssemblyName>Ringtoets.HeightStructures.Forms.Test</AssemblyName>
+    <RootNamespace>Riskeer.HeightStructures.Forms.Test</RootNamespace>
+    <AssemblyName>Riskeer.HeightStructures.Forms.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -87,37 +87,37 @@
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj">
       <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
-      <Name>Ringtoets.Common.Forms.TestUtil</Name>
+      <Name>Riskeer.Common.Forms.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
-      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Name>Riskeer.HeightStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Forms\Riskeer.HeightStructures.Forms.csproj">
       <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
-      <Name>Ringtoets.HeightStructures.Forms</Name>
+      <Name>Riskeer.HeightStructures.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HeightStructures.Data.TestUtil\Ringtoets.HeightStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj">
       <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
-      <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
+      <Name>Riskeer.HeightStructures.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

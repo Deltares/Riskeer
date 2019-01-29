@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{EBCFA2E9-C292-4F22-A4A5-A8CD304ED838}</ProjectGuid>
-    <RootNamespace>Ringtoets.StabilityPointStructures.Service</RootNamespace>
-    <AssemblyName>Ringtoets.StabilityPointStructures.Service</AssemblyName>
+    <RootNamespace>Riskeer.StabilityPointStructures.Service</RootNamespace>
+    <AssemblyName>Riskeer.StabilityPointStructures.Service</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -35,19 +35,19 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
@@ -55,19 +55,19 @@
       <Name>Riskeer.HydraRing.Calculation</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Name>Riskeer.StabilityPointStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Forms\Ringtoets.StabilityPointStructures.Forms.csproj">
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Forms\Riskeer.StabilityPointStructures.Forms.csproj">
       <Project>{d5f0a6b0-8710-4345-aba1-d934c8e6783d}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Forms</Name>
+      <Name>Riskeer.StabilityPointStructures.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Util\Ringtoets.StabilityPointStructures.Util.csproj">
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Util\Riskeer.StabilityPointStructures.Util.csproj">
       <Project>{c8832e89-8543-4f2b-9952-8d6c03118392}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Util</Name>
+      <Name>Riskeer.StabilityPointStructures.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

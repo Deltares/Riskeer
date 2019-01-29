@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{83885FB9-A87B-4D43-AF27-43EA44A84E42}</ProjectGuid>
-    <RootNamespace>Ringtoets.DuneErosion.Plugin</RootNamespace>
-    <AssemblyName>Ringtoets.DuneErosion.Plugin</AssemblyName>
+    <RootNamespace>Riskeer.DuneErosion.Plugin</RootNamespace>
+    <AssemblyName>Riskeer.DuneErosion.Plugin</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -65,54 +65,54 @@
       <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Plugin\Ringtoets.Common.Plugin.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj">
       <Project>{8513b8d6-79c8-4173-b663-59c91ac65e5f}</Project>
-      <Name>Ringtoets.Common.Plugin</Name>
+      <Name>Riskeer.Common.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+    <ProjectReference Include="..\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
-      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Name>Riskeer.DuneErosion.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.DuneErosion.Forms\Ringtoets.DuneErosion.Forms.csproj">
+    <ProjectReference Include="..\Riskeer.DuneErosion.Forms\Riskeer.DuneErosion.Forms.csproj">
       <Project>{EC2DEF03-71FE-48A0-AB85-31E13112E4A1}</Project>
-      <Name>Ringtoets.DuneErosion.Forms</Name>
+      <Name>Riskeer.DuneErosion.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.DuneErosion.IO\Ringtoets.DuneErosion.IO.csproj">
+    <ProjectReference Include="..\Riskeer.DuneErosion.IO\Riskeer.DuneErosion.IO.csproj">
       <Project>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</Project>
-      <Name>Ringtoets.DuneErosion.IO</Name>
+      <Name>Riskeer.DuneErosion.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.DuneErosion.Service\Ringtoets.DuneErosion.Service.csproj">
+    <ProjectReference Include="..\Riskeer.DuneErosion.Service\Riskeer.DuneErosion.Service.csproj">
       <Project>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</Project>
-      <Name>Ringtoets.DuneErosion.Service</Name>
+      <Name>Riskeer.DuneErosion.Service</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

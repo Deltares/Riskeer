@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.Plugin</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Plugin</AssemblyName>
+    <RootNamespace>Riskeer.Common.Plugin</RootNamespace>
+    <AssemblyName>Riskeer.Common.Plugin</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -36,14 +36,14 @@
       <Name>Core.Common.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

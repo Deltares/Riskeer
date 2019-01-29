@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.Util.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Util.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.Common.Util.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.Common.Util.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -37,9 +37,9 @@
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
+      <Name>Riskeer.Common.Util</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

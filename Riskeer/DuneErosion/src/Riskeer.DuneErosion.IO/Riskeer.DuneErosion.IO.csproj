@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</ProjectGuid>
-    <RootNamespace>Ringtoets.DuneErosion.IO</RootNamespace>
-    <AssemblyName>Ringtoets.DuneErosion.IO</AssemblyName>
+    <RootNamespace>Riskeer.DuneErosion.IO</RootNamespace>
+    <AssemblyName>Riskeer.DuneErosion.IO</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -70,14 +70,14 @@
       <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+    <ProjectReference Include="..\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
-      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Name>Riskeer.DuneErosion.Data</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -33,9 +33,9 @@
       <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">

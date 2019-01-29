@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{DAAC65DD-3130-4B7F-AB82-E54ED7251D68}</ProjectGuid>
-    <RootNamespace>Ringtoets.ClosingStructures.Forms.Test</RootNamespace>
-    <AssemblyName>Ringtoets.ClosingStructures.Forms.Test</AssemblyName>
+    <RootNamespace>Riskeer.ClosingStructures.Forms.Test</RootNamespace>
+    <AssemblyName>Riskeer.ClosingStructures.Forms.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -87,37 +87,37 @@
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj">
       <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
-      <Name>Ringtoets.Common.Forms.TestUtil</Name>
+      <Name>Riskeer.Common.Forms.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Name>Riskeer.ClosingStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Forms\Riskeer.ClosingStructures.Forms.csproj">
       <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
-      <Name>Ringtoets.ClosingStructures.Forms</Name>
+      <Name>Riskeer.ClosingStructures.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj">
       <Project>{f5b43c29-6169-4e9a-859e-09090330b94e}</Project>
-      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+      <Name>Riskeer.ClosingStructures.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{9A80CDD2-4681-4A5D-9A2C-A2FEE133E0F9}</ProjectGuid>
-    <RootNamespace>Ringtoets.StabilityPointStructures.IO</RootNamespace>
-    <AssemblyName>Ringtoets.StabilityPointStructures.IO</AssemblyName>
+    <RootNamespace>Riskeer.StabilityPointStructures.IO</RootNamespace>
+    <AssemblyName>Riskeer.StabilityPointStructures.IO</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -51,24 +51,24 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Name>Riskeer.StabilityPointStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Util\Ringtoets.StabilityPointStructures.Util.csproj">
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Util\Riskeer.StabilityPointStructures.Util.csproj">
       <Project>{c8832e89-8543-4f2b-9952-8d6c03118392}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Util</Name>
+      <Name>Riskeer.StabilityPointStructures.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

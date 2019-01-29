@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{24043F46-406D-4719-B94B-033D63D61153}</ProjectGuid>
-    <RootNamespace>Ringtoets.ClosingStructures.IO</RootNamespace>
-    <AssemblyName>Ringtoets.ClosingStructures.IO</AssemblyName>
+    <RootNamespace>Riskeer.ClosingStructures.IO</RootNamespace>
+    <AssemblyName>Riskeer.ClosingStructures.IO</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -49,24 +49,24 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Name>Riskeer.ClosingStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Util\Ringtoets.ClosingStructures.Util.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj">
       <Project>{673b4a0b-96b1-4e98-bb49-e3c7bcb5f179}</Project>
-      <Name>Ringtoets.ClosingStructures.Util</Name>
+      <Name>Riskeer.ClosingStructures.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

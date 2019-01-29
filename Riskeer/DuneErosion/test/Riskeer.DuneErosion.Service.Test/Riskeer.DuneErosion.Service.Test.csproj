@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{38F2CFA7-7AED-4FA7-81C8-31DAE7095317}</ProjectGuid>
-    <RootNamespace>Ringtoets.DuneErosion.Service.Test</RootNamespace>
-    <AssemblyName>Ringtoets.DuneErosion.Service.Test</AssemblyName>
+    <RootNamespace>Riskeer.DuneErosion.Service.Test</RootNamespace>
+    <AssemblyName>Riskeer.DuneErosion.Service.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -45,21 +45,21 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj">
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
-      <Name>Ringtoets.Common.Service.TestUtil</Name>
+      <Name>Riskeer.Common.Service.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
@@ -69,21 +69,21 @@
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
-      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Name>Riskeer.DuneErosion.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.DuneErosion.IO\Ringtoets.DuneErosion.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.IO\Riskeer.DuneErosion.IO.csproj">
       <Project>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</Project>
-      <Name>Ringtoets.DuneErosion.IO</Name>
+      <Name>Riskeer.DuneErosion.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.DuneErosion.Service\Ringtoets.DuneErosion.Service.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.Service\Riskeer.DuneErosion.Service.csproj">
       <Project>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</Project>
-      <Name>Ringtoets.DuneErosion.Service</Name>
+      <Name>Riskeer.DuneErosion.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.DuneErosion.Data.TestUtil\Ringtoets.DuneErosion.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj">
       <Project>{7BE6B522-02E3-4143-8508-C021A211DE54}</Project>
-      <Name>Ringtoets.DuneErosion.Data.TestUtil</Name>
+      <Name>Riskeer.DuneErosion.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />

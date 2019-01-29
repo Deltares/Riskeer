@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{52093DA6-D545-476A-ADFD-12F56625E36B}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.Service.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Service.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.Common.Service.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.Common.Service.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -36,17 +36,17 @@
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Riskeer.HydraRing.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

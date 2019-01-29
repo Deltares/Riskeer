@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{85765B22-A2DD-43F7-BF54-B5EB8EE69780}</ProjectGuid>
-    <RootNamespace>Ringtoets.MacroStabilityInwards.Forms.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.MacroStabilityInwards.Forms.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.MacroStabilityInwards.Forms.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.MacroStabilityInwards.Forms.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -35,17 +35,17 @@
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Chart</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
       <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Name>Riskeer.MacroStabilityInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj">
       <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+      <Name>Riskeer.MacroStabilityInwards.Primitives</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

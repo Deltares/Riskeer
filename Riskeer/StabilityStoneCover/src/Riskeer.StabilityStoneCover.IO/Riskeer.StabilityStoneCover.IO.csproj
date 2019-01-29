@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{CF6B8598-2993-4A8E-801D-121CC0EF358E}</ProjectGuid>
-    <RootNamespace>Ringtoets.StabilityStoneCover.IO</RootNamespace>
-    <AssemblyName>Ringtoets.StabilityStoneCover.IO</AssemblyName>
+    <RootNamespace>Riskeer.StabilityStoneCover.IO</RootNamespace>
+    <AssemblyName>Riskeer.StabilityStoneCover.IO</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -30,24 +30,24 @@
       <Name>Core.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.IO\Riskeer.Revetment.IO.csproj">
       <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
-      <Name>Ringtoets.Revetment.IO</Name>
+      <Name>Riskeer.Revetment.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
       <Project>{B479E3AF-7C34-488C-BB73-D324100D36C9}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Name>Riskeer.StabilityStoneCover.Data</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

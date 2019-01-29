@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{0BF39896-EB17-48CE-AF93-2308C6D40D1E}</ProjectGuid>
-    <RootNamespace>Ringtoets.MacroStabilityInwards.Data.Test</RootNamespace>
-    <AssemblyName>Ringtoets.MacroStabilityInwards.Data.Test</AssemblyName>
+    <RootNamespace>Riskeer.MacroStabilityInwards.Data.Test</RootNamespace>
+    <AssemblyName>Riskeer.MacroStabilityInwards.Data.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -93,45 +93,45 @@
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Name>Riskeer.MacroStabilityInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.KernelWrapper\Ringtoets.MacroStabilityInwards.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj">
       <Project>{3C0D3B38-A9F7-4B22-9705-513DA26AE2CC}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper</Name>
+      <Name>Riskeer.MacroStabilityInwards.KernelWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj">
       <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+      <Name>Riskeer.MacroStabilityInwards.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil\Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil\Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil.csproj">
       <Project>{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil</Name>
+      <Name>Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Data.TestUtil\Riskeer.MacroStabilityInwards.Data.TestUtil.csproj">
       <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
+      <Name>Riskeer.MacroStabilityInwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
       <Project>{3810D738-6412-47D1-8BC0-729D55BC951F}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
+      <Name>Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Primitives.TestUtil\Riskeer.MacroStabilityInwards.Primitives.TestUtil.csproj">
       <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives.TestUtil</Name>
+      <Name>Riskeer.MacroStabilityInwards.Primitives.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

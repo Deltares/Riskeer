@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{2331235F-1E56-4344-ACC2-191C22A39594}</ProjectGuid>
-    <RootNamespace>Ringtoets.Revetment.Service</RootNamespace>
-    <AssemblyName>Ringtoets.Revetment.Service</AssemblyName>
+    <RootNamespace>Riskeer.Revetment.Service</RootNamespace>
+    <AssemblyName>Riskeer.Revetment.Service</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -41,24 +41,24 @@
       <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
@@ -66,9 +66,9 @@
       <Name>Riskeer.HydraRing.Calculation</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -146,44 +146,44 @@
       <Name>Riskeer.AssemblyTool.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Name>Riskeer.ClosingStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
+      <Name>Riskeer.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
       <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
-      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Name>Riskeer.DuneErosion.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
       <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
       <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
-      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Name>Riskeer.HeightStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.IO\Riskeer.HydraRing.IO.csproj">
@@ -191,29 +191,29 @@
       <Name>Riskeer.HydraRing.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Name>Riskeer.MacroStabilityInwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
+      <Name>Riskeer.Piping.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
       <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Name>Riskeer.StabilityPointStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Name>Riskeer.StabilityStoneCover.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">

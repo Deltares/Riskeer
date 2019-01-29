@@ -45,9 +45,9 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>

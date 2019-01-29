@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{E4B0E068-F1A3-47BA-965F-0EC1E78E530A}</ProjectGuid>
-    <RootNamespace>Ringtoets.Piping.IO.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.IO.Test</AssemblyName>
+    <RootNamespace>Riskeer.Piping.IO.Test</RootNamespace>
+    <AssemblyName>Riskeer.Piping.IO.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -49,45 +49,45 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj">
       <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
-      <Name>Ringtoets.Common.IO.TestUtil</Name>
+      <Name>Riskeer.Common.IO.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
+      <Name>Riskeer.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Piping.IO\Riskeer.Piping.IO.csproj">
       <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Ringtoets.Piping.IO</Name>
+      <Name>Riskeer.Piping.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Ringtoets.Piping.Primitives</Name>
+      <Name>Riskeer.Piping.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Ringtoets.Piping.Data.TestUtil</Name>
+      <Name>Riskeer.Piping.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.IO.TestUtil\Ringtoets.Piping.IO.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.IO.TestUtil\Riskeer.Piping.IO.TestUtil.csproj">
       <Project>{58e2d4fd-9dfa-4a05-99c6-5a2e8adcf90a}</Project>
-      <Name>Ringtoets.Piping.IO.TestUtil</Name>
+      <Name>Riskeer.Piping.IO.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Primitives.TestUtil\Ringtoets.Piping.Primitives.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj">
       <Project>{6F568E38-592A-4F99-A901-86B74C4F24D2}</Project>
-      <Name>Ringtoets.Piping.Primitives.TestUtil</Name>
+      <Name>Riskeer.Piping.Primitives.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

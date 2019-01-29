@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{B15791FA-6753-49AA-A54E-1AD3312E6EF4}</ProjectGuid>
-    <RootNamespace>Ringtoets.ClosingStructures.Plugin.Test</RootNamespace>
-    <AssemblyName>Ringtoets.ClosingStructures.Plugin.Test</AssemblyName>
+    <RootNamespace>Riskeer.ClosingStructures.Plugin.Test</RootNamespace>
+    <AssemblyName>Riskeer.ClosingStructures.Plugin.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -103,34 +103,34 @@
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Plugin.TestUtil\Ringtoets.Common.Plugin.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Plugin.TestUtil\Riskeer.Common.Plugin.TestUtil.csproj">
       <Project>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</Project>
-      <Name>Ringtoets.Common.Plugin.TestUtil</Name>
+      <Name>Riskeer.Common.Plugin.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj">
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
-      <Name>Ringtoets.Common.Service.TestUtil</Name>
+      <Name>Riskeer.Common.Service.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
@@ -140,29 +140,29 @@
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Name>Riskeer.ClosingStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Forms\Riskeer.ClosingStructures.Forms.csproj">
       <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
-      <Name>Ringtoets.ClosingStructures.Forms</Name>
+      <Name>Riskeer.ClosingStructures.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.IO\Ringtoets.ClosingStructures.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.IO\Riskeer.ClosingStructures.IO.csproj">
       <Project>{24043F46-406D-4719-B94B-033D63D61153}</Project>
-      <Name>Ringtoets.ClosingStructures.IO</Name>
+      <Name>Riskeer.ClosingStructures.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Plugin\Ringtoets.ClosingStructures.Plugin.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj">
       <Project>{7DA0AB85-828D-4B1D-B532-58B89E39BEF5}</Project>
-      <Name>Ringtoets.ClosingStructures.Plugin</Name>
+      <Name>Riskeer.ClosingStructures.Plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Util\Ringtoets.ClosingStructures.Util.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj">
       <Project>{673B4A0B-96B1-4E98-BB49-E3C7BCB5F179}</Project>
-      <Name>Ringtoets.ClosingStructures.Util</Name>
+      <Name>Riskeer.ClosingStructures.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj">
       <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
-      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+      <Name>Riskeer.ClosingStructures.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />

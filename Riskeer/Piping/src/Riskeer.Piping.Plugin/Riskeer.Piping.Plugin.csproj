@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</ProjectGuid>
-    <RootNamespace>Ringtoets.Piping.Plugin</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.Plugin</AssemblyName>
+    <RootNamespace>Riskeer.Piping.Plugin</RootNamespace>
+    <AssemblyName>Riskeer.Piping.Plugin</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -67,59 +67,59 @@
       <Name>Core.Components.Gis.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Plugin\Ringtoets.Common.Plugin.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj">
       <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
-      <Name>Ringtoets.Common.Plugin</Name>
+      <Name>Riskeer.Common.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.Forms\Riskeer.Piping.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Ringtoets.Piping.Forms</Name>
+      <Name>Riskeer.Piping.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.IO\Riskeer.Piping.IO.csproj">
       <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Ringtoets.Piping.IO</Name>
+      <Name>Riskeer.Piping.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
+      <Name>Riskeer.Piping.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Ringtoets.Piping.Primitives</Name>
+      <Name>Riskeer.Piping.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Ringtoets.Piping.Service</Name>
+      <Name>Riskeer.Piping.Service</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

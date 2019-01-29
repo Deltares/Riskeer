@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{2BDF07D4-0E81-4B9E-9618-E7EBD9399912}</ProjectGuid>
-    <RootNamespace>Ringtoets.ClosingStructures.Service</RootNamespace>
-    <AssemblyName>Ringtoets.ClosingStructures.Service</AssemblyName>
+    <RootNamespace>Riskeer.ClosingStructures.Service</RootNamespace>
+    <AssemblyName>Riskeer.ClosingStructures.Service</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -35,19 +35,19 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
@@ -55,19 +55,19 @@
       <Name>Riskeer.HydraRing.Calculation</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Name>Riskeer.ClosingStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Forms\Riskeer.ClosingStructures.Forms.csproj">
       <Project>{22e191f2-b2e3-413c-9511-4c2cdedb2eff}</Project>
-      <Name>Ringtoets.ClosingStructures.Forms</Name>
+      <Name>Riskeer.ClosingStructures.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Util\Ringtoets.ClosingStructures.Util.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj">
       <Project>{673b4a0b-96b1-4e98-bb49-e3c7bcb5f179}</Project>
-      <Name>Ringtoets.ClosingStructures.Util</Name>
+      <Name>Riskeer.ClosingStructures.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

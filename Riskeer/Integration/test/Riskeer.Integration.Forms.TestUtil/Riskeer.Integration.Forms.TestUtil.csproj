@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{93C3B757-C591-4451-BA56-140FF91EFE9A}</ProjectGuid>
-    <RootNamespace>Ringtoets.Integration.Forms.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.Integration.Forms.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.Integration.Forms.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.Integration.Forms.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>

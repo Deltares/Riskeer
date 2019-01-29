@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{BB42D568-A8FE-490C-B676-7E84EB91EE45}</ProjectGuid>
-    <RootNamespace>Ringtoets.GrassCoverErosionInwards.Forms.Test</RootNamespace>
-    <AssemblyName>Ringtoets.GrassCoverErosionInwards.Forms.Test</AssemblyName>
+    <RootNamespace>Riskeer.GrassCoverErosionInwards.Forms.Test</RootNamespace>
+    <AssemblyName>Riskeer.GrassCoverErosionInwards.Forms.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -123,37 +123,37 @@
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj">
       <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
-      <Name>Ringtoets.Common.Forms.TestUtil</Name>
+      <Name>Riskeer.Common.Forms.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Forms\Riskeer.GrassCoverErosionInwards.Forms.csproj">
       <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

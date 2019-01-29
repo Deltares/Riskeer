@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{7BE6B522-02E3-4143-8508-C021A211DE54}</ProjectGuid>
-    <RootNamespace>Ringtoets.DuneErosion.Data.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.DuneErosion.Data.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.DuneErosion.Data.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.DuneErosion.Data.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -30,13 +30,13 @@
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
-      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Name>Riskeer.DuneErosion.Data</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

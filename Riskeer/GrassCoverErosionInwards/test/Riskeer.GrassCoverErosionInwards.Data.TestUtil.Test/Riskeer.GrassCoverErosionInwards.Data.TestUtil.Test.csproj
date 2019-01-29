@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{E00A721A-B560-4ECD-A5AF-C1A79D058A4C}</ProjectGuid>
-    <RootNamespace>Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test</RootNamespace>
-    <AssemblyName>Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test</AssemblyName>
+    <RootNamespace>Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test</RootNamespace>
+    <AssemblyName>Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -38,21 +38,21 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
       <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

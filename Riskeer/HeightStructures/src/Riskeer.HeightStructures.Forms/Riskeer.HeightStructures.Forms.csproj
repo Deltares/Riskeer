@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</ProjectGuid>
-    <RootNamespace>Ringtoets.HeightStructures.Forms</RootNamespace>
-    <AssemblyName>Ringtoets.HeightStructures.Forms</AssemblyName>
+    <RootNamespace>Riskeer.HeightStructures.Forms</RootNamespace>
+    <AssemblyName>Riskeer.HeightStructures.Forms</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -81,34 +81,34 @@
       <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
+      <Name>Riskeer.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+    <ProjectReference Include="..\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
-      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Name>Riskeer.HeightStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HeightStructures.Util\Ringtoets.HeightStructures.Util.csproj">
+    <ProjectReference Include="..\Riskeer.HeightStructures.Util\Riskeer.HeightStructures.Util.csproj">
       <Project>{B60FC9A2-22B5-4E4C-986E-40766B843AB5}</Project>
-      <Name>Ringtoets.HeightStructures.Util</Name>
+      <Name>Riskeer.HeightStructures.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

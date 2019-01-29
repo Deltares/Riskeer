@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{FFBA01B3-CA87-4382-9C6D-348628716E61}</ProjectGuid>
-    <RootNamespace>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.Test</RootNamespace>
-    <AssemblyName>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.Test</AssemblyName>
+    <RootNamespace>Riskeer.GrassCoverErosionOutwards.Util.TestUtil.Test</RootNamespace>
+    <AssemblyName>Riskeer.GrassCoverErosionOutwards.Util.TestUtil.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -32,13 +32,13 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Util\Riskeer.GrassCoverErosionOutwards.Util.csproj">
       <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Util</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Util.TestUtil\Riskeer.GrassCoverErosionOutwards.Util.TestUtil.csproj">
       <Project>{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Util.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

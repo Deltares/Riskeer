@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{DF0BED5E-1BB0-469F-A15C-ACBF6767C193}</ProjectGuid>
-    <RootNamespace>Ringtoets.Revetment.Forms.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.Revetment.Forms.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.Revetment.Forms.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.Revetment.Forms.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -30,25 +30,25 @@
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj">
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
-      <Name>Ringtoets.Revetment.Forms</Name>
+      <Name>Riskeer.Revetment.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj">
       <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
+      <Name>Riskeer.Revetment.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

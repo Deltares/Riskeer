@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{91389DA2-3FF4-4559-90B3-4061549789DD}</ProjectGuid>
-    <RootNamespace>Ringtoets.Piping.KernelWrapper.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.KernelWrapper.Test</AssemblyName>
+    <RootNamespace>Riskeer.Piping.KernelWrapper.Test</RootNamespace>
+    <AssemblyName>Riskeer.Piping.KernelWrapper.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -42,21 +42,21 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Piping.KernelWrapper\Riskeer.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper</Name>
+      <Name>Riskeer.Piping.KernelWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Ringtoets.Piping.Primitives</Name>
+      <Name>Riskeer.Piping.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.KernelWrapper.TestUtil\Riskeer.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27e0a5c9-3abf-426a-a3da-7d0b83a218c8}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
+      <Name>Riskeer.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

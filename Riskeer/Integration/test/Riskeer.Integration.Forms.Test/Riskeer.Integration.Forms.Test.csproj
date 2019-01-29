@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{96C8FDAE-9F59-4D2F-A66E-BE512BB5EECB}</ProjectGuid>
-    <RootNamespace>Ringtoets.Integration.Forms.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Integration.Forms.Test</AssemblyName>
+    <RootNamespace>Riskeer.Integration.Forms.Test</RootNamespace>
+    <AssemblyName>Riskeer.Integration.Forms.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -198,89 +198,89 @@
       <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Name>Riskeer.ClosingStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\test\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\ClosingStructures\test\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj">
       <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
-      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+      <Name>Riskeer.ClosingStructures.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj">
       <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
-      <Name>Ringtoets.Common.Forms.TestUtil</Name>
+      <Name>Riskeer.Common.Forms.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
       <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
-      <Name>Ringtoets.DuneErosion.Data</Name>
+      <Name>Riskeer.DuneErosion.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\test\Ringtoets.HeightStructures.Data.TestUtil\Ringtoets.HeightStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\HeightStructures\test\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj">
       <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
-      <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
+      <Name>Riskeer.HeightStructures.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Name>Riskeer.MacroStabilityInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Data.TestUtil\Riskeer.MacroStabilityInwards.Data.TestUtil.csproj">
       <Project>{2B78CF04-4785-4F27-A6E5-45BDDBB7BF04}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
+      <Name>Riskeer.MacroStabilityInwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Piping\test\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Ringtoets.Piping.Data.TestUtil</Name>
+      <Name>Riskeer.Piping.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
-      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Name>Riskeer.HeightStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
+      <Name>Riskeer.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
       <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Name>Riskeer.StabilityPointStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\test\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\StabilityPointStructures\test\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj">
       <Project>{E9AC095B-8F10-41D2-9456-4A85E3BA91AD}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
+      <Name>Riskeer.StabilityPointStructures.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Name>Riskeer.StabilityStoneCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
@@ -298,17 +298,17 @@
       <Project>{D4D21027-B2CD-47E2-A299-70885CC93AB4}</Project>
       <Name>Riskeer.Integration.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Data.TestUtil\Ringtoets.Integration.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Integration.Data.TestUtil\Riskeer.Integration.Data.TestUtil.csproj">
       <Project>{2D51FD02-BBED-43FE-BDB7-4437152876A1}</Project>
-      <Name>Ringtoets.Integration.Data.TestUtil</Name>
+      <Name>Riskeer.Integration.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Forms.TestUtil\Ringtoets.Integration.Forms.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Integration.Forms.TestUtil\Riskeer.Integration.Forms.TestUtil.csproj">
       <Project>{93C3B757-C591-4451-BA56-140FF91EFE9A}</Project>
-      <Name>Ringtoets.Integration.Forms.TestUtil</Name>
+      <Name>Riskeer.Integration.Forms.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj">
       <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
-      <Name>Ringtoets.Integration.TestUtil</Name>
+      <Name>Riskeer.Integration.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

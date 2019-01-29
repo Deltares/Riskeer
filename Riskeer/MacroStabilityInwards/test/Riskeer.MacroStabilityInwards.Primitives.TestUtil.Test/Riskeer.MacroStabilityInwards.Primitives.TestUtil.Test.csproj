@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{C80AD710-0F84-40CE-9567-10CBE332E589}</ProjectGuid>
-    <RootNamespace>Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test</RootNamespace>
-    <AssemblyName>Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test</AssemblyName>
+    <RootNamespace>Riskeer.MacroStabilityInwards.Primitives.TestUtil.Test</RootNamespace>
+    <AssemblyName>Riskeer.MacroStabilityInwards.Primitives.TestUtil.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -31,13 +31,13 @@
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj">
       <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+      <Name>Riskeer.MacroStabilityInwards.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Primitives.TestUtil\Riskeer.MacroStabilityInwards.Primitives.TestUtil.csproj">
       <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives.TestUtil</Name>
+      <Name>Riskeer.MacroStabilityInwards.Primitives.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

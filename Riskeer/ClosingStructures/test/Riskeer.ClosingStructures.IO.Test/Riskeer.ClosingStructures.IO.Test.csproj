@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{C10FFCBF-767F-4F3F-B8F9-7D6F4849FF85}</ProjectGuid>
-    <RootNamespace>Ringtoets.ClosingStructures.IO.Test</RootNamespace>
-    <AssemblyName>Ringtoets.ClosingStructures.IO.Test</AssemblyName>
+    <RootNamespace>Riskeer.ClosingStructures.IO.Test</RootNamespace>
+    <AssemblyName>Riskeer.ClosingStructures.IO.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -49,33 +49,33 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj">
       <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
-      <Name>Ringtoets.Common.IO.TestUtil</Name>
+      <Name>Riskeer.Common.IO.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Name>Riskeer.ClosingStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.IO\Ringtoets.ClosingStructures.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.IO\Riskeer.ClosingStructures.IO.csproj">
       <Project>{24043F46-406D-4719-B94B-033D63D61153}</Project>
-      <Name>Ringtoets.ClosingStructures.IO</Name>
+      <Name>Riskeer.ClosingStructures.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj">
       <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
-      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+      <Name>Riskeer.ClosingStructures.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{3DEC1E30-0804-4BC9-8D04-4D7B4854E21B}</ProjectGuid>
-    <RootNamespace>Ringtoets.GrassCoverErosionInwards.IO.Test</RootNamespace>
-    <AssemblyName>Ringtoets.GrassCoverErosionInwards.IO.Test</AssemblyName>
+    <RootNamespace>Riskeer.GrassCoverErosionInwards.IO.Test</RootNamespace>
+    <AssemblyName>Riskeer.GrassCoverErosionInwards.IO.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -44,29 +44,29 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj">
       <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
-      <Name>Ringtoets.Common.IO.TestUtil</Name>
+      <Name>Riskeer.Common.IO.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.IO\Ringtoets.GrassCoverErosionInwards.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.IO\Riskeer.GrassCoverErosionInwards.IO.csproj">
       <Project>{AA3AB46F-1664-40C4-A620-A12513184BD4}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.IO</Name>
+      <Name>Riskeer.GrassCoverErosionInwards.IO</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{F6A5848E-AB01-484A-8E52-EEE87FF8839B}</ProjectGuid>
-    <RootNamespace>Ringtoets.StabilityPointStructures.IO.Test</RootNamespace>
-    <AssemblyName>Ringtoets.StabilityPointStructures.IO.Test</AssemblyName>
+    <RootNamespace>Riskeer.StabilityPointStructures.IO.Test</RootNamespace>
+    <AssemblyName>Riskeer.StabilityPointStructures.IO.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -51,33 +51,33 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj">
       <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
-      <Name>Ringtoets.Common.IO.TestUtil</Name>
+      <Name>Riskeer.Common.IO.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+      <Name>Riskeer.StabilityPointStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.StabilityPointStructures.IO\Ringtoets.StabilityPointStructures.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.StabilityPointStructures.IO\Riskeer.StabilityPointStructures.IO.csproj">
       <Project>{9A80CDD2-4681-4A5D-9A2C-A2FEE133E0F9}</Project>
-      <Name>Ringtoets.StabilityPointStructures.IO</Name>
+      <Name>Riskeer.StabilityPointStructures.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj">
       <Project>{E9AC095B-8F10-41D2-9456-4A85E3BA91AD}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
+      <Name>Riskeer.StabilityPointStructures.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

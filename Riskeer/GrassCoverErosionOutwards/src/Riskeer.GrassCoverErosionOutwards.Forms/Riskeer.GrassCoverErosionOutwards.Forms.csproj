@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</ProjectGuid>
-    <RootNamespace>Ringtoets.GrassCoverErosionOutwards.Forms</RootNamespace>
-    <AssemblyName>Ringtoets.GrassCoverErosionOutwards.Forms</AssemblyName>
+    <RootNamespace>Riskeer.GrassCoverErosionOutwards.Forms</RootNamespace>
+    <AssemblyName>Riskeer.GrassCoverErosionOutwards.Forms</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -97,44 +97,44 @@
       <Name>Riskeer.AssemblyTool.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj">
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
-      <Name>Ringtoets.Revetment.Forms</Name>
+      <Name>Riskeer.Revetment.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Service\Riskeer.GrassCoverErosionOutwards.Service.csproj">
       <Project>{18e9f7c8-3170-4e9d-8d9f-1378225eed90}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Service</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Util\Riskeer.GrassCoverErosionOutwards.Util.csproj">
       <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Util</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

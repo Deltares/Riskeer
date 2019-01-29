@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{B8CE6045-5831-47C1-B02C-BAABD53D7407}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.Util.TestUtil.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Util.TestUtil.Test</AssemblyName>
+    <RootNamespace>Riskeer.Common.Util.TestUtil.Test</RootNamespace>
+    <AssemblyName>Riskeer.Common.Util.TestUtil.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -32,13 +32,13 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
+      <Name>Riskeer.Common.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Util.TestUtil\Riskeer.Common.Util.TestUtil.csproj">
       <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
-      <Name>Ringtoets.Common.Util.TestUtil</Name>
+      <Name>Riskeer.Common.Util.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

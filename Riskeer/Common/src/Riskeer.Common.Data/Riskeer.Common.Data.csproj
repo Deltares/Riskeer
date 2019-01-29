@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.Data</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Data</AssemblyName>
+    <RootNamespace>Riskeer.Common.Data</RootNamespace>
+    <AssemblyName>Riskeer.Common.Data</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -168,9 +168,9 @@
       <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
       <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
-      <Name>Ringtoets.Common.Primitives</Name>
+      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

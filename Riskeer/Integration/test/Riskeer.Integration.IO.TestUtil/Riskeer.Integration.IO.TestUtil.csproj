@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{1C002B07-DDF6-4849-B8ED-551163AC9423}</ProjectGuid>
-    <RootNamespace>Ringtoets.Integration.IO.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.Integration.IO.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.Integration.IO.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.Integration.IO.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -45,9 +45,9 @@
       <Project>{B9838495-B090-4B84-A387-A8974F4F9CC4}</Project>
       <Name>Riskeer.AssemblyTool.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj">
       <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>

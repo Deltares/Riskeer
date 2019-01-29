@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{F95B449C-02CC-409B-83EA-FF16D0D7CBDB}</ProjectGuid>
-    <RootNamespace>Ringtoets.MacroStabilityInwards.IO.TestUtil.Test</RootNamespace>
-    <AssemblyName>Ringtoets.MacroStabilityInwards.IO.TestUtil.Test</AssemblyName>
+    <RootNamespace>Riskeer.MacroStabilityInwards.IO.TestUtil.Test</RootNamespace>
+    <AssemblyName>Riskeer.MacroStabilityInwards.IO.TestUtil.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -33,13 +33,13 @@
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.IO.TestUtil\Ringtoets.MacroStabilityInwards.IO.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.IO.TestUtil\Riskeer.MacroStabilityInwards.IO.TestUtil.csproj">
       <Project>{c83b2091-339a-4f35-a874-a4c807f55cae}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.IO.TestUtil</Name>
+      <Name>Riskeer.MacroStabilityInwards.IO.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

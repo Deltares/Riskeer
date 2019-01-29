@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{BDF21BAD-0879-4B94-9C6C-1D55A5966495}</ProjectGuid>
-    <RootNamespace>Ringtoets.StabilityStoneCover.IO.Test</RootNamespace>
-    <AssemblyName>Ringtoets.StabilityStoneCover.IO.Test</AssemblyName>
+    <RootNamespace>Riskeer.StabilityStoneCover.IO.Test</RootNamespace>
+    <AssemblyName>Riskeer.StabilityStoneCover.IO.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -33,33 +33,33 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.IO\Riskeer.Revetment.IO.csproj">
       <Project>{e3347b16-bb18-41c1-8d34-fbcbf20db695}</Project>
-      <Name>Ringtoets.Revetment.IO</Name>
+      <Name>Riskeer.Revetment.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj">
       <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
+      <Name>Riskeer.Revetment.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
       <Project>{B479E3AF-7C34-488C-BB73-D324100D36C9}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Name>Riskeer.StabilityStoneCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.IO\Ringtoets.StabilityStoneCover.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.IO\Riskeer.StabilityStoneCover.IO.csproj">
       <Project>{cf6b8598-2993-4a8e-801d-121cc0ef358e}</Project>
-      <Name>Ringtoets.StabilityStoneCover.IO</Name>
+      <Name>Riskeer.StabilityStoneCover.IO</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.Plugin.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Plugin.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.Common.Plugin.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.Common.Plugin.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -40,25 +40,25 @@
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj">
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
-      <Name>Ringtoets.Common.Service.TestUtil</Name>
+      <Name>Riskeer.Common.Service.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

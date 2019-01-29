@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{529C4919-27DE-4DDA-ABD6-537F21B3F223}</ProjectGuid>
-    <RootNamespace>Ringtoets.Piping.KernelWrapper.TestUtil.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.KernelWrapper.TestUtil.Test</AssemblyName>
+    <RootNamespace>Riskeer.Piping.KernelWrapper.TestUtil.Test</RootNamespace>
+    <AssemblyName>Riskeer.Piping.KernelWrapper.TestUtil.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -34,13 +34,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Piping.KernelWrapper\Riskeer.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper</Name>
+      <Name>Riskeer.Piping.KernelWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.KernelWrapper.TestUtil\Riskeer.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
+      <Name>Riskeer.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

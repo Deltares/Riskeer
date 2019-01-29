@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{97F6406A-6338-4863-92A6-0D5C00A5F7C9}</ProjectGuid>
-    <RootNamespace>Ringtoets.Piping.InputParameterCalculation</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.InputParameterCalculation</AssemblyName>
+    <RootNamespace>Riskeer.Piping.InputParameterCalculation</RootNamespace>
+    <AssemblyName>Riskeer.Piping.InputParameterCalculation</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -20,14 +20,14 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.KernelWrapper\Riskeer.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper</Name>
+      <Name>Riskeer.Piping.KernelWrapper</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Ringtoets.Piping.Primitives</Name>
+      <Name>Riskeer.Piping.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

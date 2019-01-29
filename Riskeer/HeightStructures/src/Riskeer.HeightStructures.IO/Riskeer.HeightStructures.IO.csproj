@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{D63FCFEC-34E8-4C68-8B4F-99338D2447AC}</ProjectGuid>
-    <RootNamespace>Ringtoets.HeightStructures.IO</RootNamespace>
-    <AssemblyName>Ringtoets.HeightStructures.IO</AssemblyName>
+    <RootNamespace>Riskeer.HeightStructures.IO</RootNamespace>
+    <AssemblyName>Riskeer.HeightStructures.IO</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -47,24 +47,24 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
+      <Name>Riskeer.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+    <ProjectReference Include="..\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
-      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Name>Riskeer.HeightStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HeightStructures.Util\Ringtoets.HeightStructures.Util.csproj">
+    <ProjectReference Include="..\Riskeer.HeightStructures.Util\Riskeer.HeightStructures.Util.csproj">
       <Project>{B60FC9A2-22B5-4E4C-986E-40766B843AB5}</Project>
-      <Name>Ringtoets.HeightStructures.Util</Name>
+      <Name>Riskeer.HeightStructures.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{55BE9A1B-68AB-488F-AF20-E037A50063DB}</ProjectGuid>
-    <RootNamespace>Ringtoets.MacroStabilityInwards.Service</RootNamespace>
-    <AssemblyName>Ringtoets.MacroStabilityInwards.Service</AssemblyName>
+    <RootNamespace>Riskeer.MacroStabilityInwards.Service</RootNamespace>
+    <AssemblyName>Riskeer.MacroStabilityInwards.Service</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -34,39 +34,39 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Ringtoets.Common.Forms</Name>
+      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.CalculatedInput\Ringtoets.MacroStabilityInwards.CalculatedInput.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.CalculatedInput\Riskeer.MacroStabilityInwards.CalculatedInput.csproj">
       <Project>{d0887613-858e-4eed-9320-8c5a09170761}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.CalculatedInput</Name>
+      <Name>Riskeer.MacroStabilityInwards.CalculatedInput</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+      <Name>Riskeer.MacroStabilityInwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.KernelWrapper\Ringtoets.MacroStabilityInwards.KernelWrapper.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj">
       <Project>{3c0d3b38-a9f7-4b22-9705-513da26ae2cc}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper</Name>
+      <Name>Riskeer.MacroStabilityInwards.KernelWrapper</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj">
       <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+      <Name>Riskeer.MacroStabilityInwards.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{55B8542A-1E52-4AE8-9F31-E3404D761716}</ProjectGuid>
-    <RootNamespace>Ringtoets.StabilityStoneCover.Service.Test</RootNamespace>
-    <AssemblyName>Ringtoets.StabilityStoneCover.Service.Test</AssemblyName>
+    <RootNamespace>Riskeer.StabilityStoneCover.Service.Test</RootNamespace>
+    <AssemblyName>Riskeer.StabilityStoneCover.Service.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -40,21 +40,21 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
+      <Name>Riskeer.Common.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj">
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
-      <Name>Ringtoets.Common.Service.TestUtil</Name>
+      <Name>Riskeer.Common.Service.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
@@ -64,25 +64,25 @@
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Service\Ringtoets.Revetment.Service.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Service\Riskeer.Revetment.Service.csproj">
       <Project>{2331235f-1e56-4344-acc2-191c22a39594}</Project>
-      <Name>Ringtoets.Revetment.Service</Name>
+      <Name>Riskeer.Revetment.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj">
       <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
+      <Name>Riskeer.Revetment.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Name>Riskeer.StabilityStoneCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Service\Ringtoets.StabilityStoneCover.Service.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.Service\Riskeer.StabilityStoneCover.Service.csproj">
       <Project>{66dd5ffb-ee06-40f2-9260-01f26d6fd1b4}</Project>
-      <Name>Ringtoets.StabilityStoneCover.Service</Name>
+      <Name>Riskeer.StabilityStoneCover.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />

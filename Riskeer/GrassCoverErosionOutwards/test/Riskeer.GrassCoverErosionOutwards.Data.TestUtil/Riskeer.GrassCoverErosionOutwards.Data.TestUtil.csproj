@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{D1234D03-76BC-437D-B941-DFF14A2A108D}</ProjectGuid>
-    <RootNamespace>Ringtoets.GrassCoverErosionOutwards.Data.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.GrassCoverErosionOutwards.Data.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.GrassCoverErosionOutwards.Data.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.GrassCoverErosionOutwards.Data.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -36,25 +36,25 @@
       <Project>{0B0D2DFF-7E7E-4BB0-A007-61800C85809A}</Project>
       <Name>Core.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
+      <Name>Riskeer.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Ringtoets.Revetment.Data</Name>
+      <Name>Riskeer.Revetment.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Data.TestUtil\Ringtoets.Revetment.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj">
       <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Ringtoets.Revetment.Data.TestUtil</Name>
+      <Name>Riskeer.Revetment.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

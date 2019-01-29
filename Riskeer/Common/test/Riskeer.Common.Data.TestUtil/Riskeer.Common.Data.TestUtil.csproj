@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{4843D6E5-066F-4795-94F5-1D53932DD03C}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.Data.TestUtil</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Data.TestUtil</AssemblyName>
+    <RootNamespace>Riskeer.Common.Data.TestUtil</RootNamespace>
+    <AssemblyName>Riskeer.Common.Data.TestUtil</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
@@ -82,9 +82,9 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\..\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

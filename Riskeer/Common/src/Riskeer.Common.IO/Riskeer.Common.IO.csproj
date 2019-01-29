@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{52BA7627-CBAB-4209-BE77-3B5F31378277}</ProjectGuid>
-    <RootNamespace>Ringtoets.Common.IO</RootNamespace>
-    <AssemblyName>Ringtoets.Common.IO</AssemblyName>
+    <RootNamespace>Riskeer.Common.IO</RootNamespace>
+    <AssemblyName>Riskeer.Common.IO</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
@@ -236,9 +236,9 @@
       <Name>Riskeer.HydraRing.IO</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+    <ProjectReference Include="..\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Ringtoets.Common.Data</Name>
+      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -53,9 +53,9 @@
       <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
       <Name>Migration.Scripts.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
+      <Name>Riskeer.Common.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Riskeer.Migration\Riskeer.Migration.csproj">
       <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
