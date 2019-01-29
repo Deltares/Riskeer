@@ -42,6 +42,8 @@ using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Plugin.Handlers;
 using Riskeer.Integration.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
@@ -50,8 +52,6 @@ using Riskeer.Piping.Primitives;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Plugin.Handlers;
 
 namespace Demo.Riskeer.Commands
 {
