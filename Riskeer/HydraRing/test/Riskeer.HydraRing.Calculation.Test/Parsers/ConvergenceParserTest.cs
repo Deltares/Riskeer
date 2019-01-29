@@ -33,7 +33,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class ConvergenceParserTest
     {
-        private static readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+        private static readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.Calculation, "Parsers"),
                                                                     nameof(ConvergenceParser));
 
         [Test]

@@ -102,7 +102,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         {
             // Setup
             string testDirectory = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.HeightStructures.IO,
+                TestDataPath.Riskeer.HeightStructures.IO,
                 nameof(HeightStructuresCalculationConfigurationExporter));
 
             string expectedXmlFilePath = Path.Combine(testDirectory, $"{fileName}.xml");

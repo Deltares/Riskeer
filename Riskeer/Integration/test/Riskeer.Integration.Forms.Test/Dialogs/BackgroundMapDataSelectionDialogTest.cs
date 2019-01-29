@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
     {
         private MockRepository mockRepository;
         private ITileSourceFactory tileFactory;
-        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms);
+        private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms);
 
         public override void Setup()
         {

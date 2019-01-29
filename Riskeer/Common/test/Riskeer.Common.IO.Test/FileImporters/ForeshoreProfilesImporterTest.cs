@@ -156,7 +156,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_FromFileWithUnmatchableId_FalseAndLogError()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -189,7 +189,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_TwoForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarning()
         {
             // Setup
-            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "NoDamsAndNoForeshoreGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
@@ -234,7 +234,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_FalseAndLogError()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var referencePoints = new List<Point2D>
@@ -273,7 +273,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_AllOkTestData_TrueAndLogMessagesAndFiveForeshoreProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -330,7 +330,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_AllOkTestData_CorrectForeshoreProfileProperties()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
@@ -400,7 +400,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_AllDamTypes_TrueAndLogMessagesAndFiveForeshoreProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
@@ -463,7 +463,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhileReadingProfileLocations_CancelsImportAndLogs()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -504,7 +504,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_CancelOfImportWhileReadingDikeProfileData_CancelImportAndLogInfo()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -543,7 +543,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveForeshoreProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -603,7 +603,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                     .Throw(new UpdateDataException(exceptionMessage));
             mockRepository.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
@@ -625,7 +625,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void DoPostImport_AfterImport_ObserversNotified()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var observableA = mockRepository.StrictMock<IObservable>();

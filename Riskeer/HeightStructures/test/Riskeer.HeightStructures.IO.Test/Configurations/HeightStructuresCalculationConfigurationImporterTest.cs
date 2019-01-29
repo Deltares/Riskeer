@@ -42,7 +42,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
     [TestFixture]
     public class HeightStructuresCalculationConfigurationImporterTest
     {
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO, nameof(HeightStructuresCalculationConfigurationImporter));
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.IO, nameof(HeightStructuresCalculationConfigurationImporter));
 
         private static IEnumerable<TestCaseData> ValidConfigurationInvalidData
         {

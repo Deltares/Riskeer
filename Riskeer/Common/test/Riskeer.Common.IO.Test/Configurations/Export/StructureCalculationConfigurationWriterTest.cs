@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
     public class StructureCalculationConfigurationWriterTest
     {
         private static readonly string testDirectory = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO,
+            TestDataPath.Riskeer.Common.IO,
             nameof(StructureCalculationConfigurationWriter<StructuresCalculationConfiguration>));
 
         [Test]

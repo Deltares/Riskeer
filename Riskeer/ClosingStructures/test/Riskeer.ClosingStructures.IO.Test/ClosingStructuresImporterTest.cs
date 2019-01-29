@@ -41,8 +41,8 @@ namespace Riskeer.ClosingStructures.IO.Test
     [TestFixture]
     public class ClosingStructuresImporterTest
     {
-        private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Structures");
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO);
+        private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "Structures");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.IO);
 
         private MockRepository mocks;
 

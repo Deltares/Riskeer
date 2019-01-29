@@ -42,7 +42,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationImporterTest
     {
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO, nameof(ClosingStructuresCalculationConfigurationImporter));
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.IO, nameof(ClosingStructuresCalculationConfigurationImporter));
 
         private static IEnumerable<TestCaseData> ValidConfigurationInvalidData
         {

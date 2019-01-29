@@ -42,7 +42,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
     [TestFixture]
     public class PipingCalculationConfigurationImporterTest
     {
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, nameof(PipingCalculationConfigurationImporter));
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Piping.IO, nameof(PipingCalculationConfigurationImporter));
 
         private static IEnumerable<TestCaseData> ValidConfigurationInvalidData
         {

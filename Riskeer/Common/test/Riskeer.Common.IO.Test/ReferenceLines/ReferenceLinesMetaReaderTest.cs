@@ -36,7 +36,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
     [TestFixture]
     public class ReferenceLinesMetaReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "NBPW");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "NBPW");
 
         [Test]
         [TestCase("")]

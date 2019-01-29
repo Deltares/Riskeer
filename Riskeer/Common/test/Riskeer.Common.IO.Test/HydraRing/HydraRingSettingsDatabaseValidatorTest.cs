@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         private const string testDataSubDirectory = "HydraRingSettingsDatabaseValidator";
 
         private static readonly string directoryPath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO, testDataSubDirectory);
+            TestDataPath.Riskeer.Common.IO, testDataSubDirectory);
 
         [Test]
         public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()

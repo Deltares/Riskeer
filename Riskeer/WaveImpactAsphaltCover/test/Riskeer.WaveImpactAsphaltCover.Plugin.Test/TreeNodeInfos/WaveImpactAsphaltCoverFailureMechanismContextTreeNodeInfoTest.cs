@@ -62,7 +62,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private const int contextMenuCalculateAllIndex = 4;
 
-        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
+        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
 
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;

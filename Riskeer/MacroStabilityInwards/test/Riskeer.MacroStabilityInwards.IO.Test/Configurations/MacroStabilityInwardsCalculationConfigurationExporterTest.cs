@@ -98,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         {
             // Setup
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+                TestDataPath.Riskeer.MacroStabilityInwards.IO,
                 Path.Combine(nameof(MacroStabilityInwardsCalculationConfigurationExporter), $"{expectedFileName}.xml"));
 
             // Call and Assert

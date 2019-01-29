@@ -36,7 +36,7 @@ namespace Application.Riskeer.Migration.Console.Test
     public class RiskeerMigrationToolTest
     {
         private TestEnvironmentControl environmentControl;
-        private readonly TestDataPath testPath = TestDataPath.Ringtoets.Migration.Core;
+        private readonly TestDataPath testPath = TestDataPath.Riskeer.Migration.Core;
 
         [SetUp]
         public void SetUp()

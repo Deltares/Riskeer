@@ -171,7 +171,7 @@ namespace Application.Riskeer.Integration.Test
 
         private static string GetTestProjectFilePath(string versionNumber)
         {
-            return TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core, $"MigrationTestProject{versionNumber}.rtd");
+            return TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core, $"MigrationTestProject{versionNumber}.rtd");
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporterTest
     {
-        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                   nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>));
 
         [Test]

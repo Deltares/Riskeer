@@ -113,7 +113,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         {
             // Setup
             string testDirectory = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.StabilityPointStructures.IO,
+                TestDataPath.Riskeer.StabilityPointStructures.IO,
                 nameof(StabilityPointStructuresCalculationConfigurationExporter));
 
             string expectedXmlFilePath = Path.Combine(testDirectory, $"{fileName}.xml");

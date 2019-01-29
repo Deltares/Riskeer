@@ -35,7 +35,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
     {
         private const string validFile = "ValidFile";
 
-        private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+        private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.Calculation, "Parsers"),
                                                              nameof(ReliabilityIndexCalculationParser));
 
         [Test]

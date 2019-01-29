@@ -39,7 +39,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             StabilityPointStructuresCalculationConfiguration>
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.StabilityPointStructures.IO,
+            TestDataPath.Riskeer.StabilityPointStructures.IO,
             nameof(StabilityPointStructuresCalculationConfigurationWriter));
 
         private static IEnumerable<TestCaseData> Calculations

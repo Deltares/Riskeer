@@ -212,62 +212,62 @@ namespace Core.Common.TestUtil.Test
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.AssemblyTool.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.AssemblyTool.IO);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.IO);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO);
             Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.Service);
-            Assert.IsTrue(Directory.Exists(path));
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.Integration);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.Service);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionInwards.IO);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionInwards.Integration);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.Integration);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionOutwards.IO);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.IO);
             Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation);
-            Assert.IsTrue(Directory.Exists(path));
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.TestUtil);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.Integration);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.IO);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.Calculation);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Plugin);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.TestUtil);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.MacroStabilityInwards.IO);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Piping.IO);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Storage.Core);
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityPointStructures.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Storage.Core);
             Assert.IsTrue(Directory.Exists(path));
         }
 

@@ -37,7 +37,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class SoilProfile2DReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilProfile2DReader));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(SoilProfile2DReader));
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()

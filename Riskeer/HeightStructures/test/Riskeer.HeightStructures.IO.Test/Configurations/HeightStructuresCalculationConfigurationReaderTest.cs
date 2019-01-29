@@ -35,7 +35,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
     [TestFixture]
     public class HeightStructuresCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.IO,
                                                                                nameof(HeightStructuresCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations

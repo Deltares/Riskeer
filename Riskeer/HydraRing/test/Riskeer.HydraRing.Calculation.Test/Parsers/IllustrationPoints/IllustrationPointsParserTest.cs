@@ -36,7 +36,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers.IllustrationPoints
     [TestFixture]
     public class IllustrationPointsParserTest
     {
-        private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"),
+        private readonly string testDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.Calculation, "Parsers"),
                                                              nameof(IllustrationPointsParser));
 
         [Test]

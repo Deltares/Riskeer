@@ -42,7 +42,7 @@ namespace Riskeer.Integration.IO.Test.Importers
     public class HydraulicBoundaryDatabaseImporterTest
     {
         private const int totalNumberOfSteps = 4;
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
         private readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [Test]
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, Path.DirectorySeparatorChar.ToString());
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, Path.DirectorySeparatorChar.ToString());
 
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
 
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, "I_dont_exist");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, "I_dont_exist");
 
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
 

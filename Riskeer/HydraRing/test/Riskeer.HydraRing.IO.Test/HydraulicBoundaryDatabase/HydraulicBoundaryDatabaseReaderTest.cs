@@ -35,7 +35,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
     [TestFixture]
     public class HydraulicBoundaryDatabaseReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryDatabaseReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.IO, "HydraulicBoundaryDatabaseReader");
 
         [Test]
         public void Constructor_ValidFile_ExpectedValues()

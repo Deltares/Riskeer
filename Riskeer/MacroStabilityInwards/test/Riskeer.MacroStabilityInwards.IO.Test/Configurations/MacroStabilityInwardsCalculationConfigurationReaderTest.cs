@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.MacroStabilityInwards.IO,
                                                                                nameof(MacroStabilityInwardsCalculationConfigurationReader));
 
         [Test]

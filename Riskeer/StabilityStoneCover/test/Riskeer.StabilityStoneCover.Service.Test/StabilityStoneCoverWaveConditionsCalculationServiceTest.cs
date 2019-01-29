@@ -909,7 +909,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
         private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
-            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);

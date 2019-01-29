@@ -42,7 +42,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class StochasticSoilModelImporterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "StochasticSoilModelImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "StochasticSoilModelImporter");
         private MockRepository mocks;
         private IStochasticSoilModelTransformer<IMechanismStochasticSoilModel> transformer;
 

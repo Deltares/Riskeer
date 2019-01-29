@@ -33,10 +33,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class LastErrorFileParserTest
     {
-        private readonly string noErrorTestDataDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation,
+        private readonly string noErrorTestDataDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.Calculation,
                                                                                       Path.Combine("Parsers", "OutputFileParser"));
 
-        private readonly string lastErrorTestDataDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation,
+        private readonly string lastErrorTestDataDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.Calculation,
                                                                                         Path.Combine("Parsers", "LastErrorFileParser"));
 
         [Test]

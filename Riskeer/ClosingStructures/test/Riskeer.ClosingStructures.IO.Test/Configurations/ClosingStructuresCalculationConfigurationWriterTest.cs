@@ -39,7 +39,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             ClosingStructuresCalculationConfiguration>
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.ClosingStructures.IO,
+            TestDataPath.Riskeer.ClosingStructures.IO,
             nameof(ClosingStructuresCalculationConfigurationWriter));
 
         private static IEnumerable<TestCaseData> Calculations

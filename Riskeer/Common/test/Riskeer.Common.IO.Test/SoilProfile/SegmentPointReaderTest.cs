@@ -36,7 +36,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class SegmentPointReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SegmentPointReader));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(SegmentPointReader));
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()

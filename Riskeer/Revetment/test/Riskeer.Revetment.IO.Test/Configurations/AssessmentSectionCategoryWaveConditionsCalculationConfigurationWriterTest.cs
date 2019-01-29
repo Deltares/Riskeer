@@ -44,7 +44,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 $"{nameof(Write_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Revetment.IO,
+                TestDataPath.Riskeer.Revetment.IO,
                 Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
             var calculation = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("Berekening 1");
@@ -79,7 +79,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 $"{nameof(Write_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Revetment.IO,
+                TestDataPath.Riskeer.Revetment.IO,
                 Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
             var calculation = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("Berekening 1")

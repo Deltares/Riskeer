@@ -148,7 +148,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                 FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, true);
                 FileTestHelper.AssertEssentialShapefileMd5Hashes(directoryPath,
                                                                  baseName,
-                                                                 TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO),
+                                                                 TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO),
                                                                  "LineShapefileMd5",
                                                                  88,
                                                                  8,

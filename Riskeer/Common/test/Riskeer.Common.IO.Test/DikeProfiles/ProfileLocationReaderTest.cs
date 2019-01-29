@@ -38,7 +38,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void Constructor_ValidFilePath_ExpectedValues()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
 
             // Call
@@ -69,7 +69,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             string invalidFilePath = validFilePath.Replace("1", invalidPathChars[1].ToString());
 
@@ -86,7 +86,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
@@ -101,7 +101,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void Constructor_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 "I_do_not_exist.shp");
 
             // Call
@@ -143,7 +143,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             string fileName, string missingColumnName)
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("DikeProfiles", fileName));
 
             // Call
@@ -180,7 +180,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetLocationCount_FileWithFivePoints_GetFive()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
 
             using (var reader = new ProfileLocationReader(validFilePath))
@@ -200,7 +200,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             string fileName, int expectedNumberOfDikeProfileLocations)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", fileName));
             var dikeProfileLocations = new List<ProfileLocation>();
 
@@ -222,7 +222,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithNullId_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
             using (var reader = new ProfileLocationReader(invalidFilePath))
@@ -241,7 +241,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithNullX0_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
 
             using (var reader = new ProfileLocationReader(invalidFilePath))
@@ -262,7 +262,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithIllegalCharactersInId_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("DikeProfiles", fileName));
 
             using (var reader = new ProfileLocationReader(invalidFilePath))
@@ -281,7 +281,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithNullAsNameAttribute_GetLocations()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyName.shp"));
             var dikeProfileLocations = new List<ProfileLocation>();
 
@@ -303,7 +303,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithFivePoints_GetFiveLocationsWithCorrectAtrributes()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             var dikeProfileLocations = new List<ProfileLocation>();
 
@@ -341,7 +341,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithFivePoints_GetFiveLocationsWithPoint2D()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             var dikeProfileLocations = new List<ProfileLocation>();
 
@@ -367,7 +367,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithFivePoints_GetFivePoint2DsWithCorrectCoordinates()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             var dikeProfileLocations = new List<ProfileLocation>();
 
@@ -399,7 +399,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithBinaryX0_GetLocations()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "BinaryX0", "PROF63_GE_D0.shp"));
             var dikeProfileLocations = new List<ProfileLocation>();
 
@@ -428,7 +428,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithInvalidOverflowingBinaryX0_ThrowLineParseException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "InvalidBinaryX0_Overflow", "PROF63_GE_D0.shp"));
             using (var reader = new ProfileLocationReader(validFilePath))
             {
@@ -446,7 +446,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void GetNextProfileLocation_FileWithInvalidFormattedBinaryX0_ThrowLineParseException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "InvalidBinaryX0_InvalidFormat", "PROF63_GE_D0.shp"));
             using (var reader = new ProfileLocationReader(validFilePath))
             {

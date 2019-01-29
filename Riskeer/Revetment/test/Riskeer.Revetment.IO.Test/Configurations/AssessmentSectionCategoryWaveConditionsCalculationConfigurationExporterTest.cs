@@ -86,7 +86,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 }
             };
 
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                     Path.Combine(
                                                                         nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));

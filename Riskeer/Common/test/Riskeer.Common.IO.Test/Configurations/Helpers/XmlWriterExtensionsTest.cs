@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
     [TestFixture]
     public class XmlWriterExtensionsTest
     {
-        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(XmlWriterExtensions));
+        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(XmlWriterExtensions));
 
         [Test]
         public void WriteStartFolder_WithNameAndWriter_WritesFolderStart()

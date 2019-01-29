@@ -37,7 +37,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             HeightStructuresCalculationConfiguration>
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.HeightStructures.IO,
+            TestDataPath.Riskeer.HeightStructures.IO,
             nameof(HeightStructuresCalculationConfigurationWriter));
 
         private static IEnumerable<TestCaseData> Calculations

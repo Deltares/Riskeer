@@ -36,7 +36,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class PreconsolidationStressReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                           nameof(PreconsolidationStressReader));
 
         [Test]

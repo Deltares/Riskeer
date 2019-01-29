@@ -31,7 +31,7 @@ namespace Riskeer.Migration.Core.TestUtil
     /// </summary>
     public static class ProjectMigrationTestHelper
     {
-        private static readonly TestDataPath testDataPath = TestDataPath.Ringtoets.Migration.Core;
+        private static readonly TestDataPath testDataPath = TestDataPath.Riskeer.Migration.Core;
 
         /// <summary>
         /// Retrieves the file path of a project with the latest database version

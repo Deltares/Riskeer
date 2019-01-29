@@ -80,7 +80,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
             string invalidFilePath = validFilePath.Replace("-", invalidPathChars[3].ToString());
 
@@ -99,7 +99,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void ReadReferenceLine_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
             var reader = new DikeProfileDataReader(new string[0]);
@@ -126,7 +126,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             string validFileName)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", validFileName));
 
             const string profielId = "profiel001";
@@ -164,7 +164,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_ValidFilePath2_ReturnDikeProfileData()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "profiel004 - Ringtoets.prfl"));
 
             const string profielId = "profiel004";
@@ -212,7 +212,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_ValidFilePath3_ReturnDikeProfileData()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "profiel001_DifferentDamAndDamwand.prfl"));
 
             const string profielId = "profiel001";
@@ -250,7 +250,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_ValidFilePath4_ReturnDikeProfileData()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("DikeProfiles", "fileWithEmptyDikeAndForeshore.prfl"));
 
             const string profielId = "ikBenBestWaardeloos";
@@ -314,7 +314,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithWrongId_ThrowsCriticalValidationException()
         {
             // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
 
             var reader = new DikeProfileDataReader(new[]
@@ -713,7 +713,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         private void ReadFileAndExpectCriticalFileReadException(string acceptedId, string fileName, int lineNumber, string errorMessage)
         {
             // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                Path.Combine("DikeProfiles", fileName));
 
             var reader = new DikeProfileDataReader(new[]
@@ -733,7 +733,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         private void ReadFileAndExpectCriticalFileReadException(string acceptedId, string fileName, string errorMessage)
         {
             // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                Path.Combine("DikeProfiles", fileName));
 
             var reader = new DikeProfileDataReader(new[]

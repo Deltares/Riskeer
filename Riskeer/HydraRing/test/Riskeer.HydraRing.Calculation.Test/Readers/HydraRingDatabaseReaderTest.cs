@@ -40,7 +40,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Readers
         private const string query = "SELECT * FROM IterateToGivenBetaConvergence " +
                                      "WHERE OuterIterationId = (SELECT MAX(OuterIterationId) FROM IterateToGivenBetaConvergence);";
 
-        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation,
+        private static readonly string testDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.Calculation,
                                                                                   Path.Combine("Readers", nameof(HydraRingDatabaseReader)));
 
         [Test]

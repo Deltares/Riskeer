@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
     [TestFixture]
     public class GrassCoverErosionInwardsScenariosViewIntegrationTest
     {
-        private readonly string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.Integration,
+        private readonly string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionInwards.Integration,
                                                                       Path.Combine("DikeProfiles", "Voorlanden 6-3.shp"));
 
         [Test]

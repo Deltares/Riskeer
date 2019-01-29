@@ -60,7 +60,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private const int contextMenuCalculateAllIndex = 4;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
 
         private MockRepository mocksRepository;
         private DuneErosionPlugin plugin;

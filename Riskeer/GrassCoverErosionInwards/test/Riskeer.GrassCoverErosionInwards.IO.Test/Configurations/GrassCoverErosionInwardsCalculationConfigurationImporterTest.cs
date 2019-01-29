@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
     public class GrassCoverErosionInwardsCalculationConfigurationImporterTest
     {
         private readonly string path = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
             nameof(GrassCoverErosionInwardsCalculationConfigurationImporter));
 
         [Test]

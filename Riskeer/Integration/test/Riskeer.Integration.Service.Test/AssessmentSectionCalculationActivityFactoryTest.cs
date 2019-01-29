@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Service.Test
     [TestFixture]
     public class AssessmentSectionCalculationActivityFactoryTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
 
         [Test]
         public void CreateActivities_AssessmentSectionNull_ThrowsArgumentNullException()

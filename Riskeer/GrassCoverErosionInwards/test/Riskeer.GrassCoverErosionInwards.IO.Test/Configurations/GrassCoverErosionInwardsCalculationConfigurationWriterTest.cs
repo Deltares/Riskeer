@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 $"{nameof(WriteConfiguration_SparseConfiguration_WritesSparseConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
             var calculation = new GrassCoverErosionInwardsCalculationConfiguration("Berekening 1");
@@ -79,7 +79,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 $"{nameof(WriteConfiguration_CompleteConfiguration_WritesCompleteConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
             GrassCoverErosionInwardsCalculationConfiguration calculation = CreateCompleteCalculation();
@@ -139,7 +139,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 Assert.IsTrue(File.Exists(filePath));
 
                 string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
                                                                         Path.Combine("GrassCoverErosionInwardsCalculationConfigurationWriter",
                                                                                      "folderWithSubfolderAndCalculation.xml"));
                 string expectedXml = File.ReadAllText(expectedXmlFilePath);

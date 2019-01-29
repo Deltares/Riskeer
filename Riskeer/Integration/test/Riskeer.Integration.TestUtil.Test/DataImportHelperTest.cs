@@ -135,7 +135,7 @@ namespace Riskeer.Integration.TestUtil.Test
         public void ImportHydraulicBoundaryDatabaseWithFilePath_ValidData_AddsHydraulicBoundaryLocations()
         {
             // Setup
-            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.TestUtil, nameof(DataImportHelper));
+            string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.TestUtil, nameof(DataImportHelper));
 
             // Call
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, Path.Combine(testDataPath, "complete.sqlite"));

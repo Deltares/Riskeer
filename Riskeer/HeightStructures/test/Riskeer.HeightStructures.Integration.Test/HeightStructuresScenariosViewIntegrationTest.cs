@@ -45,7 +45,7 @@ namespace Riskeer.HeightStructures.Integration.Test
     [TestFixture]
     public class HeightStructuresScenariosViewIntegrationTest
     {
-        private readonly string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.Integration,
+        private readonly string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.Integration,
                                                                       Path.Combine("HeightStructures", "kunstwerken_6_3.shp"));
 
         [Test]

@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.Test.Structures
     [TestFixture]
     public class StructuresCharacteristicsCsvReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO, $"Characteristics{Path.DirectorySeparatorChar}");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.IO, $"Characteristics{Path.DirectorySeparatorChar}");
 
         [Test]
         [TestCase("")]
@@ -120,7 +120,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetLineCount_EmptyFile_ThrowCriticalFileReadException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "EmptyFile.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -145,7 +145,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetLineCount_FileLackingLocationIdColumn_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures",
                                                                       "StructuresCharacteristicsCsvFiles",
                                                                       fileName));
@@ -179,7 +179,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetLineCount_ValidFileWithTwoLocationsAndAllHeightStructureParameters_ReturnCount()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures",
                                                                       "StructuresCharacteristicsCsvFiles",
                                                                       "ValidFile_2Locations_AllHeightStructureParameters.csv"));
@@ -198,7 +198,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetLineCount_ValidFileWithTwoLocationsAndAllHeightStructureParametersCondensed_ReturnCount()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures",
                                                                       "StructuresCharacteristicsCsvFiles",
                                                                       "ValidFile_2Locations_AllHeightStructureParameters_CondensedAndDifferentOrder.csv"));
@@ -217,7 +217,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetLineCount_ValidFileWithOneLocationAndExtraWhiteLines_ReturnCount()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures",
                                                                       "StructuresCharacteristicsCsvFiles",
                                                                       "ValidFile_1Location_AllHeightStructureParameters_ExtraWhiteLines.csv"));
@@ -242,7 +242,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetLineCount_DuplicateColumn_ThrowCriticalFileReadException(string fileName, string columnName)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures",
                                                                       "StructuresCharacteristicsCsvFiles",
                                                                       fileName));
@@ -298,7 +298,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_EmptyFile_ThrowCriticalFileReadException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "EmptyFile.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -323,7 +323,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_FileLackingLocationIdColumn_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures",
                                                                       "StructuresCharacteristicsCsvFiles",
                                                                       fileName));
@@ -363,7 +363,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_DuplicateColumn_ThrowCriticalFileReadException(string fileName, string columnName)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures",
                                                                       "StructuresCharacteristicsCsvFiles",
                                                                       fileName));
@@ -384,7 +384,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_NoLocations_ReturnNull()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "ValidFile_0Locations.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -401,7 +401,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineMissingSeparatorCharacter_ThrowLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineLackingSeparator.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -420,7 +420,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineMissingValues_ThrowLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineMissingValues.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -439,7 +439,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithExtraValues_ThrowLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineWithExtraValues.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -461,7 +461,7 @@ namespace Riskeer.Common.IO.Test.Structures
         {
             // Setup
             string fileName = $"InvalidFile_1Location_SecondLineLocationIdEmpty{fileNamePostFix}.csv";
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", fileName));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -483,7 +483,7 @@ namespace Riskeer.Common.IO.Test.Structures
         {
             // Setup
             string fileName = $"InvalidFile_1Location_SecondLineParameterIdEmpty{fileNamePostFix}.csv";
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", fileName));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -502,7 +502,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithPlainTextForNumericValue_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineNumericValueNotNumber.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -521,7 +521,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithNumericValueTooLarge_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineNumericValueTooLarge.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -540,7 +540,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithNumericValueTooSmall_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineNumericValueTooSmall.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -559,7 +559,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithPlainTextForVarianceValue_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceValueNotNumber.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -578,7 +578,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithVarianceValueTooLarge_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceValueTooLarge.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -597,7 +597,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithVarianceValueTooSmall_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceValueTooSmall.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -616,7 +616,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithPlainTextForVarianceType_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceTypeNotNumber.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -635,7 +635,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithVarianceTypeTooLarge_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceTypeTooLarge.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -654,7 +654,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithVarianceTypeTooSmall_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceTypeTooSmall.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -673,7 +673,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithVarianceTypeMinusOne_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceTypeValueMinusOne.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -692,7 +692,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_LineWithVarianceTypeTwo_ThrowsLineParseException()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineVarianceTypeValueTwo.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -715,7 +715,7 @@ namespace Riskeer.Common.IO.Test.Structures
                                                           double expectedNumericValue, double expectedVarianceValue, VarianceType expectedType)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "ValidFile_2Locations_AllHeightStructureParameters.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -742,7 +742,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_ValidFileWithEmptyVarianceValue_ReturnNaN()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "ValidFile_1Location_AllHeightStructureParameters_VarianceValueEmpty.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -759,7 +759,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_ValidFileWithEmptyVarianceType_ReturnNotSpecified()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "ValidFile_1Location_AllHeightStructureParameters_VarianceTypeEmpty.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))
@@ -776,7 +776,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void ReadLine_ValidFileWithNonEmptyAplhanumericValue_ReturnText()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "ValidFile_1Location_AllHeightStructureParameters_AlphanumericValueText.csv"));
 
             using (var reader = new StructuresCharacteristicsCsvReader(filePath))

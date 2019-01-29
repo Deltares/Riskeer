@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Test
             Point2D[] originalReferenceLineGeometry = assessmentSection.ReferenceLine.Points.ToArray();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(assessmentSection.ReferenceLine, handler, path);
             string messageBoxTitle = null, messageBoxText = null;
@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Test
             Point2D[] originalReferenceLineGeometry = originalReferenceLine.Points.ToArray();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var importer = new ReferenceLineImporter(assessmentSection.ReferenceLine, handler, path);

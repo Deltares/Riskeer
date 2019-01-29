@@ -43,7 +43,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
     [TestFixture]
     public class WaveConditionsCalculationConfigurationImporterTest
     {
-        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "WaveConditionsCalculationConfigurationImporter");
+        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO, "WaveConditionsCalculationConfigurationImporter");
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -384,7 +384,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
         private class TestWaveConditionsCalculationConfigurationReader : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
         {
-            private static readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+            private static readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                                           nameof(WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation, WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration>));
 
             public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath)

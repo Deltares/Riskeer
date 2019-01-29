@@ -86,8 +86,8 @@ namespace Riskeer.Migration.Core.TestUtil.Test
             string[] versions = ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
 
             // Call
-            List<string> returnedProjectVersions = versions.Select(v => new ProjectVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
-                                                                                                                              $"MigrationTestProject{v}.rtd")).GetVersion()).ToList();
+            List<string> returnedProjectVersions = versions.Select(v => new ProjectVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
+                                                                                                                            $"MigrationTestProject{v}.rtd")).GetVersion()).ToList();
 
             // Assert
             IEnumerable<string> expectedProjectVersions = new[]

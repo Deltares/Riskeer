@@ -42,7 +42,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationImporterTest
     {
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO,
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityPointStructures.IO,
                                                                           nameof(StabilityPointStructuresCalculationConfigurationImporter));
 
         private static IEnumerable<TestCaseData> ValidConfigurationInvalidData

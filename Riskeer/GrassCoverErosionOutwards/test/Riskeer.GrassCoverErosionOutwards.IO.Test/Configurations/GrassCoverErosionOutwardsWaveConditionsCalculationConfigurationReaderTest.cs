@@ -35,7 +35,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionOutwards.IO,
                                                                                nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations

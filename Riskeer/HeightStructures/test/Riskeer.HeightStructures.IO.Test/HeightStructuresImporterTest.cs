@@ -42,8 +42,8 @@ namespace Riskeer.HeightStructures.IO.Test
     [TestFixture]
     public class HeightStructuresImporterTest
     {
-        private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Structures");
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO);
+        private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "Structures");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.IO);
         private readonly StructureCollection<HeightStructure> testImportTarget = new StructureCollection<HeightStructure>();
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();
         private readonly string testFilePath = string.Empty;

@@ -32,7 +32,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
     public class PreprocessorSettingsProviderTest
     {
         private static readonly string completeDatabaseDataPath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO,
+            TestDataPath.Riskeer.Common.IO,
             Path.Combine("HydraRingSettingsDatabaseReader", "7_67.config.sqlite"));
 
         [Test]

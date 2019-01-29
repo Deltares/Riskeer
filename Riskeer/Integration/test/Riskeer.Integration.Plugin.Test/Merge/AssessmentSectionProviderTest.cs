@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
     [TestFixture]
     public class AssessmentSectionProviderTest : NUnitFormTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin, nameof(AssessmentSectionProvider));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Plugin, nameof(AssessmentSectionProvider));
 
         [Test]
         public void Constructor_ExpectedValues()

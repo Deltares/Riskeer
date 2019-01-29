@@ -35,7 +35,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.IO,
                                                                                nameof(ClosingStructuresCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations

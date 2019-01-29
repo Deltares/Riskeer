@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 $"{nameof(Write_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
+                TestDataPath.Riskeer.GrassCoverErosionOutwards.IO,
                 Path.Combine(nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("Berekening 1");
@@ -80,7 +80,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 $"{nameof(Write_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
+                TestDataPath.Riskeer.GrassCoverErosionOutwards.IO,
                 Path.Combine(nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("Berekening 1")

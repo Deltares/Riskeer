@@ -32,7 +32,7 @@ namespace Riskeer.Common.Service.Test
     [TestFixture]
     public class HydraRingSettingsDatabaseHelperTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.Service);
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.Service);
 
         [Test]
         public void AssignSettingsFromDatabase_FileWithInvalidCharacters_ThrowsArgumentException()

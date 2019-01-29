@@ -104,7 +104,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var importer = new ReferenceLineImporter(originalReferenceLine, handler, path);
@@ -128,7 +128,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var progressChangeNotifications = new List<ProgressNotification>();
@@ -157,7 +157,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.DirectorySeparatorChar.ToString());
 
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
 
@@ -181,7 +181,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "I_dont_exist");
 
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
 
@@ -206,7 +206,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.ConfirmUpdate()).Return(false);
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
 
@@ -225,7 +225,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void Import_CancelImportDuringReadReferenceLine_CancelsImportAndLogs()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
@@ -255,7 +255,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void Import_CancelImportDuringAddReferenceLineToData_ContinuesImportAndLogs()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
@@ -304,7 +304,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
@@ -327,7 +327,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void DoPostImportUpdates_ReferenceLineHasGeometryAndAnswerDialogToContinue_NotifyObserversOfTargetAndClearedObjects()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
             ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
 
             var mocks = new MockRepository();
@@ -369,7 +369,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void DoPostImportUpdates_CancelingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "traject_10-2.shp");
             ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
 
             var mocks = new MockRepository();
@@ -399,7 +399,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void DoPostImportUpdates_ReuseImporterWithReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetAndClearedObjects()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var referenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();

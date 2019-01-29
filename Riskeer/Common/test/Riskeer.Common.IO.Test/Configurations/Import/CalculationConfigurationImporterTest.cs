@@ -44,7 +44,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
     [TestFixture]
     public class CalculationConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(CalculationConfigurationReader));
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(CalculationConfigurationReader));
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -61,7 +61,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, Path.DirectorySeparatorChar.ToString());
 
             var importer = new CalculationConfigurationImporter(filePath,
                                                                 new CalculationGroup());
@@ -81,7 +81,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "I_dont_exist");
 
             var importer = new CalculationConfigurationImporter(filePath,
                                                                 new CalculationGroup());
@@ -840,7 +840,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             private static readonly string mainSchemaDefinition =
                 File.ReadAllText(Path.Combine(TestHelper.GetTestDataPath(
-                                                  TestDataPath.Ringtoets.Common.IO,
+                                                  TestDataPath.Riskeer.Common.IO,
                                                   "CalculationConfigurationReader"),
                                               "validConfigurationSchema.xsd"));
 

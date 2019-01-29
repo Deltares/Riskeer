@@ -38,7 +38,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void ReadReferenceLine_FileHasOneValidLineInShape_ReturnReferenceLine()
         {
             // Setup
-            string validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                             Path.Combine("ReferenceLine", "traject_10-2.shp"));
             var reader = new ReferenceLineReader();
 
@@ -77,7 +77,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               "traject_10-1.shp");
             string invalidFilePath = validFilePath.Replace("_", invalidPathChars[3].ToString());
 
@@ -96,7 +96,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void ReadReferenceLine_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
             var reader = new ReferenceLineReader();
@@ -113,7 +113,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         public void ReadReferenceLine_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 "I_do_not_exist.shp");
 
             var reader = new ReferenceLineReader();

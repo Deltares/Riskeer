@@ -207,7 +207,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", shapeFileName));
 
             var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
@@ -231,7 +231,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", fileName));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -254,7 +254,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -277,7 +277,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -300,7 +300,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var referencePoints = new List<Point2D>
@@ -332,7 +332,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                   Path.Combine("DikeProfiles", "InvalidDamType"));
             string filePath = Path.Combine(testFileDirectory, "Voorlanden 12-2.shp");
 
@@ -357,7 +357,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string testFileDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                   Path.Combine("DikeProfiles", "TwoPrflWithSameId"));
             string filePath = Path.Combine(testFileDirectory, "profiel001.shp");
 
@@ -388,7 +388,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "Voorlanden_12-2_same_id_3_times.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -411,7 +411,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "PrflWithProfileNotZero", "Voorland_12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -438,7 +438,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "PrflIsIncomplete", "Voorland_12-2.shp"));
 
             var referenceLine = new ReferenceLine();
@@ -470,7 +470,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "OkTestDataWithUnrelatedPrfl", "Voorland 12-2.shp"));
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var testProfilesImporter = new TestProfilesImporter(new ObservableList<object>(), referenceLine, filePath, messageProvider);
@@ -491,7 +491,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath, messageProvider);
@@ -517,7 +517,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -546,7 +546,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             messageProvider.Stub(mp => mp.GetAddDataToModelProgressText()).Return(addingDataToModel);
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -577,7 +577,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -611,7 +611,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                            .Return("error {0}");
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -644,7 +644,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedProgressText);
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();

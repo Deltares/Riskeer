@@ -35,7 +35,7 @@ namespace Riskeer.Migration.Integration.Test
         public void Given172Project_WhenUpgradedTo173_ThenProjectAsExpected()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                "MigrationTestProject172.rtd");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 

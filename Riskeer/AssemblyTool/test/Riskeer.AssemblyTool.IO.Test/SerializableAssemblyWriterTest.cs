@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.IO.Test
     [TestFixture]
     public class SerializableAssemblyWriterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.AssemblyTool.IO,
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.AssemblyTool.IO,
                                                                           nameof(SerializableAssemblyWriterTest));
 
         [Test]

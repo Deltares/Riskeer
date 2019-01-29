@@ -102,7 +102,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         {
             // Setup
             string testDirectory = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.ClosingStructures.IO,
+                TestDataPath.Riskeer.ClosingStructures.IO,
                 nameof(ClosingStructuresCalculationConfigurationExporter));
 
             string expectedXmlFilePath = Path.Combine(testDirectory, $"{fileName}.xml");

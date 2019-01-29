@@ -47,7 +47,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Common.IO,
+                TestDataPath.Riskeer.Common.IO,
                 Path.Combine(nameof(CalculationConfigurationWriter<IConfigurationItem>), expectedFileContentsFileName));
 
             try

@@ -45,7 +45,7 @@ namespace Riskeer.Integration.IO.Test.Importers
     {
         private const int totalNumberOfSteps = 3;
 
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
                                                                                  nameof(HydraulicLocationConfigurationDatabaseImporter));
 
         private readonly string validHrdFilePath = Path.Combine(testDataPath, "completeHrd.sqlite");
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Stub(h => h.InquireConfirmation()).Return(true);
             mocks.ReplayAll();
 
-            string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO,
+            string hydraulicBoundaryDatabasePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO,
                                                                                            nameof(HydraulicBoundaryDatabaseImporter)), "complete.sqlite");
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(hydraulicBoundaryDatabasePath);

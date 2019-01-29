@@ -98,7 +98,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
         {
             // Setup
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.Piping.IO,
+                TestDataPath.Riskeer.Piping.IO,
                 Path.Combine(nameof(PipingCalculationConfigurationExporter), $"{expectedFileName}.xml"));
 
             // Call and Assert

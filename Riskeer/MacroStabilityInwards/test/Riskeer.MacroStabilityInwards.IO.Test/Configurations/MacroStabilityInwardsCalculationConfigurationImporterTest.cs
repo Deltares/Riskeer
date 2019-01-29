@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationImporterTest
     {
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.MacroStabilityInwards.IO,
                                                                           nameof(MacroStabilityInwardsCalculationConfigurationImporter));
 
         [Test]

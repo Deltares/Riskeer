@@ -35,7 +35,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityPointStructures.IO,
                                                                                nameof(StabilityPointStructuresCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations

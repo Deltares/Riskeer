@@ -46,7 +46,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
     {
         private const string krpFormat = "{0}.krp.csv";
         private const string surfaceLineFormat = "{0}.csv";
-        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "SurfaceLines");
+        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "SurfaceLines");
 
         private MockRepository mocks;
         private ISurfaceLineTransformer<IMechanismSurfaceLine> transformer;

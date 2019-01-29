@@ -101,7 +101,7 @@ namespace Riskeer.Migration.Core.Test
         public void GetVersion_ParameteredConstructor_ExpectedProperties(string file, string expectedVersion)
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core, file);
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core, file);
             var sourceFile = new ProjectVersionedFile(filePath);
 
             // Call

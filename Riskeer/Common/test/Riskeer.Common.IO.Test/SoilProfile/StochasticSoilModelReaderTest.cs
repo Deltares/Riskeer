@@ -36,11 +36,11 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class StochasticSoilModelReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(StochasticSoilModelReader));
-        private readonly string constraintsReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilDatabaseConstraintsReader));
-        private readonly string versionReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilDatabaseVersionReader));
-        private readonly string soilProfile1DReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilProfile1DReader));
-        private readonly string soilProfile2DReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilProfile2DReader));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(StochasticSoilModelReader));
+        private readonly string constraintsReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(SoilDatabaseConstraintsReader));
+        private readonly string versionReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(SoilDatabaseVersionReader));
+        private readonly string soilProfile1DReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(SoilProfile1DReader));
+        private readonly string soilProfile2DReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(SoilProfile2DReader));
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()

@@ -61,7 +61,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateIndex = 8;
         private const int contextMenuCalculateIndex = 9;
         private const int contextMenuClearIndex = 11;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         private IGui gui;
         private TreeNodeInfo info;

@@ -358,7 +358,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "EmptyWmtsConnectionInfo")
             }))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -490,7 +490,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "EmptyWmtsConnectionInfo")
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "EmptyWmtsConnectionInfo")
             }))
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())

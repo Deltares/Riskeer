@@ -76,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
                 Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationExporter), "folderWithSubfolderAndCalculation.xml"));
 
             // Call and Assert

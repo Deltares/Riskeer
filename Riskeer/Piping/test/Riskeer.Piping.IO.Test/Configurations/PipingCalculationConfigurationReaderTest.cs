@@ -35,7 +35,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
     [TestFixture]
     public class PipingCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Piping.IO,
                                                                                nameof(PipingCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations

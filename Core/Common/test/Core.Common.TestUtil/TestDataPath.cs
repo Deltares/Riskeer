@@ -53,7 +53,7 @@ namespace Core.Common.TestUtil
             }
         }
 
-        public static class Ringtoets
+        public static class Riskeer
         {
             public static class AssemblyTool
             {

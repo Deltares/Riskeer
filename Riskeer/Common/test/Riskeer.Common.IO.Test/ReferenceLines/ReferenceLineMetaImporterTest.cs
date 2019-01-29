@@ -37,7 +37,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
     [TestFixture]
     public class ReferenceLineMetaImporterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ReferenceLineMetaImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "ReferenceLineMetaImporter");
 
         [Test]
         [TestCase("")]
@@ -59,7 +59,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               "SomeFolder");
             string invalidFilePath = validFilePath.Replace('F', invalidPathChars.Last());
 

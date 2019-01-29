@@ -34,7 +34,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationReaderTest
     {
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                                nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations

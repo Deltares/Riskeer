@@ -34,7 +34,7 @@ namespace Riskeer.Migration.Integration.Test
     public class MigrationIntegrationTest
     {
         private readonly string latestVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core);
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core);
 
         [Test]
         [TestCaseSource(nameof(GetFileNamesWithSpecialCharacters))]
@@ -80,7 +80,7 @@ namespace Riskeer.Migration.Integration.Test
         public void GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                "Empty valid Release 16.4.rtd");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 

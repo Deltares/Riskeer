@@ -37,7 +37,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicLocationConfigurationDatabase");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HydraRing.IO, "HydraulicLocationConfigurationDatabase");
 
         [Test]
         public void Constructor_InvalidFile_ThrowsCriticalFileReadException()

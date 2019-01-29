@@ -32,7 +32,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
     [TestFixture]
     public class SoilDatabaseVersionReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilDatabaseVersionReader));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(SoilDatabaseVersionReader));
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()

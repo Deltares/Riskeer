@@ -39,19 +39,19 @@ namespace Riskeer.Common.IO.Test.HydraRing
         private const string testDataSubDirectory = "HydraRingSettingsDatabaseReader";
 
         private static readonly string completeDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO,
+            TestDataPath.Riskeer.Common.IO,
             Path.Combine(testDataSubDirectory, "7_67.config.sqlite"));
 
         private static readonly string emptyDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO,
+            TestDataPath.Riskeer.Common.IO,
             Path.Combine(testDataSubDirectory, "7_67-empty.config.sqlite"));
 
         private static readonly string invalidDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO,
+            TestDataPath.Riskeer.Common.IO,
             Path.Combine(testDataSubDirectory, "7_67-invalid-value-types.config.sqlite"));
 
         private static readonly string invalidSchemaDatabasePath = TestHelper.GetTestDataPath(
-            TestDataPath.Ringtoets.Common.IO,
+            TestDataPath.Riskeer.Common.IO,
             Path.Combine(testDataSubDirectory, "invalid-settings-schema.config.sqlite"));
 
         [Test]

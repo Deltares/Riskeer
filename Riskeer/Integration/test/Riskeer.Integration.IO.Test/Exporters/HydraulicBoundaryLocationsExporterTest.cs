@@ -114,7 +114,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, true);
                 FileTestHelper.AssertEssentialShapefileMd5Hashes(directoryPath,
                                                                  baseName,
-                                                                 Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO),
+                                                                 Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
                                                                               nameof(HydraulicBoundaryLocationsExporter)),
                                                                  "ExpectedExport",
                                                                  28,

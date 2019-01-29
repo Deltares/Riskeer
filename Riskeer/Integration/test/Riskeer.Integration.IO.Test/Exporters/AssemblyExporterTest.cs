@@ -207,7 +207,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 Assert.IsTrue(File.Exists(filePath));
                 Assert.IsTrue(isExported);
 
-                string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO),
+                string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
                                                           nameof(AssemblyExporter), "ExpectedGml.gml");
                 string expectedGml = File.ReadAllText(expectedGmlFilePath);
                 string actualGml = File.ReadAllText(filePath);

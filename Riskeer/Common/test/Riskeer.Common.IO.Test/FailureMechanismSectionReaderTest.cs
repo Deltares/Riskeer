@@ -37,7 +37,7 @@ namespace Riskeer.Common.IO.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             // Call
@@ -68,7 +68,7 @@ namespace Riskeer.Common.IO.Test
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               "traject_1-1_vakken.shp");
             string invalidFilePath = validFilePath.Replace("_", invalidPathChars[1].ToString());
 
@@ -85,7 +85,7 @@ namespace Riskeer.Common.IO.Test
         public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
@@ -100,7 +100,7 @@ namespace Riskeer.Common.IO.Test
         public void Constructor_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 "I_do_not_exist.shp");
 
             // Call
@@ -139,7 +139,7 @@ namespace Riskeer.Common.IO.Test
         public void GetFailureMechanismSectionCount_ValidFilePath_ReturnElementCount(string shapeFileName, int expectedElementCount)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", shapeFileName));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -156,7 +156,7 @@ namespace Riskeer.Common.IO.Test
         public void GetFailureMechanismSectionCount_FileLacksNameAttribute_ThrowCriticalFileReadException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "traject_227_vakken_LacksVaknaamAttribute.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -175,7 +175,7 @@ namespace Riskeer.Common.IO.Test
         public void ReadFailureMechanismSection_ValidFilePath1_ReturnElement()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -196,7 +196,7 @@ namespace Riskeer.Common.IO.Test
         public void ReadFailureMechanismSection_ValidFilePath2_ReturnElement()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "traject_227_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -219,7 +219,7 @@ namespace Riskeer.Common.IO.Test
         public void ReadFailureMechanismSection_ValidFilePathAndForAllElements_CorrectSectionNameRead()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -243,7 +243,7 @@ namespace Riskeer.Common.IO.Test
         public void ReadFailureMechanismSection_ReadingToEndOfFile_ReturnNull(string shapeFileName)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", shapeFileName));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -266,7 +266,7 @@ namespace Riskeer.Common.IO.Test
         public void ReadFailureMechanismSection_FileLacksNameAttribute_ThrowCriticalFileReadException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "traject_227_vakken_LacksVaknaamAttribute.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))
@@ -285,7 +285,7 @@ namespace Riskeer.Common.IO.Test
         public void ReadFailureMechanismSection_FileHadMultiPolylines_ThrowCriticalFileReadException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "Artificial_MultiPolyline_vakken.shp"));
 
             using (var reader = new FailureMechanismSectionReader(validFilePath))

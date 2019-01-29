@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             MacroStabilityInwardsCalculationConfigurationWriter,
             MacroStabilityInwardsCalculationConfiguration>
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.MacroStabilityInwards.IO,
                                                                           nameof(MacroStabilityInwardsCalculationConfigurationWriter));
 
         [Test]

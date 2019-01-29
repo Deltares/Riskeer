@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationActivityFactoryTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]

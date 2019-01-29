@@ -38,7 +38,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_ValidFilePath_ExpectedValues()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             // Call
@@ -69,7 +69,7 @@ namespace Riskeer.Common.IO.Test.Structures
             // Setup
             char[] invalidPathChars = Path.GetInvalidPathChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
             string invalidFilePath = validFilePath.Replace("e", invalidPathChars[1].ToString());
 
@@ -86,7 +86,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
@@ -101,7 +101,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_FileDoesNotExist_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_do_not_exist.shp");
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "I_do_not_exist.shp");
 
             // Call
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
@@ -137,7 +137,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void Constructor_ShapefileWithoutAttributeKWKIDENT_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("Structures", "StructuresWithoutKWKIDENT", "Kunstwerken.shp"));
 
             // Call
@@ -174,7 +174,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetStructureCount_FileWithSixPoints_GetSix()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             using (var reader = new StructureLocationReader(validFilePath))
@@ -191,7 +191,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetNextStructure_ShapefileWithoutAttributeKWKNAAM_NamesEqualAttributeKWKIDENT()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("Structures", "StructuresWithoutKWKNAAM", "Kunstwerken.shp"));
             var structures = new List<StructureLocation>();
 
@@ -218,7 +218,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetNextStructure_ShapefileAttributeKWKNAAMSometimesNullOrWhitespace_GetSixStructuresWithCorrectAttributes()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("Structures", "StructuresSomeWithEmptyKWKNAAM", "Kunstwerken.shp"));
             var structures = new List<StructureLocation>();
 
@@ -247,7 +247,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetNextStructure_ShapefileAttributeKWKIDENTValuesAreNull_ThrowLineParseException()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("Structures", "StructuresWithNullKWKIDENT", "Kunstwerken.shp"));
 
             using (var reader = new StructureLocationReader(validFilePath))
@@ -265,7 +265,7 @@ namespace Riskeer.Common.IO.Test.Structures
         public void GetNextStructure_FileWithSixStructures_GetSixStructuresWithCorrectAttributes()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
             var structures = new List<StructureLocation>();
 

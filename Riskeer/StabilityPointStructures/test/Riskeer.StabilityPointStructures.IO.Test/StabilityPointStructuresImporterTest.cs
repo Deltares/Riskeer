@@ -41,8 +41,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test
     [TestFixture]
     public class StabilityPointStructuresImporterTest
     {
-        private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Structures");
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO);
+        private readonly string commonIoTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "Structures");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityPointStructures.IO);
 
         private readonly StructureCollection<StabilityPointStructure> testImportTarget = new StructureCollection<StabilityPointStructure>();
         private readonly ReferenceLine testReferenceLine = new ReferenceLine();

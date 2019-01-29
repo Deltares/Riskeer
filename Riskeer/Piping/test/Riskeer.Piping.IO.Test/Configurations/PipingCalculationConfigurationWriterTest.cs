@@ -34,7 +34,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             PipingCalculationConfigurationWriter,
             PipingCalculationConfiguration>
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Piping.IO,
                                                                           nameof(PipingCalculationConfigurationWriter));
 
         [Test]

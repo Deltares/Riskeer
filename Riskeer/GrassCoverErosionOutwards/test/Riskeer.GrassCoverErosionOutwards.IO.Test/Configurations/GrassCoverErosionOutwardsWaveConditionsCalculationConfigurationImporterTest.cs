@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporterTest
     {
-        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
+        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionOutwards.IO,
                                                                   nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter));
 
         [Test]

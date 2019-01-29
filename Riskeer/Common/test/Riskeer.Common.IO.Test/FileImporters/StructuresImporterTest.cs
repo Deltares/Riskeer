@@ -252,7 +252,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string folderPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO) + Path.DirectorySeparatorChar;
+            string folderPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO) + Path.DirectorySeparatorChar;
 
             var testStructuresImporter = new TestStructuresImporter(testImportTarget,
                                                                     testReferenceLine,
@@ -312,7 +312,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("Structures", "StructuresWithoutKWKIDENT", "Kunstwerken.shp"));
 
             var profilesImporter = new TestStructuresImporter(testImportTarget,
@@ -336,7 +336,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                 Path.Combine("Structures", "CorrectShpIncorrectCsv", "CorrectKunstwerken_IncorrectCsv.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -363,7 +363,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -401,7 +401,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -440,7 +440,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -476,7 +476,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -509,7 +509,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referencePoints = new List<Point2D>
@@ -546,7 +546,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "DuplicateLocation", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -574,7 +574,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "StructuresWithNullKWKident", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -599,7 +599,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var targetCollection = new StructureCollection<TestStructure>();
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles",
                                                                       "Kunstwerken.shp"));
 
@@ -641,7 +641,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "IllegalCsv", "Kunstwerken.shp"));
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -671,7 +671,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                           .Throw(new UpdateDataException("Exception message"));
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles",
                                                                       "Kunstwerken.shp"));
 
@@ -714,7 +714,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                           });
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles",
                                                                       "Kunstwerken.shp"));
 
@@ -743,7 +743,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
@@ -783,7 +783,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
@@ -829,7 +829,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();
@@ -869,7 +869,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
             mocks.ReplayAll();
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                          Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             var referenceLine = new ReferenceLine();

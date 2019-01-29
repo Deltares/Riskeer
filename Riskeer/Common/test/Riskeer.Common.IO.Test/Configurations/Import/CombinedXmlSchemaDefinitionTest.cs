@@ -38,7 +38,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         private readonly string validNestedSchemaDefinition1;
         private readonly string validNestedSchemaDefinition2;
 
-        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+        private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                                "CombinedXmlSchemaDefinition");
 
         [Test]

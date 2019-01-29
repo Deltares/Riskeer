@@ -139,7 +139,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, true);
                 FileTestHelper.AssertEssentialShapefileMd5Hashes(directoryPath,
                                                                  baseName,
-                                                                 Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO),
+                                                                 Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionOutwards.IO),
                                                                               nameof(GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter)),
                                                                  "ExpectedExport",
                                                                  28,

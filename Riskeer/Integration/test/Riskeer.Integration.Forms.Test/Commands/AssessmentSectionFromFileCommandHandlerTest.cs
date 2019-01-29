@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
     [TestFixture]
     public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ReferenceLineMetaImporter");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "ReferenceLineMetaImporter");
 
         [Test]
         public void Constructor_ParentDialogNull_ThrowsArgumentNullException()

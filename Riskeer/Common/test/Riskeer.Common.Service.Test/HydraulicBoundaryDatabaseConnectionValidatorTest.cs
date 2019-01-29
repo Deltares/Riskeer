@@ -30,7 +30,7 @@ namespace Riskeer.Common.Service.Test
     [TestFixture]
     public class HydraulicBoundaryDatabaseConnectionValidatorTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(HydraulicBoundaryDatabase));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         [Test]
         public void Validate_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
