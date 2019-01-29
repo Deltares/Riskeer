@@ -26,7 +26,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
 {
@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
         public static void UpdateDikeGeometryChartDataName(ChartLineData chartData, DikeProfile dikeProfile)
         {
             chartData.Name = dikeProfile != null
-                                 ? string.Format(RingtoetsCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                 ? string.Format(RiskeerCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                  dikeProfile.Name,
                                                  Resources.DikeProfile_DisplayName)
                                  : Resources.DikeProfile_DisplayName;
@@ -98,10 +98,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
         public static void UpdateForeshoreGeometryChartDataName(ChartLineData chartData, GrassCoverErosionInwardsInput input)
         {
             chartData.Name = input?.DikeProfile != null && input.UseForeshore
-                                 ? string.Format(RingtoetsCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                 ? string.Format(RiskeerCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                  input.DikeProfile.Name,
-                                                 RingtoetsCommonFormsResources.Foreshore_DisplayName)
-                                 : RingtoetsCommonFormsResources.Foreshore_DisplayName;
+                                                 RiskeerCommonFormsResources.Foreshore_DisplayName)
+                                 : RiskeerCommonFormsResources.Foreshore_DisplayName;
         }
     }
 }

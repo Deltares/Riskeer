@@ -26,7 +26,7 @@ using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses
 {
@@ -70,8 +70,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{DesignValue} ({RingtoetsCommonFormsResources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
-                   $"{RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation}, " +
+            return $"{DesignValue} ({RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
+                   $"{RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation}, " +
                    $"{Resources.Probabilistics_Shift_Symbol} = {Shift})";
         }
     }

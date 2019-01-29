@@ -25,7 +25,7 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.HeightStructures.Data;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.HeightStructures.IO.Configurations
 {
@@ -111,7 +111,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 || Configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
             {
                 Log.LogCalculationConversionError(
-                    RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
+                    RiskeerCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
                     Configuration.Name);
                 return false;
             }

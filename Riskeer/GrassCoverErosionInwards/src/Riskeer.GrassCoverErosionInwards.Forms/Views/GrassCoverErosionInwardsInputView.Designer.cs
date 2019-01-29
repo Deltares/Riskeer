@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
@@ -51,8 +51,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             this.chartControl.Size = new System.Drawing.Size(150, 150);
             this.chartControl.TabIndex = 0;
             this.chartControl.Text = "chartControl";
-            this.chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.View_Distance_DisplayName;
-            this.chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.View_Height_DisplayName;
+            this.chartControl.BottomAxisTitle = RiskeerCommonFormsResources.View_Distance_DisplayName;
+            this.chartControl.LeftAxisTitle = RiskeerCommonFormsResources.View_Height_DisplayName;
             // 
             // GrassCoverErosionInwardsInputView
             // 

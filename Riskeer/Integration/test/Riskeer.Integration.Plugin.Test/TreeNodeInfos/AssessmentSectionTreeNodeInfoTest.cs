@@ -78,8 +78,8 @@ using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
-using RingtoetsIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(assessmentSection);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.AssessmentSectionFolderIcon, image);
+                TestHelper.AssertImagesAreEqual(RiskeerIntegrationFormsResources.AssessmentSectionFolderIcon, image);
             }
         }
 
@@ -401,7 +401,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                       "Alles be&rekenen",
                                                                       "Voer alle berekeningen binnen dit traject uit.",
-                                                                      RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon);
                     }
                 }
             }

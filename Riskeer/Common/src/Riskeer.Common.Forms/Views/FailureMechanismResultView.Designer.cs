@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.Views
             this.failureMechanismAssemblyLabel.Name = "failureMechanismAssemblyLabel";
             this.failureMechanismAssemblyLabel.Size = new System.Drawing.Size(197, 30);
             this.failureMechanismAssemblyLabel.TabIndex = 2;
-            this.failureMechanismAssemblyLabel.Text = global::Ringtoets.Common.Forms.Properties.Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;
+            this.failureMechanismAssemblyLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;
             this.failureMechanismAssemblyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // infoIcon

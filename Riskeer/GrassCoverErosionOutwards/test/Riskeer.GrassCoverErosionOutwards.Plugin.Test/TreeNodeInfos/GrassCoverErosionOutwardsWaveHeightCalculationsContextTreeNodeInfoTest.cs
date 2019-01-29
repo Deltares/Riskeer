@@ -45,7 +45,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
@@ -137,7 +137,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Image icon = info.Image(context);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, icon);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, icon);
             }
 
             mockRepository.VerifyAll();
@@ -234,7 +234,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }
                 }
@@ -298,7 +298,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                       contextMenuRunWaveHeightCalculationsIndex,
                                                                       "Alles be&rekenen",
                                                                       "Doelkans is te groot om een berekening uit te kunnen voeren.",
-                                                                      RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
                                                                       false);
                     }
                 }
@@ -360,7 +360,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                       contextMenuRunWaveHeightCalculationsIndex,
                                                                       "Alles be&rekenen",
                                                                       "Alle golfhoogten berekenen.",
-                                                                      RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon);
                     }
                 }
             }

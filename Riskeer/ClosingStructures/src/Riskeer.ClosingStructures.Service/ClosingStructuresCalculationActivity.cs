@@ -25,7 +25,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Service;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Service
 {
@@ -65,7 +65,7 @@ namespace Riskeer.ClosingStructures.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+            Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
 
             calculationService = new ClosingStructuresCalculationService();
         }

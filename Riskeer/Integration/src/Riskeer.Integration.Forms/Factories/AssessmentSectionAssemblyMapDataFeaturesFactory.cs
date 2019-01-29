@@ -31,7 +31,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Util;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Factories
 {
@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Factories
                                                                                                                  assemblyResult.SectionEnd);
                 MapFeature mapFeature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
-                mapFeature.MetaData[RingtoetsCommonFormsResources.AssemblyCategory_Group_DisplayName] =
+                mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyCategory_Group_DisplayName] =
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
                         DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(assemblyResult.TotalResult)).DisplayName;
                 mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;

@@ -41,7 +41,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using Riskeer.GrassCoverErosionInwards.Forms.UITypeEditors;
 using Riskeer.GrassCoverErosionInwards.Util;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 {
@@ -90,7 +90,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(dikeProfilePropertyIndex)]
         [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeProfile_Description))]
         public DikeProfile DikeProfile
@@ -112,8 +112,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(worldReferencePointPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.WorldReferencePoint_DisplayName))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 6)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WorldReferencePoint_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WorldReferencePoint_DikeProfile_Description))]
         public Point2D WorldReferencePoint
         {
@@ -129,8 +129,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(orientationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Orientation_DisplayName))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 6)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Orientation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Orientation_DikeProfile_Description))]
         public RoundedDouble Orientation
         {
@@ -146,9 +146,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(breakWaterPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 6)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.BreakWaterProperties_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.BreakWaterProperties_Description))]
         public UseBreakWaterProperties BreakWater
         {
             get
@@ -162,9 +162,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(foreshorePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 6)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ForeshoreProperties_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ForeshoreProperties_Description))]
         public UseForeshoreProperties Foreshore
         {
             get
@@ -177,7 +177,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(dikeGeometryPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeGeometryProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeGeometryProperties_Description))]
         public GrassCoverErosionInwardsInputContextDikeGeometryProperties DikeGeometry
@@ -193,8 +193,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(dikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.DikeHeight_DisplayName))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 6)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.DikeHeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_Description))]
         public RoundedDouble DikeHeight
         {
@@ -226,7 +226,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 4, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated
         {
             get
@@ -260,7 +260,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldDikeHeightIllustrationPointsBeCalculated
         {
             get
@@ -294,7 +294,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldOvertoppingRateIllustrationPointsBeCalculated
         {
             get
@@ -310,9 +310,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), 1, 6)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), 1, 6)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_Description))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get

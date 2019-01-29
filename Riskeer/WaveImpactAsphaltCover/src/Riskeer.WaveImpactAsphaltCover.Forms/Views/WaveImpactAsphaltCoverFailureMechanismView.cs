@@ -36,7 +36,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.Factories;
-using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
+using WaveImpactAsphaltCoverDataResources = Riskeer.WaveImpactAsphaltCover.Data.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {

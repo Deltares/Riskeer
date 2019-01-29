@@ -40,7 +40,7 @@ using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Forms.UITypeEditors;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
@@ -177,9 +177,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_Description_with_assessment_level))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_Description_with_assessment_level))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -199,9 +199,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(assessmentLevelPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.WaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.AssessmentLevel_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssessmentLevel_Description))]
         public RoundedDouble AssessmentLevel
         {
             get
@@ -215,9 +215,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(useHydraulicBoundaryLocationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.UseAssessmentLevelManualInput_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.UseAssessmentLevelManualInput_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.UseAssessmentLevelManualInput_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.UseAssessmentLevelManualInput_Description))]
         public bool UseAssessmentLevelManualInput
         {
             get
@@ -231,7 +231,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(dikeSoilScenarioPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeSoilScenario_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeSoilScenario_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
@@ -248,7 +248,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(waterStressesPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Waterstresses_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -266,9 +266,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(surfaceLinePropertyIndex)]
         [Editor(typeof(MacroStabilityInwardsInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Description))]
         public MacroStabilityInwardsSurfaceLine SurfaceLine
         {
             get
@@ -290,7 +290,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(stochasticSoilModelPropertyIndex)]
         [Editor(typeof(MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilModel_Description))]
         public MacroStabilityInwardsStochasticSoilModel StochasticSoilModel
@@ -314,7 +314,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(stochasticSoilProfilePropertyIndex)]
         [Editor(typeof(MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilProfile_Description))]
         public MacroStabilityInwardsStochasticSoilProfile StochasticSoilProfile

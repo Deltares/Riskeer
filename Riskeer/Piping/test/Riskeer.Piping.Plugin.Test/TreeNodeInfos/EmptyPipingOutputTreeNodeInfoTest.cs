@@ -28,7 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Piping.Forms.PresentationObjects;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, image);
         }
 
         [Test]

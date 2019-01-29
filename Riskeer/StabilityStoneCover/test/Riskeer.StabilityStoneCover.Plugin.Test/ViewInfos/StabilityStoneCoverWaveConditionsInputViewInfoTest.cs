@@ -40,7 +40,7 @@ using Riskeer.Revetment.Forms.Views;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 {
@@ -75,7 +75,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(StabilityStoneCoverWaveConditionsInputContext), info.DataType);
             Assert.AreEqual(typeof(ICalculation<AssessmentSectionCategoryWaveConditionsInput>), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 
         [Test]

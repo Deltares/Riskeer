@@ -28,7 +28,7 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             Data = preconsolidationStress;
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_Description))]
         public RoundedDouble XCoordinate
@@ -66,7 +66,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_Description))]
         public RoundedDouble ZCoordinate
@@ -78,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_Description))]
         public VariationCoefficientLogNormalDistributionDesignVariableProperties PreconsolidationStress

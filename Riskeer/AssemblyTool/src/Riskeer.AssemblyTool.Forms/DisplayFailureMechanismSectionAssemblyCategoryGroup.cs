@@ -21,7 +21,7 @@
 
 using Core.Common.Util.Attributes;
 using Riskeer.AssemblyTool.Forms.Properties;
-using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
+using RiskeerCommonPrimitivesResources = Riskeer.Common.Primitives.Properties.Resources;
 
 namespace Riskeer.AssemblyTool.Forms
 {
@@ -36,25 +36,25 @@ namespace Riskeer.AssemblyTool.Forms
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName))]
         NotApplicable = 2,
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonPrimitivesResources), nameof(RiskeerCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
         Iv = 3,
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonPrimitivesResources), nameof(RiskeerCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName))]
         IIv = 4,
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonPrimitivesResources), nameof(RiskeerCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName))]
         IIIv = 5,
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonPrimitivesResources), nameof(RiskeerCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName))]
         IVv = 6,
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonPrimitivesResources), nameof(RiskeerCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName))]
         Vv = 7,
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonPrimitivesResources), nameof(RiskeerCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName))]
         VIv = 8,
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonPrimitivesResources), nameof(RiskeerCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]
         VIIv = 9
     }
 }

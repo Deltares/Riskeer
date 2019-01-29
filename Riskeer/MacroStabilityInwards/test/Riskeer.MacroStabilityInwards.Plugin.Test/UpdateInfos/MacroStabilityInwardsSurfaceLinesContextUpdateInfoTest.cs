@@ -36,7 +36,7 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Primitives;
-using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
+using FormsResources = Riskeer.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 {

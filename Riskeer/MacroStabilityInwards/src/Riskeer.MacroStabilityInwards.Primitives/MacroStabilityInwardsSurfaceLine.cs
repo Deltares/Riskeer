@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Primitives
 {
@@ -126,7 +126,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_DitchPolderSide);
             }
 
             DitchPolderSide = geometryPoint;
@@ -144,7 +144,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_BottomDitchPolderSide);
             }
 
             BottomDitchPolderSide = geometryPoint;
@@ -162,7 +162,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_BottomDitchDikeSide);
             }
 
             BottomDitchDikeSide = geometryPoint;
@@ -180,7 +180,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_DitchDikeSide);
             }
 
             DitchDikeSide = geometryPoint;
@@ -198,7 +198,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder);
             }
 
             DikeTopAtPolder = geometryPoint;
@@ -216,7 +216,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver);
             }
 
             DikeTopAtRiver = geometryPoint;
@@ -234,7 +234,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_ShoulderBaseInside);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_ShoulderBaseInside);
             }
 
             ShoulderBaseInside = geometryPoint;
@@ -252,7 +252,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_ShoulderTopInside);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_ShoulderTopInside);
             }
 
             ShoulderTopInside = geometryPoint;
@@ -270,7 +270,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver);
             }
 
             DikeToeAtRiver = geometryPoint;
@@ -288,7 +288,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder);
             }
 
             DikeToeAtPolder = geometryPoint;
@@ -306,7 +306,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside);
             }
 
             SurfaceLevelInside = geometryPoint;
@@ -324,7 +324,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside);
+                throw CreatePointNotInGeometryException(point, RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside);
             }
 
             SurfaceLevelOutside = geometryPoint;

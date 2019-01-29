@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.ValidationRules;
 using Riskeer.HeightStructures.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Service
 {
@@ -45,31 +45,31 @@ namespace Riskeer.HeightStructures.Service
                 new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(
                     input.StormDuration,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_StormDuration_DisplayName)),
                 new NormalDistributionRule(
                     input.ModelFactorSuperCriticalFlow,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(
                     input.StructureNormalOrientation,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Orientation_DisplayName)),
                 new LogNormalDistributionRule(
                     input.FlowWidthAtBottomProtection,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
                 new NormalDistributionRule(
                     input.WidthFlowApertures,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(
                     input.StorageStructureArea,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
                 new LogNormalDistributionRule(
                     input.AllowedLevelIncreaseStorage,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)),
                 new NormalDistributionRule(
                     input.LevelCrestStructure,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(
                     input.CriticalOvertoppingDischarge,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
             };
         }
     }

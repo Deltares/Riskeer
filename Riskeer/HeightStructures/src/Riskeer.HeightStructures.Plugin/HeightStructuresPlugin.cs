@@ -57,9 +57,9 @@ using Riskeer.HeightStructures.IO.Configurations;
 using Riskeer.HeightStructures.Plugin.FileImporters;
 using Riskeer.HeightStructures.Service;
 using Riskeer.HeightStructures.Util;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin
 {
@@ -97,9 +97,9 @@ namespace Riskeer.HeightStructures.Plugin
         {
             yield return new ImportInfo<HeightStructuresContext>
             {
-                Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                Name = RiskeerCommonFormsResources.StructuresImporter_DisplayName,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.StructuresIcon,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
                 FileFilterGenerator = CreateHeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
@@ -107,7 +107,7 @@ namespace Riskeer.HeightStructures.Plugin
                 VerifyUpdates = context =>
                     VerifyStructuresShouldUpdate(
                         context.FailureMechanism,
-                        RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
+                        RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
@@ -124,9 +124,9 @@ namespace Riskeer.HeightStructures.Plugin
         {
             yield return new UpdateInfo<HeightStructuresContext>
             {
-                Name = RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                Name = RiskeerCommonDataResources.StructureCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.StructuresIcon,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 FileFilterGenerator = CreateHeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
@@ -135,7 +135,7 @@ namespace Riskeer.HeightStructures.Plugin
                 VerifyUpdates = context =>
                     VerifyStructuresShouldUpdate(
                         context.FailureMechanism,
-                        RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
+                        RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
@@ -161,7 +161,7 @@ namespace Riskeer.HeightStructures.Plugin
             yield return new ViewInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseHeightStructuresFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
@@ -173,10 +173,10 @@ namespace Riskeer.HeightStructures.Plugin
                 HeightStructuresScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
                 CloseForData = CloseScenariosViewForData,
-                Image = RingtoetsCommonFormsResources.ScenariosIcon
+                Image = RiskeerCommonFormsResources.ScenariosIcon
             };
 
             yield return new ViewInfo<
@@ -184,8 +184,8 @@ namespace Riskeer.HeightStructures.Plugin
                 IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
                 HeightStructuresFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new HeightStructuresFailureMechanismResultView(
@@ -215,8 +215,8 @@ namespace Riskeer.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<HeightStructuresInputContext>
             {
-                Text = inputContext => RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = inputContext => RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                Image = inputContext => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -224,8 +224,8 @@ namespace Riskeer.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<HeightStructuresContext>
             {
-                Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.StructuresCollection_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -236,7 +236,7 @@ namespace Riskeer.HeightStructures.Plugin
             yield return new TreeNodeInfo<HeightStructure>
             {
                 Text = structure => structure.Name,
-                Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
+                Image = structure => RiskeerCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
                                                                                   .AddPropertiesItem()
                                                                                   .Build()
@@ -244,8 +244,8 @@ namespace Riskeer.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<HeightStructuresScenariosContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -253,8 +253,8 @@ namespace Riskeer.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -372,9 +372,9 @@ namespace Riskeer.HeightStructures.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -587,7 +587,7 @@ namespace Riskeer.HeightStructures.Plugin
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;
-            string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
+            string toolTipMessage = RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
 
             StructuresCalculation<HeightStructuresInput>[] calculationsToUpdate = calculations
                                                                                   .Where(calc => calc.InputParameters.Structure != null
@@ -597,12 +597,12 @@ namespace Riskeer.HeightStructures.Plugin
             if (!calculationsToUpdate.Any())
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipMessage,
-                                             RingtoetsCommonFormsResources.UpdateItemIcon,
+                                             RiskeerCommonFormsResources.UpdateItemIcon,
                                              (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
             {
                 Enabled = contextMenuEnabled
@@ -611,7 +611,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculations(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (StructureDependentDataShouldUpdate(calculations, message))
             {
                 foreach (StructuresCalculation<HeightStructuresInput> calculation in calculations)
@@ -627,12 +627,12 @@ namespace Riskeer.HeightStructures.Plugin
             bool structuresAvailable = heightStructures.Any();
 
             string heightStructuresCalculationGroupContextToolTip = structuresAvailable
-                                                                        ? RingtoetsCommonFormsResources.Generate_Calculations_for_selected_Structures
-                                                                        : RingtoetsCommonFormsResources.No_Structures_to_generate_Calculations_for;
+                                                                        ? RiskeerCommonFormsResources.Generate_Calculations_for_selected_Structures
+                                                                        : RiskeerCommonFormsResources.No_Structures_to_generate_Calculations_for;
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
                                              heightStructuresCalculationGroupContextToolTip,
-                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             RiskeerCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => ShowHeightStructuresSelectionDialog(nodeData))
             {
                 Enabled = structuresAvailable
@@ -689,7 +689,7 @@ namespace Riskeer.HeightStructures.Plugin
         {
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();
@@ -800,22 +800,22 @@ namespace Riskeer.HeightStructures.Plugin
         private StrictContextMenuItem CreateUpdateStructureItem(HeightStructuresCalculationContext context)
         {
             var contextMenuEnabled = true;
-            string toolTipMessage = RingtoetsCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
+            string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
             if (context.WrappedData.InputParameters.Structure == null)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.Structure_must_be_selected_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.Structure_must_be_selected_ToolTip;
             }
             else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Update_Structure_data,
+                RiskeerCommonFormsResources.Update_Structure_data,
                 toolTipMessage,
-                RingtoetsCommonFormsResources.UpdateItemIcon,
+                RiskeerCommonFormsResources.UpdateItemIcon,
                 (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
@@ -824,7 +824,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<HeightStructuresInput> calculation)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
             {
                 calculation
@@ -877,8 +877,8 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static FileFilterGenerator CreateHeightStructureFileFilter()
         {
-            return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                           RingtoetsCommonIOResources.Shape_file_filter_Description);
+            return new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                           RiskeerCommonIOResources.Shape_file_filter_Description);
         }
 
         private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)

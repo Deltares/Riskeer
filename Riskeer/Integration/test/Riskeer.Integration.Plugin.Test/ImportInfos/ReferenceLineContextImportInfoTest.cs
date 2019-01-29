@@ -33,7 +33,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Integration.Plugin;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ImportInfos
 {
@@ -95,7 +95,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             Image image = importInfo.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ReferenceLineIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ReferenceLineIcon, image);
         }
 
         [Test]

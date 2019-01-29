@@ -29,7 +29,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.Plugin
 {
@@ -110,7 +110,7 @@ namespace Riskeer.Common.Plugin
                 throw new ArgumentNullException(nameof(categoryBoundaryName));
             }
 
-            return string.Format(RingtoetsCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName);
+            return string.Format(RiskeerCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName);
         }
 
         private static IEnumerable<ICalculation> GetCalculationsFromFailureMechanisms(object o)

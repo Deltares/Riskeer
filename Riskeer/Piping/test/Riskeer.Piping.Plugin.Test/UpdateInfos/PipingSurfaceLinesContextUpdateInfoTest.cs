@@ -36,7 +36,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Primitives;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 {

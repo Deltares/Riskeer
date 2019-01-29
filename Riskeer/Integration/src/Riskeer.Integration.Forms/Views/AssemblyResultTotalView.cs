@@ -43,7 +43,7 @@ using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Forms.Observers;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -139,15 +139,15 @@ namespace Riskeer.Integration.Forms.Views
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Code),
-                                                 RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName,
+                                                 RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Group),
-                                                 RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName,
+                                                 RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.CategoryGroup),
-                                                 RingtoetsCommonFormsResources.AssemblyResult_DisplayName,
+                                                 RiskeerCommonFormsResources.AssemblyResult_DisplayName,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Probability),
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Forms.Views
             {
                 SetManualAssemblyWarningPadding();
                 manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton,
-                                                       RingtoetsCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
+                                                       RiskeerCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
             }
         }
 

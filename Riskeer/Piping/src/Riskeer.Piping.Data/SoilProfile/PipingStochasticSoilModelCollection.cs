@@ -21,7 +21,7 @@
 
 using Core.Common.Base;
 using Riskeer.Piping.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data.SoilProfile
 {
@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Data.SoilProfile
         /// </summary>
         public PipingStochasticSoilModelCollection()
             : base(model => model.Name,
-                   RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                   RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                    Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

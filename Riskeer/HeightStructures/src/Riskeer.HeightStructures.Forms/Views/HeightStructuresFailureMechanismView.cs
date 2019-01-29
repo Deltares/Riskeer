@@ -37,7 +37,7 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.Factories;
-using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
+using HeightStructuresDataResources = Riskeer.HeightStructures.Data.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Forms.Views
 {

@@ -26,7 +26,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.StabilityStoneCover.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Data
 {
@@ -47,7 +47,7 @@ namespace Riskeer.StabilityStoneCover.Data
             sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
-                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             GeneralInput = new GeneralStabilityStoneCoverWaveConditionsInput();
             ForeshoreProfiles = new ForeshoreProfileCollection();

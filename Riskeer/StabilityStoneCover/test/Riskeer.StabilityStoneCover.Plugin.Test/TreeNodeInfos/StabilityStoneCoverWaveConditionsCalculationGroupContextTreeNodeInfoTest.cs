@@ -50,7 +50,7 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
@@ -149,7 +149,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             Image icon = info.Image(context);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, icon);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, icon);
         }
 
         [Test]
@@ -295,35 +295,35 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
+                                                                  RiskeerCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                                   "Alles be&rekenen",
                                                                   "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
                                                                   "&Wis alle uitvoer...",
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -420,34 +420,34 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
                                                                   "D&upliceren",
                                                                   "Dupliceer dit element.",
-                                                                  RingtoetsCommonFormsResources.CopyHS);
+                                                                  RiskeerCommonFormsResources.CopyHS);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
+                                                                  RiskeerCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                                   "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
                                                                   "Alles be&rekenen",
                                                                   "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexNestedGroup,
                                                                   "&Wis alle uitvoer...",
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -495,15 +495,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon, false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
+                                                                  RiskeerCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
@@ -512,17 +512,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                                   "Alles be&rekenen",
                                                                   "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
                                                                   "&Wis alle uitvoer...",
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   "Alles ui&tklappen",
@@ -592,15 +592,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Genereer belastingenberekeningen.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
+                                                                  RiskeerCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
@@ -609,17 +609,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                                   "Alles be&rekenen",
                                                                   "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
                                                                   "&Wis alle uitvoer...",
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   "Alles ui&tklappen",
@@ -675,8 +675,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsFalse(validateItem.Enabled);
                     Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                    Assert.AreEqual(RiskeerCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
+                    Assert.AreEqual(RiskeerCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
                 }
             }
         }
@@ -1696,7 +1696,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                   contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
                 }
             }
         }
@@ -1792,7 +1792,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Alle berekeningen met een voorlandprofiel bijwerken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
                 }
             }
         }

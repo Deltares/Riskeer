@@ -30,7 +30,7 @@ using Core.Common.IO.Exceptions;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
-using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
+using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.IO
 {

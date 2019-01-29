@@ -26,7 +26,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.DuneErosion.IO
 {
@@ -79,7 +79,7 @@ namespace Riskeer.DuneErosion.IO
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat(RingtoetsCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                log.ErrorFormat(RiskeerCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
                 return false;
             }
 

@@ -23,7 +23,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.Data;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data
 {
@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         public GrassCoverErosionOutwardsWaveConditionsCalculation()
         {
-            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
+            Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = new FailureMechanismCategoryWaveConditionsInput();
             Comments = new Comment();
         }

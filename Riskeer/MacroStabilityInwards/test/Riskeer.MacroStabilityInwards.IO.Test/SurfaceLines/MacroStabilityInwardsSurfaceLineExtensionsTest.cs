@@ -28,7 +28,7 @@ using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.MacroStabilityInwards.IO.SurfaceLines;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
 {
@@ -42,32 +42,32 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
                 var name = "Missing SurfaceLevelOutside";
                 CharacteristicPoints set = CreateCompleteCharacteristicPointSet(name);
                 set.SurfaceLevelOutside = null;
-                yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside).SetName(name);
+                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside).SetName(name);
 
                 name = "Missing DikeToeAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeToeAtRiver = null;
-                yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver).SetName(name);
+                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver).SetName(name);
 
                 name = "Missing DikeTopAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeTopAtPolder = null;
-                yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
+                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
 
                 name = "Missing DikeTopAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeTopAtRiver = null;
-                yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
+                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
 
                 name = "Missing DikeToeAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeToeAtPolder = null;
-                yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder).SetName(name);
+                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder).SetName(name);
 
                 name = "Missing SurfaceLevelInside";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.SurfaceLevelInside = null;
-                yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside).SetName(name);
+                yield return new TestCaseData(set, RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside).SetName(name);
             }
         }
 
@@ -80,42 +80,42 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.SurfaceLevelOutside = p),
-                    RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside).SetName(name);
+                    RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside).SetName(name);
 
                 name = "Moved DikeToeAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeToeAtRiver = p),
-                    RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver).SetName(name);
+                    RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver).SetName(name);
 
                 name = "Moved DikeTopAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeTopAtPolder = p),
-                    RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
+                    RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
 
                 name = "Moved DikeTopAtRiver";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeTopAtRiver = p),
-                    RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
+                    RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
 
                 name = "Moved DikeToeAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeToeAtPolder = p),
-                    RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder).SetName(name);
+                    RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder).SetName(name);
 
                 name = "Moved SurfaceLevelInside";
                 set = CreateCompleteCharacteristicPointSet(name);
                 yield return new TestCaseData(
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.SurfaceLevelInside = p),
-                    RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside).SetName(name);
+                    RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside).SetName(name);
             }
         }
 

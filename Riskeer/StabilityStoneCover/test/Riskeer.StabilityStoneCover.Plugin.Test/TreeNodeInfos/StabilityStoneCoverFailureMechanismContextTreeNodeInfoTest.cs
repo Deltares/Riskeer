@@ -51,7 +51,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
@@ -185,7 +185,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             Image icon = info.Image(failureMechanismContext);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, icon);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, icon);
         }
 
         [Test]
@@ -389,12 +389,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   "I&s relevant",
                                                                   "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RingtoetsCommonFormsResources.Checkbox_ticked);
+                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
                                                                   "Er zijn geen berekeningen om uit te voeren.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
                 }
             }
@@ -431,7 +431,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
                                                                   "I&s relevant",
                                                                   "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RingtoetsCommonFormsResources.Checkbox_empty);
+                                                                  RiskeerCommonFormsResources.Checkbox_empty);
                 }
             }
         }

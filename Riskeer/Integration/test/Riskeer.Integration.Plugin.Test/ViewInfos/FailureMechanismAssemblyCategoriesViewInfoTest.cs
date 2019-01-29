@@ -36,7 +36,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Plugin;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             Image image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.NormsIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.NormsIcon, image);
         }
 
         [TestFixture]

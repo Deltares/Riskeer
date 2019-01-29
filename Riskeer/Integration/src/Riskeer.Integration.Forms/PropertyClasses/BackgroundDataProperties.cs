@@ -26,7 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.Common.Data.AssessmentSection;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using GisFormsResources = Core.Components.Gis.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             Data = backgroundData;
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundDataProperties_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_Name_Description))]
         public string Name
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundDataProperties_Transparency_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_Transparency_Description))]
         public RoundedDouble Transparency
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BackgroundDataProperties_IsVisible_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BackgroundDataProperties_IsVisible_Description))]
         public bool IsVisible

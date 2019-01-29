@@ -29,8 +29,8 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories
 {
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateReferenceLineMapData()
         {
-            return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName,
+            return new MapLineData(RiskeerCommonDataResources.ReferenceLine_DisplayName,
                                    new LineStyle
                                    {
                                        Color = Color.FromArgb(0, 128, 255),
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Factories
         public static MapPointData CreateHydraulicBoundaryLocationsMapData()
         {
             Color color = Color.DarkBlue;
-            return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+            return new MapPointData(RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                                     new PointStyle
                                     {
                                         Color = color,
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Factories
                                     })
             {
                 ShowLabels = true,
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Dot
                                    })
             {
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -174,7 +174,7 @@ namespace Riskeer.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -195,7 +195,7 @@ namespace Riskeer.Common.Forms.Factories
                                         StrokeThickness = 1
                                     })
             {
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -205,7 +205,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapLineData CreateCalculationsMapData()
         {
-            return new MapLineData(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName,
+            return new MapLineData(RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName,
                                    new LineStyle
                                    {
                                        Color = Color.MediumPurple,
@@ -214,7 +214,7 @@ namespace Riskeer.Common.Forms.Factories
                                    })
             {
                 ShowLabels = true,
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -224,7 +224,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()
         {
-            return new MapLineData(RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+            return new MapLineData(RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                    new LineStyle
                                    {
                                        Color = Color.DarkSeaGreen,
@@ -232,7 +232,7 @@ namespace Riskeer.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 
@@ -242,7 +242,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateStochasticSoilModelsMapData()
         {
-            return new MapLineData(RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+            return new MapLineData(RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                                    new LineStyle
                                    {
                                        Color = Color.FromArgb(70, Color.SaddleBrown),
@@ -250,7 +250,7 @@ namespace Riskeer.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
+                SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name
             };
         }
 

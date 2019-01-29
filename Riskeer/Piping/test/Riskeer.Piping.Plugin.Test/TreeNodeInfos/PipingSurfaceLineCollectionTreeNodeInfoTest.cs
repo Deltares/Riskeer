@@ -31,7 +31,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
@@ -117,7 +117,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Image image = info.Image(pipingSurfaceLines);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
         }
 
         [Test]

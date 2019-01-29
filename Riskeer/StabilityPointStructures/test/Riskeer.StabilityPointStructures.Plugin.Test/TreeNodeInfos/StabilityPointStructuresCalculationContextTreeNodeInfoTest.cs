@@ -48,7 +48,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 {
@@ -104,7 +104,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -231,34 +231,34 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
                                                                   "D&upliceren",
                                                                   "Dupliceer dit element.",
-                                                                  RingtoetsCommonFormsResources.CopyHS);
+                                                                  RiskeerCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
                                                                   "Er moet een voorlandprofiel geselecteerd zijn.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk...",
                                                                   "Er moet een kunstwerk geselecteerd zijn.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  RiskeerCommonFormsResources.ValidateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  RiskeerCommonFormsResources.CalculateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -293,7 +293,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk...",
                                                                   "Er moet een kunstwerk geselecteerd zijn.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -334,7 +334,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk...",
                                                                   "Er zijn geen wijzigingen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -377,7 +377,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateStructureIndex,
                                                                   "&Bijwerken kunstwerk...",
                                                                   "Berekening bijwerken met het kunstwerk.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
                 }
             }
         }
@@ -536,13 +536,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                                   "Be&rekenen",
                                                                   "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  RiskeerCommonFormsResources.CalculateIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  RiskeerCommonFormsResources.ValidateIcon,
                                                                   false);
                 }
             }
@@ -575,14 +575,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                     Assert.AreEqual("Be&rekenen", calculateContextMenuItem.Text);
                     StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. ", calculateContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, calculateContextMenuItem.Image);
+                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateIcon, calculateContextMenuItem.Image);
                     Assert.IsFalse(calculateContextMenuItem.Enabled);
 
                     ToolStripItem validateContextMenuItem = contextMenu.Items[contextMenuValidateIndex];
 
                     Assert.AreEqual("&Valideren", validateContextMenuItem.Text);
                     StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", validateContextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, validateContextMenuItem.Image);
+                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ValidateIcon, validateContextMenuItem.Image);
                     Assert.IsFalse(validateContextMenuItem.Enabled);
                 }
             }
@@ -621,12 +621,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  RiskeerCommonFormsResources.CalculateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  RiskeerCommonFormsResources.ValidateIcon);
                 }
             }
         }
@@ -663,7 +663,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         contextMenuUpdateForeshoreProfileIndex,
                         "&Bijwerken voorlandprofiel...",
                         "Er moet een voorlandprofiel geselecteerd zijn.",
-                        RingtoetsCommonFormsResources.UpdateItemIcon,
+                        RiskeerCommonFormsResources.UpdateItemIcon,
                         false);
                 }
             }
@@ -707,7 +707,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         contextMenuUpdateForeshoreProfileIndex,
                         "&Bijwerken voorlandprofiel...",
                         "Er zijn geen wijzigingen om bij te werken.",
-                        RingtoetsCommonFormsResources.UpdateItemIcon,
+                        RiskeerCommonFormsResources.UpdateItemIcon,
                         false);
                 }
             }
@@ -754,7 +754,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         contextMenuUpdateForeshoreProfileIndex,
                         "&Bijwerken voorlandprofiel...",
                         "Berekening bijwerken met het voorlandprofiel.",
-                        RingtoetsCommonFormsResources.UpdateItemIcon);
+                        RiskeerCommonFormsResources.UpdateItemIcon);
                 }
             }
         }

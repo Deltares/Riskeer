@@ -33,7 +33,7 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {
@@ -95,7 +95,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             Image image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.SectionsIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
         }
 
         [TestFixture]

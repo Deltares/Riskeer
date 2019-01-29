@@ -32,7 +32,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.IO;
 using Riskeer.DuneErosion.Service.Properties;
-using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
+using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Service
 {

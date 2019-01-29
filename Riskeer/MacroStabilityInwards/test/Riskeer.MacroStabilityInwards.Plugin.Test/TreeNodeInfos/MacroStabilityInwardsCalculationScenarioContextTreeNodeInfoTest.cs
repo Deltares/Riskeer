@@ -46,7 +46,7 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -174,7 +174,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                   contextMenuClearIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -213,7 +213,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                   contextMenuClearIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Wis de uitvoer van deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon);
+                                                                  RiskeerCommonFormsResources.ClearIcon);
                 }
             }
         }
@@ -248,19 +248,19 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                   contextMenuDuplicateIndex,
                                                                   "D&upliceren",
                                                                   "Dupliceer dit element.",
-                                                                  RingtoetsCommonFormsResources.CopyHS);
+                                                                  RiskeerCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  RiskeerCommonFormsResources.ValidateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuCalculateIndex,
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  RiskeerCommonFormsResources.CalculateIcon);
                 }
             }
         }

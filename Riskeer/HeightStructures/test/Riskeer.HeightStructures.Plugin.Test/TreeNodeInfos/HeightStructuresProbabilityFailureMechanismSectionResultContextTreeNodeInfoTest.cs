@@ -31,7 +31,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
@@ -85,7 +85,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName, text);
+            Assert.AreEqual(RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName, text);
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismSectionResultIcon, image);
         }
 
         [Test]

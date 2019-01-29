@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Riskeer.Piping.Data.Properties;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data
 {
@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Data
     public class PipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine>
     {
         public PipingSurfaceLineCollection() : base(line => line.Name,
-                                                    RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                                                    RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                                     Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

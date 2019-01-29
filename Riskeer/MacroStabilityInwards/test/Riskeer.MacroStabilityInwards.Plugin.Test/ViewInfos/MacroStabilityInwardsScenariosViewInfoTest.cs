@@ -31,7 +31,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsScenariosContext), info.DataType);
             Assert.AreEqual(typeof(CalculationGroup), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ScenariosIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ScenariosIcon, info.Image);
         }
 
         [Test]

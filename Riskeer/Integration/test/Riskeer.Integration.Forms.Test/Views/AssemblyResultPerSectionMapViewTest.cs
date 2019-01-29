@@ -51,7 +51,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Util;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Views
 {
@@ -578,7 +578,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(2, warningPanel.Controls.Count);
 
             var warningIcon = (PictureBox) warningPanel.Controls.Find("warningIcon", false).Single();
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.PencilWarning.ToBitmap(), warningIcon.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.PencilWarning.ToBitmap(), warningIcon.Image);
             Assert.AreEqual(DockStyle.Left, warningIcon.Dock);
             Assert.AreEqual(16, warningIcon.MaximumSize.Height);
             Assert.AreEqual(16, warningIcon.MaximumSize.Width);

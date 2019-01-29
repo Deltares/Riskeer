@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data
 {
@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
         public PipingCalculation(GeneralPipingInput generalInputParameters)
         {
-            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
+            Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = new PipingInput(generalInputParameters);
             Comments = new Comment();
         }

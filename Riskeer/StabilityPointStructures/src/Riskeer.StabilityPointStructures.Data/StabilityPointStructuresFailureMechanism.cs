@@ -28,7 +28,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.StabilityPointStructures.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Data
 {
@@ -50,7 +50,7 @@ namespace Riskeer.StabilityPointStructures.Data
         {
             CalculationsGroup = new CalculationGroup
             {
-                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+                Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();

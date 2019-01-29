@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Forms.Views
             // 
             // warningIcon
             // 
-            this.warningIcon.Image = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning.ToBitmap();
+            this.warningIcon.Image = global::Riskeer.Common.Forms.Properties.Resources.PencilWarning.ToBitmap();
             this.warningIcon.Location = new System.Drawing.Point(4, 4);
             this.warningIcon.MaximumSize = new System.Drawing.Size(16, 16);
             this.warningIcon.Name = "warningIcon";
@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Forms.Views
             this.warningText.Name = "warningText";
             this.warningText.Size = new System.Drawing.Size(35, 13);
             this.warningText.TabIndex = 1;
-            this.warningText.Text = global::Ringtoets.Common.Forms.Properties.Resources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies;
+            this.warningText.Text = global::Riskeer.Common.Forms.Properties.Resources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies;
             // 
             // AssemblyResultPerSectionMapView
             // 

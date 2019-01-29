@@ -31,7 +31,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Util;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.HeightStructures.IO.Configurations
 {
@@ -155,8 +155,8 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 if (calculation.InputParameters.Structure == null)
                 {
                     Log.LogCalculationConversionError(
-                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                        string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RiskeerCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                         calculation.Name);
 
                     return false;
@@ -171,9 +171,9 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 catch (ArgumentOutOfRangeException e)
                 {
                     Log.LogOutOfRangeException(
-                        string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                        string.Format(RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                       orientation,
-                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                                      RiskeerCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                         calculation.Name,
                         e);
 
@@ -199,8 +199,8 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 if (calculation.InputParameters.Structure == null)
                 {
                     Log.LogCalculationConversionError(
-                        string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
+                        string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                      RiskeerCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
                         calculation.Name);
 
                     return false;
@@ -216,9 +216,9 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 {
                     Log.LogOutOfRangeException(
                         string.Format(
-                            RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                            RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                             failureProbability,
-                            RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
+                            RiskeerCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
                         calculation.Name,
                         e);
 

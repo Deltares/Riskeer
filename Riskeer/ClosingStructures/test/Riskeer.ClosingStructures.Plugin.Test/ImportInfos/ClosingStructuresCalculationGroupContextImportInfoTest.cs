@@ -32,7 +32,7 @@ using Riskeer.ClosingStructures.IO.Configurations;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
 {
@@ -53,7 +53,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.AreEqual("Ringtoets berekeningenconfiguratie", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, info.Image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
             }
         }

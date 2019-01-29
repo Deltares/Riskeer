@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Integration.Plugin;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(comment);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.EditDocumentIcon, image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.EditDocumentIcon, image);
             }
         }
 

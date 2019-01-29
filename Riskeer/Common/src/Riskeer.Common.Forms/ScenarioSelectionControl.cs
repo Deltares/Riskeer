@@ -26,8 +26,8 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Helpers;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.Forms
 {
@@ -113,12 +113,12 @@ namespace Riskeer.Common.Forms
         private void AddDataGridColumns()
         {
             dataGridViewControl.AddTextBoxColumn(nameof(IScenarioRow<ICalculation>.Name),
-                                                 RingtoetsCommonFormsResources.Section_DisplayName,
+                                                 RiskeerCommonFormsResources.Section_DisplayName,
                                                  true);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ICalculation>>(
                 nameof(IScenarioRow<ICalculation>.Calculation),
-                RingtoetsCommonDataResources.ICalculation_DisplayName,
+                RiskeerCommonDataResources.ICalculation_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<ICalculation>.WrappedObject),
                 nameof(DataGridViewComboBoxItemWrapper<ICalculation>.DisplayName));

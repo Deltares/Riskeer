@@ -30,7 +30,7 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Forms.Views
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateViewData);
 
-            chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
+            chartDataCollection = new ChartDataCollection(RiskeerCommonFormsResources.Calculation_Input);
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
             surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
             ditchPolderSideChartData = RingtoetsChartDataFactory.CreateDitchPolderSideChartData();

@@ -61,9 +61,9 @@ using Riskeer.GrassCoverErosionOutwards.Service;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.Revetment.Service;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonIoResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin
 {
@@ -147,7 +147,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new ViewInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseGrassCoverErosionOutwardsFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
@@ -158,8 +158,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
                 GrassCoverErosionOutwardsFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultView(
@@ -172,10 +172,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} " +
+                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
@@ -189,10 +189,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName} " +
+                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
@@ -205,8 +205,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 ICalculation<FailureMechanismCategoryWaveConditionsInput>,
                 WaveConditionsInputView>
             {
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
@@ -238,8 +238,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -247,8 +247,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
-                Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = GetHydraulicBoundaryDatabaseContextChildNodeObjects,
                 ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
@@ -258,16 +258,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext>
             {
-                Text = context => RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext>
             {
-                Text = context => RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects
             };
@@ -275,21 +275,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
             {
                 Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext>
             {
                 Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<EmptyGrassCoverErosionOutwardsOutput>
             {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -298,8 +298,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsOutput>
             {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -307,8 +307,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsInputContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = context => RiskeerCommonFormsResources.Calculation_Input,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -321,51 +321,51 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         {
             yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
-                Name = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                     new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(context.FailureMechanism, context.AssessmentSection,
                                                                                     filePath),
                 IsEnabled = context => context.WrappedData.Locations.Count > 0,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIoResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIoResources.Shape_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIoResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIoResources.Shape_file_filter_Description)
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
-                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
             {
-                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>
             {
-                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
@@ -476,9 +476,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -519,9 +519,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             IAssessmentSection assessmentSection = failureMechanismContext.Parent;
             var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
@@ -596,9 +596,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                        TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     if (hydraulicBoundaryLocationCalculationGuiService == null)
@@ -637,9 +637,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                  TreeViewControl treeViewControl)
         {
             var waveHeightItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     if (hydraulicBoundaryLocationCalculationGuiService == null)
@@ -783,12 +783,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
 
             string grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip = locationsAvailable
-                                                                                               ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                               : RingtoetsCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
+                                                                                               ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                               : RiskeerCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
                                              grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip,
-                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             RiskeerCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
                 Enabled = locationsAvailable
@@ -826,7 +826,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
-                                                  RingtoetsCommonDataResources.Calculation_DefaultName,
+                                                  RiskeerCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
             WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters,
@@ -1005,9 +1005,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
             var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.CalculationGroup_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.CalculationGroup_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
@@ -1039,9 +1039,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
@@ -1069,31 +1069,31 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.FailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.FailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
         }
 
@@ -1107,9 +1107,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var waveHeightItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
@@ -1137,31 +1137,31 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                    RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
         }
 

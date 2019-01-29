@@ -36,7 +36,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.Factories;
-using StabilityStoneCoverDataResources = Ringtoets.StabilityStoneCover.Data.Properties.Resources;
+using StabilityStoneCoverDataResources = Riskeer.StabilityStoneCover.Data.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Forms.Views
 {

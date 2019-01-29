@@ -54,10 +54,10 @@ using Riskeer.GrassCoverErosionInwards.Plugin.FileImporters;
 using Riskeer.GrassCoverErosionInwards.Plugin.Properties;
 using Riskeer.GrassCoverErosionInwards.Service;
 using Riskeer.GrassCoverErosionInwards.Util;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using GrassCoverErosionInwardsFormsResources = Riskeer.GrassCoverErosionInwards.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin
 {
@@ -124,9 +124,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                                      filePath,
                                                                                      new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(context.ParentFailureMechanism),
                                                                                      new ImportMessageProvider()),
-                Name = RingtoetsCommonIOResources.DikeProfilesImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.DikeProfile,
+                Name = RiskeerCommonIOResources.DikeProfilesImporter_DisplayName,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.DikeProfile,
                 FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine.Points.Any(),
                 VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
@@ -143,9 +143,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                                      filePath,
                                                                                      new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(context.ParentFailureMechanism),
                                                                                      new UpdateMessageProvider()),
-                Name = RingtoetsCommonIOResources.DikeProfilesImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.DikeProfile,
+                Name = RiskeerCommonIOResources.DikeProfilesImporter_DisplayName,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.DikeProfile,
                 FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
                 CurrentPath = context => context.WrappedData.SourcePath,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -176,7 +176,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new ViewInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseGrassCoverErosionInwardsFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData, context.Parent)
@@ -188,10 +188,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GrassCoverErosionInwardsScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
                 CloseForData = CloseScenariosViewForData,
-                Image = RingtoetsCommonFormsResources.ScenariosIcon
+                Image = RiskeerCommonFormsResources.ScenariosIcon
             };
 
             yield return new ViewInfo<
@@ -199,8 +199,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 GrassCoverErosionInwardsFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismResultView(
@@ -211,15 +211,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
             {
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseInputViewForData
             };
 
             yield return new ViewInfo<OvertoppingOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingOutputGeneralResultFaultTreeIllustrationPointView>
             {
-                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
@@ -229,7 +229,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new ViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, DikeHeightOutputGeneralResultFaultTreeIllustrationPointView>
             {
-                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
@@ -239,7 +239,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new ViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView>
             {
-                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
@@ -258,8 +258,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<DikeProfilesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.DikeProfiles_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.DikeProfiles_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -289,8 +289,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsScenariosContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -298,8 +298,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -307,8 +307,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
             {
-                Text = inputContext => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = inputContext => RiskeerCommonFormsResources.Calculation_Input,
+                Image = inputContext => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -318,7 +318,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
             {
-                Text = context => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = context => Resources.OutputIcon,
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
@@ -332,7 +332,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<OvertoppingOutputContext>
             {
                 Text = output => Resources.OvertoppingOutput_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Image = output => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = context => context.WrappedData.Output?.OvertoppingOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -346,7 +346,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<DikeHeightOutputContext>
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Image = output => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = context => context.WrappedData.Output?.DikeHeightOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -360,7 +360,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<OvertoppingRateOutputContext>
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Image = output => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = context => context.WrappedData.Output?.OvertoppingRateOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -522,9 +522,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -743,12 +743,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             if (!calculationsToUpdate.Any())
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles,
                                              toolTipMessage,
-                                             RingtoetsCommonFormsResources.UpdateItemIcon,
+                                             RiskeerCommonFormsResources.UpdateItemIcon,
                                              (o, args) => UpdateDikeProfileDependentDataOfAllCalculations(calculationsToUpdate))
             {
                 Enabled = contextMenuEnabled
@@ -757,7 +757,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private void UpdateDikeProfileDependentDataOfAllCalculations(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (DikeProfileDependentDataShouldUpdate(calculations, message))
             {
                 foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
@@ -776,9 +776,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                      : Resources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
+                RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
                 calculationGroupGenerateCalculationsToolTip,
-                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowDikeProfileSelectionDialog(nodeData))
+                RiskeerCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowDikeProfileSelectionDialog(nodeData))
             {
                 Enabled = isDikeProfileAvailable
             };
@@ -833,7 +833,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();
@@ -959,13 +959,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             else if (context.WrappedData.InputParameters.IsDikeProfileInputSynchronized)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(
                 Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data,
                 toolTipMessage,
-                RingtoetsCommonFormsResources.UpdateItemIcon,
+                RiskeerCommonFormsResources.UpdateItemIcon,
                 (o, args) => UpdateDikeProfileDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
@@ -974,7 +974,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private void UpdateDikeProfileDependentDataOfCalculation(GrassCoverErosionInwardsCalculation calculation)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (DikeProfileDependentDataShouldUpdate(new[]
             {
                 calculation
@@ -1016,8 +1016,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static FileFilterGenerator DikeProfileImporterFileFilterGenerator()
         {
-            return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                           RingtoetsCommonIOResources.Shape_file_filter_Description);
+            return new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                           RiskeerCommonIOResources.Shape_file_filter_Description);
         }
 
         private bool VerifyDikeProfilesShouldUpdate(DikeProfilesContext context, string query)

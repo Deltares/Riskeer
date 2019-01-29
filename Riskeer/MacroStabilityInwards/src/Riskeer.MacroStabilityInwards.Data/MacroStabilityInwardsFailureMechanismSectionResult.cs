@@ -23,7 +23,7 @@ using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {
@@ -77,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 tailorMadeAssessmentProbability = value;
             }
@@ -96,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 manualAssemblyProbability = value;
             }

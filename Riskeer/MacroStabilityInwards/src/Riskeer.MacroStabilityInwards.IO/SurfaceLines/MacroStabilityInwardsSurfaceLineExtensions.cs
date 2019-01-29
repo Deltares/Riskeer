@@ -25,9 +25,9 @@ using log4net;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
-using MacroStabilityInwardsIOResources = Ringtoets.MacroStabilityInwards.IO.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonIoResources = Riskeer.Common.IO.Properties.Resources;
+using MacroStabilityInwardsIOResources = Riskeer.MacroStabilityInwards.IO.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
 {
@@ -179,7 +179,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
             }
             catch (ArgumentNullException)
             {
-                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside), surfaceLine.Name);
+                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside), surfaceLine.Name);
             }
             catch (ArgumentException e)
             {
@@ -204,7 +204,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
             }
             catch (ArgumentNullException)
             {
-                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside), surfaceLine.Name);
+                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside), surfaceLine.Name);
             }
             catch (ArgumentException e)
             {
@@ -229,7 +229,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
             }
             catch (ArgumentNullException)
             {
-                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder), surfaceLine.Name);
+                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder), surfaceLine.Name);
             }
             catch (ArgumentException e)
             {
@@ -254,7 +254,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
             }
             catch (ArgumentNullException)
             {
-                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver), surfaceLine.Name);
+                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver), surfaceLine.Name);
             }
             catch (ArgumentException e)
             {
@@ -323,7 +323,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
             }
             catch (ArgumentNullException)
             {
-                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver), surfaceLine.Name);
+                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver), surfaceLine.Name);
             }
             catch (ArgumentException e)
             {
@@ -348,7 +348,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
             }
             catch (ArgumentNullException)
             {
-                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder), surfaceLine.Name);
+                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder), surfaceLine.Name);
             }
             catch (ArgumentException e)
             {
@@ -358,7 +358,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
 
         private static void LogOptionalCharacteristicPointError(MacroStabilityInwardsSurfaceLine surfaceLine, ArgumentException e)
         {
-            log.ErrorFormat(RingtoetsCommonIoResources.SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
+            log.ErrorFormat(RiskeerCommonIoResources.SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
                             surfaceLine.Name,
                             e.Message);
         }

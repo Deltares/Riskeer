@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.Data.AssessmentSection
 {
@@ -61,13 +61,13 @@ namespace Riskeer.Common.Data.AssessmentSection
         {
             if (newPoints == null)
             {
-                throw new ArgumentNullException(nameof(newPoints), RingtoetsCommonDataResources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
+                throw new ArgumentNullException(nameof(newPoints), RiskeerCommonDataResources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
             }
 
             Point2D[] point2Ds = newPoints.ToArray();
             if (point2Ds.Any(p => p == null))
             {
-                throw new ArgumentException(RingtoetsCommonDataResources.ReferenceLine_SetGeometry_New_geometry_has_null_coordinate, nameof(newPoints));
+                throw new ArgumentException(RiskeerCommonDataResources.ReferenceLine_SetGeometry_New_geometry_has_null_coordinate, nameof(newPoints));
             }
 
             Points = point2Ds;

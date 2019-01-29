@@ -37,7 +37,7 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.Factories;
-using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
+using StabilityPointStructuresDataResources = Riskeer.StabilityPointStructures.Data.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
 {

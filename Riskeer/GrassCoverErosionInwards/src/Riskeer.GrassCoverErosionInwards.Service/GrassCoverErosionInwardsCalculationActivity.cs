@@ -23,7 +23,7 @@ using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionInwards.Data;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Service
 {
@@ -63,7 +63,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+            Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
 
             calculationService = new GrassCoverErosionInwardsCalculationService();
             calculationService.OnProgressChanged += UpdateProgressText;

@@ -28,7 +28,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data
 {
@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
-                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+                Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }

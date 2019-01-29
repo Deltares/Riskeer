@@ -30,7 +30,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Dialogs
 {
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Dialogs
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> or 
         /// <paramref name="referenceLineMetas"/> is <c>null</c>.</exception>
         public ReferenceLineMetaSelectionDialog(IWin32Window dialogParent, IEnumerable<ReferenceLineMeta> referenceLineMetas)
-            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 372, 350)
+            : base(dialogParent, RiskeerCommonFormsResources.SelectionDialogIcon, 372, 350)
         {
             if (referenceLineMetas == null)
             {

@@ -30,18 +30,18 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Observers;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
-using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
-using MacroStabilityInwardsDataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
+using GrassCoverErosionInwardsDataResources = Riskeer.GrassCoverErosionInwards.Data.Properties.Resources;
+using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 using IntegrationDataResources = Riskeer.Integration.Data.Properties.Resources;
-using StabilityStoneCoverDataResources = Ringtoets.StabilityStoneCover.Data.Properties.Resources;
-using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
-using GrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
-using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
-using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
-using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
-using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
+using StabilityStoneCoverDataResources = Riskeer.StabilityStoneCover.Data.Properties.Resources;
+using WaveImpactAsphaltCoverDataResources = Riskeer.WaveImpactAsphaltCover.Data.Properties.Resources;
+using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards.Data.Properties.Resources;
+using HeightStructuresDataResources = Riskeer.HeightStructures.Data.Properties.Resources;
+using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties.Resources;
+using StabilityPointStructuresDataResources = Riskeer.StabilityPointStructures.Data.Properties.Resources;
+using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Forms.Views
             if (AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection))
             {
                 manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton,
-                                                       RingtoetsCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
+                                                       RiskeerCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
             }
         }
 
@@ -163,10 +163,10 @@ namespace Riskeer.Integration.Forms.Views
                                                  Resources.SectionNumber_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionStart),
-                                                 RingtoetsCommonFormsResources.SectionStart_DisplayName,
+                                                 RiskeerCommonFormsResources.SectionStart_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionEnd),
-                                                 RingtoetsCommonFormsResources.SectionEnd_DisplayName,
+                                                 RiskeerCommonFormsResources.SectionEnd_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
                                                  Resources.AssemblyResultPerSection_DisplayName,

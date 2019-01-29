@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data.SoilProfile
 {
@@ -67,13 +67,13 @@ namespace Riskeer.Piping.Data.SoilProfile
 
             if (!geometry.Any())
             {
-                string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
+                string message = string.Format(RiskeerCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
                 throw new ArgumentException(message);
             }
 
             if (!stochasticSoilProfiles.Any())
             {
-                string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_No_stochasticSoilProfiles_found_for_StochasticSoilModelName_0, name);
+                string message = string.Format(RiskeerCommonDataResources.StochasticSoilModel_No_stochasticSoilProfiles_found_for_StochasticSoilModelName_0, name);
                 throw new ArgumentException(message);
             }
 

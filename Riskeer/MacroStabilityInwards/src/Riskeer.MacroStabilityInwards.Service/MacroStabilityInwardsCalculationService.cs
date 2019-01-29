@@ -33,7 +33,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.Service.Converters;
 using Riskeer.MacroStabilityInwards.Service.Properties;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Service
 {
@@ -126,7 +126,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             }
             catch (UpliftVanCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(RingtoetsCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
+                CalculationServiceHelper.LogExceptionAsError(RiskeerCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
                 CalculationServiceHelper.LogCalculationEnd();
 
                 throw;

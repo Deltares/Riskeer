@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
-using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
+using FormsResources = Riskeer.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {

@@ -23,7 +23,7 @@ using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Riskeer.Common.Forms.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories
 {
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateDitchPolderSideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_DitchPolderSide,
                                       GetCharacteristicPointStyle(Color.IndianRed,
                                                                   Color.Transparent,
                                                                   ChartPointSymbol.Circle));
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateBottomDitchPolderSideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_BottomDitchPolderSide,
                                       GetCharacteristicPointStyle(Color.Teal,
                                                                   Color.Transparent,
                                                                   ChartPointSymbol.Circle));
@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateBottomDitchDikeSideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_BottomDitchDikeSide,
                                       GetCharacteristicPointStyle(Color.DarkSeaGreen,
                                                                   Color.Transparent,
                                                                   ChartPointSymbol.Circle));
@@ -119,7 +119,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateDitchDikeSideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_DitchDikeSide,
                                       GetCharacteristicPointStyle(Color.MediumPurple,
                                                                   Color.Transparent,
                                                                   ChartPointSymbol.Circle));
@@ -132,7 +132,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateDikeToeAtPolderChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder,
                                       GetCharacteristicPointStyle(Color.LightGray,
                                                                   Color.Black,
                                                                   ChartPointSymbol.Square));
@@ -145,7 +145,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateDikeToeAtRiverChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver,
                                       GetCharacteristicPointStyle(Color.DarkGray,
                                                                   Color.Black,
                                                                   ChartPointSymbol.Square));

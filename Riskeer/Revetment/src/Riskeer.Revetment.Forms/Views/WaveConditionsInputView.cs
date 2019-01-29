@@ -31,7 +31,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Factories;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.Views
 {
@@ -99,7 +99,7 @@ namespace Riskeer.Revetment.Forms.Views
             calculationInputObserver.Observable = calculation.InputParameters;
             hydraulicBoundaryLocationCalculationObserver.Observable = getHydraulicBoundaryLocationCalculationFunc();
 
-            chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
+            chartDataCollection = new ChartDataCollection(RiskeerCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
             lowerBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);
             upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);

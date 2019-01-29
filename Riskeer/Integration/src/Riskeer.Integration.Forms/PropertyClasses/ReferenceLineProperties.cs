@@ -30,7 +30,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
@@ -59,9 +59,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(lengthPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
         public RoundedDouble Length
         {
             get
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(geometryPropertyIndex)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReferenceLineProperties_Geometry_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ReferenceLineProperties_Geometry_Description))]
         public Point2D[] Geometry

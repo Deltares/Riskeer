@@ -27,7 +27,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Properties;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Data.StandAlone
 {
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Data.StandAlone
                 RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
                 if (!validityRangeN.InRange(newValue))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.N_Value_should_be_in_Range_0_,
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RiskeerCommonDataResources.N_Value_should_be_in_Range_0_,
                                                                                        validityRangeN));
                 }
 

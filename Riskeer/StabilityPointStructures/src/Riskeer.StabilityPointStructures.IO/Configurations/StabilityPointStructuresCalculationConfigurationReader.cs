@@ -28,7 +28,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.StabilityPointStructures.IO.Configurations.Helpers;
 using Riskeer.StabilityPointStructures.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
@@ -66,28 +66,28 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           hbLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
+                           hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
                        },
                        {
-                           orientatieSchemaName, RingtoetsCommonIOResources.OrientatieSchema
+                           orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
                        },
                        {
-                           voorlandProfielSchemaName, RingtoetsCommonIOResources.VoorlandProfielSchema
+                           voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
                        },
                        {
-                           golfReductieSchemaName, RingtoetsCommonIOResources.GolfReductieSchema
+                           golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                        },
                        {
-                           stochastSchemaName, RingtoetsCommonIOResources.StochastSchema
+                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
                        },
                        {
-                           stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
+                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
                        },
                        {
-                           stochastVariatiecoefficientSchemaName, RingtoetsCommonIOResources.StochastVariatiecoefficientSchema
+                           stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
                        },
                        {
-                           structureBaseSchemaName, RingtoetsCommonIOResources.KunstwerkenBasisSchema
+                           structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
                        }
                    }
             ) {}

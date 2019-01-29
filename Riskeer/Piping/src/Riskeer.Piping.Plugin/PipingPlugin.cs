@@ -60,9 +60,9 @@ using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.Properties;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin
 {
@@ -116,8 +116,8 @@ namespace Riskeer.Piping.Plugin
         {
             yield return new ImportInfo<PipingSurfaceLinesContext>
             {
-                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = PipingSurfaceLineFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -131,8 +131,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new ImportInfo<PipingStochasticSoilModelCollectionContext>
             {
-                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -171,8 +171,8 @@ namespace Riskeer.Piping.Plugin
         {
             yield return new UpdateInfo<PipingSurfaceLinesContext>
             {
-                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = PipingSurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -187,8 +187,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new UpdateInfo<PipingStochasticSoilModelCollectionContext>
             {
-                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -212,7 +212,7 @@ namespace Riskeer.Piping.Plugin
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
@@ -223,8 +223,8 @@ namespace Riskeer.Piping.Plugin
                 IObservableEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new PipingFailureMechanismResultView(
@@ -237,7 +237,7 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingCalculationsViewForData,
                 AfterCreate = (view, context) =>
@@ -250,7 +250,7 @@ namespace Riskeer.Piping.Plugin
             yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>
             {
                 GetViewData = context => context.PipingCalculation,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 Image = PipingFormsResources.PipingInputIcon,
                 CloseForData = ClosePipingInputViewForData
             };
@@ -258,8 +258,8 @@ namespace Riskeer.Piping.Plugin
             yield return new ViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = RingtoetsCommonFormsResources.ScenariosIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = ClosePipingScenariosViewForData,
                 CreateInstance = context => new PipingScenariosView(context.AssessmentSection),
                 AfterCreate = (view, context) => { view.PipingFailureMechanism = context.FailureMechanism; }
@@ -267,8 +267,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = RingtoetsCommonFormsResources.SectionsIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   context.WrappedData,
@@ -297,8 +297,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -306,7 +306,7 @@ namespace Riskeer.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingInputContext>
             {
-                Text = pipingInputContext => RingtoetsCommonFormsResources.Calculation_Input,
+                Text = pipingInputContext => RiskeerCommonFormsResources.Calculation_Input,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -317,8 +317,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingSurfaceLinesContext>
             {
-                Text = pipingSurfaceLine => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Image = pipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = pipingSurfaceLine => RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                Image = pipingSurfaceLine => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = pipingSurfaceLine => pipingSurfaceLine.WrappedData.Any()
                                                      ? Color.FromKnownColor(KnownColor.ControlText)
                                                      : Color.FromKnownColor(KnownColor.GrayText),
@@ -338,8 +338,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingStochasticSoilModelCollectionContext>
             {
-                Text = stochasticSoilModelContext => RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = stochasticSoilModelContext => RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Image = stochasticSoilModelContext => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any()
                                                               ? Color.FromKnownColor(KnownColor.ControlText)
                                                               : Color.FromKnownColor(KnownColor.GrayText),
@@ -371,8 +371,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingOutputContext>
             {
-                Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = pipingOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = pipingOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -380,8 +380,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingScenariosContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -389,8 +389,8 @@ namespace Riskeer.Piping.Plugin
 
             yield return new TreeNodeInfo<EmptyPipingOutput>
             {
-                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyPipingOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyPipingOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -667,9 +667,9 @@ namespace Riskeer.Piping.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -809,13 +809,13 @@ namespace Riskeer.Piping.Plugin
             else if (context.WrappedData.InputParameters.IsEntryAndExitPointInputSynchronized)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
                 toolTipMessage,
-                RingtoetsCommonFormsResources.UpdateItemIcon,
+                RiskeerCommonFormsResources.UpdateItemIcon,
                 (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
@@ -824,7 +824,7 @@ namespace Riskeer.Piping.Plugin
 
         private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
             {
                 scenario
@@ -980,7 +980,7 @@ namespace Riskeer.Piping.Plugin
         {
             var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput)
             {
-                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
 
             nodeData.WrappedData.Children.Add(calculation);
@@ -996,9 +996,9 @@ namespace Riskeer.Piping.Plugin
                                                                                  : PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
 
             return new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                RiskeerCommonFormsResources.CalculationGroup_Generate_Scenarios,
                 pipingCalculationGroupGeneratePipingCalculationsToolTip,
-                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowSurfaceLineSelectionDialog(nodeData))
+                RiskeerCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowSurfaceLineSelectionDialog(nodeData))
             {
                 Enabled = surfaceLineAvailable
             };
@@ -1048,13 +1048,13 @@ namespace Riskeer.Piping.Plugin
             if (!calculationsToUpdate.Any())
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
                 toolTipMessage,
-                RingtoetsCommonFormsResources.UpdateItemIcon,
+                RiskeerCommonFormsResources.UpdateItemIcon,
                 (sender, args) => UpdateEntryAndExitPointsOfAllCalculations(calculationsToUpdate))
             {
                 Enabled = contextMenuEnabled
@@ -1063,7 +1063,7 @@ namespace Riskeer.Piping.Plugin
 
         private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
                 foreach (PipingCalculationScenario calculation in calculations)
@@ -1089,8 +1089,8 @@ namespace Riskeer.Piping.Plugin
             get
             {
                 return new FileFilterGenerator(
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    $"{RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                    $"{RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
         }
 

@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Data
         /// <summary>
         /// Constructs a new <see cref="RingtoetsProject"/>. 
         /// </summary>
-        public RingtoetsProject() : this(Resources.Project_Constructor_Default_name) {}
+        public RiskeerProject() : this(Resources.Project_Constructor_Default_name) {}
 
         /// <summary>
         /// Constructs a new <see cref="RingtoetsProject"/>. 

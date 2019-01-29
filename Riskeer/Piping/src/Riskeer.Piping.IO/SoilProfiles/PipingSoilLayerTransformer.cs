@@ -30,7 +30,7 @@ using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Piping.IO.Properties;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Piping.IO.SoilProfiles
 {
@@ -379,7 +379,7 @@ namespace Riskeer.Piping.IO.SoilProfiles
 
         private static string CreateErrorMessageForParameter(string soilLayerName, string parameterName, string errorMessage)
         {
-            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
+            return string.Format(RiskeerCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
                                  soilLayerName,
                                  parameterName,
                                  errorMessage);
@@ -387,7 +387,7 @@ namespace Riskeer.Piping.IO.SoilProfiles
 
         private static string CreateErrorMessage(string soilLayerName, string errorMessage)
         {
-            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_,
+            return string.Format(RiskeerCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_,
                                  soilLayerName,
                                  errorMessage);
         }
@@ -415,8 +415,8 @@ namespace Riskeer.Piping.IO.SoilProfiles
             catch (NotSupportedException e)
             {
                 string errorMessage = CreateErrorMessage(soilLayerName,
-                                                         string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                       RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
+                                                         string.Format(RiskeerCommonIOResources.Transform_Invalid_value_ParameterName_0,
+                                                                       RiskeerCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
                 throw new ImportedDataTransformException(errorMessage, e);
             }
         }

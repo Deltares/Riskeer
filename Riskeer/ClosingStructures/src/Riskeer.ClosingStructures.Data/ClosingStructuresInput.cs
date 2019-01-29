@@ -25,7 +25,7 @@ using Riskeer.ClosingStructures.Data.Properties;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Data
 {
@@ -222,7 +222,7 @@ namespace Riskeer.ClosingStructures.Data
                 RoundedDouble newDeviationWaveDirection = value.ToPrecision(deviationWaveDirectionNumberOfDecimals);
                 if (!double.IsNaN(newDeviationWaveDirection) && !deviationWaveDirectionValidityRange.InRange(newDeviationWaveDirection))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RiskeerCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
                                                                                        deviationWaveDirectionValidityRange));
                 }
 
@@ -333,7 +333,7 @@ namespace Riskeer.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RiskeerCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityOpenStructure = value;
             }
         }
@@ -352,7 +352,7 @@ namespace Riskeer.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RiskeerCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityReparation = value;
             }
         }
@@ -409,7 +409,7 @@ namespace Riskeer.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RiskeerCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 probabilityOpenStructureBeforeFlooding = value;
             }
         }

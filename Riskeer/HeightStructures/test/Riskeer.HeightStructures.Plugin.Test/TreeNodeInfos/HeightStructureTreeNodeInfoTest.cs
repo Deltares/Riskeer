@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
@@ -107,7 +107,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.StructuresIcon, image);
         }
 
         [Test]

@@ -47,7 +47,7 @@ using Riskeer.Common.Util.TypeConverters;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Plugin;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -263,7 +263,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, selectContextMenuIndex,
                                                                       expectedItemText, expectedItemTooltip,
-                                                                      RingtoetsCommonFormsResources.MapsIcon);
+                                                                      RiskeerCommonFormsResources.MapsIcon);
                     }
                 }
             }

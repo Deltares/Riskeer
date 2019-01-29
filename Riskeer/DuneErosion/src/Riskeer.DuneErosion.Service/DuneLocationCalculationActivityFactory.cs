@@ -27,7 +27,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Service
 {
@@ -97,31 +97,31 @@ namespace Riskeer.DuneErosion.Service
                                     failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
 
             activities.AddRange(CreateCalculationActivities(
                                     failureMechanism.CalculationsForMechanismSpecificSignalingNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
 
             activities.AddRange(CreateCalculationActivities(
                                     failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
 
             activities.AddRange(CreateCalculationActivities(
                                     failureMechanism.CalculationsForLowerLimitNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
 
             activities.AddRange(CreateCalculationActivities(
                                     failureMechanism.CalculationsForFactorizedLowerLimitNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;
         }

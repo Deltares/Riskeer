@@ -34,7 +34,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 {
@@ -100,7 +100,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Image image = treeNodeInfo.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GeneralFolderIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.GeneralFolderIcon, image);
         }
 
         [Test]
@@ -605,7 +605,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateCalculationContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
             // Setup
-            Bitmap icon = RingtoetsFormsResources.CalculationIcon;
+            Bitmap icon = RiskeerFormsResources.CalculationIcon;
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
             Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
@@ -851,7 +851,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Image image = treeNodeInfo.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.FailureMechanismIcon, image);
         }
 
         [Test]

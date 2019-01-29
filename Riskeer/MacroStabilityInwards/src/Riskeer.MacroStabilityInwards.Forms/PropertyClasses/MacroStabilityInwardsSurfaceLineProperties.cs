@@ -26,20 +26,20 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Riskeer.MacroStabilityInwards.Primitives;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsSurfaceLine"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
+    [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_DisplayName))]
     public class MacroStabilityInwardsSurfaceLineProperties : ObjectProperties<MacroStabilityInwardsSurfaceLine>
     {
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Name_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Name_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Name_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Name_Description))]
         public string Name
         {
             get
@@ -49,9 +49,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Points_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Points_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Points_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Points_Description))]
         public Point3D[] Points
         {
             get
@@ -60,9 +60,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_SurfaceLevelOutside_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_SurfaceLevelOutside_Description))]
         public Point3D SurfaceLevelOutside
         {
             get
@@ -71,9 +71,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DikeToeAtRiver_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtRiver))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_DikeToeAtRiver_Description))]
         public Point3D DikeToeAtRiver
         {
             get
@@ -82,9 +82,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DikeTopAtRiver_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_DikeTopAtRiver_Description))]
         public Point3D DikeTopAtRiver
         {
             get
@@ -93,9 +93,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DikeTopAtPolder_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_DikeTopAtPolder_Description))]
         public Point3D DikeTopAtPolder
         {
             get
@@ -104,9 +104,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_ShoulderBaseInside))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_ShoulderBaseInside_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_ShoulderBaseInside))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_ShoulderBaseInside_Description))]
         public Point3D ShoulderBaseInside
         {
             get
@@ -115,9 +115,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_ShoulderTopInside))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_ShoulderTopInside_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_ShoulderTopInside))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_ShoulderTopInside_Description))]
         public Point3D ShoulderTopInside
         {
             get
@@ -126,9 +126,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DikeToeAtPolder_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_DikeToeAtPolder))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_DikeToeAtPolder_Description))]
         public Point3D DikeToeAtPolder
         {
             get
@@ -137,9 +137,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DitchDikeSide_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_DitchDikeSide))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_DitchDikeSide_Description))]
         public Point3D DitchDikeSide
         {
             get
@@ -148,9 +148,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_BottomDitchDikeSide_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_BottomDitchDikeSide))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_BottomDitchDikeSide_Description))]
         public Point3D BottomDitchDikeSide
         {
             get
@@ -159,9 +159,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_BottomDitchPolderSide_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_BottomDitchPolderSide))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_BottomDitchPolderSide_Description))]
         public Point3D BottomDitchPolderSide
         {
             get
@@ -170,9 +170,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DitchPolderSide_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_DitchPolderSide))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_DitchPolderSide_Description))]
         public Point3D DitchPolderSide
         {
             get
@@ -181,9 +181,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_SurfaceLevelInside_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CharacteristicPoint_SurfaceLevelInside_Description))]
         public Point3D SurfaceLevelInside
         {
             get

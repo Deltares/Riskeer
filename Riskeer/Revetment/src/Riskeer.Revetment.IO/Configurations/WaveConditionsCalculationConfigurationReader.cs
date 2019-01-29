@@ -28,7 +28,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.Revetment.IO.Configurations.Converters;
 using Riskeer.Revetment.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -69,16 +69,16 @@ namespace Riskeer.Revetment.IO.Configurations
                            revetmentBaseSchemaName, Resources.BekledingenConfiguratieBasisSchema
                        },
                        {
-                           hbLocationSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
+                           hbLocationSchemaName, RiskeerCommonIOResources.HbLocatieSchema
                        },
                        {
-                           orientationSchemaName, RingtoetsCommonIOResources.OrientatieSchema
+                           orientationSchemaName, RiskeerCommonIOResources.OrientatieSchema
                        },
                        {
-                           foreshoreProfileSchemaName, RingtoetsCommonIOResources.VoorlandProfielSchema
+                           foreshoreProfileSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
                        },
                        {
-                           waveReductionSchemaName, RingtoetsCommonIOResources.GolfReductieSchema
+                           waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                        }
                    }) {}
 

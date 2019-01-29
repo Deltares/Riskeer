@@ -27,7 +27,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.Forms.UpdateInfos
 {
@@ -66,8 +66,8 @@ namespace Riskeer.Common.Forms.UpdateInfos
                 Name = Resources.FailureMechanismSections_DisplayName,
                 Category = Resources.Ringtoets_Category,
                 Image = Resources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null,
                 CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(

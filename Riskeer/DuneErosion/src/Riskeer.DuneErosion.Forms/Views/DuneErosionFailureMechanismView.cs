@@ -30,7 +30,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Factories;
-using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
+using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views
 {

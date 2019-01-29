@@ -27,7 +27,7 @@ using Core.Common.Util.Attributes;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
@@ -37,7 +37,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     public class WaveImpactAsphaltCoverWaveConditionsOutputProperties : ObjectProperties<WaveImpactAsphaltCoverWaveConditionsOutput>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description))]
         public WaveConditionsOutputProperties[] Items

@@ -38,7 +38,7 @@ using Riskeer.Common.IO.FileImporters;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 {
@@ -89,7 +89,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
                 Image image = importInfo.Image;
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.DikeProfile, image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.DikeProfile, image);
             }
         }
 

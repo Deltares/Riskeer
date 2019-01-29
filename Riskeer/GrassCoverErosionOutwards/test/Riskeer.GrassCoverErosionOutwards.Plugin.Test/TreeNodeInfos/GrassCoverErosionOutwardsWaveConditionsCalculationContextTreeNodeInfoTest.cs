@@ -51,7 +51,7 @@ using Riskeer.Revetment.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
@@ -142,7 +142,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Image icon = info.Image(context);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, icon);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, icon);
         }
 
         [Test]
@@ -521,28 +521,28 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
                                                                   "D&upliceren",
                                                                   "Dupliceer dit element.",
-                                                                  RingtoetsCommonFormsResources.CopyHS);
+                                                                  RiskeerCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
                                                                   "Er moet een voorlandprofiel geselecteerd zijn.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, validateMenuItemIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  RiskeerCommonFormsResources.ValidateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, calculateMenuItemIndex,
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  RiskeerCommonFormsResources.CalculateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, clearOutputMenuItemIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -598,7 +598,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   validateMenuItemIndex,
                                                                   "&Valideren",
                                                                   "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  RiskeerCommonFormsResources.ValidateIcon,
                                                                   false);
                 }
             }
@@ -654,7 +654,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   validateMenuItemIndex,
                                                                   "&Valideren",
                                                                   "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  RiskeerCommonFormsResources.ValidateIcon,
                                                                   false);
                 }
             }
@@ -710,7 +710,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   validateMenuItemIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  RiskeerCommonFormsResources.ValidateIcon);
                 }
             }
         }
@@ -747,7 +747,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuUpdateForeshoreProfileIndex,
                         "&Bijwerken voorlandprofiel...",
                         "Er moet een voorlandprofiel geselecteerd zijn.",
-                        RingtoetsCommonFormsResources.UpdateItemIcon,
+                        RiskeerCommonFormsResources.UpdateItemIcon,
                         false);
                 }
             }
@@ -791,7 +791,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuUpdateForeshoreProfileIndex,
                         "&Bijwerken voorlandprofiel...",
                         "Er zijn geen wijzigingen om bij te werken.",
-                        RingtoetsCommonFormsResources.UpdateItemIcon,
+                        RiskeerCommonFormsResources.UpdateItemIcon,
                         false);
                 }
             }
@@ -838,7 +838,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuUpdateForeshoreProfileIndex,
                         "&Bijwerken voorlandprofiel...",
                         "Berekening bijwerken met het voorlandprofiel.",
-                        RingtoetsCommonFormsResources.UpdateItemIcon);
+                        RiskeerCommonFormsResources.UpdateItemIcon);
                 }
             }
         }
@@ -1367,7 +1367,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",
                                                                   "Er is geen hydraulische belastingendatabase geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  RiskeerCommonFormsResources.CalculateIcon,
                                                                   false);
                 }
             }
@@ -1423,7 +1423,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",
                                                                   "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  RiskeerCommonFormsResources.CalculateIcon,
                                                                   false);
                 }
             }
@@ -1479,7 +1479,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  RiskeerCommonFormsResources.CalculateIcon);
                 }
             }
         }
@@ -1610,7 +1610,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   clearOutputMenuItemIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -1663,7 +1663,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   clearOutputMenuItemIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Wis de uitvoer van deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon);
+                                                                  RiskeerCommonFormsResources.ClearIcon);
                 }
             }
         }

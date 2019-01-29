@@ -32,7 +32,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.HeightStructures.IO.Configurations;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin.Test.ImportInfos
 {
@@ -53,7 +53,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ImportInfos
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.AreEqual("Ringtoets berekeningenconfiguratie", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, info.Image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
             }
         }

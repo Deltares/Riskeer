@@ -56,8 +56,8 @@ using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.IO.Exporters;
 using Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters;
 using Riskeer.WaveImpactAsphaltCover.Service;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin
 {
@@ -88,7 +88,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return new ViewInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseWaveImpactAsphaltCoverFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
@@ -98,8 +98,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 WaveImpactAsphaltCoverFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(
@@ -111,8 +111,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
                 WaveConditionsInputView>
             {
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
@@ -144,8 +144,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -163,8 +163,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return new TreeNodeInfo<EmptyWaveImpactAsphaltCoverOutput>
             {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -173,8 +173,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsOutput>
             {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -182,8 +182,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsInputContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = context => RiskeerCommonFormsResources.Calculation_Input,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -196,27 +196,27 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         {
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
             {
-                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
                     return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>
             {
-                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
@@ -292,9 +292,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -514,12 +514,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
 
             string waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
-                                                                                            ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                            : RingtoetsCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
+                                                                                            ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                            : RiskeerCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
                                              waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip,
-                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             RiskeerCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
                 Enabled = locationsAvailable
@@ -557,7 +557,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
-                                                  RingtoetsCommonDataResources.Calculation_DefaultName,
+                                                  RiskeerCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
             WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters,

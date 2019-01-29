@@ -29,7 +29,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                     MacroStabilityInwardsSurfaceLine surfaceLine = surfaceLines.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
-                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = surfaceLine.Name;
+                    feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = surfaceLine.Name;
 
                     features[i] = feature;
                 }
@@ -82,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
                     MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModels.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
-                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = stochasticSoilModel.Name;
+                    feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = stochasticSoilModel.Name;
 
                     features[i] = feature;
                 }

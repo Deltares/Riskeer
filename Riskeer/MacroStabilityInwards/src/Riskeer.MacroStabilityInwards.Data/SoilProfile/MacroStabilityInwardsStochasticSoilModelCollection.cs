@@ -21,7 +21,7 @@
 
 using Core.Common.Base;
 using Riskeer.MacroStabilityInwards.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
     public class MacroStabilityInwardsStochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsStochasticSoilModel>
     {
         public MacroStabilityInwardsStochasticSoilModelCollection() : base(model => model.Name,
-                                                                           RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                                                                           RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                                                                            Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

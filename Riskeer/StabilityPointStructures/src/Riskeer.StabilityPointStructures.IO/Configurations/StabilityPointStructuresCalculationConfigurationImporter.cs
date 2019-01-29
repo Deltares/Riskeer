@@ -33,7 +33,7 @@ using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.IO.Configurations.Helpers;
 using Riskeer.StabilityPointStructures.IO.Properties;
 using Riskeer.StabilityPointStructures.Util;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
@@ -158,7 +158,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                    Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
                                                                     Resources.CalculationConfigurationImporter_EvaluationLevel_DisplayName),
                                                       calculation.Name);
 
@@ -195,8 +195,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                    Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    RiskeerCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                                                       calculation.Name);
 
                     return false;
@@ -210,9 +210,9 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Log.LogOutOfRangeException(string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                    Log.LogOutOfRangeException(string.Format(RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                                              orientation,
-                                                             RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                                                             RiskeerCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                                                calculation.Name,
                                                e);
 
@@ -240,7 +240,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
 
             if (calculation.InputParameters.Structure == null)
             {
-                Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
                                                                 Resources.CalculationConfigurationImporter_FailureProbabilityRepairClosure_DisplayName),
                                                   calculation.Name);
 
@@ -255,7 +255,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             }
             catch (ArgumentOutOfRangeException e)
             {
-                Log.LogOutOfRangeException(string.Format(RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                Log.LogOutOfRangeException(string.Format(RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                                          failureProbabilityRepairClosure,
                                                          Resources.CalculationConfigurationImporter_FailureProbabilityRepairClosure_DisplayName),
                                            calculation.Name,
@@ -288,9 +288,9 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 catch (ArgumentOutOfRangeException e)
                 {
                     Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                                    failureProbability,
-                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
+                                                   RiskeerCommonIOResources.CalculationConfigurationImporter_FailureProbabilityStructureWithErosion_DisplayName),
                                                calculation.Name,
                                                e);
 
@@ -316,7 +316,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                    Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
                                                                     Resources.CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayName),
                                                       calculation.Name);
 
@@ -332,7 +332,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 catch (ArgumentOutOfRangeException e)
                 {
                     Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                                    failureProbability,
                                                    Resources.CalculationConfigurationImporter_ProbabilityCollisionSecondaryStructure_DisplayName),
                                                calculation.Name,
@@ -387,8 +387,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                                                    RingtoetsCommonIOResources.CalculationConfigurationImporter_InflowModelType_DisplayName),
+                    Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                                                                    RiskeerCommonIOResources.CalculationConfigurationImporter_InflowModelType_DisplayName),
                                                       calculation.Name);
 
                     return false;
@@ -416,7 +416,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                    Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
                                                                     Resources.CalculationConfigurationImporter_LoadSchematizationType_DisplayName),
                                                       calculation.Name);
 
@@ -445,7 +445,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                    Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
                                                                     Resources.CalculationConfigurationImporter_LevellingCount_DisplayName),
                                                       calculation.Name);
 
@@ -472,7 +472,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             {
                 if (calculation.InputParameters.Structure == null)
                 {
-                    Log.LogCalculationConversionError(string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
+                    Log.LogCalculationConversionError(string.Format(RiskeerCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
                                                                     Resources.CalculationConfigurationImporter_VerticalDistance_DisplayName),
                                                       calculation.Name);
 

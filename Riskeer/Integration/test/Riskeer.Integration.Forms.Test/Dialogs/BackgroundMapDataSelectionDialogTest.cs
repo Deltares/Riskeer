@@ -38,7 +38,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Forms.Dialogs;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Dialogs
 {
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                     Assert.IsInstanceOf<DialogBase>(dialog);
                     Assert.AreEqual("Selecteer achtergrondkaart", dialog.Text);
 
-                    Icon icon = BitmapToIcon(RingtoetsCommonFormsResources.SelectionDialogIcon);
+                    Icon icon = BitmapToIcon(RiskeerCommonFormsResources.SelectionDialogIcon);
                     Bitmap expectedImage = icon.ToBitmap();
                     Bitmap actualImage = dialog.Icon.ToBitmap();
                     TestHelper.AssertImagesAreEqual(expectedImage, actualImage);

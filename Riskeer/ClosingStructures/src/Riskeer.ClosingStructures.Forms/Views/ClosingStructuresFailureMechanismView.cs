@@ -37,7 +37,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
-using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
+using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.Views
 {

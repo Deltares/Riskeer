@@ -30,7 +30,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(1)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
         public double SignalingNorm
@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
         public double LowerLimitNorm
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.NormType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]

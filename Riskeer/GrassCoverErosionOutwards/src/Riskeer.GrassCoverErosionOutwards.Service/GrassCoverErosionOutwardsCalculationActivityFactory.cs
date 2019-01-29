@@ -27,7 +27,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service
 {
@@ -230,19 +230,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                                     failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
 
             if (includeAssessmentSectionCalculations)
             {
@@ -250,13 +250,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                         assessmentSection,
                                         failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                        RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
+                                        RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
 
                 activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                         assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                         assessmentSection,
                                         failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                        RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
+                                        RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
             }
 
             return activities;
@@ -273,19 +273,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                                     failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
                                     assessmentSection,
                                     failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
 
             if (includeAssessmentSectionCalculations)
             {
@@ -293,13 +293,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                                         assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                         assessmentSection,
                                         failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                        RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
+                                        RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
 
                 activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                         assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                         assessmentSection,
                                         failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                        RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
+                                        RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
             }
 
             return activities;

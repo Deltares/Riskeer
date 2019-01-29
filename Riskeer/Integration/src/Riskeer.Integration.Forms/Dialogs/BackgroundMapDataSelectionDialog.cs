@@ -27,7 +27,7 @@ using Core.Common.Controls.Dialogs;
 using Core.Components.BruTile.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Dialogs
 {
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Dialogs
         /// <param name="mapData">The active map data or <c>null</c> if none is active.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
         public BackgroundMapDataSelectionDialog(IWin32Window dialogParent, ImageBasedMapData mapData)
-            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
+            : base(dialogParent, RiskeerCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
             mapDatas = new HashSet<BackgroundMapDataSelectionControl>
             {

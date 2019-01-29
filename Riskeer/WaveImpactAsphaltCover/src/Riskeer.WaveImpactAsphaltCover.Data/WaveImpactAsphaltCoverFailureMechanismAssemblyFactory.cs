@@ -29,7 +29,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data
 {
@@ -244,7 +244,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyException(RingtoetsCommonDataResources.FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism, e);
+                throw new AssemblyException(RiskeerCommonDataResources.FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism, e);
             }
         }
     }

@@ -30,7 +30,7 @@ using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
-using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
+using RiskeerCommonPrimitivesResources = Riskeer.Common.Primitives.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories
 {
@@ -115,7 +115,7 @@ namespace Riskeer.Common.Forms.Factories
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
                         DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(assemblyResult.Group)).DisplayName;
 
-                feature.MetaData[RingtoetsCommonPrimitivesResources.Probability_DisplayName] =
+                feature.MetaData[RiskeerCommonPrimitivesResources.Probability_DisplayName] =
                     new NoProbabilityValueDoubleConverter().ConvertToString(assemblyResult.Probability);
 
                 yield return feature;

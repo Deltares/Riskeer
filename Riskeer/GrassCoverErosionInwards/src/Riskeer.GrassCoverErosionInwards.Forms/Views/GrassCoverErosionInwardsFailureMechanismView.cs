@@ -35,7 +35,7 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Factories;
-using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
+using GrassCoverErosionInwardsDataResources = Riskeer.GrassCoverErosionInwards.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {

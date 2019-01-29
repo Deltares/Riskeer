@@ -37,7 +37,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 {
@@ -56,7 +56,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Map toevoegen", toolStripItem.Text);
             Assert.AreEqual("Voeg een nieuwe map toe aan deze map met berekeningen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AddFolderIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.AddFolderIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
 
@@ -107,7 +107,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
             Assert.AreEqual("Voeg een nieuwe berekening toe aan deze map met berekeningen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.FailureMechanismIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
             Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -193,7 +193,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -324,7 +324,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
             Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit toetsspoor.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -350,7 +350,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -460,7 +460,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("I&s relevant", toolStripItem.Text);
             Assert.AreEqual("Geeft aan of dit toetsspoor relevant is of niet.", toolStripItem.ToolTipText);
-            Bitmap checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
+            Bitmap checkboxIcon = isRelevant ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -509,7 +509,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Wis uitvoer...", toolStripItem.Text);
             Assert.AreEqual("Wis de uitvoer van deze berekening.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -532,7 +532,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Wis uitvoer...", toolStripItem.Text);
             Assert.AreEqual("Deze berekening heeft geen uitvoer om te wissen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -666,7 +666,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("D&upliceren", toolStripItem.Text);
             Assert.AreEqual("Dupliceer dit element.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CopyHS, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CopyHS, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -745,7 +745,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.UpdateItemIcon, toolStripItem.Image);
 
             Assert.AreEqual("Er moet een voorlandprofiel geselecteerd zijn.", toolStripItem.ToolTipText);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -777,7 +777,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.UpdateItemIcon, toolStripItem.Image);
 
             if (isSynchronized)
             {
@@ -886,7 +886,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofielen...", toolStripItem.Text);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.UpdateItemIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.UpdateItemIcon, toolStripItem.Image);
 
             if (hasForeshoreProfile && !isSynchronized)
             {
@@ -990,7 +990,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Be&rekenen", toolStripItem.Text);
             Assert.AreEqual("Voer deze berekening uit.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -1017,7 +1017,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Be&rekenen", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -1070,7 +1070,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Valideren", toolStripItem.Text);
             Assert.AreEqual("Valideer de invoer voor deze berekening.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -1096,7 +1096,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("&Valideren", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
             mocks.VerifyAll();
@@ -1157,7 +1157,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual("Voer alle berekeningen binnen deze map met berekeningen uit.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
 
@@ -1184,7 +1184,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
 
@@ -1217,7 +1217,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
 
@@ -1239,7 +1239,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
 
@@ -1305,7 +1305,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual("Valideer alle berekeningen binnen deze map met berekeningen.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }
 
@@ -1332,7 +1332,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
 
@@ -1365,7 +1365,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
 
@@ -1387,7 +1387,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
 
@@ -1450,7 +1450,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual("Voer alle berekeningen binnen dit toetsspoor uit.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
@@ -1473,7 +1473,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
@@ -1502,7 +1502,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
@@ -1526,7 +1526,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
@@ -1584,7 +1584,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual("Valideer alle berekeningen binnen dit toetsspoor.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
@@ -1606,7 +1606,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
@@ -1638,7 +1638,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
@@ -1665,7 +1665,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen om te valideren.", toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
             mocks.VerifyAll();
         }

@@ -22,7 +22,7 @@
 using System;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Util;
-using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Util
 {
@@ -53,8 +53,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Util
             }
 
             MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
+            feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
+            feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm.ToString();
             feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificSignalingNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificSignalingNorm.ToString();
             feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm.ToString();

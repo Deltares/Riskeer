@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Views
             this.assemblyResultGroupBox.Size = new System.Drawing.Size(789, 110);
             this.assemblyResultGroupBox.TabIndex = 1;
             this.assemblyResultGroupBox.TabStop = false;
-            this.assemblyResultGroupBox.Text = global::Ringtoets.Common.Forms.Properties.Resources.CombinedAssembly_DisplayName;
+            this.assemblyResultGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.CombinedAssembly_DisplayName;
             // 
             // assemblyResultTableLayoutPanel
             // 
@@ -190,14 +190,14 @@ namespace Riskeer.Integration.Forms.Views
             // 
             this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.warningProvider.ContainerControl = this;
-            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            this.warningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.warning;
             this.warningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
             // manualAssemblyWarningProvider
             // 
             this.manualAssemblyWarningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.manualAssemblyWarningProvider.ContainerControl = this;
-            this.manualAssemblyWarningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning;
+            this.manualAssemblyWarningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.PencilWarning;
             this.manualAssemblyWarningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
             // AssemblyResultTotalView

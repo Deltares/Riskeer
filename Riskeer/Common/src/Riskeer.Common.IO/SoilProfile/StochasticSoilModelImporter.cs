@@ -31,7 +31,7 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.SoilProfile
 {
@@ -87,7 +87,7 @@ namespace Riskeer.Common.IO.SoilProfile
 
         protected override void LogImportCanceledMessage()
         {
-            string message = messageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor);
+            string message = messageProvider.GetCancelledLogMessageText(RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor);
             Log.Info(message);
         }
 
@@ -139,7 +139,7 @@ namespace Riskeer.Common.IO.SoilProfile
             catch (UpdateDataException e)
             {
                 string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
-                                                   RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor),
+                                                   RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor),
                                                e.Message);
                 Log.Error(message, e);
                 return false;

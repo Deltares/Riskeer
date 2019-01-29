@@ -56,8 +56,8 @@ using Riskeer.StabilityStoneCover.Forms.Views;
 using Riskeer.StabilityStoneCover.IO.Exporters;
 using Riskeer.StabilityStoneCover.Plugin.FileImporters;
 using Riskeer.StabilityStoneCover.Service;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin
 {
@@ -88,7 +88,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             yield return new ViewInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseStabilityStoneCoverFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new StabilityStoneCoverFailureMechanismView(context.WrappedData, context.Parent)
@@ -98,8 +98,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
                 StabilityStoneCoverResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new StabilityStoneCoverResultView(
@@ -111,8 +111,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
                 WaveConditionsInputView>
             {
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
@@ -142,8 +142,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return new TreeNodeInfo<EmptyStabilityStoneCoverOutput>
             {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -152,8 +152,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsOutput>
             {
-                Text = emptyOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -161,8 +161,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -170,8 +170,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsInputContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = context => RiskeerCommonFormsResources.Calculation_Input,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -196,25 +196,25 @@ namespace Riskeer.StabilityStoneCover.Plugin
         {
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
-                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 FileFilterGenerator = new FileFilterGenerator(
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
-                Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 FileFilterGenerator = new FileFilterGenerator(
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
             yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
@@ -290,9 +290,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new StabilityStoneCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -508,12 +508,12 @@ namespace Riskeer.StabilityStoneCover.Plugin
             bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
 
             string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
-                                                                                         ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                         : RingtoetsCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
+                                                                                         ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                         : RiskeerCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
                                              stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
-                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             RiskeerCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
                 Enabled = locationsAvailable
@@ -551,7 +551,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
-                                                  RingtoetsCommonDataResources.Calculation_DefaultName,
+                                                  RiskeerCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
             WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters,

@@ -28,7 +28,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Util.Attributes;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.AssemblyTool.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(failureMechanismAssemblyCategoryPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]

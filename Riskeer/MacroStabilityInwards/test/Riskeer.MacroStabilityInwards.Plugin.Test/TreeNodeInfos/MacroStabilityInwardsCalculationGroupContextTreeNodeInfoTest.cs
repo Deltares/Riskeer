@@ -47,7 +47,7 @@ using Riskeer.MacroStabilityInwards.Forms;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
@@ -251,15 +251,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
                                                               "D&upliceren",
                                                               "Dupliceer dit element.",
-                                                              RingtoetsCommonFormsResources.CopyHS);
+                                                              RiskeerCommonFormsResources.CopyHS);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.CalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
@@ -267,15 +267,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
                                                               "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexNestedGroup,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ClearIcon);
+                                                              RiskeerCommonFormsResources.ClearIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDeleteCalculationGroupIndexNestedGroup,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
@@ -375,24 +375,24 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.CalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ClearIcon);
+                                                              RiskeerCommonFormsResources.ClearIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                               "Alles i&nklappen",
@@ -460,7 +460,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &scenario's...",
                                                                   "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                 }
             }
@@ -503,7 +503,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &scenario's...",
                                                                   "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                 }
             }
@@ -549,7 +549,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &scenario's...",
                                                                   "Genereer scenario's op basis van geselecteerde profielschematisaties.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon);
                 }
             }
         }
@@ -599,12 +599,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
                                                                   "Alles be&rekenen",
                                                                   "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
                 }
             }
         }

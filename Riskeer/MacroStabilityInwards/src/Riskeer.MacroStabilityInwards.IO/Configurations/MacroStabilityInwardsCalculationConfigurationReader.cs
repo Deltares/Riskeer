@@ -28,7 +28,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.MacroStabilityInwards.IO.Configurations.Helpers;
 using Riskeer.MacroStabilityInwards.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {
@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           scenarioSchemaName, RingtoetsCommonIOResources.ScenarioSchema
+                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        },
                        {
                            waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema

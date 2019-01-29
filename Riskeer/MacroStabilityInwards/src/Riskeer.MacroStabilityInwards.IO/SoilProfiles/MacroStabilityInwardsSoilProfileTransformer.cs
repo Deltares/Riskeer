@@ -26,7 +26,7 @@ using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
                 return Transform(soilProfile2D);
             }
 
-            string errorMessage = string.Format(RingtoetsCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
+            string errorMessage = string.Format(RiskeerCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
                                                 soilProfile.GetType().Name,
                                                 nameof(SoilProfile1D),
                                                 nameof(SoilProfile2D));
@@ -145,7 +145,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 
         private static string CreateErrorMessage(string soilProfileName, string errorMessage)
         {
-            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_, soilProfileName, errorMessage);
+            return string.Format(RiskeerCommonIOResources.Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_, soilProfileName, errorMessage);
         }
     }
 }

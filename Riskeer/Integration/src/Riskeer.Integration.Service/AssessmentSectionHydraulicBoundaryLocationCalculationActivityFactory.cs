@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Service
 {
@@ -73,25 +73,25 @@ namespace Riskeer.Integration.Service
                                     assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     assessmentSection.WaveHeightCalculationsForSignalingNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;
         }
@@ -116,25 +116,25 @@ namespace Riskeer.Integration.Service
                                     assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                     assessmentSection,
                                     assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
-                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
+                                    RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;
         }

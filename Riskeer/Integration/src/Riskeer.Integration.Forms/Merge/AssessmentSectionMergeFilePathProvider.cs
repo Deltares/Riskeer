@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Gui;
-using RingtoetsStorageCoreResources = Riskeer.Storage.Core.Properties.Resources;
+using RiskeerStorageCoreResources = Riskeer.Storage.Core.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Merge
 {
@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Merge
 
         public string GetFilePath()
         {
-            return inquiryHelper.GetSourceFileLocation(RingtoetsStorageCoreResources.Ringtoets_project_file_filter);
+            return inquiryHelper.GetSourceFileLocation(RiskeerStorageCoreResources.Ringtoets_project_file_filter);
         }
     }
 }

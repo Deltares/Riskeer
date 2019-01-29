@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Plugin;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.DikeProfile, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.DikeProfile, image);
         }
 
         [Test]

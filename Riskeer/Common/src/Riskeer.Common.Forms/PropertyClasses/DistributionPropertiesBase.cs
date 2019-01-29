@@ -26,7 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.ChangeHandlers;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {
@@ -85,13 +85,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Distribution_DistributionType_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Distribution_DistributionType_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Distribution_DistributionType_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Distribution_DistributionType_Description))]
         public abstract string DistributionType { get; }
 
         [PropertyOrder(2)]
         [DynamicReadOnly]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.NormalDistribution_Mean_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName))]
         public virtual RoundedDouble Mean
         {
             get
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [DynamicReadOnly]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName))]
         public virtual RoundedDouble StandardDeviation
         {
             get
@@ -140,7 +140,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{Mean} ({RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
+            return $"{Mean} ({RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
         }
     }
 }

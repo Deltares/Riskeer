@@ -40,7 +40,7 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
@@ -229,7 +229,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
                 nameof(MacroStabilityInwardsCalculationRow.SelectableHydraulicBoundaryLocation),
-                RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName,
+                RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));

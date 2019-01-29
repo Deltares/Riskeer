@@ -36,7 +36,7 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Util;
-using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories
 {
@@ -90,8 +90,8 @@ namespace Riskeer.Common.Forms.Factories
             if (referenceLine.Points.Any())
             {
                 MapFeature feature = CreateSingleLineMapFeature(referenceLine.Points);
-                feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = id;
-                feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = name;
+                feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = id;
+                feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = name;
                 feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, referenceLine.Length);
 
                 return new[]
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Forms.Factories
                 foreach (DikeProfile dikeProfile in dikeProfiles)
                 {
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(dikeProfile));
-                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = dikeProfile.Name;
+                    feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = dikeProfile.Name;
 
                     mapFeatures[i] = feature;
                     i++;
@@ -215,7 +215,7 @@ namespace Riskeer.Common.Forms.Factories
                 {
                     ForeshoreProfile foreshoreProfile = foreShoreProfilesWithGeometry[i];
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(foreshoreProfile));
-                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = foreshoreProfile.Name;
+                    feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = foreshoreProfile.Name;
 
                     mapFeatures[i] = feature;
                 }
@@ -243,7 +243,7 @@ namespace Riskeer.Common.Forms.Factories
                 foreach (StructureBase structure in structures)
                 {
                     MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(structure.Location);
-                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = structure.Name;
+                    feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = structure.Name;
 
                     mapFeatures[i] = feature;
                     i++;
@@ -302,7 +302,7 @@ namespace Riskeer.Common.Forms.Factories
                         calculationItem.HydraulicBoundaryLocation.Location
                     });
 
-                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = calculationItem.Name;
+                    feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = calculationItem.Name;
                     feature.MetaData[Resources.MetaData_Couple_distance] =
                         calculationItem.CalculationLocation.GetEuclideanDistanceTo(
                             calculationItem.HydraulicBoundaryLocation.Location);
@@ -346,7 +346,7 @@ namespace Riskeer.Common.Forms.Factories
                 })
             });
 
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = section.Name;
+            feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = section.Name;
             feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, section.Length);
 
             return feature;

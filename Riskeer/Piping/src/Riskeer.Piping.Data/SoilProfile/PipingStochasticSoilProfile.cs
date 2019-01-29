@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data.SoilProfile
 {
@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Data.SoilProfile
                 ProbabilityHelper.ValidateProbability(
                     value,
                     nameof(value),
-                    RingtoetsCommonDataResources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
+                    RiskeerCommonDataResources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
                 probability = value;
             }
         }

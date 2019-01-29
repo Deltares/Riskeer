@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Revetment.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Image icon = info.Image(output);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, icon);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, icon);
             }
         }
 

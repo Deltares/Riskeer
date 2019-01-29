@@ -47,7 +47,7 @@ using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -210,7 +210,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuClearIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -249,7 +249,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuClearIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Wis de uitvoer van deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon);
+                                                                  RiskeerCommonFormsResources.ClearIcon);
                 }
             }
         }
@@ -284,13 +284,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  RiskeerCommonFormsResources.ValidateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuCalculateIndex,
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  RiskeerCommonFormsResources.CalculateIcon);
                 }
             }
         }
@@ -326,32 +326,32 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuDuplicateIndex,
                                                                   "D&upliceren",
                                                                   "Dupliceer dit element.",
-                                                                  RingtoetsCommonFormsResources.CopyHS);
+                                                                  RiskeerCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuUpdateEntryAndExitPointIndex,
                                                                   "&Bijwerken intrede- en uittredepunt...",
                                                                   "Er moet een profielschematisatie geselecteerd zijn.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  RiskeerCommonFormsResources.ValidateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuCalculateIndex,
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  RiskeerCommonFormsResources.CalculateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuClearIndex,
                                                                   "&Wis uitvoer...",
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
                 }
             }
@@ -439,7 +439,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateEntryAndExitPointIndex,
                                                                   "&Bijwerken intrede- en uittredepunt...",
                                                                   "Er moet een profielschematisatie geselecteerd zijn.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -487,7 +487,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateEntryAndExitPointIndex,
                                                                   "&Bijwerken intrede- en uittredepunt...",
                                                                   "Er zijn geen wijzigingen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -537,7 +537,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateEntryAndExitPointIndex,
                                                                   "&Bijwerken intrede- en uittredepunt...",
                                                                   "Berekening bijwerken met de karakteristieke punten.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
                 }
             }
         }

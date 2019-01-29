@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.Structures;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Data
 {
@@ -92,7 +92,7 @@ namespace Riskeer.HeightStructures.Data
                 RoundedDouble newDeviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
                 if (!double.IsNaN(newDeviationWaveDirection) && !deviationWaveDirectionValidityRange.InRange(newDeviationWaveDirection))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RiskeerCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
                                                                                        deviationWaveDirectionValidityRange));
                 }
 

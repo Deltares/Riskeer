@@ -27,7 +27,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data
 {
@@ -48,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             sectionResults = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
-                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);

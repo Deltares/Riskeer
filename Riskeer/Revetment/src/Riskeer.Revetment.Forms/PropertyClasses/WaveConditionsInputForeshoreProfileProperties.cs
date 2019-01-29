@@ -27,7 +27,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Riskeer.Revetment.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.PropertyClasses
 {
@@ -41,8 +41,8 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(useForeshorePropertyIndex)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Foreshore_UseForeshore_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Foreshore_UseForeshore_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Foreshore_UseForeshore_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Foreshore_UseForeshore_Description))]
         public bool UseForeshore
         {
             get
@@ -58,8 +58,8 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
 
         [PropertyOrder(coordinatesPropertyIndex)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_Coordinates_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_Coordinates_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Geometry_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Geometry_Coordinates_Description))]
         public Point2D[] Coordinates
         {
             get

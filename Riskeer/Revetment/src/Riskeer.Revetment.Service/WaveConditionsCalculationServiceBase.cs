@@ -37,8 +37,8 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Exceptions;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Revetment.Service
 {
@@ -401,7 +401,7 @@ namespace Riskeer.Revetment.Service
 
             if (input.HydraulicBoundaryLocation == null)
             {
-                messages.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                messages.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             else if (double.IsNaN(assessmentLevel))
             {
@@ -415,7 +415,7 @@ namespace Riskeer.Revetment.Service
                 }
 
                 messages.AddRange(new UseBreakWaterRule(input).Validate());
-                messages.AddRange(new NumericInputRule(input.Orientation, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)).Validate());
+                messages.AddRange(new NumericInputRule(input.Orientation, ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Orientation_DisplayName)).Validate());
             }
 
             return messages;

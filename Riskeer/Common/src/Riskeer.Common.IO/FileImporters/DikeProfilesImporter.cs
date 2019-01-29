@@ -30,7 +30,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.IO.DikeProfiles;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.FileImporters
 {
@@ -57,7 +57,7 @@ namespace Riskeer.Common.IO.FileImporters
                                     string filePath,
                                     IDikeProfileUpdateDataStrategy dikeProfileUpdateStrategy,
                                     IImporterMessageProvider messageProvider)
-            : base(referenceLine, filePath, importTarget, messageProvider, RingtoetsCommonDataResources.DikeProfileCollection_TypeDescriptor)
+            : base(referenceLine, filePath, importTarget, messageProvider, RiskeerCommonDataResources.DikeProfileCollection_TypeDescriptor)
         {
             if (dikeProfileUpdateStrategy == null)
             {
@@ -81,7 +81,7 @@ namespace Riskeer.Common.IO.FileImporters
         protected override void LogImportCanceledMessage()
         {
             string logMessage = MessageProvider.GetCancelledLogMessageText(
-                RingtoetsCommonDataResources.DikeProfileCollection_TypeDescriptor);
+                RiskeerCommonDataResources.DikeProfileCollection_TypeDescriptor);
             Log.Info(logMessage);
         }
 

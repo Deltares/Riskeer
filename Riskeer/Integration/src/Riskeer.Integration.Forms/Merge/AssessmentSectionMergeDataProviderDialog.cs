@@ -39,7 +39,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Merge
@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Forms.Merge
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/>
         /// is <c>null</c>.</exception>
         public AssessmentSectionMergeDataProviderDialog(IWin32Window dialogParent)
-            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 720, 590)
+            : base(dialogParent, RiskeerCommonFormsResources.SelectionDialogIcon, 720, 590)
         {
             InitializeComponent();
             InitializeComboBox();

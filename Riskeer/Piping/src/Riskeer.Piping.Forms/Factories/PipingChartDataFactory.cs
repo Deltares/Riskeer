@@ -26,7 +26,7 @@ using Core.Components.Chart.Styles;
 using Riskeer.Common.Data.Helpers;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Factories
 {
@@ -88,7 +88,7 @@ namespace Riskeer.Piping.Forms.Factories
         {
             chartData.Name = surfaceLine != null
                                  ? surfaceLine.Name
-                                 : RingtoetsCommonFormsResources.SurfaceLine_DisplayName;
+                                 : RiskeerCommonFormsResources.SurfaceLine_DisplayName;
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Forms.Factories
         {
             chartData.Name = soilProfile != null
                                  ? soilProfile.Name
-                                 : RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName;
+                                 : RiskeerCommonFormsResources.StochasticSoilProfileProperties_DisplayName;
         }
 
         private static ChartPointStyle GetGeneralPointStyle(Color color)

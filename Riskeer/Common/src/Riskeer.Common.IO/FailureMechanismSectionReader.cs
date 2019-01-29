@@ -31,7 +31,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Riskeer.Common.Data.FailureMechanism;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.IO
 {
@@ -118,7 +118,7 @@ namespace Riskeer.Common.IO
             if (!polylineShapeFileReader.HasAttribute(sectionNameAttributeKey))
             {
                 throw CreateCriticalFileReadException(
-                    string.Format(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_lacks_required_Attribute_0_,
+                    string.Format(RiskeerCommonIOResources.FailureMechanismSectionReader_File_lacks_required_Attribute_0_,
                                   sectionNameAttributeKey));
             }
         }
@@ -137,7 +137,7 @@ namespace Riskeer.Common.IO
             MapFeature[] features = lineData.Features.ToArray();
             if (features.Length > 1)
             {
-                throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
+                throw CreateCriticalFileReadException(RiskeerCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
             MapFeature feature = features[0];
@@ -153,7 +153,7 @@ namespace Riskeer.Common.IO
 
             if (string.IsNullOrWhiteSpace(sectionName))
             {
-                throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_section_without_sectionName);
+                throw CreateCriticalFileReadException(RiskeerCommonIOResources.FailureMechanismSectionReader_File_has_section_without_sectionName);
             }
 
             return sectionName;
@@ -164,7 +164,7 @@ namespace Riskeer.Common.IO
             MapGeometry[] mapGeometries = lineFeature.MapGeometries.ToArray();
             if (mapGeometries.Length > 1)
             {
-                throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
+                throw CreateCriticalFileReadException(RiskeerCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
             return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p));

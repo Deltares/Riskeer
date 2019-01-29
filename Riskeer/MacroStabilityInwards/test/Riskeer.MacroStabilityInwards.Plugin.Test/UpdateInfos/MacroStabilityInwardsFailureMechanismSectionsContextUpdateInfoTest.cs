@@ -32,7 +32,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 {
@@ -83,7 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
                 Image image = importInfo.Image;
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.SectionsIcon, image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SectionsIcon, image);
             }
         }
 

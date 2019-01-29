@@ -26,7 +26,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Piping.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -128,7 +128,7 @@ namespace Riskeer.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
+                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.PipingProbability);
             }
         }
@@ -142,7 +142,7 @@ namespace Riskeer.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
+                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.UpliftProbability);
             }
         }
@@ -156,7 +156,7 @@ namespace Riskeer.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
+                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.HeaveProbability);
             }
         }
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
+                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.SellmeijerProbability);
             }
         }

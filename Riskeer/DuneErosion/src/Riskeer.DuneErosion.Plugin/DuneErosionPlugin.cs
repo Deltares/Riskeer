@@ -49,8 +49,8 @@ using Riskeer.DuneErosion.IO;
 using Riskeer.DuneErosion.Plugin.FileImporters;
 using Riskeer.DuneErosion.Plugin.Properties;
 using Riskeer.DuneErosion.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin
 {
@@ -90,8 +90,8 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -99,11 +99,11 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<DuneLocationCalculationsGroupContext>
             {
-                Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 ForeColor = context => context.WrappedData.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = DuneLocationCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = DuneLocationCalculationsGroupContextChildNodeObjects
             };
@@ -111,7 +111,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
                 Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
             };
         }
@@ -123,8 +123,8 @@ namespace Riskeer.DuneErosion.Plugin
                 IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
                 DuneErosionFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new DuneErosionFailureMechanismResultView(
@@ -135,7 +135,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new ViewInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent),
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -143,9 +143,9 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
+                GetViewName = (view, context) => $"{RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
                                                  $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationCalculationsViewForData,
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
@@ -162,7 +162,7 @@ namespace Riskeer.DuneErosion.Plugin
         {
             yield return new ExportInfo<DuneLocationCalculationsContext>
             {
-                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => CreateDuneLocationCalculationsExporter(context.WrappedData
                                                                                                           .Select(calc => new ExportableDuneLocationCalculation(
                                                                                                                       calc,
@@ -177,7 +177,7 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new ExportInfo<DuneLocationCalculationsGroupContext>
             {
-                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = CreateDuneLocationCalculationsGroupContextFileExporter,
                 IsEnabled = IsDuneLocationCalculationsGroupContextExportMenuItemEnabled,
                 FileFilterGenerator = new FileFilterGenerator(
@@ -242,9 +242,9 @@ namespace Riskeer.DuneErosion.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -346,31 +346,31 @@ namespace Riskeer.DuneErosion.Plugin
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
+                               RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
+                               RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
+                               RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                               RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
+                               RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                               RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                               RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
                        };
         }
 
@@ -394,9 +394,9 @@ namespace Riskeer.DuneErosion.Plugin
         private ContextMenuStrip DuneLocationCalculationsContextMenuStrip(DuneLocationCalculationsContext context, object parent, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     if (duneLocationCalculationGuiService == null)
@@ -435,9 +435,9 @@ namespace Riskeer.DuneErosion.Plugin
         private StrictContextMenuItem CreateCalculateAllItem(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(Gui.MainWindow,

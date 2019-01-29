@@ -33,7 +33,7 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data;
 using Riskeer.AssemblyTool.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -328,23 +328,23 @@ namespace Riskeer.Piping.Forms.Views
 
             if (!relevantScenarioAvailable)
             {
-                return RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
+                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
             }
 
             if (Math.Abs(SectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
-                return RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
             }
 
             CalculationScenarioStatus calculationScenarioStatus = SectionResult.GetCalculationScenarioStatus(relevantScenarios);
             if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
             {
-                return RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
+                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
             }
 
             if (double.IsNaN(SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection)))
             {
-                return RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
+                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
             }
 
             return string.Empty;

@@ -45,7 +45,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Plugin;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
         }
 
         [Test]
@@ -328,7 +328,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   "I&s relevant",
                                                                   "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RingtoetsCommonFormsResources.Checkbox_ticked);
+                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
                 }
 
                 // Assert

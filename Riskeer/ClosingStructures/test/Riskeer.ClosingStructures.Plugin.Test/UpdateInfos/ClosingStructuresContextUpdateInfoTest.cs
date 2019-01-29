@@ -37,7 +37,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 {
@@ -85,7 +85,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
             Image image = updateInfo.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.StructuresIcon, image);
         }
 
         [Test]

@@ -47,7 +47,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 {
@@ -137,7 +137,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
         }
 
         [Test]
@@ -220,7 +220,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                     Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                     StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
             }
@@ -276,7 +276,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
                                                                   "Doelkans is te groot om een berekening uit te kunnen voeren.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
                 }
             }
@@ -326,7 +326,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
                                                                   "Alle hydraulische belastingen berekenen.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
         }

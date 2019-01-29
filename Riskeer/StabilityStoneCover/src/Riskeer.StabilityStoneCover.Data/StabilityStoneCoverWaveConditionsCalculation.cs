@@ -23,7 +23,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.Data;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Data
 {
@@ -37,7 +37,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// </summary>
         public StabilityStoneCoverWaveConditionsCalculation()
         {
-            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
+            Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = new AssessmentSectionCategoryWaveConditionsInput();
             Comments = new Comment();
         }

@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Riskeer.Common.Data.AssessmentSection;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.IO.ReferenceLines
 {
@@ -69,7 +69,7 @@ namespace Riskeer.Common.IO.ReferenceLines
                 return false;
             }
 
-            NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Reading_referenceline,
+            NotifyProgress(RiskeerCommonIOResources.ReferenceLineImporter_ProgressText_Reading_referenceline,
                            1, clearReferenceLineDependentData ? 3 : 2);
             ReadResult<ReferenceLine> readResult = ReadReferenceLine();
             if (readResult.CriticalErrorOccurred || Canceled)
@@ -83,7 +83,7 @@ namespace Riskeer.Common.IO.ReferenceLines
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_canceled_No_data_changed);
+            Log.Info(RiskeerCommonIOResources.ReferenceLineImporter_ProgressText_Import_canceled_No_data_changed);
         }
 
         protected override void DoPostImportUpdates()
@@ -141,7 +141,7 @@ namespace Riskeer.Common.IO.ReferenceLines
 
         private ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
-            string errorMessage = string.Format(RingtoetsCommonIOResources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
+            string errorMessage = string.Format(RiskeerCommonIOResources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
                                                 e.Message);
             Log.Error(errorMessage);
             return new ReadResult<ReferenceLine>(true);
@@ -149,11 +149,11 @@ namespace Riskeer.Common.IO.ReferenceLines
 
         private void AddReferenceLineToDataModel(ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection,
+            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection,
                            2, clearReferenceLineDependentData ? 3 : 2);
             if (clearReferenceLineDependentData)
             {
-                NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
+                NotifyProgress(RiskeerCommonIOResources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
                                3, 3);
             }
 

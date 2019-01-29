@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses
 {
@@ -56,9 +56,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                    designVariable,
                    handler) {}
 
-        public override string DistributionType { get; } = RingtoetsCommonFormsResources.DistributionType_LogNormal;
+        public override string DistributionType { get; } = RiskeerCommonFormsResources.DistributionType_LogNormal;
 
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.LogNormalDistribution_Mean_Description))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.LogNormalDistribution_Mean_Description))]
         public override RoundedDouble Mean
         {
             get
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.LogNormalDistribution_StandardDeviation_Description))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.LogNormalDistribution_StandardDeviation_Description))]
         public override RoundedDouble StandardDeviation
         {
             get

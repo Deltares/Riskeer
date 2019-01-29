@@ -38,7 +38,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 {
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                              RingtoetsFormsResources.AddFolderIcon);
+                                                              RiskeerFormsResources.AddFolderIcon);
             }
 
             mocks.VerifyAll();
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RingtoetsFormsResources.FailureMechanismIcon);
+                                                              RiskeerFormsResources.FailureMechanismIcon);
             }
 
             mocks.VerifyAll();
@@ -173,7 +173,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsFormsResources.ClearIcon);
+                                                              RiskeerFormsResources.ClearIcon);
             }
 
             mocks.VerifyAll();
@@ -215,7 +215,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis alle uitvoer...",
                                                               "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                              RingtoetsFormsResources.ClearIcon,
+                                                              RiskeerFormsResources.ClearIcon,
                                                               false);
             }
 
@@ -262,7 +262,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
-                                                              RingtoetsFormsResources.ClearIcon);
+                                                              RiskeerFormsResources.ClearIcon);
             }
 
             mocks.VerifyAll();
@@ -304,7 +304,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis alle uitvoer...",
                                                               "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                              RingtoetsFormsResources.ClearIcon,
+                                                              RiskeerFormsResources.ClearIcon,
                                                               false);
             }
 
@@ -346,7 +346,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
-                Bitmap checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_ticked : RingtoetsFormsResources.Checkbox_empty;
+                Bitmap checkboxIcon = isRelevant ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "I&s relevant",
                                                               "Geeft aan of dit toetsspoor relevant is of niet.",
@@ -393,7 +393,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis uitvoer...",
                                                               "Wis de uitvoer van deze berekening.",
-                                                              RingtoetsFormsResources.ClearIcon);
+                                                              RiskeerFormsResources.ClearIcon);
             }
 
             mocks.VerifyAll();
@@ -436,7 +436,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis uitvoer...",
                                                               "Deze berekening heeft geen uitvoer om te wissen.",
-                                                              RingtoetsFormsResources.ClearIcon,
+                                                              RiskeerFormsResources.ClearIcon,
                                                               false);
             }
 
@@ -724,7 +724,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofiel...",
                                                               tooltip,
-                                                              RingtoetsFormsResources.UpdateItemIcon,
+                                                              RiskeerFormsResources.UpdateItemIcon,
                                                               hasForeshoreProfile && !isSynchronized);
             }
 
@@ -797,7 +797,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Bijwerken voorlandprofielen...",
                                                               tooltip,
-                                                              RingtoetsFormsResources.UpdateItemIcon,
+                                                              RiskeerFormsResources.UpdateItemIcon,
                                                               hasForeshoreProfile && !isSynchronized);
             }
 
@@ -845,7 +845,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "D&upliceren",
                                                               "Dupliceer dit element.",
-                                                              RingtoetsFormsResources.CopyHS);
+                                                              RiskeerFormsResources.CopyHS);
             }
 
             mocks.VerifyAll();
@@ -894,7 +894,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Be&rekenen",
                                                               "Voer deze berekening uit.",
-                                                              RingtoetsFormsResources.CalculateIcon);
+                                                              RiskeerFormsResources.CalculateIcon);
             }
 
             mocks.VerifyAll();
@@ -941,7 +941,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Be&rekenen",
                                                               errorMessage,
-                                                              RingtoetsFormsResources.CalculateIcon,
+                                                              RiskeerFormsResources.CalculateIcon,
                                                               false);
             }
 
@@ -991,7 +991,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Valideren",
                                                               "Valideer de invoer voor deze berekening.",
-                                                              RingtoetsFormsResources.ValidateIcon);
+                                                              RiskeerFormsResources.ValidateIcon);
             }
 
             mocks.VerifyAll();
@@ -1038,7 +1038,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Valideren",
                                                               errorMessage,
-                                                              RingtoetsFormsResources.ValidateIcon,
+                                                              RiskeerFormsResources.ValidateIcon,
                                                               false);
             }
 
@@ -1099,7 +1099,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                              RingtoetsFormsResources.CalculateAllIcon);
+                                                              RiskeerFormsResources.CalculateAllIcon);
             }
 
             mocks.VerifyAll();
@@ -1144,7 +1144,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               "Er zijn geen berekeningen om uit te voeren.",
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
 
@@ -1203,7 +1203,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               errorMessage,
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
 
@@ -1251,7 +1251,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               "Er zijn geen berekeningen om uit te voeren.",
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
 
@@ -1312,7 +1312,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsFormsResources.ValidateAllIcon);
+                                                              RiskeerFormsResources.ValidateAllIcon);
             }
 
             mocks.VerifyAll();
@@ -1357,7 +1357,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
 
@@ -1416,7 +1416,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               errorMessage,
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
 
@@ -1464,7 +1464,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
 
@@ -1515,7 +1515,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen dit toetsspoor uit.",
-                                                              RingtoetsFormsResources.CalculateAllIcon);
+                                                              RiskeerFormsResources.CalculateAllIcon);
             }
 
             mocks.VerifyAll();
@@ -1558,7 +1558,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               "Er zijn geen berekeningen om uit te voeren.",
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
 
@@ -1607,7 +1607,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               errorMessage,
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
 
@@ -1653,7 +1653,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
                                                               "Er zijn geen berekeningen om uit te voeren.",
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RiskeerFormsResources.CalculateAllIcon,
                                                               false);
             }
 
@@ -1704,7 +1704,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen dit toetsspoor.",
-                                                              RingtoetsFormsResources.ValidateAllIcon);
+                                                              RiskeerFormsResources.ValidateAllIcon);
             }
 
             mocks.VerifyAll();
@@ -1747,7 +1747,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
 
@@ -1799,7 +1799,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               errorMessage,
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
 
@@ -1848,7 +1848,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RiskeerFormsResources.ValidateAllIcon,
                                                               false);
             }
 

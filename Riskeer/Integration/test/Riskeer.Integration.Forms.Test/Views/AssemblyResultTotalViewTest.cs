@@ -59,7 +59,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.Controls;
 using Riskeer.Integration.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Views
 {
@@ -155,13 +155,13 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, dataGridViewControl.Dock);
 
                 ErrorProvider warningProvider = GetWarningProvider(view);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
                 Assert.IsEmpty(warningProvider.GetError(button));
                 Assert.AreEqual(4, warningProvider.GetIconPadding(button));
 
                 ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.PencilWarning.ToBitmap(), manualAssemblyWarningProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.PencilWarning.ToBitmap(), manualAssemblyWarningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, manualAssemblyWarningProvider.BlinkStyle);
                 Assert.IsEmpty(manualAssemblyWarningProvider.GetError(button));
                 Assert.AreEqual(4, manualAssemblyWarningProvider.GetIconPadding(button));

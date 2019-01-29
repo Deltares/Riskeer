@@ -27,7 +27,7 @@ using Riskeer.Common.Data.AssessmentSection;
 namespace Riskeer.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class RingtoetsWellKnownTileSourceTest : EnumWithResourcesDisplayNameTestFixture<RingtoetsWellKnownTileSource>
+    public class RiskeerWellKnownTileSourceTest : EnumWithResourcesDisplayNameTestFixture<RingtoetsWellKnownTileSource>
     {
         protected override IDictionary<RingtoetsWellKnownTileSource, string> ExpectedDisplayNameForEnumValues
         {

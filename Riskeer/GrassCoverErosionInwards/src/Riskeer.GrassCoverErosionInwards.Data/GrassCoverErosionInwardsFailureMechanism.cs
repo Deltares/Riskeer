@@ -26,7 +26,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionInwards.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
 {
@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         {
             CalculationsGroup = new CalculationGroup
             {
-                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+                Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
             sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();

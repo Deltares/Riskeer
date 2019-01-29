@@ -26,7 +26,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.MacroStabilityInwards.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
@@ -129,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
+                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.MacroStabilityInwardsProbability);
             }
         }

@@ -27,7 +27,7 @@ using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
@@ -191,7 +191,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             if (Configuration.DrainCoefficient?.StandardDeviation != null
                 || Configuration.DrainCoefficient?.VariationCoefficient != null)
             {
-                Log.LogCalculationConversionError(RingtoetsCommonIOResources.StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
+                Log.LogCalculationConversionError(RiskeerCommonIOResources.StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
                                                   Configuration.Name);
                 return false;
             }

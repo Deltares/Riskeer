@@ -30,7 +30,7 @@ using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.GuiServices
 {
@@ -95,7 +95,7 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
 
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                log.ErrorFormat(RingtoetsCommonFormsResources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
+                log.ErrorFormat(RiskeerCommonFormsResources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
                                 validationProblem);
                 return;
             }

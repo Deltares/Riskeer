@@ -30,7 +30,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 {
@@ -61,7 +61,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]

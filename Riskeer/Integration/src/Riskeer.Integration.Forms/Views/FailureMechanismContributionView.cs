@@ -32,7 +32,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Forms.Views
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Code),
-                                                         RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName,
+                                                         RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName,
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Contribution),

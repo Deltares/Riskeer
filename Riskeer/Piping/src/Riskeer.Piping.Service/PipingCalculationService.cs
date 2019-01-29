@@ -30,8 +30,8 @@ using Riskeer.Piping.KernelWrapper;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Piping.Service
 {
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Service
             }
             catch (PipingCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(RingtoetsCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
+                CalculationServiceHelper.LogExceptionAsError(RiskeerCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
 
                 throw;
             }
@@ -157,7 +157,7 @@ namespace Riskeer.Piping.Service
             var validationResults = new List<string>();
             if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
             {
-                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             else
             {
@@ -179,13 +179,13 @@ namespace Riskeer.Piping.Service
 
             if (inputParameters.UseAssessmentLevelManualInput)
             {
-                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.WaterLevel_DisplayName)).Validate());
+                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.WaterLevel_DisplayName)).Validate());
             }
             else
             {
                 if (double.IsNaN(normativeAssessmentLevel))
                 {
-                    validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
+                    validationResult.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
                 }
             }
 

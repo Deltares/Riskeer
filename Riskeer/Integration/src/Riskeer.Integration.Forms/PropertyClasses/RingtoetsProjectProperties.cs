@@ -23,8 +23,8 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
@@ -34,9 +34,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     public class RingtoetsProjectProperties : ObjectProperties<IProject>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Name_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Name_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Name_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Name_Description))]
         public string Name
         {
             get
@@ -46,9 +46,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Description_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), nameof(RingtoetsIntegrationFormsResources.RingtoetsProjectProperties_Description_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Description_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Description_Description))]
         public string Description
         {
             get

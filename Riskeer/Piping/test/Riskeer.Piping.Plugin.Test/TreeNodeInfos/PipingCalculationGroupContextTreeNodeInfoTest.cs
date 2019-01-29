@@ -48,7 +48,7 @@ using Riskeer.Piping.Forms;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
@@ -254,15 +254,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
                                                               "D&upliceren",
                                                               "Dupliceer dit element.",
-                                                              RingtoetsCommonFormsResources.CopyHS);
+                                                              RiskeerCommonFormsResources.CopyHS);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.CalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
@@ -270,20 +270,20 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup,
                                                               "&Bijwerken intrede- en uittredepunten...",
                                                               "Er zijn geen berekeningen om bij te werken.",
-                                                              RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
                                                               "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexNestedGroup,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ClearIcon);
+                                                              RiskeerCommonFormsResources.ClearIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDeleteCalculationGroupIndexNestedGroup,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
@@ -383,30 +383,30 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                                                              RiskeerCommonFormsResources.AddFolderIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
                                                               "&Bijwerken intrede- en uittredepunten...",
                                                               "Er zijn geen berekeningen om bij te werken.",
-                                                              RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                              RiskeerCommonFormsResources.UpdateItemIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                              RiskeerCommonFormsResources.ValidateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               "Alles be&rekenen",
                                                               "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                              RiskeerCommonFormsResources.CalculateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
-                                                              RingtoetsCommonFormsResources.ClearIcon);
+                                                              RiskeerCommonFormsResources.ClearIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                               "Alles ui&tklappen",
@@ -474,7 +474,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &scenario\'s...",
                                                                   "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                 }
             }
@@ -517,7 +517,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &scenario\'s...",
                                                                   "Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                 }
             }
@@ -563,7 +563,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &scenario\'s...",
                                                                   "Genereer scenario\'s op basis van geselecteerde profielschematisaties.",
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
+                                                                  RiskeerCommonFormsResources.GenerateScenariosIcon);
                 }
             }
         }
@@ -613,12 +613,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
                                                                   "Alles be&rekenen",
                                                                   "Voer alle berekeningen binnen deze map met berekeningen uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Valideer alle berekeningen binnen deze map met berekeningen.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
                 }
             }
         }
@@ -654,7 +654,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
                                                                   "&Bijwerken intrede- en uittredepunten...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -697,7 +697,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
                                                                   "&Bijwerken intrede- en uittredepunten...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -747,7 +747,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
                                                                   "&Bijwerken intrede- en uittredepunten...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon,
                                                                   false);
                 }
             }
@@ -793,7 +793,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
                                                                   "&Bijwerken intrede- en uittredepunten...",
                                                                   "Alle berekeningen met een profielschematisatie bijwerken.",
-                                                                  RingtoetsCommonFormsResources.UpdateItemIcon);
+                                                                  RiskeerCommonFormsResources.UpdateItemIcon);
                 }
             }
         }

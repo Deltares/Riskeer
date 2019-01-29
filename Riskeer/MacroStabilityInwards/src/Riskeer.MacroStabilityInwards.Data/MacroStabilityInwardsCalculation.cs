@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {
@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsCalculation()
         {
-            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
+            Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             Comments = new Comment();
         }

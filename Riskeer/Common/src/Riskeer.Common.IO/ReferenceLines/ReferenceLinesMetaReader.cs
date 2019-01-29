@@ -33,7 +33,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Riskeer.Common.Data.AssessmentSection;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.IO.ReferenceLines
 {
@@ -121,7 +121,7 @@ namespace Riskeer.Common.IO.ReferenceLines
             IEnumerable<string> missingAttributes = GetMissingAttributes(polylineShapeFileReader);
             if (missingAttributes.Any())
             {
-                string message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_,
+                string message = string.Format(RiskeerCommonIOResources.ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_,
                                                shapeFilePath, string.Join("', '", missingAttributes));
                 throw new CriticalFileReadException(message);
             }

@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Piping.Service
 {
@@ -48,7 +48,7 @@ namespace Riskeer.Piping.Service
             this.calculation = calculation;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
 
-            Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
+            Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
 
         protected override void PerformCalculation()

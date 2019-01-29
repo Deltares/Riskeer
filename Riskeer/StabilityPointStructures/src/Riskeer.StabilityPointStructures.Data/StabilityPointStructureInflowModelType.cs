@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Data
 {
@@ -32,13 +32,13 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <summary>
         /// A low sill structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.StructureInflowModelType_LowSill_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.StructureInflowModelType_LowSill_DisplayName))]
         LowSill = 1,
 
         /// <summary>
         /// A flooded culvert structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.StructureInflowModelType_FloodedCulvert_DisplayName))]
+        [ResourcesDisplayName(typeof(RiskeerCommonDataResources), nameof(RiskeerCommonDataResources.StructureInflowModelType_FloodedCulvert_DisplayName))]
         FloodedCulvert = 2
     }
 }

@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -94,7 +94,7 @@ namespace Riskeer.Common.Forms.Views
         {
             base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Result),
-                                                 RingtoetsCommonFormsResources.WaterLevel_DisplayName);
+                                                 RiskeerCommonFormsResources.WaterLevel_DisplayName);
         }
     }
 }

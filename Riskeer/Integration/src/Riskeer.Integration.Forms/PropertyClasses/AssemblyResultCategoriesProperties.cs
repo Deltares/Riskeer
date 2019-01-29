@@ -31,7 +31,7 @@ using Core.Common.Util.Attributes;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
@@ -66,7 +66,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CategoryBoundariesGroupOneAndTwo_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CategoryBoundariesGroupOneAndTwo_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityMarginFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityMarginFactor_Description))]
         public RoundedDouble FailureProbabilityMarginFactor

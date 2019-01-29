@@ -31,7 +31,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -168,7 +168,7 @@ namespace Riskeer.Revetment.IO.Configurations
                 catch (ArgumentOutOfRangeException e)
                 {
                     Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                                    readValue.Value, parameterName),
                                                calculationName, e);
                     return false;
@@ -233,9 +233,9 @@ namespace Riskeer.Revetment.IO.Configurations
                 catch (ArgumentOutOfRangeException e)
                 {
                     Log.LogOutOfRangeException(string.Format(
-                                                   RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
+                                                   RiskeerCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                                                    orientation,
-                                                   RingtoetsCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
+                                                   RiskeerCommonIOResources.CalculationConfigurationImporter_Orientation_DisplayName),
                                                calculation.Name, e);
                     return false;
                 }

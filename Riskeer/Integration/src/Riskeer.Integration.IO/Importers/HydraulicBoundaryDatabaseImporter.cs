@@ -34,7 +34,7 @@ using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Importers
 {
@@ -237,7 +237,7 @@ namespace Riskeer.Integration.IO.Importers
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                              IEnumerable<long> excludedLocationIds)
         {
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
+            NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
             changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
                                                              excludedLocationIds, FilePath, GetHlcdFilePath()));
         }

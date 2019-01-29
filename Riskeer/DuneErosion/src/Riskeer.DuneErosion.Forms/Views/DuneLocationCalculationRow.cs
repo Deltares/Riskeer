@@ -27,7 +27,7 @@ using Core.Common.Base.Geometry;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
-using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
+using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views
 {

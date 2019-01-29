@@ -27,7 +27,7 @@ using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
@@ -55,9 +55,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_Group_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_Group_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CategoryProperties_Group_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CategoryProperties_Group_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
         public FailureMechanismAssemblyCategoryGroup Group
         {
@@ -68,9 +68,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(lowerBoundaryPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_LowerBoundary_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_LowerBoundary_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CategoryProperties_LowerBoundary_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CategoryProperties_LowerBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double LowerBoundary
         {
@@ -81,9 +81,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(upperBoundaryPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_UpperBoundary_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_UpperBoundary_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CategoryProperties_UpperBoundary_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CategoryProperties_UpperBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double UpperBoundary
         {

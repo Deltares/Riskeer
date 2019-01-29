@@ -36,7 +36,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {

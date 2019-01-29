@@ -27,7 +27,7 @@ using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.Piping.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Piping.IO.Configurations
 {
@@ -61,13 +61,13 @@ namespace Riskeer.Piping.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           stochastSchemaName, RingtoetsCommonIOResources.StochastSchema
+                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
                        },
                        {
-                           stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
+                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
                        },
                        {
-                           scenarioSchemaName, RingtoetsCommonIOResources.ScenarioSchema
+                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
                    }) {}
 

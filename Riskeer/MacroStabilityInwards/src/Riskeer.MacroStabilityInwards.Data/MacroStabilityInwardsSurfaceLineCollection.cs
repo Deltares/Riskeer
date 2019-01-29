@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Riskeer.MacroStabilityInwards.Data.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {
@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     public class MacroStabilityInwardsSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsSurfaceLine>
     {
         public MacroStabilityInwardsSurfaceLineCollection() : base(line => line.Name,
-                                                                   RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                                                                   RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                                                    Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

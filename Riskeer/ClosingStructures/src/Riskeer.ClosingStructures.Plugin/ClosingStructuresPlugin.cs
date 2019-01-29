@@ -56,9 +56,9 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Plugin
 {
@@ -97,7 +97,7 @@ namespace Riskeer.ClosingStructures.Plugin
             yield return new ViewInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseClosingStructuresFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
@@ -108,8 +108,8 @@ namespace Riskeer.ClosingStructures.Plugin
                 IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
                 ClosingStructuresFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new ClosingStructuresFailureMechanismResultView(
@@ -120,8 +120,8 @@ namespace Riskeer.ClosingStructures.Plugin
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = RingtoetsCommonFormsResources.ScenariosIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = RiskeerCommonFormsResources.ScenariosIcon,
                 AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
                 CloseForData = CloseScenariosViewForData
             };
@@ -147,8 +147,8 @@ namespace Riskeer.ClosingStructures.Plugin
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -156,8 +156,8 @@ namespace Riskeer.ClosingStructures.Plugin
 
             yield return new TreeNodeInfo<ClosingStructuresContext>
             {
-                Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.StructuresCollection_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
@@ -174,7 +174,7 @@ namespace Riskeer.ClosingStructures.Plugin
             yield return new TreeNodeInfo<ClosingStructure>
             {
                 Text = structure => structure.Name,
-                Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
+                Image = structure => RiskeerCommonFormsResources.StructuresIcon,
                 ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
                                                                                   .AddPropertiesItem()
                                                                                   .Build()
@@ -182,8 +182,8 @@ namespace Riskeer.ClosingStructures.Plugin
 
             yield return new TreeNodeInfo<ClosingStructuresInputContext>
             {
-                Text = inputContext => RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = inputContext => RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                Image = inputContext => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -191,8 +191,8 @@ namespace Riskeer.ClosingStructures.Plugin
 
             yield return new TreeNodeInfo<ClosingStructuresScenariosContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -208,14 +208,14 @@ namespace Riskeer.ClosingStructures.Plugin
                     filePath,
                     new ImportMessageProvider(),
                     new ClosingStructureReplaceDataStrategy(context.FailureMechanism)),
-                Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                Name = RiskeerCommonFormsResources.StructuresImporter_DisplayName,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateClosingStructureFileFilter(),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
                 VerifyUpdates = context => VerifyStructuresShouldUpdate(
                     context.FailureMechanism,
-                    RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
+                    RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<ClosingStructuresCalculationGroupContext>(
@@ -237,15 +237,15 @@ namespace Riskeer.ClosingStructures.Plugin
                     filePath,
                     new UpdateMessageProvider(),
                     new ClosingStructureUpdateDataStrategy(context.FailureMechanism)),
-                Name = RingtoetsCommonDataResources.StructureCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                Name = RiskeerCommonDataResources.StructureCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateClosingStructureFileFilter(),
                 IsEnabled = c => c.FailureMechanism.ClosingStructures.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 VerifyUpdates = context => VerifyStructuresShouldUpdate(
                     context.FailureMechanism,
-                    RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
+                    RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
             yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
@@ -350,9 +350,9 @@ namespace Riskeer.ClosingStructures.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -573,7 +573,7 @@ namespace Riskeer.ClosingStructures.Plugin
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;
-            string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
+            string toolTipMessage = RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
 
             StructuresCalculation<ClosingStructuresInput>[] calculationsToUpdate = calculations
                                                                                    .Where(calc => calc.InputParameters.Structure != null
@@ -583,12 +583,12 @@ namespace Riskeer.ClosingStructures.Plugin
             if (!calculationsToUpdate.Any())
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
             }
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
                                              toolTipMessage,
-                                             RingtoetsCommonFormsResources.UpdateItemIcon,
+                                             RiskeerCommonFormsResources.UpdateItemIcon,
                                              (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
             {
                 Enabled = contextMenuEnabled
@@ -597,7 +597,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculations(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (StructureDependentDataShouldUpdate(calculations, message))
             {
                 foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculations)
@@ -612,12 +612,12 @@ namespace Riskeer.ClosingStructures.Plugin
             bool structuresAvailable = nodeData.FailureMechanism.ClosingStructures.Any();
 
             string closingStructuresCalculationGroupContextToolTip = structuresAvailable
-                                                                         ? RingtoetsCommonFormsResources.Generate_Calculations_for_selected_Structures
-                                                                         : RingtoetsCommonFormsResources.No_Structures_to_generate_Calculations_for;
+                                                                         ? RiskeerCommonFormsResources.Generate_Calculations_for_selected_Structures
+                                                                         : RiskeerCommonFormsResources.No_Structures_to_generate_Calculations_for;
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
                                              closingStructuresCalculationGroupContextToolTip,
-                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             RiskeerCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => ShowClosingStructuresSelectionDialog(nodeData))
             {
                 Enabled = structuresAvailable
@@ -681,7 +681,7 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();
@@ -788,22 +788,22 @@ namespace Riskeer.ClosingStructures.Plugin
         private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationContext context)
         {
             var contextMenuEnabled = true;
-            string toolTipMessage = RingtoetsCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
+            string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
             if (context.WrappedData.InputParameters.Structure == null)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.Structure_must_be_selected_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.Structure_must_be_selected_ToolTip;
             }
             else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
             {
                 contextMenuEnabled = false;
-                toolTipMessage = RingtoetsCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
             }
 
             return new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Update_Structure_data,
+                RiskeerCommonFormsResources.Update_Structure_data,
                 toolTipMessage,
-                RingtoetsCommonFormsResources.UpdateItemIcon,
+                RiskeerCommonFormsResources.UpdateItemIcon,
                 (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
@@ -812,7 +812,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
             {
                 calculation
@@ -871,8 +871,8 @@ namespace Riskeer.ClosingStructures.Plugin
         private static FileFilterGenerator CreateClosingStructureFileFilter()
         {
             return new FileFilterGenerator(
-                RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                RingtoetsCommonIOResources.Shape_file_filter_Description);
+                RiskeerCommonIOResources.Shape_file_filter_Extension,
+                RiskeerCommonIOResources.Shape_file_filter_Description);
         }
 
         private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)

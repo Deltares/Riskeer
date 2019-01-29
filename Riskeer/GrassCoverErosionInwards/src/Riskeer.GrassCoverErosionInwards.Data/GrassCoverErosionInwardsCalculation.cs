@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
 {
@@ -36,7 +36,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsCalculation()
         {
-            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
+            Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = new GrassCoverErosionInwardsInput();
             Comments = new Comment();
         }

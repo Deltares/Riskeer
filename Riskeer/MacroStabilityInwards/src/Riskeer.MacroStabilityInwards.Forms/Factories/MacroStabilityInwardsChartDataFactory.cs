@@ -27,8 +27,8 @@ using Riskeer.Common.Data.Helpers;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {
@@ -117,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateShoulderBaseInsideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_ShoulderBaseInside,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_ShoulderBaseInside,
                                       GetCharacteristicPointStyle(Color.BlueViolet,
                                                                   Color.SeaGreen,
                                                                   ChartPointSymbol.Triangle));
@@ -130,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateDikeTopAtPolderChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtPolder,
                                       GetCharacteristicPointStyle(Color.LightSkyBlue,
                                                                   Color.SeaGreen,
                                                                   ChartPointSymbol.Triangle));
@@ -143,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateShoulderTopInsideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_ShoulderTopInside,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_ShoulderTopInside,
                                       GetCharacteristicPointStyle(Color.DeepSkyBlue,
                                                                   Color.SeaGreen,
                                                                   ChartPointSymbol.Triangle));
@@ -156,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateSurfaceLevelInsideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelInside,
                                       GetCharacteristicPointStyle(Color.ForestGreen,
                                                                   Color.Black,
                                                                   ChartPointSymbol.Square));
@@ -169,7 +169,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateSurfaceLevelOutsideChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_SurfaceLevelOutside,
                                       GetCharacteristicPointStyle(Color.LightSeaGreen,
                                                                   Color.Black,
                                                                   ChartPointSymbol.Square));
@@ -182,7 +182,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
         public static ChartPointData CreateDikeTopAtRiverChartData()
         {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver,
+            return new ChartPointData(RiskeerCommonDataResources.CharacteristicPoint_DikeTopAtRiver,
                                       GetCharacteristicPointStyle(Color.LightSteelBlue,
                                                                   Color.SeaGreen,
                                                                   ChartPointSymbol.Triangle));
@@ -295,7 +295,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         {
             chartData.Name = surfaceLine != null
                                  ? surfaceLine.Name
-                                 : RingtoetsCommonFormsResources.SurfaceLine_DisplayName;
+                                 : RiskeerCommonFormsResources.SurfaceLine_DisplayName;
         }
 
         /// <summary>
@@ -309,7 +309,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         {
             chartData.Name = soilProfile != null
                                  ? soilProfile.Name
-                                 : RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName;
+                                 : RiskeerCommonFormsResources.StochasticSoilProfileProperties_DisplayName;
         }
 
         private static ChartLineStyle GetCircleRadiusStyle()

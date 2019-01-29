@@ -32,7 +32,7 @@ using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {
@@ -63,7 +63,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(PipingCalculationGroupContext), info.DataType);
             Assert.AreEqual(typeof(CalculationGroup), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, info.Image);
         }
 
         [Test]

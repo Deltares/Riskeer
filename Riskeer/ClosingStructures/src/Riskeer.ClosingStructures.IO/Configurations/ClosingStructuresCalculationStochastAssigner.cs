@@ -25,7 +25,7 @@ using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.IO.Configurations
 {
@@ -135,7 +135,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 || Configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
             {
                 Log.LogCalculationConversionError(
-                    RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
+                    RiskeerCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
                     Configuration.Name);
                 return false;
             }
@@ -144,7 +144,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 || Configuration.DrainCoefficient?.VariationCoefficient != null)
             {
                 Log.LogCalculationConversionError(
-                    RingtoetsCommonIOResources.StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
+                    RiskeerCommonIOResources.StructuresCalculationStochastAssigner_ValidateStochasts_Cannot_define_spread_for_DrainCoefficient,
                     Configuration.Name);
                 return false;
             }

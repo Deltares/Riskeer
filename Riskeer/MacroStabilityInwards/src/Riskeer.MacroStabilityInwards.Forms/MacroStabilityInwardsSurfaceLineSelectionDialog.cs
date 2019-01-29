@@ -27,7 +27,7 @@ using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms
 {
@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Forms
             }
 
             Text = Resources.MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines;
-            InitializeDataGridView(RingtoetsCommonFormsResources.SurfaceLine_DisplayName);
+            InitializeDataGridView(RiskeerCommonFormsResources.SurfaceLine_DisplayName);
 
             SetDataSource(surfaceLines.Select(sl => new SelectableRow<MacroStabilityInwardsSurfaceLine>(sl, sl.Name)).ToArray());
         }

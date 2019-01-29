@@ -30,7 +30,7 @@ using Core.Common.Util.Properties;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.Exceptions;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.IO.ReferenceLines
 {
@@ -85,14 +85,14 @@ namespace Riskeer.Common.IO.ReferenceLines
             string[] files = GetShapeFilesInFolder(folderpath);
             if (files.Length == 0)
             {
-                string message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_, folderpath);
+                string message = string.Format(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0_, folderpath);
                 throw new CriticalFileReadException(message);
             }
 
             shapeFilePath = files.First();
             if (files.Length > 1)
             {
-                log.Warn(string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1,
+                log.Warn(string.Format(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1,
                                        Path.GetDirectoryName(shapeFilePath), Path.GetFileName(shapeFilePath)));
             }
         }
@@ -119,7 +119,7 @@ namespace Riskeer.Common.IO.ReferenceLines
             {
                 if (e is IOException || e is SecurityException)
                 {
-                    string message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid,
+                    string message = string.Format(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid,
                                                    path);
                     throw new CriticalFileReadException(message, e);
                 }
@@ -133,7 +133,7 @@ namespace Riskeer.Common.IO.ReferenceLines
             if (referenceLineMetas.Any(rlm => string.IsNullOrEmpty(rlm.AssessmentSectionId)))
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids);
+                    .Build(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids);
                 throw new CriticalFileValidationException(message);
             }
 
@@ -142,7 +142,7 @@ namespace Riskeer.Common.IO.ReferenceLines
             if (referenceLineMetasCount != referenceLineMetasDistinctCount)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique);
+                    .Build(RiskeerCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique);
                 throw new CriticalFileValidationException(message);
             }
         }

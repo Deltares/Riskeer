@@ -28,7 +28,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers;
 using Riskeer.GrassCoverErosionInwards.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 {
@@ -64,19 +64,19 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           hbLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
+                           hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
                        },
                        {
-                           orientatieSchemaName, RingtoetsCommonIOResources.OrientatieSchema
+                           orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
                        },
                        {
-                           golfReductieSchemaName, RingtoetsCommonIOResources.GolfReductieSchema
+                           golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                        },
                        {
-                           stochastSchemaName, RingtoetsCommonIOResources.StochastSchema
+                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
                        },
                        {
-                           stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
+                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
                        }
                    }) {}
 

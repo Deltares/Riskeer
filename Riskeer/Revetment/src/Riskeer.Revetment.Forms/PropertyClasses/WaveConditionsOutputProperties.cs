@@ -28,7 +28,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.PropertyClasses
 {
@@ -39,8 +39,8 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
     public class WaveConditionsOutputProperties : ObjectProperties<WaveConditionsOutput>
     {
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.WaterLevel_DisplayName))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaterLevel_Description))]
         public RoundedDouble WaterLevel
         {
@@ -51,7 +51,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveHeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveHeight_Description))]
         public RoundedDouble WaveHeight
@@ -63,7 +63,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WavePeakPeriod_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WavePeakPeriod_Description))]
         public RoundedDouble WavePeakPeriod
@@ -75,7 +75,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveDirection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveDirection_Description))]
         public RoundedDouble WaveDirection
@@ -87,7 +87,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveAngle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaveAngle_Description))]
         public RoundedDouble WaveAngle
@@ -99,7 +99,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetProbability_Description))]
         public double TargetProbability
@@ -111,7 +111,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_TargetReliability_Description))]
         public RoundedDouble TargetReliability
@@ -123,7 +123,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedProbability_Description))]
         public double CalculatedProbability
@@ -135,7 +135,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_CalculatedReliability_Description))]
         public RoundedDouble CalculatedReliability
@@ -146,7 +146,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_Convergence_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_Convergence_Description))]
         public string Convergence

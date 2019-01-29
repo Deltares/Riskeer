@@ -27,7 +27,7 @@ using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Util;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {
@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat(RingtoetsCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                log.ErrorFormat(RiskeerCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
                 return false;
             }
 

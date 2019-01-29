@@ -106,12 +106,12 @@ using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
-using RingtoetsDataResources = Riskeer.Integration.Data.Properties.Resources;
-using RingtoetsFormsResources = Riskeer.Integration.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
+using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin
@@ -435,27 +435,27 @@ namespace Riskeer.Integration.Plugin
         {
             yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContribution, FailureMechanismContributionView>
             {
-                GetViewName = (view, context) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
+                GetViewName = (view, context) => RiskeerDataResources.FailureMechanismContribution_DisplayName,
                 GetViewData = context => context.WrappedData,
-                Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
                 CreateInstance = context => new FailureMechanismContributionView(context.Parent, Gui.ViewCommands)
             };
 
             yield return new ViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Norms_DisplayName,
-                Image = RingtoetsCommonFormsResources.NormsIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Norms_DisplayName,
+                Image = RiskeerCommonFormsResources.NormsIcon,
                 CloseForData = CloseAssessmentSectionCategoriesViewForData,
                 CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
             };
 
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} - " +
+                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName} - " +
                                                  $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
                                                                                  context.AssessmentSection,
@@ -469,10 +469,10 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName} - " +
+                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName} - " +
                                                  $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
                 CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
                                                                            context.AssessmentSection,
@@ -486,8 +486,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
             {
-                GetViewName = (view, section) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
-                Image = RingtoetsFormsResources.Map,
+                GetViewName = (view, section) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
+                Image = RiskeerFormsResources.Map,
                 CreateInstance = section => new AssessmentSectionView(section)
             };
 
@@ -635,8 +635,8 @@ namespace Riskeer.Integration.Plugin
                 IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>,
                 MacroStabilityOutwardsResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData<MacroStabilityOutwardsFailureMechanism,
                     MacroStabilityOutwardsFailureMechanismSectionResult,
                     MacroStabilityOutwardsResultView,
@@ -653,14 +653,14 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, comment) => Resources.Comment_DisplayName,
                 GetViewData = comment => comment,
-                Image = RingtoetsCommonFormsResources.EditDocumentIcon,
+                Image = RiskeerCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
             };
 
             yield return new ViewInfo<FailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = RingtoetsCommonFormsResources.SectionsIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
@@ -668,8 +668,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>
             {
-                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
@@ -677,7 +677,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.CombinedAssembly_DisplayName,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
                 Image = Resources.AssemblyResultTotal,
                 CloseForData = CloseAssemblyResultTotalViewForData,
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
@@ -685,7 +685,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<AssemblyResultPerSectionContext, AssessmentSection, AssemblyResultPerSectionView>
             {
-                GetViewName = (view, context) => RingtoetsFormsResources.AssemblyResultPerSection_DisplayName,
+                GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
                 Image = Resources.AssemblyResultPerSection,
                 CloseForData = CloseAssemblyResultPerSectionViewForData,
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
@@ -693,8 +693,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = RingtoetsCommonFormsResources.NormsIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = RiskeerCommonFormsResources.NormsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismAssemblyCategoriesView(context.WrappedData,
                                                                                        context.AssessmentSection,
@@ -704,8 +704,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<MacroStabilityOutwardsAssemblyCategoriesContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsAssemblyCategoriesView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = RingtoetsCommonFormsResources.NormsIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = RiskeerCommonFormsResources.NormsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new MacroStabilityOutwardsAssemblyCategoriesView((MacroStabilityOutwardsFailureMechanism) context.WrappedData,
                                                                                              context.AssessmentSection,
@@ -713,15 +713,15 @@ namespace Riskeer.Integration.Plugin
             };
             yield return new ViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = RingtoetsCommonFormsResources.NormsIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = RiskeerCommonFormsResources.NormsIcon,
                 CloseForData = CloseAssemblyResultCategoriesViewForData,
                 CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
                                                                              context.GetAssemblyCategoriesFunc)
             };
             yield return new ViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>
             {
-                GetViewName = (view, context) => RingtoetsFormsResources.AssemblyResultPerSectionMapView_DisplayName,
+                GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
                 Image = Resources.AssemblyResultPerSectionMap,
                 CloseForData = CloseAssemblyResultPerSectionMapViewForData,
                 CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
@@ -732,11 +732,11 @@ namespace Riskeer.Integration.Plugin
         {
             yield return new ImportInfo<ReferenceLineContext>
             {
-                Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.ReferenceLineIcon,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                Name = RiskeerCommonDataResources.ReferenceLine_DisplayName,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.ReferenceLineIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData,
                                                                                       new ReferenceLineUpdateHandler(context.AssessmentSection, Gui.ViewCommands),
                                                                                       filePath)
@@ -744,11 +744,11 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ImportInfo<FailureMechanismSectionsContext>
             {
-                Name = RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description),
+                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
                                                                                                  context.AssessmentSection.ReferenceLine,
@@ -767,7 +767,7 @@ namespace Riskeer.Integration.Plugin
                                                                                           context.WrappedData),
                                                   new ImportMessageProvider()),
                 Name = Resources.ForeshoreProfilesImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => HasGeometry(context.ParentAssessmentSection.ReferenceLine),
@@ -776,9 +776,9 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
             {
-                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = RingtoetsCommonFormsResources.DatabaseIcon,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = RiskeerCommonFormsResources.DatabaseIcon,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
                                                               Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
@@ -793,29 +793,29 @@ namespace Riskeer.Integration.Plugin
         {
             yield return new ExportInfo<ReferenceLineContext>
             {
-                Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
+                Name = RiskeerCommonDataResources.ReferenceLine_DisplayName,
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData, context.AssessmentSection.Id, filePath),
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description)
             };
 
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
-                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
-                FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                                              RingtoetsCommonIOResources.Shape_file_filter_Description)
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description)
             };
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
-                Name = RingtoetsCommonFormsResources.AssemblyResult_DisplayName,
+                Name = RiskeerCommonFormsResources.AssemblyResult_DisplayName,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
                 FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.AssemblyResult_DisplayName)
+                                                              RiskeerCommonFormsResources.AssemblyResult_DisplayName)
             };
         }
 
@@ -830,7 +830,7 @@ namespace Riskeer.Integration.Plugin
                                                   new ForeshoreProfileUpdateDataStrategy(context.ParentFailureMechanism, context.WrappedData),
                                                   new UpdateMessageProvider()),
                 Name = Resources.ForeshoreProfilesImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 CurrentPath = context => context.WrappedData.SourcePath,
@@ -902,7 +902,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<AssessmentSection>
             {
                 Text = assessmentSection => assessmentSection.Name,
-                Image = assessmentSection => RingtoetsFormsResources.AssessmentSectionFolderIcon,
+                Image = assessmentSection => RiskeerFormsResources.AssessmentSectionFolderIcon,
                 EnsureVisibleOnCreate = (assessmentSection, parent) => true,
                 ExpandOnCreate = assessmentSection => true,
                 ChildNodeObjects = AssessmentSectionChildNodeObjects,
@@ -916,7 +916,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<BackgroundData>
             {
                 Text = data => Resources.RingtoetsPlugin_BackgroundDataContext_Text,
-                Image = data => RingtoetsFormsResources.Map,
+                Image = data => RiskeerFormsResources.Map,
                 ContextMenuStrip = BackgroundDataMenuStrip,
                 ForeColor = data =>
                 {
@@ -932,8 +932,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<ReferenceLineContext>
             {
-                Text = context => RingtoetsCommonDataResources.ReferenceLine_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.ReferenceLineIcon,
+                Text = context => RiskeerCommonDataResources.ReferenceLine_DisplayName,
+                Image = context => RiskeerCommonFormsResources.ReferenceLineIcon,
                 ForeColor = context => HasGeometry(context.WrappedData)
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -942,8 +942,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<NormContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Norms_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.NormsIcon,
+                Text = context => RiskeerCommonFormsResources.Norms_DisplayName,
+                Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = NormContextMenuStrip
             };
 
@@ -997,8 +997,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.SectionsIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = context => RiskeerCommonFormsResources.SectionsIcon,
                 ForeColor = context => context.WrappedData.Sections.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -1015,8 +1015,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismContributionContext>
             {
-                Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
-                Image = failureMechanismContribution => RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
+                Text = failureMechanismContribution => RiskeerDataResources.FailureMechanismContribution_DisplayName,
+                Image = failureMechanismContribution => RiskeerCommonFormsResources.FailureMechanismContributionIcon,
                 ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
                                                                                                      .AddOpenItem()
                                                                                                      .AddSeparator()
@@ -1026,8 +1026,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
-                Text = hydraulicBoundaryDatabase => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = hydraulicBoundaryDatabase => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = hydraulicBoundaryDatabase => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -1037,8 +1037,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
             {
-                Text = context => RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = DesignWaterLevelCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
             };
@@ -1046,14 +1046,14 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
             {
                 Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsGroupContext>
             {
-                Text = context => RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = WaveHeightCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects
             };
@@ -1061,14 +1061,14 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<WaveHeightCalculationsContext>
             {
                 Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaveHeightCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<ForeshoreProfilesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonFormsResources.ForeshoreProfiles_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -1089,7 +1089,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<DikeProfile>
             {
                 Text = dikeProfile => dikeProfile.Name,
-                Image = context => RingtoetsCommonFormsResources.DikeProfile,
+                Image = context => RiskeerCommonFormsResources.DikeProfile,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -1114,8 +1114,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -1124,7 +1124,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<Comment>
             {
                 Text = comment => Resources.Comment_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
+                Image = context => RiskeerCommonFormsResources.EditDocumentIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -1138,9 +1138,9 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
                 {
                     var addItem = new StrictContextMenuItem(
-                        RingtoetsFormsResources.AddAssessmentSection_DisplayName,
-                        RingtoetsCommonFormsResources.RingtoetsProject_ToolTip,
-                        RingtoetsFormsResources.AddAssessmentSectionFolder,
+                        RiskeerFormsResources.AddAssessmentSection_DisplayName,
+                        RiskeerCommonFormsResources.RingtoetsProject_ToolTip,
+                        RiskeerFormsResources.AddAssessmentSectionFolder,
                         (s, e) => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile());
 
                     return Gui.Get(nodeData, treeViewControl)
@@ -1156,11 +1156,11 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<StructuresOutputContext>
             {
-                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Text = output => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Image = output => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -1170,7 +1170,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultTotalContext>
             {
-                Text = context => RingtoetsCommonFormsResources.CombinedAssembly_DisplayName,
+                Text = context => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
                 Image = context => Resources.AssemblyResultTotal,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -1179,7 +1179,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
             {
-                Text = context => RingtoetsFormsResources.AssemblyResultPerSection_DisplayName,
+                Text = context => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
                 Image = context => Resources.AssemblyResultPerSection,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -1188,8 +1188,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<MacroStabilityOutwardsAssemblyCategoriesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.NormsIcon,
+                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -1199,8 +1199,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismAssemblyCategoriesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.NormsIcon,
+                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -1211,7 +1211,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<AssemblyResultsContext>
             {
                 Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
@@ -1223,8 +1223,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultCategoriesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.NormsIcon,
+                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -1256,8 +1256,8 @@ namespace Riskeer.Integration.Plugin
                 IObservableEnumerable<TResult>,
                 TView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = createInstanceFunc
@@ -1269,8 +1269,8 @@ namespace Riskeer.Integration.Plugin
         {
             return new TreeNodeInfo<FailureMechanismSectionResultContext<T>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -1309,7 +1309,7 @@ namespace Riskeer.Integration.Plugin
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
-                        RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                        RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                         validationProblem);
                 }
             }
@@ -1367,7 +1367,7 @@ namespace Riskeer.Integration.Plugin
                 FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismWithDetailedAssessmentViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
@@ -1402,7 +1402,7 @@ namespace Riskeer.Integration.Plugin
                 FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismWithoutDetailedAssessmentViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
@@ -1656,7 +1656,7 @@ namespace Riskeer.Integration.Plugin
             var mapDataItem = new StrictContextMenuItem(
                 Resources.BackgroundData_SelectMapData,
                 Resources.BackgroundData_SelectMapData_Tooltip,
-                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection, nodeData));
+                RiskeerCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection, nodeData));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(mapDataItem)
@@ -1743,9 +1743,9 @@ namespace Riskeer.Integration.Plugin
         private ContextMenuStrip AssessmentSectionContextMenuStrip(AssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
@@ -1830,10 +1830,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
@@ -1866,10 +1866,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
@@ -1902,10 +1902,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
@@ -1943,10 +1943,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
@@ -1979,10 +1979,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
@@ -2020,10 +2020,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
@@ -2056,10 +2056,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
@@ -2092,10 +2092,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
@@ -2145,11 +2145,11 @@ namespace Riskeer.Integration.Plugin
             switch (category)
             {
                 case TreeFolderCategory.General:
-                    return RingtoetsCommonFormsResources.GeneralFolderIcon;
+                    return RiskeerCommonFormsResources.GeneralFolderIcon;
                 case TreeFolderCategory.Input:
-                    return RingtoetsCommonFormsResources.InputFolderIcon;
+                    return RiskeerCommonFormsResources.InputFolderIcon;
                 case TreeFolderCategory.Output:
-                    return RingtoetsCommonFormsResources.OutputFolderIcon;
+                    return RiskeerCommonFormsResources.OutputFolderIcon;
                 default:
                     throw new NotSupportedException();
             }
@@ -2186,9 +2186,9 @@ namespace Riskeer.Integration.Plugin
         private ContextMenuStrip DesignWaterLevelCalculationsContextMenuStrip(DesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     if (hydraulicBoundaryLocationCalculationGuiService == null)
@@ -2219,9 +2219,9 @@ namespace Riskeer.Integration.Plugin
         private ContextMenuStrip WaveHeightCalculationsContextMenuStrip(WaveHeightCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var waveHeightItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     if (hydraulicBoundaryLocationCalculationGuiService == null)
@@ -2277,9 +2277,9 @@ namespace Riskeer.Integration.Plugin
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
@@ -2291,9 +2291,9 @@ namespace Riskeer.Integration.Plugin
                                                         calculateAllItem);
 
             return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomImportItem(RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
-                                           RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                                           RingtoetsCommonFormsResources.DatabaseIcon)
+                      .AddCustomImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
+                                           RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                                           RiskeerCommonFormsResources.DatabaseIcon)
                       .AddExportItem()
                       .AddSeparator()
                       .AddCustomItem(calculateAllItem)
@@ -2310,9 +2310,9 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
@@ -2335,9 +2335,9 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var waveHeightItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
@@ -2362,19 +2362,19 @@ namespace Riskeer.Integration.Plugin
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
-                                                        RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName),
+                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
-                                                        RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName),
+                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
-                                                        RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName),
+                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
-                                                        RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
         }
 
@@ -2385,19 +2385,19 @@ namespace Riskeer.Integration.Plugin
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
-                                                  RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName),
+                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
-                                                  RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName),
+                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
-                                                  RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName),
+                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
-                                                  RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
         }
 
@@ -2427,8 +2427,8 @@ namespace Riskeer.Integration.Plugin
         {
             get
             {
-                return new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
-                                               RingtoetsCommonIOResources.Shape_file_filter_Description);
+                return new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                               RiskeerCommonIOResources.Shape_file_filter_Description);
             }
         }
 

@@ -86,21 +86,21 @@ namespace Riskeer.Integration.Forms.Views
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
+            this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
             this.errorProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
             // warningProvider
             // 
             this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.warningProvider.ContainerControl = this;
-            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            this.warningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.warning;
             this.warningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
             // manualAssemblyWarningProvider
             // 
             this.manualAssemblyWarningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.manualAssemblyWarningProvider.ContainerControl = this;
-            this.manualAssemblyWarningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning;
+            this.manualAssemblyWarningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.PencilWarning;
             this.manualAssemblyWarningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
             // AssemblyResultPerSectionView

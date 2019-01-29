@@ -45,8 +45,8 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
 using Riskeer.HydraRing.Calculation.Exceptions;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
+using RiskeerCommonForms = Riskeer.Common.Forms.Properties.Resources;
 using HydraRingGeneralResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
 namespace Riskeer.GrassCoverErosionInwards.Service
@@ -806,12 +806,12 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
             if (inputParameters.HydraulicBoundaryLocation == null)
             {
-                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
 
             if (inputParameters.DikeProfile == null)
             {
-                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
+                validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
             }
             else
             {
@@ -899,7 +899,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
             catch (IllustrationPointConversionException e)
             {
-                log.Warn(RingtoetsCommonServiceResources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
+                log.Warn(RiskeerCommonServiceResources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
 
             return null;

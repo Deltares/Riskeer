@@ -93,13 +93,13 @@ namespace Riskeer.Common.Forms.Controls
             // 
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
+            this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
             // 
             // warningProvider
             // 
             this.manualAssemblyWarningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.manualAssemblyWarningProvider.ContainerControl = this;
-            this.manualAssemblyWarningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning;
+            this.manualAssemblyWarningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.PencilWarning;
             // 
             // AssemblyResultControl
             // 

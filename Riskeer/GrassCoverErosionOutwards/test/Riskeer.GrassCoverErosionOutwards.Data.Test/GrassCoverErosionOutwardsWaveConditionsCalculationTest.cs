@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.Revetment.Data;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
-            Assert.AreEqual(RingtoetsCommonDataResources.Calculation_DefaultName, calculation.Name);
+            Assert.AreEqual(RiskeerCommonDataResources.Calculation_DefaultName, calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);

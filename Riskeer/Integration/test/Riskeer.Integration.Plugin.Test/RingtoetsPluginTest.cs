@@ -62,7 +62,7 @@ using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Forms.Views.SectionResultViews;
 using Riskeer.Integration.Plugin;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test
 {
@@ -204,7 +204,7 @@ namespace Riskeer.Integration.Plugin.Test
                     // Then
                     string fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
                     string message = string.Format(
-                        RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                        RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                         fileMissingMessage);
                     TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
                 }

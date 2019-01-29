@@ -27,7 +27,7 @@ using Core.Common.Util.Attributes;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {
@@ -37,7 +37,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
     public class StabilityStoneCoverWaveConditionsOutputProperties : ObjectProperties<StabilityStoneCoverWaveConditionsOutput>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description))]
         public WaveConditionsOutputProperties[] Blocks
@@ -52,7 +52,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description))]
         public WaveConditionsOutputProperties[] Columns

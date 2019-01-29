@@ -29,7 +29,7 @@ using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Writers;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.ReferenceLines
 {
@@ -107,7 +107,7 @@ namespace Riskeer.Common.IO.ReferenceLines
 
             mapFeature.MetaData.Add(Resources.ReferenceLineWriter_CreateMapLineData_Traject_id, id);
 
-            return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName)
+            return new MapLineData(RiskeerCommonDataResources.ReferenceLine_DisplayName)
             {
                 Features = new[]
                 {

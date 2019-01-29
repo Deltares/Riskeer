@@ -32,8 +32,8 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.IO.SurfaceLines
 {
@@ -124,7 +124,7 @@ namespace Riskeer.Common.IO.SurfaceLines
             catch (UpdateDataException e)
             {
                 string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
-                                                   RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor),
+                                                   RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor),
                                                e.Message);
                 Log.Error(message, e);
                 return false;
@@ -135,7 +135,7 @@ namespace Riskeer.Common.IO.SurfaceLines
 
         protected override void LogImportCanceledMessage()
         {
-            string message = messageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor);
+            string message = messageProvider.GetCancelledLogMessageText(RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor);
             Log.Info(message);
         }
 
@@ -163,7 +163,7 @@ namespace Riskeer.Common.IO.SurfaceLines
             IEnumerable<Tuple<SurfaceLine, CharacteristicPoints>> surfaceLinesWithCharacteristicPoints = surfaceLines.Select(
                 sl => Tuple.Create(sl, characteristicPointsCollection.FirstOrDefault(cp => cp.Name == sl.Name))).ToArray();
 
-            string progressText = RingtoetsCommonIOResources.Importer_ProgressText_Validating_imported_data;
+            string progressText = RiskeerCommonIOResources.Importer_ProgressText_Validating_imported_data;
             int numberOfSurfaceLines = surfaceLinesWithCharacteristicPoints.Count();
 
             NotifyProgress(progressText, 0, numberOfSurfaceLines);
@@ -194,14 +194,14 @@ namespace Riskeer.Common.IO.SurfaceLines
             {
                 foreach (string missingCharacteristicPoints in readSurfaceLines.Select(sl => sl.Name).Except(surfaceLinesWithCharacteristicPoints))
                 {
-                    Log.WarnFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_,
+                    Log.WarnFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_,
                                    missingCharacteristicPoints);
                 }
             }
 
             foreach (string missingSurfaceLine in readCharacteristicPointsLocations.Select(sl => sl.Name).Except(surfaceLinesWithCharacteristicPoints))
             {
-                Log.WarnFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_,
+                Log.WarnFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_,
                                missingSurfaceLine);
             }
         }
@@ -214,7 +214,7 @@ namespace Riskeer.Common.IO.SurfaceLines
 
         private ReadResult<SurfaceLine> ReadSurfaceLines()
         {
-            NotifyProgress(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_Reading_surface_line_file, 1, 1);
+            NotifyProgress(RiskeerCommonIOResources.SurfaceLinesCsvImporter_Reading_surface_line_file, 1, 1);
             using (SurfaceLinesCsvReader reader = CreateSurfaceLineReader())
             {
                 if (reader == null)
@@ -222,12 +222,12 @@ namespace Riskeer.Common.IO.SurfaceLines
                     return new ReadResult<SurfaceLine>(true);
                 }
 
-                Log.InfoFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
+                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
                                FilePath);
 
                 ReadResult<SurfaceLine> readSurfaceLines = ReadSurfaceLines(reader);
 
-                Log.InfoFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
+                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
                                FilePath);
 
                 return readSurfaceLines;
@@ -242,7 +242,7 @@ namespace Riskeer.Common.IO.SurfaceLines
                 return new ReadResult<SurfaceLine>(true);
             }
 
-            string stepName = string.Format(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_Read_SurfaceLines_0_,
+            string stepName = string.Format(RiskeerCommonIOResources.SurfaceLinesCsvImporter_Read_SurfaceLines_0_,
                                             Path.GetFileName(FilePath));
             NotifyProgress(stepName, 0, itemCount);
 
@@ -287,7 +287,7 @@ namespace Riskeer.Common.IO.SurfaceLines
             }
             catch (LineParseException e)
             {
-                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
+                Log.ErrorFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
                                 e.Message);
             }
         }
@@ -297,7 +297,7 @@ namespace Riskeer.Common.IO.SurfaceLines
             if (readSurfaceLineIdentifiers.Any(i => i.Name == surfaceLine.Name))
             {
                 Log.WarnFormat(
-                    RingtoetsCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_,
+                    RiskeerCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_,
                     surfaceLine.Name);
 
                 return false;
@@ -352,7 +352,7 @@ namespace Riskeer.Common.IO.SurfaceLines
 
             if (consecutiveDuplicatePointIndices.Any())
             {
-                Log.WarnFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored,
+                Log.WarnFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored,
                                surfaceLine.Name);
                 surfaceLine.SetGeometry(readPoints.Where((p, index) => !consecutiveDuplicatePointIndices.Contains(index)));
             }
@@ -360,7 +360,7 @@ namespace Riskeer.Common.IO.SurfaceLines
 
         private ReadResult<CharacteristicPoints> ReadCharacteristicPoints()
         {
-            NotifyProgress(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_Reading_characteristic_points_file, 1, 1);
+            NotifyProgress(RiskeerCommonIOResources.SurfaceLinesCsvImporter_Reading_characteristic_points_file, 1, 1);
             string characteristicPointsFilePath = GetCharacteristicPointsFilePath();
             if (characteristicPointsFilePath == null)
             {
@@ -374,12 +374,12 @@ namespace Riskeer.Common.IO.SurfaceLines
                     return new ReadResult<CharacteristicPoints>(true);
                 }
 
-                Log.InfoFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
+                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
                                characteristicPointsFilePath);
 
                 ReadResult<CharacteristicPoints> readCharacteristicPoints = ReadCharacteristicPoints(characteristicPointsFilePath, reader);
 
-                Log.InfoFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
+                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
                                characteristicPointsFilePath);
 
                 return readCharacteristicPoints;
@@ -394,7 +394,7 @@ namespace Riskeer.Common.IO.SurfaceLines
                 return new ReadResult<CharacteristicPoints>(true);
             }
 
-            string stepName = string.Format(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_Read_CharacteristicPoints_0_,
+            string stepName = string.Format(RiskeerCommonIOResources.SurfaceLinesCsvImporter_Read_CharacteristicPoints_0_,
                                             Path.GetFileName(path));
 
             NotifyProgress(stepName, 0, itemCount);
@@ -440,7 +440,7 @@ namespace Riskeer.Common.IO.SurfaceLines
             }
             catch (LineParseException e)
             {
-                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
+                Log.ErrorFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
                                 e.Message);
             }
         }
@@ -449,7 +449,7 @@ namespace Riskeer.Common.IO.SurfaceLines
         {
             if (list.Any(i => i.Name == location.Name))
             {
-                Log.WarnFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
+                Log.WarnFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
                                location.Name);
                 return false;
             }
@@ -488,7 +488,7 @@ namespace Riskeer.Common.IO.SurfaceLines
             string path = FilePath.Insert(FilePath.Length - csvFileExtension.Length, characteristicPointsFileSubExtension);
             if (!File.Exists(path))
             {
-                Log.InfoFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path);
+                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path);
                 return null;
             }
 

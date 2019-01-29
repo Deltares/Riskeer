@@ -34,7 +34,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Common.Forms.TreeNodeInfos
@@ -558,7 +558,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         {
             calculationGroup.Children.Add(new CalculationGroup
             {
-                Name = NamingHelper.GetUniqueName(calculationGroup.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(calculationGroup.Children, RiskeerCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
             });
 
             calculationGroup.NotifyObservers();

@@ -25,7 +25,7 @@ using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.StabilityPointStructures.Data.Properties;
-using RingtoetsDataCommonResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerDataCommonResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Data
 {
@@ -546,7 +546,7 @@ namespace Riskeer.StabilityPointStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, RingtoetsDataCommonResources.FailureProbability_Value_needs_to_be_in_Range_0_);
+                ProbabilityHelper.ValidateProbability(value, null, RiskeerDataCommonResources.FailureProbability_Value_needs_to_be_in_Range_0_);
                 failureProbabilityRepairClosure = value;
             }
         }

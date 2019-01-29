@@ -47,7 +47,7 @@ using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -358,23 +358,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   2,
                                                                   "I&s relevant",
                                                                   "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RingtoetsCommonFormsResources.Checkbox_ticked);
+                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   4,
                                                                   "Alles &valideren",
                                                                   "Valideer alle berekeningen binnen dit toetsspoor.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   5,
                                                                   "Alles be&rekenen",
                                                                   "Voer alle berekeningen binnen dit toetsspoor uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   7,
                                                                   "&Wis alle uitvoer...",
                                                                   "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
-                                                                  RingtoetsCommonFormsResources.ClearIcon);
+                                                                  RiskeerCommonFormsResources.ClearIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   9,
@@ -518,12 +518,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
                                                                   "Voer alle berekeningen binnen dit toetsspoor uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
                                                                   "Alles &valideren",
                                                                   "Valideer alle berekeningen binnen dit toetsspoor.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                                  RiskeerCommonFormsResources.ValidateAllIcon);
                 }
             }
         }

@@ -28,7 +28,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Factories;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateChartData);
 
-            chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
+            chartDataCollection = new ChartDataCollection(RiskeerCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
             dikeGeometryChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
             dikeHeightChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();

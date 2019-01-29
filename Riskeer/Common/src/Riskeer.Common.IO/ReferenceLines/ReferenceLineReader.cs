@@ -32,8 +32,8 @@ using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Riskeer.Common.Data.AssessmentSection;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.ReferenceLines
 {
@@ -91,11 +91,11 @@ namespace Riskeer.Common.IO.ReferenceLines
             if (lineShapeReader.GetNumberOfFeatures() != 1)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
+                    .Build(RiskeerCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
                 throw new CriticalFileReadException(message);
             }
 
-            return (MapLineData) lineShapeReader.ReadFeature(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+            return (MapLineData) lineShapeReader.ReadFeature(RiskeerCommonDataResources.ReferenceLine_DisplayName);
         }
 
         private static ReferenceLine CreateReferenceLine(MapLineData lineMapData, string shapeFilePath)
@@ -105,7 +105,7 @@ namespace Riskeer.Common.IO.ReferenceLines
             if (lineFeatures.Length > 1)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
+                    .Build(RiskeerCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
                 throw new CriticalFileReadException(message);
             }
 
@@ -116,7 +116,7 @@ namespace Riskeer.Common.IO.ReferenceLines
             if (referenceGeometries.Length > 1)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
+                    .Build(RiskeerCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
                 throw new CriticalFileReadException(message);
             }
 

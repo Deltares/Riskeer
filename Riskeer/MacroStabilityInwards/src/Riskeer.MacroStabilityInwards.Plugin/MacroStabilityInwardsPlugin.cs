@@ -59,9 +59,9 @@ using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
 using Riskeer.MacroStabilityInwards.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using MacroStabilityInwardsFormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using MacroStabilityInwardsFormsResources = Riskeer.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin
 {
@@ -114,8 +114,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             yield return new ImportInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
-                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -129,8 +129,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new ImportInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
-                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -169,8 +169,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             yield return new UpdateInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
-                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -185,8 +185,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new UpdateInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
-                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Category = RiskeerCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -213,7 +213,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsFailureMechanismContext, MacroStabilityInwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
@@ -224,8 +224,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
@@ -237,7 +237,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseCalculationsViewForData,
                 AfterCreate = (view, context) =>
@@ -250,8 +250,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInputView>
             {
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseInputViewForData,
                 CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation,
                                                                                context.AssessmentSection,
@@ -261,8 +261,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsScenariosContext, CalculationGroup, MacroStabilityInwardsScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = RingtoetsCommonFormsResources.ScenariosIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = CloseScenariosViewForData,
                 AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.FailureMechanism; },
                 CreateInstance = context => new MacroStabilityInwardsScenariosView(context.AssessmentSection)
@@ -271,8 +271,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData,
                                                                                 () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
@@ -280,8 +280,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new ViewInfo<MacroStabilityInwardsFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = RingtoetsCommonFormsResources.SectionsIcon,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   context.WrappedData,
@@ -310,8 +310,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -319,8 +319,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<MacroStabilityInwardsInputContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = context => RiskeerCommonFormsResources.Calculation_Input,
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -330,8 +330,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
-                Text = context => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = MacroStabilityInwardsSurfaceLinesContextContextMenuStrip
@@ -349,8 +349,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
-                Text = stochasticSoilModelContext => RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = stochasticSoilModelContext => RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Image = stochasticSoilModelContext => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any()
                                                               ? Color.FromKnownColor(KnownColor.ControlText)
                                                               : Color.FromKnownColor(KnownColor.GrayText),
@@ -382,8 +382,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<MacroStabilityInwardsOutputContext>
             {
-                Text = context => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -396,8 +396,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<MacroStabilityInwardsScenariosContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                Text = context => RiskeerCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RiskeerCommonFormsResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
@@ -674,9 +674,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new MacroStabilityInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -915,7 +915,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
-                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
 
             nodeData.WrappedData.Children.Add(calculation);
@@ -931,9 +931,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                      : MacroStabilityInwardsFormsResources.MacroStabilityInwardsCalculationGroup_Generate_MacroStabilityInwardsCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
 
             return new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                RiskeerCommonFormsResources.CalculationGroup_Generate_Scenarios,
                 calculationGroupGenerateCalculationsToolTip,
-                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowSurfaceLineSelectionDialog(nodeData))
+                RiskeerCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowSurfaceLineSelectionDialog(nodeData))
             {
                 Enabled = surfaceLineAvailable
             };
@@ -976,8 +976,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             get
             {
                 return new FileFilterGenerator(
-                    RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    $"{RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                    $"{RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
         }
 

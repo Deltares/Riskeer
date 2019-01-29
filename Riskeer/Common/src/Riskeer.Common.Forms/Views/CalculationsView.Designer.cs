@@ -125,7 +125,7 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
-            this.CalculateForSelectedButtonErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            this.CalculateForSelectedButtonErrorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.warning;
             // 
             // splitContainer
             // 

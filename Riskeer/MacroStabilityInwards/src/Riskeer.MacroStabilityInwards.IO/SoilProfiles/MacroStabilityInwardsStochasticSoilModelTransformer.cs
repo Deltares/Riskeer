@@ -27,7 +27,7 @@ using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SoilProfile.Schema;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -47,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 
             if (stochasticSoilModel.FailureMechanismType != FailureMechanismType.Stability)
             {
-                string message = string.Format(RingtoetsCommonIOResources.IStochasticSoilModelTransformer_Cannot_transform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
+                string message = string.Format(RiskeerCommonIOResources.IStochasticSoilModelTransformer_Cannot_transform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
                                                stochasticSoilModel.FailureMechanismType,
                                                FailureMechanismType.Stability);
                 throw new ImportedDataTransformException(message);

@@ -28,7 +28,7 @@ using Core.Common.Util;
 using Riskeer.Common.Data.Helpers;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
@@ -137,7 +137,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             RoundedDouble designValue = designVariable.GetDesignValue();
             return double.IsNaN(designValue)
                        ? double.NaN.ToString(CultureInfo.CurrentCulture)
-                       : string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2,
+                       : string.Format(RiskeerCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2,
                                        designValue,
                                        designVariable.Distribution.Mean,
                                        designVariable.Distribution.CoefficientOfVariation);
@@ -148,7 +148,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             RoundedDouble designValue = designVariable.GetDesignValue();
             return double.IsNaN(designValue)
                        ? double.NaN.ToString(CultureInfo.CurrentCulture)
-                       : string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3,
+                       : string.Format(RiskeerCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3,
                                        designValue,
                                        designVariable.Distribution.Mean,
                                        designVariable.Distribution.CoefficientOfVariation,

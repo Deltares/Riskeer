@@ -38,7 +38,7 @@ using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Properties;
 using Riskeer.Common.IO.Structures;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.FileImporters
 {
@@ -113,7 +113,7 @@ namespace Riskeer.Common.IO.FileImporters
             catch (UpdateDataException e)
             {
                 string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
-                                                   RingtoetsCommonDataResources.StructureCollection_TypeDescriptor),
+                                                   RiskeerCommonDataResources.StructureCollection_TypeDescriptor),
                                                e.Message);
                 Log.Error(message, e);
                 return false;
@@ -129,7 +129,7 @@ namespace Riskeer.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            string message = messageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.StructureCollection_TypeDescriptor);
+            string message = messageProvider.GetCancelledLogMessageText(RiskeerCommonDataResources.StructureCollection_TypeDescriptor);
             Log.Info(message);
         }
 

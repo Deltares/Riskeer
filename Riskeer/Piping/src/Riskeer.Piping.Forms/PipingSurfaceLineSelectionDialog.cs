@@ -27,7 +27,7 @@ using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms
 {
@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Forms
             }
 
             Text = Resources.PipingSurfaceLineSelectionDialog_Select_SurfaceLines;
-            InitializeDataGridView(RingtoetsCommonFormsResources.SurfaceLine_DisplayName);
+            InitializeDataGridView(RiskeerCommonFormsResources.SurfaceLine_DisplayName);
 
             SetDataSource(surfaceLines.Select(sl => new SelectableRow<PipingSurfaceLine>(sl, sl.Name)).ToArray());
         }

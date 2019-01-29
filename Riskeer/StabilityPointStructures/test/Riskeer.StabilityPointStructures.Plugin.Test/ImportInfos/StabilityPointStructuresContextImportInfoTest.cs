@@ -38,7 +38,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.IO;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
 {
@@ -118,7 +118,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
                 Image image = importInfo.Image;
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.StructuresIcon, image);
             }
         }
 

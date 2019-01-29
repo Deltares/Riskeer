@@ -30,8 +30,8 @@ using Riskeer.Common.Util;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Properties;
 using Riskeer.DuneErosion.Forms.Views;
-using RingtoetsDuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
-using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
+using RiskeerDuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Factories
 {
@@ -63,10 +63,10 @@ namespace Riskeer.DuneErosion.Forms.Factories
         private static MapFeature CreateDuneLocationFeature(AggregatedDuneLocation location)
         {
             MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
+            feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
+            feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
-            feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
+            feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RiskeerDuneErosionDataResources.DuneLocation_Offset_format,
                                                                                    CultureInfo.CurrentCulture);
             feature.MetaData[Resources.MetaData_D50] = location.D50.ToString();
 

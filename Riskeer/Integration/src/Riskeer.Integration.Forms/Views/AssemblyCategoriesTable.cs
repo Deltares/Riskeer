@@ -25,7 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -57,18 +57,18 @@ namespace Riskeer.Integration.Forms.Views
         private void AddColumns()
         {
             AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.Group),
-                             RingtoetsCommonFormsResources.AssemblyCategory_Group_DisplayName,
+                             RiskeerCommonFormsResources.AssemblyCategory_Group_DisplayName,
                              true);
 
             AddColorColumn(nameof(AssemblyCategoryRow<T>.Color),
-                           RingtoetsCommonFormsResources.AssemblyCategory_Color_DisplayName);
+                           RiskeerCommonFormsResources.AssemblyCategory_Color_DisplayName);
 
             AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.LowerBoundary),
-                             RingtoetsCommonFormsResources.AssemblyCategory_LowerBoundary_DisplayName,
+                             RiskeerCommonFormsResources.AssemblyCategory_LowerBoundary_DisplayName,
                              true);
 
             AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.UpperBoundary),
-                             RingtoetsCommonFormsResources.AssemblyCategory_UpperBoundary_DisplayName,
+                             RiskeerCommonFormsResources.AssemblyCategory_UpperBoundary_DisplayName,
                              true);
         }
     }

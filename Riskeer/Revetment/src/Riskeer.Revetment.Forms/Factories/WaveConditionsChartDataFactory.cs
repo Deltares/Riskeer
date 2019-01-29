@@ -25,7 +25,7 @@ using Core.Components.Chart.Styles;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.Factories
 {
@@ -160,10 +160,10 @@ namespace Riskeer.Revetment.Forms.Factories
         public static void UpdateForeshoreGeometryChartDataName(ChartLineData chartData, WaveConditionsInput input)
         {
             chartData.Name = input?.ForeshoreProfile != null && input.UseForeshore
-                                 ? string.Format(RingtoetsCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                 ? string.Format(RiskeerCommonFormsResources.ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                  input.ForeshoreProfile.Name,
-                                                 RingtoetsCommonFormsResources.Foreshore_DisplayName)
-                                 : RingtoetsCommonFormsResources.Foreshore_DisplayName;
+                                                 RiskeerCommonFormsResources.Foreshore_DisplayName)
+                                 : RiskeerCommonFormsResources.Foreshore_DisplayName;
         }
 
         private static ChartLineStyle GetRevetmentBoundaryStyle(Color lineColor)

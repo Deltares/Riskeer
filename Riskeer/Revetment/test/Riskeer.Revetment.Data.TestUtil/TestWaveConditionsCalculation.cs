@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Revetment.Data.TestUtil
 {
@@ -42,7 +42,7 @@ namespace Riskeer.Revetment.Data.TestUtil
         /// <param name="input">The wave conditions input to set to the calculation.</param>
         public TestWaveConditionsCalculation(T input)
         {
-            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
+            Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = input;
         }
 

@@ -31,7 +31,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {
@@ -216,7 +216,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyException(RingtoetsCommonDataResources.FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism, e);
+                throw new AssemblyException(RiskeerCommonDataResources.FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism, e);
             }
         }
     }

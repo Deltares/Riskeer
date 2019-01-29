@@ -25,7 +25,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data.Properties;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {
@@ -50,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             StochasticSoilModels = new MacroStabilityInwardsStochasticSoilModelCollection();
             CalculationsGroup = new CalculationGroup
             {
-                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+                Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
             sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
