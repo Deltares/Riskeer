@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.IO.FileImporters
 {

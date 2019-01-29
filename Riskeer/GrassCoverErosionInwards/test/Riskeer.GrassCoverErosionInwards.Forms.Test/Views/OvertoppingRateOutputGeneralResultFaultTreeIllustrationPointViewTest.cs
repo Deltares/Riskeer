@@ -21,9 +21,9 @@
 
 using System.Threading;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.Views;
+using Riskeer.GrassCoverErosionInwards.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 {

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
 {

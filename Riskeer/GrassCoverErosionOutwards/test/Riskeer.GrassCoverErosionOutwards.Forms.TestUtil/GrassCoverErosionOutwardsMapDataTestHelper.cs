@@ -21,8 +21,8 @@
 
 using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.TestUtil
 {

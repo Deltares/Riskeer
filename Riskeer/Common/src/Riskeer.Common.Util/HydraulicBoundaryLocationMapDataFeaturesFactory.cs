@@ -21,7 +21,7 @@
 
 using System;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Util.Properties;
+using Riskeer.Common.Util.Properties;
 
 namespace Riskeer.Common.Util
 {

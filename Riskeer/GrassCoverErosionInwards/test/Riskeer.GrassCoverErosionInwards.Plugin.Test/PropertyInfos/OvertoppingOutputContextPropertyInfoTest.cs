@@ -24,12 +24,12 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {

@@ -23,9 +23,9 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Storage.Core.Create.IllustrationPoints;
 using Riskeer.Storage.Core.DbContext;
 

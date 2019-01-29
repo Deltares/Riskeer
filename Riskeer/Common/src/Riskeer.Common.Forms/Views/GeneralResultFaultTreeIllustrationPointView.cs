@@ -26,9 +26,9 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Views
 {

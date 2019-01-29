@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Util

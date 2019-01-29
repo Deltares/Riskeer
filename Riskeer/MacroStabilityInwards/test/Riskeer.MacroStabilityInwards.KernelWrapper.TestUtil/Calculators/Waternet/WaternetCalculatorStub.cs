@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet
 {

@@ -29,11 +29,11 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.ReferenceLines;
-using Ringtoets.Integration.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.ReferenceLines;
+using Riskeer.Integration.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Handlers;
 

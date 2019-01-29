@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service.IllustrationPoints;
 using HydraRingStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
 using HydraRingSubMechanismIllustrationPointStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast;
 

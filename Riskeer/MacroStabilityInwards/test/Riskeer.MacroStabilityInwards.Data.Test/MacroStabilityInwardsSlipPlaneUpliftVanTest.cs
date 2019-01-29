@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
 {

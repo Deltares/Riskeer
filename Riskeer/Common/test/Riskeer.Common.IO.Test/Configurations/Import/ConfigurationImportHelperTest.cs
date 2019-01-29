@@ -24,11 +24,11 @@ using Core.Common.Base;
 using log4net;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.Common.IO.Test.Configurations.Import
 {

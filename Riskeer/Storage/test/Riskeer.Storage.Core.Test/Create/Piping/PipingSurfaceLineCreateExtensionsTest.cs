@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.DbContext;

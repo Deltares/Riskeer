@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.TestUtil;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.StabilityPointStructures.Data.TestUtil
 {

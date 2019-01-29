@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
 
 namespace Riskeer.Common.Data.Test.IllustrationPoints
 {

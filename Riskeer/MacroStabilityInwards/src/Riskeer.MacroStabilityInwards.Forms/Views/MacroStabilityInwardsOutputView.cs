@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Components.Chart.Forms;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {

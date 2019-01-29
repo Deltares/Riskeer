@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.IO.Exceptions;
+using Riskeer.Common.Data;
+using Riskeer.Common.IO.Exceptions;
 
 namespace Riskeer.Common.IO.SoilProfile
 {

@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.IO.Configurations
 {

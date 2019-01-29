@@ -24,9 +24,9 @@ using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.Hydraulics
 {

@@ -27,7 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.Common.Data.Exceptions;
 
 namespace Riskeer.Common.Data.Test
 {

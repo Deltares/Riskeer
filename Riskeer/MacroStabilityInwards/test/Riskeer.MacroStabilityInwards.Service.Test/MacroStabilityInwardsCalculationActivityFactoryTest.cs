@@ -26,17 +26,17 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Riskeer.MacroStabilityInwards.Service.Test
 {

@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.PropertyClasses;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Common.Forms.ChangeHandlers

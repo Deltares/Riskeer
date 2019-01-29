@@ -29,12 +29,12 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses

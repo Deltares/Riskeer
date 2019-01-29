@@ -22,12 +22,12 @@
 using System;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Plugin;
-using Ringtoets.Common.Plugin.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.TestUtil;
 
 namespace Riskeer.Common.Service.Test
 {

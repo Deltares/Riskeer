@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Service;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
 {

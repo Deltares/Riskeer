@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.ValidationRules;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.ValidationRules;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 

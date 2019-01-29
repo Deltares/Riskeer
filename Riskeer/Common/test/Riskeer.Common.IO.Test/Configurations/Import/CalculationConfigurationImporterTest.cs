@@ -30,14 +30,14 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.Common.IO.TestUtil;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Import;
+using Riskeer.Common.IO.TestUtil;
 
 namespace Riskeer.Common.IO.Test.Configurations.Import
 {

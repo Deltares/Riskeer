@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
 {

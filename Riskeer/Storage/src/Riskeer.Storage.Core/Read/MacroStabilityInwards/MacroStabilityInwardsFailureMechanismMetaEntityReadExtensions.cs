@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.MacroStabilityInwards

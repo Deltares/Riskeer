@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
 {

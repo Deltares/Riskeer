@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Deltares.WTIPiping;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
 
 namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
 {

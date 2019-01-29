@@ -22,9 +22,9 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service.IllustrationPoints;
 using HydraRingIllustrationPointTreeNode = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraRingTestWindDirection = Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints.TestWindDirection;
 using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;

@@ -26,10 +26,10 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Integration.Forms.Views;
 
 namespace Riskeer.Integration.Forms.Test.Views

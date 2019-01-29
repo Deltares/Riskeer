@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.Piping.Primitives.Properties;
+using Riskeer.Piping.Primitives.Properties;
 
 namespace Riskeer.Piping.Primitives
 {

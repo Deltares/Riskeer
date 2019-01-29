@@ -24,8 +24,8 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin;
 

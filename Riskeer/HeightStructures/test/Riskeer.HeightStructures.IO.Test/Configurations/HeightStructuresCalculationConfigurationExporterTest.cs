@@ -24,15 +24,15 @@ using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HeightStructures.IO.Configurations;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HeightStructures.IO.Configurations;
 
 namespace Riskeer.HeightStructures.IO.Test.Configurations
 {

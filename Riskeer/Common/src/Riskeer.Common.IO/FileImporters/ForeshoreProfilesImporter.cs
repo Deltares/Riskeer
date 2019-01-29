@@ -25,11 +25,11 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.IO.DikeProfiles;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.IO.DikeProfiles;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.FileImporters

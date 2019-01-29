@@ -21,12 +21,12 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 {

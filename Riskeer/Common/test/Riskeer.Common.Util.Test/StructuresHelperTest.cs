@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Util.Test
 {

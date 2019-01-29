@@ -26,8 +26,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms
 {

@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Common.IO.ReferenceLines
 {

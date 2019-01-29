@@ -31,12 +31,12 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Forms.Views;
 
 namespace Riskeer.Integration.Forms.Test.Views

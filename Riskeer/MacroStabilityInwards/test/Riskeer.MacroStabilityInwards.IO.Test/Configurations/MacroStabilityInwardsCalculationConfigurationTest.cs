@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.MacroStabilityInwards.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.MacroStabilityInwards.IO.Configurations;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 {

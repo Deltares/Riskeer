@@ -23,7 +23,7 @@ using Core.Common.Util.Reflection;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 {

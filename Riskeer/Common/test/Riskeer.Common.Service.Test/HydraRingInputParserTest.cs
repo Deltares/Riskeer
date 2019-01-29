@@ -28,9 +28,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service.TestUtil;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Data;
 
 namespace Riskeer.Common.Service.Test

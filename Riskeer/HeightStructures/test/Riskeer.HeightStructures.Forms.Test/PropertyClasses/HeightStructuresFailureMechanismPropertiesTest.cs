@@ -27,9 +27,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PropertyClasses;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.PropertyClasses;
 
 namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 {

@@ -27,17 +27,17 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.Views;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Plugin.Test
 {

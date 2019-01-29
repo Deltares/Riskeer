@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
 
 namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {

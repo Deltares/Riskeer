@@ -25,10 +25,10 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.FileImporters
 {

@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.Configurations.Helpers;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.IO.Configurations.Helpers;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.ClosingStructures.IO.Configurations
 {

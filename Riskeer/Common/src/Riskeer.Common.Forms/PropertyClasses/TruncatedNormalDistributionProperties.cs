@@ -23,8 +23,8 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

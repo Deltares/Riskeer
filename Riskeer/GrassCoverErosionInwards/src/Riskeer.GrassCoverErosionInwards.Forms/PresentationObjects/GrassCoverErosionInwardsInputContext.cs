@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {

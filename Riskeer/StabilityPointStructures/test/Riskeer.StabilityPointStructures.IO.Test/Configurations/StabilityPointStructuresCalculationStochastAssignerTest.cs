@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.IO.Configurations;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.IO.Configurations;
 
 namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 {

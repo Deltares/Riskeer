@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Data;
 
 namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {

@@ -22,10 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.TestUtil.IllustrationPoints;

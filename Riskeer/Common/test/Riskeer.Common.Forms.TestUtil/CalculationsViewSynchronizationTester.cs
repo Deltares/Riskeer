@@ -24,11 +24,11 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.TestUtil
 {

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.TestUtil
 {

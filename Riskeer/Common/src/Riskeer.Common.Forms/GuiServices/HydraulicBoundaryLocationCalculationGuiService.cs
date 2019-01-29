@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.Common.Service;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.IO.HydraRing;
+using Riskeer.Common.Service;
 
 namespace Riskeer.Common.Forms.GuiServices
 {

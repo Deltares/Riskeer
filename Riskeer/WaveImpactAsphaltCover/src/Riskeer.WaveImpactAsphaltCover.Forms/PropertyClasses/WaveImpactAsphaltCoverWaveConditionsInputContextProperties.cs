@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Revetment.Forms.PropertyClasses;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.Properties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {

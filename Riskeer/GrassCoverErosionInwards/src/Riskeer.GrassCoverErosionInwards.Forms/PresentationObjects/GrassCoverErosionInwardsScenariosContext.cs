@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {

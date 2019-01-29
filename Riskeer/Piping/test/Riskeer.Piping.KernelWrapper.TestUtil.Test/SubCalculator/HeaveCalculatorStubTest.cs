@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
-using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 
 namespace Riskeer.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 {

@@ -27,10 +27,10 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.Forms.PropertyClasses;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Forms.PropertyClasses;
 
 namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 {

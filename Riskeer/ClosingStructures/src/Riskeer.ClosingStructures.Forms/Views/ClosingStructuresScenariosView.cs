@@ -25,10 +25,10 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Util;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Util;
 
 namespace Riskeer.ClosingStructures.Forms.Views
 {

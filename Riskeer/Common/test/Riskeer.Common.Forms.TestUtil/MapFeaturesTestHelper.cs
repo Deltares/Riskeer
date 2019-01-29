@@ -25,11 +25,11 @@ using Core.Common.Base.Data;
 using Core.Common.Util;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Util.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Util.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 

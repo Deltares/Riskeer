@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.Views;
+using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {

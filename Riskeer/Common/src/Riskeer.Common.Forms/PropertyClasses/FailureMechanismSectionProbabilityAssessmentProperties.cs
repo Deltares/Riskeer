@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

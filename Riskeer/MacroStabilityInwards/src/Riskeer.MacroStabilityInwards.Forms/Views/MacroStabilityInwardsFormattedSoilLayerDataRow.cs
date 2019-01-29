@@ -25,9 +25,9 @@ using System.Drawing;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Util;
-using Ringtoets.Common.Data.Helpers;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Helpers;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views

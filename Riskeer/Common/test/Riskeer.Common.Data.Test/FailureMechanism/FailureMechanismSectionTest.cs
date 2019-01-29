@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {

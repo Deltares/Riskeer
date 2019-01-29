@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
 using HydraRingWindDirectionClosingSituation = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 

@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Util
 {

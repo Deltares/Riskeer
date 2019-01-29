@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.FileImporters;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.FileImporters;
 using Riskeer.Integration.Plugin.FileImporters;
 
 namespace Riskeer.Integration.Plugin.Test.FileImporters

@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Data

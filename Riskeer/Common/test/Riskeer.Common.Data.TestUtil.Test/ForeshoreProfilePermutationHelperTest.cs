@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.DikeProfiles;
 
 namespace Riskeer.Common.Data.TestUtil.Test
 {

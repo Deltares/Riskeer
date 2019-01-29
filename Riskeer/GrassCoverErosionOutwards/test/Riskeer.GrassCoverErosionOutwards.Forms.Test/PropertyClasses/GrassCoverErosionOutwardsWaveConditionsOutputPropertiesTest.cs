@@ -24,12 +24,12 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.Forms.PropertyClasses;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Forms.PropertyClasses;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {

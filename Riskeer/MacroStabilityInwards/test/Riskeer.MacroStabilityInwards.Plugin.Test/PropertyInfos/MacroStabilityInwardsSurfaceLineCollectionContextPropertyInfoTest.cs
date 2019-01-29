@@ -24,10 +24,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
 {

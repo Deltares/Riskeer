@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.SoilProfile.Schema;
 
 namespace Riskeer.Common.IO.Test.SoilProfile.Schema
 {

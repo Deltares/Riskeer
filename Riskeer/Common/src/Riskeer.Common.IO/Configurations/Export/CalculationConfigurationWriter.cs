@@ -25,7 +25,7 @@ using System.Xml;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using Core.Common.Util.Properties;
-using Ringtoets.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.Common.IO.Configurations.Export
 {

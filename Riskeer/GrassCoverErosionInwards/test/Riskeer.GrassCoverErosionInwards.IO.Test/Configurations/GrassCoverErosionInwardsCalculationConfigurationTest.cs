@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.GrassCoverErosionInwards.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 {

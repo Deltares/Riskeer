@@ -28,7 +28,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.TestUtil;
 

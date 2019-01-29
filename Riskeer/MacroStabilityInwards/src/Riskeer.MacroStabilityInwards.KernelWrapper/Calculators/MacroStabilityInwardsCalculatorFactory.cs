@@ -19,11 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
 {

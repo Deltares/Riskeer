@@ -26,8 +26,8 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 

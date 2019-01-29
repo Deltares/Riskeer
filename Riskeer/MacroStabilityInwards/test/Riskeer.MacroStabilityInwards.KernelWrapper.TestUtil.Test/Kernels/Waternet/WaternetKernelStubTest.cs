@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Waternet
 {

@@ -29,17 +29,17 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 
 namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 {

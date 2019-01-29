@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels
 {

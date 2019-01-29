@@ -31,13 +31,13 @@ using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.IO;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.IO;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos

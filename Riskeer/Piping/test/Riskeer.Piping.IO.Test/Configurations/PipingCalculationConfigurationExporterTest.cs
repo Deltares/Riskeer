@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.IO.Configurations;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.IO.Configurations;
 
 namespace Riskeer.Piping.IO.Test.Configurations
 {

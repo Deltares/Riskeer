@@ -24,8 +24,8 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service.TestUtil;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Service.TestUtil;
 
 namespace Riskeer.Common.Service.Test
 {

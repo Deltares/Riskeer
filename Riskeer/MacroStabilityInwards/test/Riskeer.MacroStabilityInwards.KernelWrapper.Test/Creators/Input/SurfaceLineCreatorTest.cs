@@ -26,8 +26,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Riskeer.MacroStabilityInwards.Primitives;
 using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
 using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 

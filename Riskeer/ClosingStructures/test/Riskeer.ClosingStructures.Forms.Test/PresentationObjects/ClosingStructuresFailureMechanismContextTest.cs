@@ -21,10 +21,10 @@
 
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {

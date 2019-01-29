@@ -23,11 +23,11 @@ using System;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.TestUtil
 {

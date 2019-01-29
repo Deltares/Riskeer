@@ -29,9 +29,9 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 {

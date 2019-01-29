@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Service;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Service
 {

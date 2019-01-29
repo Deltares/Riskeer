@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Storage.Core;
 
 namespace Riskeer.Migration.Core.TestUtil.Test

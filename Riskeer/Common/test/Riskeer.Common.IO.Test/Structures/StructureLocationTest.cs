@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Structures;
+using Riskeer.Common.IO.Structures;
 
 namespace Riskeer.Common.IO.Test.Structures
 {

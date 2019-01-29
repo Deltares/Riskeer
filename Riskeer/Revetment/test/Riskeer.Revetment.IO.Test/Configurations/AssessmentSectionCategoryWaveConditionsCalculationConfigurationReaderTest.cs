@@ -26,8 +26,8 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.Revetment.IO.Test.Configurations
 {

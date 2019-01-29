@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data;
 
 namespace Riskeer.ClosingStructures.IO.Configurations.Helpers
 {

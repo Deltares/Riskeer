@@ -22,12 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {

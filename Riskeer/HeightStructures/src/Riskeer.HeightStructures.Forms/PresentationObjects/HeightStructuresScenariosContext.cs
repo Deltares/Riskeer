@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Forms.PresentationObjects
 {

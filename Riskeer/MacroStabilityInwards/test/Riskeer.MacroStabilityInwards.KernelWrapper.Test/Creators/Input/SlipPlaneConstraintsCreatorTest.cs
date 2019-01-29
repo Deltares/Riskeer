@@ -22,8 +22,8 @@
 using System;
 using Deltares.WTIStability;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {

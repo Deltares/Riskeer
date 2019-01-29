@@ -25,8 +25,8 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Service.ValidationRules;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Service.ValidationRules;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Service.Test
 {

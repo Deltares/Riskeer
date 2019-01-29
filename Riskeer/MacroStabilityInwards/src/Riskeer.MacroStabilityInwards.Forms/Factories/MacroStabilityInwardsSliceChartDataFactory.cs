@@ -22,8 +22,8 @@
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Forms.Properties;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {

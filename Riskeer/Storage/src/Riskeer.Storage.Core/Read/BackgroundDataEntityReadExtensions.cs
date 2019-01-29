@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read

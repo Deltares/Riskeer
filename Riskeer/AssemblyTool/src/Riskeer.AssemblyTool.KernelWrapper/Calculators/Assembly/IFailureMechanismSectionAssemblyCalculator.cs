@@ -21,7 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly

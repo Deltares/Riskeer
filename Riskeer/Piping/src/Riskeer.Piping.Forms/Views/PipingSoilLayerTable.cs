@@ -24,9 +24,9 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Helpers;
-using Ringtoets.Piping.Forms.Properties;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Helpers;
+using Riskeer.Piping.Forms.Properties;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Views
 {

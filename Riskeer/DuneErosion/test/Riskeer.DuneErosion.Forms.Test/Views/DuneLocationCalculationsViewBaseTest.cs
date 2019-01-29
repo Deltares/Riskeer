@@ -27,9 +27,9 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Forms.Views;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Forms.Test.Views
 {

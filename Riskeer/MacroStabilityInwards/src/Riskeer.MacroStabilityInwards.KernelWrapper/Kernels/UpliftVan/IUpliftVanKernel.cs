@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {

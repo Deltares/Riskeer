@@ -25,9 +25,9 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 {

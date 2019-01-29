@@ -23,8 +23,8 @@ using System;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service.Properties;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Service.Properties;
 
 namespace Riskeer.Common.Service
 {

@@ -27,8 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.Revetment.Data;
+using Riskeer.StabilityStoneCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos

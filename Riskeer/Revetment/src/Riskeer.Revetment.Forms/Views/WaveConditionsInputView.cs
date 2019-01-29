@@ -26,11 +26,11 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.Factories;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.Factories;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.Views

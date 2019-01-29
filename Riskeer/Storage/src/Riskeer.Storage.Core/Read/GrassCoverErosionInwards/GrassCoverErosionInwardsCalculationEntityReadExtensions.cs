@@ -22,9 +22,9 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards

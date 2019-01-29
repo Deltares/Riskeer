@@ -26,7 +26,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Structures;
+using Riskeer.Common.IO.Structures;
 using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.Test.Structures

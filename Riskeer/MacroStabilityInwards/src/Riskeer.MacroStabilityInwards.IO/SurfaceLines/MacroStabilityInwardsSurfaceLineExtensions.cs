@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Geometry;
 using log4net;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using MacroStabilityInwardsIOResources = Ringtoets.MacroStabilityInwards.IO.Properties.Resources;

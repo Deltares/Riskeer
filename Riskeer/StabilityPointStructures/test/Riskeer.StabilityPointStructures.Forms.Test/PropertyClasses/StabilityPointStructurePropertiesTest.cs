@@ -25,10 +25,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 
 namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 {

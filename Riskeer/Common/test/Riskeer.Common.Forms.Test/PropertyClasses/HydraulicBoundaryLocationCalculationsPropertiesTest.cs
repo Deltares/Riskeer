@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.Common.Forms.Test.PropertyClasses
 {

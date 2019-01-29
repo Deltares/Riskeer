@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters
 {

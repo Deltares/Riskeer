@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
+using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.Common.Data.Test.Probability
 {

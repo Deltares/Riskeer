@@ -21,8 +21,8 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
 
 namespace Riskeer.Piping.IO.Configurations
 {

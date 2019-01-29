@@ -22,13 +22,13 @@
 using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 

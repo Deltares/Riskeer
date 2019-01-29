@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Ringtoets.Common.Forms.Builders;
-using Ringtoets.Common.Forms.Controls;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Common.Forms.Builders;
+using Riskeer.Common.Forms.Controls;
+using Riskeer.Common.Forms.Views;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {

@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms
 {

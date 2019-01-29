@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Piping.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;

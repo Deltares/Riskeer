@@ -22,11 +22,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Revetment.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Revetment.Data;
+using Riskeer.WaveImpactAsphaltCover.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Revetment.Data.TestUtil.Test
 {

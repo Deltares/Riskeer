@@ -24,13 +24,13 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.TestUtil;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.Views;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.TestUtil;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.Views;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Piping.Integration.Test

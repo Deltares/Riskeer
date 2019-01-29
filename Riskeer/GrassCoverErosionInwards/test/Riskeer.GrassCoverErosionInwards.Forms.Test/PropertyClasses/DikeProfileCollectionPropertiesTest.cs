@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {

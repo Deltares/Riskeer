@@ -23,13 +23,13 @@ using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Revetment.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 {

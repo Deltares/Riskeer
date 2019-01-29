@@ -25,11 +25,11 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {

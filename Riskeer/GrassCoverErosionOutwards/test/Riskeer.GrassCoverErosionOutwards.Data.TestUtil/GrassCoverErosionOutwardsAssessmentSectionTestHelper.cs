@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
 {

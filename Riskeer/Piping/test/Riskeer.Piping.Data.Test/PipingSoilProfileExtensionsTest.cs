@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test
 {

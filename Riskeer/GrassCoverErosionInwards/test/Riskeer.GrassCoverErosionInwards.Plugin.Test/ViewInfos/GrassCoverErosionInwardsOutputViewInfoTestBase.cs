@@ -25,14 +25,14 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Plugin.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Plugin.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {

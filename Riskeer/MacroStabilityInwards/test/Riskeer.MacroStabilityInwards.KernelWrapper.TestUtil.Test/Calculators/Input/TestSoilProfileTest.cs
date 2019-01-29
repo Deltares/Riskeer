@@ -21,8 +21,8 @@
 
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.Input
 {

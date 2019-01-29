@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.Service;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.Service;
 
 namespace Riskeer.Integration.Plugin.FileImporters
 {

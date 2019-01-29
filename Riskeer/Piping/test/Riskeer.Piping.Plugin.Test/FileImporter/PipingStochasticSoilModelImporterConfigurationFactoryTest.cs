@@ -21,11 +21,11 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.SoilProfiles;
-using Ringtoets.Piping.Plugin.FileImporter;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.IO.SoilProfiles;
+using Riskeer.Piping.Plugin.FileImporter;
 
 namespace Riskeer.Piping.Plugin.Test.FileImporter
 {

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output
 {

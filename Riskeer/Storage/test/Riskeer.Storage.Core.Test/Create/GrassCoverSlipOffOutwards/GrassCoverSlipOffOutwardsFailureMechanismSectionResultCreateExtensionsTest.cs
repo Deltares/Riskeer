@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Primitives;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.Create.GrassCoverSlipOffOutwards;
 using Riskeer.Storage.Core.DbContext;

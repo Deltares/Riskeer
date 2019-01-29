@@ -23,14 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Common.Service;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Forms;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Service;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Common.Service;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Forms;
+using Riskeer.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Service;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {

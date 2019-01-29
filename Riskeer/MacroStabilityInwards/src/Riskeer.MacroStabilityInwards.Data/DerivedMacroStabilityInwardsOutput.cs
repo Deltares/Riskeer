@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Probability;
+using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {

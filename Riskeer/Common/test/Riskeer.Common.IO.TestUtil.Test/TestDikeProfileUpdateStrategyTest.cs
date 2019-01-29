@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.FileImporters;
 
 namespace Riskeer.Common.IO.TestUtil.Test
 {

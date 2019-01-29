@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.ClosingStructures.Data.Properties;
+using Riskeer.ClosingStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Data

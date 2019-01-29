@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Integration.Forms.Views

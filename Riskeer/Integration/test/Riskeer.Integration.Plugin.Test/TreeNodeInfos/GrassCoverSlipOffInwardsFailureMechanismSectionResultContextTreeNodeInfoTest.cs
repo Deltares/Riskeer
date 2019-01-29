@@ -27,7 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Plugin;

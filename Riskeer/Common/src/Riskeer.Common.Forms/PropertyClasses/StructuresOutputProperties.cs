@@ -28,11 +28,11 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

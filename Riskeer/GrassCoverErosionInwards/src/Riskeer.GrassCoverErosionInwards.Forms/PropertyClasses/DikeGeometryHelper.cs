@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.DikeProfiles;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 {

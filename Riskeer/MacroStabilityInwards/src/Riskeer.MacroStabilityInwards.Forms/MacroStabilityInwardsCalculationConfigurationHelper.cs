@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms
 {

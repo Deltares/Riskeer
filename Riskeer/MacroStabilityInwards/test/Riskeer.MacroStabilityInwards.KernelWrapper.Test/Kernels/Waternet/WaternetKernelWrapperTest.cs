@@ -24,7 +24,7 @@ using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet

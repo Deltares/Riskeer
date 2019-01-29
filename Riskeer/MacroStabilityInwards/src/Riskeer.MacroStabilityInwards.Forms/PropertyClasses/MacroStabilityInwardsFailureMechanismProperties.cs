@@ -24,10 +24,10 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses

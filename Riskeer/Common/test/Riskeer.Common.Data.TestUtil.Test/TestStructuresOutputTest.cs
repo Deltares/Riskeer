@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Riskeer.Common.Data.TestUtil.Test
 {

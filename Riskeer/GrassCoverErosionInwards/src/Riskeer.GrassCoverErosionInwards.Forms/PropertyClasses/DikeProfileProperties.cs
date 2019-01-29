@@ -25,9 +25,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses

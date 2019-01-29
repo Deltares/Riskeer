@@ -29,8 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.IO.Test
 {

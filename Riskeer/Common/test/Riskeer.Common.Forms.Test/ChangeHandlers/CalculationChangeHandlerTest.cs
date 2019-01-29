@@ -24,10 +24,10 @@ using System.Linq;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.IO;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.IO;
 
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {

@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Standard;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {

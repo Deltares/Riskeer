@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.SoilProfile.Schema;
 
 namespace Riskeer.Common.IO.SoilProfile
 {

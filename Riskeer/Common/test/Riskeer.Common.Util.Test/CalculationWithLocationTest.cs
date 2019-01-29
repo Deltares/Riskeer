@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Util.Test
 {

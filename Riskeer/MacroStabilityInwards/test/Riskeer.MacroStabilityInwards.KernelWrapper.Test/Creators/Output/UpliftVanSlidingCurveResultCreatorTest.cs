@@ -24,8 +24,8 @@ using System.Linq;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output

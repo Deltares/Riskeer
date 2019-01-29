@@ -24,9 +24,9 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
 {

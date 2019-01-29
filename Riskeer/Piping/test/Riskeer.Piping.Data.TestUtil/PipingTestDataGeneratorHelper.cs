@@ -22,10 +22,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.TestUtil
 {

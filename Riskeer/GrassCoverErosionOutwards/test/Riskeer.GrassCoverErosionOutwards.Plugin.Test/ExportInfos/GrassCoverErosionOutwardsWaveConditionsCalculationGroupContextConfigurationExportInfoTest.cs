@@ -26,11 +26,11 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos

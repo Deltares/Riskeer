@@ -21,9 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;

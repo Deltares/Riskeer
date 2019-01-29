@@ -26,7 +26,7 @@ using System.Windows.Forms.Design;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.Editors;
 using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;

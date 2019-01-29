@@ -25,13 +25,13 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.Forms.PropertyClasses;
-using Ringtoets.ClosingStructures.Forms.Views;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.PropertyClasses;
+using Riskeer.ClosingStructures.Forms.Views;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.ClosingStructures.Plugin.Test
 {

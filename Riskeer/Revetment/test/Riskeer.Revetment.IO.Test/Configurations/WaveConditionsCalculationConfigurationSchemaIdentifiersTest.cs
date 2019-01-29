@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.Revetment.IO.Test.Configurations
 {

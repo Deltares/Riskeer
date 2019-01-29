@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Piping.Primitives.Properties;
+using Riskeer.Piping.Primitives.Properties;
 
 namespace Riskeer.Piping.Primitives
 {

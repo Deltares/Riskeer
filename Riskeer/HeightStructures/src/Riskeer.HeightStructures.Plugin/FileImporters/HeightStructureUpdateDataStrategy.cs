@@ -23,13 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.Forms;
-using Ringtoets.Common.IO.Structures;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Service;
-using Ringtoets.HeightStructures.Util;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.Forms;
+using Riskeer.Common.IO.Structures;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Service;
+using Riskeer.HeightStructures.Util;
 
 namespace Riskeer.HeightStructures.Plugin.FileImporters
 {

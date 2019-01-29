@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
 {

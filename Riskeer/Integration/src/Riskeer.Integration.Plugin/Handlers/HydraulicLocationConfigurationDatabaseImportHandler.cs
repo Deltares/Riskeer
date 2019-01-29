@@ -23,7 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Importers;

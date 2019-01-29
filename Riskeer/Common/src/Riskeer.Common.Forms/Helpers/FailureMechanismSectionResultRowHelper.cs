@@ -23,10 +23,10 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Helpers

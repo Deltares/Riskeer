@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.SurfaceLines;
+using Riskeer.Common.IO.SurfaceLines;
 
 namespace Riskeer.Common.IO.Test.SurfaceLines
 {

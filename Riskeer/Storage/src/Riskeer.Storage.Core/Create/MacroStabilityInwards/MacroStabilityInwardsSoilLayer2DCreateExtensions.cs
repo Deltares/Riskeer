@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Util.Extensions;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 

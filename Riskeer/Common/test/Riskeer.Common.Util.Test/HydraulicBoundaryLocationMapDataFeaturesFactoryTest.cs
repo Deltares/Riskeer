@@ -22,7 +22,7 @@
 using System;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Ringtoets.Common.Util.TestUtil;
+using Riskeer.Common.Util.TestUtil;
 
 namespace Riskeer.Common.Util.Test
 {

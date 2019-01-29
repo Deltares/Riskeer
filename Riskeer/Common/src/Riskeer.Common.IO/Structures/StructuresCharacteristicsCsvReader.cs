@@ -29,7 +29,7 @@ using Core.Common.IO.Readers;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.Structures

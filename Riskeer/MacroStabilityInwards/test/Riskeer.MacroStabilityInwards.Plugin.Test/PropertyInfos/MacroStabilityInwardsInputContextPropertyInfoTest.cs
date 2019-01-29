@@ -23,13 +23,13 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
 {

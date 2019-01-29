@@ -25,15 +25,15 @@ using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet

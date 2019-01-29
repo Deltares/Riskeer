@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Helpers

@@ -31,13 +31,13 @@ using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.IO;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos

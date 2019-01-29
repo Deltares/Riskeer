@@ -27,7 +27,7 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations.Import;
+using Riskeer.Common.IO.Configurations.Import;
 
 namespace Riskeer.Common.IO.Test.Configurations.Import
 {

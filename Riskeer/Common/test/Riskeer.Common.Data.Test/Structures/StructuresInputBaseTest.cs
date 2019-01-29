@@ -28,11 +28,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.Structures
 {

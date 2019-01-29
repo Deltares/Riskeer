@@ -25,16 +25,16 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Structures;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HeightStructures.Plugin.FileImporters;
-using Ringtoets.HeightStructures.Util;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.Structures;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HeightStructures.Plugin.FileImporters;
+using Riskeer.HeightStructures.Util;
 
 namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 {

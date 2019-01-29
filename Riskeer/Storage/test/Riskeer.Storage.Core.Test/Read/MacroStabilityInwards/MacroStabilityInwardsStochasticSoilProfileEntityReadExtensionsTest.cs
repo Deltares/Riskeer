@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;

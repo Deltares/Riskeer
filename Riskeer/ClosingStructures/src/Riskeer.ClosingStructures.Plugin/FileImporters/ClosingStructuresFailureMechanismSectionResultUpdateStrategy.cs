@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.IO.FileImporters;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.IO.FileImporters;
 
 namespace Riskeer.ClosingStructures.Plugin.FileImporters
 {

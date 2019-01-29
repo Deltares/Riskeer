@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.TestUtil;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.Common.Data.TestUtil
 {

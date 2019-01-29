@@ -24,14 +24,14 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.PresentationObjects
 {

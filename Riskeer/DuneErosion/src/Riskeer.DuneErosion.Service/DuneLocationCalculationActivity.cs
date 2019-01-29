@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.MessageProviders;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Service
 {

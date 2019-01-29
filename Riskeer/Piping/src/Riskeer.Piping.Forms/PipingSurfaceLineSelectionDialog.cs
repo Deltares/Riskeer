@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Ringtoets.Common.Forms;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Piping.Forms.Properties;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Piping.Forms.Properties;
+using Riskeer.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms

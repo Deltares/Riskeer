@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.ClosingStructures

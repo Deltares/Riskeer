@@ -24,11 +24,11 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.Structures
 {

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.SoilProfile
 {

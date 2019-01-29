@@ -26,10 +26,10 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.Properties;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.Properties;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.PropertyClasses

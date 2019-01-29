@@ -27,10 +27,10 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos

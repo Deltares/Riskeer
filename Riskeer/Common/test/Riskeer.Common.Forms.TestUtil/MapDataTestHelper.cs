@@ -28,11 +28,11 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 

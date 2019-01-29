@@ -19,11 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {

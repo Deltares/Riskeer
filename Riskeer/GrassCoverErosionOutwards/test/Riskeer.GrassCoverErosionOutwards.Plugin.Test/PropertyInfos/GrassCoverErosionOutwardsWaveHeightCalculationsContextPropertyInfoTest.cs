@@ -25,11 +25,11 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {

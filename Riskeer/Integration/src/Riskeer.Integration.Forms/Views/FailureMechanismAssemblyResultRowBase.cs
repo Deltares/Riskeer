@@ -25,9 +25,9 @@ using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Integration.Forms.Views

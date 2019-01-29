@@ -23,10 +23,10 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {

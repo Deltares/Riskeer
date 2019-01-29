@@ -24,7 +24,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 

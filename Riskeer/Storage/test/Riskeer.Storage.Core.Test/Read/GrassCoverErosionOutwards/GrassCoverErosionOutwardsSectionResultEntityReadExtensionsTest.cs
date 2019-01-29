@@ -22,9 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Primitives;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Primitives;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;

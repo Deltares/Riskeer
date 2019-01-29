@@ -22,9 +22,9 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Riskeer.MacroStabilityInwards.Service.Converters
 {

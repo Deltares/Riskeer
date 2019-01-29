@@ -22,12 +22,12 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {

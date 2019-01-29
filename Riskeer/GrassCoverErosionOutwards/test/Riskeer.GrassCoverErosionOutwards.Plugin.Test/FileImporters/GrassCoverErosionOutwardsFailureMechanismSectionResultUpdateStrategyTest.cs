@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Plugin.TestUtil.FileImporters;
-using Ringtoets.Common.Primitives;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Plugin.FileImporters;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.TestUtil.FileImporters;
+using Riskeer.Common.Primitives;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Plugin.FileImporters;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.FileImporters

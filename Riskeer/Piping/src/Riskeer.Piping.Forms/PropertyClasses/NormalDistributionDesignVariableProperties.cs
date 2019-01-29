@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses

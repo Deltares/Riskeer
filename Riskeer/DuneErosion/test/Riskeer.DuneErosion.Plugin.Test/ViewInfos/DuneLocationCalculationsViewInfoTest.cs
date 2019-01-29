@@ -29,12 +29,12 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Forms.GuiServices;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Forms.Views;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.GuiServices;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos

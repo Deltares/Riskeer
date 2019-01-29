@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Components.Gis.Features;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Factories;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Factories;
 
 namespace Riskeer.ClosingStructures.Forms.Factories
 {

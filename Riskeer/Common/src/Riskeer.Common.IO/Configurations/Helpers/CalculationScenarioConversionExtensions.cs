@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.IO.Configurations.Helpers
 {

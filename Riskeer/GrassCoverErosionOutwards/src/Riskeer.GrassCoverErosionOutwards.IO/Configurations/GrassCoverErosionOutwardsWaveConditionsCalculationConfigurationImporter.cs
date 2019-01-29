@@ -20,14 +20,14 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {

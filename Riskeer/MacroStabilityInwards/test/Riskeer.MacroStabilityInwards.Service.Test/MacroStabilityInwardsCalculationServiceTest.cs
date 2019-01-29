@@ -26,17 +26,17 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service.TestUtil;
+using Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Riskeer.MacroStabilityInwards.Service.Test
 {

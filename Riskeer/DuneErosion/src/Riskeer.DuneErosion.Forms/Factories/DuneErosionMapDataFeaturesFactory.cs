@@ -25,11 +25,11 @@ using System.Globalization;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Util;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.Properties;
-using Ringtoets.DuneErosion.Forms.Views;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Util;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.Properties;
+using Riskeer.DuneErosion.Forms.Views;
 using RingtoetsDuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 

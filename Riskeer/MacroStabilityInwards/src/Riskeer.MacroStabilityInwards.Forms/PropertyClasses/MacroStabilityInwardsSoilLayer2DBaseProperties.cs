@@ -27,9 +27,9 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Helpers;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Helpers;
+using Riskeer.MacroStabilityInwards.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses

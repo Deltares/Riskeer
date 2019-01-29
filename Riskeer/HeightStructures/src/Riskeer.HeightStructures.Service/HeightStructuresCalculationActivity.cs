@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Service;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Service;
+using Riskeer.HeightStructures.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Service

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.StabilityPointStructures.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.StabilityPointStructures.IO.Configurations;
 
 namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 {

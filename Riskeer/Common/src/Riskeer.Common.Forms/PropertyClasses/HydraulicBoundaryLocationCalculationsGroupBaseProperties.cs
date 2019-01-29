@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

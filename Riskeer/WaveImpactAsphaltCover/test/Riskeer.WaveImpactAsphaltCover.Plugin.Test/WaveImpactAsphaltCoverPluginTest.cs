@@ -25,14 +25,14 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.Views;
-using Ringtoets.WaveImpactAsphaltCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
-using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.Views;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
+using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 {

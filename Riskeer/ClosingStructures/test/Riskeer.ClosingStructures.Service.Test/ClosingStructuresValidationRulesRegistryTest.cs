@@ -25,8 +25,8 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Service.ValidationRules;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Service.ValidationRules;
 
 namespace Riskeer.ClosingStructures.Service.Test
 {

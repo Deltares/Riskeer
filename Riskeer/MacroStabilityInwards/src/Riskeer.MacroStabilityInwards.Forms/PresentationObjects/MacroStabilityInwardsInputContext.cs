@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {

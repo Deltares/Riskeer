@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
 {

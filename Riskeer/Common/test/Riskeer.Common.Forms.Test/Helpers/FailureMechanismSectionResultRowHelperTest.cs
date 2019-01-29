@@ -26,11 +26,11 @@ using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Test.Helpers

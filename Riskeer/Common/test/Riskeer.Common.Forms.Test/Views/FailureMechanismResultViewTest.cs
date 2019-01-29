@@ -32,11 +32,11 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Controls;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Controls;
+using Riskeer.Common.Forms.Views;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Test.Views

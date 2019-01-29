@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.IO.SurfaceLines;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Piping.IO.SurfaceLines;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.IO.Test.SurfaceLines
 {

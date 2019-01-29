@@ -23,7 +23,7 @@ using System;
 using System.Data.SQLite;
 using Core.Common.IO;
 using NUnit.Framework;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Properties;
 

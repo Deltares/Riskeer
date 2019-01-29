@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
 {

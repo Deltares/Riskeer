@@ -28,8 +28,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.DikeProfiles;
-using Ringtoets.Common.IO.Exceptions;
+using Riskeer.Common.IO.DikeProfiles;
+using Riskeer.Common.IO.Exceptions;
 
 namespace Riskeer.Common.IO.Test.DikeProfiles
 {

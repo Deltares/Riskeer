@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.Piping

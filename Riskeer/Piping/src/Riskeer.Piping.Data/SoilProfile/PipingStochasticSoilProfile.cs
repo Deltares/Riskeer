@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data.SoilProfile

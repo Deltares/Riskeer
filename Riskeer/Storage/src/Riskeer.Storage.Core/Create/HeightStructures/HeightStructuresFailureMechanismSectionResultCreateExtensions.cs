@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.HeightStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.HeightStructures

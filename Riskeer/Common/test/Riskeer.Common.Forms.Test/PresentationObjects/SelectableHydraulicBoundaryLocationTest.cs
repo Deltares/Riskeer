@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
 {

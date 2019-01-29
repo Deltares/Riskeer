@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.Piping

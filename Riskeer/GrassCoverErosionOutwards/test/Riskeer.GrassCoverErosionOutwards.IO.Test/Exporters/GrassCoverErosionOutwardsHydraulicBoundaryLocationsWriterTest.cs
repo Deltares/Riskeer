@@ -24,10 +24,10 @@ using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
-using Ringtoets.GrassCoverErosionOutwards.Util;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.IO.Exporters;
+using Riskeer.GrassCoverErosionOutwards.Util;
+using Riskeer.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
 {

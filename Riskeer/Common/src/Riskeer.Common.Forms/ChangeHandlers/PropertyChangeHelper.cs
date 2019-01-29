@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.Common.Forms.ChangeHandlers
 {

@@ -23,10 +23,10 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
 {

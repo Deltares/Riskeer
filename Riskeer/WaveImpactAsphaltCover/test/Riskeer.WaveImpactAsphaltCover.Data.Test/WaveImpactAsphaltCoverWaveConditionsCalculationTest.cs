@@ -23,9 +23,9 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Revetment.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Revetment.Data;
+using Riskeer.WaveImpactAsphaltCover.Data.TestUtil;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Xml;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations.Converters;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {

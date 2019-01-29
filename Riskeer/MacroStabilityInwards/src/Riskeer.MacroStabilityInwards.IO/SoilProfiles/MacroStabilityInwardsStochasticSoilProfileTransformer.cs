@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 {

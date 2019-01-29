@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
 
 namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 {

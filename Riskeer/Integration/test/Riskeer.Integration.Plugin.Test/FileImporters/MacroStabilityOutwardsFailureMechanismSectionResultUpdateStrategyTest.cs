@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Plugin.TestUtil.FileImporters;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.TestUtil.FileImporters;
+using Riskeer.Common.Primitives;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Plugin.FileImporters;
 

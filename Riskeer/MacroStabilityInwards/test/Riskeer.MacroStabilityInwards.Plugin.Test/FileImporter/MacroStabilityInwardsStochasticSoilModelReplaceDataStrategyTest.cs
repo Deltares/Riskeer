@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 {

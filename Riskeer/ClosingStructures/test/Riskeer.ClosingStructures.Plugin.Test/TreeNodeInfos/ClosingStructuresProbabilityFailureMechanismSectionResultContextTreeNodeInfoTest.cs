@@ -28,11 +28,11 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {

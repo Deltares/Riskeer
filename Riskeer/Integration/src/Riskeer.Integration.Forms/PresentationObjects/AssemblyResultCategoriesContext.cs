@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 

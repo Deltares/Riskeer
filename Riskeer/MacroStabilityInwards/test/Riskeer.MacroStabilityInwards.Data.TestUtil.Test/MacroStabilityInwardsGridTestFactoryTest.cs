@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 {

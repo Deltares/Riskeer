@@ -21,9 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.ValidationRules;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.ValidationRules;
+using Riskeer.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Service

@@ -25,9 +25,9 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.Properties;
+using Riskeer.Revetment.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses

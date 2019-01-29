@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover

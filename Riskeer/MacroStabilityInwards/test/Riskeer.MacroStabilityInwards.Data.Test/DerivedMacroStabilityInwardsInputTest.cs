@@ -23,12 +23,12 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
 {

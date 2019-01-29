@@ -27,10 +27,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.Properties;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 

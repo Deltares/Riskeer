@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {

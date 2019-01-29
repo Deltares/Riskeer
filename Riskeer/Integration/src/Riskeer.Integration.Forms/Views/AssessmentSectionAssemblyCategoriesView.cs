@@ -25,9 +25,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Integration.Forms.Views

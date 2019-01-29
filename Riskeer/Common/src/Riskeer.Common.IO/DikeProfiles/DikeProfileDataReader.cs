@@ -30,9 +30,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using UtilResources = Core.Common.Util.Properties.Resources;
 

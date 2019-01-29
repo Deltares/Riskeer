@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.UpdateDataStrategies;
 
 namespace Riskeer.Common.Data.Test.UpdateDataStrategies
 {

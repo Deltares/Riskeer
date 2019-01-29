@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {

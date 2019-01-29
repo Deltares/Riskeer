@@ -28,10 +28,10 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
 {

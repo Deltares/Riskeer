@@ -21,7 +21,7 @@
 
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.TestUtil.Test

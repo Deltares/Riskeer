@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.MacroStabilityInwards

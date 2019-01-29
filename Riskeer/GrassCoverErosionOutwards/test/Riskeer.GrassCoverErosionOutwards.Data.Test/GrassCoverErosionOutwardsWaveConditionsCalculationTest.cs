@@ -23,9 +23,9 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
+using Riskeer.Revetment.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test

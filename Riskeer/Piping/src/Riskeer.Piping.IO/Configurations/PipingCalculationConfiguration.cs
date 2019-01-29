@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
 
 namespace Riskeer.Piping.IO.Configurations
 {

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO
 {

@@ -21,10 +21,10 @@
 
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
 
 namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
 {

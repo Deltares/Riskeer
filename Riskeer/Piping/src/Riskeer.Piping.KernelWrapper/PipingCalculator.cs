@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIPiping;
-using Ringtoets.Piping.KernelWrapper.Creators;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.Creators;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
 using EffectiveThicknessCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.EffectiveThicknessCalculator;
 using HeaveCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.HeaveCalculator;
 

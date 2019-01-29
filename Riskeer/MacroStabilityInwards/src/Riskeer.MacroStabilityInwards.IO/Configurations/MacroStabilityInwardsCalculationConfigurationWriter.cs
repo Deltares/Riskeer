@@ -21,9 +21,9 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.MacroStabilityInwards.IO.Configurations.Helpers;
 
 namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {

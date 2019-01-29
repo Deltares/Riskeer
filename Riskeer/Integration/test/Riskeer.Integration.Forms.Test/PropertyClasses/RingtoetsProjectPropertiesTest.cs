@@ -22,7 +22,7 @@
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Data;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 

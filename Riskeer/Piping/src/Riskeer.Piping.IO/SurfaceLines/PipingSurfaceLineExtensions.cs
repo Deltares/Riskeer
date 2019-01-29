@@ -22,10 +22,10 @@
 using System;
 using Core.Common.Base.Geometry;
 using log4net;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.Properties;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.Properties;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.IO.SurfaceLines
 {

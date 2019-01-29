@@ -23,9 +23,9 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.IO.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Integration.IO.TestUtil;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Factories;
 

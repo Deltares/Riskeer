@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Piping.Data;
+using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.Piping

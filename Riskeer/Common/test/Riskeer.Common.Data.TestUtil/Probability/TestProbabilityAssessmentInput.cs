@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Probability;
+using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.Common.Data.TestUtil.Probability
 {

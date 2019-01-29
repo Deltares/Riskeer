@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Serializers;
 

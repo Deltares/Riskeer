@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.MacroStabilityInwards.Primitives.Properties;
+using Riskeer.MacroStabilityInwards.Primitives.Properties;
 
 namespace Riskeer.MacroStabilityInwards.Primitives
 {

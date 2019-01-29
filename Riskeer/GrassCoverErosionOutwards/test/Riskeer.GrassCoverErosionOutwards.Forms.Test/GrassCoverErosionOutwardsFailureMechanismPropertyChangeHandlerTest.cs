@@ -25,10 +25,10 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
 {

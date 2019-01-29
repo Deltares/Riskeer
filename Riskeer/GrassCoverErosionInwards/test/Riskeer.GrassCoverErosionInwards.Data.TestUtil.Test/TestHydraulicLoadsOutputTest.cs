@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test
 {

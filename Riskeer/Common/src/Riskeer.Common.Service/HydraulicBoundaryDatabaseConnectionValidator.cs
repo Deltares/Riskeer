@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.Common.Service.Properties;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.HydraRing;
+using Riskeer.Common.Service.Properties;
 
 namespace Riskeer.Common.Service
 {

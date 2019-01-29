@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
 {

@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {

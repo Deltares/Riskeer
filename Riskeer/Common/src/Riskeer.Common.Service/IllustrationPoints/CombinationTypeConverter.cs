@@ -21,7 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
 using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 
 namespace Riskeer.Common.Service.IllustrationPoints

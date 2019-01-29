@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
 {

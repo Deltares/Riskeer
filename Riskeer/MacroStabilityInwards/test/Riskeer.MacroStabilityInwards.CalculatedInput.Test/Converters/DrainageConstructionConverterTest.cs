@@ -22,10 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
 {

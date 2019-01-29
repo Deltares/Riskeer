@@ -30,12 +30,12 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.UpdateInfos

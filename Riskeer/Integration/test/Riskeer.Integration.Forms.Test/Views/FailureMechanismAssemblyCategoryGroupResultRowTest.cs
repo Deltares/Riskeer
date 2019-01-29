@@ -26,9 +26,9 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.Views;
 

@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Service;
-using Ringtoets.Piping.Data;
+using Riskeer.Common.Service;
+using Riskeer.Piping.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Riskeer.Piping.Service

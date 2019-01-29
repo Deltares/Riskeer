@@ -23,9 +23,9 @@ using System;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {

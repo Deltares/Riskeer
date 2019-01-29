@@ -25,8 +25,8 @@ using System.Text;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.HydraRing;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.HydraRing;
 
 namespace Riskeer.Common.IO.Test.HydraRing
 {

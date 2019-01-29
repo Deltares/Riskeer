@@ -30,17 +30,17 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
-using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
-using Ringtoets.GrassCoverErosionInwards.Util;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.UITypeEditors;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Forms.Properties;
+using Riskeer.GrassCoverErosionInwards.Forms.UITypeEditors;
+using Riskeer.GrassCoverErosionInwards.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses

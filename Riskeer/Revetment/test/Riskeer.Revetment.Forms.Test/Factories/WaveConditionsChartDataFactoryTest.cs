@@ -23,9 +23,9 @@ using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.Forms.Factories;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Forms.Factories;
 
 namespace Riskeer.Revetment.Forms.Test.Factories
 {

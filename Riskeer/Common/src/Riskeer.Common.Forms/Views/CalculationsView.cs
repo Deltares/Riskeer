@@ -25,10 +25,10 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Views
 {

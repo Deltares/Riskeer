@@ -25,8 +25,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.PointedTree.Data;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Forms.Factories;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.Factories;
 
 namespace Riskeer.Common.Forms.Views
 {

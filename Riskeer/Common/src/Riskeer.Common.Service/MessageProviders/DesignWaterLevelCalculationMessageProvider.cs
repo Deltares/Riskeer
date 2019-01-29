@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Service.Properties;
+using Riskeer.Common.Service.Properties;
 
 namespace Riskeer.Common.Service.MessageProviders
 {

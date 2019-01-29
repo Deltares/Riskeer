@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.HeightStructures.Data
 {

@@ -22,7 +22,7 @@
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Test.Helpers

@@ -22,7 +22,7 @@
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories

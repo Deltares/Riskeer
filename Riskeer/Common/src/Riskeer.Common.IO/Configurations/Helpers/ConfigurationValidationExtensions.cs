@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using log4net;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.Configurations.Helpers
 {

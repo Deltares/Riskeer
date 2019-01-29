@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Service;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 {

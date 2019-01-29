@@ -26,7 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.Structures
 {

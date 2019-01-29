@@ -23,7 +23,7 @@ using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.HydraRing;
+using Riskeer.Common.IO.HydraRing;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 
 namespace Riskeer.Common.IO.Test.HydraRing

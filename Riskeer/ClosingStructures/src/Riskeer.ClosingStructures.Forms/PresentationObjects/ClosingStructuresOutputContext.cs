@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {

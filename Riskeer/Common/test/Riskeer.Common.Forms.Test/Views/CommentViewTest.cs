@@ -24,8 +24,8 @@ using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
 {

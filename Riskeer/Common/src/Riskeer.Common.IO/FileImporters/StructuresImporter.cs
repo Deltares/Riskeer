@@ -31,13 +31,13 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.Properties;
-using Ringtoets.Common.IO.Structures;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.Properties;
+using Riskeer.Common.IO.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.FileImporters

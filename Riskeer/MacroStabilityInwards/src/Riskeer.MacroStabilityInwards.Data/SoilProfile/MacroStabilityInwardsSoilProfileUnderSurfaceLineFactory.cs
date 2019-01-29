@@ -25,7 +25,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {

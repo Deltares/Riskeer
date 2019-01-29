@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data;
+using Riskeer.Common.Data;
 
 namespace Riskeer.Common.Forms
 {

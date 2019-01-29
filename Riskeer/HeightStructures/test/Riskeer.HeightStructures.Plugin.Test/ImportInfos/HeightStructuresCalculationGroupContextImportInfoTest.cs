@@ -26,12 +26,12 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.IO.Configurations;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.IO.Configurations;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin.Test.ImportInfos

@@ -27,7 +27,7 @@ using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 

@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SurfaceLines;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SurfaceLines;
 
 namespace Riskeer.Common.IO.Test.SurfaceLines
 {

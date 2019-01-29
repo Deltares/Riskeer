@@ -26,15 +26,15 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.Forms.Properties;
-using Ringtoets.ClosingStructures.Util;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.Properties;
+using Riskeer.ClosingStructures.Util;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TypeConverters;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.PropertyClasses

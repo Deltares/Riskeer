@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
 {

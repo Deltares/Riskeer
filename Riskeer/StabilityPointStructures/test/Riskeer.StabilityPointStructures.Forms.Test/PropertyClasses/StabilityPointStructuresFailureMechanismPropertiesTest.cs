@@ -27,9 +27,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 
 namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 {

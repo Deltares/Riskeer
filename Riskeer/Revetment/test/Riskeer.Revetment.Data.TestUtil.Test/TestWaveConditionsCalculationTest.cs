@@ -21,7 +21,7 @@
 
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Revetment.Data.TestUtil.Test
 {

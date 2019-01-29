@@ -22,11 +22,11 @@
 using System;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
-using Ringtoets.GrassCoverErosionOutwards.IO.Properties;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
+using Riskeer.GrassCoverErosionOutwards.IO.Properties;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {

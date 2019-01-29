@@ -21,8 +21,8 @@
 
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {

@@ -25,8 +25,8 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

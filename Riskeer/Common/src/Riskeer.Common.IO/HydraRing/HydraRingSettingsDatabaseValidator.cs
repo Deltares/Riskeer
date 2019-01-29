@@ -26,7 +26,7 @@ using System.Data.SQLite;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.HydraRing
 {

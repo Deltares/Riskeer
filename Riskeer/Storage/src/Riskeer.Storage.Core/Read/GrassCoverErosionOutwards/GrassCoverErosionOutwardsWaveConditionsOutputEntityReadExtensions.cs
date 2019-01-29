@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards

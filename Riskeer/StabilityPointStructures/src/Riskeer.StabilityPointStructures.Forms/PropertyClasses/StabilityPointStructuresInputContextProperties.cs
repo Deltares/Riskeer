@@ -26,15 +26,15 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.Forms.Properties;
-using Ringtoets.StabilityPointStructures.Util;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.Properties;
+using Riskeer.StabilityPointStructures.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses

@@ -25,14 +25,14 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service;
 
 namespace Riskeer.ClosingStructures.Service.Test
 {

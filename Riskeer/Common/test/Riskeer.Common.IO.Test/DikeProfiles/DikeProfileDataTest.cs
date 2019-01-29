@@ -23,8 +23,8 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.IO.DikeProfiles;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.IO.DikeProfiles;
 
 namespace Riskeer.Common.IO.Test.DikeProfiles
 {

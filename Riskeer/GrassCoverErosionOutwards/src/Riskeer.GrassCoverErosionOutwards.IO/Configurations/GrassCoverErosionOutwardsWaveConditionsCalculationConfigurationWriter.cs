@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Xml;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {

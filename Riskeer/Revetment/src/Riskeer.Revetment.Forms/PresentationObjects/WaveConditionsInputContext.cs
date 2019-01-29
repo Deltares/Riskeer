@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.Revetment.Forms.PresentationObjects
 {

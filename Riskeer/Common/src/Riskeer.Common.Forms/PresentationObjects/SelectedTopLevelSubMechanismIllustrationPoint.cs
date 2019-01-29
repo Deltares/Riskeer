@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.IllustrationPoints;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {

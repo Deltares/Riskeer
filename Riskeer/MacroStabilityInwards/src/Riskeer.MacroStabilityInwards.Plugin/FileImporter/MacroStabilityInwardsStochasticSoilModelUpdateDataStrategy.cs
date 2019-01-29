@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Service;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Service;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {

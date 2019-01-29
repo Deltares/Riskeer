@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.HydraRing;
+using Riskeer.Common.IO.HydraRing;
 
 namespace Riskeer.Common.IO.Test.HydraRing
 {

@@ -22,8 +22,8 @@
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
 {

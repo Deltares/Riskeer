@@ -28,13 +28,13 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses

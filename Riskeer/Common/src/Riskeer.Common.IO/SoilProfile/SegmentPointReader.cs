@@ -28,9 +28,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.Properties;
-using Ringtoets.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.Properties;
+using Riskeer.Common.IO.SoilProfile.Schema;
 
 namespace Riskeer.Common.IO.SoilProfile
 {

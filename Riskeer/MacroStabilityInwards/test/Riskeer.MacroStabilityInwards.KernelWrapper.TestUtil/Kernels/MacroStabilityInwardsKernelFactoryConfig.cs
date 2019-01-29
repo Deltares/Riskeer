@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
 {

@@ -21,12 +21,12 @@
 
 using System;
 using System.Linq;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {

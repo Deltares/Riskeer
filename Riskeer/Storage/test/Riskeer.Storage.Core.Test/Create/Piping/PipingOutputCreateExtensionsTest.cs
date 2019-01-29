@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.DbContext;
 

@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Structures;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Service;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.Structures;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Service;
 
 namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {

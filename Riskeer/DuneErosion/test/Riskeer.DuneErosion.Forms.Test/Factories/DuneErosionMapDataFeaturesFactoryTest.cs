@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Forms.Factories;
-using Ringtoets.DuneErosion.Forms.TestUtil;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.Factories;
+using Riskeer.DuneErosion.Forms.TestUtil;
 
 namespace Riskeer.DuneErosion.Forms.Test.Factories
 {

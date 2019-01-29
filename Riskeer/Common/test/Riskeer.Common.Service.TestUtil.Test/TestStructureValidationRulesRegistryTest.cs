@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service.ValidationRules;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service.ValidationRules;
 
 namespace Riskeer.Common.Service.TestUtil.Test
 {

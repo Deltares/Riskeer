@@ -27,9 +27,9 @@ using System.Security.AccessControl;
 using System.Text;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
 
 namespace Riskeer.Common.IO.TestUtil
 {

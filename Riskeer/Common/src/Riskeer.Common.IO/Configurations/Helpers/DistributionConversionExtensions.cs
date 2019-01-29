@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base.Data;
 using log4net;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.Configurations.Helpers
 {

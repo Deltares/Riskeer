@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.DuneErosion;
 using Riskeer.Storage.Core.DbContext;

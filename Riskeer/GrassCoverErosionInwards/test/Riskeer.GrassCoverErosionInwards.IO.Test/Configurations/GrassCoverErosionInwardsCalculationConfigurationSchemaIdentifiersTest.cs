@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
+using Riskeer.GrassCoverErosionInwards.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 {

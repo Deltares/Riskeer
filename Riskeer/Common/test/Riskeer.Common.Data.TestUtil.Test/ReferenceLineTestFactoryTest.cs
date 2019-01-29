@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Common.Data.TestUtil.Test
 {

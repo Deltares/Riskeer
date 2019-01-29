@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
-using Ringtoets.Piping.Service;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Primitives;
+using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Plugin.FileImporter
 {

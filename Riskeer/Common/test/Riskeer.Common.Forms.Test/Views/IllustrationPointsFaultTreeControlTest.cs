@@ -29,9 +29,9 @@ using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms;
 using Core.Components.GraphSharp.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
 {

@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 {

@@ -25,14 +25,14 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.Views;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
-using Ringtoets.StabilityStoneCover.Forms.Views;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.Views;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Forms.Views;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test
 {

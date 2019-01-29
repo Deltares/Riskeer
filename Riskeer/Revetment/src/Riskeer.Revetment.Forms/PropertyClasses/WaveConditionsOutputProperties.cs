@@ -24,10 +24,10 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.Properties;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.PropertyClasses

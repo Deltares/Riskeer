@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.DikeProfiles;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Riskeer.Common.Forms.UITypeEditors

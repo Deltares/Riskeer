@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {

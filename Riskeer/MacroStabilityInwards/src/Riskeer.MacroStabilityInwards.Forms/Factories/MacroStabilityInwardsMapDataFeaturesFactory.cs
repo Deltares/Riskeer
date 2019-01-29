@@ -24,11 +24,11 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Factories

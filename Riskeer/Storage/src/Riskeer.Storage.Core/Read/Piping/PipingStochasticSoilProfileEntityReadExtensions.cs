@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.Piping

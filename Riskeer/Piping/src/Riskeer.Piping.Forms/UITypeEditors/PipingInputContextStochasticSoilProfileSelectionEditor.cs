@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {

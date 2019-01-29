@@ -26,11 +26,11 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Integration.Forms.Views
 {

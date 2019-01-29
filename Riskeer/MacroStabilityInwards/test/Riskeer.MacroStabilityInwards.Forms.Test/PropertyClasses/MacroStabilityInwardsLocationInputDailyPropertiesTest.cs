@@ -23,9 +23,9 @@ using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {

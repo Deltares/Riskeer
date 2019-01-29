@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Service.Test
 {

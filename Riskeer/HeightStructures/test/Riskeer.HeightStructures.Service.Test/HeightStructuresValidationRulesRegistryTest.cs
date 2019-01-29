@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Service.ValidationRules;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Service.ValidationRules;
+using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Service.Test
 {

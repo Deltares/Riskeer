@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Ringtoets.MacroStabilityInwards.Data.Properties;
+using Riskeer.MacroStabilityInwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data.SoilProfile

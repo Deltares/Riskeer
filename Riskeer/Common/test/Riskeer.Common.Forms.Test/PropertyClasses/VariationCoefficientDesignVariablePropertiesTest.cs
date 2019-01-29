@@ -23,8 +23,8 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.Common.Forms.Test.PropertyClasses
 {

@@ -21,11 +21,11 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Plugin.TestUtil.FileImporters;
-using Ringtoets.Common.Primitives;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Plugin.FileImporter;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.TestUtil.FileImporters;
+using Riskeer.Common.Primitives;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Plugin.FileImporter;
 
 namespace Riskeer.Piping.Plugin.Test.FileImporter
 {

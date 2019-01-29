@@ -21,7 +21,7 @@
 
 using System;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Util

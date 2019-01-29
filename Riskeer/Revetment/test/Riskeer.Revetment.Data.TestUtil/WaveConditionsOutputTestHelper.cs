@@ -21,8 +21,8 @@
 
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Revetment.Data.TestUtil
 {

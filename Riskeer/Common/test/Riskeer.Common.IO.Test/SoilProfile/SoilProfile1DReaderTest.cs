@@ -28,8 +28,8 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SoilProfile;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
 {

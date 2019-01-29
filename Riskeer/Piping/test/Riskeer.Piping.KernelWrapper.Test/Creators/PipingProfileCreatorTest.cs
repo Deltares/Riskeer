@@ -25,8 +25,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIPiping;
 using NUnit.Framework;
-using Ringtoets.Piping.KernelWrapper.Creators;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.KernelWrapper.Creators;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.KernelWrapper.Test.Creators
 {

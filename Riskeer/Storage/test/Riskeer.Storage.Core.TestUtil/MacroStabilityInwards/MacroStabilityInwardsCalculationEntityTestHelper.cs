@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards

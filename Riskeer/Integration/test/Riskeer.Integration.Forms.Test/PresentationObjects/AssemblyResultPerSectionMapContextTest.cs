@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 

@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.Piping.IO.SoilProfiles

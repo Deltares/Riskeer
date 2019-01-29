@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 {

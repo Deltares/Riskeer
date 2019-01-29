@@ -27,8 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos

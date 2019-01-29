@@ -25,7 +25,7 @@ using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Forms.TestUtil;
+using Riskeer.Integration.Forms.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 

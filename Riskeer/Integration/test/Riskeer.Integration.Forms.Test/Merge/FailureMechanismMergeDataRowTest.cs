@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.Merge;
 
 namespace Riskeer.Integration.Forms.Test.Merge

@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test
 {

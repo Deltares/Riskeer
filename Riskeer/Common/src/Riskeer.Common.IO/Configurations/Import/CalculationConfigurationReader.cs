@@ -29,7 +29,7 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.Configurations.Import

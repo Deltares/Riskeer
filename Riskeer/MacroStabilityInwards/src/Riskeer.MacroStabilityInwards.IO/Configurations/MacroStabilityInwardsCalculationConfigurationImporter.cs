@@ -23,15 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
-using Ringtoets.MacroStabilityInwards.IO.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Import;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.IO.Configurations.Helpers;
+using Riskeer.MacroStabilityInwards.IO.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {

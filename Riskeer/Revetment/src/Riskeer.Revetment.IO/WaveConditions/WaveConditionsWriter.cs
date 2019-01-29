@@ -26,7 +26,7 @@ using System.IO;
 using System.Text;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
-using Ringtoets.Revetment.IO.Properties;
+using Riskeer.Revetment.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Revetment.IO.WaveConditions

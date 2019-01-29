@@ -25,13 +25,13 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.SoilProfiles;
-using Ringtoets.Piping.IO.TestUtil;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.IO.SoilProfiles;
+using Riskeer.Piping.IO.TestUtil;
 
 namespace Riskeer.Piping.IO.Test.SoilProfiles
 {

@@ -25,14 +25,14 @@ using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionInwards.Forms.UITypeEditors;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
 {

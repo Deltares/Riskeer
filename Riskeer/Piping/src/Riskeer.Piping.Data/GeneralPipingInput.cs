@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Piping.Data.Properties;
+using Riskeer.Piping.Data.Properties;
 
 namespace Riskeer.Piping.Data
 {

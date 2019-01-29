@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
 
 namespace Riskeer.Common.IO.Test.Configurations
 {

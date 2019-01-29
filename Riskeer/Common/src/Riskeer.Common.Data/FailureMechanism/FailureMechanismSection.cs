@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {

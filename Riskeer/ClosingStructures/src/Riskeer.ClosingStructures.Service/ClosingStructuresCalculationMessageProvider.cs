@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.ClosingStructures.Service.Properties;
-using Ringtoets.Common.Service.MessageProviders;
+using Riskeer.ClosingStructures.Service.Properties;
+using Riskeer.Common.Service.MessageProviders;
 
 namespace Riskeer.ClosingStructures.Service
 {

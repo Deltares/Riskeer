@@ -27,10 +27,10 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos

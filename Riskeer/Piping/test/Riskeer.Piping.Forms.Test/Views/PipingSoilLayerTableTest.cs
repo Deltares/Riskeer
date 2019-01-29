@@ -26,10 +26,10 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Forms.Views;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.Views
 {

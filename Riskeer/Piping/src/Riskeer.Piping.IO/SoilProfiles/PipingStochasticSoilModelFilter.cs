@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
 
 namespace Riskeer.Piping.IO.SoilProfiles
 {

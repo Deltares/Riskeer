@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.Plugin

@@ -24,8 +24,8 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Util;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Exporters

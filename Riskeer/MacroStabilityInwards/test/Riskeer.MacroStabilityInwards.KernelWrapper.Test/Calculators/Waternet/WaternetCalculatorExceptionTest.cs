@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {

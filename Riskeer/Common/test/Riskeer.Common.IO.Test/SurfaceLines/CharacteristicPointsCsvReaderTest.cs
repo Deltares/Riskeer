@@ -27,7 +27,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
-using Ringtoets.Common.IO.SurfaceLines;
+using Riskeer.Common.IO.SurfaceLines;
 
 namespace Riskeer.Common.IO.Test.SurfaceLines
 {

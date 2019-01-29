@@ -23,9 +23,9 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Forms.PropertyClasses;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.PropertyClasses;
 
 namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 {

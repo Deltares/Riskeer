@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Util;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Service;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Util;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Service;
 
 namespace Riskeer.ClosingStructures.Service
 {

@@ -30,7 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.SurfaceLines

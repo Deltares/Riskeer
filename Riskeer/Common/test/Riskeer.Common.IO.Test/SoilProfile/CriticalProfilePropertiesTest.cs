@@ -25,8 +25,8 @@ using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
 {

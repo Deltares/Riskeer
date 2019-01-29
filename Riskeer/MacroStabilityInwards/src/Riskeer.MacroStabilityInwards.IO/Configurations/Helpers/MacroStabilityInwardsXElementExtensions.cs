@@ -21,7 +21,7 @@
 
 using System;
 using System.Xml.Linq;
-using Ringtoets.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {

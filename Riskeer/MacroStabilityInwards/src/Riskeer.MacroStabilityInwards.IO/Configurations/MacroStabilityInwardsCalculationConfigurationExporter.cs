@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.IO.Configurations.Helpers;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {

@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.UITypeEditors
 {

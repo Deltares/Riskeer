@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Service;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Service;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 {

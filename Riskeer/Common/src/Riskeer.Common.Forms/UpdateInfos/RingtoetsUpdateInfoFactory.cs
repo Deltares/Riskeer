@@ -22,11 +22,11 @@
 using System;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.Forms.UpdateInfos

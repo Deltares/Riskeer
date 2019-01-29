@@ -21,7 +21,7 @@
 
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input
 {

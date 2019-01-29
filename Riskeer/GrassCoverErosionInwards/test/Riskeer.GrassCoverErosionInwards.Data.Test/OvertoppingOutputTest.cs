@@ -22,10 +22,10 @@
 using System;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {

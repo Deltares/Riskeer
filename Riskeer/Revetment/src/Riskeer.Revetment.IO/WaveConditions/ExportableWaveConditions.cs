@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Revetment.Data;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.Revetment.IO.WaveConditions
 {

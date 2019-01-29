@@ -21,8 +21,8 @@
 
 using System.Drawing;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
-using Ringtoets.Revetment.Forms.Views;
+using Riskeer.GrassCoverErosionOutwards.Forms.Views;
+using Riskeer.Revetment.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
 {

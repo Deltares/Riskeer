@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.StabilityStoneCover.Data;
 
 namespace Riskeer.StabilityStoneCover.Plugin.FileImporters
 {

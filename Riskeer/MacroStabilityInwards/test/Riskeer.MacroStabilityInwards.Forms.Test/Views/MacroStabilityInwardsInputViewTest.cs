@@ -30,17 +30,17 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Forms.TestUtil;
-using Ringtoets.MacroStabilityInwards.Forms.Views;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
+using Riskeer.MacroStabilityInwards.Forms.TestUtil;
+using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {

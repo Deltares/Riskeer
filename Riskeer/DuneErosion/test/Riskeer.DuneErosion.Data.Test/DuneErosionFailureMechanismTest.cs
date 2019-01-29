@@ -23,9 +23,9 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.DuneErosion.Data.TestUtil;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.DuneErosion.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.Data.Test
 {

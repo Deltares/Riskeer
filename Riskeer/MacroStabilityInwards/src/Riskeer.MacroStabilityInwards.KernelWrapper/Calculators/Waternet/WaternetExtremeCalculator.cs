@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {

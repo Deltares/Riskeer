@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Forms.Views
 {

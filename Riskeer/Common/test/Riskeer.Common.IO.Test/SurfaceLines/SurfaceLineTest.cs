@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.SurfaceLines;
+using Riskeer.Common.IO.SurfaceLines;
 
 namespace Riskeer.Common.IO.Test.SurfaceLines
 {

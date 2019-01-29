@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
 
 namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
 {

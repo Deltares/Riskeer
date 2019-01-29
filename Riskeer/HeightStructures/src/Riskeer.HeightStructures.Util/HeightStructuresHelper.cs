@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Util;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Util;
+using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Util
 {

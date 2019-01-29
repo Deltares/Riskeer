@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Ringtoets.Common.Forms;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Views;
+using Riskeer.MacroStabilityInwards.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms

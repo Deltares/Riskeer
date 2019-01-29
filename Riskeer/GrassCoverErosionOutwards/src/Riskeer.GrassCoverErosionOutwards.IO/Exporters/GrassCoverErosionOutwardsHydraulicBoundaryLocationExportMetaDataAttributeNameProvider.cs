@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.GrassCoverErosionOutwards.IO.Properties;
-using Ringtoets.GrassCoverErosionOutwards.Util;
+using Riskeer.GrassCoverErosionOutwards.IO.Properties;
+using Riskeer.GrassCoverErosionOutwards.Util;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {

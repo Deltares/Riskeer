@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Storage.Core.DbContext
 {

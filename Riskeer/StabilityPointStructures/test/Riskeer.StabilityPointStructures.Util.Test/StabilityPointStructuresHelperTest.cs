@@ -23,11 +23,11 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Data.TestUtil;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
 
 namespace Riskeer.StabilityPointStructures.Util.Test
 {

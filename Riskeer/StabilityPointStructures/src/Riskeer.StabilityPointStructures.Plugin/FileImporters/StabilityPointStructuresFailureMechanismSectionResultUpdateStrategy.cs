@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {

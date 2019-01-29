@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.Test.Contribution
 {

@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.PresentationObjects

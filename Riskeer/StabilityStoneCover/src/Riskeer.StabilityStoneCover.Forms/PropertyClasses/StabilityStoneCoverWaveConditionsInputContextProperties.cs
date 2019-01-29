@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Forms.Properties;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Revetment.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.Properties;
 
 namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {

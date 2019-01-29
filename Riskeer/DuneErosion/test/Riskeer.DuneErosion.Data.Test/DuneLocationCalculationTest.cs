@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.DuneErosion.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.DuneErosion.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.Data.Test
 {

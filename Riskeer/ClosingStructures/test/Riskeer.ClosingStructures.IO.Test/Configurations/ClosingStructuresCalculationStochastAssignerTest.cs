@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.IO.Configurations;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.IO.Configurations;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.IO.Configurations;
 
 namespace Riskeer.ClosingStructures.IO.Test.Configurations
 {

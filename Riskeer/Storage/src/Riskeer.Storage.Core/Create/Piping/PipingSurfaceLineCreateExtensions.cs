@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 

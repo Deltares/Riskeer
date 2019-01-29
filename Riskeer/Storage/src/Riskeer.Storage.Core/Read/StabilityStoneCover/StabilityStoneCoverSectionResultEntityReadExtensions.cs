@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Primitives;
-using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.Common.Primitives;
+using Riskeer.StabilityStoneCover.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.DbContext;
 

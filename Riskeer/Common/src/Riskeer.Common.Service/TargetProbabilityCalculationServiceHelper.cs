@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Util;
-using Ringtoets.Common.Service.Properties;
+using Riskeer.Common.Service.Properties;
 
 namespace Riskeer.Common.Service
 {

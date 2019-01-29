@@ -24,7 +24,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO;
 using Riskeer.Integration.Data;

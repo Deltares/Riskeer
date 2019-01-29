@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;

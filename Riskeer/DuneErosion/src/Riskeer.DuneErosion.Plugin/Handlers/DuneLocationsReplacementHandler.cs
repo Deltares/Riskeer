@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Commands;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.IO;
-using Ringtoets.DuneErosion.Service;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.IO;
+using Riskeer.DuneErosion.Service;
 
 namespace Riskeer.DuneErosion.Plugin.Handlers
 {

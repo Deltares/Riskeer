@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.PresentationObjects;
 
 namespace Riskeer.Revetment.Forms.PropertyClasses
 {

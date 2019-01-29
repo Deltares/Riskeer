@@ -21,8 +21,8 @@
 
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Revetment.Data.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.Revetment.Data.Test
 {

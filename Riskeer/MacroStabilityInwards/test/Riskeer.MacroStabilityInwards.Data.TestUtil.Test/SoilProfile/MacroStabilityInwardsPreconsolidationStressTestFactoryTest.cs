@@ -21,10 +21,10 @@
 
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 {

@@ -27,8 +27,8 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
 
 namespace Riskeer.Common.IO.TestUtil
 {

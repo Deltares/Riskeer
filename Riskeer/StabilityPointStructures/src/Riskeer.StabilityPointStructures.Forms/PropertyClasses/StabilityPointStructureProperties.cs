@@ -26,10 +26,10 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.Properties;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Primitives.TestUtil;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Primitives.TestUtil;
 
 namespace Riskeer.Piping.Service.Test
 {

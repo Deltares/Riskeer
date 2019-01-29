@@ -31,13 +31,13 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.Forms.TestUtil;
-using Ringtoets.Revetment.Forms.Views;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Forms.TestUtil;
+using Riskeer.Revetment.Forms.Views;
 
 namespace Riskeer.Revetment.Forms.Test.Views
 {

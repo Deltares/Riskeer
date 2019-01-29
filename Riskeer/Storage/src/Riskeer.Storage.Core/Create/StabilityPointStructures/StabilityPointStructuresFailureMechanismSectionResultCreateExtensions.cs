@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.StabilityPointStructures

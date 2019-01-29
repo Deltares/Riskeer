@@ -23,7 +23,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Controls;
+using Riskeer.Common.Forms.Controls;
 
 namespace Riskeer.Common.Forms.Test.Controls
 {

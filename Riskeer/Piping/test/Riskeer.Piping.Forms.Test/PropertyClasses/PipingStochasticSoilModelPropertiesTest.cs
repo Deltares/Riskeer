@@ -27,10 +27,10 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Primitives.TestUtil;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Primitives.TestUtil;
 
 namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {

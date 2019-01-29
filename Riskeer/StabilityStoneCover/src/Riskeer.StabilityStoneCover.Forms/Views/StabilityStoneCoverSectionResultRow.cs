@@ -21,11 +21,11 @@
 
 using System;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
-using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Primitives;
+using Riskeer.StabilityStoneCover.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 

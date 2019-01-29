@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Ringtoets.Piping.KernelWrapper;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.KernelWrapper;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.InputParameterCalculation
 {

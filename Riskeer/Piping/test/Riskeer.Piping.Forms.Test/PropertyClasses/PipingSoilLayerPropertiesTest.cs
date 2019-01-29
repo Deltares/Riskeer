@@ -24,9 +24,9 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {

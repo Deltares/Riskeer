@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {

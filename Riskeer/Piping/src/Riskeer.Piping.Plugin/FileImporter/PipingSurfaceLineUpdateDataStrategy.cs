@@ -24,14 +24,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Common.Service;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms;
-using Ringtoets.Piping.Primitives;
-using Ringtoets.Piping.Service;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Common.Service;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms;
+using Riskeer.Piping.Primitives;
+using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Plugin.FileImporter
 {

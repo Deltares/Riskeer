@@ -27,9 +27,9 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Integration.Forms.Dialogs;
 
 namespace Riskeer.Integration.Forms.Test.Dialogs

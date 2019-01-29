@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Data.AssessmentSection

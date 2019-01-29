@@ -22,9 +22,9 @@
 using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data.TestUtil;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test
 {

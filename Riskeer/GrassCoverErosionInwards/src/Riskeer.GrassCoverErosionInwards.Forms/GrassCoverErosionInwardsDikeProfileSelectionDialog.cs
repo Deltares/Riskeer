@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Views;
+using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms
 {

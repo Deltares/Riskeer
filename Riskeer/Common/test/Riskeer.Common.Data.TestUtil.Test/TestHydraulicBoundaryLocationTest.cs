@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.TestUtil.Test
 {

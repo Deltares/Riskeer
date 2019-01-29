@@ -24,9 +24,9 @@ using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test
 {

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Drawing;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.Helpers
 {

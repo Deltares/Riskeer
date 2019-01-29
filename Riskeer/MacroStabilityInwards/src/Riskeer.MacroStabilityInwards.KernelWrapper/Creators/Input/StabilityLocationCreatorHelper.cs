@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Deltares.WaternetCreator;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
 using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;

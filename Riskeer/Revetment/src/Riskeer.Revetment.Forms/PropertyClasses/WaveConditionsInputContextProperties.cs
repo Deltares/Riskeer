@@ -31,15 +31,15 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.Revetment.Forms.Properties;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.UITypeEditors;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.PresentationObjects;
+using Riskeer.Revetment.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.PropertyClasses

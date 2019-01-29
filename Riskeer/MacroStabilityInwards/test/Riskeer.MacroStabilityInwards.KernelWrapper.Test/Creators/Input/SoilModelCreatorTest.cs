@@ -22,7 +22,7 @@
 using System;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {

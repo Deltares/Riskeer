@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Integration.IO.TestUtil;
+using Riskeer.Integration.IO.TestUtil;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 using Riskeer.Integration.IO.Assembly;

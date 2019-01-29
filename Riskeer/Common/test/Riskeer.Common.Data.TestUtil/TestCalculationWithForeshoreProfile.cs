@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
 
 namespace Riskeer.Common.Data.TestUtil
 {

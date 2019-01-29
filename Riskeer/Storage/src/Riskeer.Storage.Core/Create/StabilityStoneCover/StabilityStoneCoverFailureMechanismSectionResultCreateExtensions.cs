@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.StabilityStoneCover

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Service;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Service;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service

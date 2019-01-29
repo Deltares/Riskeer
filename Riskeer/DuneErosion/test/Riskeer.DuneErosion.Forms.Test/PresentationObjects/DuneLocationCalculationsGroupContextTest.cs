@@ -24,9 +24,9 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
 
 namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
 {

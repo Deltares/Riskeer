@@ -23,9 +23,9 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Forms.PropertyClasses;
 
 namespace Riskeer.Piping.Plugin.Test.PropertyInfos
 {

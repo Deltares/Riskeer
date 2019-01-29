@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards

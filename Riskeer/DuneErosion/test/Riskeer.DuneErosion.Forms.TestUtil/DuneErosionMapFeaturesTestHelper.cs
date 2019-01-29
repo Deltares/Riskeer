@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Ringtoets.Common.Util.TestUtil;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Util.TestUtil;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Forms.TestUtil
 {

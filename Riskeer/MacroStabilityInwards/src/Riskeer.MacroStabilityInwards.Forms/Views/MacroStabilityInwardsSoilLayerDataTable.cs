@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {

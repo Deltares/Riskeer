@@ -28,13 +28,13 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.Structures;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.Structures;
 
 namespace Riskeer.ClosingStructures.IO.Test
 {

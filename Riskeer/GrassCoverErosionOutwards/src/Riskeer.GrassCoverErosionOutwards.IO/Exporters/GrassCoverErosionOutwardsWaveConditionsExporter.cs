@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.IO.Exceptions;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.IO.WaveConditions;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.IO.WaveConditions;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {

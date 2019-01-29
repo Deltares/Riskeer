@@ -22,10 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.IO.Configurations;
-using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.IO.Configurations;
+using Riskeer.MacroStabilityInwards.IO.Configurations.Helpers;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
 {

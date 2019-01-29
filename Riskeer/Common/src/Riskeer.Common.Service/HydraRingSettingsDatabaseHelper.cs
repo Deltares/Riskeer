@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.IO;
 using Core.Common.Util;
-using Ringtoets.Common.IO.HydraRing;
+using Riskeer.Common.IO.HydraRing;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
 namespace Riskeer.Common.Service

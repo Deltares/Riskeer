@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Piping.Data;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Piping.Data;
 
 namespace Riskeer.Piping.Plugin.FileImporter
 {

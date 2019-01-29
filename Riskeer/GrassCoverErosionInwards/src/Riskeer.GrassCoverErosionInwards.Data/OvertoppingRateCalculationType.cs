@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Riskeer.GrassCoverErosionInwards.Data.Properties;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
 {

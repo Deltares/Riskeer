@@ -22,9 +22,9 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.Waternet
 {

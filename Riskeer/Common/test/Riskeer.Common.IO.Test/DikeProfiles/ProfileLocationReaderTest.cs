@@ -27,7 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.DikeProfiles;
+using Riskeer.Common.IO.DikeProfiles;
 
 namespace Riskeer.Common.IO.Test.DikeProfiles
 {

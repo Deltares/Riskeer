@@ -27,9 +27,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.UITypeEditors;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.UITypeEditors;
 
 namespace Riskeer.Common.Forms.Test.UITypeEditors
 {

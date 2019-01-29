@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Service;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Service;
 
 namespace Riskeer.DuneErosion.Forms
 {

@@ -24,10 +24,10 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.Forms.Factories;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Forms.Factories;
 
 namespace Riskeer.Revetment.Forms.Test.Factories
 {

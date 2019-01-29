@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Util;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Views
 {

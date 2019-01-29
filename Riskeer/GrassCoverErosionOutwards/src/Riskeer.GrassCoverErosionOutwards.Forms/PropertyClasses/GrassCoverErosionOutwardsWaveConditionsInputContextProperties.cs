@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
-using Ringtoets.Revetment.Forms.PropertyClasses;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Forms.Properties;
+using Riskeer.Revetment.Forms.PropertyClasses;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
 {

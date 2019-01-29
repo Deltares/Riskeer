@@ -24,8 +24,8 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Forms.ChangeHandlers;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Common.Forms.PropertyClasses

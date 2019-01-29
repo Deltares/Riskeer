@@ -24,10 +24,10 @@ using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.Common.Forms.Test.PropertyClasses
 {

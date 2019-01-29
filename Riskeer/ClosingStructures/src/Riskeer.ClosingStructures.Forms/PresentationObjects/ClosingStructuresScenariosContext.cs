@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {

@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Components.Gis.Data;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Common.Util.TypeConverters
 {

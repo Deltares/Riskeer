@@ -24,8 +24,8 @@ using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
-using Ringtoets.Piping.Forms.Factories;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Forms.Factories;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.Factories
 {

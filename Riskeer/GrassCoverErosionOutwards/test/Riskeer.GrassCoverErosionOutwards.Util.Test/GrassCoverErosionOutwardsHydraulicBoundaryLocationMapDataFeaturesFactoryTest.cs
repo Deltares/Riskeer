@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Util.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
+using Riskeer.Common.Util.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Util.Test
 {

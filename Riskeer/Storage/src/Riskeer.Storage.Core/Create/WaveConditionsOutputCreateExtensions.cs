@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Revetment.Data;
+using Riskeer.Revetment.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create

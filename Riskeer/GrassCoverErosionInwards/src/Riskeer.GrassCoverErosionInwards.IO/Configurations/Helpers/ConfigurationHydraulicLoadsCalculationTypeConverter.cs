@@ -22,8 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Properties;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.IO.Properties;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers
 {

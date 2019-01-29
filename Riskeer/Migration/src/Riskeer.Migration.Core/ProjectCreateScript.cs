@@ -23,7 +23,7 @@ using System;
 using System.Data.SQLite;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Migration.Core.Properties;
 
 namespace Riskeer.Migration.Core

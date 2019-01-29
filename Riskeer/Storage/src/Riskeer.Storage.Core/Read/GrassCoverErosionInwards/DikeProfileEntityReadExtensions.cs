@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 

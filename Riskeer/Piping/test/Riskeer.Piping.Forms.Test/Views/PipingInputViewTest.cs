@@ -28,10 +28,10 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.Views;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.Views
 {

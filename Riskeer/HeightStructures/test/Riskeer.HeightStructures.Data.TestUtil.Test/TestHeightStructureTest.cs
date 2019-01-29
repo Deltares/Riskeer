@@ -22,7 +22,7 @@
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.HeightStructures.Data.TestUtil.Test
 {

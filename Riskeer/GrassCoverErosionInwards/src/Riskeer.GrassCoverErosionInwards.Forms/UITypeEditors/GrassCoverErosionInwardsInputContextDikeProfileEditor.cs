@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.UITypeEditors
 {

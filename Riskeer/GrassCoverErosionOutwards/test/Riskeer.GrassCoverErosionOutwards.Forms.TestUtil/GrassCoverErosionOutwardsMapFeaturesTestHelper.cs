@@ -24,10 +24,10 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Util.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Util.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.TestUtil
 {

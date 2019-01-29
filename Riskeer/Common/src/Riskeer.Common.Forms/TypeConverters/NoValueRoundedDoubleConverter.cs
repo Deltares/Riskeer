@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.TypeConverters
 {

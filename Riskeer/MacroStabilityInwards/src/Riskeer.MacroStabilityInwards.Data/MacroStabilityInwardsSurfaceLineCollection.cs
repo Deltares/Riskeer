@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Ringtoets.MacroStabilityInwards.Data.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Data.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data

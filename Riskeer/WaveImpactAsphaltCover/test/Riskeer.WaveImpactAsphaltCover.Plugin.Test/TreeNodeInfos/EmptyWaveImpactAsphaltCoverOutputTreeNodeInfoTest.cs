@@ -27,7 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.IO.Assembly;
 
 namespace Riskeer.Integration.IO.Helpers

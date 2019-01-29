@@ -28,10 +28,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 

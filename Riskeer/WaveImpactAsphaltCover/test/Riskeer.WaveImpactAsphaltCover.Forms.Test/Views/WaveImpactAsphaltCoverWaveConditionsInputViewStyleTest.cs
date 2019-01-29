@@ -21,8 +21,8 @@
 
 using System.Drawing;
 using NUnit.Framework;
-using Ringtoets.Revetment.Forms.Views;
-using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
+using Riskeer.Revetment.Forms.Views;
+using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 {

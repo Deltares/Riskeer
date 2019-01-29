@@ -25,11 +25,11 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.Factories;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.Factories;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views

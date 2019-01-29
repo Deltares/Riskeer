@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Helpers
 {

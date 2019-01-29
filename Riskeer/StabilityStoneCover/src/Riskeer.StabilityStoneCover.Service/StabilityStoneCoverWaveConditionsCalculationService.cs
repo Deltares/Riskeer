@@ -25,12 +25,12 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Service.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Service;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Service;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Service.Properties;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
 namespace Riskeer.StabilityStoneCover.Service

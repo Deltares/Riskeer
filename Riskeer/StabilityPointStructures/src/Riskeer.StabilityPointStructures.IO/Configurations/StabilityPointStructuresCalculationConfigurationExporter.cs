@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.IO.Configurations.Helpers;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations
 {

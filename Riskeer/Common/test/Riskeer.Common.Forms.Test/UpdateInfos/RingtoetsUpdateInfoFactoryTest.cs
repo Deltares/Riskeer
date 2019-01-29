@@ -26,13 +26,13 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.UpdateInfos;
-using Ringtoets.Common.IO.FileImporters;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.IO.FileImporters;
 
 namespace Riskeer.Common.Forms.Test.UpdateInfos
 {

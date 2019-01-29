@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover

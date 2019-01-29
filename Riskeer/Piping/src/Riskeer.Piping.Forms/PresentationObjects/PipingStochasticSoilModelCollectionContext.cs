@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
 
 namespace Riskeer.Piping.Forms.PresentationObjects
 {

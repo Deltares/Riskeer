@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Util;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Service;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.Revetment.Service
 {

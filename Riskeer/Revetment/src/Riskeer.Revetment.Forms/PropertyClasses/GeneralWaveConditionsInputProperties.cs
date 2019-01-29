@@ -22,8 +22,8 @@
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.Properties;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.Properties;
 
 namespace Riskeer.Revetment.Forms.PropertyClasses
 {

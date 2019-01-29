@@ -27,11 +27,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test
 {

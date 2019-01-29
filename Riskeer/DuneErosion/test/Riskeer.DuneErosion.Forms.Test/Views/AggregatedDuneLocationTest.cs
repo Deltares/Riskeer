@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.DuneErosion.Forms.Views;
+using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Forms.Test.Views
 {

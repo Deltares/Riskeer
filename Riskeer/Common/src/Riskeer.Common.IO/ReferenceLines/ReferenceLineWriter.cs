@@ -27,8 +27,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Writers;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Common.IO.ReferenceLines

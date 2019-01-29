@@ -29,11 +29,11 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.IO;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.IO;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos

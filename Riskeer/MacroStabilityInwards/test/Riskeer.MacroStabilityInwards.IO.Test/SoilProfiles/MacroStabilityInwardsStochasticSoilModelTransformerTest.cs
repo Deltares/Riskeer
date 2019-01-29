@@ -25,14 +25,14 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
-using Ringtoets.MacroStabilityInwards.IO.TestUtil;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.IO.SoilProfiles;
+using Riskeer.MacroStabilityInwards.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 {

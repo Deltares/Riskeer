@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {

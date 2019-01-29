@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.MacroStabilityInwards.CalculatedInput;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.CalculatedInput;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {

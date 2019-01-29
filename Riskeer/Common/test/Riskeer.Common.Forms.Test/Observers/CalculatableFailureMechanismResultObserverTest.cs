@@ -23,12 +23,12 @@ using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Observers;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Observers;
+using Riskeer.Common.Forms.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.Observers
 {

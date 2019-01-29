@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.DuneErosion.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.PropertyClasses

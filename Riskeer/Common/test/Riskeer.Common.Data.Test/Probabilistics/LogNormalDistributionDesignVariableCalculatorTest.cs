@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.Common.Data.Test.Probabilistics
 {

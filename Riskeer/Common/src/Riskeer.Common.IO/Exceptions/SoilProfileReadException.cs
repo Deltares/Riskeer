@@ -21,7 +21,7 @@
 
 using System;
 using System.Runtime.Serialization;
-using Ringtoets.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.Exceptions
 {

@@ -24,10 +24,10 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.ClosingStructures.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data.TestUtil;
+using Riskeer.ClosingStructures.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {

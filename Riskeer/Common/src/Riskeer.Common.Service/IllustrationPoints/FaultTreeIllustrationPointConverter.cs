@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.IllustrationPoints;
 using HydraRingFaultTreeIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 

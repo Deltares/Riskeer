@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil.Probability;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil.Probability;
 
 namespace Riskeer.Common.Data.TestUtil.Test.Probability
 {

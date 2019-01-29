@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.UpdateDataStrategies
 {

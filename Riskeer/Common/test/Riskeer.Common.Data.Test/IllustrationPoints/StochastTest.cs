@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.IllustrationPoints
 {

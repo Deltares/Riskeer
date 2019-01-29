@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.DikeProfiles
 {

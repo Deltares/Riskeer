@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Forms.Factories
 {

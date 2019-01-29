@@ -27,15 +27,15 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.ClosingStructures.IO.Configurations;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Configurations.Import;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data.TestUtil;
+using Riskeer.ClosingStructures.IO.Configurations;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.Configurations.Import;
 
 namespace Riskeer.ClosingStructures.IO.Test.Configurations
 {

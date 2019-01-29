@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Integration.Forms.Merge
 {

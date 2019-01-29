@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Deltares.WTIStability.Data.Standard;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Properties;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Properties;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 {

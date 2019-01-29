@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test
 {

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Drawing;
-using Ringtoets.Revetment.Forms.Views;
+using Riskeer.Revetment.Forms.Views;
 
 namespace Riskeer.Revetment.Forms.TestUtil
 {

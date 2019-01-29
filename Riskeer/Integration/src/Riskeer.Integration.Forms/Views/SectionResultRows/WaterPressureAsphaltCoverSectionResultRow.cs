@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;

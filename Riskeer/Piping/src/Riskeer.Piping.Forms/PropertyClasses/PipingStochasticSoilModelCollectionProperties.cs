@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.SoilProfile;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses

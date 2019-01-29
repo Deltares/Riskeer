@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Piping.Primitives.TestUtil.Test
 {

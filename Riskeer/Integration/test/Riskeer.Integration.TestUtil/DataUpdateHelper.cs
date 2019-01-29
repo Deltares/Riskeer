@@ -22,14 +22,14 @@
 using System.IO;
 using Core.Common.Base.Service;
 using Core.Common.Util.IO;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Plugin.FileImporter;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.TestUtil

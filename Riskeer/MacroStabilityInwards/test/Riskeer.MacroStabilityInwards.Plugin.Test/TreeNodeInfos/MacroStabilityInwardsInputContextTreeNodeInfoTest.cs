@@ -27,8 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {

@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.IO.Exceptions;
-using Ringtoets.Revetment.IO.WaveConditions;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Revetment.IO.WaveConditions;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.IO.Exporters
 {

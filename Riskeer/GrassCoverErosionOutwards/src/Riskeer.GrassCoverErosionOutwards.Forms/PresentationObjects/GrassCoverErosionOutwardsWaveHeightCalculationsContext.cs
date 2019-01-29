@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
 {

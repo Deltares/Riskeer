@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Primitives.TestUtil;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Primitives.TestUtil;
 
 namespace Riskeer.Piping.Data.TestUtil
 {

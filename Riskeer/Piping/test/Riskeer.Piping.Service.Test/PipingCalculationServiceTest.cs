@@ -27,16 +27,16 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service.TestUtil;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.KernelWrapper;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Service.Test
 {

@@ -24,10 +24,10 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Properties;
 
 namespace Riskeer.Piping.Forms.PropertyClasses
 {

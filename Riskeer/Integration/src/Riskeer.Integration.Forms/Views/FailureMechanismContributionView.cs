@@ -29,8 +29,8 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

@@ -25,15 +25,15 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.ClosingStructures.Plugin.FileImporters;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Structures;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data.TestUtil;
+using Riskeer.ClosingStructures.Plugin.FileImporters;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.Structures;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
 {

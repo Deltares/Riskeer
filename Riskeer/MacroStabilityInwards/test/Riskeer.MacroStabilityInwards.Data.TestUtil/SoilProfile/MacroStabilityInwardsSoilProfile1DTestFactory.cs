@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {

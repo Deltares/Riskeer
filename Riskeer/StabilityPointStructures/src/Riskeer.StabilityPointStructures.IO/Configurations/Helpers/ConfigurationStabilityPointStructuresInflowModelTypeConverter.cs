@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations.Helpers
 {

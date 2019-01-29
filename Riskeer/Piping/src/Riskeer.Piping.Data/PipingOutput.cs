@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Piping.Data
 {

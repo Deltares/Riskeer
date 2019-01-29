@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.Helpers
 {

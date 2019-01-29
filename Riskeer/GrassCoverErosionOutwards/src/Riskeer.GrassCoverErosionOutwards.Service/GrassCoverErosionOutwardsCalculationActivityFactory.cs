@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Service;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Service;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service

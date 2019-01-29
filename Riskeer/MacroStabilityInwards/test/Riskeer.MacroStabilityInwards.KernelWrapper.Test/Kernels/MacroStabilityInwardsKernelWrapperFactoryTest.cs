@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels
 {

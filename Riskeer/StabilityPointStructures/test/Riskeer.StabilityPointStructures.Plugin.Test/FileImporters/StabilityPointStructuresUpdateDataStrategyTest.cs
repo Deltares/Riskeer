@@ -25,16 +25,16 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Structures;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
-using Ringtoets.StabilityPointStructures.Util;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.Structures;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Plugin.FileImporters;
+using Riskeer.StabilityPointStructures.Util;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 {

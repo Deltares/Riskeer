@@ -23,14 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.Properties;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Import;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.IO.Properties;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.IO.Configurations
 {

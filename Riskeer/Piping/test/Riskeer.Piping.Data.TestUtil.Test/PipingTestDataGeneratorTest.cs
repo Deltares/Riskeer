@@ -23,10 +23,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
 {

@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {

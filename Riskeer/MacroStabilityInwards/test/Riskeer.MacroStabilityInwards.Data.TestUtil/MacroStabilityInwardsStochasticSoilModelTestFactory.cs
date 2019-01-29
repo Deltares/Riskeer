@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {

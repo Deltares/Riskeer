@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Riskeer.MacroStabilityInwards.Service
 {

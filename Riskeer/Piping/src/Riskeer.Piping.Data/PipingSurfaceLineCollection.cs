@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Ringtoets.Piping.Data.Properties;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Data.Properties;
+using Riskeer.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data

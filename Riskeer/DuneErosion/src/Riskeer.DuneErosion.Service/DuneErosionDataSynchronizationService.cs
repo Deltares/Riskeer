@@ -28,10 +28,10 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
 using log4net;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.IO;
-using Ringtoets.DuneErosion.Service.Properties;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.IO;
+using Riskeer.DuneErosion.Service.Properties;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Service

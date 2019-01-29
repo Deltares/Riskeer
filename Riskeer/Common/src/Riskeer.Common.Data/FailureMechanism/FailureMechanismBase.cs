@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {

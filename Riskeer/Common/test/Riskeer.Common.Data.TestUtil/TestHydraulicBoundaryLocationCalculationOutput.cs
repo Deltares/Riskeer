@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
 
 namespace Riskeer.Common.Data.TestUtil
 {

@@ -25,12 +25,12 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.Configurations.Import
 {

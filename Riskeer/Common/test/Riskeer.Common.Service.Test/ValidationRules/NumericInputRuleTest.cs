@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Service.ValidationRules;
+using Riskeer.Common.Service.ValidationRules;
 
 namespace Riskeer.Common.Service.Test.ValidationRules
 {

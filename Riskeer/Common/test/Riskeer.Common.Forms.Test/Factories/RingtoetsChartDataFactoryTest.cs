@@ -23,7 +23,7 @@ using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Factories;
+using Riskeer.Common.Forms.Factories;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {

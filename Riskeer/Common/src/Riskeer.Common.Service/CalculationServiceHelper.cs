@@ -21,7 +21,7 @@
 
 using System;
 using log4net;
-using Ringtoets.Common.Service.Properties;
+using Riskeer.Common.Service.Properties;
 
 namespace Riskeer.Common.Service
 {

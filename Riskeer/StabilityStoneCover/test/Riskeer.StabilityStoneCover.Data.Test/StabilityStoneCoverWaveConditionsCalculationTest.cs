@@ -23,9 +23,9 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Revetment.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 
 namespace Riskeer.StabilityStoneCover.Data.Test
 {

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.Storage.Core.Serializers
 {

@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Revetment.IO.Configurations.Converters

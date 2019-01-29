@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Ringtoets.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 

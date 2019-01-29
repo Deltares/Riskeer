@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards

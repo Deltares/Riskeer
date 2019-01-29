@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.Structures;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.Structures;
+using Riskeer.HeightStructures.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
 namespace Riskeer.HeightStructures.Service

@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 

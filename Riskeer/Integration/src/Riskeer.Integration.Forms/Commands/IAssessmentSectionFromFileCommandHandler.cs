@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Forms.Commands
 {

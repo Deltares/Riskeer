@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.ClosingStructures

@@ -26,8 +26,8 @@ using Core.Common.Gui.PropertyBag;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin;
 

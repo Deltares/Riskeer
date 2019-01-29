@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
-using Ringtoets.Common.Service.TestUtil;
+using Riskeer.Common.Service.TestUtil;
 
 namespace Riskeer.Common.Service.Test
 {

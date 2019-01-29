@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.Common.IO.Configurations.Helpers
 {

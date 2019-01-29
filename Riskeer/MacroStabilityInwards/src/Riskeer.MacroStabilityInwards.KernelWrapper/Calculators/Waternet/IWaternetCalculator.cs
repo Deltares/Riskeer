@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {

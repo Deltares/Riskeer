@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
-using Ringtoets.Piping.IO.SoilProfiles;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
+using Riskeer.Piping.IO.SoilProfiles;
 
 namespace Riskeer.Piping.IO.Test.SoilProfiles
 {

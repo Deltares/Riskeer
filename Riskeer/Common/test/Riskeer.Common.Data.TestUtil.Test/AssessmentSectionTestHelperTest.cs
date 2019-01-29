@@ -25,9 +25,9 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.TestUtil.Test
 {

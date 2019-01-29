@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.MacroStabilityInwards.Primitives
 {

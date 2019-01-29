@@ -24,11 +24,11 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.Views;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.Views;
 
 namespace Riskeer.HeightStructures.Forms.Test.Views
 {

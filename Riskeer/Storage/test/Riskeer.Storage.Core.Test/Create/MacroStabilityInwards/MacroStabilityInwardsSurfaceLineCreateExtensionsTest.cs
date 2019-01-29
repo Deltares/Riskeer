@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;

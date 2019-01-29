@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.Views;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Forms
 {

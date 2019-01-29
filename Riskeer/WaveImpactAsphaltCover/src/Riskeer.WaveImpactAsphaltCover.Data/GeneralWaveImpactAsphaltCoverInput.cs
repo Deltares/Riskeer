@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
+using Riskeer.WaveImpactAsphaltCover.Data.Properties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data
 {

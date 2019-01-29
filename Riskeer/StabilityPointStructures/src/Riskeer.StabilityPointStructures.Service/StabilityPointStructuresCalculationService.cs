@@ -21,9 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.Structures;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.Structures;
+using Riskeer.StabilityPointStructures.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
 namespace Riskeer.StabilityPointStructures.Service

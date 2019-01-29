@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 {

@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;

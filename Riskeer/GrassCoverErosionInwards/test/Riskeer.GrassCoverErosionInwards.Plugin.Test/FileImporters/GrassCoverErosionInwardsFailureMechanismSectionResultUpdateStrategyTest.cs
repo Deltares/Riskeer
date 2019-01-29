@@ -21,11 +21,11 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Plugin.TestUtil.FileImporters;
-using Ringtoets.Common.Primitives;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.TestUtil.FileImporters;
+using Riskeer.Common.Primitives;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Plugin.FileImporters;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
 {

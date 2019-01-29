@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Deltares.WTIPiping;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.KernelWrapper.Creators
 {

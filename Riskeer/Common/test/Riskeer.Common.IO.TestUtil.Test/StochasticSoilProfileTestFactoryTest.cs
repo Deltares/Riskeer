@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.TestUtil.Test
 {

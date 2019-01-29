@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create.ClosingStructures;
 using Riskeer.Storage.Core.Create.DuneErosion;

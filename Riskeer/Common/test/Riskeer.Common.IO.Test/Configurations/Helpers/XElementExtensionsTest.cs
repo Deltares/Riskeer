@@ -27,8 +27,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.Common.IO.Test.Configurations.Helpers
 {

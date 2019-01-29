@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 
 namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
 {

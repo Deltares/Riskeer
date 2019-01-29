@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Service;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service
 {

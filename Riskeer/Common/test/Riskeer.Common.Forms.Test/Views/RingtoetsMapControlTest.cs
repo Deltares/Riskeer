@@ -31,11 +31,11 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Util.TypeConverters;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Util.TypeConverters;
 
 namespace Riskeer.Common.Forms.Test.Views
 {

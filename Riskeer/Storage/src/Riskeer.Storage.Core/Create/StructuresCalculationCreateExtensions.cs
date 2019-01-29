@@ -21,11 +21,11 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Structures;
+using Riskeer.HeightStructures.Data;
+using Riskeer.StabilityPointStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create

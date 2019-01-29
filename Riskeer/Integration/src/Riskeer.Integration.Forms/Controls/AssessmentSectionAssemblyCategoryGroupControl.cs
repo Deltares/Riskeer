@@ -22,8 +22,8 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Util;
-using Ringtoets.Common.Forms.Controls;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Controls;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Integration.Forms.Controls

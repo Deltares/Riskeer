@@ -24,8 +24,8 @@ using System.ComponentModel;
 using System.Globalization;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Test.TypeConverters
 {

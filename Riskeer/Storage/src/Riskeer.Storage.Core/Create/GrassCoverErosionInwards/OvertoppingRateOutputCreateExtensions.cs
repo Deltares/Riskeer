@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.Create.IllustrationPoints;
 using Riskeer.Storage.Core.DbContext;
 

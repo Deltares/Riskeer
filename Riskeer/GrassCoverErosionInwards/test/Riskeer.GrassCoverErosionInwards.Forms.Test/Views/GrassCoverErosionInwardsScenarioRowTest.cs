@@ -24,10 +24,10 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 {

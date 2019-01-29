@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Probabilistics;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
 
 namespace Riskeer.StabilityPointStructures.Data

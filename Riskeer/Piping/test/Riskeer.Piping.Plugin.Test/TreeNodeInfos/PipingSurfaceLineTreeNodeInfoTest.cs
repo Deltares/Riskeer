@@ -27,8 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.Forms.Properties;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Forms.Properties;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {

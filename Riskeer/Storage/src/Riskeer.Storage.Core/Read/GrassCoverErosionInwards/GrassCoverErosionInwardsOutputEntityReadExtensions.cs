@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.IllustrationPoints;
 

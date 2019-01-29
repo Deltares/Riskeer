@@ -21,12 +21,12 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.SurfaceLines;
-using Ringtoets.Piping.Plugin.FileImporter;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.IO.SurfaceLines;
+using Riskeer.Piping.Plugin.FileImporter;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Plugin.Test.FileImporter
 {

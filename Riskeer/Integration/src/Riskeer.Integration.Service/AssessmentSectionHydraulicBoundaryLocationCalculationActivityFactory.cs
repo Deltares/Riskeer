@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Integration.Service

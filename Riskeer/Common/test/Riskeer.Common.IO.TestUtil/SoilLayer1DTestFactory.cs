@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile;
 
 namespace Riskeer.Common.IO.TestUtil
 {

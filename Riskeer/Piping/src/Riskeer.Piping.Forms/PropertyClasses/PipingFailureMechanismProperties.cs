@@ -26,11 +26,11 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses

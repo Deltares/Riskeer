@@ -21,12 +21,12 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Plugin.TestUtil.FileImporters;
-using Ringtoets.Common.Primitives;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.TestUtil.FileImporters;
+using Riskeer.Common.Primitives;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Plugin.FileImporters;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 {

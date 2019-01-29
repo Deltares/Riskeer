@@ -23,14 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Properties;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Import;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.Revetment.IO.Configurations

@@ -24,8 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {

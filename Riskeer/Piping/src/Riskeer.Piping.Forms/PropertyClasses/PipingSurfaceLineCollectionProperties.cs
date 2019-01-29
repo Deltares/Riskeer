@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses

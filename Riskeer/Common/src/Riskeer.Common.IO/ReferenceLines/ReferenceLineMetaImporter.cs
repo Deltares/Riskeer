@@ -28,8 +28,8 @@ using Core.Common.Base.IO;
 using Core.Common.Util.Builders;
 using Core.Common.Util.Properties;
 using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.Exceptions;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.Exceptions;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.Common.IO.ReferenceLines

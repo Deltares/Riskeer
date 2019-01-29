@@ -22,10 +22,10 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {

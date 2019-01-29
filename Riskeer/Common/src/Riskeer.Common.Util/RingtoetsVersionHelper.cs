@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Util.Properties;
+using Riskeer.Common.Util.Properties;
 
 namespace Riskeer.Common.Util
 {

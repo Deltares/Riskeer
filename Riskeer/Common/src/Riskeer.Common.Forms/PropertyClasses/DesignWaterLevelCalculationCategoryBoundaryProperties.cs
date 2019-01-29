@@ -21,8 +21,8 @@
 
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

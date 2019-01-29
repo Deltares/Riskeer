@@ -22,10 +22,10 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Piping.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views

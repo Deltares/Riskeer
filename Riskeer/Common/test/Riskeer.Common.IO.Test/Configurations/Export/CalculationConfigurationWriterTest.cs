@@ -27,10 +27,10 @@ using System.Xml;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.TestUtil;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.TestUtil;
 
 namespace Riskeer.Common.IO.Test.Configurations.Export
 {

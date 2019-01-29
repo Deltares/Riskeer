@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Service.Properties;
+using Riskeer.Common.Service.Properties;
 
 namespace Riskeer.Common.Service.ValidationRules
 {

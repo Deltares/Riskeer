@@ -25,8 +25,8 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Helpers;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.Common.Data.Helpers;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses

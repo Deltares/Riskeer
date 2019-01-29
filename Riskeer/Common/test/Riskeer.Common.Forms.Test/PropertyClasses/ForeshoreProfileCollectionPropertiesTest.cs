@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.Common.Forms.Test.PropertyClasses
 {

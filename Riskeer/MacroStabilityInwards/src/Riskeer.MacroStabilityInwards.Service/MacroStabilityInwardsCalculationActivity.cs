@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Service;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.Common.Service;
+using Riskeer.MacroStabilityInwards.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Service

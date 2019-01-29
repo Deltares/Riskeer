@@ -25,7 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Observers;

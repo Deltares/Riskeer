@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.Common.Forms.Views
 {

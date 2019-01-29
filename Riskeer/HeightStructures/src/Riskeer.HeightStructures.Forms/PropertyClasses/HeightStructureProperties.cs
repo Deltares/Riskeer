@@ -25,9 +25,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Forms.PropertyClasses

@@ -21,9 +21,9 @@
 
 using System;
 using System.Xml;
-using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
+using Riskeer.ClosingStructures.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
 
 namespace Riskeer.ClosingStructures.IO.Configurations
 {

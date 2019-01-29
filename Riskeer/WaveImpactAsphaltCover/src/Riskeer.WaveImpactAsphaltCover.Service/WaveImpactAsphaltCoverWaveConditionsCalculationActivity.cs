@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
-using Ringtoets.Revetment.Service;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Service;
+using Riskeer.Revetment.Service;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Service

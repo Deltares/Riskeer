@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.Create.IllustrationPoints;
 using Riskeer.Storage.Core.DbContext;
 

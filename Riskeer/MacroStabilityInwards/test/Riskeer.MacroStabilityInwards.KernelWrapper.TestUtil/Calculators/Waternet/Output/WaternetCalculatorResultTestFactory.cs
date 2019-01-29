@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output
 {

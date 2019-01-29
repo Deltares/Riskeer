@@ -24,10 +24,10 @@ using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Factories;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.Factories;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views

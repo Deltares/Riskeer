@@ -24,8 +24,8 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Util.TypeConverters;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Util.TypeConverters;
 
 namespace Riskeer.Common.Forms.Views
 {

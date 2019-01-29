@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Service.Properties;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Service.Properties;
 
 namespace Riskeer.Common.Service.ValidationRules
 {

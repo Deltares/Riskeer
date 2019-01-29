@@ -24,10 +24,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Forms.PropertyClasses;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PropertyClasses;
 
 namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 {

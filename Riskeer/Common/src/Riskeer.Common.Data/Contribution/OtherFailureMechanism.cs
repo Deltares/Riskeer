@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.Contribution
 {

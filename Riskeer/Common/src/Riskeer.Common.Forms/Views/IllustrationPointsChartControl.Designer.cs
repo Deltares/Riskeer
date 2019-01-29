@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Views
 {

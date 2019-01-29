@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.Structures;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.Structures;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.IO
 {

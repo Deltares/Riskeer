@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.HeightStructures.Data.TestUtil.Test
 {

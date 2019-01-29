@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.Configurations.Export
 {

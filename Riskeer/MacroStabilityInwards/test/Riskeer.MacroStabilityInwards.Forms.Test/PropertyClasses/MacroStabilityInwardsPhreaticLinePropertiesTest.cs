@@ -27,9 +27,9 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {

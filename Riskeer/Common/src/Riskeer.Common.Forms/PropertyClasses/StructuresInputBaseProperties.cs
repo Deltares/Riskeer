@@ -28,17 +28,17 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Forms.UITypeEditors;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.UITypeEditors;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

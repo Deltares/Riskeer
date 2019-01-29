@@ -28,9 +28,9 @@ using System.Xml;
 using Core.Common.Base.Data;
 using Core.Common.Util;
 using Core.Components.PointedTree.Data;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories
 {

@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards

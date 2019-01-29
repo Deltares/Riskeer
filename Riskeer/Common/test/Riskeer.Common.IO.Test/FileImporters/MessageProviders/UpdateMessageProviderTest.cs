@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
 
 namespace Riskeer.Common.IO.Test.FileImporters.MessageProviders
 {

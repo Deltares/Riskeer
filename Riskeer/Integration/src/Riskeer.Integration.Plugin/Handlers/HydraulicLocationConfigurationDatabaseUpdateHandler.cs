@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;

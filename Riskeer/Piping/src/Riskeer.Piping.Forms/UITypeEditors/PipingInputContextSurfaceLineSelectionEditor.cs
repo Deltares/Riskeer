@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {

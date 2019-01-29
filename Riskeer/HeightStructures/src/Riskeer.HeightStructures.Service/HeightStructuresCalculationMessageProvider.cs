@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.HeightStructures.Service.Properties;
+using Riskeer.Common.Service.MessageProviders;
+using Riskeer.HeightStructures.Service.Properties;
 
 namespace Riskeer.HeightStructures.Service
 {

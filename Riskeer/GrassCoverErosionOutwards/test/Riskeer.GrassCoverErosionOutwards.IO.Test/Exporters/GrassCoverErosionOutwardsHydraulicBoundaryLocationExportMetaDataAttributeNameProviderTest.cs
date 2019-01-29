@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
-using Ringtoets.GrassCoverErosionOutwards.Util;
+using Riskeer.GrassCoverErosionOutwards.IO.Exporters;
+using Riskeer.GrassCoverErosionOutwards.Util;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
 {

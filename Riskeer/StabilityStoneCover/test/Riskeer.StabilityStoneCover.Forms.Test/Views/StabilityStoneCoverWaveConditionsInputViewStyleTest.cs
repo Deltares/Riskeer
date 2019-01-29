@@ -21,8 +21,8 @@
 
 using System.Drawing;
 using NUnit.Framework;
-using Ringtoets.Revetment.Forms.Views;
-using Ringtoets.StabilityStoneCover.Forms.Views;
+using Riskeer.Revetment.Forms.Views;
+using Riskeer.StabilityStoneCover.Forms.Views;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 {

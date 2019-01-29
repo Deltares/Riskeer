@@ -22,9 +22,9 @@
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Piping.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.Piping.IO.Configurations;
 
 namespace Riskeer.Piping.IO.Test.Configurations
 {

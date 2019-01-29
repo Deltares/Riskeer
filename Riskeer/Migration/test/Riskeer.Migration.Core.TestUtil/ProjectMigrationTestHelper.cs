@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 
 namespace Riskeer.Migration.Core.TestUtil
 {

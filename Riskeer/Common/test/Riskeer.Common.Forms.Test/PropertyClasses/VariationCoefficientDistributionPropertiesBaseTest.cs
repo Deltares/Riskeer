@@ -26,10 +26,10 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.PropertyClasses
 {

@@ -24,15 +24,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Plugin.FileImporter;
-using Ringtoets.Piping.Primitives;
-using Ringtoets.Piping.Primitives.TestUtil;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Plugin.FileImporter;
+using Riskeer.Piping.Primitives;
+using Riskeer.Piping.Primitives.TestUtil;
 
 namespace Riskeer.Piping.Plugin.Test.FileImporter
 {

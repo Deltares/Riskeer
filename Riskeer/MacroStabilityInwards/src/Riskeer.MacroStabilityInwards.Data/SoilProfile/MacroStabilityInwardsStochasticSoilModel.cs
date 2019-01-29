@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data.SoilProfile

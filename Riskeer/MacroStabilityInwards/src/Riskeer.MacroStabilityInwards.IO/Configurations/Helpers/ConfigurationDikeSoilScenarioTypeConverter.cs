@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {

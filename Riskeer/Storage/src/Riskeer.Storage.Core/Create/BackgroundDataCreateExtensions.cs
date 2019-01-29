@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create

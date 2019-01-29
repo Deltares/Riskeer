@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output

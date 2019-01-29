@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Forms.PresentationObjects

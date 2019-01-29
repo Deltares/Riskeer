@@ -25,9 +25,9 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Forms.Views;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {

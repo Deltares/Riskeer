@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.HeightStructures.Data.TestUtil
 {

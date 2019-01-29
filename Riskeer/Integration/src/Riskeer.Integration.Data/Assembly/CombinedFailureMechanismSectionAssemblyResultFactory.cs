@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Integration.Data.Assembly

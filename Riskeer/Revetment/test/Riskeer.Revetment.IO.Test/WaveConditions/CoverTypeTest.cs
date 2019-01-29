@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Revetment.IO.WaveConditions;
+using Riskeer.Revetment.IO.WaveConditions;
 
 namespace Riskeer.Revetment.IO.Test.WaveConditions
 {

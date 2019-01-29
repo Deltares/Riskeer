@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Util;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Util;
 
 namespace Riskeer.ClosingStructures.Util
 {

@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Views
 {

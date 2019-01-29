@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Contribution;
+using Riskeer.Common.Data.Contribution;
 
 namespace Riskeer.Common.Data.TestUtil.Test
 {

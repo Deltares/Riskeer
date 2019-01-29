@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {

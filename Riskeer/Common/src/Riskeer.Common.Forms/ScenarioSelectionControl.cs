@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Helpers;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 

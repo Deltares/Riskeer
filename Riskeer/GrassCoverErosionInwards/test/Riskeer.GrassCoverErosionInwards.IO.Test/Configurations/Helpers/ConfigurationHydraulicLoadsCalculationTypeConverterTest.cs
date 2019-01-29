@@ -23,9 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
-using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.IO.Configurations;
+using Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
 {

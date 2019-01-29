@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.Revetment.Data.Test
 {

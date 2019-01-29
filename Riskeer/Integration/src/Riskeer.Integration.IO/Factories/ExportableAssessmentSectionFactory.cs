@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;

@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.UITypeEditors
 {

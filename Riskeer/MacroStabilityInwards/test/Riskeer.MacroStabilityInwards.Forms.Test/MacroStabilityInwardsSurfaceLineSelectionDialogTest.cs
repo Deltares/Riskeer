@@ -25,8 +25,8 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Forms;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Forms;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test
 {

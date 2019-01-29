@@ -26,9 +26,9 @@ using Core.Common.Controls;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Controls;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.Controls;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Test.Controls

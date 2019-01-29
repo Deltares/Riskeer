@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 {

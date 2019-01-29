@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.ClosingStructures.Data.Properties;
-using Ringtoets.Common.Data.Probabilistics;
+using Riskeer.ClosingStructures.Data.Properties;
+using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.ClosingStructures.Data
 {

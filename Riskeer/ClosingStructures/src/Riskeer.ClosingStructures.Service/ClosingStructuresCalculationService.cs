@@ -21,9 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.Structures;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.Structures;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
 namespace Riskeer.ClosingStructures.Service

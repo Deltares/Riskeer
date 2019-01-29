@@ -24,10 +24,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.Forms.PropertyClasses;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.PropertyClasses;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
 {

@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.Piping.Primitives;
+using Riskeer.MacroStabilityInwards.Primitives;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
 

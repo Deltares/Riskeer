@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.StabilityPointStructures.Data.Properties;
+using Riskeer.StabilityPointStructures.Data.Properties;
 
 namespace Riskeer.StabilityPointStructures.Data
 {

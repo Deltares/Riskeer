@@ -26,17 +26,17 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.Factories;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.Factories;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.Views

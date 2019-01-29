@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 {

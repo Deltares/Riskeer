@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Structures;
+using Riskeer.Common.IO.Structures;
 
 namespace Riskeer.Common.IO.Test.Structures
 {

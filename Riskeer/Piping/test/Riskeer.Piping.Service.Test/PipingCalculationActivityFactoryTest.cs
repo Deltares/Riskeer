@@ -26,16 +26,16 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 
 namespace Riskeer.Piping.Service.Test
 {

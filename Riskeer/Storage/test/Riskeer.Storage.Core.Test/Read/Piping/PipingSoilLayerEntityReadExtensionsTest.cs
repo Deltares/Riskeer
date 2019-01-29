@@ -23,8 +23,8 @@ using System;
 using System.Drawing;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.Piping;
 

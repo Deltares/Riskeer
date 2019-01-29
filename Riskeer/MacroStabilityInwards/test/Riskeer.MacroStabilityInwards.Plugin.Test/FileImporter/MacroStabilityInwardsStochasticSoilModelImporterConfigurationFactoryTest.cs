@@ -21,11 +21,11 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
-using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.IO.SoilProfiles;
+using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 {

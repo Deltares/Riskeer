@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Integration.Data.StandAlone.Input;
 
 namespace Riskeer.Integration.Data.Test.StandAlone.Input

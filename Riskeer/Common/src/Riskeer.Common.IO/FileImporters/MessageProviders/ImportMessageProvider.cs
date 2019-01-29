@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.FileImporters.MessageProviders
 {

@@ -21,8 +21,8 @@
 
 using System;
 using System.Linq;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Integration.Data.Assembly
 {

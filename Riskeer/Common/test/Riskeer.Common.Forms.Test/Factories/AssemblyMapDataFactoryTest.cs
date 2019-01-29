@@ -23,8 +23,8 @@ using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {

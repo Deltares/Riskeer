@@ -22,12 +22,12 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.IO.SoilProfiles;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 {

@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Data.Structures;
+using Riskeer.StabilityPointStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.IllustrationPoints;
 

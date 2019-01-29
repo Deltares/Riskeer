@@ -25,11 +25,11 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PropertyClasses;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.PropertyClasses;
 
 namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 {

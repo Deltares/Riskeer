@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.DuneErosion

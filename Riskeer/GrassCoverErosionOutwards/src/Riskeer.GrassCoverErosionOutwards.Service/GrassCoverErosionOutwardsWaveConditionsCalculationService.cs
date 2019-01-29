@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Service;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Service;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service

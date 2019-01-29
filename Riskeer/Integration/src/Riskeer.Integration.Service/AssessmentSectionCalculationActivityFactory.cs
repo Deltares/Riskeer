@@ -21,17 +21,17 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.ClosingStructures.Service;
-using Ringtoets.Common.Service;
-using Ringtoets.DuneErosion.Service;
-using Ringtoets.GrassCoverErosionInwards.Service;
-using Ringtoets.GrassCoverErosionOutwards.Service;
-using Ringtoets.HeightStructures.Service;
-using Ringtoets.MacroStabilityInwards.Service;
-using Ringtoets.Piping.Service;
-using Ringtoets.StabilityPointStructures.Service;
-using Ringtoets.StabilityStoneCover.Service;
-using Ringtoets.WaveImpactAsphaltCover.Service;
+using Riskeer.ClosingStructures.Service;
+using Riskeer.Common.Service;
+using Riskeer.DuneErosion.Service;
+using Riskeer.GrassCoverErosionInwards.Service;
+using Riskeer.GrassCoverErosionOutwards.Service;
+using Riskeer.HeightStructures.Service;
+using Riskeer.MacroStabilityInwards.Service;
+using Riskeer.Piping.Service;
+using Riskeer.StabilityPointStructures.Service;
+using Riskeer.StabilityStoneCover.Service;
+using Riskeer.WaveImpactAsphaltCover.Service;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Service

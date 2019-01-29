@@ -33,11 +33,11 @@ using Core.Common.Util.Builders;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.SurfaceLines;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.SurfaceLines;
 
 namespace Riskeer.Common.IO.Test.SurfaceLines
 {

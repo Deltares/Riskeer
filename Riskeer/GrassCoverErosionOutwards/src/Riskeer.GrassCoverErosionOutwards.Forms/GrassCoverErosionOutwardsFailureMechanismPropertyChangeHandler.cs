@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Service;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Service;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms
 {

@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.SoilProfile;
 
 namespace Riskeer.Piping.Data.Test.SoilProfile
 {

@@ -23,10 +23,10 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.HeightStructures.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.HeightStructures.IO.Configurations;
 
 namespace Riskeer.HeightStructures.IO.Test.Configurations
 {

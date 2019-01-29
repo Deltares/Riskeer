@@ -21,10 +21,10 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations.Converters;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {

@@ -23,10 +23,10 @@ using System;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.ImportInfos
 {

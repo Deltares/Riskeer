@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Service;
-using Ringtoets.Common.Data.Calculation;
+using Riskeer.Common.Data.Calculation;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Common.Service

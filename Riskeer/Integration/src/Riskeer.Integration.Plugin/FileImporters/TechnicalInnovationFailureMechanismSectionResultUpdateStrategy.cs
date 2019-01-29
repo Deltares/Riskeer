@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
+using Riskeer.Common.IO.FileImporters;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Riskeer.Integration.Plugin.FileImporters

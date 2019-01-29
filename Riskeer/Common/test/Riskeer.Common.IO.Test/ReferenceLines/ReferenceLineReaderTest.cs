@@ -26,8 +26,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.ReferenceLines;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.ReferenceLines;
 
 namespace Riskeer.Common.IO.Test.ReferenceLines
 {

@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;

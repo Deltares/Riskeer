@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Integration.Forms.Views
 {

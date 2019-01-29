@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {

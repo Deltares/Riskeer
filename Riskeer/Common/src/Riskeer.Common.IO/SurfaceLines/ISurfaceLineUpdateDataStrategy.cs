@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Exceptions;
 
 namespace Riskeer.Common.IO.SurfaceLines
 {

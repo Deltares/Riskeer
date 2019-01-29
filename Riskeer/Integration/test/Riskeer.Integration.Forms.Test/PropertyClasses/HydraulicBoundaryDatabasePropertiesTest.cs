@@ -27,7 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.Editors;
 using Riskeer.Integration.Forms.PropertyClasses;
 

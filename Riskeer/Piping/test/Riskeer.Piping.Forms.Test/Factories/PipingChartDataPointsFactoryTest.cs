@@ -24,9 +24,9 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Factories;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Factories;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.Factories
 {

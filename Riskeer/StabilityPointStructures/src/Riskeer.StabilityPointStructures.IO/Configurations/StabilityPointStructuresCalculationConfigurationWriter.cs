@@ -21,8 +21,8 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.StabilityPointStructures.IO.Configurations.Helpers;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations
 {

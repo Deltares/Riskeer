@@ -25,10 +25,10 @@ using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 {

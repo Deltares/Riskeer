@@ -22,7 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.TestUtil
 {

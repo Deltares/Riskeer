@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Data;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Data;
 
 namespace Riskeer.StabilityStoneCover.Forms.Factories
 {

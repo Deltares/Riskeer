@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
 
 namespace Riskeer.Common.IO.Test.Configurations
 {

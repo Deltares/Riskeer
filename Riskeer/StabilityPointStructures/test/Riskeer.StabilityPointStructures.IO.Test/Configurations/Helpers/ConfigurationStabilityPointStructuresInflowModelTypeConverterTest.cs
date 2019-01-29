@@ -24,9 +24,9 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.IO.Configurations;
-using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.IO.Configurations;
+using Riskeer.StabilityPointStructures.IO.Configurations.Helpers;
 
 namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
 {

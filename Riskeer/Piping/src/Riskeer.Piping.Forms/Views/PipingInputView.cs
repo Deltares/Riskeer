@@ -26,10 +26,10 @@ using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Factories;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Factories;
+using Riskeer.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views

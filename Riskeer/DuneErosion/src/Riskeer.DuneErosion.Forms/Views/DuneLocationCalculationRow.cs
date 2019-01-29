@@ -24,9 +24,9 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.Views;
+using Riskeer.DuneErosion.Data;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views

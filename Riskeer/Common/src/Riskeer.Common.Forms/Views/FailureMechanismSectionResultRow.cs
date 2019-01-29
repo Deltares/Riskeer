@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Views

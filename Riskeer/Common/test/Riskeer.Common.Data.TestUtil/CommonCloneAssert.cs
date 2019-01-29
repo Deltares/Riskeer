@@ -21,11 +21,11 @@
 
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.Common.Data.TestUtil
 {

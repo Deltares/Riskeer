@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.Data.Probability;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data.SoilProfile

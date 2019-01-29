@@ -23,10 +23,10 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HeightStructures.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HeightStructures.Forms.PropertyClasses;
 
 namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 {

@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
-using Ringtoets.Revetment.Data.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
+using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {

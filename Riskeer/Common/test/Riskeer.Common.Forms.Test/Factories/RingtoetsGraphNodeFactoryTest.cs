@@ -28,10 +28,10 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {

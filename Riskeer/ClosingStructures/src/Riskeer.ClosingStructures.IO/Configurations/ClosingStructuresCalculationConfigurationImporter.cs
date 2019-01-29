@@ -22,16 +22,16 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
-using Ringtoets.ClosingStructures.Util;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Configurations.Import;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.IO.Configurations.Helpers;
+using Riskeer.ClosingStructures.Util;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Import;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.IO.Configurations

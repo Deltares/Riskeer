@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms;
+using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Forms.Views
 {

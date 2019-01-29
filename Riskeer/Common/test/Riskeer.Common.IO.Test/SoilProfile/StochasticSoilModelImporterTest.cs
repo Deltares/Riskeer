@@ -29,13 +29,13 @@ using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
-using Ringtoets.Common.IO.TestUtil;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.SoilProfile.Schema;
+using Riskeer.Common.IO.TestUtil;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
 {

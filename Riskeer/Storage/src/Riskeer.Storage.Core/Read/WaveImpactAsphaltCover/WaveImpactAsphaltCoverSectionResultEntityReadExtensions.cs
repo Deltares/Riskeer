@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Primitives;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Common.Primitives;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.DbContext;
 

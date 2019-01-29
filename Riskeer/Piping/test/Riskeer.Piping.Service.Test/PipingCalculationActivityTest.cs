@@ -28,11 +28,11 @@ using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.TestUtil;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Service.Test
 {

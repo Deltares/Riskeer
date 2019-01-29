@@ -25,11 +25,11 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Configurations;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.Configurations;
 
 namespace Riskeer.Common.IO.Test.Configurations
 {

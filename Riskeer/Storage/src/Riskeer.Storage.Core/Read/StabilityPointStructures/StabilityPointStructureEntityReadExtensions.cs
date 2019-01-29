@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.StabilityPointStructures

@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Properties;
 
 namespace Riskeer.Common.IO.Configurations
 {

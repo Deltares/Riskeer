@@ -23,16 +23,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.Integration.TestUtil;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.HeightStructures.Data;
+using Riskeer.Integration.TestUtil;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Plugin.FileImporters;
 
 namespace Riskeer.Integration.Test.FileImporters

@@ -30,11 +30,11 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.IO.DikeProfiles;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.IO.DikeProfiles;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.IO.FileImporters.MessageProviders;
 
 namespace Riskeer.Common.IO.Test.FileImporters
 {

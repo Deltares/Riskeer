@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Data.Test.Probability
 {

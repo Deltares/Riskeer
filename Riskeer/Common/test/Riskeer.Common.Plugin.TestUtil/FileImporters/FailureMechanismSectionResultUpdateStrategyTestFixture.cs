@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.IO.FileImporters;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.IO.FileImporters;
 
 namespace Riskeer.Common.Plugin.TestUtil.FileImporters
 {

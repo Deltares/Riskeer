@@ -26,9 +26,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PropertyClasses;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PropertyClasses;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {

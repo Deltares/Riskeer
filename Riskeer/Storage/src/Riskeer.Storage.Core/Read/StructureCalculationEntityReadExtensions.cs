@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read

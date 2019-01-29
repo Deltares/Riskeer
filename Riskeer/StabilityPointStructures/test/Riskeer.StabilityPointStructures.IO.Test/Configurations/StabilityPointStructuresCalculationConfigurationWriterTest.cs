@@ -25,10 +25,10 @@ using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.StabilityPointStructures.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.StabilityPointStructures.IO.Configurations;
 
 namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 {

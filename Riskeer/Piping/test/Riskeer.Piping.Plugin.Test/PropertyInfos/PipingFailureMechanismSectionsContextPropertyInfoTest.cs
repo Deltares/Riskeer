@@ -24,10 +24,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.PresentationObjects;
 
 namespace Riskeer.Piping.Plugin.Test.PropertyInfos
 {

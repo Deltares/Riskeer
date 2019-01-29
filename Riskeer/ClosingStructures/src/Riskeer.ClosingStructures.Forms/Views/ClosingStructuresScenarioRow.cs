@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms;
 
 namespace Riskeer.ClosingStructures.Forms.Views
 {

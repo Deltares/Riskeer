@@ -28,12 +28,12 @@ using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Riskeer.MacroStabilityInwards.Service.Test
 {

@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Forms.Factories;
+using Riskeer.Common.Forms.Factories;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;

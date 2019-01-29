@@ -25,9 +25,9 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.Revetment.Forms.Factories
 {

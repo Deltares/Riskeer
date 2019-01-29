@@ -22,13 +22,13 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.ClosingStructures.Forms.Views

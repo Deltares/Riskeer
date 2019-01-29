@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Helpers;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Integration.Forms.Views
 {

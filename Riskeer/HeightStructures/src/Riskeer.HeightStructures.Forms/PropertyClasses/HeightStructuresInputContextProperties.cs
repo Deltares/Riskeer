@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Util;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Forms.PropertyClasses

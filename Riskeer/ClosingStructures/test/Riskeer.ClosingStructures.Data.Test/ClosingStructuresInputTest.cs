@@ -25,10 +25,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.ClosingStructures.Data.TestUtil;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Data.Test
 {

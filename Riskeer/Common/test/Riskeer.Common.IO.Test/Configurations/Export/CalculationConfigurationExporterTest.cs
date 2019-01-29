@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.Common.IO.TestUtil;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.TestUtil;
 
 namespace Riskeer.Common.IO.Test.Configurations.Export
 {

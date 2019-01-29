@@ -28,7 +28,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test
 {

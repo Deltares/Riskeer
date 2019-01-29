@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
-using Ringtoets.Revetment.IO.Properties;
+using Riskeer.Revetment.IO.Properties;
 
 namespace Riskeer.Revetment.IO.WaveConditions
 {

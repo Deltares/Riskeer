@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.HeightStructures.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.HeightStructures.IO.Configurations;
 
 namespace Riskeer.HeightStructures.IO.Test.Configurations
 {

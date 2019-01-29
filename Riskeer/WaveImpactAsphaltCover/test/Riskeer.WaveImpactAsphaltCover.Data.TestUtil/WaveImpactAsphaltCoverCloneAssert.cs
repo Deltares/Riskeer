@@ -21,8 +21,8 @@
 
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data.TestUtil
 {

@@ -23,10 +23,10 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.GuiServices;
-using Ringtoets.DuneErosion.Forms.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.GuiServices;
+using Riskeer.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views

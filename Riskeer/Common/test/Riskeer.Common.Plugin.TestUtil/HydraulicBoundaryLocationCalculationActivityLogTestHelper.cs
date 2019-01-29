@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Service.TestUtil;
+using Riskeer.Common.Service.TestUtil;
 
 namespace Riskeer.Common.Plugin.TestUtil
 {

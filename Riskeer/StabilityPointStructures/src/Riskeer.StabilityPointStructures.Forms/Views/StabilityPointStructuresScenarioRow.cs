@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
 {

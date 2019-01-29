@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.StandAlone;
 

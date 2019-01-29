@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Common.Data;
+using Riskeer.Common.Data;
 
 namespace Riskeer.Common.Forms.UITypeEditors
 {

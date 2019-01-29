@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Service.MessageProviders;
+using Riskeer.Common.Service.MessageProviders;
 
 namespace Riskeer.StabilityPointStructures.Service.Test
 {

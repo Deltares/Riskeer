@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Properties;
-using Ringtoets.Revetment.Data;
+using Riskeer.Common.Data.Properties;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.StabilityStoneCover.Data
 {

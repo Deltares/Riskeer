@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
-using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
-using Ringtoets.ClosingStructures.IO.Properties;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Configurations.Import;
+using Riskeer.ClosingStructures.IO.Configurations.Helpers;
+using Riskeer.ClosingStructures.IO.Properties;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Import;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.IO.Configurations

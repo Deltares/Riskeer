@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Primitives.Properties;
+using Riskeer.Common.Primitives.Properties;
 
 namespace Riskeer.Common.Primitives
 {

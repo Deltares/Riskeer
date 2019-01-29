@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Gui;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.IO;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.IO;
 
 namespace Riskeer.Common.Forms.ChangeHandlers
 {

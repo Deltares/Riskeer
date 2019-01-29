@@ -26,9 +26,9 @@ using Core.Common.TestUtil;
 using log4net;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.Common.IO.Test.Configurations.Helpers
 {

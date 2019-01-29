@@ -21,8 +21,8 @@
 
 using System;
 using System.Linq;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.IllustrationPoints;
 using HydraRingIIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
 using HydraRingFaultTreeIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;

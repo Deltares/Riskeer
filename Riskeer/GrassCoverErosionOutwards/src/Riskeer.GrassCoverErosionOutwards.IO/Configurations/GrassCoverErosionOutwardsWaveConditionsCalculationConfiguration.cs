@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {

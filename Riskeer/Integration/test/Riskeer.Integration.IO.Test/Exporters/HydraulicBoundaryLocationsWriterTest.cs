@@ -24,9 +24,9 @@ using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Common.Util;
-using Ringtoets.Common.Util.TestUtil;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.Common.Util;
+using Riskeer.Common.Util.TestUtil;
 using Riskeer.Integration.IO.Exporters;
 
 namespace Riskeer.Integration.IO.Test.Exporters

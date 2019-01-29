@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Data

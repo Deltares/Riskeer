@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Util;
-using Ringtoets.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Piping.Data
 {

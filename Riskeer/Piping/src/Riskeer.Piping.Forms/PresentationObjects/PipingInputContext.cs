@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.PresentationObjects
 {

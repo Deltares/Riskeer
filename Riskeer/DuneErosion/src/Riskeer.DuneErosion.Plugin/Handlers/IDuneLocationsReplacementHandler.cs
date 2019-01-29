@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Plugin.Handlers
 {

@@ -26,7 +26,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Migration.Core.Storage;
 using Migration.Scripts.Data;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Migration.Core.Properties;
 
 namespace Riskeer.Migration.Core

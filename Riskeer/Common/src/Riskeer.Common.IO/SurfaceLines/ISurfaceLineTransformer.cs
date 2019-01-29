@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data;
-using Ringtoets.Common.IO.Exceptions;
+using Riskeer.Common.Data;
+using Riskeer.Common.IO.Exceptions;
 
 namespace Riskeer.Common.IO.SurfaceLines
 {

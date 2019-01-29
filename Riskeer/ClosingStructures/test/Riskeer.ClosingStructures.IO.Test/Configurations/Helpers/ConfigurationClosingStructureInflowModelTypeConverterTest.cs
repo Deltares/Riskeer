@@ -23,9 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.IO.Configurations;
-using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.IO.Configurations;
+using Riskeer.ClosingStructures.IO.Configurations.Helpers;
 
 namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
 {

@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations.Converters;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {

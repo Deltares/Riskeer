@@ -30,7 +30,7 @@ using Core.Common.Util;
 using Core.Common.Util.Settings;
 using log4net;
 using Migration.Scripts.Data.Exceptions;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Properties;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;

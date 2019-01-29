@@ -26,11 +26,11 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.IO.SurfaceLines;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Piping.IO.SurfaceLines;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.IO.Test.SurfaceLines
 {

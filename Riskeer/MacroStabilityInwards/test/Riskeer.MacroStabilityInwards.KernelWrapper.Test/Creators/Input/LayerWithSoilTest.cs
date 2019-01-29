@@ -23,7 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input

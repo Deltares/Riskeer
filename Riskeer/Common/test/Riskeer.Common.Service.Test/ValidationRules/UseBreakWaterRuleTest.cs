@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Service.ValidationRules;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Service.ValidationRules;
 
 namespace Riskeer.Common.Service.Test.ValidationRules
 {

@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.Properties;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.IllustrationPoints
 {

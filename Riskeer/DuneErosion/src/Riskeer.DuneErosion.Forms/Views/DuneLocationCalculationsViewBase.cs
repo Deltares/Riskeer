@@ -25,8 +25,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Forms.Views
 {

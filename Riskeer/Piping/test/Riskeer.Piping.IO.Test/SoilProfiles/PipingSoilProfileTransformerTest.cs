@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.IO.SoilProfiles;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.TestUtil;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.IO.SoilProfiles;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.IO.Test.SoilProfiles
 {

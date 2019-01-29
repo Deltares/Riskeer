@@ -24,9 +24,9 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Revetment.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations.Converters;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Revetment.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Test.Configurations.Converters
 {

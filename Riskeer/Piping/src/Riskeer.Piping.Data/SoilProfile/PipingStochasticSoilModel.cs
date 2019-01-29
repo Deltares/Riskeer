@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data;
+using Riskeer.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data.SoilProfile

@@ -24,14 +24,14 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Integration.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Forms.Views;
-using Ringtoets.MacroStabilityInwards.Service;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Integration.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.Service;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.MacroStabilityInwards.Integration.Test

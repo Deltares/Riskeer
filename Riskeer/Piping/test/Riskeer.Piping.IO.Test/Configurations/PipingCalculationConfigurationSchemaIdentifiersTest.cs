@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Piping.IO.Configurations;
+using Riskeer.Piping.IO.Configurations;
 
 namespace Riskeer.Piping.IO.Test.Configurations
 {

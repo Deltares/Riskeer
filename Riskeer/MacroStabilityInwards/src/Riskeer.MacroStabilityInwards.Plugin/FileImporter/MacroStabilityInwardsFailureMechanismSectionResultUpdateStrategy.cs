@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.MacroStabilityInwards.Data;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {

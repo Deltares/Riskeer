@@ -23,8 +23,8 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
 {

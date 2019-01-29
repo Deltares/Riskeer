@@ -21,7 +21,7 @@
 
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
-using Ringtoets.Common.Forms.Factories;
+using Riskeer.Common.Forms.Factories;
 using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.Factories

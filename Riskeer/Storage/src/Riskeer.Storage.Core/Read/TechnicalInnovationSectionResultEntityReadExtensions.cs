@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Primitives;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Storage.Core.DbContext;
 

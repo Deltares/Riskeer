@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.ValidationRules;
-using Ringtoets.StabilityPointStructures.Data;
+using Riskeer.Common.Service;
+using Riskeer.Common.Service.ValidationRules;
+using Riskeer.StabilityPointStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsStabilityPointStructuresFormsResources = Ringtoets.StabilityPointStructures.Forms.Properties.Resources;
 

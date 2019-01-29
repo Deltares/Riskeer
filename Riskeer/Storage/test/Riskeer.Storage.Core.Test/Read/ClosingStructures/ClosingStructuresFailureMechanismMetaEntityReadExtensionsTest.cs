@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 

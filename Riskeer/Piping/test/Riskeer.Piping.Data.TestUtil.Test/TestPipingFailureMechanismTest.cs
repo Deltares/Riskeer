@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
 {

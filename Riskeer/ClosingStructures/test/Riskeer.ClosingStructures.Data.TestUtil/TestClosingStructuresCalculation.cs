@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Structures;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.ClosingStructures.Data.TestUtil
 {

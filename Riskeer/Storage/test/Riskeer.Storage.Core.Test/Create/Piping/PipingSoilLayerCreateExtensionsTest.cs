@@ -24,9 +24,9 @@ using System.Drawing;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Primitives;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.DbContext;
 

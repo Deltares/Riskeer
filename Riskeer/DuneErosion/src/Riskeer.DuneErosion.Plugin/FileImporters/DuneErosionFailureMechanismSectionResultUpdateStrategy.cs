@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Plugin.FileImporters
 {

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.DuneErosion.Data;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.IO
 {

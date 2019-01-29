@@ -25,8 +25,8 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.TestUtil;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Forms.Test
 {

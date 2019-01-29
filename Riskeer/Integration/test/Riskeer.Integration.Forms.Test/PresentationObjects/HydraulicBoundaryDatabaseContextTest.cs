@@ -22,9 +22,9 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 

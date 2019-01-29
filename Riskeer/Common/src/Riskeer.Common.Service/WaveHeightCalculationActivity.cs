@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service.MessageProviders;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Service.MessageProviders;
 
 namespace Riskeer.Common.Service
 {

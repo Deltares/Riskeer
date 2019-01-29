@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
 
 namespace Riskeer.Piping.Service
 {

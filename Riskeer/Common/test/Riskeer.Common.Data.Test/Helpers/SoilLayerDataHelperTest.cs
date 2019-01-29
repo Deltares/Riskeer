@@ -23,7 +23,7 @@ using System;
 using System.Drawing;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Helpers;
+using Riskeer.Common.Data.Helpers;
 
 namespace Riskeer.Common.Data.Test.Helpers
 {

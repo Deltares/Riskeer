@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Writers;
-using Ringtoets.GrassCoverErosionOutwards.Util;
+using Riskeer.GrassCoverErosionOutwards.Util;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {

@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Components.Chart.Data;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Factories
 {

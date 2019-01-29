@@ -30,7 +30,7 @@ using Core.Common.Util;
 using Core.Common.Util.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Readers;
-using Ringtoets.Common.IO.Properties;
+using Riskeer.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.Structures

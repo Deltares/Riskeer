@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.IO;
 
 namespace Riskeer.Common.Forms.ChangeHandlers
 {

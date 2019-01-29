@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Test.TypeConverters
 {

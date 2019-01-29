@@ -31,7 +31,7 @@ using Core.Common.Util;
 using Core.Common.Util.TestUtil.Settings;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 

@@ -22,13 +22,13 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test
 {

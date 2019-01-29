@@ -25,12 +25,12 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Plugin.FileImporter;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Plugin.FileImporter;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Plugin.Test.FileImporter
 {

@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.PropertyClasses;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {

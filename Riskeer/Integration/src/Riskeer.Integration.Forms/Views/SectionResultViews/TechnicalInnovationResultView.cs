@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Ringtoets.Common.Forms.Builders;
-using Ringtoets.Common.Forms.Controls;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Forms.Builders;
+using Riskeer.Common.Forms.Controls;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;

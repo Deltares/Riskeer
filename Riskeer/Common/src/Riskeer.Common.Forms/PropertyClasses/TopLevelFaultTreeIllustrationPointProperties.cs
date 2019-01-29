@@ -29,9 +29,9 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.TypeConverters;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.PropertyClasses
 {

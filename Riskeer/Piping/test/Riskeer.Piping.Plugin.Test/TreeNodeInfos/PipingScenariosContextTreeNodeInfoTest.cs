@@ -27,11 +27,11 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Properties;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.PresentationObjects;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {

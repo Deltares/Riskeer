@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Piping.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Piping.IO.Configurations;
 
 namespace Riskeer.Piping.IO.Test.Configurations
 {

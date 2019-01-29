@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.HeightStructures.Data;
+using Riskeer.Common.IO.FileImporters;
+using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Plugin.FileImporters
 {

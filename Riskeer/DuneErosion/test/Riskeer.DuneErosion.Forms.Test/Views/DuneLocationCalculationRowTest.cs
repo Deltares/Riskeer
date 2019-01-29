@@ -23,12 +23,12 @@ using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Forms.Views;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.Views;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Forms.Test.Views
 {

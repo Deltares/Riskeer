@@ -28,12 +28,12 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.Probability;
-using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.Views;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.Probability;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
 {

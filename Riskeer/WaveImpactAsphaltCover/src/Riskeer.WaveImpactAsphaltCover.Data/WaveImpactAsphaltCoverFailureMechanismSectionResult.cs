@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Data

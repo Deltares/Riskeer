@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.Properties;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.Properties;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms
 {

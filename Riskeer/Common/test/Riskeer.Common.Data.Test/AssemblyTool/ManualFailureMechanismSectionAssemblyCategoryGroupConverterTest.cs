@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Primitives;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Data.Test.AssemblyTool

@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.IllustrationPoints;
+using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
 {

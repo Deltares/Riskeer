@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
 {

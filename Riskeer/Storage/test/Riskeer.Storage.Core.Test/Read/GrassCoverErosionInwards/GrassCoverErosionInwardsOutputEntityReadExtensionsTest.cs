@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.TestUtil.IllustrationPoints;

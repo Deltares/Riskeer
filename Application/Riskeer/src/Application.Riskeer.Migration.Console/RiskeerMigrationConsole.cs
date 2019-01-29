@@ -23,7 +23,7 @@ using System;
 using Application.Riskeer.Migration.Console.Properties;
 using Core.Common.Util;
 using Migration.Console;
-using Ringtoets.Common.Util;
+using Riskeer.Common.Util;
 using Riskeer.Migration.Core;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 using RiskeerMigrationCoreResources = Riskeer.Migration.Core.Properties.Resources;

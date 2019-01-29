@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.InputParameterCalculation;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.InputParameterCalculation;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data
 {

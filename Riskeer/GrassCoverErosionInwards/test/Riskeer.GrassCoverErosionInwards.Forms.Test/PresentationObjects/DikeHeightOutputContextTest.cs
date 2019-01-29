@@ -21,8 +21,8 @@
 
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 {

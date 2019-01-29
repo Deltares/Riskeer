@@ -26,9 +26,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.KernelWrapper.Test
 {

@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Helpers
 {

@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Service;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.IO.Structures;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Service;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.IO.Structures;
 
 namespace Riskeer.ClosingStructures.Plugin.FileImporters
 {

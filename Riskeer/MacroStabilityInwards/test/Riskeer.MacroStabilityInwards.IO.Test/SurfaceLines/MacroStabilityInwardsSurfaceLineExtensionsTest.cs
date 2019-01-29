@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Riskeer.Common.IO.Exceptions;
+using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.IO.SurfaceLines;
+using Riskeer.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines

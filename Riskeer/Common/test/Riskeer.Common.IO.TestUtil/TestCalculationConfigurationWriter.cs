@@ -21,7 +21,7 @@
 
 using System;
 using System.Xml;
-using Ringtoets.Common.IO.Configurations.Export;
+using Riskeer.Common.IO.Configurations.Export;
 
 namespace Riskeer.Common.IO.TestUtil
 {

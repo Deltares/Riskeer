@@ -27,11 +27,11 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Properties;
 
 namespace Riskeer.Piping.Forms.Views
 {

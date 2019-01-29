@@ -26,17 +26,17 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.Views;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Forms.Views;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 {

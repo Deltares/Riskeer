@@ -23,7 +23,7 @@ using System;
 using log4net;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Helpers;
 
 namespace Riskeer.Common.IO.Test.Configurations.Helpers
 {

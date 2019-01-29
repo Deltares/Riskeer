@@ -23,13 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.UpdateDataStrategies;
-using Ringtoets.Common.Forms;
-using Ringtoets.Common.IO.Structures;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Service;
-using Ringtoets.StabilityPointStructures.Util;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.UpdateDataStrategies;
+using Riskeer.Common.Forms;
+using Riskeer.Common.IO.Structures;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Service;
+using Riskeer.StabilityPointStructures.Util;
 
 namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {

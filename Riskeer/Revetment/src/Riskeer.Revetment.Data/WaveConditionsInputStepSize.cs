@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.Revetment.Data.Properties;
+using Riskeer.Revetment.Data.Properties;
 
 namespace Riskeer.Revetment.Data
 {

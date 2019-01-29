@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Helpers;
-using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
-using Ringtoets.GrassCoverErosionInwards.IO.Properties;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
+using Riskeer.Common.IO.Configurations.Import;
+using Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers;
+using Riskeer.GrassCoverErosionInwards.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Configurations

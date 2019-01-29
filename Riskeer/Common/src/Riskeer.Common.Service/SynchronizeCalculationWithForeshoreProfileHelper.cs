@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
 
 namespace Riskeer.Common.Service
 {

@@ -27,9 +27,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.UITypeEditors;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.UITypeEditors;
 
 namespace Riskeer.Common.Forms.Test.UITypeEditors
 {

@@ -26,11 +26,11 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Forms.PropertyClasses;
-using Ringtoets.DuneErosion.Forms.Views;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PropertyClasses;
+using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Plugin.Test
 {

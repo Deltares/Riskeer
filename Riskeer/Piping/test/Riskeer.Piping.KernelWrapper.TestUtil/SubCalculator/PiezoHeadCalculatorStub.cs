@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Riskeer.Piping.KernelWrapper.SubCalculator;
 
 namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
 {

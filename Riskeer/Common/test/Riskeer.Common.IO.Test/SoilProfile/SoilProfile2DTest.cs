@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.TestUtil;
+using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Common.IO.TestUtil;
 
 namespace Riskeer.Common.IO.Test.SoilProfile
 {

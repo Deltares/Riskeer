@@ -26,9 +26,9 @@ using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.IO.Configurations;
-using Ringtoets.Common.IO.Configurations;
-using Ringtoets.Common.IO.Configurations.Import;
+using Riskeer.ClosingStructures.IO.Configurations;
+using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Import;
 
 namespace Riskeer.ClosingStructures.IO.Test.Configurations
 {

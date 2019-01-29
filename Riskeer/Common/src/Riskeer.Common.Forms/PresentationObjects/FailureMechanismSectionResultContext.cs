@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {

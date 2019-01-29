@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
 namespace Riskeer.Common.Service.Test

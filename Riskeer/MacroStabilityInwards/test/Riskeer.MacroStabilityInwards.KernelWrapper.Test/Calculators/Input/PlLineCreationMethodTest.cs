@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {

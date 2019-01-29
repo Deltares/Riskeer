@@ -27,15 +27,15 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Forms.UITypeEditors;
-using Ringtoets.Piping.Primitives;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.UITypeEditors;
+using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test.UITypeEditors
 {

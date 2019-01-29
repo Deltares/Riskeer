@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.Exceptions;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;

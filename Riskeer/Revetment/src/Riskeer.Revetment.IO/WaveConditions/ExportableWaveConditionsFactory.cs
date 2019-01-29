@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util;
-using Ringtoets.Revetment.Data;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.Revetment.IO.WaveConditions
 {

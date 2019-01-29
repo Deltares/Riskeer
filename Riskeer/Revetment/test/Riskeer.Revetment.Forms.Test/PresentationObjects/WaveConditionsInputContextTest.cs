@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Forms.PresentationObjects;
 
 namespace Riskeer.Revetment.Forms.Test.PresentationObjects
 {

@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.StabilityPointStructures.Data.Properties;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.Structures;
+using Riskeer.StabilityPointStructures.Data.Properties;
 using RingtoetsDataCommonResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Data

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 {
