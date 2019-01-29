@@ -29,7 +29,6 @@ using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
@@ -38,6 +37,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {

@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 {

@@ -26,8 +26,8 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
 using Assembly.Kernel.Model.FmSectionTypes;
-using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {

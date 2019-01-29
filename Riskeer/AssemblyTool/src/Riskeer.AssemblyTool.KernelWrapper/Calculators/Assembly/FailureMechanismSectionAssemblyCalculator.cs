@@ -26,10 +26,10 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
 using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
-using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.Common.Primitives;
 using IFailureMechanismSectionAssemblyCalculatorKernel = Assembly.Kernel.Interfaces.IAssessmentResultsTranslator;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly

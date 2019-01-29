@@ -246,7 +246,10 @@ namespace Riskeer.AssemblyTool.IO.Test
                 XDocument doc = XDocument.Parse(fileContent);
 
                 string msg = string.Empty;
-                doc.Validate(schema, (o, e) => { msg += e.Message + Environment.NewLine; });
+                doc.Validate(schema, (o, e) =>
+                {
+                    msg += e.Message + Environment.NewLine;
+                });
                 if (msg == string.Empty)
                 {
                     Assert.Pass("Serialized document is valid" + Environment.NewLine);
