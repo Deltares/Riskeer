@@ -31,7 +31,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResult"/> for height structures.

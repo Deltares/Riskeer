@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.FileImporters
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> instance with data

@@ -32,7 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// Factory for assembling assembly results for a grass cover erosion inwards failure mechanism.

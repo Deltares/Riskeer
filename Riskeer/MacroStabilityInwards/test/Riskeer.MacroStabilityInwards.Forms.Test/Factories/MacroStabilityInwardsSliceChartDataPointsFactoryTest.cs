@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
 {
     [TestFixture]
     public class MacroStabilityInwardsSliceChartDataPointsFactoryTest

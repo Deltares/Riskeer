@@ -33,7 +33,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.StabilityStoneCover.Service
+namespace Riskeer.StabilityStoneCover.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring wave conditions calculations for the stability of stone revetment failure mechanism.

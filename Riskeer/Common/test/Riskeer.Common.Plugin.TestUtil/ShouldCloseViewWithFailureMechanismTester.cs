@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Plugin.TestUtil
+namespace Riskeer.Common.Plugin.TestUtil
 {
     /// <summary>
     /// Class for testing <see cref="ShouldCloseMethod"/> for views related to a failure mechanism.

@@ -44,7 +44,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.StabilityStoneCover.Service.Test
+namespace Riskeer.StabilityStoneCover.Service.Test
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationServiceTest

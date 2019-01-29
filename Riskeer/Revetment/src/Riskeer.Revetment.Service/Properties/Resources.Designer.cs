@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Revetment.Service.Properties {
+namespace Riskeer.Revetment.Service.Properties {
     using System;
     
     

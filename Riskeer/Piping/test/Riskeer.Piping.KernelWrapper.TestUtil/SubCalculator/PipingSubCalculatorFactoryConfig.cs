@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestPipingSubCalculatorFactory"/> 

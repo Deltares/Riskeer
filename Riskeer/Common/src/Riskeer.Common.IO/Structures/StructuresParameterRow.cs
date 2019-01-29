@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// This class represents a definition of some structure-parameter that has been defined

@@ -35,7 +35,7 @@ using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.IO.ReferenceLines
+namespace Riskeer.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Shapefile reader that reads a <see cref="ReferenceLine"/> based on the line feature in the file.

@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandlerTest : NUnitFormTest

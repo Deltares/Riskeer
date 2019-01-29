@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
+namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class ConfigurationZoningBoundariesDeterminationTypeTest : EnumValuesTestFixture<ConfigurationZoningBoundariesDeterminationType, int>

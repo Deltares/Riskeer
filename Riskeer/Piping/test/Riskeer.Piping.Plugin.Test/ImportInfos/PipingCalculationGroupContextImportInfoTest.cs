@@ -37,7 +37,7 @@ using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.ImportInfos
+namespace Riskeer.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class PipingCalculationGroupContextImportInfoTest

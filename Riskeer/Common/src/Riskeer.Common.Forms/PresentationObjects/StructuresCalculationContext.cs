@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure a structures calculation.

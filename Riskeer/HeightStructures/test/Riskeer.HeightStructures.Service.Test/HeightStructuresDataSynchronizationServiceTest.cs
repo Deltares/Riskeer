@@ -34,7 +34,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 
-namespace Ringtoets.HeightStructures.Service.Test
+namespace Riskeer.HeightStructures.Service.Test
 {
     [TestFixture]
     public class HeightStructuresDataSynchronizationServiceTest

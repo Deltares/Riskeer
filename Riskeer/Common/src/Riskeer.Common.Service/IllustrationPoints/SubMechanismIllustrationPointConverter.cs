@@ -25,7 +25,7 @@ using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 
-namespace Ringtoets.Common.Service.IllustrationPoints
+namespace Riskeer.Common.Service.IllustrationPoints
 {
     /// <summary>
     /// The converter that converts <see cref="HydraRingSubMechanismIllustrationPoint"/> data into 

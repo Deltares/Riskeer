@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// All waternet creation mode types.

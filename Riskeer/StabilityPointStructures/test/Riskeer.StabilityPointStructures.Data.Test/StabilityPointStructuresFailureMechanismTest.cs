@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.StabilityPointStructures.Data.Test
+namespace Riskeer.StabilityPointStructures.Data.Test
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismTest

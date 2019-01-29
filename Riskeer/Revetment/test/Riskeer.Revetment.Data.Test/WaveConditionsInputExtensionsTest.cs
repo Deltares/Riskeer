@@ -25,7 +25,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Riskeer.Revetment.Data.Test
 {
     [TestFixture]
     public class WaveConditionsInputExtensionsTest

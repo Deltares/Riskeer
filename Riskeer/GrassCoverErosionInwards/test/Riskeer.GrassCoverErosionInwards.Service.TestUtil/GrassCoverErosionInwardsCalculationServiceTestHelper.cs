@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
+namespace Riskeer.GrassCoverErosionInwards.Service.TestUtil
 {
     public static class GrassCoverErosionInwardsCalculationServiceTestHelper
     {

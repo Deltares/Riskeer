@@ -25,7 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Forms.TestUtil.Test
+namespace Riskeer.Common.Forms.TestUtil.Test
 {
     [TestFixture]
     public class ControlTestHelperTest

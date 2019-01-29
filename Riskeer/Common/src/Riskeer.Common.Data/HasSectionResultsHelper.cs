@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data
+namespace Riskeer.Common.Data
 {
     /// <summary>
     /// Class containing helper methods for <see cref="IHasSectionResults{T}"/>.

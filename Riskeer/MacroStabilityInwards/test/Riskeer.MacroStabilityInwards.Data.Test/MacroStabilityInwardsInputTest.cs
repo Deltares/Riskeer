@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsInputTest

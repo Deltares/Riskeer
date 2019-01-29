@@ -25,7 +25,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service
+namespace Riskeer.GrassCoverErosionInwards.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a grass cover erosion inwards calculation.

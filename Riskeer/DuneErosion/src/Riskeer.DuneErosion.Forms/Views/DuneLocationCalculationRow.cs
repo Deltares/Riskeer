@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="DuneLocationCalculation"/>.

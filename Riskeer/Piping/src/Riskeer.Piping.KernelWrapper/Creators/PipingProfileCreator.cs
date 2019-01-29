@@ -22,7 +22,7 @@
 using Deltares.WTIPiping;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.KernelWrapper.Creators
+namespace Riskeer.Piping.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="PipingProfile"/> instances which are required by the <see cref="PipingCalculator"/>.

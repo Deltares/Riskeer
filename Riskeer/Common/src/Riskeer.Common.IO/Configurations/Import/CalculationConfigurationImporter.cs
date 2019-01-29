@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.Configurations.Import
+namespace Riskeer.Common.IO.Configurations.Import
 {
     /// <summary>
     /// Base class for importing a calculation configuration from an XML file and storing it on a <see cref="CalculationGroup"/>.

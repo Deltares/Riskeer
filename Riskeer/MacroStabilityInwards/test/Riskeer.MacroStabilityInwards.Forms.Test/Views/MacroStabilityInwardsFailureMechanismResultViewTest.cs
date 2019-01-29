@@ -40,7 +40,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismResultViewTest

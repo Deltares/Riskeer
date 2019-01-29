@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionsContextTest

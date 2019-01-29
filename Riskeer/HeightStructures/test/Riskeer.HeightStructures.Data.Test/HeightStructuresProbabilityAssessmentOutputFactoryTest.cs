@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.HeightStructures.Data.Test
+namespace Riskeer.HeightStructures.Data.Test
 {
     [TestFixture]
     public class HeightStructuresProbabilityAssessmentOutputFactoryTest

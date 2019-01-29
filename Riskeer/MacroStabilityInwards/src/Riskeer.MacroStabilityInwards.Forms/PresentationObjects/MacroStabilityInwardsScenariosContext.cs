@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for configuration of scenarios for the macro stability inwards failure mechanism.

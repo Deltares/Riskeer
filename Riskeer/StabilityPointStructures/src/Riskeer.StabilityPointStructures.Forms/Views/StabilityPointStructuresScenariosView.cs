@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
     /// View for configuring scenarios for the stability point structures failure mechanism.

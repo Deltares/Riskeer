@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Factory for creating design variables based on probabilistic distributions for macro stability.

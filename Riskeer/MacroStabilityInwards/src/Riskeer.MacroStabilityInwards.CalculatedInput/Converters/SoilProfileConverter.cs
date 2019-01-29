@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Helpers;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/>

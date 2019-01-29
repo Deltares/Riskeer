@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StabilityPointStructuresScenariosContextTreeNodeInfoTest

@@ -29,7 +29,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data.TestUtil;
 
-namespace Ringtoets.StabilityStoneCover.Data.Test
+namespace Riskeer.StabilityStoneCover.Data.Test
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsOutputTest

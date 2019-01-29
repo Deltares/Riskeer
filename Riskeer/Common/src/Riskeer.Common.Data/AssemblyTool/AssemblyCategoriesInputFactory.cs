@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
     /// Factory for creating instances of <see cref="AssemblyCategoriesInput"/>.

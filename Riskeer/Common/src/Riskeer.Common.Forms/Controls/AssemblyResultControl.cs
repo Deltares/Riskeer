@@ -24,7 +24,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Controls
+namespace Riskeer.Common.Forms.Controls
 {
     /// <summary>
     /// Base control to display an assembly result.

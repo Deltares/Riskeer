@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// The phreatic line created by the Waternet calculator in the derived

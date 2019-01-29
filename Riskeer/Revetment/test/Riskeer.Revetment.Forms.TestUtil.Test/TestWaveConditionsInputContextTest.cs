@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 
-namespace Ringtoets.Revetment.Forms.TestUtil.Test
+namespace Riskeer.Revetment.Forms.TestUtil.Test
 {
     [TestFixture]
     public class TestWaveConditionsInputContextTest

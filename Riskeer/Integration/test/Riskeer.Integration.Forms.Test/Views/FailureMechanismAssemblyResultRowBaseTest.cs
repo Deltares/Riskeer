@@ -33,7 +33,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
     public class FailureMechanismAssemblyResultRowBaseTest

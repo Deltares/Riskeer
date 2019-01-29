@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.HeightStructures.Data
+namespace Riskeer.HeightStructures.Data
 {
     /// <summary>
     /// Factory for creating <see cref="ProbabilityAssessmentOutput"/> for

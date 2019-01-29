@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.Factories;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.Factories
+namespace Riskeer.StabilityStoneCover.Forms.Test.Factories
 {
     [TestFixture]
     public class StabilityStoneCoverMapDataFeaturesFactoryTest

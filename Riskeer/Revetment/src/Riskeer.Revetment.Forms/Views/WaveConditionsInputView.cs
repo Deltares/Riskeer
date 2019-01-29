@@ -33,7 +33,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Factories;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Revetment.Forms.Views
+namespace Riskeer.Revetment.Forms.Views
 {
     /// <summary>
     /// This class is a view to show the wave conditions input.

@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// This is a presentation object for the <see cref="DikeProfileCollection"/>. 

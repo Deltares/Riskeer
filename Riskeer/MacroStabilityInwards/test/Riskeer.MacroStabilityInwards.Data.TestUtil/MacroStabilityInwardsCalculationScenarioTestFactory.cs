@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// Helper class for creating different instances of <see cref="MacroStabilityInwardsCalculationScenario"/>

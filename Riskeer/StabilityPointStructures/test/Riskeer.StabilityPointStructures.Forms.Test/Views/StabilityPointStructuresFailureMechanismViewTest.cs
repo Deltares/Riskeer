@@ -47,7 +47,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
+namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismViewTest

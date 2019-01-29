@@ -29,7 +29,7 @@ using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsInputContextTest

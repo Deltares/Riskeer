@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.DikeProfiles
+namespace Riskeer.Common.Data.DikeProfiles
 {
     /// <summary>
     /// This interface describes properties for the usage of <see cref="ForeshoreProfile"/>.

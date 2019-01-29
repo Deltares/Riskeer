@@ -22,7 +22,7 @@
 using System.Drawing;
 using Ringtoets.Revetment.Forms.Views;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
     /// Class that defines the grass cover erosion outwards style that is used in the <see cref="WaveConditionsInputView"/>.

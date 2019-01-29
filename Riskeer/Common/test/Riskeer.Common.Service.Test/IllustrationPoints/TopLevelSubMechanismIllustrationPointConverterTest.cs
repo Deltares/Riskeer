@@ -32,7 +32,7 @@ using HydraRingTestWindDirection = Riskeer.HydraRing.Calculation.TestUtil.Illust
 using HydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraRingSubMechanismIllustrationPointStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
-namespace Ringtoets.Common.Service.Test.IllustrationPoints
+namespace Riskeer.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
     public class TopLevelSubMechanismIllustrationPointConverterTest

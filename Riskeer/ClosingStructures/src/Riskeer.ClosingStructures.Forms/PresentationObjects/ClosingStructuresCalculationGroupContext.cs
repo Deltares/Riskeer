@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>

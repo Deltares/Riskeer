@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO
+namespace Riskeer.Common.IO
 {
     /// <summary>
     /// Interface for verifying and handling changes as an effect of a change to the target data.

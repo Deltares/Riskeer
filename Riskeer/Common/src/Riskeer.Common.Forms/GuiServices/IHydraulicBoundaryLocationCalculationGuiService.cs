@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Forms.GuiServices
+namespace Riskeer.Common.Forms.GuiServices
 {
     /// <summary>
     /// Interface for design water level and wave height calculations.

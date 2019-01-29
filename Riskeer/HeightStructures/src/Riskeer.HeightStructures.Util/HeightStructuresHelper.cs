@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Util
+namespace Riskeer.HeightStructures.Util
 {
     /// <summary>
     /// Class holds helper methods to match <see cref="HeightStructuresFailureMechanismSectionResult"/> objects 

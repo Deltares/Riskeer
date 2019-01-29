@@ -32,7 +32,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Forms.GuiServices
+namespace Riskeer.DuneErosion.Forms.GuiServices
 {
     /// <summary>
     /// This class is responsible for performing dune location calculations.

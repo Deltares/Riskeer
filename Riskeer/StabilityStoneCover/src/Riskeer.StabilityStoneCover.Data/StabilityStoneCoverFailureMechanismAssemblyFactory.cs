@@ -31,7 +31,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Data
+namespace Riskeer.StabilityStoneCover.Data
 {
     /// <summary>
     /// Factory for creating assembly results for a stability stone cover failure mechanism.

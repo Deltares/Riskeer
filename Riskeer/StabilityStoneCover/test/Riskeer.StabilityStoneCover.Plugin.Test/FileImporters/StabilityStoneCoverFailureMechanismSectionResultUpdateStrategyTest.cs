@@ -27,7 +27,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Plugin.FileImporters;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.FileImporters
+namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

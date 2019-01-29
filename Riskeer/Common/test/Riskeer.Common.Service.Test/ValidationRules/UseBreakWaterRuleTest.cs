@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Service.ValidationRules;
 
-namespace Ringtoets.Common.Service.Test.ValidationRules
+namespace Riskeer.Common.Service.Test.ValidationRules
 {
     [TestFixture]
     public class UseBreakWaterRuleTest

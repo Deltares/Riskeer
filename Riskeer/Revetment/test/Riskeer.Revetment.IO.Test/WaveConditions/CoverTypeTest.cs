@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Revetment.IO.WaveConditions;
 
-namespace Ringtoets.Revetment.IO.Test.WaveConditions
+namespace Riskeer.Revetment.IO.Test.WaveConditions
 {
     [TestFixture]
     public class CoverTypeTest

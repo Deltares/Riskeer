@@ -31,7 +31,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
+namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for properties panel.

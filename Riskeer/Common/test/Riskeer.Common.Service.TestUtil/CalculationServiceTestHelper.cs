@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Service.TestUtil
+namespace Riskeer.Common.Service.TestUtil
 {
     /// <summary>
     /// A helper for asserting results of using calculation services.

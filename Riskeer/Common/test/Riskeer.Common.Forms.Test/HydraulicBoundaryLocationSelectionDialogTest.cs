@@ -27,7 +27,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Forms.Test
+namespace Riskeer.Common.Forms.Test
 {
     [TestFixture]
     public class HydraulicBoundaryLocationSelectionDialogTest

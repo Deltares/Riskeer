@@ -28,7 +28,7 @@ using Riskeer.HydraRing.Calculation.Data.Defaults;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 using Riskeer.HydraRing.Calculation.Providers;
 
-namespace Ringtoets.Common.IO.HydraRing
+namespace Riskeer.Common.IO.HydraRing
 {
     /// <summary>
     /// Provider of <see cref="NumericsSetting"/> by reading from the settings database or by resorting

@@ -26,7 +26,7 @@ using Ringtoets.Common.Service.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
-namespace Ringtoets.StabilityPointStructures.Service
+namespace Riskeer.StabilityPointStructures.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-ring calculations for stability point structures.

@@ -63,7 +63,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using MacroStabilityInwardsFormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin
+namespace Riskeer.MacroStabilityInwards.Plugin
 {
     /// <summary>
     /// The plug-in for the <see cref="MacroStabilityInwardsFailureMechanism"/>.

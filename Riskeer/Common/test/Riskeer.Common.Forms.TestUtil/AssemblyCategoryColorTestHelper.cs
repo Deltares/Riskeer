@@ -24,7 +24,7 @@ using System.Drawing;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to assert the color corresponding to assembly category groups.

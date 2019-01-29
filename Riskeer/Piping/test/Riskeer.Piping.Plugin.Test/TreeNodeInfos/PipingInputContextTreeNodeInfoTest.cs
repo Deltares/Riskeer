@@ -34,7 +34,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class PipingInputContextTreeNodeInfoTest

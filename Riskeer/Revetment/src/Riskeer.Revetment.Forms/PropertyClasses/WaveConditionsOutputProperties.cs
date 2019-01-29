@@ -30,7 +30,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Revetment.Forms.PropertyClasses
+namespace Riskeer.Revetment.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsOutput"/> for properties panel.

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.Hydraulics
+namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
     /// Class which holds all hydraulic boundary calculation settings.

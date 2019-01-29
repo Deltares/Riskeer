@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Riskeer.Common.Data.AssessmentSection
 {
     /// <summary>
     /// A background data configuration of well known tile sources.

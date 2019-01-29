@@ -28,7 +28,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a stochastic soil model which consists out of a collection of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>. 

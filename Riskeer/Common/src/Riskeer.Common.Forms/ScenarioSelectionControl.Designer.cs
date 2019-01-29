@@ -21,7 +21,7 @@
 
 using Core.Common.Controls.DataGrid;
 
-namespace Ringtoets.Common.Forms
+namespace Riskeer.Common.Forms
 {
     partial class ScenarioSelectionControl
     {

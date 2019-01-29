@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Riskeer.MacroStabilityInwards.Primitives.Test
 {
     public class MacroStabilityInwardsPhreaticLineTest
     {

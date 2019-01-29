@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
+namespace Riskeer.StabilityPointStructures.IO.Configurations.Helpers
 {
     /// <summary>
     /// Converts <see cref="ConfigurationStabilityPointStructuresLoadSchematizationType"/> to <see cref="string"/> 

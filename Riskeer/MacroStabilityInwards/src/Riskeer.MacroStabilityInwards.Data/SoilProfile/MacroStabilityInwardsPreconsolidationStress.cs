@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a preconsolidation stress definition that was imported

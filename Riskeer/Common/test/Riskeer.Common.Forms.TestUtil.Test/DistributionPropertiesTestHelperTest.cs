@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.TestUtil.Test
+namespace Riskeer.Common.Forms.TestUtil.Test
 {
     [TestFixture]
     public class DistributionPropertiesTestHelperTest

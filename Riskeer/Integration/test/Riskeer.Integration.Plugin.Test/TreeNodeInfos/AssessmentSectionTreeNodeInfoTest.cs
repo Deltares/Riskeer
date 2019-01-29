@@ -81,7 +81,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class AssessmentSectionTreeNodeInfoTest

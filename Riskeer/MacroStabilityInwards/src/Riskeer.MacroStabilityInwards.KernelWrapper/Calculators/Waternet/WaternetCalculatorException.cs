@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing a Waternet calculation.

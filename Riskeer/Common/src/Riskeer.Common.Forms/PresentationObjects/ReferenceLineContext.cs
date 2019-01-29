@@ -23,7 +23,7 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for <see cref="ReferenceLine"/> instances.

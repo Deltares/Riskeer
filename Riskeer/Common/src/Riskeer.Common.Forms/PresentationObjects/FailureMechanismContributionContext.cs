@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for a <see cref="FailureMechanismContribution"/> instance.

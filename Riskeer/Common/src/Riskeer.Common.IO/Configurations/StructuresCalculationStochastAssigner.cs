@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.Configurations
+namespace Riskeer.Common.IO.Configurations
 {
     /// <summary>
     /// Validates and assigns stochast configurations to a structure calculation input.

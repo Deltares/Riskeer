@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     partial class IllustrationPointsTableControl
     {

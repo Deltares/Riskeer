@@ -33,7 +33,7 @@ using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
+namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 {
     public class MacroStabilityOutwardsFailureMechanismPropertiesTest
     {

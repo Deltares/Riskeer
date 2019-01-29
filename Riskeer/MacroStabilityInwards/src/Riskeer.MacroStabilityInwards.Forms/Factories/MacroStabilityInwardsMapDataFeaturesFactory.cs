@@ -31,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>

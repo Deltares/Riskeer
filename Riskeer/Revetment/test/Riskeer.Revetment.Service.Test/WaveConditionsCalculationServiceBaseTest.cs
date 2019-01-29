@@ -41,7 +41,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.Revetment.Service.Test
+namespace Riskeer.Revetment.Service.Test
 {
     [TestFixture]
     public class WaveConditionsCalculationServiceBaseTest

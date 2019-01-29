@@ -22,7 +22,7 @@
 using System.Windows.Forms;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     partial class IllustrationPointsChartControl
     {

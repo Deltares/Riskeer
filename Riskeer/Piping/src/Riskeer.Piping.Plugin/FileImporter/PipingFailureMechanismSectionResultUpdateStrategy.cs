@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="PipingFailureMechanismSectionResult"/> instance with data

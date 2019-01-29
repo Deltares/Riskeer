@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
     /// Class that holds all the information of a dune location and calculations.

@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// Simple class containing the results of a macro stability inwards calculation.

@@ -28,7 +28,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
-namespace Ringtoets.Piping.Forms.Test.PresentationObjects
+namespace Riskeer.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class PipingOutputContextTest

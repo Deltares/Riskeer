@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
+namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for the output of stability point structures calculations.

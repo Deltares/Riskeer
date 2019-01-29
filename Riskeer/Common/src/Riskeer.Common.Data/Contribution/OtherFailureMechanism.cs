@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Contribution
+namespace Riskeer.Common.Data.Contribution
 {
     /// <summary>
     /// This class represents a failure mechanism which has no representative within Ringtoets but 

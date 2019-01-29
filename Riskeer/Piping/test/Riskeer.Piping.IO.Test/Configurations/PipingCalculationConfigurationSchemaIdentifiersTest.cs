@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Configurations;
 
-namespace Ringtoets.Piping.IO.Test.Configurations
+namespace Riskeer.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationSchemaIdentifiersTest

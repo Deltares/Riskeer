@@ -28,7 +28,7 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.GrassCoverErosionOutwards.IO.Properties;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// This class reads a wave conditions calculation configuration from XML and creates a collection of corresponding

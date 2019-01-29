@@ -23,7 +23,7 @@ using System;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform an Uplift Van calculation.

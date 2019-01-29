@@ -32,7 +32,7 @@ using Ringtoets.DuneErosion.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.IO
+namespace Riskeer.DuneErosion.IO
 {
     /// <summary>
     /// Csv file writer for writing <see cref="DuneLocationCalculation"/> objects to *.bnd file.

@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="FailureMechanismSection"/> with a section specific N.

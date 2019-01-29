@@ -32,7 +32,7 @@ using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// This class is a view to show the piping input.

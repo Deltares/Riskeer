@@ -28,7 +28,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Plugin.FileImporters;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
+namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

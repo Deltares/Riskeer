@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// A collection of <see cref="FailureMechanismSection"/>.

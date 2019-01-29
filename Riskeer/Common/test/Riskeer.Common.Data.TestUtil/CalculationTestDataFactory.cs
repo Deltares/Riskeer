@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Factory for creating test calculation objects.

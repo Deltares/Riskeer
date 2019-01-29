@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Service;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationScenarioTestFactoryTest

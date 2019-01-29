@@ -29,7 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Exceptions;
 
-namespace Ringtoets.Common.Data.Test
+namespace Riskeer.Common.Data.Test
 {
     [TestFixture]
     public class MechanismSurfaceLineBaseTest

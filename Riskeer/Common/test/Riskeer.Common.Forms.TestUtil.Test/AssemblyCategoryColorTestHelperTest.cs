@@ -25,7 +25,7 @@ using System.Linq;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.TestUtil.Test
+namespace Riskeer.Common.Forms.TestUtil.Test
 {
     [TestFixture]
     public class AssemblyCategoryColorTestHelperTest

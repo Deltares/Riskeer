@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// Model for performing macro stability inwards calculations.

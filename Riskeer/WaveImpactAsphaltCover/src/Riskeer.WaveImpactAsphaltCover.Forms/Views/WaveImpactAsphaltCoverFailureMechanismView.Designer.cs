@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {
     partial class WaveImpactAsphaltCoverFailureMechanismView
     {

@@ -29,7 +29,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismContextPropertyInfoTest

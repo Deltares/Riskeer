@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.StabilityStoneCover.Forms.Properties {
+namespace Riskeer.StabilityStoneCover.Forms.Properties {
     using System;
     
     

@@ -25,7 +25,7 @@ using System.Globalization;
 using Ringtoets.Common.Data.AssessmentSection;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Revetment.IO.Configurations.Converters
+namespace Riskeer.Revetment.IO.Configurations.Converters
 {
     /// <summary>
     /// Converts <see cref="ConfigurationAssessmentSectionCategoryType"/> to <see cref="string"/>

@@ -32,7 +32,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports point shapefiles containing dike profile locations and text files containing dike schematizations.

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// This class can be used to compare Ringtoets database files.

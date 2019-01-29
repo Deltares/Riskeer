@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations
+namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// Defines the various tangent line determination types in a calculation configuration.

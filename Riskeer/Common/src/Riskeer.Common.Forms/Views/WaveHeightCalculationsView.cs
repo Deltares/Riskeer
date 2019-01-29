@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// View for presenting and performing wave height calculations.

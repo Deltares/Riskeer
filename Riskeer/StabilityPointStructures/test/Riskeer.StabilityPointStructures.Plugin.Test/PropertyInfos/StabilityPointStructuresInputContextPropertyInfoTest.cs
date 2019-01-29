@@ -30,7 +30,7 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class StabilityPointStructuresInputContextPropertyInfoTest

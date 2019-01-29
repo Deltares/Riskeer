@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.TestUtil;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class TargetProbabilityCalculationServiceTest

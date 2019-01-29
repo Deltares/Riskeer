@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test.ChangeHandlers
+namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
     public class ObservablePropertyChangeHandlerTest : NUnitFormTest

@@ -24,7 +24,7 @@ using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to assert properties of a <see cref="DataGridViewColumnStateDefinition"/> of 

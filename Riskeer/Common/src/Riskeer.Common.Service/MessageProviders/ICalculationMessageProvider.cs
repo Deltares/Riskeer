@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Service.MessageProviders
+namespace Riskeer.Common.Service.MessageProviders
 {
     /// <summary>
     /// Interface for providing messages during calculations.

@@ -21,7 +21,7 @@
 
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// This class represents the placeholder for a <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>

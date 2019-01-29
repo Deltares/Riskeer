@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// Wave conditions input containing a <see cref="FailureMechanismCategoryType"/>.

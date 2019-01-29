@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.StabilityPointStructures.Data.Test
+namespace Riskeer.StabilityPointStructures.Data.Test
 {
     [TestFixture]
     public class StabilityPointStructuresProbabilityAssessmentOutputFactoryTest

@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
     [TestFixture]
     public class WaternetCalculatorExceptionTest : CustomExceptionDesignGuidelinesTestFixture<WaternetCalculatorException, Exception> {}

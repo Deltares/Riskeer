@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// The waternet created by the Waternet calculator in the derived

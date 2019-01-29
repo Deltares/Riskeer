@@ -29,7 +29,7 @@ using Deltares.WTIStability.Data.Standard;
 using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
     /// <summary>
     /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing an Uplift Van calculation.

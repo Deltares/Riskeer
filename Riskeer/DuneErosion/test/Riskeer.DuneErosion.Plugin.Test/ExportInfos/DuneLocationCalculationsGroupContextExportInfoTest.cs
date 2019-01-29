@@ -36,7 +36,7 @@ using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.IO;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
+namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class DuneLocationCalculationsGroupContextExportInfoTest

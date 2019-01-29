@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil.Test
+namespace Riskeer.HeightStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestHeightStructuresFailureMechanismTest

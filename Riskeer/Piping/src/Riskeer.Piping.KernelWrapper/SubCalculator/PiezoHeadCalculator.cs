@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.KernelWrapper.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Class which wraps the <see cref="Deltares.WTIPiping.PiezoHeadCalculator"/>.

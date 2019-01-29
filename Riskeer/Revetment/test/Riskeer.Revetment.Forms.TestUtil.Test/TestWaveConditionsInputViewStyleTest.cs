@@ -23,7 +23,7 @@ using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Revetment.Forms.Views;
 
-namespace Ringtoets.Revetment.Forms.TestUtil.Test
+namespace Riskeer.Revetment.Forms.TestUtil.Test
 {
     [TestFixture]
     public class TestWaveConditionsInputViewStyleTest

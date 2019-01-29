@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 {
     [TestFixture]
     public class WaternetKernelWrapperTest

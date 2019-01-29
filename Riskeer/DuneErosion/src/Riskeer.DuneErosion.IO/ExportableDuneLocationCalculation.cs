@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.IO
+namespace Riskeer.DuneErosion.IO
 {
     /// <summary>
     /// Class that holds all required data to export a <see cref="DuneLocationCalculation"/>.

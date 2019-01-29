@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.Common.Forms
+namespace Riskeer.Common.Forms
 {
     /// <summary>
     /// Class for comparing <see cref="StructureBase"/> by the id only.

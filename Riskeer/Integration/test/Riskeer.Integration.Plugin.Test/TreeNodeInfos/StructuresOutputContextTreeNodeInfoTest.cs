@@ -33,7 +33,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Riskeer.Integration.Plugin;
 
-namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StructuresOutputContextTreeNodeInfoTest

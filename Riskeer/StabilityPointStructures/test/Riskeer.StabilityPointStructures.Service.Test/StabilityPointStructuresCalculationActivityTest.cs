@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Service.Test
+namespace Riskeer.StabilityPointStructures.Service.Test
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationActivityTest

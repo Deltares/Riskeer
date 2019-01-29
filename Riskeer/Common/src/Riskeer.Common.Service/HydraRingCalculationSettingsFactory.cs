@@ -2,7 +2,7 @@
 using Ringtoets.Common.Data.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// Factory to create instances of <see cref="HydraRingCalculationSettings"/>.

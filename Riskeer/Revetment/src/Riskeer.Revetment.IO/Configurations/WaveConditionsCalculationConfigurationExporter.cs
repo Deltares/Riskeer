@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations.Converters;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Base implementation of an exporter for a wave conditions calculation configuration that stores it as an XML file.

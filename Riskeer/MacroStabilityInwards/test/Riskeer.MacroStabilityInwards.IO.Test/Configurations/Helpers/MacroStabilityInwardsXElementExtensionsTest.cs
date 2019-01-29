@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
+namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class MacroStabilityInwardsXElementExtensionsTest

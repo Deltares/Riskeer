@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
     public class LandwardDirectionTest

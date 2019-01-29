@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
-namespace Ringtoets.Common.Primitives
+namespace Riskeer.Common.Primitives
 {
     public enum ManualFailureMechanismSectionAssemblyCategoryGroup
     {

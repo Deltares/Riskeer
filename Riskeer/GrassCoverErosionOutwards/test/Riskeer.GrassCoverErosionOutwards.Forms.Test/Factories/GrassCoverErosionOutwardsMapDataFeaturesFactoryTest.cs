@@ -35,7 +35,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Factories;
 using Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Factories
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsMapDataFeaturesFactoryTest

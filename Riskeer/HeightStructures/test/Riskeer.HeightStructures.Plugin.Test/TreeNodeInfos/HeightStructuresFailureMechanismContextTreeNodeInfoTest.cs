@@ -53,7 +53,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest

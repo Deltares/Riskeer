@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
 
-namespace Ringtoets.Common.Forms.Test.PropertyClasses
+namespace Riskeer.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class TopLevelFaultTreeIllustrationPointPropertiesTest

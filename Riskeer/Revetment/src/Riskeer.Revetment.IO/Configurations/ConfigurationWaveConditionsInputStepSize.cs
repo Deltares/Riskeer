@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Enum defining the possible step size value in a read wave conditions calculation.

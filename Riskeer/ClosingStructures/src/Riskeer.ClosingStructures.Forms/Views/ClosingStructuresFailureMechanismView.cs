@@ -39,7 +39,7 @@ using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
 using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a closing structures failure mechanism.

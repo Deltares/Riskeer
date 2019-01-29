@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test
+namespace Riskeer.StabilityStoneCover.Forms.Test
 {
     [TestFixture]
     public class StabilityStoneCoverCalculationConfigurationHelperTest

@@ -29,7 +29,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data
+namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

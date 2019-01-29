@@ -31,7 +31,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.IO;
 
-namespace Ringtoets.DuneErosion.Service.Test
+namespace Riskeer.DuneErosion.Service.Test
 {
     [TestFixture]
     public class DuneErosionDataSynchronizationServiceTest

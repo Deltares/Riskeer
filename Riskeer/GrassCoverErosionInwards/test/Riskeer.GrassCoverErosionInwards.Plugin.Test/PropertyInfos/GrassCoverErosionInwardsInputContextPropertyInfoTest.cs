@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextPropertyInfoTest

@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data
+namespace Riskeer.GrassCoverErosionOutwards.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

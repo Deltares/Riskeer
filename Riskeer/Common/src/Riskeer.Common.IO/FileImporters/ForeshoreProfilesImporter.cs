@@ -32,7 +32,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports point shapefiles containing foreshore locations and text file containing the foreshore schematizations.

@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output
 {
     /// <summary>
     /// Factory to create simple <see cref="WaternetCalculatorResult"/> instances that can be used for testing.

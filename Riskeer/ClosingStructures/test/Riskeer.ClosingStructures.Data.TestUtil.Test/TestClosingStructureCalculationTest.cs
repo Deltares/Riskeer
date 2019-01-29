@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
+namespace Riskeer.ClosingStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestClosingStructureCalculationTest

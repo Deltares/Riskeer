@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.Controls;
 
-namespace Ringtoets.Integration.Forms.Test.Controls
+namespace Riskeer.Integration.Forms.Test.Controls
 {
     public class AssessmentSectionAssemblyCategoryGroupControlTest
     {

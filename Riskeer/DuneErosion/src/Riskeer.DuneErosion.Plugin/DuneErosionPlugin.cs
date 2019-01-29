@@ -52,7 +52,7 @@ using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Plugin
+namespace Riskeer.DuneErosion.Plugin
 {
     /// <summary>
     /// The plug-in for the <see cref="DuneErosionFailureMechanism"/>.

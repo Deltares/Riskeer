@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
+namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
     using System;
     
     

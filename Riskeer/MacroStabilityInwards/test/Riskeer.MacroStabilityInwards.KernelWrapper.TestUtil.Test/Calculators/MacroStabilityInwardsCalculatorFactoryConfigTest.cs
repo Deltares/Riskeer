@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculatorFactoryConfigTest

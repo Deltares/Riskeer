@@ -24,7 +24,7 @@ using System.Drawing;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.Piping.Primitives
+namespace Riskeer.Piping.Primitives
 {
     /// <summary>
     /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the

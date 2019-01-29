@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
+namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
 {
     /// <summary>
     /// Helper class for creating assessment sections that can be used for unit tests

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Riskeer.Common.Data.AssessmentSection
 {
     /// <summary>
     /// A background data configuration of WMTS tile sources.

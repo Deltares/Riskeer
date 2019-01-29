@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// A simple test calculation that has input parameters containing a <see cref="ForeshoreProfile"/>

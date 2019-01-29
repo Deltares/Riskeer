@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// The class helps to construct collections of points by reading a string (from file or directly) and

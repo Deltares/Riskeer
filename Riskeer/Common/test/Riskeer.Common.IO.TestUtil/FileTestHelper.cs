@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// A helper for asserting files.

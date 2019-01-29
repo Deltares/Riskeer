@@ -36,7 +36,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Abstract class for profile importers, providing an implementation of importing point shapefiles 

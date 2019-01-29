@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Service
+namespace Riskeer.MacroStabilityInwards.Service
 {
     /// <summary>
     /// This class is responsible for invoking operations on the <see cref="UpliftVanCalculator"/>. Error and status information is 

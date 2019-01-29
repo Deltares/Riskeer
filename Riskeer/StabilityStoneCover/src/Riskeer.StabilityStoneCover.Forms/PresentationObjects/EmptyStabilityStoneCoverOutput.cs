@@ -21,7 +21,7 @@
 
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
     /// This class represents the placeholder for a <see cref="StabilityStoneCoverWaveConditionsOutput"/>

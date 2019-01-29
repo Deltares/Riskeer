@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.Editors;
 using Riskeer.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class HydraulicBoundaryDatabasePropertiesTest

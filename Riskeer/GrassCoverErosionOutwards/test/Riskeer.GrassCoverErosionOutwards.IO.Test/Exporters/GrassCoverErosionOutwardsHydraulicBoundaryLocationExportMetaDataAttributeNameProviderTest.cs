@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProviderTest

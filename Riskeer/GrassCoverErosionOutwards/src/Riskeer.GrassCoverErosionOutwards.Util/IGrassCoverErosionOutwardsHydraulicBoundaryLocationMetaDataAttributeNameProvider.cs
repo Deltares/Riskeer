@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.GrassCoverErosionOutwards.Util
+namespace Riskeer.GrassCoverErosionOutwards.Util
 {
     /// <summary>
     /// Interface for providing meta data attribute names of hydraulic boundary locations.

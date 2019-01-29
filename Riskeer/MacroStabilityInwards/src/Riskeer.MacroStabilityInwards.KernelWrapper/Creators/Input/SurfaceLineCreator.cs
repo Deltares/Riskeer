@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
 using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Creates <see cref="SurfaceLine2"/> instances which are required in a calculation.

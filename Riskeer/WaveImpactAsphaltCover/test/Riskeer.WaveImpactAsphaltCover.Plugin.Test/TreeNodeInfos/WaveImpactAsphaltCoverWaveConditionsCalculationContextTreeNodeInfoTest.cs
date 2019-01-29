@@ -52,7 +52,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest

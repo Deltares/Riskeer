@@ -39,7 +39,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Common.IO.TestUtil;
 
-namespace Ringtoets.Common.IO.Test.Configurations.Import
+namespace Riskeer.Common.IO.Test.Configurations.Import
 {
     [TestFixture]
     public class CalculationConfigurationImporterTest

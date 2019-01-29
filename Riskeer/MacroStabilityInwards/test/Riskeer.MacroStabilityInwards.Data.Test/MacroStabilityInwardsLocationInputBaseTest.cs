@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
     public class MacroStabilityInwardsLocationInputBaseTest
     {

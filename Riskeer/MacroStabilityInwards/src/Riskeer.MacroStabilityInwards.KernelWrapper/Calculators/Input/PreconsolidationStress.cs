@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// A preconsolidation stress for which its properties have been adapted to perform a calculation.

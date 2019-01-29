@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 
-namespace Ringtoets.Common.Forms.Test.UITypeEditors
+namespace Riskeer.Common.Forms.Test.UITypeEditors
 {
     [TestFixture]
     public class StructureEditorTest

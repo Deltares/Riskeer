@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {
     [TestFixture]
     public class UpliftVanCalculationGridResultCreatorTest

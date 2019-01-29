@@ -38,7 +38,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Importers;
 
-namespace Ringtoets.Integration.IO.Test.Importers
+namespace Riskeer.Integration.IO.Test.Importers
 {
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseImporterTest

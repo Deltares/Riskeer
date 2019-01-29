@@ -38,7 +38,7 @@ using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Util;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class GrassCoverErosionInwardsDikeProfileUpdateDataStrategyTest

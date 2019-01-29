@@ -25,7 +25,7 @@ using Core.Common.Controls.DataGrid;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
     /// This class defines a table in which properties of <see cref="MacroStabilityInwardsSoilLayerData"/> instances

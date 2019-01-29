@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Ringtoets.StabilityPointStructures.Data.Test
+namespace Riskeer.StabilityPointStructures.Data.Test
 {
     [TestFixture]
     public class StabilityPointStructuresInputTest

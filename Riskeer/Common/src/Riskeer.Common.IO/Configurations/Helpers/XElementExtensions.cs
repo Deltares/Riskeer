@@ -25,7 +25,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extensions methods for <see cref="XElement"/>.

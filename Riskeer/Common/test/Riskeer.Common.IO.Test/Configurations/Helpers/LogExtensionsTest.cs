@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Test.Configurations.Helpers
+namespace Riskeer.Common.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class LogExtensionsTest

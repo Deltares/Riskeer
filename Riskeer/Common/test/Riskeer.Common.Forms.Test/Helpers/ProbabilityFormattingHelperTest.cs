@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Helpers;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
     public class ProbabilityFormattingHelperTest

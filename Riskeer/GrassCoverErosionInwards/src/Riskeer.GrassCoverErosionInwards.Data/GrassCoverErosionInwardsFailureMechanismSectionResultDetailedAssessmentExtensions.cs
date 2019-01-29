@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the 

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// Class that stores the affected objects by a clear action.

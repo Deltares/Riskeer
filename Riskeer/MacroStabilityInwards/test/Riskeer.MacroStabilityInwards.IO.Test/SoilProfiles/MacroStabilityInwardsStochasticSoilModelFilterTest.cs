@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
+namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilModelFilterTest

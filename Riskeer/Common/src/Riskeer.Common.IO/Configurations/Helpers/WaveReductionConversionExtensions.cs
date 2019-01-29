@@ -24,7 +24,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for setting wave reduction properties of configuration elements.

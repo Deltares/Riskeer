@@ -28,7 +28,7 @@ using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calcu
 using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
 using WtiStabilityWaternetCreationMode = Deltares.WaternetCreator.WaternetCreationMode;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Helper class to convert properties needed in the <see cref="UpliftVanStabilityLocationCreator"/>

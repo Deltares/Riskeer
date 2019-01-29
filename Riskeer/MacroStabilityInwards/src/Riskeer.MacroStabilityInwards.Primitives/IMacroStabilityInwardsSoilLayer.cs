@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Interface for the soil layer that can be used in macro stability inwards.

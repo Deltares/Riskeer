@@ -27,7 +27,7 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.ReferenceLines
+namespace Riskeer.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Exports a <see cref="ReferenceLine"/> associated to an <see cref="IAssessmentSection"/> and stores it as a shapefile.

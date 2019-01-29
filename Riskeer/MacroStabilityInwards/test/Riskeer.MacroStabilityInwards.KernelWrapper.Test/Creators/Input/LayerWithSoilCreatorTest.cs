@@ -35,7 +35,7 @@ using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.In
 using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
 using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
     public class LayerWithSoilCreatorTest

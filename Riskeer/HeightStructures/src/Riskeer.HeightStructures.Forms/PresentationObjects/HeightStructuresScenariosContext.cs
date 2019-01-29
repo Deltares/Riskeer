@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.PresentationObjects
+namespace Riskeer.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for configuration of scenarios for the height structures

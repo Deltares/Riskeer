@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// The result of a wave conditions calculation.

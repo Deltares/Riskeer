@@ -28,7 +28,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for wave conditions input of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.

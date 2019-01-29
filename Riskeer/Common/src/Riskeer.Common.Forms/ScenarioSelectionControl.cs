@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Helpers;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.Forms
+namespace Riskeer.Common.Forms
 {
     /// <summary>
     /// Control for displaying and configuring scenarios.

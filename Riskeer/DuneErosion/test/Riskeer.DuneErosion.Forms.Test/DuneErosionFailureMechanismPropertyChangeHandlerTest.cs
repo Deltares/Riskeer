@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
-namespace Ringtoets.DuneErosion.Forms.Test
+namespace Riskeer.DuneErosion.Forms.Test
 {
     [TestFixture]
     public class DuneErosionFailureMechanismPropertyChangeHandlerTest : NUnitFormTest

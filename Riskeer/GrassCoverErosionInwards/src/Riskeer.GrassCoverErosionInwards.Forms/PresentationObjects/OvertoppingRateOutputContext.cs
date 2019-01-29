@@ -22,7 +22,7 @@
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for the overtopping rate output of grass cover erosion inwards calculations.

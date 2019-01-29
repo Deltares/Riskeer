@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Test.Controls
+namespace Riskeer.Common.Forms.Test.Controls
 {
     [TestFixture]
     public class AssemblyResultControlTest

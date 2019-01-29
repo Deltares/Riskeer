@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.Creators;
 using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
 
-namespace Ringtoets.Piping.KernelWrapper.Test.Creators
+namespace Riskeer.Piping.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class PipingSurfaceLineCreatorTest

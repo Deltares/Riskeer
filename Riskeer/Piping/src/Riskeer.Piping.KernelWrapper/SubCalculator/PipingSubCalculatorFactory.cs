@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.KernelWrapper.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Factory which creates the sub calculators from the piping kernel.

@@ -31,7 +31,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Service.Test
+namespace Riskeer.StabilityStoneCover.Service.Test
 {
     [TestFixture]
     public class StabilityStoneCoverDataSynchronizationServiceTest

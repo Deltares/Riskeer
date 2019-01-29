@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Class responsible for calculating the derived piping input.

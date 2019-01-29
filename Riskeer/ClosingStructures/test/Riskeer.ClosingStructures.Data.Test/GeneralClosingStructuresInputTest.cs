@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.ClosingStructures.Data.Test
+namespace Riskeer.ClosingStructures.Data.Test
 {
     [TestFixture]
     public class GeneralClosingStructuresInputTest

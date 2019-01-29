@@ -25,7 +25,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
 {
     [TestFixture]
     public class TestMacroStabilityInwardsKernelFactoryTest

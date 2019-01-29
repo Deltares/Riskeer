@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.ClosingStructures.IO
+namespace Riskeer.ClosingStructures.IO
 {
     /// <summary>
     /// Imports point shapefiles containing closing structure locations

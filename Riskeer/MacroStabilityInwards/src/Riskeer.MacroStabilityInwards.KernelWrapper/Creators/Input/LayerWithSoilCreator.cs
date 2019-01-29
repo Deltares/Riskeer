@@ -34,7 +34,7 @@ using WtiStabilitySoil = Deltares.WTIStability.Data.Geo.Soil;
 using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
 using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Creates <see cref="LayerWithSoil"/> instances which are (indirectly) required in a calculation.

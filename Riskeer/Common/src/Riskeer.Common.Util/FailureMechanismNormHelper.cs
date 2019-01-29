@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// Class that contains helper methods to retrieve failure mechanism specific norms.

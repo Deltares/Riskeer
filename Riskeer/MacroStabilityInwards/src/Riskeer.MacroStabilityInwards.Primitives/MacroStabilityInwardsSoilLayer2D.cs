@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// This class represents a 2D layer that was imported from D-Soil Model.

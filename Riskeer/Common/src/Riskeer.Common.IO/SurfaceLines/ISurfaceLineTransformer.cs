@@ -22,7 +22,7 @@
 using Ringtoets.Common.Data;
 using Ringtoets.Common.IO.Exceptions;
 
-namespace Ringtoets.Common.IO.SurfaceLines
+namespace Riskeer.Common.IO.SurfaceLines
 {
     /// <summary>
     /// Interface for transforming generic surface lines into mechanism specific surface lines.

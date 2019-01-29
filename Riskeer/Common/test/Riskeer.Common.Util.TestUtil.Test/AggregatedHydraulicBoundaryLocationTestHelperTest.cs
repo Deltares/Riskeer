@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Util.TestUtil.Test
+namespace Riskeer.Common.Util.TestUtil.Test
 {
     [TestFixture]
     public class AggregatedHydraulicBoundaryLocationTestHelperTest

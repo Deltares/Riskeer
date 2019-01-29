@@ -36,7 +36,7 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Plugin.FileImporters;
 using Ringtoets.HeightStructures.Util;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
+namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class HeightStructureUpdateDataStrategyTest

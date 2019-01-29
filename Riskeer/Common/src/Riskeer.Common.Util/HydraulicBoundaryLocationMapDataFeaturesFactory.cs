@@ -23,7 +23,7 @@ using System;
 using Core.Components.Gis.Features;
 using Ringtoets.Common.Util.Properties;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for

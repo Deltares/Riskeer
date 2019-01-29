@@ -27,7 +27,7 @@ using Core.Common.Util.Builders;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// This class reads a soil database file and reads version from this database.

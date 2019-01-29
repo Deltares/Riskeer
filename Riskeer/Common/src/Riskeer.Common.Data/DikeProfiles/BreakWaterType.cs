@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.DikeProfiles
+namespace Riskeer.Common.Data.DikeProfiles
 {
     /// <summary>
     /// Defines the various types of <see cref="BreakWater"/>.

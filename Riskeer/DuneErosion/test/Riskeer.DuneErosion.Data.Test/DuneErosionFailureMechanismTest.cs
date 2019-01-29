@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
-namespace Ringtoets.DuneErosion.Data.Test
+namespace Riskeer.DuneErosion.Data.Test
 {
     [TestFixture]
     public class DuneErosionFailureMechanismTest

@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.ClosingStructures.Data.TestUtil
+namespace Riskeer.ClosingStructures.Data.TestUtil
 {
     /// <summary>
     /// <see cref="ClosingStructure"/> used for testing purposes.

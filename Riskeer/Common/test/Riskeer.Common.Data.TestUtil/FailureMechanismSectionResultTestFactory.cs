@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Factory for creating a valid <see cref="FailureMechanismSectionResult"/> which can 

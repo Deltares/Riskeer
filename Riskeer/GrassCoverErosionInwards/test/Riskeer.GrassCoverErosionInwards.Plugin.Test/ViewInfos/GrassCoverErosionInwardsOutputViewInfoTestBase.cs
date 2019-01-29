@@ -34,7 +34,7 @@ using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
     /// <summary>
     /// Base class for grass cover erosion inwards output view into tests.

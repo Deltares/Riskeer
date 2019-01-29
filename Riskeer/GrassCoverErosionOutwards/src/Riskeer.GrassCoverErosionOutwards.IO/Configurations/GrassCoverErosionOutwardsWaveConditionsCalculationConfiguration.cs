@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Class that represents a wave conditions calculation configuration

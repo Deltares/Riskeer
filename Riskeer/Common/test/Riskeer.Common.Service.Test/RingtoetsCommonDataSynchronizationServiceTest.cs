@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class RingtoetsCommonDataSynchronizationServiceTest

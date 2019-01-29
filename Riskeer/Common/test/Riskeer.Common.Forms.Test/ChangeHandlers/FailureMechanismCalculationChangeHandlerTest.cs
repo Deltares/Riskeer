@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.IO;
 
-namespace Ringtoets.Common.Forms.Test.ChangeHandlers
+namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
     public class FailureMechanismCalculationChangeHandlerTest

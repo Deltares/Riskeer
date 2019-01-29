@@ -46,7 +46,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.DuneErosion.Forms.Test.Views
+namespace Riskeer.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
     public class DuneLocationCalculationsViewTest

@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
     /// Class representing an Uplift Van calculator.

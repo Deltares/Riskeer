@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.TestUtil
+namespace Riskeer.Integration.IO.TestUtil
 {
     /// <summary>
     /// Helper class to assert <see cref="ExportableFailureMechanismSection"/>

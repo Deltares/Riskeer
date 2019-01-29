@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Piping.Primitives.Properties;
 
-namespace Ringtoets.Piping.Primitives
+namespace Riskeer.Piping.Primitives
 {
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a piping calculation.

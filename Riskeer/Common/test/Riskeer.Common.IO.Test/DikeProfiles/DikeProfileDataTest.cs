@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
 
-namespace Ringtoets.Common.IO.Test.DikeProfiles
+namespace Riskeer.Common.IO.Test.DikeProfiles
 {
     [TestFixture]
     public class DikeProfileDataTest

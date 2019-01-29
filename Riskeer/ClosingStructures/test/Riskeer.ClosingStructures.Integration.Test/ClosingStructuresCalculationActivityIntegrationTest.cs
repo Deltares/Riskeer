@@ -43,7 +43,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.ClosingStructures.Integration.Test
+namespace Riskeer.ClosingStructures.Integration.Test
 {
     [TestFixture]
     public class ClosingStructuresCalculationActivityIntegrationTest

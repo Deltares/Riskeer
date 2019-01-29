@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Views;
 
-namespace Ringtoets.DuneErosion.Forms
+namespace Riskeer.DuneErosion.Forms
 {
     /// <summary>
     /// Factory for creating <see cref="AggregatedDuneLocation"/> instances.

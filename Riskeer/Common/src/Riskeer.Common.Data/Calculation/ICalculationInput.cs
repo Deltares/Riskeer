@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base;
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Riskeer.Common.Data.Calculation
 {
     /// <summary>
     /// Interface describing an object that is the input to an <see cref="ICalculation"/>.

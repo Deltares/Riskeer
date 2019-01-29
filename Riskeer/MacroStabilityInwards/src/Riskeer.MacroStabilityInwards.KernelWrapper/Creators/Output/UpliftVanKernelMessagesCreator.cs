@@ -25,7 +25,7 @@ using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 {
     /// <summary>
     /// Creates an <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> instances.

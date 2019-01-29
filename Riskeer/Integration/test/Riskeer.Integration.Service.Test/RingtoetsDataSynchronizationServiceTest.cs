@@ -54,7 +54,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Service;
 
-namespace Ringtoets.Integration.Service.Test
+namespace Riskeer.Integration.Service.Test
 {
     [TestFixture]
     public class RingtoetsDataSynchronizationServiceTest

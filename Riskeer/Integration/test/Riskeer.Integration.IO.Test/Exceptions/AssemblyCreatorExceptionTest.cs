@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.IO.Exceptions;
 
-namespace Ringtoets.Integration.IO.Test.Exceptions
+namespace Riskeer.Integration.IO.Test.Exceptions
 {
     [TestFixture]
     public class AssemblyCreatorExceptionTest :

@@ -44,7 +44,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Commands;
 using Riskeer.Integration.Forms.Dialogs;
 
-namespace Ringtoets.Integration.Forms.Test.Commands
+namespace Riskeer.Integration.Forms.Test.Commands
 {
     [TestFixture]
     public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTest

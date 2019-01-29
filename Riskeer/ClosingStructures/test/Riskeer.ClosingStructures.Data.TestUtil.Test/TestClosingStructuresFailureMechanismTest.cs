@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
+namespace Riskeer.ClosingStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestClosingStructuresFailureMechanismTest

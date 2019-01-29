@@ -27,7 +27,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

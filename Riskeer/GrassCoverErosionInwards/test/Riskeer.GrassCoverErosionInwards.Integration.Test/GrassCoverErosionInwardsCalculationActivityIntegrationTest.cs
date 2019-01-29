@@ -46,7 +46,7 @@ using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
+namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationActivityIntegrationTest

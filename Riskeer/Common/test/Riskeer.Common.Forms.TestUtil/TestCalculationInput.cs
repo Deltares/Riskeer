@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// Creates a simple <see cref="ICalculationInput"/> implementation.

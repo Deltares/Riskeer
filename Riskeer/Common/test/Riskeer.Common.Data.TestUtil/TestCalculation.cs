@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Simple calculation that can be used in tests.

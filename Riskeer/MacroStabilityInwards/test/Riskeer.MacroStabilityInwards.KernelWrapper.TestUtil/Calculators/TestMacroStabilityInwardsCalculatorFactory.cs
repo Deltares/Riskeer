@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
 {
     /// <summary>
     /// Factory which creates macro stability inwards calculator stubs for testing purposes.

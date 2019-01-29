@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Deltares.WTIStability.Data.Geo;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Container for all layer related data that is required for performing calculations.

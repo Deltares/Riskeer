@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.Hydraulics
+namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
     /// Extension methods for <see cref="HydraulicBoundaryDatabase"/>.

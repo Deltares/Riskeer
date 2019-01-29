@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Integration.IO.TestUtil;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.Test.Assembly
+namespace Riskeer.Integration.IO.Test.Assembly
 {
     [TestFixture]
     public class ExportableAggregatedFailureMechanismSectionAssemblyResultBaseTest

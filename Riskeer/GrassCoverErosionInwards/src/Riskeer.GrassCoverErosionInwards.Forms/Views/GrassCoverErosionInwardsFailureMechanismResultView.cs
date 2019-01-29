@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
     /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.

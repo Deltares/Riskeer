@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]

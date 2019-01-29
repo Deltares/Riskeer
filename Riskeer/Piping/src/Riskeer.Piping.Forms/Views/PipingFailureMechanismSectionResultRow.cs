@@ -35,7 +35,7 @@ using Ringtoets.Piping.Data;
 using Riskeer.AssemblyTool.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="PipingFailureMechanismSectionResult"/>.

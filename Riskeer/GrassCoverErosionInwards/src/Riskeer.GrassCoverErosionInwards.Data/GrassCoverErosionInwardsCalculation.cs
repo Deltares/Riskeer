@@ -24,7 +24,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// This class holds information about a calculation for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.

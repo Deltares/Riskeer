@@ -21,7 +21,7 @@
 
 using Core.Common.Util;
 
-namespace Ringtoets.Common.Data.Probability
+namespace Riskeer.Common.Data.Probability
 {
     /// <summary>
     /// Factory for creating <see cref="ProbabilityAssessmentOutput"/>.

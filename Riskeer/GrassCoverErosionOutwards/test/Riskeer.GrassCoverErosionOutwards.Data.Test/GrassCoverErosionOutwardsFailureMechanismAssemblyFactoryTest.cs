@@ -34,7 +34,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
+namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryTest

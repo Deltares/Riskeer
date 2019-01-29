@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class ClosingStructuresInputContextTreeNodeInfoTest

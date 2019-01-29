@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsPreconsolidationStress"/> for properties panel.

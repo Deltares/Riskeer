@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data
+namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
     /// The general input parameters that apply to each wave impact asphalt cover calculation.

@@ -36,7 +36,7 @@ using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using UtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.DikeProfiles
+namespace Riskeer.Common.IO.DikeProfiles
 {
     /// <summary>
     /// Reader responsible for reading the data for a dike profile from a .prfl file.

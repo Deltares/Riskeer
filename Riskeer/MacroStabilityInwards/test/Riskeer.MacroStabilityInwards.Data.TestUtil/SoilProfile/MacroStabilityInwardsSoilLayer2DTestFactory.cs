@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {
     /// <summary>
     /// Factory to create simple <see cref="MacroStabilityInwardsSoilLayer2D"/> instances that 

@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.TestUtil;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
     public class PipingFailureMechanismSectionResultDetailedAssessmentExtensionsTest

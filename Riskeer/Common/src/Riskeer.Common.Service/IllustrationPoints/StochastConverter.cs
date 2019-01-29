@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
 using HydraRingSubMechanismIllustrationPointStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
-namespace Ringtoets.Common.Service.IllustrationPoints
+namespace Riskeer.Common.Service.IllustrationPoints
 {
     /// <summary>
     /// The converter that converts <see cref="HydraRingStochast"/> data into <see cref="Stochast"/> data.

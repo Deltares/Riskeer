@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsGrid"/> properties for properties panel.

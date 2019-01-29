@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
+namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// A simple implementation of <see cref="TopLevelIllustrationPointBase"/>

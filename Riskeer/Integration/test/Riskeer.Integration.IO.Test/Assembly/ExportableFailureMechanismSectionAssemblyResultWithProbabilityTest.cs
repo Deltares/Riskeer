@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.Test.Assembly
+namespace Riskeer.Integration.IO.Test.Assembly
 {
     [TestFixture]
     public class ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest

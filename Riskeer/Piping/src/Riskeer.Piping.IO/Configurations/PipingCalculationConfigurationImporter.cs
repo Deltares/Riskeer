@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Configurations
+namespace Riskeer.Piping.IO.Configurations
 {
     /// <summary>
     /// Imports a piping calculation configuration from an XML file and stores it on a

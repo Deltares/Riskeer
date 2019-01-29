@@ -29,7 +29,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
+namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsOutput"/> for properties panel.

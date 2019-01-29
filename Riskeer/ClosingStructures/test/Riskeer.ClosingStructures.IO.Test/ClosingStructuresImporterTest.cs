@@ -36,7 +36,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.ClosingStructures.IO.Test
+namespace Riskeer.ClosingStructures.IO.Test
 {
     [TestFixture]
     public class ClosingStructuresImporterTest

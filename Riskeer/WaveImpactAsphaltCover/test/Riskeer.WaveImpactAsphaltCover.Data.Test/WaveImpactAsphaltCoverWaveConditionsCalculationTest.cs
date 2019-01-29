@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data.TestUtil;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
+namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationTest

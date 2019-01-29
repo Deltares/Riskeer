@@ -33,7 +33,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Factory for assembling assembly results for a piping failure mechanism.

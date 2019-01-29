@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// A simple class of <see cref="ProbabilityAssessmentOutput"/> which can 

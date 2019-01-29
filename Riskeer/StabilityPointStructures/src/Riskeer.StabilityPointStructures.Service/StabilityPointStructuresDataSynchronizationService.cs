@@ -31,7 +31,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Util;
 
-namespace Ringtoets.StabilityPointStructures.Service
+namespace Riskeer.StabilityPointStructures.Service
 {
     /// <summary>
     /// Service for synchronizing stability point structures data.

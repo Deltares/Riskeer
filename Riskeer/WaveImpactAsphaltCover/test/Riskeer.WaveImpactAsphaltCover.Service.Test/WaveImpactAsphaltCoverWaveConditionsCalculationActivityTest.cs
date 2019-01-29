@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
+namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationActivityTest

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// Model for performing grass cover erosion inwards calculations.

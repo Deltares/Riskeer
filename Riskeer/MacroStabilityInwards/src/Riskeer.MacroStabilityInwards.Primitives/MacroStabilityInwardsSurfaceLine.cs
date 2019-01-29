@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Definition of a surface line for macro stability inwards.

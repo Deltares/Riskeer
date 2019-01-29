@@ -31,7 +31,7 @@ using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Plugin;
 using RingtoetsFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class AssessmentSectionViewInfoTest

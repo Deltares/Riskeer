@@ -28,7 +28,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations.Converters;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
+namespace Riskeer.Revetment.IO.Test.Configurations.Converters
 {
     [TestFixture]
     public class ConfigurationWaveConditionsInputStepSizeConverterTest

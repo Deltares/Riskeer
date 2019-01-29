@@ -35,7 +35,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations
+namespace Riskeer.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporterTest

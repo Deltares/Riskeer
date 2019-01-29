@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.StabilityStoneCover.Data
+namespace Riskeer.StabilityStoneCover.Data
 {
     /// <summary>
     /// Container for the results of a stability stone cover wave conditions calculation.

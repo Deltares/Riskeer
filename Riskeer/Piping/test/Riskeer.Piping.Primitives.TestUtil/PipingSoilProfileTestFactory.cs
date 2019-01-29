@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Primitives.TestUtil
+namespace Riskeer.Piping.Primitives.TestUtil
 {
     /// <summary>
     /// Factory to create simple <see cref="PipingSoilProfile"/> instances that can be used for testing.

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
-namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
+namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class GeneralWaveConditionsInputPropertiesTest

@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.DuneErosion.Data.TestUtil
+namespace Riskeer.DuneErosion.Data.TestUtil
 {
     /// <summary>
     /// Class that creates simple instances of <see cref="DuneLocationCalculationOutput"/> that

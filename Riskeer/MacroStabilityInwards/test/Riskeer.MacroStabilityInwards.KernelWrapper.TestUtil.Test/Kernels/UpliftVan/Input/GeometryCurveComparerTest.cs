@@ -23,7 +23,7 @@ using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan.Input
 {
     [TestFixture]
     public class GeometryCurveComparerTest

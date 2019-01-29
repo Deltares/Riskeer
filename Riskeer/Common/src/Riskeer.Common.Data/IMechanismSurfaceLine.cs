@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data
+namespace Riskeer.Common.Data
 {
     /// <summary>
     /// Interface for a mechanism specific surface line.

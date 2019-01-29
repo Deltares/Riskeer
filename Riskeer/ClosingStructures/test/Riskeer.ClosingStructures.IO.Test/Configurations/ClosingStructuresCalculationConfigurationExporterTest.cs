@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 
-namespace Ringtoets.ClosingStructures.IO.Test.Configurations
+namespace Riskeer.ClosingStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationExporterTest

@@ -25,7 +25,7 @@ using System.Linq;
 using log4net;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Class which provides helper methods for the <see cref="StochasticSoilProfile"/>.

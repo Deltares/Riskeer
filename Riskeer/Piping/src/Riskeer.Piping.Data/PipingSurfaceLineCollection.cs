@@ -24,7 +24,7 @@ using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Collection to store <see cref="PipingSurfaceLine"/> items. The 

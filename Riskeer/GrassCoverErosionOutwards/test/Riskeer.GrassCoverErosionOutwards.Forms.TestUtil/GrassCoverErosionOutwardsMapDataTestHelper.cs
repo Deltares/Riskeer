@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil
+namespace Riskeer.GrassCoverErosionOutwards.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to test properties of a <see cref="MapData"/>.

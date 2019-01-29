@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
+namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 {
     [TestFixture]
     public class StabilityPointStructuresScenarioRowTest

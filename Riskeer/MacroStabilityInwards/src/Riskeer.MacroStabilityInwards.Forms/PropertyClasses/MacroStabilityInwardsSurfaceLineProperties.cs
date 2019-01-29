@@ -29,7 +29,7 @@ using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsSurfaceLine"/> for properties panel.

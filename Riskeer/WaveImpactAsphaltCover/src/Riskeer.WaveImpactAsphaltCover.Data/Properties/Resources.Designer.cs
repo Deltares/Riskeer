@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.Properties {
+namespace Riskeer.WaveImpactAsphaltCover.Data.Properties {
     using System;
     
     

@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.ReferenceLines;
 
-namespace Ringtoets.Common.IO.Test.ReferenceLines
+namespace Riskeer.Common.IO.Test.ReferenceLines
 {
     [TestFixture]
     public class ReferenceLineMetaImporterTest

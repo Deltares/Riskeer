@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.Test.Calculation
+namespace Riskeer.Common.Data.Test.Calculation
 {
     [TestFixture]
     public class CalculationGroupExtensionsTest

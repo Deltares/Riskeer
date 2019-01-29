@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// This class makes it easier to temporarily disable automatic resizing of a column,

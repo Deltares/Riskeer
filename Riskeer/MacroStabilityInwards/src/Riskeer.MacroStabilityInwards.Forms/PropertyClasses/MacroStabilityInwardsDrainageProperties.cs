@@ -31,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of drainage properties in <see cref="MacroStabilityInwardsInputContext"/> for properties panel.

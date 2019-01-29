@@ -33,7 +33,7 @@ using Ringtoets.Common.Util.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to test properties of a <see cref="MapFeature"/>.

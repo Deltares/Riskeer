@@ -24,7 +24,7 @@ using System.Linq;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 
-namespace Ringtoets.Piping.Service
+namespace Riskeer.Piping.Service
 {
     /// <summary>
     /// Class responsible for piping input properties in sync.

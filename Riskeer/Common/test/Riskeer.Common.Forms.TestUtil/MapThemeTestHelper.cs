@@ -27,7 +27,7 @@ using Core.Components.Gis.Theme;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to assert properties of a <see cref="MapTheme{T}"/>

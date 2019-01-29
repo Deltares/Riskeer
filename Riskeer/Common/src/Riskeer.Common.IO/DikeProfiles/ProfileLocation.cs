@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.DikeProfiles
+namespace Riskeer.Common.IO.DikeProfiles
 {
     /// <summary>
     /// Representation of a profile location as read from a shapefile.

@@ -25,7 +25,7 @@ using System.Globalization;
 using Ringtoets.Common.Data.FailureMechanism;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
 {
     /// <summary>
     /// Converts <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/> to <see cref="string"/>

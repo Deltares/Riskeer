@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
+namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
 {
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>

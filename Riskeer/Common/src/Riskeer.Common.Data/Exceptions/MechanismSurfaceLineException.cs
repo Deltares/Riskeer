@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Common.Data.Exceptions
+namespace Riskeer.Common.Data.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when operations on <see cref="MechanismSurfaceLineBase"/> encounter 

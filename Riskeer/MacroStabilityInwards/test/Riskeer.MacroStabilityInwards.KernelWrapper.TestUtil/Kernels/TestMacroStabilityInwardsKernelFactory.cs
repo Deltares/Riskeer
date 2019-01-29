@@ -25,7 +25,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
 {
     /// <summary>
     /// Factory which creates macro stability inwards kernel stubs for testing purposes.

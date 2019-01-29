@@ -33,7 +33,7 @@ using Ringtoets.DuneErosion.Forms.Views;
 using RingtoetsDuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Forms.Factories
+namespace Riskeer.DuneErosion.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 

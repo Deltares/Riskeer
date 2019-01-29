@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.

@@ -26,7 +26,7 @@ using Core.Components.Gis.Theme;
 using Ringtoets.Common.Forms.Properties;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.Common.Forms.Factories
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="MapTheme{T}"/> instances.

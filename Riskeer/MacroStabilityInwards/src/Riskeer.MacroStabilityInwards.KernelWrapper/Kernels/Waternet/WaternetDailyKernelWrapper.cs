@@ -24,7 +24,7 @@ using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
     /// <summary>
     /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing a Waternet calculation

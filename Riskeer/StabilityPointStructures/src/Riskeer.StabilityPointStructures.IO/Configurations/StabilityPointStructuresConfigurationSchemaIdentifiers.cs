@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.StabilityPointStructures.IO.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Container of identifiers related to stability point structures calculation configuration schema definitions.

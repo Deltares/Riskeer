@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Riskeer.Common.Data.Calculation
 {
     /// <summary>
     /// Status of a <see cref="ICalculationScenario"/>.

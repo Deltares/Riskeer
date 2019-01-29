@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

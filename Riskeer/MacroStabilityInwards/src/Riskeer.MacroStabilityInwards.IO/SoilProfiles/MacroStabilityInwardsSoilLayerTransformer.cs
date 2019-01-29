@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
+namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 {
     /// <summary>
     /// Transforms generic <see cref="SoilLayerBase"/> into <see cref="MacroStabilityInwardsSoilLayer1D"/>

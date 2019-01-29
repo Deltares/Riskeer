@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class MacroStabilityInwardsInputContextTest

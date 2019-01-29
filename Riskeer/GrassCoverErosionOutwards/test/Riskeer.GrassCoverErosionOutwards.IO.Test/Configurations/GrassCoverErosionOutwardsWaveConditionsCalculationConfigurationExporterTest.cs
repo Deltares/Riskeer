@@ -32,7 +32,7 @@ using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
+namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporterTest

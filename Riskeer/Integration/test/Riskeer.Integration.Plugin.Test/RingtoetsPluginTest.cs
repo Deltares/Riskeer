@@ -64,7 +64,7 @@ using Riskeer.Integration.Forms.Views.SectionResultViews;
 using Riskeer.Integration.Plugin;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test
+namespace Riskeer.Integration.Plugin.Test
 {
     [TestFixture]
     public class RingtoetsPluginTest : NUnitFormTest

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// This class represents the result of a validation.

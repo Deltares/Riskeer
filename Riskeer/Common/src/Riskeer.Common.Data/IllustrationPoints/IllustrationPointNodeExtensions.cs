@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ringtoets.Common.Data.IllustrationPoints
+namespace Riskeer.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Defines extension methods dealing with <see cref="IllustrationPointNode"/> objects.

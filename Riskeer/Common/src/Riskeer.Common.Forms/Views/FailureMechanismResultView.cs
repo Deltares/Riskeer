@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Properties;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// The view for the <see cref="FailureMechanismSectionResult"/>.

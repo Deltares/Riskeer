@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Util;
 
-namespace Ringtoets.DuneErosion.Data
+namespace Riskeer.DuneErosion.Data
 {
     /// <summary>
     /// Defines extension methods dealing with <see cref="DuneErosionFailureMechanism"/> instances.

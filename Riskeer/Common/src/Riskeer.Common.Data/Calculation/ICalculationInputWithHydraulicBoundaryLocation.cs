@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Riskeer.Common.Data.Calculation
 {
     /// <summary>
     /// Interface describing an object that has a <see cref="HydraulicBoundaryLocation"/>

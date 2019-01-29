@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.Structures
+namespace Riskeer.Common.Data.Test.Structures
 {
     [TestFixture]
     public class StructuresInputBaseTest

@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data
+namespace Riskeer.GrassCoverErosionOutwards.Data
 {
     /// <summary>
     /// Container for the results of a grass cover erosion outwards wave conditions calculation.

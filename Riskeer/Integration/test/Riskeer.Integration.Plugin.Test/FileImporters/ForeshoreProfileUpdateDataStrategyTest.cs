@@ -35,7 +35,7 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
 using Riskeer.Integration.Plugin.FileImporters;
 
-namespace Ringtoets.Integration.Plugin.Test.FileImporters
+namespace Riskeer.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class ForeshoreProfileUpdateDataStrategyTest

@@ -29,7 +29,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Service
+namespace Riskeer.GrassCoverErosionOutwards.Service
 {
     /// <summary>
     /// Service for synchronizing grass cover erosion outwards data.

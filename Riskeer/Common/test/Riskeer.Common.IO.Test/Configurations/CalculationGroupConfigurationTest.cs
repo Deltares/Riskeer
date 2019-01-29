@@ -25,7 +25,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.Common.IO.Test.Configurations
+namespace Riskeer.Common.IO.Test.Configurations
 {
     [TestFixture]
     public class CalculationGroupConfigurationTest

@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object representing all required wave impact asphalt cover input knowledge to configure and create

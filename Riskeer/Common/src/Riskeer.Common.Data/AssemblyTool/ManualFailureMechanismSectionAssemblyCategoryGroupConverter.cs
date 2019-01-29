@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
     /// The converter that converts <see cref="ManualFailureMechanismSectionAssemblyCategoryGroup"/>

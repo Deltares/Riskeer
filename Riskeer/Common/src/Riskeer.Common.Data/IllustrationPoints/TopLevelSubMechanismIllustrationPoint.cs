@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.IllustrationPoints
+namespace Riskeer.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Represents the top level combination of wind direction, closing situation and 

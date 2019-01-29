@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Imports a wave conditions calculation configuration from an XML file and stores it on a

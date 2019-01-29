@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 {
     [TestFixture]
     public class GrassCoverErosionInwardsScenarioRowTest

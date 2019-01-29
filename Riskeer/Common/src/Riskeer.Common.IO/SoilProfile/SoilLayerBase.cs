@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Class containing parameters which are defined for all soil layers.

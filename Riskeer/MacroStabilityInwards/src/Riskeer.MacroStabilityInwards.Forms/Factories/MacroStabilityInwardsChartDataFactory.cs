@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="ChartData"/> for data used in the macro stability inwards failure mechanism.

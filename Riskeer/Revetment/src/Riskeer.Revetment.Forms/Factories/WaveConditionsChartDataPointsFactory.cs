@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.Forms.Factories
+namespace Riskeer.Revetment.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="Point2D"/> to use in <see cref="ChartData"/>

@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Plugin;
 
-namespace Ringtoets.Integration.Plugin.Test
+namespace Riskeer.Integration.Plugin.Test
 {
     [TestFixture]
     public class RingtoetsRibbonTest

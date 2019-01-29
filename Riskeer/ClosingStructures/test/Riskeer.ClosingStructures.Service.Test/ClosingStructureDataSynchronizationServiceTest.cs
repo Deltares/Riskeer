@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 
-namespace Ringtoets.ClosingStructures.Service.Test
+namespace Riskeer.ClosingStructures.Service.Test
 {
     [TestFixture]
     public class ClosingStructuresDataSynchronizationServiceTest

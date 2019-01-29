@@ -43,7 +43,7 @@ using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.Views.SectionResultRows;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
+namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 {
     [TestFixture]
     public class MacroStabilityOutwardsSectionResultRowTest

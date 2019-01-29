@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Service.Test
+namespace Riskeer.StabilityStoneCover.Service.Test
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationActivityTest

@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.Revetment.Forms.Views;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsInputViewStyleTest

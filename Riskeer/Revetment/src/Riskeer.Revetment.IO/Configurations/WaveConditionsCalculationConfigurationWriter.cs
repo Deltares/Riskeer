@@ -26,7 +26,7 @@ using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations.Converters;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Base implementation of a writer for calculations that contain <see cref="WaveConditionsInput"/> as input,

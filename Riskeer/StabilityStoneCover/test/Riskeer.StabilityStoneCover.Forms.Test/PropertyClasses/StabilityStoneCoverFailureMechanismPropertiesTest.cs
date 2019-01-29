@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
+namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismPropertiesTest

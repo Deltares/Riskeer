@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.Structures
+namespace Riskeer.Common.Data.Structures
 {
     /// <summary>
     /// This class contains the result of a calculation for a <see cref="StructuresCalculation{T}"/>.

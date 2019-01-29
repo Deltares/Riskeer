@@ -28,7 +28,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
+namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

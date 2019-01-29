@@ -31,7 +31,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Test
+namespace Riskeer.Piping.Forms.Test
 {
     [TestFixture]
     public class PipingCalculationConfigurationHelperTest

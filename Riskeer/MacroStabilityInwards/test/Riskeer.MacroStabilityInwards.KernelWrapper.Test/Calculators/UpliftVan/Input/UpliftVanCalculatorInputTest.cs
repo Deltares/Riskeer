@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
 {
     [TestFixture]
     public class UpliftVanCalculatorInputTest

@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationWriterTest

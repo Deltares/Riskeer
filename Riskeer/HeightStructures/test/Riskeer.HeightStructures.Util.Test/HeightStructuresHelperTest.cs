@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 
-namespace Ringtoets.HeightStructures.Util.Test
+namespace Riskeer.HeightStructures.Util.Test
 {
     [TestFixture]
     public class HeightStructuresHelperTest

@@ -33,7 +33,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Data.TestUtil
+namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

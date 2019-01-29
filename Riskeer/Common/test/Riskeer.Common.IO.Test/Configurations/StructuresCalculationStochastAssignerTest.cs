@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.Common.IO.Test.Configurations
+namespace Riskeer.Common.IO.Test.Configurations
 {
     [TestFixture]
     public class StructuresCalculationStochastAssignerTest

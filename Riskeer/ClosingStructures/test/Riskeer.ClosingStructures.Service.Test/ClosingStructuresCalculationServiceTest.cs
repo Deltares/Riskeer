@@ -43,7 +43,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.ClosingStructures.Service.Test
+namespace Riskeer.ClosingStructures.Service.Test
 {
     [TestFixture]
     public class ClosingStructuresCalculationServiceTest

@@ -24,7 +24,7 @@ using System.Xml;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 
-namespace Ringtoets.HeightStructures.IO.Configurations
+namespace Riskeer.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Writer for writing <see cref="HeightStructuresCalculationConfiguration"/> in XML format to file.

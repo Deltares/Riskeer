@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// All options to mark properties of <see cref="DistributionPropertiesBase{T}"/> as read-only.

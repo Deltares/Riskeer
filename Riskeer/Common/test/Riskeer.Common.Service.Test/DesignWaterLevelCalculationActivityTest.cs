@@ -38,7 +38,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class DesignWaterLevelCalculationActivityTest

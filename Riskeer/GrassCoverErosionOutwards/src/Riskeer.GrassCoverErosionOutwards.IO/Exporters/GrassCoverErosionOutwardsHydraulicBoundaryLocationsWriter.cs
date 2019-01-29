@@ -27,7 +27,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Writers;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {
     /// <summary>
     /// Shapefile writer that writes the locations of a collection of

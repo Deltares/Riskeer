@@ -39,7 +39,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.UpdateInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class ClosingStructuresContextUpdateInfoTest : NUnitFormTest

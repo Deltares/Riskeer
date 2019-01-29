@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// Base class for the result of a hydraulic loads calculation.

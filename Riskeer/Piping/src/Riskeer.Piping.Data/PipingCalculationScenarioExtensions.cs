@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Defines extension methods dealing with <see cref="PipingCalculationScenario"/> instances.

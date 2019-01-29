@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     public class SlipPlaneConstraintsCreatorTest
     {

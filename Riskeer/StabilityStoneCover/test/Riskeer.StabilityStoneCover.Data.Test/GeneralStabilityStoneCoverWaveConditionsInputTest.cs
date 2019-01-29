@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.StabilityStoneCover.Data.Test
+namespace Riskeer.StabilityStoneCover.Data.Test
 {
     [TestFixture]
     public class GeneralStabilityStoneCoverWaveConditionsInputTest

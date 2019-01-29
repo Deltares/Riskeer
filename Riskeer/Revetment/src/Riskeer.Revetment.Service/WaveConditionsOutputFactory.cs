@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.Service
+namespace Riskeer.Revetment.Service
 {
     /// <summary>
     /// Class for creating the <see cref="WaveConditionsOutput"/>.

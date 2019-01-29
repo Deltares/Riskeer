@@ -31,7 +31,7 @@ using IHydraRingIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.Il
 using HydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraRingFaultTreeIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 
-namespace Ringtoets.Common.Service.IllustrationPoints
+namespace Riskeer.Common.Service.IllustrationPoints
 {
     /// <summary>
     /// Converter for <see cref="HydraRingGeneralResult"/> related to creating a <see cref="GeneralResult{T}"/>.

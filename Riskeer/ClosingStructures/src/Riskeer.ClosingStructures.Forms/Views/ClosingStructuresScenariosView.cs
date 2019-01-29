@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Util;
 
-namespace Ringtoets.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
     /// View for configuring scenarios for the closing structures failure mechanism.

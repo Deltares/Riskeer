@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Interface describing a failure mechanism that contains calculation groups that contains calculations.

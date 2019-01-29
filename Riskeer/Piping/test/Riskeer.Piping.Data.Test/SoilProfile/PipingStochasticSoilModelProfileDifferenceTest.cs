@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 
-namespace Ringtoets.Piping.Data.Test.SoilProfile
+namespace Riskeer.Piping.Data.Test.SoilProfile
 {
     [TestFixture]
     public class PipingStochasticSoilModelProfileDifferenceTest

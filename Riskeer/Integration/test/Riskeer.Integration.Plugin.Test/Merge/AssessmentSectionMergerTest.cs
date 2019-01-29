@@ -32,7 +32,7 @@ using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Service.Comparers;
 
-namespace Ringtoets.Integration.Plugin.Test.Merge
+namespace Riskeer.Integration.Plugin.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionMergerTest

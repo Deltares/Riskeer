@@ -29,7 +29,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.Factories;
 
-namespace Ringtoets.Revetment.Forms.Test.Factories
+namespace Riskeer.Revetment.Forms.Test.Factories
 {
     [TestFixture]
     public class WaveConditionsChartDataPointsFactoryTest

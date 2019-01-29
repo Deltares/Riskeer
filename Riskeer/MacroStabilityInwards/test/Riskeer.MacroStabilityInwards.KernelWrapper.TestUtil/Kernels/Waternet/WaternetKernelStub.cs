@@ -25,7 +25,7 @@ using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 {
     /// <summary>
     /// Waternet kernel stub for testing purposes.

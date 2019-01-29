@@ -28,7 +28,7 @@ using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using EffectiveThicknessCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.EffectiveThicknessCalculator;
 using HeaveCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.HeaveCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper
+namespace Riskeer.Piping.KernelWrapper
 {
     /// <summary>
     /// This class represents a combination of piping sub calculations, which together can be used

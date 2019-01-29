@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 {
     /// <summary>
     /// The sliding curve result of an Uplift Van calculation.

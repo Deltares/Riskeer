@@ -49,7 +49,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
+namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class DuneLocationCalculationsContextTreeNodeInfoTest

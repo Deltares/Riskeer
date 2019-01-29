@@ -25,7 +25,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Revetment.Data.TestUtil
+namespace Riskeer.Revetment.Data.TestUtil
 {
     /// <summary>
     /// Creates a simple <see cref="ICalculation{T}"/> implementation for

@@ -25,7 +25,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="StructureCollection{TStructure}"/> for properties panel.

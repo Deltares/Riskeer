@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.DikeProfiles
+namespace Riskeer.Common.Data.Test.DikeProfiles
 {
     [TestFixture]
     public class ForeshoreProfileCollectionTest

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
     public class ManualFailureMechanismSectionAssemblyCategoryGroupConverterTest

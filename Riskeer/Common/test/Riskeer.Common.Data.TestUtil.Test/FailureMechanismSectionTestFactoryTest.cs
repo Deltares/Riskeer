@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.TestUtil.Test
+namespace Riskeer.Common.Data.TestUtil.Test
 {
     [TestFixture]
     public class FailureMechanismSectionTestFactoryTest

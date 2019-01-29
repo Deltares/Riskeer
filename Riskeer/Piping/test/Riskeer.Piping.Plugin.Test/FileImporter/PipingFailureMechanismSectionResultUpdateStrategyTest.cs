@@ -27,7 +27,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Riskeer.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class PipingFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

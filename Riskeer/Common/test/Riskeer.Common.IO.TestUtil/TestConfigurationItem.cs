@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// A simple implementation of <see cref="IConfigurationItem"/> that can be used for testing purposes.

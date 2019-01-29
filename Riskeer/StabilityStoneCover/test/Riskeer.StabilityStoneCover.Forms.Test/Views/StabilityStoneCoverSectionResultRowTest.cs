@@ -41,7 +41,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
+namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 {
     [TestFixture]
     public class StabilityStoneCoverSectionResultRowTest

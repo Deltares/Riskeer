@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestMacroStabilityInwardsFailureMechanismTest

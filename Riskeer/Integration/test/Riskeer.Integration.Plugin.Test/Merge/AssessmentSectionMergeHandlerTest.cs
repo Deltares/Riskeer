@@ -47,7 +47,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Plugin.Merge;
 
-namespace Ringtoets.Integration.Plugin.Test.Merge
+namespace Riskeer.Integration.Plugin.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionMergeHandlerTest

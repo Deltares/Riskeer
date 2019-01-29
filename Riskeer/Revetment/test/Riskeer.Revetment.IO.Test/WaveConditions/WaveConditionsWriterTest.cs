@@ -32,7 +32,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.IO.WaveConditions;
 
-namespace Ringtoets.Revetment.IO.Test.WaveConditions
+namespace Riskeer.Revetment.IO.Test.WaveConditions
 {
     [TestFixture]
     public class WaveConditionsWriterTest

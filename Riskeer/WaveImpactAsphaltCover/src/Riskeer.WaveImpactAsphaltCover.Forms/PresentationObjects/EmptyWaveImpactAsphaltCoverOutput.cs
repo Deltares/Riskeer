@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
     /// This class represents the placeholder for a <see cref="EmptyWaveImpactAsphaltCoverOutput"/>

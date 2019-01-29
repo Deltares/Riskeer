@@ -27,7 +27,7 @@ using Core.Common.Gui.UITypeEditors;
 using Ringtoets.Common.Data.DikeProfiles;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.UITypeEditors
+namespace Riskeer.Common.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a

@@ -23,7 +23,7 @@ using System;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Creates <see cref="SoilModel"/> instances which are required in a calculation.

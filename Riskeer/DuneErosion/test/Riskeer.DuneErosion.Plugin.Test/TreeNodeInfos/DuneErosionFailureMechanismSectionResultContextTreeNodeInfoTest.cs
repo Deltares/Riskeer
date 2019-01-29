@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
+namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class DuneErosionFailureMechanismSectionResultContextTreeNodeInfoTest

@@ -35,7 +35,7 @@ using Ringtoets.Common.IO.ReferenceLines;
 using Riskeer.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ImportInfos
+namespace Riskeer.Integration.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class ReferenceLineContextImportInfoTest

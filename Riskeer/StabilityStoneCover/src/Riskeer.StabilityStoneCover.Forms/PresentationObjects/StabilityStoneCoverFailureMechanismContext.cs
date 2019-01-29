@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for an instance of <see cref="StabilityStoneCoverFailureMechanism"/>.

@@ -28,7 +28,7 @@ using Core.Components.Chart.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Factories
+namespace Riskeer.Piping.Forms.Factories
 {
     /// <summary>
     /// Factory for creating arrays of <see cref="Point2D"/> to use in <see cref="ChartData"/>

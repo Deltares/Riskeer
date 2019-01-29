@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StabilityPointStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest

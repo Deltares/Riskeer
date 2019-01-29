@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Piping.Primitives
+namespace Riskeer.Piping.Primitives
 {
     /// <summary>
     /// Definition of a surface line for piping.

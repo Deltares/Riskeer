@@ -23,7 +23,7 @@ using System;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="IMacroStabilityInwardsLocationInput"/> phreatic line offset properties

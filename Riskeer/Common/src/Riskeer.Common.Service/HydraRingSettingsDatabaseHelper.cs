@@ -25,7 +25,7 @@ using Core.Common.Util;
 using Ringtoets.Common.IO.HydraRing;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// Helper class for providing a convenient method for obtaining and updating Hydra-Ring settings per location from the settings database 

@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Probability
+namespace Riskeer.Common.Data.Probability
 {
     /// <summary>
     /// Class that holds helper methods for probabilities.

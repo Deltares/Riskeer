@@ -31,7 +31,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Service;
 using Ringtoets.StabilityPointStructures.Util;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
+namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> 

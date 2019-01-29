@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Riskeer.Common.Data.Calculation
 {
     /// <summary>
     /// Class to allow grouping one or multiple <see cref="ICalculation"/> instances.

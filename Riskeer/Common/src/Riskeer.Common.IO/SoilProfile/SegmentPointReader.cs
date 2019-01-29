@@ -32,7 +32,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// This class reads a D-Soil Model file and reads segment points from this database.

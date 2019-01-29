@@ -30,7 +30,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
+namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class DuneLocationCalculationsContextPropertyInfoTest

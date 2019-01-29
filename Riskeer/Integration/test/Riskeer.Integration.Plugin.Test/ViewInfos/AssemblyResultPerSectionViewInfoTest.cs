@@ -32,7 +32,7 @@ using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Plugin;
 using Riskeer.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class AssemblyResultPerSectionViewInfoTest

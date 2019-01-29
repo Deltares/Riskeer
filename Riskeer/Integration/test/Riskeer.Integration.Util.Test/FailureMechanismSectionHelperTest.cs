@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Riskeer.Integration.Util;
 
-namespace Ringtoets.Integration.Util.Test
+namespace Riskeer.Integration.Util.Test
 {
     [TestFixture]
     public class FailureMechanismSectionHelperTest

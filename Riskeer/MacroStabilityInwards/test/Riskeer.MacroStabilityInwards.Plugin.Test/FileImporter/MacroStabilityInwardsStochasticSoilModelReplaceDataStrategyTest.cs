@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilModelReplaceDataStrategyTest

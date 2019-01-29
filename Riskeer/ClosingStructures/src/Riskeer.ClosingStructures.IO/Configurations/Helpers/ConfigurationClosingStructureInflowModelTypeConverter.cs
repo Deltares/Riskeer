@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.ClosingStructures.Data;
 
-namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
+namespace Riskeer.ClosingStructures.IO.Configurations.Helpers
 {
     /// <summary>
     /// Converts <see cref="ConfigurationClosingStructureInflowModelType"/> to <see cref="string"/> 

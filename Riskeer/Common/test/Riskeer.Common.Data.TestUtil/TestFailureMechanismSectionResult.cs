@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Class represents the most simple implementation of a <see cref="FailureMechanismSectionResult"/>.

@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms
+namespace Riskeer.GrassCoverErosionOutwards.Forms
 {
     /// <summary>
     /// Class that holds methods to help views when dealing with <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.

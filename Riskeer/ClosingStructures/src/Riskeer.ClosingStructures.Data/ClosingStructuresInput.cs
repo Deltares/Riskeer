@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Riskeer.ClosingStructures.Data
 {
     /// <summary>
     /// Class that holds all closing structures calculation specific input parameters.

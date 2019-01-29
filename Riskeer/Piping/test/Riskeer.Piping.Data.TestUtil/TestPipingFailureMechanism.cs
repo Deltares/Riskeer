@@ -23,7 +23,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.TestUtil
+namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Simple piping failure mechanism that can be used for testing.

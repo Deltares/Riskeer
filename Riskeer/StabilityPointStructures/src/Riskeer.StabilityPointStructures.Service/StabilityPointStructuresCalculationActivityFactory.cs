@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Service
+namespace Riskeer.StabilityPointStructures.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for

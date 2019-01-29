@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// This class holds the information for a calculation scenario.

@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.IO.ReferenceLines
+namespace Riskeer.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Shapefile writer that writes a <see cref="ReferenceLine"/> as a line feature.

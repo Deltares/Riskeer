@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output
 {
     /// <summary>
     /// Factory to create simple <see cref="UpliftVanSlidingCircleResult"/> instances that can be used for testing.

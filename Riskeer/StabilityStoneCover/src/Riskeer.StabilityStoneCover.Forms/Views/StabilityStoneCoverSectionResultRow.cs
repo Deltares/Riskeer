@@ -29,7 +29,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views
 {
     /// <summary>
     /// Class for displaying <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>

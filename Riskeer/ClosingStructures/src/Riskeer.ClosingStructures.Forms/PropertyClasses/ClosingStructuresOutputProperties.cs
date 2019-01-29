@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
+namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of closing structures <see cref="StructuresOutput"/> for properties panel.

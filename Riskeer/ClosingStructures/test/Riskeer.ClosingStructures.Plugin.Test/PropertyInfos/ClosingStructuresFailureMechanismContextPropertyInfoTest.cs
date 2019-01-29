@@ -29,7 +29,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismContextPropertyInfoTest

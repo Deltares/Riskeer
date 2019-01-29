@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
     public class GeneralMacroStabilityInwardsInputTest

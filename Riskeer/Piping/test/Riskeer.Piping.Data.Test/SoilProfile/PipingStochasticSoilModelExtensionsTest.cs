@@ -26,7 +26,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.Test.SoilProfile
+namespace Riskeer.Piping.Data.Test.SoilProfile
 {
     [TestFixture]
     public class PipingStochasticSoilModelExtensionsTest

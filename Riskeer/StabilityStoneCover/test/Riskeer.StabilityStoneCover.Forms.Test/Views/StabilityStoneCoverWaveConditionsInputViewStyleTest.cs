@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.StabilityStoneCover.Forms.Views;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
+namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsInputViewStyleTest

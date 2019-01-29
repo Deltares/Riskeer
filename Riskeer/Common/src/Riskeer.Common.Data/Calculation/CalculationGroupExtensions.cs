@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ringtoets.Common.Data.Calculation
+namespace Riskeer.Common.Data.Calculation
 {
     /// <summary>
     /// Defines extension methods dealing with <see cref="CalculationGroup"/> instances.

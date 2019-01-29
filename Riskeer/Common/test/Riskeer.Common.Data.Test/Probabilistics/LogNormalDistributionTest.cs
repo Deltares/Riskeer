@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.Probabilistics
+namespace Riskeer.Common.Data.Test.Probabilistics
 {
     [TestFixture]
     public class LogNormalDistributionTest

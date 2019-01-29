@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Service.Properties;
 
-namespace Ringtoets.Common.Service.MessageProviders
+namespace Riskeer.Common.Service.MessageProviders
 {
     /// <summary>
     /// This class provides messages used during a design water level calculation.

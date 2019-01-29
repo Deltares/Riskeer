@@ -29,7 +29,7 @@ using Ringtoets.DuneErosion.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
     /// Class for displaying <see cref="DuneErosionFailureMechanismSectionResult"/> as a row in a grid view.

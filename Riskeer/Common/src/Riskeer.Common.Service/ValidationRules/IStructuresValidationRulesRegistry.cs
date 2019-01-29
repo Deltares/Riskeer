@@ -25,7 +25,7 @@ using System.ComponentModel;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.Common.Service.ValidationRules
+namespace Riskeer.Common.Service.ValidationRules
 {
     /// <summary>
     /// Interface to register structure validation rules.

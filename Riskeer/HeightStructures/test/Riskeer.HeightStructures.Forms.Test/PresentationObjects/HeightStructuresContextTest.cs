@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
+namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class HeightStructuresContextTest

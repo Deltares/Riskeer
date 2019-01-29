@@ -29,7 +29,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 
-namespace Ringtoets.Common.IO.Configurations.Import
+namespace Riskeer.Common.IO.Configurations.Import
 {
     /// <summary>
     /// Container for related/nested schema definitions, representing a combined XML Schema Definition (XSD).

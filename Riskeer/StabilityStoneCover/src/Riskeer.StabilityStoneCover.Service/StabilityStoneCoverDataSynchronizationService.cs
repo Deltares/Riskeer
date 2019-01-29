@@ -29,7 +29,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Service
+namespace Riskeer.StabilityStoneCover.Service
 {
     /// <summary>
     /// Service for synchronizing stability stone cover data.

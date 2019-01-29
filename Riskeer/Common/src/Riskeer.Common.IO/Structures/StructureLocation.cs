@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// Representation of a structure as read from a shapefile.

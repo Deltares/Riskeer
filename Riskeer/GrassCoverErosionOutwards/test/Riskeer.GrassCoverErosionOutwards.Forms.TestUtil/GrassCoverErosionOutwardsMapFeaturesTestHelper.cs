@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Util.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil
+namespace Riskeer.GrassCoverErosionOutwards.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to test properties of a <see cref="MapFeature"/>.

@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Probabilistics
+namespace Riskeer.Common.Data.Probabilistics
 {
     /// <summary>
     /// This class defines a percentile based design variable for a log-normal distribution

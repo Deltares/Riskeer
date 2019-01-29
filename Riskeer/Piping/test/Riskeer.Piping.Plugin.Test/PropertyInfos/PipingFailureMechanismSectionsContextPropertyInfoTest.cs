@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
-namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
+namespace Riskeer.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class PipingFailureMechanismSectionsContextPropertyInfoTest

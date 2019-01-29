@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
     public class FailureMechanismSectionPresentationHelperTest

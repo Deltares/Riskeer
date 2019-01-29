@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Common.Data.Exceptions
+namespace Riskeer.Common.Data.Exceptions
 {
     /// <summary>
     /// Exception that is thrown when converting illustration points from the HydraRing data was unsuccessful.

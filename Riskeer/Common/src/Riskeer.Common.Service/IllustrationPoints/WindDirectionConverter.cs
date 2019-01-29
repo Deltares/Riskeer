@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingWindDirection = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 
-namespace Ringtoets.Common.Service.IllustrationPoints
+namespace Riskeer.Common.Service.IllustrationPoints
 {
     /// <summary>
     /// The converter that converts <see cref="HydraRingWindDirection"/> data into <see cref="WindDirection"/> data.

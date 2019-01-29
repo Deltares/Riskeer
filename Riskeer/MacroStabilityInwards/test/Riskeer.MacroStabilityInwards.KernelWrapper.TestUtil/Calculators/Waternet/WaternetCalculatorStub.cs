@@ -25,7 +25,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet
 {
     /// <summary>
     /// Waternet calculator stub for testing purposes.

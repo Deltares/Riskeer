@@ -22,7 +22,7 @@
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.TestUtil
+namespace Riskeer.Integration.IO.TestUtil
 {
     /// <summary>
     /// Factory that creates simple exportable failure mechanism section result instances

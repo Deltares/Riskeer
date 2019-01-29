@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation"/>

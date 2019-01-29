@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.TestUtil
+namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Class to help asserting the <see cref="PipingTestDataGenerator"/>.

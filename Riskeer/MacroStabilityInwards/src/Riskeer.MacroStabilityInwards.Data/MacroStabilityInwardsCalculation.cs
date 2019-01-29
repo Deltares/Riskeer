@@ -24,7 +24,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// This class holds information about a calculation for the <see cref="MacroStabilityInwardsFailureMechanism"/>.

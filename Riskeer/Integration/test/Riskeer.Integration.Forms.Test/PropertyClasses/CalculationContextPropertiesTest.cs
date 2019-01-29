@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class CalculationContextPropertiesTest

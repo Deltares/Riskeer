@@ -23,7 +23,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data
+namespace Riskeer.GrassCoverErosionOutwards.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the

@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Riskeer.Common.Data.AssessmentSection
 {
     /// <summary>
     /// Class that holds information about configured background data.

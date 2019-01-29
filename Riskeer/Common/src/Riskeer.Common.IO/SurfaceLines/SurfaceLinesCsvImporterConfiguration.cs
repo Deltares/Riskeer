@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.Common.IO.SurfaceLines
+namespace Riskeer.Common.IO.SurfaceLines
 {
     /// <summary>
     /// Configuration of the used components in <see cref="SurfaceLinesCsvImporter{T}"/>.

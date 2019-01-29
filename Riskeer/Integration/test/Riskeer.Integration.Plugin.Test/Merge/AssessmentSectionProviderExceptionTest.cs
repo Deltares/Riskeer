@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.Plugin.Merge;
 
-namespace Ringtoets.Integration.Plugin.Test.Merge
+namespace Riskeer.Integration.Plugin.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionProviderExceptionTest

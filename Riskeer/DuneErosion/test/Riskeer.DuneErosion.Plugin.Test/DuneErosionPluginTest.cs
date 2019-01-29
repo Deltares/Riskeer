@@ -32,7 +32,7 @@ using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 
-namespace Ringtoets.DuneErosion.Plugin.Test
+namespace Riskeer.DuneErosion.Plugin.Test
 {
     [TestFixture]
     public class DuneErosionPluginTest

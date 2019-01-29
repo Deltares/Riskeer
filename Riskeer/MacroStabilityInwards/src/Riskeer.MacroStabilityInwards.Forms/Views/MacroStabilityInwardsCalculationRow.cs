@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="MacroStabilityInwardsCalculationScenario"/> in the <see cref="MacroStabilityInwardsCalculationsView"/>.

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Forms.TestUtil.Test
+namespace Riskeer.Common.Forms.TestUtil.Test
 {
     [TestFixture]
     public class MapViewTestHelperTest

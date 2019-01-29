@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsOutputTestFactoryTest

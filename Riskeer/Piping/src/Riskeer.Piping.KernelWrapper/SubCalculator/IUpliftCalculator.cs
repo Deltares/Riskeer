@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.Piping.KernelWrapper.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Interface with operations for performing an uplift sub calculation.

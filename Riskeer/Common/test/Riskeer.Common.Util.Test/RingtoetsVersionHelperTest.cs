@@ -23,7 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Util.Test
+namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
     public class RingtoetsVersionHelperTest

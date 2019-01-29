@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>

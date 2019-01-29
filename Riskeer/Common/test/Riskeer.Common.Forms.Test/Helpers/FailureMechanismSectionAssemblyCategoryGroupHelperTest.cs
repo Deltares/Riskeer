@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyCategoryGroupHelperTest

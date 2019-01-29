@@ -25,7 +25,7 @@ using Core.Components.Chart.Styles;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Factories;
 
-namespace Ringtoets.Common.Forms.Test.Factories
+namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
     public class RingtoetsChartDataFactoryTest

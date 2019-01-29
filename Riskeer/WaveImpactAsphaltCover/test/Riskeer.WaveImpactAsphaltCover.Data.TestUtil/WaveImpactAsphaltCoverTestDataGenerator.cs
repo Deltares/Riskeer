@@ -21,7 +21,7 @@
 
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.TestUtil
+namespace Riskeer.WaveImpactAsphaltCover.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

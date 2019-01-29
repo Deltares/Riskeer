@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.FileImporters
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> instance with data

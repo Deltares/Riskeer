@@ -33,7 +33,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class ClosingStructuresScenariosViewInfoTest

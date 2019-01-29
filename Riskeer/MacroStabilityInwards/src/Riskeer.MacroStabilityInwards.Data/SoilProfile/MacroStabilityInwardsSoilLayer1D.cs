@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a 1D layer that was imported from D-Soil Model.

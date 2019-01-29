@@ -39,7 +39,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Forms.UITypeEditors;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
+namespace Riskeer.MacroStabilityInwards.Forms.Test.UITypeEditors
 {
     [TestFixture]
     public class MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditorTest

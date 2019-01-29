@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.UpdateInfos
+namespace Riskeer.Common.Forms.UpdateInfos
 {
     /// <summary>
     /// Factory for creating standard <see cref="UpdateInfo"/> objects. 

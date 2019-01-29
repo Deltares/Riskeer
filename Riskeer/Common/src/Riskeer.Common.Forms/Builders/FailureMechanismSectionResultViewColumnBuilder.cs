@@ -28,7 +28,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.Common.Forms.Builders
+namespace Riskeer.Common.Forms.Builders
 {
     /// <summary>
     /// Builder class for adding various columns to a <see cref="DataGridViewControl"/> in

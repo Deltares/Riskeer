@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.ClosingStructures.Data.Test
+namespace Riskeer.ClosingStructures.Data.Test
 {
     [TestFixture]
     public class ClosingStructureInflowModelTypeTest : EnumWithResourcesDisplayNameTestFixture<ClosingStructureInflowModelType>

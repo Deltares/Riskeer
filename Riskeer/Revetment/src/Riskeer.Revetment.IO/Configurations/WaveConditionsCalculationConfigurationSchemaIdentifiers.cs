@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Container of identifiers related to the wave conditions calculation configuration schema definition.

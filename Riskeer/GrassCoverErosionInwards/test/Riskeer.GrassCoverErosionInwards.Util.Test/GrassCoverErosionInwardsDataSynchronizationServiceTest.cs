@@ -35,7 +35,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Service;
 
-namespace Ringtoets.GrassCoverErosionInwards.Util.Test
+namespace Riskeer.GrassCoverErosionInwards.Util.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsDataSynchronizationServiceTest

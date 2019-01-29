@@ -28,7 +28,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of water stress lines properties in <see cref="MacroStabilityInwardsInput"/> for properties panel.

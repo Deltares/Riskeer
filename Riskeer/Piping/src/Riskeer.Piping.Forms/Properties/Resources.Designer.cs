@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Piping.Forms.Properties {
+namespace Riskeer.Piping.Forms.Properties {
     using System;
     
     

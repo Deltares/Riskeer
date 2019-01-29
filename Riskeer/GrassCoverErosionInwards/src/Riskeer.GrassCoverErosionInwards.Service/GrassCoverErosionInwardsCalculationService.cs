@@ -49,7 +49,7 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
 using HydraRingGeneralResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service
+namespace Riskeer.GrassCoverErosionInwards.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for grass cover erosion inwards calculations.

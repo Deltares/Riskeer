@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Revetment.IO.Configurations.Converters;
 using Ringtoets.Revetment.IO.Properties;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// This class reads a wave conditions calculation configuration from XML and creates a collection of corresponding

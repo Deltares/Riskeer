@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.

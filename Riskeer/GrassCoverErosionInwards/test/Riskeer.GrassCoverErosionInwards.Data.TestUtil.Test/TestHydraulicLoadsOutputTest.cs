@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestHydraulicLoadsOutputTest

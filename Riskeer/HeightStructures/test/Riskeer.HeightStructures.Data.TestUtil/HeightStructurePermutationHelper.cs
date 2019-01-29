@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil
+namespace Riskeer.HeightStructures.Data.TestUtil
 {
     /// <summary>
     /// Helper containing a source of modified <see cref="HeightStructure"/> entities that can

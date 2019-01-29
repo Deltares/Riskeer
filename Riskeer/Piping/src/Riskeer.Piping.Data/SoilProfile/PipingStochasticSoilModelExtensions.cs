@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.SoilProfile
+namespace Riskeer.Piping.Data.SoilProfile
 {
     /// <summary>
     /// Extension methods dealing with <see cref="PipingStochasticSoilModel"/> instances.

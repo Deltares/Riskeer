@@ -33,7 +33,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
     public class FailureMechanismSectionResultRowHelperTest

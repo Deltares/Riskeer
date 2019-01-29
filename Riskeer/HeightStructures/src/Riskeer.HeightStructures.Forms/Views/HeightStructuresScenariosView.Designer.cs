@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Forms;
 
-namespace Ringtoets.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views
 {
     partial class HeightStructuresScenariosView
     {

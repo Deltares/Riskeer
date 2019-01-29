@@ -25,7 +25,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Service
+namespace Riskeer.DuneErosion.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a dune location calculation.

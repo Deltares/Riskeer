@@ -33,7 +33,7 @@ using Ringtoets.Integration.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test
+namespace Riskeer.Integration.Forms.Test
 {
     [TestFixture]
     public class FailureMechanismContributionViewIntegrationTest

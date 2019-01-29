@@ -39,7 +39,7 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Plugin.Test
+namespace Riskeer.Piping.Plugin.Test
 {
     [TestFixture]
     public class PipingPluginTest

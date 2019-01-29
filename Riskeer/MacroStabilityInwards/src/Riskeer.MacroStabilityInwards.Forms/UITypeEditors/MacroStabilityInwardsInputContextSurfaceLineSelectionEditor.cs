@@ -25,7 +25,7 @@ using Core.Common.Gui.UITypeEditors;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.UITypeEditors
+namespace Riskeer.MacroStabilityInwards.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a

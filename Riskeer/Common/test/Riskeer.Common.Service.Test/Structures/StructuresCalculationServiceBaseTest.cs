@@ -41,7 +41,7 @@ using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Service.Test.Structures
+namespace Riskeer.Common.Service.Test.Structures
 {
     [TestFixture]
     public class StructuresCalculationServiceBaseTest

@@ -27,7 +27,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
+namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class ConfigurationHydraulicLoadsCalculationTypeConverterTest

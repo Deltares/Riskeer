@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.StabilityStoneCover.Data
+namespace Riskeer.StabilityStoneCover.Data
 {
     /// <summary>
     /// The general input parameters that apply to each stability stone cover wave conditions calculation.

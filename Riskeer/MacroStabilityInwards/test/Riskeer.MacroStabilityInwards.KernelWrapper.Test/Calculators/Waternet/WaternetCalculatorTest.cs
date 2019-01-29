@@ -36,7 +36,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
     [TestFixture]
     public class WaternetCalculatorTest

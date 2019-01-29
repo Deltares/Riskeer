@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Test.Factories
+namespace Riskeer.Piping.Forms.Test.Factories
 {
     [TestFixture]
     public class PipingChartDataFactoryTest

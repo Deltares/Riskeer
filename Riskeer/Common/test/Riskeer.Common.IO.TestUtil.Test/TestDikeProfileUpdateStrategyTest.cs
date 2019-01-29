@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.Common.IO.TestUtil.Test
+namespace Riskeer.Common.IO.TestUtil.Test
 {
     [TestFixture]
     public class TestDikeProfileUpdateStrategyTest

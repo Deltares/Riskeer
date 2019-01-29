@@ -34,7 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.UITypeEditors
 {
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextDikeProfileEditorTest

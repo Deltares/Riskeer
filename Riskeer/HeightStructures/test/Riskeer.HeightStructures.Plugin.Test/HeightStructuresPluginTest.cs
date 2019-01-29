@@ -33,7 +33,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
 
-namespace Ringtoets.HeightStructures.Plugin.Test
+namespace Riskeer.HeightStructures.Plugin.Test
 {
     [TestFixture]
     public class HeightStructuresPluginTest

@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Forms.PresentationObjects
+namespace Riskeer.DuneErosion.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for an instance of <see cref="DuneErosionFailureMechanism"/>.

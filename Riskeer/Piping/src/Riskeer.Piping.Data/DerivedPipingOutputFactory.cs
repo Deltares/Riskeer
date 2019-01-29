@@ -23,7 +23,7 @@ using System;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Factory class to create <see cref="DerivedPipingOutput"/>.

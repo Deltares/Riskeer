@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.DuneErosion.Data
+namespace Riskeer.DuneErosion.Data
 {
     /// <summary>
     /// Class that holds all dune location calculation specific output parameters.

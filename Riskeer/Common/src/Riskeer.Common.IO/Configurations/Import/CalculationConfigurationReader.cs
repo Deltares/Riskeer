@@ -32,7 +32,7 @@ using Core.Common.Util.Builders;
 using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.Configurations.Import
+namespace Riskeer.Common.IO.Configurations.Import
 {
     /// <summary>
     /// Base class for reading a calculation configuration from XML and creating a collection of corresponding

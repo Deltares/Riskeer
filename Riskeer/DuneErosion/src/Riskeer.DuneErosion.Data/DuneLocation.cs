@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.DuneErosion.Data
+namespace Riskeer.DuneErosion.Data
 {
     /// <summary>
     /// Location of a dune.

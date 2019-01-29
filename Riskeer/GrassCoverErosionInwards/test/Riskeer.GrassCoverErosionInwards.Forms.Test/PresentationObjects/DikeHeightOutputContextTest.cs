@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class DikeHeightOutputContextTest

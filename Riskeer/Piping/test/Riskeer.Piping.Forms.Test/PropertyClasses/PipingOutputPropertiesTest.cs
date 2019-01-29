@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
-namespace Ringtoets.Piping.Forms.Test.PropertyClasses
+namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class PipingOutputPropertiesTest

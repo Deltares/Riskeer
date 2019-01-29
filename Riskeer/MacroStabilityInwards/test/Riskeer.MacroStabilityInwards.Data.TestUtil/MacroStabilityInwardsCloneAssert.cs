@@ -24,7 +24,7 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// Class that defines methods for asserting whether two objects are clones.

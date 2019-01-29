@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Util.TestUtil;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Forms.TestUtil
+namespace Riskeer.DuneErosion.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to test properties of a <see cref="MapFeature"/>.

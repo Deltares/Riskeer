@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class RingtoetsCommonDataCalculationServiceTest

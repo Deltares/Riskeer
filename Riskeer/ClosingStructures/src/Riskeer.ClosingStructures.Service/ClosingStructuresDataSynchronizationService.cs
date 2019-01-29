@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 
-namespace Ringtoets.ClosingStructures.Service
+namespace Riskeer.ClosingStructures.Service
 {
     /// <summary>
     /// Service for synchronizing closing structures data.

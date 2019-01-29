@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.StabilityPointStructures.Data.TestUtil
+namespace Riskeer.StabilityPointStructures.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

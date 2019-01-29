@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
+namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismPropertiesTest

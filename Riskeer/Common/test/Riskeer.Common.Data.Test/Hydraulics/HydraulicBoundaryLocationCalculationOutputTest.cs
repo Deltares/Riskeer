@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.Test.Hydraulics
+namespace Riskeer.Common.Data.Test.Hydraulics
 {
     [TestFixture]
     public class HydraulicBoundaryLocationCalculationOutputTest

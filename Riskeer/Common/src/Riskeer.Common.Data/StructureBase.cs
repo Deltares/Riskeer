@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.Common.Data
+namespace Riskeer.Common.Data
 {
     /// <summary>
     /// Base definition of a structure.

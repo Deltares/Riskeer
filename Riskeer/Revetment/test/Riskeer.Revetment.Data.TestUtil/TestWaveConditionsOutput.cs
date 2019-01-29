@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Revetment.Data.TestUtil
+namespace Riskeer.Revetment.Data.TestUtil
 {
     /// <summary>
     /// Simple wave conditions output that can be used for testing.

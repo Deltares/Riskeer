@@ -34,7 +34,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.StabilityStoneCover.Data.Test
+namespace Riskeer.StabilityStoneCover.Data.Test
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismAssemblyFactoryTest

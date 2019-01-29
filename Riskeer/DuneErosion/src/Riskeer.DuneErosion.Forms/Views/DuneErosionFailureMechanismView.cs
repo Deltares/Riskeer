@@ -32,7 +32,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Factories;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a dune erosion failure mechanism.

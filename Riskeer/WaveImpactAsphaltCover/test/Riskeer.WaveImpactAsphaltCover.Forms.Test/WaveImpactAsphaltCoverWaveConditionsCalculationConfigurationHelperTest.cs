@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelperTest

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     partial class GrassCoverErosionInwardsFailureMechanismView
     {

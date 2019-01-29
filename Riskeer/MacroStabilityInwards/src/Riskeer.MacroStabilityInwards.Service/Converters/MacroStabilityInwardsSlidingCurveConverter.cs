@@ -25,7 +25,7 @@ using System.Linq;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Converters
+namespace Riskeer.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="UpliftVanSlidingCurveResult"/>

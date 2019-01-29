@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class InputContextBaseTest

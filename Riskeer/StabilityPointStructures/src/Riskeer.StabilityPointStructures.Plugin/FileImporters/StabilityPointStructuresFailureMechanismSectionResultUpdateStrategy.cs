@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
+namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> instance with data

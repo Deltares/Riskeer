@@ -42,7 +42,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service.Test
+namespace Riskeer.GrassCoverErosionInwards.Service.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationServiceTest

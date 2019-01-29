@@ -34,7 +34,7 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 
-namespace Ringtoets.Piping.Service.Test
+namespace Riskeer.Piping.Service.Test
 {
     [TestFixture]
     public class PipingCalculationActivityTest

@@ -22,7 +22,7 @@
 using System.Drawing;
 using Ringtoets.Revetment.Forms.Views;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {
     /// <summary>
     /// Class that defines the wave impact asphalt cover style that is used in the <see cref="WaveConditionsInputView"/>.

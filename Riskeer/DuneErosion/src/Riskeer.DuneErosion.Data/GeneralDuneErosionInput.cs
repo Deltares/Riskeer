@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.DuneErosion.Data
+namespace Riskeer.DuneErosion.Data
 {
     /// <summary>
     /// The general input parameters that apply to each dune erosion calculation.

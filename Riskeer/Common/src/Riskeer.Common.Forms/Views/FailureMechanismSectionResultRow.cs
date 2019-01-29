@@ -25,7 +25,7 @@ using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Base class for a wrapper of a <see cref="FailureMechanismSectionResult"/>, which takes care of the

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for <see cref="StabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup"/>.

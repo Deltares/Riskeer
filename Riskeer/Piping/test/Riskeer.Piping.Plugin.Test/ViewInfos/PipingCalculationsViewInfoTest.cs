@@ -34,7 +34,7 @@ using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.ViewInfos
+namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class PipingCalculationsViewInfoTest

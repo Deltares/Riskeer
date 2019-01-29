@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class PipingProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest

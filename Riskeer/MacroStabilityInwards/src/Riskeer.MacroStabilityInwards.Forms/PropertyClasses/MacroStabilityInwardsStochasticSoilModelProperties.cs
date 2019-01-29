@@ -30,7 +30,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsStochasticSoilModel"/> for properties panel.

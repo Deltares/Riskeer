@@ -22,7 +22,7 @@
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.StabilityPointStructures.Service.Properties;
 
-namespace Ringtoets.StabilityPointStructures.Service
+namespace Riskeer.StabilityPointStructures.Service
 {
     /// <summary>
     /// This class provides messages used during the stability point structures calculation.

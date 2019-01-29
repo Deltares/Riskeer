@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculatorFactoryTest

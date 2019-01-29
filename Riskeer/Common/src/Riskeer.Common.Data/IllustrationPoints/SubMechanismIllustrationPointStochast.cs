@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.IllustrationPoints
+namespace Riskeer.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Container of alpha value definitions which contain a realization.

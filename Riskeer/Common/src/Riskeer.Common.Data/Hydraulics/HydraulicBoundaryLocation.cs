@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.Common.Data.Hydraulics
+namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
     /// Location of a hydraulic boundary.

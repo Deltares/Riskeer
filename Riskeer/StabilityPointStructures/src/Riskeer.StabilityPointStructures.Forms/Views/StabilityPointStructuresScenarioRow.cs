@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
     /// Container of a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>,

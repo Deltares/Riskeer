@@ -41,7 +41,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Riskeer.Integration.Plugin;
 using Riskeer.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.Test.ImportInfos
+namespace Riskeer.Integration.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class ForeshoreProfilesContextImportInfoTest : NUnitFormTest

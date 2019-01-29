@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.IO
+namespace Riskeer.StabilityPointStructures.IO
 {
     /// <summary>
     /// Imports point shapefiles containing stability point structure locations

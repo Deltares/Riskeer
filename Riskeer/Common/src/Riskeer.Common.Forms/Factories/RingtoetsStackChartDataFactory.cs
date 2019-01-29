@@ -29,7 +29,7 @@ using Core.Components.Stack.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Factories
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="StackChartData"/> based on information used as input.

@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Common.Data.Hydraulics
+namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
     /// Class that holds all hydraulic boundary calculation specific output parameters.

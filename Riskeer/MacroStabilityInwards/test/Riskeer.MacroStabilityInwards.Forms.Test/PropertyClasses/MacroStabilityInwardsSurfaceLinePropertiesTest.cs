@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLinePropertiesTest

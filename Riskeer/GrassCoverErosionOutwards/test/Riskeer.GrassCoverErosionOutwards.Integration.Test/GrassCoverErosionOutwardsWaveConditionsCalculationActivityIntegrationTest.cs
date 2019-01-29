@@ -47,7 +47,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
+namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationActivityIntegrationTest

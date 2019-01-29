@@ -30,7 +30,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.

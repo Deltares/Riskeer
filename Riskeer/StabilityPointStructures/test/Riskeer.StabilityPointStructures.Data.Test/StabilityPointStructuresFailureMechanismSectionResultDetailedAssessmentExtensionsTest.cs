@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Ringtoets.StabilityPointStructures.Data.Test
+namespace Riskeer.StabilityPointStructures.Data.Test
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest

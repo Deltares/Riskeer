@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Exceptions;
 
-namespace Ringtoets.Common.Data.Test.Exceptions
+namespace Riskeer.Common.Data.Test.Exceptions
 {
     [TestFixture]
     public class UpdateDataExceptionTest :

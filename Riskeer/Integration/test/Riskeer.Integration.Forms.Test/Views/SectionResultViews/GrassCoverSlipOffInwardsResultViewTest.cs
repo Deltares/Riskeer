@@ -38,7 +38,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.Views.SectionResultRows;
 using Riskeer.Integration.Forms.Views.SectionResultViews;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
+namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
     public class GrassCoverSlipOffInwardsResultViewTest

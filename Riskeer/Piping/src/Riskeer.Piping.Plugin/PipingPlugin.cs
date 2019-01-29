@@ -64,7 +64,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin
+namespace Riskeer.Piping.Plugin
 {
     /// <summary>
     /// The plug-in for the <see cref="PipingFailureMechanism"/>.

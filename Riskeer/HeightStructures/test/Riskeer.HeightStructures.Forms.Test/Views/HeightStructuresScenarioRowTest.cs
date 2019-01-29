@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
 
-namespace Ringtoets.HeightStructures.Forms.Test.Views
+namespace Riskeer.HeightStructures.Forms.Test.Views
 {
     [TestFixture]
     public class HeightStructuresScenarioRowTest

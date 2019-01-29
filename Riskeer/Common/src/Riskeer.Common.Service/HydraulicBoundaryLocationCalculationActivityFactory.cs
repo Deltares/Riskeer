@@ -25,7 +25,7 @@ using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for

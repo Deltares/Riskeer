@@ -53,7 +53,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest

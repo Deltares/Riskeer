@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.DuneErosion.Data.TestUtil.Test
+namespace Riskeer.DuneErosion.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestDuneLocationTest

@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
+namespace Riskeer.MacroStabilityInwards.Service.Test.Converters
 {
     [TestFixture]
     public class MacroStabilityInwardsSlipPlaneUpliftVanConverterTest

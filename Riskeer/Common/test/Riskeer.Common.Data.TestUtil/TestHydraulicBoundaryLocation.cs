@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Class that creates simple instances of <see cref="HydraulicBoundaryLocation"/>, that

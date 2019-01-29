@@ -33,7 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 using Ringtoets.GrassCoverErosionInwards.Util;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 {
     public class GrassCoverErosionInwardsCalculationConfigurationImporter
         : CalculationConfigurationImporter<GrassCoverErosionInwardsCalculationConfigurationReader,

@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.TypeConverters;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="HydraulicBoundaryLocationCalculation"/>.

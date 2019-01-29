@@ -33,7 +33,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class ClosingStructuresContextTreeNodeInfoTest

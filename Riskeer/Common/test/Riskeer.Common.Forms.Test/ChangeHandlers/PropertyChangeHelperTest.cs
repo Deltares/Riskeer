@@ -27,7 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.Test.ChangeHandlers
+namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
     public class PropertyChangeHelperTest

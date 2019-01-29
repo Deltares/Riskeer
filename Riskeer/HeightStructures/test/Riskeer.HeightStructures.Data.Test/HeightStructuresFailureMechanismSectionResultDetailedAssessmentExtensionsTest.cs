@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data.TestUtil;
 
-namespace Ringtoets.HeightStructures.Data.Test
+namespace Riskeer.HeightStructures.Data.Test
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest

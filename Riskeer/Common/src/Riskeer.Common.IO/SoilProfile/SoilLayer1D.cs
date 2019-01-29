@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// A one-dimensional soil layer that was imported from D-Soil Model.

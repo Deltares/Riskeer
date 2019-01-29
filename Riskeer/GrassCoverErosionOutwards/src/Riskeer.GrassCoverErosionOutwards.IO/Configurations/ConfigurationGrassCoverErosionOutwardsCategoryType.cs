@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary> 
     /// Enum defining the possible grass cover erosion outwards category type

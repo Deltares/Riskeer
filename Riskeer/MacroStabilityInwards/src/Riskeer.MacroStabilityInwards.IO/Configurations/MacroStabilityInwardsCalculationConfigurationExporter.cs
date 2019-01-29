@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations
+namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// Exports a macro stability inwards calculation configuration and stores it as an XML file.

@@ -25,7 +25,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.

@@ -27,7 +27,7 @@ using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.HydraRing.IO.TestUtil;
 using Riskeer.Integration.Plugin.Helpers;
 
-namespace Ringtoets.Integration.Plugin.Test.Helpers
+namespace Riskeer.Integration.Plugin.Test.Helpers
 {
     [TestFixture]
     public class HydraulicLocationConfigurationSettingsUpdateHelperTest

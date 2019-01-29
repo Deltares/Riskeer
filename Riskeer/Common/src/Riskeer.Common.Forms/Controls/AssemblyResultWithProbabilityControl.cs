@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Controls
+namespace Riskeer.Common.Forms.Controls
 {
     /// <summary>
     /// Control to display an assembly result with probability.

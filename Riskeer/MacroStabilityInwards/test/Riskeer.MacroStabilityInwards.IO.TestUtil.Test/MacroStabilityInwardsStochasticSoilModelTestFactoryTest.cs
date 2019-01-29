@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.MacroStabilityInwards.IO.TestUtil.Test
+namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilModelTestFactoryTest

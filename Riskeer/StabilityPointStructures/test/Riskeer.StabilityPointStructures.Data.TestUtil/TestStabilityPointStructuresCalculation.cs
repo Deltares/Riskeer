@@ -23,7 +23,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.StabilityPointStructures.Data.TestUtil
+namespace Riskeer.StabilityPointStructures.Data.TestUtil
 {
     /// <summary>
     /// Stability point structures calculation used for testing purposes.

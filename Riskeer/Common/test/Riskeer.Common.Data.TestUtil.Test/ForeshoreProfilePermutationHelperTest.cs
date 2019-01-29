@@ -24,7 +24,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.Common.Data.TestUtil.Test
+namespace Riskeer.Common.Data.TestUtil.Test
 {
     [TestFixture]
     public class ForeshoreProfilePermutationHelperTest

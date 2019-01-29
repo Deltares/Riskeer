@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.Input
 {
     [TestFixture]
     public class TestSoilProfileTest

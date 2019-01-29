@@ -42,7 +42,7 @@ using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Revetment.Forms.PropertyClasses
+namespace Riskeer.Revetment.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInputContext{T}"/> for properties panel.

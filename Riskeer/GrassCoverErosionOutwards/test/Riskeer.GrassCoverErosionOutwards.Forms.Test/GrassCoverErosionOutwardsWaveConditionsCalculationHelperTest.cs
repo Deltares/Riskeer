@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationHelperTest

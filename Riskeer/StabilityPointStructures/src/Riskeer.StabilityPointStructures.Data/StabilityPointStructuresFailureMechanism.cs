@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Data
+namespace Riskeer.StabilityPointStructures.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

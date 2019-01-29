@@ -31,7 +31,7 @@ using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.Illus
 using HydraRingFaultTreeIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
 
-namespace Ringtoets.Common.Service.Test.IllustrationPoints
+namespace Riskeer.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
     public class FaultTreeIllustrationPointConverterTest

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.StabilityStoneCover.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Data
+namespace Riskeer.StabilityStoneCover.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

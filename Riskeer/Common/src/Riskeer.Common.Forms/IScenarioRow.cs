@@ -22,7 +22,7 @@
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Forms
+namespace Riskeer.Common.Forms
 {
     /// <summary>
     /// Interface for a row which present a calculation and an independent name.

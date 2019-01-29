@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.ValidationRules;
 
-namespace Ringtoets.Common.Service.TestUtil.Test
+namespace Riskeer.Common.Service.TestUtil.Test
 {
     [TestFixture]
     public class TestStructureValidationRulesRegistryTest

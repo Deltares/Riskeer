@@ -28,7 +28,7 @@ using Ringtoets.Common.Service.ValidationRules;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Service
+namespace Riskeer.ClosingStructures.Service
 {
     /// <summary>
     /// The closing structures validation rules registry.

@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Data
+namespace Riskeer.HeightStructures.Data
 {
     /// <summary>
     /// Failure mechanism for Height structures.

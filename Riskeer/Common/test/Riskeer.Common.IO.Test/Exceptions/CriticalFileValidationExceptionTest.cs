@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 
-namespace Ringtoets.Common.IO.Test.Exceptions
+namespace Riskeer.Common.IO.Test.Exceptions
 {
     [TestFixture]
     public class CriticalFileValidationExceptionTest :

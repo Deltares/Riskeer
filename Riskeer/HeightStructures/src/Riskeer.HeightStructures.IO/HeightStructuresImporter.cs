@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Riskeer.HeightStructures.IO
 {
     /// <summary>
     /// Imports point shapefiles containing height structure locations

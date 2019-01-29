@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.Plugin
+namespace Riskeer.Common.Plugin
 {
     /// <summary>
     /// Class with helper methods to be used in Ringtoets implementations of <see cref="PluginBase"/>.

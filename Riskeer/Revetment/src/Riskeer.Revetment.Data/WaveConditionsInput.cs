@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// Abstract class that holds all generic wave conditions calculation input parameters.

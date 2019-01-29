@@ -24,7 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// This class is used to compare <see cref="IllustrationPointControlItem"/> on equality. 

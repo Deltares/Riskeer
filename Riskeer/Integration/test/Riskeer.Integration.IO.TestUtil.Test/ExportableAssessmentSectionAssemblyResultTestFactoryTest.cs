@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.TestUtil.Test
+namespace Riskeer.Integration.IO.TestUtil.Test
 {
     [TestFixture]
     public class ExportableAssessmentSectionAssemblyResultTestFactoryTest

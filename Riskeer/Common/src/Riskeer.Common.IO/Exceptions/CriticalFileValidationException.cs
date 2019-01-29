@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Common.IO.Exceptions
+namespace Riskeer.Common.IO.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when a file read successfully, but did not pass the validation process.

@@ -29,7 +29,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.IO.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Validates and assigns stochast configurations to a stability point structure calculation input.

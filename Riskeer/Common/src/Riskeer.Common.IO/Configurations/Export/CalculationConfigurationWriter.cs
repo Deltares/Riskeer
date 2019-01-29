@@ -27,7 +27,7 @@ using Core.Common.Util;
 using Core.Common.Util.Properties;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Configurations.Export
+namespace Riskeer.Common.IO.Configurations.Export
 {
     /// <summary>
     /// Base implementation of writing calculation configurations to XML.

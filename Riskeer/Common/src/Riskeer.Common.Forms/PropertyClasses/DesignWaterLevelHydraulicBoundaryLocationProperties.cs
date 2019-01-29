@@ -29,7 +29,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel containing design water level calculations.

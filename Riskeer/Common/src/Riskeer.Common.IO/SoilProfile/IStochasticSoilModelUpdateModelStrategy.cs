@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new stochastic soil models

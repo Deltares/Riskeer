@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a design water level calculation.

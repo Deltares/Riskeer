@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Helpers;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="PipingSoilLayer"/> for properties panel.

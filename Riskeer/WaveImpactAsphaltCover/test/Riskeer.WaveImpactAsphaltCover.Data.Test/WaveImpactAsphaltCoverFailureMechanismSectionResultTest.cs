@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
+namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultTest

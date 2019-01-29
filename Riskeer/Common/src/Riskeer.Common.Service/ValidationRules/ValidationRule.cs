@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.Common.Service.ValidationRules
+namespace Riskeer.Common.Service.ValidationRules
 {
     /// <summary>
     /// Base implementation of a validation rule.

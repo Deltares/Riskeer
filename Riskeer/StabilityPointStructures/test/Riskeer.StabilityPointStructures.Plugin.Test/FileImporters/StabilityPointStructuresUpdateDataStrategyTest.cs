@@ -36,7 +36,7 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
 using Ringtoets.StabilityPointStructures.Util;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
+namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StabilityPointStructuresUpdateDataStrategyTest

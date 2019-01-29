@@ -40,7 +40,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.Revetment.Service
+namespace Riskeer.Revetment.Service
 {
     /// <summary>
     /// Base class for calculating wave conditions for failure mechanisms.

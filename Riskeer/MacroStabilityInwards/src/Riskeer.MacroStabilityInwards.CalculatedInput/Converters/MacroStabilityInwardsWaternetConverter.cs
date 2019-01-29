@@ -25,7 +25,7 @@ using System.Linq;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="WaternetCalculatorResult"/>

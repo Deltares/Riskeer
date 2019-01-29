@@ -29,7 +29,7 @@ using Core.Common.Util.Extensions;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms
+namespace Riskeer.Common.Forms
 {
     /// <summary>
     /// Base class for selection dialogs which should be derived in order to get a consistent look and feel.

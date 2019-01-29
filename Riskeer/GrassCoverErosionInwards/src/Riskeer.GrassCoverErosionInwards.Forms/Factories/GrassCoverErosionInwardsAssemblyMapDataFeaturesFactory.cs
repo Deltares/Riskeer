@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
+namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for assembly results in a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.

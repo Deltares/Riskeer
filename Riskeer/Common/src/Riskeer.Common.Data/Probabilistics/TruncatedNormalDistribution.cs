@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.Probabilistics
+namespace Riskeer.Common.Data.Probabilistics
 {
     /// <summary>
     /// Class representing a truncated normal distribution expressed in terms of standard

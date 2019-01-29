@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Base view for selecting and performing hydraulic boundary location calculations.

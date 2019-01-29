@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class HydraRingSettingsDatabaseHelperTest

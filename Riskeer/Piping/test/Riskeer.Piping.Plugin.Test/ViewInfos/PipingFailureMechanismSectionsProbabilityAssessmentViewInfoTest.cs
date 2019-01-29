@@ -35,7 +35,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.ViewInfos
+namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class PipingFailureMechanismSectionsProbabilityAssessmentViewInfoTest

@@ -31,7 +31,7 @@ using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Service
+namespace Riskeer.WaveImpactAsphaltCover.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring wave conditions calculations for the wave impact on asphalt failure mechanism.

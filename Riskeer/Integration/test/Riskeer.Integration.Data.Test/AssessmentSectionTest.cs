@@ -45,7 +45,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 
-namespace Ringtoets.Integration.Data.Test
+namespace Riskeer.Integration.Data.Test
 {
     [TestFixture]
     public class AssessmentSectionTest

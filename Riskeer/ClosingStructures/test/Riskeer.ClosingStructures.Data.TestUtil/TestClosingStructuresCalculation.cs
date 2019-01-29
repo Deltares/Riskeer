@@ -23,7 +23,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.ClosingStructures.Data.TestUtil
+namespace Riskeer.ClosingStructures.Data.TestUtil
 {
     /// <summary>
     /// Closing structures calculation used for testing purposes.

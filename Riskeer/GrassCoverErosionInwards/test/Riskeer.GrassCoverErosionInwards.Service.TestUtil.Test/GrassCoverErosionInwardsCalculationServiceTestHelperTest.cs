@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
+namespace Riskeer.GrassCoverErosionInwards.Service.TestUtil.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationServiceTestHelperTest

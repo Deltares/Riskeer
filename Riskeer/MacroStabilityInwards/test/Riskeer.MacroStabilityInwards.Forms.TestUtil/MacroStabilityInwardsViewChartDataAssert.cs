@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
+namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
 {
     /// <summary>
     /// Class for asserting chart data in the macro stability

@@ -40,7 +40,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilModelCollectionContextImportInfoTest : NUnitFormTest

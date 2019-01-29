@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineReplaceDataStrategyTest

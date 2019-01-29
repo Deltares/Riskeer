@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
+namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultTest

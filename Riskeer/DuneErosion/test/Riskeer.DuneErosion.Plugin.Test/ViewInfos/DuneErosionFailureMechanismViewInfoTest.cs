@@ -32,7 +32,7 @@ using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
+namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class DuneErosionFailureMechanismViewInfoTest

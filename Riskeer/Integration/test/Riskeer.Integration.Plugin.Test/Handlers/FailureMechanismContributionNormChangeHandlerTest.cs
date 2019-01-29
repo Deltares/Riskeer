@@ -38,7 +38,7 @@ using Ringtoets.Integration.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Handlers;
 
-namespace Ringtoets.Integration.Plugin.Test.Handlers
+namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
     public class FailureMechanismContributionNormChangeHandlerTest : NUnitFormTest

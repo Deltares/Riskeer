@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.KernelWrapper
+namespace Riskeer.Piping.KernelWrapper
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform a piping assessment.

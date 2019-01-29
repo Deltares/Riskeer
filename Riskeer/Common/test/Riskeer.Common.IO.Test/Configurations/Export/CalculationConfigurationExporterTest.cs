@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
 
-namespace Ringtoets.Common.IO.Test.Configurations.Export
+namespace Riskeer.Common.IO.Test.Configurations.Export
 {
     [TestFixture]
     public class CalculationConfigurationExporterTest

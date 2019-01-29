@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// A soil profile for which its properties have been adapted to perform a calculation.

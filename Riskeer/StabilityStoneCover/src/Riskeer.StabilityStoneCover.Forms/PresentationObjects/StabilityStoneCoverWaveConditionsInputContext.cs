@@ -28,7 +28,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for wave conditions input of the <see cref="StabilityStoneCoverFailureMechanism"/>.

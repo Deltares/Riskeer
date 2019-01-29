@@ -34,7 +34,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.UpdateInfos
+namespace Riskeer.DuneErosion.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class DuneErosionFailureMechanismSectionsContextUpdateInfoTest

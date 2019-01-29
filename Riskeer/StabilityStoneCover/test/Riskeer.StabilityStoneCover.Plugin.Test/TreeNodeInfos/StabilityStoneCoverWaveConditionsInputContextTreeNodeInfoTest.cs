@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsInputContextTreeNodeInfoTest

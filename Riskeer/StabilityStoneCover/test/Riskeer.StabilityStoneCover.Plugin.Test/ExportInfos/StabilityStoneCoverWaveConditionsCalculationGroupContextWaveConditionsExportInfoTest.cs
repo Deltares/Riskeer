@@ -34,7 +34,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest

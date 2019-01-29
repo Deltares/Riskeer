@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="PipingCalculationScenario"/> in the <see cref="PipingCalculationsView"/>.

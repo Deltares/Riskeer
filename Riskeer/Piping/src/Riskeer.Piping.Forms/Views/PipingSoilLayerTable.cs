@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Helpers;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// This class defines a table in which properties of <see cref="PipingSoilLayer"/> instances

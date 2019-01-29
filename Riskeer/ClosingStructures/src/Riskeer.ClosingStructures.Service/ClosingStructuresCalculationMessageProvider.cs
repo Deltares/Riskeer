@@ -22,7 +22,7 @@
 using Ringtoets.ClosingStructures.Service.Properties;
 using Ringtoets.Common.Service.MessageProviders;
 
-namespace Ringtoets.ClosingStructures.Service
+namespace Riskeer.ClosingStructures.Service
 {
     /// <summary>
     /// This class provides messages used during the closing structures calculation.

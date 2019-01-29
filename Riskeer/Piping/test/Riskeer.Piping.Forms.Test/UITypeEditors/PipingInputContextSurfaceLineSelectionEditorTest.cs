@@ -37,7 +37,7 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.UITypeEditors;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Test.UITypeEditors
+namespace Riskeer.Piping.Forms.Test.UITypeEditors
 {
     [TestFixture]
     public class PipingInputContextSurfaceLineSelectionEditorTest

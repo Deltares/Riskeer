@@ -28,7 +28,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
+namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="ChartData"/> based on information used as input

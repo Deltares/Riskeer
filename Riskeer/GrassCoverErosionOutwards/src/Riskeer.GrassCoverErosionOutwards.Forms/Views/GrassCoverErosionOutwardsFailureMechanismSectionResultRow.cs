@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
     /// Class for displaying <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> as a row in a grid view.

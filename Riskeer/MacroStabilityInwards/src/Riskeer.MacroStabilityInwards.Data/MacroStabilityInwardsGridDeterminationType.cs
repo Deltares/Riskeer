@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// The grid determination types.

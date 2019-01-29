@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
 {
     [TestFixture]
     public class MacroStabilityInwardsWaternetConverterTest

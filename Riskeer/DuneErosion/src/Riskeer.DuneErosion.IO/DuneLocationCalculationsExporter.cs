@@ -28,7 +28,7 @@ using Core.Common.Util;
 using log4net;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.IO
+namespace Riskeer.DuneErosion.IO
 {
     /// <summary>
     /// Exports dune location calculations and stores them as a bnd file.

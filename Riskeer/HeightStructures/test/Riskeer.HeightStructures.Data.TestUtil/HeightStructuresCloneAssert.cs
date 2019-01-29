@@ -23,7 +23,7 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil
+namespace Riskeer.HeightStructures.Data.TestUtil
 {
     /// <summary>
     /// Class that defines methods for asserting whether two objects are clones.

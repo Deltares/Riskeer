@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.Common.IO.Test.Configurations.Export
+namespace Riskeer.Common.IO.Test.Configurations.Export
 {
     [TestFixture]
     public class StructureCalculationConfigurationWriterTest

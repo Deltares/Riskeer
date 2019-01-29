@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
     public class SelectableHydraulicBoundaryLocationHelperTest

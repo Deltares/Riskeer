@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Forms.Observers
+namespace Riskeer.Common.Forms.Observers
 {
     /// <summary>
     /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/> related to

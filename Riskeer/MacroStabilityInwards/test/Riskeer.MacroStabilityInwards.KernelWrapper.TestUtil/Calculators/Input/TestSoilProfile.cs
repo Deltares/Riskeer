@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input
 {
     /// <summary>
     /// Simple soil profile that can be used in tests.

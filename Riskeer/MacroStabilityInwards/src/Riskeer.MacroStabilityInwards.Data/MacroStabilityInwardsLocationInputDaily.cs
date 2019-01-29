@@ -22,7 +22,7 @@
 using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// Class that holds all location input for daily conditions

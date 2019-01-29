@@ -26,7 +26,7 @@ using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for properties panel.

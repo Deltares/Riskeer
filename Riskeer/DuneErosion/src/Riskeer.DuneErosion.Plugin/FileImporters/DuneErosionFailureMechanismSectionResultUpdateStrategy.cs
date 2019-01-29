@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Plugin.FileImporters
+namespace Riskeer.DuneErosion.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="DuneErosionFailureMechanismSectionResult"/> instance with data

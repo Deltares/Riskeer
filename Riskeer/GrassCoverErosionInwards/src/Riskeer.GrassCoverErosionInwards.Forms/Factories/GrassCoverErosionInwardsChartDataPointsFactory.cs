@@ -26,7 +26,7 @@ using Core.Components.Chart.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
+namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="Point2D"/> to use in <see cref="ChartData"/>

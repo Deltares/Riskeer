@@ -1,4 +1,4 @@
-﻿namespace Ringtoets.Common.Forms.Views
+﻿namespace Riskeer.Common.Forms.Views
 {
     partial class PipingFailureMechanismResultView
     {

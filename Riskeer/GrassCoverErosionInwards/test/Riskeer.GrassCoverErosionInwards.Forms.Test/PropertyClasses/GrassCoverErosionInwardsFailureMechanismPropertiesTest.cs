@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismPropertiesTest

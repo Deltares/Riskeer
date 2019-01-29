@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Components.Chart.Forms;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
     /// This class is a view to show the macro stability inwards output.

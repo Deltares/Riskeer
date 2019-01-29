@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Factories
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="GraphNode"/>.

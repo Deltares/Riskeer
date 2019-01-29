@@ -25,7 +25,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Properties;
 
-namespace Ringtoets.Revetment.Forms.PropertyClasses
+namespace Riskeer.Revetment.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="GeneralWaveConditionsInput"/> for properties panel.

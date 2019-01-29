@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.Configurations
+namespace Riskeer.Common.IO.Configurations
 {
     /// <summary>
     /// Interface for configuration items that are read or written.

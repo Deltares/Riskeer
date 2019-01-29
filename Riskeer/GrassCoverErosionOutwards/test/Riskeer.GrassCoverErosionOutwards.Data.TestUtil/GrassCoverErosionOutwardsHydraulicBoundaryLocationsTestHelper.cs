@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
+namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
 {
     /// <summary>
     /// Test helper for dealing with hydraulic boundary locations and calculations in

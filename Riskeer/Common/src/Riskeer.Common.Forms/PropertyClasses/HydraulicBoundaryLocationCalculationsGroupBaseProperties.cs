@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// Base ViewModel of a collection of <see cref="HydraulicBoundaryLocation"/> with calculations per category boundary for properties panel.

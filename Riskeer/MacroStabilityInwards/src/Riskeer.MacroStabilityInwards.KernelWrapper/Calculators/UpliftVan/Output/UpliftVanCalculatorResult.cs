@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 {
     /// <summary>
     /// This class contains the results of an Uplift Van calculation.

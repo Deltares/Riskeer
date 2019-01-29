@@ -40,7 +40,7 @@ using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
 using Ringtoets.Integration.TestUtil;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
+namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsScenariosViewIntegrationTest

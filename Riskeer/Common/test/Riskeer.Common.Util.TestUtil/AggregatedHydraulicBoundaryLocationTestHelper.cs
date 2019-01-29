@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 
-namespace Ringtoets.Common.Util.TestUtil
+namespace Riskeer.Common.Util.TestUtil
 {
     /// <summary>
     /// Helper for creating <see cref="AggregatedHydraulicBoundaryLocation"/>

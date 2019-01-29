@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.SurfaceLines
+namespace Riskeer.Piping.IO.SurfaceLines
 {
     /// <summary>
     /// Transforms generic <see cref="SurfaceLine"/> into piping specific <see cref="PipingSurfaceLine"/>.

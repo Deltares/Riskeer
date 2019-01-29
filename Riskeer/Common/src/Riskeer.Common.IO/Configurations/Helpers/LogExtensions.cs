@@ -23,7 +23,7 @@ using System;
 using log4net;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for <see cref="ILog"/> for logging problems occurring during conversion

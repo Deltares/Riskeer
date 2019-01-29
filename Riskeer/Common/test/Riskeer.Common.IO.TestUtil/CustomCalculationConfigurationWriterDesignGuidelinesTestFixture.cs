@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     [TestFixture]
     public abstract class CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<TWriter, TConfiguration>

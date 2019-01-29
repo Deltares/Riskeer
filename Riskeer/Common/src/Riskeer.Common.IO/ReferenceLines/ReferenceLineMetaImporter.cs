@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Common.IO.ReferenceLines
+namespace Riskeer.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Imports a <see cref="ReferenceLineMeta"/> and stores in on a <see cref="IAssessmentSection"/>,

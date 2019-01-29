@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.HydraRing;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 
-namespace Ringtoets.Common.IO.Test.HydraRing
+namespace Riskeer.Common.IO.Test.HydraRing
 {
     [TestFixture]
     public class TimeIntegrationSettingsProviderTest

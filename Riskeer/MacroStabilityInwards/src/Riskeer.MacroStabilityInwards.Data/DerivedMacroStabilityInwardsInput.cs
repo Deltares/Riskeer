@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.CalculatedInput;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// Class responsible for calculating the derived macro stability inwards input.

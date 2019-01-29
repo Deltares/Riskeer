@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// This class is used to be able to assign calculations to failure mechanism section results without having

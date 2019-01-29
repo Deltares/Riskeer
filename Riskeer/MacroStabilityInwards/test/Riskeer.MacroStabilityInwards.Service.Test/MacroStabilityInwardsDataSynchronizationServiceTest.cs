@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Test
+namespace Riskeer.MacroStabilityInwards.Service.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsDataSynchronizationServiceTest

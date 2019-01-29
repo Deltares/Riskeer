@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// Wrapper class for progress notifications which can be used for testing.

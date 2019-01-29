@@ -25,7 +25,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Riskeer.ClosingStructures.Data
 {
     /// <summary>
     /// Definition of a closing structure for the <see cref="ClosingStructuresFailureMechanism"/>

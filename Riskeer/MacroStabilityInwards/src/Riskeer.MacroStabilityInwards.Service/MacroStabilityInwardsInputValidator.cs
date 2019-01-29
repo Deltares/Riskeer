@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Service
+namespace Riskeer.MacroStabilityInwards.Service
 {
     /// <summary>
     /// Validator for <see cref="MacroStabilityInwardsInput"/> for use in <see cref="MacroStabilityInwardsCalculationService"/>.

@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Riskeer.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsSemiProbabilisticDesignVariableFactoryTest

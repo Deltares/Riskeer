@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Interface that holds macro stability inwards calculation specific input parameters for

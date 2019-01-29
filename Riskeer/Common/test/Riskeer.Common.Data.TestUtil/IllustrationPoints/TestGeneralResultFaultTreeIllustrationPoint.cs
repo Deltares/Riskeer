@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
+namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// A simple general result with top level fault tree illustration point that

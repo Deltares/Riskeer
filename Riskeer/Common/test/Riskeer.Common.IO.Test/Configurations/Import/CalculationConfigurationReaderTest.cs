@@ -32,7 +32,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Import;
 
-namespace Ringtoets.Common.IO.Test.Configurations.Import
+namespace Riskeer.Common.IO.Test.Configurations.Import
 {
     [TestFixture]
     public class CalculationConfigurationReaderTest

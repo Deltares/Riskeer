@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Test.ImportInfos
+namespace Riskeer.Common.Forms.Test.ImportInfos
 {
     [TestFixture]
     public class RingtoetsImportInfoFactoryTest

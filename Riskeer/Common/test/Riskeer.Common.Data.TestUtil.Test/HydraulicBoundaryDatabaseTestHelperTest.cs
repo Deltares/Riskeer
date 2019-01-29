@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Data.TestUtil.Test
+namespace Riskeer.Common.Data.TestUtil.Test
 {
     [TestFixture]
     public class HydraulicBoundaryDatabaseTestHelperTest

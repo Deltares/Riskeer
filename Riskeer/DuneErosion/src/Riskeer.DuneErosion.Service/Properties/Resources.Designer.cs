@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.DuneErosion.Service.Properties {
+namespace Riskeer.DuneErosion.Service.Properties {
     using System;
     
     

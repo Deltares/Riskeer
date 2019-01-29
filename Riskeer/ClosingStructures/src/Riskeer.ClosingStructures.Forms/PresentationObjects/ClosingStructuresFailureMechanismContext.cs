@@ -24,7 +24,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for an instance of <see cref="ClosingStructuresFailureMechanism"/>.

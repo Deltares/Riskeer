@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Riskeer.Revetment.Data.Test
 {
     [TestFixture]
     public class WaveConditionsInputStepSizeTest : EnumWithResourcesDisplayNameTestFixture<WaveConditionsInputStepSize>

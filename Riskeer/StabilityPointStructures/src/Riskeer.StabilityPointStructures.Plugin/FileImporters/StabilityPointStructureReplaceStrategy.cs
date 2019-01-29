@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Service;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
+namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> 

@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains

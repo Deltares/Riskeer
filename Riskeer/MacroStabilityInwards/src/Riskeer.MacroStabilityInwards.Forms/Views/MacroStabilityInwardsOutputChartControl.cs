@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
     /// Control to show macro stability inwards output data in a chart view.

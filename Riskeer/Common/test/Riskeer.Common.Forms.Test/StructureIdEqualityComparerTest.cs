@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test
+namespace Riskeer.Common.Forms.Test
 {
     [TestFixture]
     public class StructureIdEqualityComparerTest

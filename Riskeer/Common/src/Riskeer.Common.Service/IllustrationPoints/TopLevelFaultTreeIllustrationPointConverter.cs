@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingWindDirectionClosingSituation = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraRingIllustrationPointTreeNode = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 
-namespace Ringtoets.Common.Service.IllustrationPoints
+namespace Riskeer.Common.Service.IllustrationPoints
 {
     /// <summary>
     /// Converter for <see cref="HydraRingWindDirectionClosingSituation"/> and 

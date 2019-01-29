@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations
+namespace Riskeer.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class WaveConditionsCalculationConfigurationSchemaIdentifiersTest

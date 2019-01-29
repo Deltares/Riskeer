@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.TestUtil
+namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Helper class for creating different instances of <see cref="PipingCalculationScenario"/>

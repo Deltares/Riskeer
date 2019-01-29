@@ -29,7 +29,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismContextPropertyInfoTest

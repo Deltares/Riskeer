@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.Test.SoilProfile.Schema
+namespace Riskeer.Common.IO.Test.SoilProfile.Schema
 {
     [TestFixture]
     public class SoilProfileTableDefinitionsTest

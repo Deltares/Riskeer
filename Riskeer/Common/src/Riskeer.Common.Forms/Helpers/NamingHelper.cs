@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// Helper class for generating unique names.

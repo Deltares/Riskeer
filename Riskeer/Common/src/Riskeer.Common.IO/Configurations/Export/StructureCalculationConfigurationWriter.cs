@@ -22,7 +22,7 @@
 using System;
 using System.Xml;
 
-namespace Ringtoets.Common.IO.Configurations.Export
+namespace Riskeer.Common.IO.Configurations.Export
 {
     /// <summary>
     /// Writer for writing <see cref="StructuresCalculationConfiguration"/> in XML format to file.

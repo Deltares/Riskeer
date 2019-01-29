@@ -25,7 +25,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Exports a grass cover erosion outwards wave conditions calculation configuration and stores it as an XML file.

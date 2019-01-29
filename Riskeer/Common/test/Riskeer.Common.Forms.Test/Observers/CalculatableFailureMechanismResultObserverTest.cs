@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Observers;
 using Ringtoets.Common.Forms.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test.Observers
+namespace Riskeer.Common.Forms.Test.Observers
 {
     [TestFixture]
     public class CalculatableFailureMechanismResultObserverTest

@@ -21,7 +21,7 @@
 
 using Core.Common.Controls;
 
-namespace Ringtoets.Common.Forms.Controls
+namespace Riskeer.Common.Forms.Controls
 {
     partial class AssemblyResultWithProbabilityControl
     {

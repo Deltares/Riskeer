@@ -21,7 +21,7 @@
 
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// This class allows for retrieving the created sub calculators, so that

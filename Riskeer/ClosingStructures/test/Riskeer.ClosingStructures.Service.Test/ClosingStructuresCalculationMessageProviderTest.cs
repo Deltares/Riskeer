@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Service.MessageProviders;
 
-namespace Ringtoets.ClosingStructures.Service.Test
+namespace Riskeer.ClosingStructures.Service.Test
 {
     [TestFixture]
     public class ClosingStructuresCalculationMessageProviderTest

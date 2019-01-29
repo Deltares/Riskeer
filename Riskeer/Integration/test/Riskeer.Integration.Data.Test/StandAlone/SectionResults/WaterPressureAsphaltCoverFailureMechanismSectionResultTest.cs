@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
+namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
 {
     [TestFixture]
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultTest

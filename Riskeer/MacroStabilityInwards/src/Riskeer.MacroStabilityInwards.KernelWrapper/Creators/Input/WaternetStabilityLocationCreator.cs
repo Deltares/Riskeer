@@ -25,7 +25,7 @@ using Deltares.WTIStability;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Creates <see cref="StabilityLocation"/> instances which are required by <see cref="IWaternetKernel"/>.

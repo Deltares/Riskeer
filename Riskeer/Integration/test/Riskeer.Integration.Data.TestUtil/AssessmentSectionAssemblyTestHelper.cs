@@ -43,7 +43,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.TestUtil
+namespace Riskeer.Integration.Data.TestUtil
 {
     /// <summary>
     /// Helper which creates configurations of <see cref="AssessmentSection"/>

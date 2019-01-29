@@ -25,7 +25,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
     /// Factory for creating valid configurations for the <see cref="SurfaceLinesCsvImporter{T}"/>.

@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="FailureMechanismSection"/>.

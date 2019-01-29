@@ -32,7 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Riskeer.ClosingStructures.Data
 {
     /// <summary>
     /// Factory for assembling assembly results for a closing structures failure mechanism.

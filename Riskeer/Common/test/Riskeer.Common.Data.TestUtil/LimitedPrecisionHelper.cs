@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Helper class for dealing with classes that have inherently limited precision.

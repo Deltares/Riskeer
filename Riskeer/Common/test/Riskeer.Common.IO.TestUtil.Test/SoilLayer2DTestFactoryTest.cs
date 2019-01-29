@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
-namespace Ringtoets.Common.IO.TestUtil.Test
+namespace Riskeer.Common.IO.TestUtil.Test
 {
     [TestFixture]
     public class SoilLayer2DTestFactoryTest

@@ -31,7 +31,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Plugin.Handlers;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
+namespace Riskeer.DuneErosion.Plugin.Test.Handlers
 {
     [TestFixture]
     public class DuneLocationsReplacementHandlerTest

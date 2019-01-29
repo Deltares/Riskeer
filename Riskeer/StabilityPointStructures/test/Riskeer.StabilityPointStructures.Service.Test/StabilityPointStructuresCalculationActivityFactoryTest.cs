@@ -41,7 +41,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.StabilityPointStructures.Service.Test
+namespace Riskeer.StabilityPointStructures.Service.Test
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationActivityFactoryTest

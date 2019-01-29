@@ -30,7 +30,7 @@ using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.KernelWrapper.Test
+namespace Riskeer.Piping.KernelWrapper.Test
 {
     [TestFixture]
     public class PipingCalculatorTest

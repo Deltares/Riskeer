@@ -33,7 +33,7 @@ using Core.Common.Util.Builders;
 using Ringtoets.Common.IO.Properties;
 using UtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.SurfaceLines
+namespace Riskeer.Common.IO.SurfaceLines
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing

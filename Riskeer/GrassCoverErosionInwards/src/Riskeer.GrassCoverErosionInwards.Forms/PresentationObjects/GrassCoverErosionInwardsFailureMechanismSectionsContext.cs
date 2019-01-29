@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for <see cref="GrassCoverErosionInwardsFailureMechanism.Sections"/>.

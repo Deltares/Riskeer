@@ -40,7 +40,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.ImportInfos
+namespace Riskeer.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class PipingStochasticSoilModelCollectionContextImportInfoTest : NUnitFormTest

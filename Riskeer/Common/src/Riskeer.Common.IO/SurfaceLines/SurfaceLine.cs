@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.SurfaceLines
+namespace Riskeer.Common.IO.SurfaceLines
 {
     /// <summary>
     /// Definition of the surface line, which is the top level geometry of a dike.

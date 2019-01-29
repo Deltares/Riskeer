@@ -33,7 +33,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Util;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.IO.Configurations
+namespace Riskeer.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Class for importing a configuration of <see cref="HeightStructuresCalculationConfiguration"/> 

@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismTest

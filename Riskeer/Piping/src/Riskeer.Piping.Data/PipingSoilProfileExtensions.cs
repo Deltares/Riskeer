@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Defines extension methods dealing with <see cref="PipingSoilProfile"/> instances.

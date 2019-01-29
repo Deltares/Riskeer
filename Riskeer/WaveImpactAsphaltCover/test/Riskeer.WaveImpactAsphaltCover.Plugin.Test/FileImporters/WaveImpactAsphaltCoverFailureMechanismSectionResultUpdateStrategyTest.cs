@@ -27,7 +27,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Plugin.FileImporters;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.FileImporters
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

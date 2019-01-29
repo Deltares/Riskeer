@@ -29,7 +29,7 @@ using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms
+namespace Riskeer.Piping.Forms
 {
     /// <summary>
     /// A dialog which allows the user to make a selection from a given set of <see cref="PipingSurfaceLine"/>. Upon

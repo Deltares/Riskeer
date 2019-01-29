@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     partial class MacroStabilityInwardsScenariosView
     {

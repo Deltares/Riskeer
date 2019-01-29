@@ -26,7 +26,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.PresentationObjects
+namespace Riskeer.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="HeightStructure"/>.

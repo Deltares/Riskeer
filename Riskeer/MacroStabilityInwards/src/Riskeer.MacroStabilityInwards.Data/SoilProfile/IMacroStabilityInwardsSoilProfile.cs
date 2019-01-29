@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// Interface for the different types of soil profile that can be used in macro stability inwards.

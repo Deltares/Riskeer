@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.Probability
+namespace Riskeer.Common.Data.Test.Probability
 {
     [TestFixture]
     public class ProbabilityAssessmentOutputFactoryTest

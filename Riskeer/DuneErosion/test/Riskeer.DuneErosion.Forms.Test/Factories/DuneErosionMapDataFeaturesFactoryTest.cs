@@ -29,7 +29,7 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.Factories;
 using Ringtoets.DuneErosion.Forms.TestUtil;
 
-namespace Ringtoets.DuneErosion.Forms.Test.Factories
+namespace Riskeer.DuneErosion.Forms.Test.Factories
 {
     [TestFixture]
     public class DuneErosionMapDataFeaturesFactoryTest

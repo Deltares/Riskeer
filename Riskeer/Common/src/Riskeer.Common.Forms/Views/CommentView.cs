@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a simple view with a rich text editor, to which data can be added.

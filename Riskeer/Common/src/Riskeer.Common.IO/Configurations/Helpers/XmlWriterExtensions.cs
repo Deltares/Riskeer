@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Xml;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for an <see cref="XmlWriter"/>, for writing generic data components in XML format

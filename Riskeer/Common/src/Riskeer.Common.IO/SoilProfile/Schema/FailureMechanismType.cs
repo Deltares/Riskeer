@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.SoilProfile.Schema
+namespace Riskeer.Common.IO.SoilProfile.Schema
 {
     /// <summary>
     /// Defines the various failure mechanism types in the D-Soil Model database.

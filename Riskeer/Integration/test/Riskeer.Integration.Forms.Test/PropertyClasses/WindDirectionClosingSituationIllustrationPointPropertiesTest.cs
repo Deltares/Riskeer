@@ -30,7 +30,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 using System;
 using System.Linq;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class WindDirectionClosingSituationIllustrationPointPropertiesTest

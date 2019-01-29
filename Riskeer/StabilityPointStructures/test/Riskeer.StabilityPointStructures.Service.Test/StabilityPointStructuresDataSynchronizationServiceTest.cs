@@ -33,7 +33,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Ringtoets.StabilityPointStructures.Service.Test
+namespace Riskeer.StabilityPointStructures.Service.Test
 {
     [TestFixture]
     public class StabilityPointStructuresDataSynchronizationServiceTest

@@ -23,7 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Deltares.WTIStability.Data.Geo;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
     /// This class compares the coordinates of the <see cref="Point2D"/>

@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
     public class GeneralGrassCoverErosionInwardsInputTest

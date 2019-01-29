@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Service.Properties;
 
-namespace Ringtoets.Common.Service.ValidationRules
+namespace Riskeer.Common.Service.ValidationRules
 {
     /// <summary>
     /// Validation rule to validate a <see cref="VariationCoefficientLogNormalDistribution"/>.

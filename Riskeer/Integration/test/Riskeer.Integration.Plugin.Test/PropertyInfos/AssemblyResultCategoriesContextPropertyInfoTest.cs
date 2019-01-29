@@ -33,7 +33,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin;
 
-namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
+namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class AssemblyResultCategoriesContextPropertyInfoTest

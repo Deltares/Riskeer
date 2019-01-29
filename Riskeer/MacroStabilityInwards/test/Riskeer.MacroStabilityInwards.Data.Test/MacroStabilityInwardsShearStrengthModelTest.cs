@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsShearStrengthModelTest : EnumWithResourcesDisplayNameTestFixture<MacroStabilityInwardsShearStrengthModel>

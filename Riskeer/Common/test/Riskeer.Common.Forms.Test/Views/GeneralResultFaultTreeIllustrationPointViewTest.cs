@@ -40,7 +40,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Test.Views
+namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]

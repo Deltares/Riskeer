@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class couples a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> 

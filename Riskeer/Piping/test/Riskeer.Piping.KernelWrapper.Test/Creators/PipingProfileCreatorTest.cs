@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.Creators;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.KernelWrapper.Test.Creators
+namespace Riskeer.Piping.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class PipingProfileCreatorTest

@@ -59,7 +59,7 @@ using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin
+namespace Riskeer.WaveImpactAsphaltCover.Plugin
 {
     /// <summary>
     /// The plug-in for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.

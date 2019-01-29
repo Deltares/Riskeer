@@ -42,7 +42,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using HydraRingGeneralResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
-namespace Ringtoets.Common.Service.Structures
+namespace Riskeer.Common.Service.Structures
 {
     /// <summary>
     /// Service that provides generic logic for performing Hydra-Ring calculations for structures.

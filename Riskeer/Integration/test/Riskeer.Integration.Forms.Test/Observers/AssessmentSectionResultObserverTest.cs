@@ -47,7 +47,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.Observers;
 
-namespace Ringtoets.Integration.Forms.Test.Observers
+namespace Riskeer.Integration.Forms.Test.Observers
 {
     [TestFixture]
     public class AssessmentSectionResultObserverTest

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class HydraRingCalculationSettingsFactoryTest

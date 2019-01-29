@@ -34,7 +34,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest

@@ -28,7 +28,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Service;
 
-namespace Ringtoets.DuneErosion.Plugin.Handlers
+namespace Riskeer.DuneErosion.Plugin.Handlers
 {
     /// <summary>
     /// Class responsible for replacing dune locations of a <see cref="DuneErosionFailureMechanism"/>.

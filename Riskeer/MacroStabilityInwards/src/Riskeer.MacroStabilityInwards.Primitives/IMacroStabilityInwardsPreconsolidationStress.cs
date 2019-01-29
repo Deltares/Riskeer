@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Interface that represents a preconsolidation stress definition that was imported

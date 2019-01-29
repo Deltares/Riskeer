@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Factories;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
 {
     [TestFixture]
     public class GrassCoverErosionInwardsChartDataFactoryTest

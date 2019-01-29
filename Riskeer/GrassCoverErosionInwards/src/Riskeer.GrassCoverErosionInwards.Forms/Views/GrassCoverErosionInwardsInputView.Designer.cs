@@ -21,7 +21,7 @@
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     partial class GrassCoverErosionInwardsInputView
     {

@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
+namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismExtensionsTest

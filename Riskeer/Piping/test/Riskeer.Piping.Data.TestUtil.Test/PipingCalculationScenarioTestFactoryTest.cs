@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Service;
 
-namespace Ringtoets.Piping.Data.TestUtil.Test
+namespace Riskeer.Piping.Data.TestUtil.Test
 {
     [TestFixture]
     public class PipingCalculationScenarioTestFactoryTest

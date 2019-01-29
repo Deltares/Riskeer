@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Probabilistics
+namespace Riskeer.Common.Data.Probabilistics
 {
     /// <summary>
     /// Class representing a log-normal distribution expressed in terms of a coefficient

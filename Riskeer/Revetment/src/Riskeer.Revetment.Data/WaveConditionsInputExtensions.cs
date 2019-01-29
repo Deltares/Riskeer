@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// Extension methods for <see cref="WaveConditionsInput"/>.

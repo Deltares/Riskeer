@@ -23,7 +23,7 @@ using System;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// Factory class to create <see cref="DerivedMacroStabilityInwardsOutput"/>.

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.IllustrationPoints
+namespace Riskeer.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// A base class for combinations of wind direction, closing situations 

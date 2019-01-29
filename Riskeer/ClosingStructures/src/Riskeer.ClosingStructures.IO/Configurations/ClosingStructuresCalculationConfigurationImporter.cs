@@ -34,7 +34,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.IO.Configurations
+namespace Riskeer.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Class for importing a configuration of <see cref="ClosingStructuresCalculationConfiguration"/> 

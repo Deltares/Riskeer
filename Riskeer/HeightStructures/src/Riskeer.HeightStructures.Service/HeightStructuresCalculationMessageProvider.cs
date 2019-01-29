@@ -22,7 +22,7 @@
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HeightStructures.Service.Properties;
 
-namespace Ringtoets.HeightStructures.Service
+namespace Riskeer.HeightStructures.Service
 {
     /// <summary>
     /// This class provides messages used during the height structures calculation.

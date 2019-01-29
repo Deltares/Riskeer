@@ -28,7 +28,7 @@ using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Common.IO.ReferenceLines
+namespace Riskeer.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Imports a <see cref="ReferenceLine"/> taking data from a shapefile containing a single polyline.

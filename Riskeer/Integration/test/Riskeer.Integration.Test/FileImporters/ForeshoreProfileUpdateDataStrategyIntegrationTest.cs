@@ -44,7 +44,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Plugin.FileImporters;
 
-namespace Ringtoets.Integration.Test.FileImporters
+namespace Riskeer.Integration.Test.FileImporters
 {
     [TestFixture]
     public class ForeshoreProfileUpdateDataStrategyIntegrationTest

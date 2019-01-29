@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
 {
     [TestFixture]
     public class WaternetCalculationServiceTest

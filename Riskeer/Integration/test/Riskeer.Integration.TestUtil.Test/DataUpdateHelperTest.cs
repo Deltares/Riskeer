@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.TestUtil.Test
+namespace Riskeer.Integration.TestUtil.Test
 {
     [TestFixture]
     public class DataUpdateHelperTest

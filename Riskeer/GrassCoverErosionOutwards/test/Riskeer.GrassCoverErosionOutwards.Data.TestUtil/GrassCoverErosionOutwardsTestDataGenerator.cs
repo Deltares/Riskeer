@@ -21,7 +21,7 @@
 
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
+namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

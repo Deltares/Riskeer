@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     partial class MacroStabilityInwardsOutputView
     {

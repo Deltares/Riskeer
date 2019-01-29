@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProviderTest

@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
     public class PipingCalculationScenarioExtensionsTest

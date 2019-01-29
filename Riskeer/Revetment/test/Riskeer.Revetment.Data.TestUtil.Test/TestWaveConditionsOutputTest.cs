@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Revetment.Data.TestUtil.Test
+namespace Riskeer.Revetment.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestWaveConditionsOutputTest

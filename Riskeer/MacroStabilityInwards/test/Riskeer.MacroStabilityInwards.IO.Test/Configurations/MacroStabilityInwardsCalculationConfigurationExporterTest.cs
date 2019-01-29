@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
+namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationExporterTest

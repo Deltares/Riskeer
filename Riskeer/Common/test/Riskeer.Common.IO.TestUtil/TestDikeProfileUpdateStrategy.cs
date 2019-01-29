@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// Implementation of a <see cref="IDikeProfileUpdateDataStrategy"/>

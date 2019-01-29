@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// The keywords as used in structure files.

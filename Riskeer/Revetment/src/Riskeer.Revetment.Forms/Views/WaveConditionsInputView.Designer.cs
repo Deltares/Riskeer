@@ -21,7 +21,7 @@
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Revetment.Forms.Views
+namespace Riskeer.Revetment.Forms.Views
 {
     partial class WaveConditionsInputView
     {

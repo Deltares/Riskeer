@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsGridTestFactoryTest

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 
-namespace Ringtoets.Integration.Data.Test.Merge
+namespace Riskeer.Integration.Data.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionMergeDataTest

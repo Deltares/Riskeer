@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.TypeConverters
+namespace Riskeer.Common.Forms.TypeConverters
 {
     /// <summary>
     /// This class is a more specialized implementation of <see cref="RoundedDoubleConverter"/>

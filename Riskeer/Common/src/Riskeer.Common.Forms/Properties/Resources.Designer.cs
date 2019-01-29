@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Common.Forms.Properties {
+namespace Riskeer.Common.Forms.Properties {
     using System;
     
     

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="T"/> that can be selected.

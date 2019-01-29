@@ -37,7 +37,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewInfoTest

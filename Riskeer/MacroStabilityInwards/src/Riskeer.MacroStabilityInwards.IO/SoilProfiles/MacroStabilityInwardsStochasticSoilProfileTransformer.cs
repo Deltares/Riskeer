@@ -25,7 +25,7 @@ using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
+namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 {
     /// <summary>
     /// Transforms generic <see cref="StochasticSoilProfile"/> into

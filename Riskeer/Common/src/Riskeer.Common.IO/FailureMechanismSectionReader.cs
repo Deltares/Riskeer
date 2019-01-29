@@ -33,7 +33,7 @@ using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.FailureMechanism;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Common.IO
+namespace Riskeer.Common.IO
 {
     /// <summary>
     /// Reads <see cref="FailureMechanismSection"/> instances from a shapefile containing

@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Converts <see cref="ConfigurationBreakWaterType"/> to <see cref="string"/> or <see cref="BreakWaterType"/>

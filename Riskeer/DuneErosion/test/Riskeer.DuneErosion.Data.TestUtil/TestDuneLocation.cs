@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.DuneErosion.Data.TestUtil
+namespace Riskeer.DuneErosion.Data.TestUtil
 {
     /// <summary>
     /// Class that creates simple instances of <see cref="DuneLocation"/>, which

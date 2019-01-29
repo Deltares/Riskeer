@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Plugin;
 
-namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
+namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class StandAloneFailureMechanismPropertyInfoTest

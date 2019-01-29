@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {
     /// <summary>
     /// Exports grass cover erosion outwards hydraulic boundary locations and stores them as a shapefile.

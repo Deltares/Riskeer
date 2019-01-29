@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// Factory that creates valid <see cref="MacroStabilityInwardsStochasticSoilModel"/> which 

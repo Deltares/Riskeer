@@ -21,7 +21,7 @@
 
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
     /// Factory for creating results of a failure mechanism assembly.

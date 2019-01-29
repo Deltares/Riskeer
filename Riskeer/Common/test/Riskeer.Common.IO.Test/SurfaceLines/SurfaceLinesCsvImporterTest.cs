@@ -39,7 +39,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SurfaceLines;
 
-namespace Ringtoets.Common.IO.Test.SurfaceLines
+namespace Riskeer.Common.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class SurfaceLinesCsvImporterTest

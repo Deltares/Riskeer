@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Class that represents a top level sub mechanism illustration point together 

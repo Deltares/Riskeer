@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Riskeer.ClosingStructures.Data
 {
     /// <summary>
     /// The general input parameters that apply to each closing structures calculation.

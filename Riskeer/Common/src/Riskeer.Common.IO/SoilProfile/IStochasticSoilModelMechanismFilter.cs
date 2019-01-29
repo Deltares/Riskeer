@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Interface to define whether a <see cref="StochasticSoilModel"/> is valid for the calling 

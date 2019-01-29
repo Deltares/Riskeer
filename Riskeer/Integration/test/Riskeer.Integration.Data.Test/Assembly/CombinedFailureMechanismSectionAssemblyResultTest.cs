@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.Assembly;
 
-namespace Ringtoets.Integration.Data.Test.Assembly
+namespace Riskeer.Integration.Data.Test.Assembly
 {
     [TestFixture]
     public class CombinedFailureMechanismSectionAssemblyResultTest

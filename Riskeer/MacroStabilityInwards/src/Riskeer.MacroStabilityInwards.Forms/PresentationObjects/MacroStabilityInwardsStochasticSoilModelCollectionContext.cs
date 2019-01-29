@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// The presentation object for <see cref="MacroStabilityInwardsFailureMechanism.StochasticSoilModels"/>.

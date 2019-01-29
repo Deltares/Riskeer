@@ -27,7 +27,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This class is the base implementation for a failure mechanism. Classes which want

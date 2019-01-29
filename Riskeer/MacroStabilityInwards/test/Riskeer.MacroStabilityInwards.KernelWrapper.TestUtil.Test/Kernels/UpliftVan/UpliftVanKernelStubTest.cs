@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan
 {
     [TestFixture]
     public class UpliftVanKernelStubTest

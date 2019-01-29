@@ -26,7 +26,7 @@ using Core.Common.IO.Exceptions;
 using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.IO.Exporters
+namespace Riskeer.StabilityStoneCover.IO.Exporters
 {
     /// <summary>
     /// Exports stability stone cover wave conditions and stores then as a csv file.

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Piping.KernelWrapper
+namespace Riskeer.Piping.KernelWrapper
 {
     /// <summary>
     /// This class contains all the results of a complete piping calculation.

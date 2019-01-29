@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.DikeProfiles
+namespace Riskeer.Common.Data.DikeProfiles
 {
     /// <summary>
     /// Container for break water related data.

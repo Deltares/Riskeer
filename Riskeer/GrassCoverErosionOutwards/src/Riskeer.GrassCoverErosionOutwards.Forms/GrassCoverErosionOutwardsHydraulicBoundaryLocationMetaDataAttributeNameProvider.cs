@@ -22,7 +22,7 @@
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms
+namespace Riskeer.GrassCoverErosionOutwards.Forms
 {
     /// <summary>
     /// Class for providing meta data attribute names of hydraulic boundary locations.

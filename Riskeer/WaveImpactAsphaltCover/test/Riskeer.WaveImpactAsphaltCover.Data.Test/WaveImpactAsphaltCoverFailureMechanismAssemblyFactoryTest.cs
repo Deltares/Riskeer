@@ -34,7 +34,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
+namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryTest

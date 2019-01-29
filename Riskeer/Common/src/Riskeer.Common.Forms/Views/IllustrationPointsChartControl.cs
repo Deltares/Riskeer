@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Core.Components.Stack.Data;
 using Ringtoets.Common.Forms.Factories;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Control to show illustration points in a chart view.

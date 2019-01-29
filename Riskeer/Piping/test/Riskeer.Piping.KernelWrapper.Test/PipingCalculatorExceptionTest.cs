@@ -23,7 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.Piping.KernelWrapper.Test
+namespace Riskeer.Piping.KernelWrapper.Test
 {
     [TestFixture]
     public class PipingCalculatorExceptionTest :

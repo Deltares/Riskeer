@@ -37,7 +37,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test.Configurations
+namespace Riskeer.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationImporterTest

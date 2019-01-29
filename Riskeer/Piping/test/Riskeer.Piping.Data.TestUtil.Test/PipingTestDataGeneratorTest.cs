@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Piping.Data.TestUtil.Test
+namespace Riskeer.Piping.Data.TestUtil.Test
 {
     [TestFixture]
     public class PipingTestDataGeneratorTest

@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Riskeer.Common.Data.AssessmentSection
 {
     /// <summary>
     /// Extension methods for <see cref="IAssessmentSection"/>.

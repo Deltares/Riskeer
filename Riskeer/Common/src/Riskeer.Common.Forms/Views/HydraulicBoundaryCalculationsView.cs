@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Base view for <see cref="HydraulicBoundaryLocationCalculation"/> views which should be derived in

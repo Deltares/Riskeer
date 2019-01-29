@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Configuration of the used components in <see cref="StochasticSoilModelImporterConfiguration{T}"/>.

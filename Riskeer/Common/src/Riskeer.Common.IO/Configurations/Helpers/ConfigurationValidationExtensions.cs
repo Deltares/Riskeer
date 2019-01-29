@@ -25,7 +25,7 @@ using log4net;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Helper methods for validation of configuration elements.

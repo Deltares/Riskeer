@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
+namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
     public class GeneralGrassCoverErosionOutwardsInputTest

@@ -31,7 +31,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
+namespace Riskeer.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class PipingInputContextPropertyInfoTest

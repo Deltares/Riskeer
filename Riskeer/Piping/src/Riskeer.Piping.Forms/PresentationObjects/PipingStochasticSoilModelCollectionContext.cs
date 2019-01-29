@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 
-namespace Ringtoets.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.StochasticSoilModels"/>.

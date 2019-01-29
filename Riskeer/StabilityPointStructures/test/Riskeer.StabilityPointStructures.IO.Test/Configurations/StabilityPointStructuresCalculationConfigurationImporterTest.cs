@@ -37,7 +37,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationImporterTest

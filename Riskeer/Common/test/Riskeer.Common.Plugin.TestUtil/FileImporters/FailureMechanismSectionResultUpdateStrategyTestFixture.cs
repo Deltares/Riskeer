@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.Common.Plugin.TestUtil.FileImporters
+namespace Riskeer.Common.Plugin.TestUtil.FileImporters
 {
     /// <summary>
     /// Test fixture class for testing the behavior of an <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/>.

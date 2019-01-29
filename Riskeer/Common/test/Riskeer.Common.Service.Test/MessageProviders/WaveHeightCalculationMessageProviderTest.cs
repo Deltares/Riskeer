@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Service.MessageProviders;
 
-namespace Ringtoets.Common.Service.Test.MessageProviders
+namespace Riskeer.Common.Service.Test.MessageProviders
 {
     [TestFixture]
     public class WaveHeightCalculationMessageProviderTest

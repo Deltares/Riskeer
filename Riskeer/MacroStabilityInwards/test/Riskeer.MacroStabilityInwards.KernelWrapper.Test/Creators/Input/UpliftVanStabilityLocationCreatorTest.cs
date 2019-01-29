@@ -35,7 +35,7 @@ using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calcu
 using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
 using WtiStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
     public class UpliftVanStabilityLocationCreatorTest

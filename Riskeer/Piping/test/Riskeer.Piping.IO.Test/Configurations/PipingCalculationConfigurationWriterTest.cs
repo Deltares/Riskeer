@@ -26,7 +26,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
 
-namespace Ringtoets.Piping.IO.Test.Configurations
+namespace Riskeer.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationWriterTest

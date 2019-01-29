@@ -52,7 +52,7 @@ using Riskeer.Integration.Plugin.Handlers;
 using PipingSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 
-namespace Ringtoets.Integration.TestUtil
+namespace Riskeer.Integration.TestUtil
 {
     /// <summary>
     /// Helper methods related to importing data for integration tests.

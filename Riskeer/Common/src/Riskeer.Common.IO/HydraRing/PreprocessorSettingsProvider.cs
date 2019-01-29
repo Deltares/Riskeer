@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 
-namespace Ringtoets.Common.IO.HydraRing
+namespace Riskeer.Common.IO.HydraRing
 {
     /// <summary>
     /// Provider of <see cref="PreprocessorSetting"/> by reading from the settings database or by resorting

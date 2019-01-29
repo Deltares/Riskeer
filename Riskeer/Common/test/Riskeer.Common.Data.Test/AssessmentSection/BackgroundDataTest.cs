@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.AssessmentSection
+namespace Riskeer.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
     public class BackgroundDataTest

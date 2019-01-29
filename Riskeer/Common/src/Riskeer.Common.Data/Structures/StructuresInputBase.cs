@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Structures
+namespace Riskeer.Common.Data.Structures
 {
     /// <summary>
     /// Base class that holds generic structures calculation input parameters.

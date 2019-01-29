@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 {
     /// <summary>
     /// Defines the various types of hydraulic loads calculations in a read calculation configuration.

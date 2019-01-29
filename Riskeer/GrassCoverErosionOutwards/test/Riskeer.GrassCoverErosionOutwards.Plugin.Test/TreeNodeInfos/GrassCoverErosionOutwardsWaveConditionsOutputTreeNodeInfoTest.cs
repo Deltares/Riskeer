@@ -31,7 +31,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest

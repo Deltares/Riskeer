@@ -26,7 +26,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
     /// Factory for calculating the assembly tool categories.

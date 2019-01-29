@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for an <see cref="IllustrationPointBase"/>.

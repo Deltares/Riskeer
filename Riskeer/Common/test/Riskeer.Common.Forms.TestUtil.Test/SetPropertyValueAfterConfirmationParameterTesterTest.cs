@@ -26,7 +26,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.TestUtil.Test
+namespace Riskeer.Common.Forms.TestUtil.Test
 {
     [TestFixture]
     public class SetPropertyValueAfterConfirmationParameterTesterTest

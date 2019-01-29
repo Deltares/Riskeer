@@ -24,7 +24,7 @@ using Core.Common.Base.Service;
 using Ringtoets.Common.Data.Calculation;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// Base implementation of an <see cref="Activity"/> for running calculations

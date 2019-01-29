@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.DuneErosion.Data
+namespace Riskeer.DuneErosion.Data
 {
     /// <summary>
     /// Adapter class for a dune location calculation.

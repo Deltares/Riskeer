@@ -28,7 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// This class contains validations methods for <see cref="StructuresParameterRow"/> objects.

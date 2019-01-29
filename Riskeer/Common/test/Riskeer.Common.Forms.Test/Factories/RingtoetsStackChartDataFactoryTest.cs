@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Test.Factories
+namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
     public class RingtoetsStackChartDataFactoryTest

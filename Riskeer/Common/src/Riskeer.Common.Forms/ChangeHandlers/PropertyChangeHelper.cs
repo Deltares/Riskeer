@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.ChangeHandlers
+namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
     /// This helper can be used to easily notify observers of all objects that were affected by a value change of a property.

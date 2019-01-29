@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Util;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
     /// View for configuring scenarios for the grass cover erosion inwards failure mechanism.

@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil
+namespace Riskeer.HeightStructures.Data.TestUtil
 {
     /// <summary>
     /// <see cref="HeightStructure"/> for testing purposes.

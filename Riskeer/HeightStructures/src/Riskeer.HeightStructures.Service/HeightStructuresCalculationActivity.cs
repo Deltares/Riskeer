@@ -27,7 +27,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Service
+namespace Riskeer.HeightStructures.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a height structures calculation.

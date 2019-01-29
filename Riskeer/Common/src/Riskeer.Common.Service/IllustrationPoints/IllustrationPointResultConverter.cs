@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingIllustrationPointResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
 
-namespace Ringtoets.Common.Service.IllustrationPoints
+namespace Riskeer.Common.Service.IllustrationPoints
 {
     /// <summary>
     /// The converter that converts <see cref="HydraRingIllustrationPointResult"/> data into 

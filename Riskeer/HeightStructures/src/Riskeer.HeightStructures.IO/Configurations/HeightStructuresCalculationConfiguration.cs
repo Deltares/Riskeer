@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Configurations
+namespace Riskeer.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Configuration of a height structure calculation.

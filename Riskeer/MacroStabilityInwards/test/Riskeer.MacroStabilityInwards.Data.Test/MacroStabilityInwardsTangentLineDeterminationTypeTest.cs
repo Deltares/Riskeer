@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsTangentLineDeterminationTypeTest : EnumWithResourcesDisplayNameTestFixture<MacroStabilityInwardsTangentLineDeterminationType>

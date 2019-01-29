@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.Output
 {
     [TestFixture]
     public class WaternetCalculatorResultTest

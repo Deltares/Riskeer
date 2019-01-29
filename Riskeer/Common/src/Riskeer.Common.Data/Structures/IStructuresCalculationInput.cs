@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.Structures
+namespace Riskeer.Common.Data.Structures
 {
     /// <summary>
     /// Interface describing an object that is the input to a structures calculation.

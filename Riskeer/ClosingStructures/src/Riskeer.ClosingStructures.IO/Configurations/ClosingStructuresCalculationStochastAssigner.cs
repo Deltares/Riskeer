@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.IO.Configurations
+namespace Riskeer.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Validates and assigns stochast configurations to a Closing structure calculation input.

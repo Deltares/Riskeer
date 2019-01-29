@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations
+namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// Class that represents a configuration of a macro stability inwards calculation scenario.

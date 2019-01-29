@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Forms.PropertyClasses
+namespace Riskeer.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.

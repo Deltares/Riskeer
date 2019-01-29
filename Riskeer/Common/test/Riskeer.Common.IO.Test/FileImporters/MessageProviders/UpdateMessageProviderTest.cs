@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 
-namespace Ringtoets.Common.IO.Test.FileImporters.MessageProviders
+namespace Riskeer.Common.IO.Test.FileImporters.MessageProviders
 {
     [TestFixture]
     public class UpdateMessageProviderTest

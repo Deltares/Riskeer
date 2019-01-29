@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Contribution;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Factory to create simple <see cref="FailureMechanismContribution"/> instances that can be used

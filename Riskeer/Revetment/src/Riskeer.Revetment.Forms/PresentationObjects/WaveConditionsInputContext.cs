@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.Forms.PresentationObjects
+namespace Riskeer.Revetment.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for wave conditions input.

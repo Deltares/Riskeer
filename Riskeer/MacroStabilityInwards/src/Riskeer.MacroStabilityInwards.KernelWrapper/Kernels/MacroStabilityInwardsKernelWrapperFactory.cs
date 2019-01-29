@@ -22,7 +22,7 @@
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels
 {
     /// <summary>
     /// Factory that creates kernels that wrap the WTI macro stability inwards kernel.

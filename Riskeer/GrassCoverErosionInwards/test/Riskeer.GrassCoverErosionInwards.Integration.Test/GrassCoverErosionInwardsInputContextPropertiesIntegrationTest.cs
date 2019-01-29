@@ -33,7 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
+namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextPropertiesIntegrationTest

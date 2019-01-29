@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object representing all required macro stability inwards knowledge to configure and create

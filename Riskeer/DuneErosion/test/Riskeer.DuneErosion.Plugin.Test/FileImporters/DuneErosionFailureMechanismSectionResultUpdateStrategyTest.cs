@@ -27,7 +27,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Plugin.FileImporters;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.DuneErosion.Plugin.Test.FileImporters
+namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class DuneErosionFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

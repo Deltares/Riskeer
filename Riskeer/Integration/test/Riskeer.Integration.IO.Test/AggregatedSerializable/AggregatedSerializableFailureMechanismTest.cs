@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.Integration.IO.AggregatedSerializable;
 
-namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
+namespace Riskeer.Integration.IO.Test.AggregatedSerializable
 {
     [TestFixture]
     public class AggregatedSerializableFailureMechanismTest

@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.Common.Service.TestUtil
+namespace Riskeer.Common.Service.TestUtil
 {
     /// <summary>
     /// A helper to be used while asserting Hydra-Ring break water types.

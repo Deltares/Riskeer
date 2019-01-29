@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service
+namespace Riskeer.GrassCoverErosionInwards.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for

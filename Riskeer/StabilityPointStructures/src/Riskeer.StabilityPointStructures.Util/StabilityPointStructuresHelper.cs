@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Util
+namespace Riskeer.StabilityPointStructures.Util
 {
     /// <summary>
     /// Class holds helper methods to match <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> objects 

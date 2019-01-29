@@ -23,7 +23,7 @@ using System;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
+namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for converting <see cref=" MacroStabilityInwardsLocationInputBase"/> to 

@@ -47,7 +47,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.StandAlone;
 
-namespace Ringtoets.Integration.Data.Test.Assembly
+namespace Riskeer.Integration.Data.Test.Assembly
 {
     [TestFixture]
     public class AssessmentSectionAssemblyFactoryTest

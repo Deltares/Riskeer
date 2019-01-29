@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.Integration.Plugin.Helpers;
 
-namespace Ringtoets.Integration.Plugin.Test.Helpers
+namespace Riskeer.Integration.Plugin.Test.Helpers
 {
     [TestFixture]
     public class HydraulicLocationConfigurationSettingsConstantsTest

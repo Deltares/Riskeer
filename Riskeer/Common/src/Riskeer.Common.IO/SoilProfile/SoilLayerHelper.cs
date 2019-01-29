@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Class which provides helper methods for <see cref="SoilLayerBase"/>

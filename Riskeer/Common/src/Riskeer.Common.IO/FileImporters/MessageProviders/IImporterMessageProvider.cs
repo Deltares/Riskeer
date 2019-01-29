@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.IO.FileImporters.MessageProviders
+namespace Riskeer.Common.IO.FileImporters.MessageProviders
 {
     /// <summary>
     /// Interface for providing messages for the importers.

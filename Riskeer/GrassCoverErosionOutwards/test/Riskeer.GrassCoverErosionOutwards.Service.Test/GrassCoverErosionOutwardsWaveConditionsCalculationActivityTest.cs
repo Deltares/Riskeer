@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
+namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationActivityTest

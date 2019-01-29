@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class SelectedTopLevelFaultTreeIllustrationPointTest

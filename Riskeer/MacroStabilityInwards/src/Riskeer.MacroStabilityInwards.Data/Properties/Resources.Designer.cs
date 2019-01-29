@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.MacroStabilityInwards.Data.Properties {
+namespace Riskeer.MacroStabilityInwards.Data.Properties {
     using System;
     
     

@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.IO.Exceptions;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Interface for transforming generic stochastic soil models into mechanism specific stochastic soil models.

@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
-namespace Ringtoets.Integration.Forms.Test.PresentationObjects.StandAlone
+namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
 {
     [TestFixture]
     public class WaterPressureAsphaltCoverFailureMechanismContextTest

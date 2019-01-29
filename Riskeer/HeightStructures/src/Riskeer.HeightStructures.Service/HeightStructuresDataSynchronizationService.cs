@@ -31,7 +31,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Util;
 
-namespace Ringtoets.HeightStructures.Service
+namespace Riskeer.HeightStructures.Service
 {
     /// <summary>
     /// Service for synchronizing height structures data.

@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives.TestUtil;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class PipingStochasticSoilModelTreeNodeInfoTest

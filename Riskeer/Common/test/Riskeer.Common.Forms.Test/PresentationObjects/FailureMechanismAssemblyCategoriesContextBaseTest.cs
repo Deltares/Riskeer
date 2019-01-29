@@ -34,7 +34,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 
-namespace Ringtoets.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class FailureMechanismAssemblyCategoriesContextBaseTest

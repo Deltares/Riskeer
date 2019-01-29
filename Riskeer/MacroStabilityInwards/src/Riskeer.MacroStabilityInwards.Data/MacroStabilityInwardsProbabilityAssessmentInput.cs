@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a macro stability inwards assessment.

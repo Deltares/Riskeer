@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.Probability
+namespace Riskeer.Common.Data.Probability
 {
     /// <summary>
     /// Extension methods for <see cref="ProbabilityAssessmentInput"/> objects.

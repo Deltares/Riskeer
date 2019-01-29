@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// Helper methods for dealing with 2D layers in <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.

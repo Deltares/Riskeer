@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>

@@ -24,7 +24,7 @@ using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
     /// <summary>
     /// Interface representing Waternet kernel input, methods and output.

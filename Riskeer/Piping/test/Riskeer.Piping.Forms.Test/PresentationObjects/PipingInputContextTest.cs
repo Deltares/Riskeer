@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Test.PresentationObjects
+namespace Riskeer.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class PipingInputContextTest

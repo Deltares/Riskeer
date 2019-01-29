@@ -39,7 +39,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
     public class PipingFailureMechanismAssemblyFactoryTest

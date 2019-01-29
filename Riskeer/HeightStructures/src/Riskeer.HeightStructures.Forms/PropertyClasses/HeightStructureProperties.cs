@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Forms.PropertyClasses
+namespace Riskeer.HeightStructures.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="HeightStructure"/> for properties panel.

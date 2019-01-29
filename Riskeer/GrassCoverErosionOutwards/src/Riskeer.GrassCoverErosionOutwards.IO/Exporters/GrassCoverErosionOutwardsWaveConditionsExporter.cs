@@ -26,7 +26,7 @@ using Core.Common.IO.Exceptions;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.IO.WaveConditions;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {
     /// <summary>
     /// Exports grass cover erosion outwards wave conditions and stores then as a csv file.

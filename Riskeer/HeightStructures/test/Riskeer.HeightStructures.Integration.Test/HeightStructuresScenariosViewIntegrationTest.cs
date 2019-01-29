@@ -40,7 +40,7 @@ using Ringtoets.HeightStructures.Plugin.FileImporters;
 using Ringtoets.Integration.TestUtil;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.HeightStructures.Integration.Test
+namespace Riskeer.HeightStructures.Integration.Test
 {
     [TestFixture]
     public class HeightStructuresScenariosViewIntegrationTest

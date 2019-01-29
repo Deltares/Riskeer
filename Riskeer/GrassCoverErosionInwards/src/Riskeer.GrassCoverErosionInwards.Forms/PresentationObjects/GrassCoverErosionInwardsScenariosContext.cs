@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for configuration of scenarios for the grass cover erosion inwards

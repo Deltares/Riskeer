@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Service;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace the stochastic 

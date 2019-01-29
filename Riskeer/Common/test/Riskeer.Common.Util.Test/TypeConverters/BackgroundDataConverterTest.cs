@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Util.TypeConverters;
 
-namespace Ringtoets.Common.Util.Test.TypeConverters
+namespace Riskeer.Common.Util.Test.TypeConverters
 {
     [TestFixture]
     public class BackgroundDataConverterTest

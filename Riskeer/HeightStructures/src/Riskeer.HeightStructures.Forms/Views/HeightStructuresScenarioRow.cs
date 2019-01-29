@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
     /// Container of a <see cref="HeightStructuresFailureMechanismSectionResult"/>,

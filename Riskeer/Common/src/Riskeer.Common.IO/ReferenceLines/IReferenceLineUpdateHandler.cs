@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.IO.ReferenceLines
+namespace Riskeer.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Interface for an object that can properly update a <see cref="ReferenceLine"/>.

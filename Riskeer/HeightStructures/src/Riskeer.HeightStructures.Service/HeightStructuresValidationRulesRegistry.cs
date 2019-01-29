@@ -26,7 +26,7 @@ using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Service
+namespace Riskeer.HeightStructures.Service
 {
     /// <summary>
     /// The height structures validation rules registry.

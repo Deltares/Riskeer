@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Factory for creating valid <see cref="FailureMechanismSection"/> which can 

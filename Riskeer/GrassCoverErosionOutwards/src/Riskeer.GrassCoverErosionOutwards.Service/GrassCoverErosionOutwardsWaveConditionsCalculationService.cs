@@ -31,7 +31,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Service
+namespace Riskeer.GrassCoverErosionOutwards.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring wave conditions calculations for the grass cover erosion outwards failure mechanism.

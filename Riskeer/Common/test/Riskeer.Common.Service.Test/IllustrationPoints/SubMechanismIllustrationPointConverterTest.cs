@@ -29,7 +29,7 @@ using HydraRingIllustrationPointResult = Riskeer.HydraRing.Calculation.Data.Outp
 using HydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraRingSubMechanismIllustrationPointStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
-namespace Ringtoets.Common.Service.Test.IllustrationPoints
+namespace Riskeer.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
     public class SubMechanismIllustrationPointConverterTest

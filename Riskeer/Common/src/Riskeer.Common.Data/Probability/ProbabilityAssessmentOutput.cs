@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.Probability
+namespace Riskeer.Common.Data.Probability
 {
     /// <summary>
     /// This class contains the results of a probabilistic assessment calculation.

@@ -34,7 +34,7 @@ using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.IO.Exporters;
 
-namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
+namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsExporterTest

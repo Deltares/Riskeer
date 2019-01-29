@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Piping.IO.Configurations
+namespace Riskeer.Piping.IO.Configurations
 {
     /// <summary>
     /// This class reads a piping calculation configuration from XML and creates a collection of corresponding

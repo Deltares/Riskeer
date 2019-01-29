@@ -42,7 +42,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.TestUtil.Test
+namespace Riskeer.Integration.TestUtil.Test
 {
     [TestFixture]
     public class TestDataGeneratorTest

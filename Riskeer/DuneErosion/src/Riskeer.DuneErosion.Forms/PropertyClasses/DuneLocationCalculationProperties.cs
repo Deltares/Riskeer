@@ -34,7 +34,7 @@ using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Forms.PropertyClasses
+namespace Riskeer.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="DuneLocationCalculation"/> for the properties panel.

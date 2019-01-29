@@ -25,7 +25,7 @@ using Core.Common.Util;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// Helper class for displaying <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.

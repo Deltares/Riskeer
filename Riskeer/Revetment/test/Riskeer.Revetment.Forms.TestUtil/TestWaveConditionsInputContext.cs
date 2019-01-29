@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 
-namespace Ringtoets.Revetment.Forms.TestUtil
+namespace Riskeer.Revetment.Forms.TestUtil
 {
     /// <summary>
     /// Simple <see cref="WaveConditionsInputContext{T}"/> implementation which can be used

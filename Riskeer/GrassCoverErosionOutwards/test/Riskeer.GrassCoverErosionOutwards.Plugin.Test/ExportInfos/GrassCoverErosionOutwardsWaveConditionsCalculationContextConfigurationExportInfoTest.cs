@@ -35,7 +35,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationContextConfigurationExportInfoTest

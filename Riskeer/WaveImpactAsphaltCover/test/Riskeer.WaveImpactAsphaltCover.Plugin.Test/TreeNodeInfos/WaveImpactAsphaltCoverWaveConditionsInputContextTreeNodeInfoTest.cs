@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsInputContextTreeNodeInfoTest

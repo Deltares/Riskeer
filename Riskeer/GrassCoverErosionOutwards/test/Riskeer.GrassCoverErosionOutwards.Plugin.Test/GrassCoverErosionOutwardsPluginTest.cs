@@ -38,7 +38,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsPluginTest

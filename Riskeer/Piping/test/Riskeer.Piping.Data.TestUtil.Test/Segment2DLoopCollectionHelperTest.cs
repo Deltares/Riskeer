@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
-namespace Ringtoets.Piping.Data.TestUtil.Test
+namespace Riskeer.Piping.Data.TestUtil.Test
 {
     [TestFixture]
     public class Segment2DLoopCollectionHelperTest

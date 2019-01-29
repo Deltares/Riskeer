@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class ClosingStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest

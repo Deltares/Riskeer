@@ -27,7 +27,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.FileImporters;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.FileImporters
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

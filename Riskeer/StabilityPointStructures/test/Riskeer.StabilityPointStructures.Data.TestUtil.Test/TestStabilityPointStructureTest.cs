@@ -24,7 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
+namespace Riskeer.StabilityPointStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestStabilityPointStructureTest

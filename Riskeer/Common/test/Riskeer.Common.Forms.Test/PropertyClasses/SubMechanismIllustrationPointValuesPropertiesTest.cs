@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.Test.PropertyClasses
+namespace Riskeer.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class SubMechanismIllustrationPointValuesPropertiesTest

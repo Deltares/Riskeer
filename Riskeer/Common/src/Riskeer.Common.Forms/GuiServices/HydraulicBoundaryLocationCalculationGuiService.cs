@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 
-namespace Ringtoets.Common.Forms.GuiServices
+namespace Riskeer.Common.Forms.GuiServices
 {
     /// <summary>
     /// This class is responsible for calculating design water levels and wave heights.

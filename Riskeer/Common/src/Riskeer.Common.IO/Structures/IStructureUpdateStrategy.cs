@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new structures have 

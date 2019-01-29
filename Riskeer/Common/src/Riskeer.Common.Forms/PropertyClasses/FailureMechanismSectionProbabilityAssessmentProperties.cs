@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="FailureMechanismSection"/> with a section

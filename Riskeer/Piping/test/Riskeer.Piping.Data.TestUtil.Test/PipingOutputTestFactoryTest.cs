@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 
-namespace Ringtoets.Piping.Data.TestUtil.Test
+namespace Riskeer.Piping.Data.TestUtil.Test
 {
     [TestFixture]
     public class PipingOutputTestFactoryTest

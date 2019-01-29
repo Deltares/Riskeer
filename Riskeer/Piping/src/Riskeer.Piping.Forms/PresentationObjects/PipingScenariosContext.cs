@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for configuration of scenarios for the Piping failure mechanism.

@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Common.IO.Exceptions
+namespace Riskeer.Common.IO.Exceptions
 {
     /// <summary>
     /// Exception thrown when something went wrong while converting soil layers for a soil profile.

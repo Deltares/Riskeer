@@ -31,7 +31,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating stochastic soil models based on imported data.

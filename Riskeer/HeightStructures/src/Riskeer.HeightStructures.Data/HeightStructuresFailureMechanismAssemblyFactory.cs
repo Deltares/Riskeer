@@ -32,7 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Data
+namespace Riskeer.HeightStructures.Data
 {
     /// <summary>
     /// Factory for assembling assembly results for a height structures failure mechanism.

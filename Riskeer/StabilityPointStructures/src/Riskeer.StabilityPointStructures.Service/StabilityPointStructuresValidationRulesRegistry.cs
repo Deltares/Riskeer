@@ -28,7 +28,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsStabilityPointStructuresFormsResources = Ringtoets.StabilityPointStructures.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Service
+namespace Riskeer.StabilityPointStructures.Service
 {
     /// <summary>
     /// The stability point structures validation rules registry.

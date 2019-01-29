@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Test.Factories
+namespace Riskeer.Piping.Forms.Test.Factories
 {
     [TestFixture]
     public class PipingMapDataFeaturesFactoryTest

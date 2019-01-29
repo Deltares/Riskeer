@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverContextTest

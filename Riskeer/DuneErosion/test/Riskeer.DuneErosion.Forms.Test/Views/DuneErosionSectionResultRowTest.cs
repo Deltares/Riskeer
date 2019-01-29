@@ -41,7 +41,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.DuneErosion.Forms.Test.Views
+namespace Riskeer.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
     public class DuneErosionSectionResultRowTest

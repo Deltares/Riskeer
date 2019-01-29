@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Service
+namespace Riskeer.HeightStructures.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for

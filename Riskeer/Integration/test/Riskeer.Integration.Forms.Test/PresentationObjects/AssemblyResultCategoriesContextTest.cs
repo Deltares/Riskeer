@@ -31,7 +31,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class AssemblyResultCategoriesContextTest

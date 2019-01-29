@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// Class holds methods to help when dealing with <see cref="SelectableHydraulicBoundaryLocation"/>.

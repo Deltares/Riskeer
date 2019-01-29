@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Service.IllustrationPoints;
 using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 
-namespace Ringtoets.Common.Service.Test.IllustrationPoints
+namespace Riskeer.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
     public class CombinationTypeConverterTest

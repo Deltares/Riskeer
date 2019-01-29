@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
 
-namespace Ringtoets.Common.IO.Test.SurfaceLines
+namespace Riskeer.Common.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class SurfaceLineExtensionsTest

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.Configurations
+namespace Riskeer.Piping.IO.Configurations
 {
     /// <summary>
     /// Container of identifiers related to the piping calculation configuration schema definition.

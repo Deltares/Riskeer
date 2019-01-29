@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// This class represents a stochastic soil model which consists out of a collection of <see cref="StochasticSoilProfile"/>. 

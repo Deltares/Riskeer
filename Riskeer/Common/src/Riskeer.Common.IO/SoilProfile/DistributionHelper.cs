@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Class which provides helper methods for validating distributions coming from

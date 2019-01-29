@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
-namespace Ringtoets.Piping.Forms.Test.PropertyClasses
+namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class PipingStochasticSoilModelCollectionPropertiesTest

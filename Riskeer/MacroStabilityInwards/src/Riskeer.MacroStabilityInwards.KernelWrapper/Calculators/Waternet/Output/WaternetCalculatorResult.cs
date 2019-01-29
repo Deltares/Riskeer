@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output
 {
     /// <summary>
     /// This class contains the results of a Waternet calculation.

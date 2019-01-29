@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Common.Primitives.Properties {
+namespace Riskeer.Common.Primitives.Properties {
     using System;
     
     

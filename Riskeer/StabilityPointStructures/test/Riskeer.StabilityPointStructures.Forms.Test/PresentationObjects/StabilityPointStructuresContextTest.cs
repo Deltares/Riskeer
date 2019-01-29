@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
+namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class StabilityPointStructuresContextTest

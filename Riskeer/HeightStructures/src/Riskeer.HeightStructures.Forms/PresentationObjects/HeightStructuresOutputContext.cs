@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.PresentationObjects
+namespace Riskeer.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for the output of height structures calculations.

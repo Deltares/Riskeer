@@ -23,7 +23,7 @@ using System;
 using System.Runtime.Serialization;
 using Ringtoets.Common.IO.SoilProfile;
 
-namespace Ringtoets.Common.IO.Exceptions
+namespace Riskeer.Common.IO.Exceptions
 {
     /// <summary>
     /// Exception thrown when something went wrong while trying to read a <see cref="ISoilProfile"/>.

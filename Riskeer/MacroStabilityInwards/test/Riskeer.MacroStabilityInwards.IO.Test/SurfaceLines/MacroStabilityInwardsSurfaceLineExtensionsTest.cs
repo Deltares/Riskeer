@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
+namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineExtensionsTest

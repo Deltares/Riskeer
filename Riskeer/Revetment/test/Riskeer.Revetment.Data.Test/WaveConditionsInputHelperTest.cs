@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Riskeer.Revetment.Data.Test
 {
     [TestFixture]
     public class WaveConditionsInputHelperTest

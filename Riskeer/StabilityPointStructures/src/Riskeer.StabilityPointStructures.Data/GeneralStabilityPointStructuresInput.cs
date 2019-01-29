@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.StabilityPointStructures.Data
+namespace Riskeer.StabilityPointStructures.Data
 {
     /// <summary>
     /// The general input parameters that apply to each stability point structures calculation.

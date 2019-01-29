@@ -38,7 +38,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Test
+namespace Riskeer.MacroStabilityInwards.Service.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationServiceTest

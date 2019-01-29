@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
     /// A presentation layer object which wraps a <see cref="PipingOutput"/>.

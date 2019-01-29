@@ -30,7 +30,7 @@ using Ringtoets.Integration.Forms.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyCategoriesPropertiesTest

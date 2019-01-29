@@ -25,7 +25,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Revetment.Data.TestUtil.Test
+namespace Riskeer.Revetment.Data.TestUtil.Test
 {
     [TestFixture]
     public class WaveConditionsOutputTestHelperTest

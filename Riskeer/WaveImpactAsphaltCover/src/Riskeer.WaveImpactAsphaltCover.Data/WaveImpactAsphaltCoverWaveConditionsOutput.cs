@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data
+namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
     /// Container for the results of a wave impact asphalt cover wave conditions calculation.

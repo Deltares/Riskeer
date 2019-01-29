@@ -25,7 +25,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Piping.Data.SoilProfile;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="PipingStochasticSoilModelCollection"/> for properties panel.

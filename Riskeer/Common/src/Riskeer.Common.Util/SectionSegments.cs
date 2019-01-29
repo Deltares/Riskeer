@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// This class represents the geometry of a <see cref="FailureMechanismSection"/> as a collection of <see cref="Segment2D"/> objects.

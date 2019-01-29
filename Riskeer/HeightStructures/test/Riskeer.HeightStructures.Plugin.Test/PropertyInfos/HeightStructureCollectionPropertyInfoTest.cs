@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class HeightStructureCollectionPropertyInfoTest

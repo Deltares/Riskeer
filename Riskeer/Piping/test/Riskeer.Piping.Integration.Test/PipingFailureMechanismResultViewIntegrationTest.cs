@@ -35,7 +35,7 @@ using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Service;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Piping.Integration.Test
+namespace Riskeer.Piping.Integration.Test
 {
     [TestFixture]
     public class PipingFailureMechanismResultViewIntegrationTest

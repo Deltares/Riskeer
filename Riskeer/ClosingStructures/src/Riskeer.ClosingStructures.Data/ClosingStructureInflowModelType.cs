@@ -23,7 +23,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.ClosingStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Riskeer.ClosingStructures.Data
 {
     /// <summary>
     /// Defines the types of the various <see cref="ClosingStructure"/> inflow models.

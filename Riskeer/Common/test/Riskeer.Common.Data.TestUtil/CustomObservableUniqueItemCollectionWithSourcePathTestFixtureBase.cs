@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     [TestFixture]
     public abstract class CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<TCollection, TElement>

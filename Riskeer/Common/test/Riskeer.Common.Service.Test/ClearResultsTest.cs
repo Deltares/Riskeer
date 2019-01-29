@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class ClearResultsTest

@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Util.Test
+namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
     public class SectionResultWithCalculationAssignmentTest

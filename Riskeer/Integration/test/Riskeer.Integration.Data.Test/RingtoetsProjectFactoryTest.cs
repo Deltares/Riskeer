@@ -23,7 +23,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.Data.Test
+namespace Riskeer.Integration.Data.Test
 {
     [TestFixture]
     public class RingtoetsProjectFactoryTest

@@ -44,7 +44,7 @@ using Ringtoets.Common.Forms.Views;
 using Riskeer.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class WaveHeightCalculationsViewInfoTest

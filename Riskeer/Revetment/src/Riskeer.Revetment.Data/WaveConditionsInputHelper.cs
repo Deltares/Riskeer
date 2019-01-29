@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// Class containing helper methods related to <see cref="WaveConditionsInput"/>.

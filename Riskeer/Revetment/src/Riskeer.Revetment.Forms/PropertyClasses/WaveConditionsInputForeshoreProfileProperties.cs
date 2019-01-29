@@ -29,7 +29,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Revetment.Forms.PropertyClasses
+namespace Riskeer.Revetment.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInput.ForeshoreGeometry"/> for properties panel.

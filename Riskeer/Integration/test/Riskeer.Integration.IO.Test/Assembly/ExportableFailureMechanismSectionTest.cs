@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.Test.Assembly
+namespace Riskeer.Integration.IO.Test.Assembly
 {
     [TestFixture]
     public class ExportableFailureMechanismSectionTest

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// A soil profile for which its properties have been adapted using a surface line.

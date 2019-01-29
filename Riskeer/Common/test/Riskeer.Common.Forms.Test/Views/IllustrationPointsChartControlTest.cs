@@ -35,7 +35,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Test.Views
+namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
     public class IllustrationPointsChartControlTest

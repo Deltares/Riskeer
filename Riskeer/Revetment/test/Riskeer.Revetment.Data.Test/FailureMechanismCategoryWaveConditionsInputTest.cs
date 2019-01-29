@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Riskeer.Revetment.Data.Test
 {
     [TestFixture]
     public class FailureMechanismCategoryWaveConditionsInputTest

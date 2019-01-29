@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Riskeer.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class PipingStochasticSoilModelReplaceDataStrategyTest

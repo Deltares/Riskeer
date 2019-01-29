@@ -30,7 +30,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data
+namespace Riskeer.Common.Data
 {
     /// <summary>
     /// Base class for mechanism specific surface lines.

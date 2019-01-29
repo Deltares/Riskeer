@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Revetment.Data.Properties;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// Enum defining the possible step size for a wave conditions calculation.

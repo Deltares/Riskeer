@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// This class contains a calculation and the location for that calculation as a 2D point.

@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
+namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
 {
     /// <summary>
     /// Transforms generic <see cref="SurfaceLine"/> into macro stability inwards specific <see cref="MacroStabilityInwardsSurfaceLine"/>.

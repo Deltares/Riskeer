@@ -22,7 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
+namespace Riskeer.MacroStabilityInwards.Primitives.TestUtil
 {
     /// <summary>
     /// Simple <see cref="MacroStabilityInwardsWaternetLine"/> that can be used in tests.

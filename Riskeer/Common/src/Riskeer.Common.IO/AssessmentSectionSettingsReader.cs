@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO
+namespace Riskeer.Common.IO
 {
     /// <summary>
     /// Reads the settings defined at <see cref="IAssessmentSection"/> level.

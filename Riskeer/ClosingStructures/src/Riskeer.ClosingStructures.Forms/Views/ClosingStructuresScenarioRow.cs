@@ -24,7 +24,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 
-namespace Ringtoets.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
     /// Container of a <see cref="ClosingStructuresFailureMechanismSectionResult"/>,

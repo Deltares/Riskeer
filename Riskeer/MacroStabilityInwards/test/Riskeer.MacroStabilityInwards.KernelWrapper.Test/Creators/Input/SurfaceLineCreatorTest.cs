@@ -31,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
 using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
     public class SurfaceLineCreatorTest

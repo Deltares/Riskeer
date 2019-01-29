@@ -35,7 +35,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.Common.Forms.Test.Factories
+namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
     public class AssemblyMapDataFeaturesFactoryTest

@@ -41,7 +41,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
+namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactoryTest

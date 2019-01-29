@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// This class helps in consistently writing the probability as '1 over the yearly return period'.

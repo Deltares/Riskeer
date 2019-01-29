@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class EmptyStabilityStoneCoverOutputTreeNodeInfoTest

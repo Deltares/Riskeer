@@ -25,7 +25,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.Piping.Service
+namespace Riskeer.Piping.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a piping calculation.

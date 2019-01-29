@@ -31,7 +31,7 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class ClosingStructuresOutputPropertyInfoTest

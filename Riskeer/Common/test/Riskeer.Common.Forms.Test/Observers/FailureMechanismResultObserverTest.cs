@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Observers;
 
-namespace Ringtoets.Common.Forms.Test.Observers
+namespace Riskeer.Common.Forms.Test.Observers
 {
     [TestFixture]
     public class FailureMechanismResultObserverTest

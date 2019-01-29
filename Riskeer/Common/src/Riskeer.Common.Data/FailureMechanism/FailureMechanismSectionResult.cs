@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Base class for classes that hold information of the result of the <see cref="FailureMechanismSection"/>.

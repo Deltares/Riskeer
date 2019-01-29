@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Hydraulics
+namespace Riskeer.Common.Data.Hydraulics
 {
     /// <summary>
     /// Enumeration denoting the convergence status of a calculation.

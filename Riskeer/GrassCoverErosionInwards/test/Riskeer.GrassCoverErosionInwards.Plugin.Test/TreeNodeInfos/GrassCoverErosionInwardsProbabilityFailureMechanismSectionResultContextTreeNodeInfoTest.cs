@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest

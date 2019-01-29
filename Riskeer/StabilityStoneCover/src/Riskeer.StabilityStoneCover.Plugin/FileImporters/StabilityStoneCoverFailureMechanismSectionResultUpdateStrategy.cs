@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.FileImporters
+namespace Riskeer.StabilityStoneCover.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> instance with data

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// A 2D soil layer that has been adapted to perform a calculation.

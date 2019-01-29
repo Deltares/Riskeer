@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Helpers;
 
-namespace Ringtoets.Common.Data.Test.Helpers
+namespace Riskeer.Common.Data.Test.Helpers
 {
     [TestFixture]
     public class SoilLayerDataHelperTest

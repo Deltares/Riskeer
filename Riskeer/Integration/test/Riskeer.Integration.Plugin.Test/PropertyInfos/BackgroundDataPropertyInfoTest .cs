@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin;
 
-namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
+namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class BackgroundDataPropertyInfoTest

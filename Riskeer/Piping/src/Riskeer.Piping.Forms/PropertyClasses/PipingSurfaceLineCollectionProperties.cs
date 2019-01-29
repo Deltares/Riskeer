@@ -26,7 +26,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="PipingSurfaceLineCollection"/> for properties panel.

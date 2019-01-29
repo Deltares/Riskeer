@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
+namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="ClosingStructure"/> for properties panel.

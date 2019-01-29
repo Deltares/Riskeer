@@ -24,7 +24,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Service.TestUtil;
 
-namespace Ringtoets.Common.Plugin.TestUtil
+namespace Riskeer.Common.Plugin.TestUtil
 {
     /// <summary>
     /// Class containing helper methods used to assert the log messages of a calculation activity

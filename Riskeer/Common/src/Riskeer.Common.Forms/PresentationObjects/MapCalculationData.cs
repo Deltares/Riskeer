@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// This class holds information to be able to present calculations coupled to

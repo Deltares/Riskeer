@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
     /// Interface representing an Uplift Van calculator.

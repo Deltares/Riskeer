@@ -26,7 +26,7 @@ using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
+namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for properties panel.

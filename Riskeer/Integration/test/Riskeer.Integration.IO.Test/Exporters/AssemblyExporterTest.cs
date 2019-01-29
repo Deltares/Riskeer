@@ -35,7 +35,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Exporters;
 
-namespace Ringtoets.Integration.IO.Test.Exporters
+namespace Riskeer.Integration.IO.Test.Exporters
 {
     [TestFixture]
     public class AssemblyExporterTest

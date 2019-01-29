@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.TestUtil
+namespace Riskeer.Integration.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to assert property classes related to assembly categories.

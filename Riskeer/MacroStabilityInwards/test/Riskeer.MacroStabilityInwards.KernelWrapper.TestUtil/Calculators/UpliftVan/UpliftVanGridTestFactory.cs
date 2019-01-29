@@ -21,7 +21,7 @@
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan
 {
     /// <summary>
     /// Factory to create simple <see cref="UpliftVanGrid"/> instances that can be used for testing.

@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.Properties;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// Class responsible for validating the connection of a <see cref="HydraulicBoundaryDatabase"/>.

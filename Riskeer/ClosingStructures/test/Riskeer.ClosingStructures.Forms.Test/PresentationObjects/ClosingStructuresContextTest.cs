@@ -28,7 +28,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class ClosingStructuresContextTest

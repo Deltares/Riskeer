@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output
 {
     /// <summary>
     /// Class for asserting Waternet calculator output.

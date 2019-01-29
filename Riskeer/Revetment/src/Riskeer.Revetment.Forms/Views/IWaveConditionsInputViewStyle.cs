@@ -21,7 +21,7 @@
 
 using System.Drawing;
 
-namespace Ringtoets.Revetment.Forms.Views
+namespace Riskeer.Revetment.Forms.Views
 {
     /// <summary>
     /// Interface that defines the style that is used in the <see cref="WaveConditionsInputView"/>.

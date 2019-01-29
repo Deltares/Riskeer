@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 
-namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
+namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class DuneLocationCalculationsContextTest

@@ -55,7 +55,7 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest

@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.SurfaceLines
+namespace Riskeer.Piping.IO.SurfaceLines
 {
     /// <summary>
     /// Extension methods for the <see cref="PipingSurfaceLine"/> class.

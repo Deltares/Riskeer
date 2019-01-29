@@ -35,7 +35,7 @@ using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.ExportInfos
+namespace Riskeer.Piping.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class PipingCalculationGroupContextExportInfoTest

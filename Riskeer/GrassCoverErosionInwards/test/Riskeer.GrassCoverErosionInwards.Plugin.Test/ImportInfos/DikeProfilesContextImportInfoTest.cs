@@ -40,7 +40,7 @@ using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class DikeProfilesContextImportInfoTest : NUnitFormTest

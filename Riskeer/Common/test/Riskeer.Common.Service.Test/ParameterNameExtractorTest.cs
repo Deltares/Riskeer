@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class ParameterNameExtractorTest

@@ -34,7 +34,7 @@ using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test
+namespace Riskeer.StabilityStoneCover.Plugin.Test
 {
     [TestFixture]
     public class StabilityStoneCoverPluginTest

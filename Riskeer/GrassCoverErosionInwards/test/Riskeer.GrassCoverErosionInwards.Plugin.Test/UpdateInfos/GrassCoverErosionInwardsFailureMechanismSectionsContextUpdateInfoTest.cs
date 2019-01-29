@@ -34,7 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismSectionsContextUpdateInfoTest

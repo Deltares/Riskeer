@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> instance with data

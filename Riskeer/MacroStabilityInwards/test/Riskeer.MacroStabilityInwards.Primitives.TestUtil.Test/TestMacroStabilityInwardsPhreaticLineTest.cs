@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
+namespace Riskeer.MacroStabilityInwards.Primitives.TestUtil.Test
 {
     [TestFixture]
     public class TestMacroStabilityInwardsPhreaticLineTest

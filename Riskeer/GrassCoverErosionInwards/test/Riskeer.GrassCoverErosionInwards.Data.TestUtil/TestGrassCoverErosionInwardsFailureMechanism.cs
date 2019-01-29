@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
+namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
     /// <see cref="GrassCoverErosionInwardsFailureMechanism"/> for testing purposes.

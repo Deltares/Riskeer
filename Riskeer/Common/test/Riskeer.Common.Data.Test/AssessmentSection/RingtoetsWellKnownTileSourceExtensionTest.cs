@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Data.Test.AssessmentSection
+namespace Riskeer.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
     public class RingtoetsWellKnownTileSourceExtensionTest

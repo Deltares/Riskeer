@@ -23,7 +23,7 @@ using Core.Common.Base;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// A collection of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.

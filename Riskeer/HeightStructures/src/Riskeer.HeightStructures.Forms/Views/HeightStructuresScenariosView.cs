@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
     /// View for configuring scenarios for the height structures failure mechanism.

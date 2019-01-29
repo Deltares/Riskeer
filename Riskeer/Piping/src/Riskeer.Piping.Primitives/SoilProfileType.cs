@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Piping.Primitives.Properties;
 
-namespace Ringtoets.Piping.Primitives
+namespace Riskeer.Piping.Primitives
 {
     /// <summary>
     /// Defines the various types of soil profiles.

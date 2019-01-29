@@ -27,7 +27,7 @@ using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Util.TypeConverters;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Ringtoets map control with background data synchronization.

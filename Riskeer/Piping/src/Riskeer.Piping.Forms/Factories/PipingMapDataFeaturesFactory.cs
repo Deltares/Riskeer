@@ -31,7 +31,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Factories
+namespace Riskeer.Piping.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>

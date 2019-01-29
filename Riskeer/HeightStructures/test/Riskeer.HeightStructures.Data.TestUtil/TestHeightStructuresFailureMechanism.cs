@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HeightStructures.Data.TestUtil
+namespace Riskeer.HeightStructures.Data.TestUtil
 {
     /// <summary>
     /// <see cref="HeightStructuresFailureMechanism"/> used for testing purposes.

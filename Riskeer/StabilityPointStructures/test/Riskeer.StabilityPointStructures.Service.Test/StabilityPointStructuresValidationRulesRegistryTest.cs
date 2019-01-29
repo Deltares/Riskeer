@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Service.Test
+namespace Riskeer.StabilityPointStructures.Service.Test
 {
     [TestFixture]
     public class StabilityPointStructuresValidationRulesRegistryTest

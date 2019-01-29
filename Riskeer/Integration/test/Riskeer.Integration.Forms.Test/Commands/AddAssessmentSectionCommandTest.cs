@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Forms.Commands;
 
-namespace Ringtoets.Integration.Forms.Test.Commands
+namespace Riskeer.Integration.Forms.Test.Commands
 {
     [TestFixture]
     public class AddAssessmentSectionCommandTest

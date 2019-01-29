@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
 {
     /// <summary>
     /// The Uplift Van slip plane constraints that are used to perform a calculation.

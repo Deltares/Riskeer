@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 {
     [TestFixture]
     public class EffectiveThicknessCalculatorStubTest

@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// This class can be used in tests to verify that the correct arguments are passed to the <see cref="IFailureMechanismPropertyChangeHandler{T}.SetPropertyValueAfterConfirmation{TValue}"/>

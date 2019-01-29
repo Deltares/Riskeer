@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data.Properties;
 using RingtoetsDataCommonResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Data
+namespace Riskeer.StabilityPointStructures.Data
 {
     /// <summary>
     /// Class that holds all stability point structures calculation specific input parameters.

@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.TypeConverters;
 
-namespace Ringtoets.Common.Forms.Test.TypeConverters
+namespace Riskeer.Common.Forms.Test.TypeConverters
 {
     [TestFixture]
     public class NoValueRoundedDoubleConverterTest

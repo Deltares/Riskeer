@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
 
-namespace Ringtoets.Piping.IO.Test.Configurations
+namespace Riskeer.Piping.IO.Test.Configurations
 {
     [TestFixture]
     public class PipingCalculationConfigurationExporterTest

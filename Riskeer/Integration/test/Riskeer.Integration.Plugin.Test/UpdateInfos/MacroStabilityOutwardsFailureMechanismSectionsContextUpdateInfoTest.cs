@@ -35,7 +35,7 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
+namespace Riskeer.Integration.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class MacroStabilityOutwardsFailureMechanismSectionsContextUpdateInfoTest

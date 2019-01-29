@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
 {
     [TestFixture]
     public class SoilProfileConverterTest

@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// A presentation layer object wrapping an instance of <see cref="MacroStabilityInwardsInput"/>

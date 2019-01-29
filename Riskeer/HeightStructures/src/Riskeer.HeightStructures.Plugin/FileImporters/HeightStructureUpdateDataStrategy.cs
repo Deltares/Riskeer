@@ -31,7 +31,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HeightStructures.Util;
 
-namespace Ringtoets.HeightStructures.Plugin.FileImporters
+namespace Riskeer.HeightStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 

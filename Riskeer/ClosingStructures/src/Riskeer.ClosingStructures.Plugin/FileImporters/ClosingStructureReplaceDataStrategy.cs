@@ -27,7 +27,7 @@ using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.ClosingStructures.Plugin.FileImporters
+namespace Riskeer.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace closing 

@@ -30,7 +30,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 
-namespace Ringtoets.Integration.Data.Test.Assembly
+namespace Riskeer.Integration.Data.Test.Assembly
 {
     public class CombinedFailureMechanismSectionAssemblyResultFactoryTest
     {

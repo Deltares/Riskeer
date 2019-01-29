@@ -31,7 +31,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Data.Test.SoilProfile
+namespace Riskeer.Piping.Data.Test.SoilProfile
 {
     [TestFixture]
     public class PipingStochasticSoilModelTest

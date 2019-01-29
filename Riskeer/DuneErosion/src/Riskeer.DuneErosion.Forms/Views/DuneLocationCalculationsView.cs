@@ -29,7 +29,7 @@ using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
     /// View for the <see cref="DuneLocationCalculation"/>.

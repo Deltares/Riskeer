@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Factories
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="FeatureBasedMapData"/> for data used as input in the assessment section.

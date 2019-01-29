@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
     public class LayerWithSoilTest

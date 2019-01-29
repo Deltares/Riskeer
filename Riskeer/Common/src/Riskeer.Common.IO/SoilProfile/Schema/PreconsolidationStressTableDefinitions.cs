@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.SoilProfile.Schema
+namespace Riskeer.Common.IO.SoilProfile.Schema
 {
     /// <summary>
     /// Defines the column and table names of the table 'PreconsolidationStresses' in 

@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations
+namespace Riskeer.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationReaderTest

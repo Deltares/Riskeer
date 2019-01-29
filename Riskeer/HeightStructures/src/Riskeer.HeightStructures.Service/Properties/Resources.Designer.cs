@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.HeightStructures.Service.Properties {
+namespace Riskeer.HeightStructures.Service.Properties {
     using System;
     
     

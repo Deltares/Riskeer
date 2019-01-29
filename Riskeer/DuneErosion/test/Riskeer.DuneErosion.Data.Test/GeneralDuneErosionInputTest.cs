@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.DuneErosion.Data.Test
+namespace Riskeer.DuneErosion.Data.Test
 {
     [TestFixture]
     public class GeneralDuneErosionInputTest

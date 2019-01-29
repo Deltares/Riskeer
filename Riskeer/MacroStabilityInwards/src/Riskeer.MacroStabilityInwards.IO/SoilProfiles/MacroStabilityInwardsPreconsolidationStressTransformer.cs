@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
+namespace Riskeer.MacroStabilityInwards.IO.SoilProfiles
 {
     /// <summary>
     /// Transforms a generic <see cref="PreconsolidationStress"/> into a 

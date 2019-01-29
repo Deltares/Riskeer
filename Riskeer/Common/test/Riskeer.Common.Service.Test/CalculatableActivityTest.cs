@@ -24,7 +24,7 @@ using Core.Common.Base.Service;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class CalculatableActivityTest

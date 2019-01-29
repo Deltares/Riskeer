@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.UpdateDataStrategies
+namespace Riskeer.Common.Data.UpdateDataStrategies
 {
     /// <summary>
     /// Base class of the algorithm that replaces data from a 

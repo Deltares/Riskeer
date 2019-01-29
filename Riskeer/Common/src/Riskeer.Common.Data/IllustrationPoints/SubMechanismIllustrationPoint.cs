@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.IllustrationPoints
+namespace Riskeer.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Illustration point which contains the results.

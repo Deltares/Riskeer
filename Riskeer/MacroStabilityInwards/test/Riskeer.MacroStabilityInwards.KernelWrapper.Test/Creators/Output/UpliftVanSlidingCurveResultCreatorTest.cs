@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {
     [TestFixture]
     public class UpliftVanSlidingCurveResultCreatorTest

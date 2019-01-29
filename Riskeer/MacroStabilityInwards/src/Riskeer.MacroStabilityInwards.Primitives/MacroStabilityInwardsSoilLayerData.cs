@@ -24,7 +24,7 @@ using System.Drawing;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Data of a soil layer.

@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.Test.IllustrationPoints
+namespace Riskeer.Common.Data.Test.IllustrationPoints
 {
     [TestFixture]
     public class StochastValidatorTest

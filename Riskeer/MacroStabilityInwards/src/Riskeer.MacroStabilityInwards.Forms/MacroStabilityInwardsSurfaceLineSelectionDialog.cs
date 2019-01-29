@@ -29,7 +29,7 @@ using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms
+namespace Riskeer.MacroStabilityInwards.Forms
 {
     /// <summary>
     /// A dialog which allows the user to make a selection from a given set of <see cref="MacroStabilityInwardsSurfaceLine"/>. Upon

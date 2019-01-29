@@ -33,7 +33,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Test.Views
+namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
     public class PipingInputViewTest

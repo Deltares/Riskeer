@@ -27,7 +27,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
+namespace Riskeer.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class PipingStochasticSoilProfilePropertyInfoTest

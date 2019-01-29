@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     public class MacroStabilityInwardsSoilLayer1DPropertiesTest
     {

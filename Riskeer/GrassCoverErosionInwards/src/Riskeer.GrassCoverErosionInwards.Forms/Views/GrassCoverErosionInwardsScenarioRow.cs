@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
     /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>,

@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.ClosingStructures.Plugin.FileImporters
+namespace Riskeer.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 

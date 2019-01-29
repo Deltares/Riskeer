@@ -42,7 +42,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 
-namespace Ringtoets.Common.Forms.Test.PropertyClasses
+namespace Riskeer.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class StructuresInputBasePropertiesTest

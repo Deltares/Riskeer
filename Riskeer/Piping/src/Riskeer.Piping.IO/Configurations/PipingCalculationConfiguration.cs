@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.Piping.IO.Configurations
+namespace Riskeer.Piping.IO.Configurations
 {
     /// <summary>
     /// Configuration of a piping calculation scenario.

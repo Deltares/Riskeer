@@ -38,7 +38,7 @@ using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a piping failure mechanism.

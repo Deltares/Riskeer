@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Forms;
 
-namespace Ringtoets.Common.Forms.Test.Builders
+namespace Riskeer.Common.Forms.Test.Builders
 {
     [TestFixture]
     public class FailureMechanismSectionResultViewColumnBuilderTest

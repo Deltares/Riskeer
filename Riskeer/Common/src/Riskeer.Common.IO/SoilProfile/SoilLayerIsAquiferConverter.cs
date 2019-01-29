@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// This class provides helpers for converting values from D-Soil Model database

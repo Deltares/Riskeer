@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// Defines the various types of overtopping rate calculations.

@@ -25,7 +25,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Forms.PresentationObjects
+namespace Riskeer.DuneErosion.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure multiple enumerations of <see cref="DuneLocation"/> 

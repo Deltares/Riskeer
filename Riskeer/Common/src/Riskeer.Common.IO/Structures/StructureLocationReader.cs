@@ -33,7 +33,7 @@ using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// This class is responsible for reading structures for <see cref="StructureLocation"/> instances.

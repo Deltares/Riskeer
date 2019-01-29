@@ -34,7 +34,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Plugin;
 using Riskeer.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class AssemblyResultPerSectionContextTreeNodeInfoTest

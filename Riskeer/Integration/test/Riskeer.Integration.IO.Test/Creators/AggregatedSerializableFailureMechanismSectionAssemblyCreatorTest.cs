@@ -32,7 +32,7 @@ using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
 
-namespace Ringtoets.Integration.IO.Test.Creators
+namespace Riskeer.Integration.IO.Test.Creators
 {
     [TestFixture]
     public class AggregatedSerializableFailureMechanismSectionAssemblyCreatorTest

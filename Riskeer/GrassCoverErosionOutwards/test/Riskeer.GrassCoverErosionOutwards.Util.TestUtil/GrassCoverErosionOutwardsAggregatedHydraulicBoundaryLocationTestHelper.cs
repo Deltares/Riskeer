@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
+namespace Riskeer.GrassCoverErosionOutwards.Util.TestUtil
 {
     /// <summary>
     /// Helper for creating <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/>

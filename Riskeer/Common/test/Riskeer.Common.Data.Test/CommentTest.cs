@@ -24,7 +24,7 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test
+namespace Riskeer.Common.Data.Test
 {
     [TestFixture]
     public class CommentTest

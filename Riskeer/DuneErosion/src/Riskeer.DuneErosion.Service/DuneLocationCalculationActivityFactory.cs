@@ -29,7 +29,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Service
+namespace Riskeer.DuneErosion.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for

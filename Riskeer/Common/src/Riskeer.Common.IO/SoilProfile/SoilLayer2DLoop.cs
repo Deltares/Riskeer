@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// Class containing the (outer) geometry of a 2D soil layer.

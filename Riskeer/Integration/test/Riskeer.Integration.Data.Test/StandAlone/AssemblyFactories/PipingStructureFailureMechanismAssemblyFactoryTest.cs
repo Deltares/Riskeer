@@ -38,7 +38,7 @@ using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
+namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 {
     [TestFixture]
     public class PipingStructureFailureMechanismAssemblyFactoryTest

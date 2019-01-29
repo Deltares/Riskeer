@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 
-namespace Ringtoets.Integration.Data.Test.Assembly
+namespace Riskeer.Integration.Data.Test.Assembly
 {
     [TestFixture]
     public class AssessmentSectionHelperTest

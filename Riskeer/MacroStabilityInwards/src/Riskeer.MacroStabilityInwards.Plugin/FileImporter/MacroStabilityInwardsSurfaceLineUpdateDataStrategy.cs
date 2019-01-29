@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.Forms;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating surface lines based on imported data.

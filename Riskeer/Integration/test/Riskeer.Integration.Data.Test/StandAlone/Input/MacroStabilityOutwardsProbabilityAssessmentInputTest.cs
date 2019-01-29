@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Riskeer.Integration.Data.StandAlone.Input;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.Input
+namespace Riskeer.Integration.Data.Test.StandAlone.Input
 {
     [TestFixture]
     public class MacroStabilityOutwardsProbabilityAssessmentInputTest

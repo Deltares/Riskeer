@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 {
     /// <summary>
     /// Configuration of a grass cover erosion inwards calculation.

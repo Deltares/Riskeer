@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 {
     /// <summary>
     /// The sliding circle result of an Uplift Van calculation.

@@ -33,7 +33,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.Factories;
 
-namespace Ringtoets.Integration.Forms.Test.Factories
+namespace Riskeer.Integration.Forms.Test.Factories
 {
     [TestFixture]
     public class MicrostabilityAssemblyMapDataFeaturesFactoryTest

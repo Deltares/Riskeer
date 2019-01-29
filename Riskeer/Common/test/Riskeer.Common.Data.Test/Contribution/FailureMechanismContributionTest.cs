@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Contribution;
 
-namespace Ringtoets.Common.Data.Test.Contribution
+namespace Riskeer.Common.Data.Test.Contribution
 {
     [TestFixture]
     public class FailureMechanismContributionTest

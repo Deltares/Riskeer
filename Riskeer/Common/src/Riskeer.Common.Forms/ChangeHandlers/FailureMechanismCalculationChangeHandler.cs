@@ -25,7 +25,7 @@ using Core.Common.Gui;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO;
 
-namespace Ringtoets.Common.Forms.ChangeHandlers
+namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
     /// Class which can, if required, inquire the user for a confirmation when a change to the

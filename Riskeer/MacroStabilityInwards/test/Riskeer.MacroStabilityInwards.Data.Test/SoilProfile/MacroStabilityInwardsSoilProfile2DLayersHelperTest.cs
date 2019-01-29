@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilProfile2DLayersHelperTest

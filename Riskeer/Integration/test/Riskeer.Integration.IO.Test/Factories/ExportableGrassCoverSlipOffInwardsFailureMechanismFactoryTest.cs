@@ -37,7 +37,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Factories;
 
-namespace Ringtoets.Integration.IO.Test.Factories
+namespace Riskeer.Integration.IO.Test.Factories
 {
     [TestFixture]
     public class ExportableGrassCoverSlipOffInwardsFailureMechanismFactoryTest

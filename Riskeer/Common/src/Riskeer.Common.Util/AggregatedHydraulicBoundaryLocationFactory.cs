@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// Factory for creating <see cref="AggregatedHydraulicBoundaryLocation"/> instances.

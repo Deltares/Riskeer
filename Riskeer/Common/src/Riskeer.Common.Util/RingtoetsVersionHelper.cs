@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Util.Properties;
 
-namespace Ringtoets.Common.Util
+namespace Riskeer.Common.Util
 {
     /// <summary>
     /// This class is capable of comparing Ringtoets database versions.

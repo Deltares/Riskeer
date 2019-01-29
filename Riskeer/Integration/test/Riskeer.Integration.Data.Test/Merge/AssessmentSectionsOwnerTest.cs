@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.Integration.Data.Merge;
 
-namespace Ringtoets.Integration.Data.Test.Merge
+namespace Riskeer.Integration.Data.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionsOwnerTest

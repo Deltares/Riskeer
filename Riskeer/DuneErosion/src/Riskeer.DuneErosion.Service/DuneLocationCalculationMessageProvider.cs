@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.DuneErosion.Service.Properties;
 
-namespace Ringtoets.DuneErosion.Service
+namespace Riskeer.DuneErosion.Service
 {
     /// <summary>
     /// This class provides messages used during a dune location calculation.

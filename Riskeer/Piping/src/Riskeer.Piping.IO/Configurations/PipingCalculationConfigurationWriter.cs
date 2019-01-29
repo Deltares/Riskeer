@@ -24,7 +24,7 @@ using System.Xml;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 
-namespace Ringtoets.Piping.IO.Configurations
+namespace Riskeer.Piping.IO.Configurations
 {
     /// <summary>
     /// Writer for writing a piping calculation configuration to XML.

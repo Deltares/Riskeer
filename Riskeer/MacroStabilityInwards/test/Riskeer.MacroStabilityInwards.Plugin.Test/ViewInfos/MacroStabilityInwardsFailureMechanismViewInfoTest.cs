@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismViewInfoTest

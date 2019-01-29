@@ -39,7 +39,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
+namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class RingtoetsContextMenuItemFactoryTest : NUnitFormTest

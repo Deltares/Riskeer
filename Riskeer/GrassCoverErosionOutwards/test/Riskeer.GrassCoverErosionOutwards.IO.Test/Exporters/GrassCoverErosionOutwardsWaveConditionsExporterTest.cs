@@ -34,7 +34,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.IO.WaveConditions;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsExporterTest

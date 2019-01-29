@@ -26,7 +26,7 @@ using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.IO.Configurations
+namespace Riskeer.Piping.IO.Configurations
 {
     /// <summary>
     /// Exports a piping calculation configuration and stores it as an XML file.

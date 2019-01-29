@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
+namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 {
     [TestFixture]
     public class StandAloneFailureMechanismPropertiesTest

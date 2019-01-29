@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Helpers;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsSoilLayer1D"/> for properties panel.

@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// Helper methods for dike geometries.

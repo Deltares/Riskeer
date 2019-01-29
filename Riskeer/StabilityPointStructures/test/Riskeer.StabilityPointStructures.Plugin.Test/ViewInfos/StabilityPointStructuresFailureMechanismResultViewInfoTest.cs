@@ -36,7 +36,7 @@ using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismResultViewInfoTest

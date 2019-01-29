@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Class that represents a wave conditions calculation configuration

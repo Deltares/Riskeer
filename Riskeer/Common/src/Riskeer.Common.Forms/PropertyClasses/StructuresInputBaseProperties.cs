@@ -40,7 +40,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.UITypeEditors;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of structure calculation input for properties panel.

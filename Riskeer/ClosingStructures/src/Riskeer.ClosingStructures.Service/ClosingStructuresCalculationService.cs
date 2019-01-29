@@ -26,7 +26,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
-namespace Ringtoets.ClosingStructures.Service
+namespace Riskeer.ClosingStructures.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-ring calculations for closing structures.

@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
+namespace Riskeer.MacroStabilityInwards.IO.Test.SoilProfiles
 {
     [TestFixture]
     public class MacroStabilityInwardsPreconsolidationStressTransformerTest

@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Factories;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Factories
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Factories
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverMapDataFeaturesFactoryTest

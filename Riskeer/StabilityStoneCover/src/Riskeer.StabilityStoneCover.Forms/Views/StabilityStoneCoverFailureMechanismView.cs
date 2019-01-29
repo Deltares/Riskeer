@@ -38,7 +38,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.Factories;
 using StabilityStoneCoverDataResources = Ringtoets.StabilityStoneCover.Data.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a stability stone cover failure mechanism.

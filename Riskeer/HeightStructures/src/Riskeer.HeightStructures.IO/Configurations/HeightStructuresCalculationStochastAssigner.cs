@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.IO.Configurations
+namespace Riskeer.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Validates and assigns stochast configurations to a height structure calculation input.

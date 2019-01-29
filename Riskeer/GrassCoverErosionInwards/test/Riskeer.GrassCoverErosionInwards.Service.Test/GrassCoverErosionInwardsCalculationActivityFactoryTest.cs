@@ -40,7 +40,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service.Test
+namespace Riskeer.GrassCoverErosionInwards.Service.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationActivityFactoryTest

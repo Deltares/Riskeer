@@ -28,7 +28,7 @@ using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Piping.IO.SoilProfiles
+namespace Riskeer.Piping.IO.SoilProfiles
 {
     /// <summary>
     /// Transforms generic <see cref="ISoilProfile"/> into <see cref="PipingSoilProfile"/>.

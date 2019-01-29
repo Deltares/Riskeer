@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
+namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class ConfigurationDikeSoilScenarioTypeConverterTest

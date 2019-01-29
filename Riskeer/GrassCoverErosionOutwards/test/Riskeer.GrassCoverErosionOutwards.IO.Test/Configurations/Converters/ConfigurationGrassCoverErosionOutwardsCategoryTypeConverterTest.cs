@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
 {
     [TestFixture]
     public class ConfigurationGrassCoverErosionOutwardsCategoryTypeConverterTest

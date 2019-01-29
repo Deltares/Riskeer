@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Plugin.Handlers
+namespace Riskeer.DuneErosion.Plugin.Handlers
 {
     /// <summary>
     /// Interface for replacing dune locations of a <see cref="DuneErosionFailureMechanism"/>.

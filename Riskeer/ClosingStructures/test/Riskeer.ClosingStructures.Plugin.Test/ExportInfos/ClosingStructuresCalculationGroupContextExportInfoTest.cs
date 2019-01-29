@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class ClosingStructuresCalculationGroupContextExportInfoTest

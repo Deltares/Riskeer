@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data
+namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.

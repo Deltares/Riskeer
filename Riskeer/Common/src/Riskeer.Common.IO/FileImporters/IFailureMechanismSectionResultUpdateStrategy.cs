@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResult"/> derivatives

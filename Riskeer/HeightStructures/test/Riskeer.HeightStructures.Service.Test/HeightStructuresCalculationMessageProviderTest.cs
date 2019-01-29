@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Service.MessageProviders;
 
-namespace Ringtoets.HeightStructures.Service.Test
+namespace Riskeer.HeightStructures.Service.Test
 {
     [TestFixture]
     public class HeightStructuresCalculationMessageProviderTest

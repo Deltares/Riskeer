@@ -33,7 +33,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.Factories
+namespace Riskeer.StabilityStoneCover.Forms.Test.Factories
 {
     [TestFixture]
     public class StabilityStoneCoverAssemblyMapDataFeaturesFactoryTest

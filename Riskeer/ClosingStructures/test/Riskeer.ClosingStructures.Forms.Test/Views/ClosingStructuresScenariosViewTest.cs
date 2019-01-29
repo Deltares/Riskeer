@@ -36,7 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 
-namespace Ringtoets.ClosingStructures.Forms.Test.Views
+namespace Riskeer.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
     public class ClosingStructuresScenariosViewTest

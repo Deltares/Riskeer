@@ -42,7 +42,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Handlers;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class NormPropertiesIntegrationTest : NUnitFormTest

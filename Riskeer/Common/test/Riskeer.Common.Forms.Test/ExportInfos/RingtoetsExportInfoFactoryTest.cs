@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Test.ExportInfos
+namespace Riskeer.Common.Forms.Test.ExportInfos
 {
     [TestFixture]
     public class RingtoetsExportInfoFactoryTest

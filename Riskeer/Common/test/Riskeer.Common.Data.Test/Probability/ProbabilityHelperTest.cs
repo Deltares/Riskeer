@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Common.Data.Test.Probability
+namespace Riskeer.Common.Data.Test.Probability
 {
     [TestFixture]
     public class ProbabilityHelperTest

@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Service.ValidationRules;
 
-namespace Ringtoets.ClosingStructures.Service.Test
+namespace Riskeer.ClosingStructures.Service.Test
 {
     [TestFixture]
     public class ClosingStructuresValidationRulesRegistryTest

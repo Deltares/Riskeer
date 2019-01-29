@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.Common.Data.Test.Probabilistics
+namespace Riskeer.Common.Data.Test.Probabilistics
 {
     [TestFixture]
     public class NormalDistributionDesignVariableTest

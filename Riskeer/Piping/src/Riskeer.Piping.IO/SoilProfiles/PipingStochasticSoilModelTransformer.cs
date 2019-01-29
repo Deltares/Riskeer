@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Piping.IO.SoilProfiles
+namespace Riskeer.Piping.IO.SoilProfiles
 {
     /// <summary>
     /// Transforms generic <see cref="StochasticSoilModel"/> into <see cref="PipingStochasticSoilModel"/>.

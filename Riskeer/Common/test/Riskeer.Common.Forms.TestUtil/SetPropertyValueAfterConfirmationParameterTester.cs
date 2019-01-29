@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// This class can be used in tests to verify that the correct arguments 

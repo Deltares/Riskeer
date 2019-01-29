@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data
+namespace Riskeer.Common.Data
 {
     /// <summary>
     /// This class represents a comment on some subject.

@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 
-namespace Ringtoets.Revetment.Forms.PropertyClasses
+namespace Riskeer.Revetment.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInputContext{T}"/> for properties panel in case the

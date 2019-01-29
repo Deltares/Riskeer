@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilModelCollectionTest :

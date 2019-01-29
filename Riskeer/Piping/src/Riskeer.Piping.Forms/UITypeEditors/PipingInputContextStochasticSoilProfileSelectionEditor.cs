@@ -26,7 +26,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.UITypeEditors
+namespace Riskeer.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a

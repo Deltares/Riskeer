@@ -21,7 +21,7 @@
 
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.StabilityStoneCover.Data.TestUtil
+namespace Riskeer.StabilityStoneCover.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

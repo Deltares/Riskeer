@@ -24,7 +24,7 @@ using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.InputParameterCalculation
+namespace Riskeer.Piping.InputParameterCalculation
 {
     /// <summary>
     /// This class can be used to calculate input parameters for a piping calculation based on other input parameters.

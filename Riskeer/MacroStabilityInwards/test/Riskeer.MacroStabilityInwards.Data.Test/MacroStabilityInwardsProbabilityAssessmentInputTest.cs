@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsProbabilityAssessmentInputTest

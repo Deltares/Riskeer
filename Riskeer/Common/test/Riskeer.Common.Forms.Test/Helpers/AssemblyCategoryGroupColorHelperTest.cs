@@ -27,7 +27,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
     public class AssemblyCategoryGroupColorHelperTest

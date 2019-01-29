@@ -27,7 +27,7 @@ using Ringtoets.Common.Service.IllustrationPoints;
 using HydraRingStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
 using HydraRingSubMechanismIllustrationPointStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
-namespace Ringtoets.Common.Service.Test.IllustrationPoints
+namespace Riskeer.Common.Service.Test.IllustrationPoints
 {
     [TestFixture]
     public class StochastConverterTest

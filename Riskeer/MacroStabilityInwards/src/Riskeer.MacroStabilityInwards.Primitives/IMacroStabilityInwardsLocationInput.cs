@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Interface that holds all locations input for either daily or 

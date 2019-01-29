@@ -23,7 +23,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Factories
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="MapData"/> instances for assembly data.

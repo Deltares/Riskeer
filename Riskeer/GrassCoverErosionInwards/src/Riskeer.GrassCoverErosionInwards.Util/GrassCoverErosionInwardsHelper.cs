@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Util;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Util
+namespace Riskeer.GrassCoverErosionInwards.Util
 {
     /// <summary>
     /// Class which defines helper methods to match <see cref="GrassCoverErosionInwardsCalculation"/> objects 

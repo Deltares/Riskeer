@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil
 {
     /// <summary>
     /// Class for asserting calculator input.

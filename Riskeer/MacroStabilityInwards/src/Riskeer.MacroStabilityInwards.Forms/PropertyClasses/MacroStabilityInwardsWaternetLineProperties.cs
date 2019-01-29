@@ -30,7 +30,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of waternet line properties in <see cref="MacroStabilityInwardsWaternetLine"/> for properties panel.

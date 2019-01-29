@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.Common.Forms.UITypeEditors
+namespace Riskeer.Common.Forms.UITypeEditors
 {
     /// <summary>
     /// Interface for <see cref="IObjectProperties"/> with a structure property.

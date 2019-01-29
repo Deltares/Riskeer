@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.ClosingStructures.Service.Properties {
+namespace Riskeer.ClosingStructures.Service.Properties {
     using System;
     
     

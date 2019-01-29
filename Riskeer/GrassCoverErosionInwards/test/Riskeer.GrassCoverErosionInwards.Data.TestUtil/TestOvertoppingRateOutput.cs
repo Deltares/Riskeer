@@ -22,7 +22,7 @@
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
+namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
     /// Class which creates simple instances of <see cref="OvertoppingRateOutput"/>, 

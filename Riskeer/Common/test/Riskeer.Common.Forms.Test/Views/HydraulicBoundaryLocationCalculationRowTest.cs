@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Test.Views
+namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
     public class HydraulicBoundaryLocationCalculationRowTest

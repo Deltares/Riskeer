@@ -40,7 +40,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class ClosingStructuresContextImportInfoTest : NUnitFormTest

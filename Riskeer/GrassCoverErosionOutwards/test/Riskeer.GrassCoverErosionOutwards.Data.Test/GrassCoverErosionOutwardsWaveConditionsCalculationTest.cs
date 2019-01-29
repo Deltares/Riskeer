@@ -28,7 +28,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
+namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationTest

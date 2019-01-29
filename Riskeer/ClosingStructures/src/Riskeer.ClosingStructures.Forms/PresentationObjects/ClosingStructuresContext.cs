@@ -26,7 +26,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="ClosingStructure"/>.

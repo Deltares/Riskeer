@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
 {
     /// <summary>
     /// Interface for a factory which creates calculators for performing macro stability inwards calculations.

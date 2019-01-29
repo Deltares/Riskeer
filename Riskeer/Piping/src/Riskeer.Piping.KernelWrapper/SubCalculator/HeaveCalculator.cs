@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.Piping.KernelWrapper.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Class which wraps a <see cref="Deltares.WTIPiping.HeaveCalculator"/>.

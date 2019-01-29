@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.UpdateDataStrategies
+namespace Riskeer.Common.Data.UpdateDataStrategies
 {
     /// <summary>
     /// Strategy for updating the current collection and dependent data with imported data:

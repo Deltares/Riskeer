@@ -22,7 +22,7 @@
 using System.Drawing;
 using Ringtoets.Revetment.Forms.Views;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views
 {
     /// <summary>
     /// Class that defines the stability stone cover style that is used in the <see cref="WaveConditionsInputView"/>.

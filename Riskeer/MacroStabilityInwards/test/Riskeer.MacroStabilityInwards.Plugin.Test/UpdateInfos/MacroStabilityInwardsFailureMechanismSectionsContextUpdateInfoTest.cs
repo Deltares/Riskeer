@@ -34,7 +34,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionsContextUpdateInfoTest

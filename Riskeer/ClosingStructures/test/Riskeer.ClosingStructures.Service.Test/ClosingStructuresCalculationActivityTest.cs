@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 
-namespace Ringtoets.ClosingStructures.Service.Test
+namespace Riskeer.ClosingStructures.Service.Test
 {
     [TestFixture]
     public class ClosingStructuresCalculationActivityTest

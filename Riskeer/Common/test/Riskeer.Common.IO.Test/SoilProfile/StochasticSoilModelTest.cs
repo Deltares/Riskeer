@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.Test.SoilProfile
+namespace Riskeer.Common.IO.Test.SoilProfile
 {
     [TestFixture]
     public class StochasticSoilModelTest

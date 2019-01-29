@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.Merge;
 
-namespace Ringtoets.Integration.Forms.Test.Merge
+namespace Riskeer.Integration.Forms.Test.Merge
 {
     [TestFixture]
     public class FailureMechanismMergeDataRowTest

@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Service.MessageProviders;
 
-namespace Ringtoets.StabilityPointStructures.Service.Test
+namespace Riskeer.StabilityPointStructures.Service.Test
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationMessageProviderTest

@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> for closing structures.

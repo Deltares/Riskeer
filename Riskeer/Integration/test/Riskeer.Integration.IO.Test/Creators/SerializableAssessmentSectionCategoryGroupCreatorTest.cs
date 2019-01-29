@@ -27,7 +27,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Creators;
 
-namespace Ringtoets.Integration.IO.Test.Creators
+namespace Riskeer.Integration.IO.Test.Creators
 {
     [TestFixture]
     public class SerializableAssessmentSectionCategoryGroupCreatorTest

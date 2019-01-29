@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
+namespace Riskeer.MacroStabilityInwards.Primitives.TestUtil
 {
     /// <summary>
     /// Factory to create simple <see cref="Ring"/> instances that can be used

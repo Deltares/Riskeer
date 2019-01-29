@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.HeightStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.IO.Configurations
+namespace Riskeer.HeightStructures.IO.Configurations
 {
     /// <summary>
     /// Reader for reading a height structure calculation configuration from XML and creating a collection 

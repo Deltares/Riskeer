@@ -39,7 +39,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsOutputViewInfoTest

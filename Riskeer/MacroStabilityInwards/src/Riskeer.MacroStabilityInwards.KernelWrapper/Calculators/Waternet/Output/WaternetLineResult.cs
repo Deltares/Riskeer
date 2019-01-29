@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output
 {
     /// <summary>
     /// The waternet line result of a Waternet calculation.

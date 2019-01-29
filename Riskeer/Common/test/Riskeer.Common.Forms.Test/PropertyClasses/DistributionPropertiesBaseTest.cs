@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test.PropertyClasses
+namespace Riskeer.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class DistributionPropertiesBaseTest

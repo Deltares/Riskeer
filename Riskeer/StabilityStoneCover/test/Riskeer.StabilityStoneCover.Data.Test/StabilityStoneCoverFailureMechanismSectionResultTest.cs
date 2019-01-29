@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.StabilityStoneCover.Data.Test
+namespace Riskeer.StabilityStoneCover.Data.Test
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultTest

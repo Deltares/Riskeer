@@ -25,7 +25,7 @@ using Core.Common.Gui.UITypeEditors;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors
+namespace Riskeer.GrassCoverErosionInwards.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a

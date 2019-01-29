@@ -31,7 +31,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.Exceptions;
 
-namespace Ringtoets.Common.IO.Test.DikeProfiles
+namespace Riskeer.Common.IO.Test.DikeProfiles
 {
     [TestFixture]
     public class DikeProfileDataReaderTest

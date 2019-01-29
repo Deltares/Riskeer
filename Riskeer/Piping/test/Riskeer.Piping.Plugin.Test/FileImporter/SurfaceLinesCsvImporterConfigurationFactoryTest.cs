@@ -28,7 +28,7 @@ using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Riskeer.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class SurfaceLinesCsvImporterConfigurationFactoryTest

@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.ClosingStructures.Util.Test
+namespace Riskeer.ClosingStructures.Util.Test
 {
     [TestFixture]
     public class ClosingStructuresHelperTest

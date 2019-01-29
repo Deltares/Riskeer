@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.Probabilistics
+namespace Riskeer.Common.Data.Probabilistics
 {
     /// <summary>
     /// This object represents a probabilistic distribution.

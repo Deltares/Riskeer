@@ -25,7 +25,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
+namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// The presentation object for an <see cref="StructureCollection{TStructure}"/> containing <see cref="StabilityPointStructure"/>.

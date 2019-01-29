@@ -32,7 +32,7 @@ using Core.Common.Util.Extensions;
 using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.Structures
+namespace Riskeer.Common.IO.Structures
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv) containing

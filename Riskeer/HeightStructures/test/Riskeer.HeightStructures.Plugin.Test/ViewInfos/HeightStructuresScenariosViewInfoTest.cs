@@ -33,7 +33,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
+namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class HeightStructuresScenariosViewInfoTest

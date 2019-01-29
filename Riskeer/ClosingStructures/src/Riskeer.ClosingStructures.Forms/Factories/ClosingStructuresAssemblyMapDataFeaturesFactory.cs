@@ -26,7 +26,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Factories;
 
-namespace Ringtoets.ClosingStructures.Forms.Factories
+namespace Riskeer.ClosingStructures.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for assembly results in a <see cref="ClosingStructuresFailureMechanism"/>.

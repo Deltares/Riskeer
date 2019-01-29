@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
+namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for converting <see cref="MacroStabilityInwardsGrid"/> to <see cref="MacroStabilityInwardsGridConfiguration"/>.

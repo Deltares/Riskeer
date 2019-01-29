@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Data.TestUtil
+namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Factory to create simple <see cref="PipingStochasticSoilModel"/> instances that can be used for testing.

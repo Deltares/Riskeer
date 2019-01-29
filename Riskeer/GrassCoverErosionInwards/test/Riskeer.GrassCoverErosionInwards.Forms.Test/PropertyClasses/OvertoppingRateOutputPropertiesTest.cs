@@ -37,7 +37,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class OvertoppingRateOutputPropertiesTest

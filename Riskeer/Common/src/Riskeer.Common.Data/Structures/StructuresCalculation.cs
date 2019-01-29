@@ -23,7 +23,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Structures
+namespace Riskeer.Common.Data.Structures
 {
     /// <summary>
     /// This class holds information about a calculation for a structures failure mechanism.

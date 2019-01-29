@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Data.TestUtil.Test
+namespace Riskeer.Piping.Data.TestUtil.Test
 {
     [TestFixture]
     public class PipingStochasticSoilModelTestFactoryTest

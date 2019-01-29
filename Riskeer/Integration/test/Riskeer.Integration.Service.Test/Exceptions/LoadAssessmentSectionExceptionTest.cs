@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.Service.Exceptions;
 
-namespace Ringtoets.Integration.Service.Test.Exceptions
+namespace Riskeer.Integration.Service.Test.Exceptions
 {
     [TestFixture]
     public class LoadAssessmentSectionExceptionTest :

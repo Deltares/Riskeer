@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.Configurations;
 
-namespace Ringtoets.StabilityPointStructures.IO.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Configuration of a stability point structures calculation.

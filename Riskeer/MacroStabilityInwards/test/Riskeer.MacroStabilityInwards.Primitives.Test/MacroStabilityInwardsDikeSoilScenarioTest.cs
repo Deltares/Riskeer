@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Riskeer.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsDikeSoilScenarioTest : EnumWithResourcesDisplayNameTestFixture<MacroStabilityInwardsDikeSoilScenario>

@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Common.Data.TestUtil.Probability
+namespace Riskeer.Common.Data.TestUtil.Probability
 {
     /// <summary>
     /// A <see cref="ProbabilityAssessmentInput"/> that can be used in tests.

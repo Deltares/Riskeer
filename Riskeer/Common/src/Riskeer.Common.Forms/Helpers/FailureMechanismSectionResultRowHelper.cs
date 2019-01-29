@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// Helper class for updating states of a <see cref="DataGridViewColumnStateDefinition"/>

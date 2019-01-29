@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
-namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
+namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismPropertiesTest

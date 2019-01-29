@@ -28,7 +28,7 @@ using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Factories
+namespace Riskeer.Piping.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="ChartData"/> for data used as input in the piping failure mechanism.

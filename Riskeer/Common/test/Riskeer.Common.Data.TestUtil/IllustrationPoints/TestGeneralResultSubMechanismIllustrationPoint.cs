@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
+namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// A simple general result with top level sub mechanism illustration points

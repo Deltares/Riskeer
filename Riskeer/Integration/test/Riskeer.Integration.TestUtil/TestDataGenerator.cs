@@ -47,7 +47,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service;
 
-namespace Ringtoets.Integration.TestUtil
+namespace Riskeer.Integration.TestUtil
 {
     /// <summary>
     /// Class that generates fully configured Ringtoets objects.

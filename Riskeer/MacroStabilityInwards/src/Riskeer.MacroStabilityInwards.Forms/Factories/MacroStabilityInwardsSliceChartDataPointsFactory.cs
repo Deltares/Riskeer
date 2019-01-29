@@ -28,7 +28,7 @@ using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of points in 2D space for a collection of <see cref="MacroStabilityInwardsSlice"/> 

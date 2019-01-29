@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for converting <see cref="ICalculationScenario"/> to <see cref="ScenarioConfiguration"/>.

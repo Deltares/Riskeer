@@ -26,7 +26,7 @@ using Core.Common.IO.Exceptions;
 using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
+namespace Riskeer.WaveImpactAsphaltCover.IO.Exporters
 {
     /// <summary>
     /// Exports wave impact asphalt cover wave conditions and stores then as a csv file.

@@ -36,7 +36,7 @@ using WTIPipingSurfaceLine = Deltares.WTIPiping.PipingSurfaceLine;
 using WTIPipingPoint = Deltares.WTIPiping.PipingPoint;
 using WTIPipingProfile = Deltares.WTIPiping.PipingProfile;
 
-namespace Ringtoets.Piping.InputParameterCalculation.Test
+namespace Riskeer.Piping.InputParameterCalculation.Test
 {
     [TestFixture]
     public class InputParameterCalculationServiceTest

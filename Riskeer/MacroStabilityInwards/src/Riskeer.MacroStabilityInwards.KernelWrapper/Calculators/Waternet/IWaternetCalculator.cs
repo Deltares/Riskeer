@@ -21,7 +21,7 @@
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
     /// <summary>
     /// Interface representing a Waternet calculator.

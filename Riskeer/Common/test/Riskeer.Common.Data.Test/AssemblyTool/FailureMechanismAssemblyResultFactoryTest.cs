@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssemblyTool;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
     public class FailureMechanismAssemblyResultFactoryTest

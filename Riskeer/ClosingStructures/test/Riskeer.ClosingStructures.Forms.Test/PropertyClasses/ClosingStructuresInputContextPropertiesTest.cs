@@ -42,7 +42,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 
-namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
+namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class ClosingStructuresInputContextPropertiesTest

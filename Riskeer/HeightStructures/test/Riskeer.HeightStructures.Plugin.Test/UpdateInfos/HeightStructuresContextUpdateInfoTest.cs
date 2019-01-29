@@ -39,7 +39,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
+namespace Riskeer.HeightStructures.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class HeightStructuresContextUpdateInfoTest : NUnitFormTest

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// This class couples a SoilProfile to a probability of occurrence.

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.DikeProfiles
+namespace Riskeer.Common.IO.DikeProfiles
 {
     /// <summary>
     /// Specifies the type of dam at the offshore side of a dike profile.

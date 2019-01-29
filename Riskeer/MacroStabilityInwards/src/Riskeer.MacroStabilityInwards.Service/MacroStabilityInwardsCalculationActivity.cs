@@ -25,7 +25,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.MacroStabilityInwards.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Service
+namespace Riskeer.MacroStabilityInwards.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a macro stability inwards calculation.

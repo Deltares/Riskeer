@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     partial class ClosingStructuresFailureMechanismView
     {

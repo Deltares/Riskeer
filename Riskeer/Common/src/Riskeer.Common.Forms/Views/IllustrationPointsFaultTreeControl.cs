@@ -28,7 +28,7 @@ using Core.Components.PointedTree.Data;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Factories;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Control to show fault tree illustration points.

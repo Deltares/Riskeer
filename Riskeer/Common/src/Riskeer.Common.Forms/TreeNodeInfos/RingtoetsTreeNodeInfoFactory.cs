@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.TreeNodeInfos
+namespace Riskeer.Common.Forms.TreeNodeInfos
 {
     /// <summary>
     /// Factory for creating calculation related <see cref="TreeNodeInfo"/> objects.

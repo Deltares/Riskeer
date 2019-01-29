@@ -24,7 +24,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Service.ValidationRules;
 
-namespace Ringtoets.Common.Service.Test.ValidationRules
+namespace Riskeer.Common.Service.Test.ValidationRules
 {
     [TestFixture]
     public class ValidationRuleTest

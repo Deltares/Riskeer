@@ -40,7 +40,7 @@ using Rhino.Mocks;
 using Riskeer.Integration.Forms.Dialogs;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Dialogs
+namespace Riskeer.Integration.Forms.Test.Dialogs
 {
     [TestFixture]
     public class BackgroundMapDataSelectionDialogTest : NUnitFormTest

@@ -53,7 +53,7 @@ using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
     public class AssemblyResultPerSectionMapViewTest

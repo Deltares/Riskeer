@@ -38,7 +38,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Util;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Factories
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>

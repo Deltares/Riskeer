@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Util;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.IO.WaveConditions
+namespace Riskeer.Revetment.IO.WaveConditions
 {
     /// <summary>
     /// Class for creating instances of <see cref="ExportableWaveConditions"/>.

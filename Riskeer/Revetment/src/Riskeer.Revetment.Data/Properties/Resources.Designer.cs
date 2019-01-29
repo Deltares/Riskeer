@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Revetment.Data.Properties {
+namespace Riskeer.Revetment.Data.Properties {
     using System;
     
     

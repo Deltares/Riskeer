@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="DesignVariable{T}"/> of <see cref="NormalDistribution"/> for properties panel.

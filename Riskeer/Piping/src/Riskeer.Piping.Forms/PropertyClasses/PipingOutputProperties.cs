@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="PipingOutput"/> for properties panel.

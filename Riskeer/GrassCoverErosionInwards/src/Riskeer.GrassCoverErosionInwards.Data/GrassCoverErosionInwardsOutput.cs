@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// The overall result of a grass cover erosion inwards assessment.

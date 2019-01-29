@@ -33,7 +33,7 @@ using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test
+namespace Riskeer.StabilityPointStructures.Plugin.Test
 {
     [TestFixture]
     public class StabilityPointStructuresPluginTest

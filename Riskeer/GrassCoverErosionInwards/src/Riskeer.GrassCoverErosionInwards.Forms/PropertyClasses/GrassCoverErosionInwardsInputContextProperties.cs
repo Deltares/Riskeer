@@ -43,7 +43,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.

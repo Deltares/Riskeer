@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object representing all required stability stone cover input knowledge

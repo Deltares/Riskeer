@@ -24,7 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.DuneErosion.Data.Test
+namespace Riskeer.DuneErosion.Data.Test
 {
     [TestFixture]
     public class DuneLocationTest

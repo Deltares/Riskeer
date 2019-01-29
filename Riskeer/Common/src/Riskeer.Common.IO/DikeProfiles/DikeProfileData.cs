@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.Common.IO.DikeProfiles
+namespace Riskeer.Common.IO.DikeProfiles
 {
     /// <summary>
     /// Represents the data read from a *.prfl file read by <see cref="DikeProfileDataReader"/>.

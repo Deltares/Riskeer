@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil
 {
     /// <summary>
     /// Class for asserting calculator output.

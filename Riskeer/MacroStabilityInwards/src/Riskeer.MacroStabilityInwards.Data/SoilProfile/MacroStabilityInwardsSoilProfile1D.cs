@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.MacroStabilityInwards.Primitives.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a macro stability inwards calculation.

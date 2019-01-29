@@ -32,7 +32,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.IO.Test
+namespace Riskeer.DuneErosion.IO.Test
 {
     [TestFixture]
     public class DuneLocationCalculationsWriterTest

@@ -25,7 +25,7 @@ using Core.Common.Controls;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Controls;
 
-namespace Ringtoets.Common.Forms.Test.Controls
+namespace Riskeer.Common.Forms.Test.Controls
 {
     [TestFixture]
     public class AssemblyResultWithProbabilityControlTest

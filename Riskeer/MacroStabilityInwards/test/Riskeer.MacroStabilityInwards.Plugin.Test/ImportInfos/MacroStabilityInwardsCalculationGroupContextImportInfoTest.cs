@@ -37,7 +37,7 @@ using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationGroupContextImportInfoTest

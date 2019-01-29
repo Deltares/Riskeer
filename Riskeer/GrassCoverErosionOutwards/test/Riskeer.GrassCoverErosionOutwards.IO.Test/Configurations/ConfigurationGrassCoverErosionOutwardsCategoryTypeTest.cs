@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
+namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
     public class ConfigurationGrassCoverErosionOutwardsCategoryTypeTest : EnumValuesTestFixture<ConfigurationGrassCoverErosionOutwardsCategoryType, int>

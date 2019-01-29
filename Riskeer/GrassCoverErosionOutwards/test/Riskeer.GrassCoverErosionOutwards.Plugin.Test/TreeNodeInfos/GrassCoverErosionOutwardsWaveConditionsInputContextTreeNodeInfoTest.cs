@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsInputContextTreeNodeInfoTest

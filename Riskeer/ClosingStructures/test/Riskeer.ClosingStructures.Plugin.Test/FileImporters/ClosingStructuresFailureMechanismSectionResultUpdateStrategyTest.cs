@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
+namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

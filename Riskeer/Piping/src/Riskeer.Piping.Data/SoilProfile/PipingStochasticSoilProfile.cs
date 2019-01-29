@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Piping.Data.SoilProfile
+namespace Riskeer.Piping.Data.SoilProfile
 {
     /// <summary>
     /// This class couples a <see cref="PipingSoilProfile"/> to a probability of occurrence.

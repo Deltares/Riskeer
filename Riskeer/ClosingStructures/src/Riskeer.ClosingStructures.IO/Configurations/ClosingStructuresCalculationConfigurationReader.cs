@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.IO.Configurations
+namespace Riskeer.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Reader for reading a closing structure calculation configuration from XML and creating a collection 

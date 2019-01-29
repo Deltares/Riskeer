@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
+namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {
     /// <summary>
     /// Converts <see cref="ConfigurationZoningBoundariesDeterminationType"/> to <see cref="string"/> and back.

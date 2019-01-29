@@ -28,7 +28,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
 using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
+namespace Riskeer.StabilityPointStructures.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class ConfigurationStabilityPointStructuresInflowModelTypeConverterTest

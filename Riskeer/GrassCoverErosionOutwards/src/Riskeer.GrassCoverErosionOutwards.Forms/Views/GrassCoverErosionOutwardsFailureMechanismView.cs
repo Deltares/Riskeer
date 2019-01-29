@@ -38,7 +38,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.Factories;
 using Ringtoets.Revetment.Data;
 using GrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a grass cover erosion outwards failure mechanism.

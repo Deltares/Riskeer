@@ -29,7 +29,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveImpactAsphaltCoverWaveConditionsOutput"/> for properties panel

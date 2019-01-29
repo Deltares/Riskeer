@@ -29,7 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Readers;
 
-namespace Ringtoets.DuneErosion.IO
+namespace Riskeer.DuneErosion.IO
 {
     /// <summary>
     /// Shapefile reader that reads features and converts it into a collection of <see cref="ReadDuneLocation"/>.

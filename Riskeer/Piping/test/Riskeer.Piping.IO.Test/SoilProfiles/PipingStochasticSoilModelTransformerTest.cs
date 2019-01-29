@@ -33,7 +33,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.SoilProfiles;
 using Ringtoets.Piping.IO.TestUtil;
 
-namespace Ringtoets.Piping.IO.Test.SoilProfiles
+namespace Riskeer.Piping.IO.Test.SoilProfiles
 {
     [TestFixture]
     public class PipingStochasticSoilModelTransformerTest

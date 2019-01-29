@@ -33,7 +33,7 @@ using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.DikeProfiles
+namespace Riskeer.Common.IO.DikeProfiles
 {
     /// <summary>
     /// This class is responsible for reading map locations for <see cref="ProfileLocation"/> instances.

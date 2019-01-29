@@ -22,7 +22,7 @@
 using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
+namespace Riskeer.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// Factory to create simple <see cref="FaultTreeIllustrationPoint"/> instances that can be used for testing.

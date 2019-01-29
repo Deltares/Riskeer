@@ -37,7 +37,7 @@ using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Riskeer.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class PipingSurfaceLineUpdateDataStrategyTest

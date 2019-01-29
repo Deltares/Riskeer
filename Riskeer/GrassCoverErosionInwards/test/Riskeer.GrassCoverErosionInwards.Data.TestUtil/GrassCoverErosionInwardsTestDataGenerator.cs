@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
+namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

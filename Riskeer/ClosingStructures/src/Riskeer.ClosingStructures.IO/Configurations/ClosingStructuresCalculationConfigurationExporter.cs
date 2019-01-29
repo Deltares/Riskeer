@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.ClosingStructures.IO.Configurations
+namespace Riskeer.ClosingStructures.IO.Configurations
 {
     /// <summary>
     /// Exports a closing structures calculation configuration and stores it as an XML file.

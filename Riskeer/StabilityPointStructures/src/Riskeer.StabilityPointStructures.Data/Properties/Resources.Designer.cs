@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.StabilityPointStructures.Data.Properties {
+namespace Riskeer.StabilityPointStructures.Data.Properties {
     using System;
     
     

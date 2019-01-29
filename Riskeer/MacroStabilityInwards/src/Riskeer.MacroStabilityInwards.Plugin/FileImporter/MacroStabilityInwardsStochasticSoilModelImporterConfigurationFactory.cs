@@ -25,7 +25,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
+namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
     /// Factory for creating valid configurations for the <see cref="StochasticSoilModelImporter{T}"/>.

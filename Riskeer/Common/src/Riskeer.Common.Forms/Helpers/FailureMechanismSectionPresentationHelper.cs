@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// Helper class for displaying <see cref="FailureMechanismSection"/>.

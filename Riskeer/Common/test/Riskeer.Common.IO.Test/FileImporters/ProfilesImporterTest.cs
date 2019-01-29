@@ -36,7 +36,7 @@ using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 
-namespace Ringtoets.Common.IO.Test.FileImporters
+namespace Riskeer.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class ProfilesImporterTest

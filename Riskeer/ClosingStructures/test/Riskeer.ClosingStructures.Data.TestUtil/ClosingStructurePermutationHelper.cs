@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.ClosingStructures.Data.TestUtil
+namespace Riskeer.ClosingStructures.Data.TestUtil
 {
     /// <summary>
     /// Helper containing a source of modified <see cref="ClosingStructure"/> entities that can

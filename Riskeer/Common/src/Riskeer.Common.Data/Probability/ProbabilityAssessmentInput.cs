@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Probability
+namespace Riskeer.Common.Data.Probability
 {
     /// <summary>
     /// Base class for an object that represents a probability assessment input.

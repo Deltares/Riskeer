@@ -23,7 +23,7 @@ using System;
 using log4net;
 using Ringtoets.Common.Service.Properties;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// This class defines helper methods for performing calculations.

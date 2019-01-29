@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Revetment.Data.TestUtil
+namespace Riskeer.Revetment.Data.TestUtil
 {
     /// <summary>
     /// Simple wave conditions input that can be used for testing.

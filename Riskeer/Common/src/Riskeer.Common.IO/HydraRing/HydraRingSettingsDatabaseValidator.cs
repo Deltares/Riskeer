@@ -28,7 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.HydraRing
+namespace Riskeer.Common.IO.HydraRing
 {
     /// <summary>
     /// Validator to validate the Hydra-Ring settings database.

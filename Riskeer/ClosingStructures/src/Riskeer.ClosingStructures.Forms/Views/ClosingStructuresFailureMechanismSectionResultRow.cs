@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.

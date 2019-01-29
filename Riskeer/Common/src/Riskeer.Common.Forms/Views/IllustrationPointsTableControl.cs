@@ -27,7 +27,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Control to show illustration points in a table view.

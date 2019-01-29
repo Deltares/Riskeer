@@ -31,7 +31,7 @@ using Ringtoets.Common.IO.Properties;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Settings;
 
-namespace Ringtoets.Common.IO.HydraRing
+namespace Riskeer.Common.IO.HydraRing
 {
     /// <summary>
     /// This class is responsible for reading values from the Hydra-Ring settings database and creating

@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationTest

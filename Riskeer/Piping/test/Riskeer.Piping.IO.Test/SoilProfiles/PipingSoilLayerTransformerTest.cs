@@ -33,7 +33,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.SoilProfiles;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test.SoilProfiles
+namespace Riskeer.Piping.IO.Test.SoilProfiles
 {
     [TestFixture]
     public class PipingSoilLayerTransformerTest

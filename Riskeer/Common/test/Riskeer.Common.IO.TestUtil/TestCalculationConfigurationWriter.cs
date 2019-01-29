@@ -23,7 +23,7 @@ using System;
 using System.Xml;
 using Ringtoets.Common.IO.Configurations.Export;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// Simple <see cref="CalculationConfigurationWriter{T}"/> that can be used for testing purposes.

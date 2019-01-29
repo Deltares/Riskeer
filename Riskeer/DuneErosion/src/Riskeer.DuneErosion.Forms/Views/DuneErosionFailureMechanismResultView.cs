@@ -25,7 +25,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.

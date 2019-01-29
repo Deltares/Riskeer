@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
 
-namespace Ringtoets.HeightStructures.Plugin.FileImporters
+namespace Riskeer.HeightStructures.Plugin.FileImporters
 {
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace height 

@@ -26,7 +26,7 @@ using Ringtoets.Common.Primitives;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Plugin.FileImporters;
 
-namespace Ringtoets.Integration.Plugin.Test.FileImporters
+namespace Riskeer.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

@@ -27,7 +27,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.TypeConverters
+namespace Riskeer.Common.Forms.TypeConverters
 {
     /// <summary>
     /// This class is a variant of <see cref="NoValueRoundedDoubleConverter"/>,

@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.IO
+namespace Riskeer.Common.IO
 {
     /// <summary>
     /// This class represents settings that are defined at <see cref="IAssessmentSection"/>

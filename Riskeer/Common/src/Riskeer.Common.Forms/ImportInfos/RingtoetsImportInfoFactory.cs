@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.ImportInfos
+namespace Riskeer.Common.Forms.ImportInfos
 {
     /// <summary>
     /// Factory for creating standard <see cref="ImportInfo"/> objects. 

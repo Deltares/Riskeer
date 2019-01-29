@@ -24,7 +24,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
     /// <summary>
     /// Class representing a Waternet calculator for daily circumstances.

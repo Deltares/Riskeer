@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.ClosingStructures.Data.TestUtil
+namespace Riskeer.ClosingStructures.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

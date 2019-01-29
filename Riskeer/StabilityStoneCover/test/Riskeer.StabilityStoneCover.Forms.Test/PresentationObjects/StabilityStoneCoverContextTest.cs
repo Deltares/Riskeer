@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class StabilityStoneCoverContextTest

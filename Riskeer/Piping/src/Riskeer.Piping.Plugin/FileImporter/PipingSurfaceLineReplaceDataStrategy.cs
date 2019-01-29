@@ -28,7 +28,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace the surface lines with the imported surface lines.

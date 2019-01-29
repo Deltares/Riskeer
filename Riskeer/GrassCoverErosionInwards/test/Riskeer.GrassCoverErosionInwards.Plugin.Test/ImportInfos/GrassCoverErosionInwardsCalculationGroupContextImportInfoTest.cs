@@ -35,7 +35,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextImportInfoTest

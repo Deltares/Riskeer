@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Util
+namespace Riskeer.GrassCoverErosionOutwards.Util
 {
     /// <summary>
     /// Factory for creating <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/> instances.

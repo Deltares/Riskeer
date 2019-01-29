@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Simple structures input that can be used in tests.

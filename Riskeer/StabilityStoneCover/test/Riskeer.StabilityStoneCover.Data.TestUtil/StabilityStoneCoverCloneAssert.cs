@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.StabilityStoneCover.Data.TestUtil
+namespace Riskeer.StabilityStoneCover.Data.TestUtil
 {
     /// <summary>
     /// Class that defines methods for asserting whether two objects are clones.

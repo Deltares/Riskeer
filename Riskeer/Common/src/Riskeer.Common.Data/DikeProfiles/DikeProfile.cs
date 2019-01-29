@@ -27,7 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.DikeProfiles
+namespace Riskeer.Common.Data.DikeProfiles
 {
     /// <summary>
     /// Definition for a dike profile for a failure mechanism.

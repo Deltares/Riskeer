@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.Properties;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// Service for providing common data calculation services.

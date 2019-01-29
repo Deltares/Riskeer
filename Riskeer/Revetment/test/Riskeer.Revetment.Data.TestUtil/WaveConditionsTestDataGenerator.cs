@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Revetment.Data.TestUtil
+namespace Riskeer.Revetment.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.

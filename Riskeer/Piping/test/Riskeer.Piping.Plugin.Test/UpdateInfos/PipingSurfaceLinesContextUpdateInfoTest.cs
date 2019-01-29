@@ -38,7 +38,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
+namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class PipingSurfaceLinesContextUpdateInfoTest : NUnitFormTest

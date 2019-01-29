@@ -35,7 +35,7 @@ using Ringtoets.StabilityPointStructures.IO.Properties;
 using Ringtoets.StabilityPointStructures.Util;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.IO.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Class for importing a configuration of <see cref="StabilityPointStructuresCalculationConfiguration"/> 

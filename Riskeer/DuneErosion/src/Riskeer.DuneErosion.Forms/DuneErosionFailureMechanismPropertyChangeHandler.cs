@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
 
-namespace Ringtoets.DuneErosion.Forms
+namespace Riskeer.DuneErosion.Forms
 {
     /// <summary>
     /// Class that handles changes to the data model at failure mechanism level of

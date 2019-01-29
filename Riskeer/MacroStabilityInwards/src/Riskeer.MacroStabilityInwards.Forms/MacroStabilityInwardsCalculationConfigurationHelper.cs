@@ -31,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms
+namespace Riskeer.MacroStabilityInwards.Forms
 {
     /// <summary>
     /// Class holds methods to help views when dealing with <see cref="MacroStabilityInwardsCalculation"/>

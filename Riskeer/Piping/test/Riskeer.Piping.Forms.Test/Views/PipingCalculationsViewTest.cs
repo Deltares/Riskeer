@@ -46,7 +46,7 @@ using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Forms.Test.Views
+namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
     public class PipingCalculationsViewTest : NUnitFormTest

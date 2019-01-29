@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
-namespace Ringtoets.Piping.Forms.Test.PresentationObjects
+namespace Riskeer.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class PipingFailureMechanismContextTest

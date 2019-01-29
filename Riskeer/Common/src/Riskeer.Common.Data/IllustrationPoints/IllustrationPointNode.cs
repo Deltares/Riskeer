@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.IllustrationPoints
+namespace Riskeer.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// A node with attached illustration point data that is part of a tree. Multiple

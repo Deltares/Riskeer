@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest

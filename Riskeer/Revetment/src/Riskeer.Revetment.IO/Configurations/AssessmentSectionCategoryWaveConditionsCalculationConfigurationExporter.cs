@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations.Converters;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Exports an assessment section category wave conditions calculation configuration and stores it as an XML file.

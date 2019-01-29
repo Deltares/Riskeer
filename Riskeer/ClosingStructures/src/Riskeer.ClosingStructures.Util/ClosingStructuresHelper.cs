@@ -27,7 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Util;
 
-namespace Ringtoets.ClosingStructures.Util
+namespace Riskeer.ClosingStructures.Util
 {
     /// <summary>
     /// Class holds helper methods to match <see cref="ClosingStructuresFailureMechanismSectionResult"/> objects 

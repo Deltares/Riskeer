@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test
+namespace Riskeer.Common.Data.Test
 {
     [TestFixture]
     public class HasSectionResultsHelperTest

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Util.Test
+namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
     public class FailureMechanismNormHelperTest

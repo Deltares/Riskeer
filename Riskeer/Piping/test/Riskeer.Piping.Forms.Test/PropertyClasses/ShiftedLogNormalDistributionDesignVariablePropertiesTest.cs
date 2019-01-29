@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
-namespace Ringtoets.Piping.Forms.Test.PropertyClasses
+namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class ShiftedLogNormalDistributionDesignVariablePropertiesTest

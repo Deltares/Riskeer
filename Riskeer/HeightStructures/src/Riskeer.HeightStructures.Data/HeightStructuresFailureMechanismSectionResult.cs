@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Data
+namespace Riskeer.HeightStructures.Data
 {
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>

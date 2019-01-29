@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// Class that holds all piping calculation specific input parameters, i.e. the values

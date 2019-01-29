@@ -27,7 +27,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :

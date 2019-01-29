@@ -34,7 +34,7 @@ using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
 
-namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
+namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsExporterTest

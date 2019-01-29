@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 
-namespace Ringtoets.ClosingStructures.Data.Test
+namespace Riskeer.ClosingStructures.Data.Test
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultTest

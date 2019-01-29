@@ -33,7 +33,7 @@ using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating surface lines based on imported data.

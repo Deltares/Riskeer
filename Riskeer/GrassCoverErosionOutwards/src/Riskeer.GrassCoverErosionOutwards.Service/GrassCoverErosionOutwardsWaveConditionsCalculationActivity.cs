@@ -26,7 +26,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Service
+namespace Riskeer.GrassCoverErosionOutwards.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a grass cover erosion outwards wave conditions calculation.

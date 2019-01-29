@@ -39,7 +39,7 @@ using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.TestUtil;
 using Ringtoets.Revetment.Forms.Views;
 
-namespace Ringtoets.Revetment.Forms.Test.Views
+namespace Riskeer.Revetment.Forms.Test.Views
 {
     [TestFixture]
     public class WaveConditionsInputViewTest

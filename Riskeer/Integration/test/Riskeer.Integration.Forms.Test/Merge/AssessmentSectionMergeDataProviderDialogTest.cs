@@ -40,7 +40,7 @@ using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Merge
+namespace Riskeer.Integration.Forms.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionMergeDataProviderDialogTest : NUnitFormTest

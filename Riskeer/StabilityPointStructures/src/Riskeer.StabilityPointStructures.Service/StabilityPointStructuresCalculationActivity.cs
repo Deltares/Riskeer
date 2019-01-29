@@ -27,7 +27,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Service
+namespace Riskeer.StabilityPointStructures.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a structures stability point calculation.

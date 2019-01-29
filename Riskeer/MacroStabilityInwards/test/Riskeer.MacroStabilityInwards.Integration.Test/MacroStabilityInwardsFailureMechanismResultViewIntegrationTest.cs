@@ -34,7 +34,7 @@ using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Service;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Integration.Test
+namespace Riskeer.MacroStabilityInwards.Integration.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismResultViewIntegrationTest

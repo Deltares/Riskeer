@@ -31,7 +31,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.Views;
 
-namespace Ringtoets.DuneErosion.Forms.Test.Views
+namespace Riskeer.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
     public class DuneLocationCalculationsViewBaseTest

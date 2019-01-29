@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// Factory that creates instances of <see cref="MacroStabilityInwardsOutput"/>

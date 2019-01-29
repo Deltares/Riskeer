@@ -24,7 +24,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
+namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {
     /// <summary>
     /// Factory to create simple <see cref="MacroStabilityInwardsSoilProfile2D"/> instances that 

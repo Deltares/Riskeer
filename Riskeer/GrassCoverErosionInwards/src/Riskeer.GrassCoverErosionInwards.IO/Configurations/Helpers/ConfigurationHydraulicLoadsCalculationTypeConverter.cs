@@ -25,7 +25,7 @@ using System.Globalization;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
+namespace Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers
 {
     /// <summary>
     /// Converts <see cref="ConfigurationHydraulicLoadsCalculationType"/> to <see cref="string"/> and back.

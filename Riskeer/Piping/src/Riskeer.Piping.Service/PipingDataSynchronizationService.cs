@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Service
+namespace Riskeer.Piping.Service
 {
     /// <summary>
     /// Service for synchronizing piping data.

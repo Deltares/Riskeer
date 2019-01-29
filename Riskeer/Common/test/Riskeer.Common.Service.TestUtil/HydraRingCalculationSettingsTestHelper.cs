@@ -2,7 +2,7 @@
 using Ringtoets.Common.Data.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input;
 
-namespace Ringtoets.Common.Service.TestUtil
+namespace Riskeer.Common.Service.TestUtil
 {
     /// <summary>
     /// A test helper which can be used to assert instances of <see cref="HydraRingCalculationSettings"/>.

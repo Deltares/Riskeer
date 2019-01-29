@@ -24,7 +24,7 @@ using System.Linq;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Service
+namespace Riskeer.MacroStabilityInwards.Service
 {
     /// <summary>
     /// Class responsible for macro stability inwards input properties in sync.

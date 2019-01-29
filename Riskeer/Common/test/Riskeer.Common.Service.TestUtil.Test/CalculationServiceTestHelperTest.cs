@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Service.TestUtil.Test
+namespace Riskeer.Common.Service.TestUtil.Test
 {
     [TestFixture]
     public class CalculationServiceTestHelperTest

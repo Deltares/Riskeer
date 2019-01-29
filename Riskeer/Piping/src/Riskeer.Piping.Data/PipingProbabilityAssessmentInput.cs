@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Piping.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a piping assessment.

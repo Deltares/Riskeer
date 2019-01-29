@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Riskeer.Integration.IO.Exporters;
 
-namespace Ringtoets.Integration.IO.Test.Exporters
+namespace Riskeer.Integration.IO.Test.Exporters
 {
     [TestFixture]
     public class HydraulicBoundaryLocationsExporterTest

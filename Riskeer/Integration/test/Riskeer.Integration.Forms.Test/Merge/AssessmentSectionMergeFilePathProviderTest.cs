@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Forms.Merge;
 
-namespace Ringtoets.Integration.Forms.Test.Merge
+namespace Riskeer.Integration.Forms.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionMergeFilePathProviderTest

@@ -38,7 +38,7 @@ using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test.Factories
+namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
     public class RingtoetsMapDataFeaturesFactoryTest

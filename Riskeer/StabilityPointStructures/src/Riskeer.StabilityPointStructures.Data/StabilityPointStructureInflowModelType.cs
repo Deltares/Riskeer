@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Data
+namespace Riskeer.StabilityPointStructures.Data
 {
     /// <summary>
     /// Defines the types of the various <see cref="StabilityPointStructure"/> inflow models.

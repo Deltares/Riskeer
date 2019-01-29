@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 
-namespace Ringtoets.Integration.TestUtil.Test
+namespace Riskeer.Integration.TestUtil.Test
 {
     [TestFixture]
     public class DataImportHelperTest

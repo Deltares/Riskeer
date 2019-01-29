@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilModelTreeNodeInfoTest

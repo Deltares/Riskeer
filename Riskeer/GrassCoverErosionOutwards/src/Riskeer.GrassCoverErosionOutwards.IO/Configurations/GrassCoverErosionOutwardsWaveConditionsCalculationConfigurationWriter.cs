@@ -24,7 +24,7 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
+namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Writer for calculations that contain <see cref="FailureMechanismCategoryWaveConditionsInput"/> as input,

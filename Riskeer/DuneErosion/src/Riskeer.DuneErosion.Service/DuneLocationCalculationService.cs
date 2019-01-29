@@ -34,7 +34,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.Exceptions;
 
-namespace Ringtoets.DuneErosion.Service
+namespace Riskeer.DuneErosion.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for dune locations.

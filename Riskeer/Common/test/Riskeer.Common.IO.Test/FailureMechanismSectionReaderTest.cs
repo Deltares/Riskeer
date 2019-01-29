@@ -28,7 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.IO.Test
+namespace Riskeer.Common.IO.Test
 {
     [TestFixture]
     public class FailureMechanismSectionReaderTest

@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.IO.Configurations.Converters
+namespace Riskeer.Revetment.IO.Configurations.Converters
 {
     /// <summary>
     /// Converts <see cref="ConfigurationWaveConditionsInputStepSize"/> to <see cref="string"/> and back.

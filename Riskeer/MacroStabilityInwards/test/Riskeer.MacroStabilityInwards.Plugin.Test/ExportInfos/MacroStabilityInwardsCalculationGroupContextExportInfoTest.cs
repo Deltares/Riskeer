@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationGroupContextExportInfoTest

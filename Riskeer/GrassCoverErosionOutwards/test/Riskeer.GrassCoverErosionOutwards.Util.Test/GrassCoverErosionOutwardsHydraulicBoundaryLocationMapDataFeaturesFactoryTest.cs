@@ -27,7 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Util.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
+namespace Riskeer.GrassCoverErosionOutwards.Util.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationMapDataFeaturesFactoryTest

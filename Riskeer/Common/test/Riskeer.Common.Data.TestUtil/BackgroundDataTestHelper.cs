@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Class that can be used to test properties of a <see cref="BackgroundData"/>.

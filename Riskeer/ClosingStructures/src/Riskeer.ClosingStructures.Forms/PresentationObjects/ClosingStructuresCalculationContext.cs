@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure a closing structures calculation.

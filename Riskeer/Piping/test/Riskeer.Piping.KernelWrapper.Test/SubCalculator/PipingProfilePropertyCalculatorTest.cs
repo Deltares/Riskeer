@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.Test.SubCalculator
 {
     [TestFixture]
     public class PipingProfilePropertyCalculatorTest

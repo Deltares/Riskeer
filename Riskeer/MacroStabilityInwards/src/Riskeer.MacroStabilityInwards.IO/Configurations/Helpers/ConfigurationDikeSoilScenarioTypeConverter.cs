@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
+namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {
     /// <summary>
     /// Converts <see cref="ConfigurationDikeSoilScenario"/> to <see cref="string"/> and back.

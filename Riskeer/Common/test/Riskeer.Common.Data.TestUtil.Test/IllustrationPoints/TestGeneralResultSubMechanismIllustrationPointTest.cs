@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
+namespace Riskeer.Common.Data.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
     public class TestGeneralResultSubMechanismIllustrationPointTest

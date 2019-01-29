@@ -38,7 +38,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Handlers;
 
-namespace Ringtoets.Integration.Plugin.Test.Handlers
+namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseUpdateHandlerTest : NUnitFormTest

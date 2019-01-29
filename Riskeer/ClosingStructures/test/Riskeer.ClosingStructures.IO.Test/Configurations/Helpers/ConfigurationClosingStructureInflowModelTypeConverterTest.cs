@@ -27,7 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
 
-namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
+namespace Riskeer.ClosingStructures.IO.Test.Configurations.Helpers
 {
     [TestFixture]
     public class ConfigurationClosingStructureInflowModelTypeConverterTest

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Util.Test
+namespace Riskeer.GrassCoverErosionInwards.Util.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsHelperTest

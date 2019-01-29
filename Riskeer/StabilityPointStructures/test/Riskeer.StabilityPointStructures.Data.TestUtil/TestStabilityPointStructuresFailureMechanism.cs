@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.StabilityPointStructures.Data.TestUtil
+namespace Riskeer.StabilityPointStructures.Data.TestUtil
 {
     /// <summary>
     /// <see cref="StabilityPointStructuresFailureMechanism"/> used for testing purposes.

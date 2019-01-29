@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {
     [TestFixture]
     public class WaternetCalculatorResultCreatorTest

@@ -31,7 +31,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Util;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
+namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating 

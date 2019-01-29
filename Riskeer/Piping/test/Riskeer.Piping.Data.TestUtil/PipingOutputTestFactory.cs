@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Piping.Data.TestUtil
+namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Factory for creating <see cref="PipingOutput"/> that can be used

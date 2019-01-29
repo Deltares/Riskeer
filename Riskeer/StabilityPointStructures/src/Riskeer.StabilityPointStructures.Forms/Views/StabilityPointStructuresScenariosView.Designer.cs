@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.StabilityPointStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     partial class StabilityPointStructuresScenariosView
     {

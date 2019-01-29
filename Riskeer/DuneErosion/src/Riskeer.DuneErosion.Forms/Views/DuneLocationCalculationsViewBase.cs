@@ -28,7 +28,7 @@ using Core.Common.Util.Extensions;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
     /// Base view for selecting dune location calculations and starting a calculation for said objects.

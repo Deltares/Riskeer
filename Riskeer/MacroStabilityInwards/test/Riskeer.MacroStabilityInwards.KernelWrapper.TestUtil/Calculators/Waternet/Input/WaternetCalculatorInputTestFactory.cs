@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Input
 {
     /// <summary>
     /// Factory to create simple <see cref="WaternetCalculatorInput"/> instances that can be used for testing.

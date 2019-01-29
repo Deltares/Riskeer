@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionsContextTest

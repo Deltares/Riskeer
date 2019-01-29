@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil.Test
+namespace Riskeer.HeightStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestHeightStructuresCalculationTest

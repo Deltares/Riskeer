@@ -29,7 +29,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Service.Merge;
 
-namespace Ringtoets.Integration.Service.Test.Merge
+namespace Riskeer.Integration.Service.Test.Merge
 {
     [TestFixture]
     public class LoadAssessmentSectionsActivityFactoryTest

@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineTreeNodeInfoTest

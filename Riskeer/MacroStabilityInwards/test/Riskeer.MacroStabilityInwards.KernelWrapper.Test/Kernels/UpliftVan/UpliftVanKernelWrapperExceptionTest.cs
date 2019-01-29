@@ -24,7 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 {
     [TestFixture]
     public class UpliftVanKernelWrapperExceptionTest

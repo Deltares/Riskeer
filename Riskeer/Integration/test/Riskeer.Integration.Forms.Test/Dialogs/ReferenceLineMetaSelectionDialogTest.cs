@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
 using Riskeer.Integration.Forms.Dialogs;
 
-namespace Ringtoets.Integration.Forms.Test.Dialogs
+namespace Riskeer.Integration.Forms.Test.Dialogs
 {
     [TestFixture]
     public class ReferenceLineMetaSelectionDialogTest : NUnitFormTest

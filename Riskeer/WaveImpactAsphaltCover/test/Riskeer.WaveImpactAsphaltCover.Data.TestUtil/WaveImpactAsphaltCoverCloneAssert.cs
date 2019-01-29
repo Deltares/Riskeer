@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.TestUtil
+namespace Riskeer.WaveImpactAsphaltCover.Data.TestUtil
 {
     /// <summary>
     /// Class that defines methods for asserting whether two objects are clones.

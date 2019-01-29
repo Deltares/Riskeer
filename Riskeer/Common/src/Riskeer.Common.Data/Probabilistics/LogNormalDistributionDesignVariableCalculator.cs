@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.Probabilistics
+namespace Riskeer.Common.Data.Probabilistics
 {
     /// <summary>
     /// Calculator for design variables for log normal distributions.

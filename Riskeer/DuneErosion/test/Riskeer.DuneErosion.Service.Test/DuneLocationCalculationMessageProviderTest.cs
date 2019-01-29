@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Service.MessageProviders;
 
-namespace Ringtoets.DuneErosion.Service.Test
+namespace Riskeer.DuneErosion.Service.Test
 {
     [TestFixture]
     public class DuneLocationCalculationMessageProviderTest

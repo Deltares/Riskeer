@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.Common.IO.Configurations
+namespace Riskeer.Common.IO.Configurations
 {
     /// <summary>
     /// Class that represents a configuration of a calculation group.

@@ -40,7 +40,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.Test.FileImporters
+namespace Riskeer.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class StructuresImporterTest

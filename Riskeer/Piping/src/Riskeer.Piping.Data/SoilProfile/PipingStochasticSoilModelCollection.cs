@@ -23,7 +23,7 @@ using Core.Common.Base;
 using Ringtoets.Piping.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Piping.Data.SoilProfile
+namespace Riskeer.Piping.Data.SoilProfile
 {
     /// <summary>
     /// A collection of <see cref="PipingStochasticSoilModel"/>. 

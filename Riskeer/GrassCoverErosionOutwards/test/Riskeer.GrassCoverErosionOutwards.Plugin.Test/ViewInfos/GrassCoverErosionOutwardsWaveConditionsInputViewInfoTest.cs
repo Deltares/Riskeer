@@ -41,7 +41,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsInputViewInfoTest : ShouldCloseViewWithCalculationDataTester

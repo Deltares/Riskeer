@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class StructuresCalculationContextTest

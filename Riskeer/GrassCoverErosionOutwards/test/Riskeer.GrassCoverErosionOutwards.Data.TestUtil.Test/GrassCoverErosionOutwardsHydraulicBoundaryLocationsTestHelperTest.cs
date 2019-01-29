@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
+namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelperTest

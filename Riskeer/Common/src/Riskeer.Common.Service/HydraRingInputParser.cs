@@ -26,7 +26,7 @@ using System.Linq;
 using Ringtoets.Common.Data.DikeProfiles;
 using Riskeer.HydraRing.Calculation.Data;
 
-namespace Ringtoets.Common.Service
+namespace Riskeer.Common.Service
 {
     /// <summary>
     /// Helper class to parse the breakwater and foreshore properties of a calculation input object into required objects 

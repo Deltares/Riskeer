@@ -38,7 +38,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Service;
 
-namespace Ringtoets.Integration.Service.Test
+namespace Riskeer.Integration.Service.Test
 {
     [TestFixture]
     public class AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactoryTest

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.PropertyClasses
+namespace Riskeer.HeightStructures.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of height structures <see cref="StructuresOutput"/> for properties panel.

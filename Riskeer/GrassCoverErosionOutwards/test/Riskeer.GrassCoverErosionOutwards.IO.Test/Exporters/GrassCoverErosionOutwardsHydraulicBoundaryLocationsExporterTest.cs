@@ -34,7 +34,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterTest

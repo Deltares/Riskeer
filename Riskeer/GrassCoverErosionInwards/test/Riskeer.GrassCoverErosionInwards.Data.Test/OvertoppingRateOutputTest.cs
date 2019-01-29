@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
     public class OvertoppingRateOutputTest

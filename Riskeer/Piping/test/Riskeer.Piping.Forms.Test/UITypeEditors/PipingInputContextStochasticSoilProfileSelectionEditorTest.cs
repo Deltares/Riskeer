@@ -39,7 +39,7 @@ using Ringtoets.Piping.Forms.UITypeEditors;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Ringtoets.Piping.Forms.Test.UITypeEditors
+namespace Riskeer.Piping.Forms.Test.UITypeEditors
 {
     [TestFixture]
     public class PipingInputContextStochasticSoilProfileSelectionEditorTest

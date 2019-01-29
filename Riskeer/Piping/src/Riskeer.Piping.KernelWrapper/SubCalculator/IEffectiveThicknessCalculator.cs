@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Deltares.WTIPiping;
 
-namespace Ringtoets.Piping.KernelWrapper.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Interface with operations for performing an effective thickness sub calculation.

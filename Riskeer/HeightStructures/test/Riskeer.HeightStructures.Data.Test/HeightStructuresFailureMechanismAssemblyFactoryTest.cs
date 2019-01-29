@@ -37,7 +37,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.HeightStructures.Data.Test
+namespace Riskeer.HeightStructures.Data.Test
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismAssemblyFactoryTest

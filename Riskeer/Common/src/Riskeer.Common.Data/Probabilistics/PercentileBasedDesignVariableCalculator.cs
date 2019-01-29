@@ -21,7 +21,7 @@
 
 using MathNet.Numerics.Distributions;
 
-namespace Ringtoets.Common.Data.Probabilistics
+namespace Riskeer.Common.Data.Probabilistics
 {
     /// <summary>
     /// Base calculator for design variables based on percentile and parameters of a distribution.

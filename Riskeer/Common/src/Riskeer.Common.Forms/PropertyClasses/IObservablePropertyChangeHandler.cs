@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// Action in which a property is set to its new value.

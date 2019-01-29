@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Plugin.TestUtil;
 
-namespace Ringtoets.Common.Service.Test
+namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
     public class RingtoetsPluginHelperTest

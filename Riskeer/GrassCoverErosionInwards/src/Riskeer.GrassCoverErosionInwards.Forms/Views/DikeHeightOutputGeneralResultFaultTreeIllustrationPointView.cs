@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
     /// Override of <see cref="GeneralResultFaultTreeIllustrationPointView"/> for making output views for

@@ -24,7 +24,7 @@ using Ringtoets.Common.Service.Structures;
 using Ringtoets.HeightStructures.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 
-namespace Ringtoets.HeightStructures.Service
+namespace Riskeer.HeightStructures.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for height structures.

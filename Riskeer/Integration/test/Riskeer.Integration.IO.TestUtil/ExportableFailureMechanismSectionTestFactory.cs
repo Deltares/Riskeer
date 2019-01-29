@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO.TestUtil
+namespace Riskeer.Integration.IO.TestUtil
 {
     /// <summary>
     /// Factory that creates simple <see cref="ExportableFailureMechanismSection"/> instances

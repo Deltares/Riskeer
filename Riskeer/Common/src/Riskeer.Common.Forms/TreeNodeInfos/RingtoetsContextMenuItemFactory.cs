@@ -37,7 +37,7 @@ using Ringtoets.Common.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.TreeNodeInfos
+namespace Riskeer.Common.Forms.TreeNodeInfos
 {
     /// <summary>
     /// This class represents a factory for creating <see cref="ToolStripItem"/>.

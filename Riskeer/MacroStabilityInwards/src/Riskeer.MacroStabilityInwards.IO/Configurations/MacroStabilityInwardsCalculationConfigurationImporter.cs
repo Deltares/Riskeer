@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations
+namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// Imports a macro stability inwards calculation configuration from an XML file and stores it on a

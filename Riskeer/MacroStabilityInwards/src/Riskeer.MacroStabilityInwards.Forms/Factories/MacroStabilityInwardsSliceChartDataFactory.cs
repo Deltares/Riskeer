@@ -25,7 +25,7 @@ using Core.Components.Chart.Styles;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="ChartData"/> for slice data used in the macro stability inwards failure mechanism.

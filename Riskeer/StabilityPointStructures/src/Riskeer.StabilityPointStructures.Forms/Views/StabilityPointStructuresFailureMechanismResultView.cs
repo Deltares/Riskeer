@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>

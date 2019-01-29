@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Common.IO.Exceptions
+namespace Riskeer.Common.IO.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when transforming imported data to specific data fails.

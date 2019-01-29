@@ -29,7 +29,7 @@ using Core.Common.IO.Exceptions;
 using Ringtoets.Revetment.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Revetment.IO.WaveConditions
+namespace Riskeer.Revetment.IO.WaveConditions
 {
     /// <summary>
     /// Csv file writer for writing <see cref="ExportableWaveConditions"/> objects to file.

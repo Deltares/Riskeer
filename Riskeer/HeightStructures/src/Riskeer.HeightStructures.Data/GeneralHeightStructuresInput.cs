@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.HeightStructures.Data
+namespace Riskeer.HeightStructures.Data
 {
     /// <summary>
     /// The general input parameters that apply to each height structures calculation.

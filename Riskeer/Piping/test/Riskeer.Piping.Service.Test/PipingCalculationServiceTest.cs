@@ -38,7 +38,7 @@ using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Service.Test
+namespace Riskeer.Piping.Service.Test
 {
     [TestFixture]
     public class PipingCalculationServiceTest

@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.Common.Service.TestUtil.Test
+namespace Riskeer.Common.Service.TestUtil.Test
 {
     [TestFixture]
     public class BreakWaterTypeHelperTest

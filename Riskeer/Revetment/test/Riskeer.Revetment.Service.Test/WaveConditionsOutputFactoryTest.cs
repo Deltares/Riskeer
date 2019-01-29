@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.Service.Test
+namespace Riskeer.Revetment.Service.Test
 {
     [TestFixture]
     public class WaveConditionsOutputFactoryTest

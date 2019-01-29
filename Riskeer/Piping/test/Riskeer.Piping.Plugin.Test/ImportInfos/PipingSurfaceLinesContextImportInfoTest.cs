@@ -40,7 +40,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.Test.ImportInfos
+namespace Riskeer.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class PipingSurfaceLinesContextImportInfoTest : NUnitFormTest

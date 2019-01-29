@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class SelectableHydraulicBoundaryLocationTest

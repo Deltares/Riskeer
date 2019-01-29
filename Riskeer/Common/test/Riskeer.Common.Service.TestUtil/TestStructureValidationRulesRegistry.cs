@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.ValidationRules;
 
-namespace Ringtoets.Common.Service.TestUtil
+namespace Riskeer.Common.Service.TestUtil
 {
     /// <summary>
     /// Simple validation rules registry that can be used in tests.

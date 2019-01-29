@@ -22,7 +22,7 @@
 using Ringtoets.GrassCoverErosionOutwards.IO.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
+namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {
     /// <summary>
     /// Class for providing meta data attribute names during exports of hydraulic boundary locations.

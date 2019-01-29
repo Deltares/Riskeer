@@ -44,7 +44,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationsViewTest : NUnitFormTest

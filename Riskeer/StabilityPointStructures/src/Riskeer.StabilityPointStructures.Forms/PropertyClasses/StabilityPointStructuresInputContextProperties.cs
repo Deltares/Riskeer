@@ -37,7 +37,7 @@ using Ringtoets.StabilityPointStructures.Forms.Properties;
 using Ringtoets.StabilityPointStructures.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
+namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="StabilityPointStructuresInputContext"/> for properties panel.

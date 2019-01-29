@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.Test.Contribution
+namespace Riskeer.Common.Data.Test.Contribution
 {
     [TestFixture]
     public class OtherFailureMechanismTest

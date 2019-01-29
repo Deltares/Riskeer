@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
 {
     /// <summary>
     /// The Uplift Van slip plane that is used to perform a calculation.

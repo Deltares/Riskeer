@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// Extension methods for the <see cref="WaveConditionsInputStepSize"/> enum.

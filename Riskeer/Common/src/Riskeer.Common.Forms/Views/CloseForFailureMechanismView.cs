@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Base view which closes for an <see cref="IFailureMechanism"/> instance.

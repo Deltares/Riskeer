@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
     public class MacroStabilityInwardsSlicesTableTest

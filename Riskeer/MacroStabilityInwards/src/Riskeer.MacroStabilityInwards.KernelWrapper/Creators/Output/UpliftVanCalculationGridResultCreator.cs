@@ -25,7 +25,7 @@ using Deltares.WTIStability;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 {
     /// <summary>
     /// Creates <see cref="UpliftVanCalculationGridResult"/> instances.

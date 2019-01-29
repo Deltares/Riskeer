@@ -26,7 +26,7 @@ using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Service
+namespace Riskeer.WaveImpactAsphaltCover.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a wave impact asphalt cover wave conditions calculation.

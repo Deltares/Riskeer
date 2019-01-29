@@ -42,7 +42,7 @@ using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Factories;
 using Riskeer.Integration.Util;
 
-namespace Ringtoets.Integration.Forms.Test.Factories
+namespace Riskeer.Integration.Forms.Test.Factories
 {
     [TestFixture]
     public class AssessmentSectionAssemblyMapDataFeaturesFactoryTest

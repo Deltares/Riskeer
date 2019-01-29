@@ -33,7 +33,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test
+namespace Riskeer.ClosingStructures.Plugin.Test
 {
     [TestFixture]
     public class ClosingStructuresPluginTest

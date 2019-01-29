@@ -27,7 +27,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Util.Test
+namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
     public class RingtoetsMapDataFeaturesFactoryHelperTest

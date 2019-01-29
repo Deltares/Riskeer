@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.IllustrationPoints;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Represents a single illustration point to be used in 

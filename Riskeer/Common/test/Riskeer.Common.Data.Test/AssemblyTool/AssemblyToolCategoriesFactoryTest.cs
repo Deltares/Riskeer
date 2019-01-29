@@ -30,7 +30,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
     public class AssemblyToolCategoriesFactoryTest

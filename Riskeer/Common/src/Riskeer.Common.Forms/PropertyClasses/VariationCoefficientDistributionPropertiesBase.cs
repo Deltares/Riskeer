@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// Properties class for implementations of <see cref="IDistribution"/>.

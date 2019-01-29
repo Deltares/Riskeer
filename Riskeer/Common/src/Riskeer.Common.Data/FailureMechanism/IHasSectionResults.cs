@@ -21,7 +21,7 @@
 
 using Core.Common.Base;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResult"/> objects.

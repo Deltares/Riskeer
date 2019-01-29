@@ -31,7 +31,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Riskeer.Common.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading an array of bytes and interpret this as an XML document,

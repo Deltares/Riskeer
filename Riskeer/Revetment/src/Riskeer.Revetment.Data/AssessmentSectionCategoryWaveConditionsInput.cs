@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Revetment.Data
+namespace Riskeer.Revetment.Data
 {
     /// <summary>
     /// Wave conditions input containing a <see cref="AssessmentSectionCategoryType"/>.

@@ -29,7 +29,7 @@ using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test.SurfaceLines
+namespace Riskeer.Piping.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class PipingSurfaceLineExtensionsTest

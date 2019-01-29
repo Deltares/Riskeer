@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
+namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {
     [TestFixture]
     public class GeneralWaveImpactAsphaltCoverInputTest

@@ -42,7 +42,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="PipingInputContext"/> for properties panel.

@@ -28,7 +28,7 @@ using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.Configurations.Export
+namespace Riskeer.Common.IO.Configurations.Export
 {
     /// <summary>
     /// Base class for exporting a calculation configuration and storing it as an XML file.

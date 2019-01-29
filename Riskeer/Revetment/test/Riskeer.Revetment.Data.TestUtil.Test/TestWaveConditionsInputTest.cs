@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.Revetment.Data.TestUtil.Test
+namespace Riskeer.Revetment.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestWaveConditionsInputTest

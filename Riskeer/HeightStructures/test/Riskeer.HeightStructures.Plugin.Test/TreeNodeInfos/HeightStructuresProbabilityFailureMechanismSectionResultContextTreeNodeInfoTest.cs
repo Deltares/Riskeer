@@ -33,7 +33,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class HeightStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest

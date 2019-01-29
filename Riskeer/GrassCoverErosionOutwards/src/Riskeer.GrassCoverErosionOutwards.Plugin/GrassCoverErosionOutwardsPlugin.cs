@@ -65,7 +65,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin
+namespace Riskeer.GrassCoverErosionOutwards.Plugin
 {
     /// <summary>
     /// The plug-in for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.

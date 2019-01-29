@@ -59,7 +59,7 @@ using Ringtoets.StabilityStoneCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Plugin
+namespace Riskeer.StabilityStoneCover.Plugin
 {
     /// <summary>
     /// The plug-in for the <see cref="StabilityStoneCoverFailureMechanism"/>.

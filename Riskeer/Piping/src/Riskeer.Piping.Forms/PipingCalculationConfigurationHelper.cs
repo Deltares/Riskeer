@@ -31,7 +31,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms
+namespace Riskeer.Piping.Forms
 {
     /// <summary>
     /// Class holds methods to help views when dealing with <see cref="PipingCalculation"/>

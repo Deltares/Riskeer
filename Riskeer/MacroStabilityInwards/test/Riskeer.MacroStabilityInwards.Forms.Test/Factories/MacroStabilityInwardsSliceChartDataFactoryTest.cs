@@ -25,7 +25,7 @@ using Core.Components.Chart.Styles;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
 {
     [TestFixture]
     public class MacroStabilityInwardsSliceChartDataFactoryTest

@@ -26,7 +26,7 @@ using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms
+namespace Riskeer.GrassCoverErosionOutwards.Forms
 {
     /// <summary>
     /// Class which properly handles data model changes due to a change of a

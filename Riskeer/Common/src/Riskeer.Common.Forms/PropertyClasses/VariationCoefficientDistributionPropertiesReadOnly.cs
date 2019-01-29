@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// Indicator of what properties to mark as read-only for

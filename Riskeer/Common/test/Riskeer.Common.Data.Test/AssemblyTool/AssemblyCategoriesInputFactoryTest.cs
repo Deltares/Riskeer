@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
     public class AssemblyCategoriesInputFactoryTest

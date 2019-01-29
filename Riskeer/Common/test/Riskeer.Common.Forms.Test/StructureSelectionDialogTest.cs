@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test
+namespace Riskeer.Common.Forms.Test
 {
     [TestFixture]
     public class StructureSelectionDialogTest

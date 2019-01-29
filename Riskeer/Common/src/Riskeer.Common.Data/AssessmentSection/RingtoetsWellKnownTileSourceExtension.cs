@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Riskeer.Common.Data.AssessmentSection
 {
     /// <summary>
     /// Extension class for <see cref="RingtoetsWellKnownTileSource"/>.

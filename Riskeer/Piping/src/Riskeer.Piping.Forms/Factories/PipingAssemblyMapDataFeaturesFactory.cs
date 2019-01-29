@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Forms.Factories
+namespace Riskeer.Piping.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for assembly results in a <see cref="PipingFailureMechanism"/>.

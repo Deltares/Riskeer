@@ -25,7 +25,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// Factory for creating valid configurations for the <see cref="SurfaceLinesCsvImporter{T}"/>.

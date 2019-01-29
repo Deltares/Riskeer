@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Primitives.Test
+namespace Riskeer.Common.Primitives.Test
 {
     [TestFixture]
     public class ManualFailureMechanismSectionAssemblyCategoryGroupTest : EnumWithResourcesDisplayNameTestFixture<ManualFailureMechanismSectionAssemblyCategoryGroup>

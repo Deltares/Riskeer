@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Contribution
+namespace Riskeer.Common.Data.Contribution
 {
     /// <summary>
     /// This class represents the distribution of all failure mechanism contributions.

@@ -42,7 +42,7 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
-namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
+namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class HeightStructuresInputContextPropertiesTest

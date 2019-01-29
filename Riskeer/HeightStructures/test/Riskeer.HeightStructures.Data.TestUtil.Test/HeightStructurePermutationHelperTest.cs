@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil.Test
+namespace Riskeer.HeightStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class HeightStructurePermutationHelperTest

@@ -35,7 +35,7 @@ using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextImportInfoTest

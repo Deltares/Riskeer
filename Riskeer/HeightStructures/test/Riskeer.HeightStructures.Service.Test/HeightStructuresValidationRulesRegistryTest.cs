@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Service.Test
+namespace Riskeer.HeightStructures.Service.Test
 {
     [TestFixture]
     public class HeightStructuresValidationRulesRegistryTest

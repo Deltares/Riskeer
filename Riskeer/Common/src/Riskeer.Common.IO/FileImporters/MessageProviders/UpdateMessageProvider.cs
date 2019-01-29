@@ -23,7 +23,7 @@ using System;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.FileImporters.MessageProviders
+namespace Riskeer.Common.IO.FileImporters.MessageProviders
 {
     /// <summary>
     /// This class provides the messages during the update actions of an importer.

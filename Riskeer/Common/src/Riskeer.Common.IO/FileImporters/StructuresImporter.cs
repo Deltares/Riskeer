@@ -40,7 +40,7 @@ using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Abstract class for structure importers, providing an implementation of importing point shapefiles 

@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
+namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// Stub for the real Sellmeijer sub calculator of piping.

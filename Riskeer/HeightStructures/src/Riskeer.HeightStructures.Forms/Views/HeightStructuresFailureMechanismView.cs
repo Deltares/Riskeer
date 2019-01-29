@@ -39,7 +39,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Factories;
 using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a height structures failure mechanism.

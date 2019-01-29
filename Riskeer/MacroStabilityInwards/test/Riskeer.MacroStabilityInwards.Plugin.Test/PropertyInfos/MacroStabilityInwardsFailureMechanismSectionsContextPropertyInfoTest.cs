@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionsContextPropertyInfoTest

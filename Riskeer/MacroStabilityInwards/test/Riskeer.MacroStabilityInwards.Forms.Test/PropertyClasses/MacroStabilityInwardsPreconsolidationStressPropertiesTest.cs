@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class MacroStabilityInwardsPreconsolidationStressPropertiesTest

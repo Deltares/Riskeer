@@ -25,7 +25,7 @@ using log4net;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO.Configurations.Helpers
+namespace Riskeer.Common.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extension methods for converting <see cref="IDistribution"/> to <see cref="StochastConfiguration"/>.

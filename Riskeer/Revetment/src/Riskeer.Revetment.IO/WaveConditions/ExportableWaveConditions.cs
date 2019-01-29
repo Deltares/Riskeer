@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.Revetment.IO.WaveConditions
+namespace Riskeer.Revetment.IO.WaveConditions
 {
     /// <summary>
     /// Class for storing the wave conditions data to be exported.

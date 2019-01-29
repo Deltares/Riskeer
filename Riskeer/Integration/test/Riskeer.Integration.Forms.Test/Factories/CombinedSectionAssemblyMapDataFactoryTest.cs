@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
 using Riskeer.Integration.Forms.Factories;
 
-namespace Ringtoets.Integration.Forms.Test.Factories
+namespace Riskeer.Integration.Forms.Test.Factories
 {
     [TestFixture]
     public class CombinedSectionAssemblyMapDataFactoryTest

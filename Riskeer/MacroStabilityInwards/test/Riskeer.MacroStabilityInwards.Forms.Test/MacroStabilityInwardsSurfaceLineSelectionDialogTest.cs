@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Forms;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test
+namespace Riskeer.MacroStabilityInwards.Forms.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineSelectionDialogTest

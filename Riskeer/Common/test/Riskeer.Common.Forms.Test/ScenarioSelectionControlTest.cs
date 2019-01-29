@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Forms.Test
+namespace Riskeer.Common.Forms.Test
 {
     [TestFixture]
     public class ScenarioSelectionControlTest

@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Factory that creates simple <see cref="ReferenceLine"/> instances

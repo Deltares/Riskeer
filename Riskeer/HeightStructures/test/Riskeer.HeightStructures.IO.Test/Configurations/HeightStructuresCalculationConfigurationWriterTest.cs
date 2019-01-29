@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.HeightStructures.IO.Configurations;
 
-namespace Ringtoets.HeightStructures.IO.Test.Configurations
+namespace Riskeer.HeightStructures.IO.Test.Configurations
 {
     [TestFixture]
     public class HeightStructuresCalculationConfigurationWriterTest

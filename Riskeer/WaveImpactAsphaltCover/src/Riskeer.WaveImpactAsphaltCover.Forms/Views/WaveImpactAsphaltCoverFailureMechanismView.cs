@@ -38,7 +38,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Factories;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {
     /// <summary>
     /// This class is a view showing map data for a wave impact asphalt cover failure mechanism.

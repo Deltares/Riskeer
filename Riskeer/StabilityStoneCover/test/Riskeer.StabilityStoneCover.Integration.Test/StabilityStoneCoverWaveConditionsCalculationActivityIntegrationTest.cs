@@ -45,7 +45,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.StabilityStoneCover.Integration.Test
+namespace Riskeer.StabilityStoneCover.Integration.Test
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationActivityIntegrationTest

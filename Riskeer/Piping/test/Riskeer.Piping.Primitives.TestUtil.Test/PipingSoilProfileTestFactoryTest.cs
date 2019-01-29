@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Piping.Primitives.TestUtil.Test
+namespace Riskeer.Piping.Primitives.TestUtil.Test
 {
     [TestFixture]
     public class PipingSoilProfileTestFactoryTest

@@ -23,7 +23,7 @@ using System;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.ClosingStructures.Plugin.FileImporters
+namespace Riskeer.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="ClosingStructuresFailureMechanismSectionResult"/> instance with data

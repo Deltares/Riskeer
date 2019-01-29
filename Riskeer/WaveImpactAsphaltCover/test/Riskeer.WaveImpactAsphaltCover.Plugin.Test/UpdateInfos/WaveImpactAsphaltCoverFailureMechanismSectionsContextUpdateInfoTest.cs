@@ -34,7 +34,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.UpdateInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.UpdateInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionsContextUpdateInfoTest

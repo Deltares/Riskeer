@@ -27,7 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.TestUtil.Test
+namespace Riskeer.Common.IO.TestUtil.Test
 {
     [TestFixture]
     public class StochasticSoilModelTestFactoryTest

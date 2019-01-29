@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace Ringtoets.DuneErosion.IO.Test
+namespace Riskeer.DuneErosion.IO.Test
 {
     [TestFixture]
     public class DuneLocationsReaderTest

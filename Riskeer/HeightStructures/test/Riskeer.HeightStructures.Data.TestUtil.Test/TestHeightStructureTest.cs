@@ -24,7 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil.Test
+namespace Riskeer.HeightStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestHeightStructureTest

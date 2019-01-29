@@ -24,7 +24,7 @@ using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Ringtoets.Common.Util.TestUtil;
 
-namespace Ringtoets.Common.Util.Test
+namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
     public class HydraulicBoundaryLocationMapDataFeaturesFactoryTest

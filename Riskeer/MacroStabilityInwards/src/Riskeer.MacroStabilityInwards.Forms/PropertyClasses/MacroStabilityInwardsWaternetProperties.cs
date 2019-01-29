@@ -29,7 +29,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of water stresses properties in <see cref="MacroStabilityInwardsWaternet"/> for properties panel.

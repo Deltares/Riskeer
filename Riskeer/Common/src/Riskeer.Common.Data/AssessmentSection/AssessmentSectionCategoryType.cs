@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Riskeer.Common.Data.AssessmentSection
 {
     /// <summary>
     /// Enumeration that defines the possible assessment section categories.

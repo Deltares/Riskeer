@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing the Uplift Van kernel calculation.

@@ -22,7 +22,7 @@
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels
 {
     /// <summary>
     /// Factory responsible for creating kernels that can be used for performing a macro stability inwards calculation.

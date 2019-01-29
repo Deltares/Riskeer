@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Piping.Primitives.Test
+namespace Riskeer.Piping.Primitives.Test
 {
     [TestFixture]
     public class PipingSoilLayerTest

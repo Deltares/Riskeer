@@ -61,7 +61,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Plugin
+namespace Riskeer.HeightStructures.Plugin
 {
     /// <summary>
     /// The plug-in for the <see cref="HeightStructuresFailureMechanism"/>.

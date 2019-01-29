@@ -38,7 +38,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.TestUtil;
 
-namespace Ringtoets.Common.IO.Test.FileImporters
+namespace Riskeer.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class ForeshoreProfilesImporterTest

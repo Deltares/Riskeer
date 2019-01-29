@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 
-namespace Ringtoets.DuneErosion.Data.TestUtil
+namespace Riskeer.DuneErosion.Data.TestUtil
 {
     /// <summary>
     /// Test helper for dealing with dune location calculations in <see cref="DuneErosionFailureMechanism"/>.

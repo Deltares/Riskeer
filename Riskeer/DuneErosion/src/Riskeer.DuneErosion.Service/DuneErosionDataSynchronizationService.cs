@@ -34,7 +34,7 @@ using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Service.Properties;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
-namespace Ringtoets.DuneErosion.Service
+namespace Riskeer.DuneErosion.Service
 {
     /// <summary>
     /// Service for synchronizing dune erosion data.

@@ -26,7 +26,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
+namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for properties panel.

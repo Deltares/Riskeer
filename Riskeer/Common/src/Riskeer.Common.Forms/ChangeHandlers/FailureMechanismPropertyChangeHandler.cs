@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.PropertyClasses;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.ChangeHandlers
+namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
     /// Class which properly handles data model changes due to a change of a

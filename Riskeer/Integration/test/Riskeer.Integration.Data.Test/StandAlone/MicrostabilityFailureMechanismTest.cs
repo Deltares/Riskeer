@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone
+namespace Riskeer.Integration.Data.Test.StandAlone
 {
     [TestFixture]
     public class MicrostabilityFailureMechanismTest

@@ -29,7 +29,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Service
+namespace Riskeer.WaveImpactAsphaltCover.Service
 {
     /// <summary>
     /// Service for synchronizing wave impact asphalt cover data.

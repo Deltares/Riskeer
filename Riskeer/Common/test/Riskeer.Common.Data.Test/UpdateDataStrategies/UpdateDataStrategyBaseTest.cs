@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 
-namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
+namespace Riskeer.Common.Data.Test.UpdateDataStrategies
 {
     [TestFixture]
     public class UpdateDataStrategyBaseTest

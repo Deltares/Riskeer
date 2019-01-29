@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
 {
     [TestFixture]
     public class MacroStabilityInwardsChartDataPointsFactoryTest

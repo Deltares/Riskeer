@@ -28,7 +28,7 @@ using Ringtoets.Integration.IO.TestUtil;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 
-namespace Ringtoets.Integration.IO.Test.Helpers
+namespace Riskeer.Integration.IO.Test.Helpers
 {
     [TestFixture]
     public class IdentifierGeneratorTest

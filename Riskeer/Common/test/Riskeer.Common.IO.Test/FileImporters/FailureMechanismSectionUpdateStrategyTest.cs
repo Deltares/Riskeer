@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.Common.IO.Test.FileImporters
+namespace Riskeer.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class FailureMechanismSectionUpdateStrategyTest

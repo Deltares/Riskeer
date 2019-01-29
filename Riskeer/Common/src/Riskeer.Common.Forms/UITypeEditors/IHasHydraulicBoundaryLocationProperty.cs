@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.UITypeEditors
+namespace Riskeer.Common.Forms.UITypeEditors
 {
     /// <summary>
     /// Interface for <see cref="IObjectProperties"/> with a hydraulic boundary location property.

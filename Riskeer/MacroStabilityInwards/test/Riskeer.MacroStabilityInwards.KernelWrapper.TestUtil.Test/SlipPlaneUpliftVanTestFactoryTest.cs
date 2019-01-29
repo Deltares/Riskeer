@@ -22,7 +22,7 @@
 using Deltares.WTIStability;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
     public class SlipPlaneUpliftVanTestFactoryTest

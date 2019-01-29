@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.Test.PropertyClasses
+namespace Riskeer.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class DesignWaterLevelCalculationCategoryBoundaryPropertiesTest

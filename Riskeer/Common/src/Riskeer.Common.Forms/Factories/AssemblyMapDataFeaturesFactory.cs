@@ -32,7 +32,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Factories
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="MapFeature"/> instances for assembly data.

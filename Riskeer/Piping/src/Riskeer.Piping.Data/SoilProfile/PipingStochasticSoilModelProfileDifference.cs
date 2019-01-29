@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.Piping.Data.SoilProfile
+namespace Riskeer.Piping.Data.SoilProfile
 {
     /// <summary>
     /// Container for the differences of the collection of <see cref="PipingStochasticSoilProfile"/> contained

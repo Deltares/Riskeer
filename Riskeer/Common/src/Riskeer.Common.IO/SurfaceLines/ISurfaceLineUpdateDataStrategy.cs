@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 
-namespace Ringtoets.Common.IO.SurfaceLines
+namespace Riskeer.Common.IO.SurfaceLines
 {
     /// <summary>
     /// Interface for updating the data model after new surface lines have been imported.

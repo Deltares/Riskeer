@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Creates <see cref="SoilProfile2D"/> instances which are required in a calculation.

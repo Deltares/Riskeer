@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.DikeProfiles
+namespace Riskeer.Common.Data.DikeProfiles
 {
     /// <summary>
     /// Interface for objects which can have a foreshore profile.

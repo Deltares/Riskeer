@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
     public class DikeHeightCalculationTypeTest : EnumWithResourcesDisplayNameTestFixture<DikeHeightCalculationType>

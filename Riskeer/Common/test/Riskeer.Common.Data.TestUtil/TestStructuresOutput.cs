@@ -22,7 +22,7 @@
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Simple <see cref="StructuresOutput"/> that can be used for tests where actual output

@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.TreeNodeInfos
+namespace Riskeer.Common.Forms.TreeNodeInfos
 {
     /// <summary>
     /// Decorator for <see cref="IContextMenuBuilder"/>.

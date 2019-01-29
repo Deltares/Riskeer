@@ -31,7 +31,7 @@ using Rhino.Mocks;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Merge;
 
-namespace Ringtoets.Integration.Plugin.Test.Merge
+namespace Riskeer.Integration.Plugin.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionProviderTest : NUnitFormTest

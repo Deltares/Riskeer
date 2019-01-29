@@ -33,7 +33,7 @@ using Ringtoets.Piping.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.Piping.Service
+namespace Riskeer.Piping.Service
 {
     /// <summary>
     /// This class is responsible for invoking operations on the <see cref="PipingCalculator"/>. Error and status information is 

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
+namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of stability point structures <see cref="StructuresOutput"/> for properties panel.

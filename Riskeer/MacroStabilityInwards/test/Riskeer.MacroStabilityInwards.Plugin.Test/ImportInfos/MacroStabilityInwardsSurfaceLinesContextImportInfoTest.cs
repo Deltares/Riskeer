@@ -40,7 +40,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLinesContextImportInfoTest : NUnitFormTest

@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.UpdateInfos;
 using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.Common.Forms.Test.UpdateInfos
+namespace Riskeer.Common.Forms.Test.UpdateInfos
 {
     [TestFixture]
     public class RingtoetsUpdateInfoFactoryTest

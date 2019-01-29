@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Primitives.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// All shear strength model types.

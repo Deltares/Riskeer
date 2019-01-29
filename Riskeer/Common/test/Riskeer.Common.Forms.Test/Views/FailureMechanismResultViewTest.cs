@@ -39,7 +39,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.Test.Views
+namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
     public class FailureMechanismResultViewTest

@@ -30,7 +30,7 @@ using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using HydraRingResources = Riskeer.HydraRing.IO.Properties.Resources;
 
-namespace Ringtoets.Common.IO.HydraRing
+namespace Riskeer.Common.IO.HydraRing
 {
     /// <summary>
     /// This class defines helper methods for obtaining meta data from hydraulic boundary databases.

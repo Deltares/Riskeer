@@ -35,7 +35,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.ImportInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationGroupContextImportInfoTest

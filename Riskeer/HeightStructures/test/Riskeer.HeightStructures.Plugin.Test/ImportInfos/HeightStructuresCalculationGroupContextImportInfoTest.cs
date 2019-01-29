@@ -34,7 +34,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.IO.Configurations;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
+namespace Riskeer.HeightStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class HeightStructuresCalculationGroupContextImportInfoTest

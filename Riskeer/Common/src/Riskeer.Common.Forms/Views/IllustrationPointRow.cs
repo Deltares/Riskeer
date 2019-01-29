@@ -25,7 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util;
 using Ringtoets.Common.Forms.TypeConverters;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="Views.IllustrationPointControlItem"/> 

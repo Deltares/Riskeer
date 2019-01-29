@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 
-namespace Ringtoets.Common.Util.TestUtil
+namespace Riskeer.Common.Util.TestUtil
 {
     /// <summary>
     /// Helper methods for asserting map feature meta data.

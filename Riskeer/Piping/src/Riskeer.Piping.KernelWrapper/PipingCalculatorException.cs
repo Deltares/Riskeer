@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Piping.KernelWrapper
+namespace Riskeer.Piping.KernelWrapper
 {
     /// <summary>
     /// Exception thrown when something went wrong in the <see cref="PipingCalculator"/>

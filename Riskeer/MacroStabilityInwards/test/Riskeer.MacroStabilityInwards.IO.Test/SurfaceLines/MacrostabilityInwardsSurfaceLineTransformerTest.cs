@@ -32,7 +32,7 @@ using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
+namespace Riskeer.MacroStabilityInwards.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineTransformerTest

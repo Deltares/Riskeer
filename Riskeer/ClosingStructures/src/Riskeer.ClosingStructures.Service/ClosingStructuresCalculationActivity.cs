@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Service
+namespace Riskeer.ClosingStructures.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a structures closure calculation.

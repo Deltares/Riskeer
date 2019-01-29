@@ -35,7 +35,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.HeightStructures.Forms.Test.Factories
+namespace Riskeer.HeightStructures.Forms.Test.Factories
 {
     [TestFixture]
     public class HeightStructuresAssemblyMapDataFeaturesFactoryTest

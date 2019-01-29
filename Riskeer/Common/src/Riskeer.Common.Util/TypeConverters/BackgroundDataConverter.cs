@@ -24,7 +24,7 @@ using System.ComponentModel;
 using Core.Components.Gis.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Util.TypeConverters
+namespace Riskeer.Common.Util.TypeConverters
 {
     /// <summary>
     /// Converter to convert <see cref="BackgroundData"/> to <see cref="ImageBasedMapData"/>

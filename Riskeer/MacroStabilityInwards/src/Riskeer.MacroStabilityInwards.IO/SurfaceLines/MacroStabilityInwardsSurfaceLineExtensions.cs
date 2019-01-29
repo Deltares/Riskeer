@@ -29,7 +29,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using MacroStabilityInwardsIOResources = Ringtoets.MacroStabilityInwards.IO.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
+namespace Riskeer.MacroStabilityInwards.IO.SurfaceLines
 {
     /// <summary>
     /// Extension methods for the <see cref="MacroStabilityInwardsSurfaceLine"/> class.

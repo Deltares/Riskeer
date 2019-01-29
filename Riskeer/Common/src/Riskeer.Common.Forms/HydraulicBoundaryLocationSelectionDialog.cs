@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms
+namespace Riskeer.Common.Forms
 {
     /// <summary>
     /// A dialog which allows the user to make a selection from a given set of <see cref="HydraulicBoundaryLocation"/>. Upon

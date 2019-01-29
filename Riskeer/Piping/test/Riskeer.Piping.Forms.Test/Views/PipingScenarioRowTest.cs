@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 
-namespace Ringtoets.Piping.Forms.Test.Views
+namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
     public class PipingScenarioRowTest

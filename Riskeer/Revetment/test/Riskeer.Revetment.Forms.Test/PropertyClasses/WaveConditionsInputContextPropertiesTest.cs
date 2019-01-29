@@ -45,7 +45,7 @@ using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.TestUtil;
 
-namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
+namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class WaveConditionsInputContextPropertiesTest

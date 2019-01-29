@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.StabilityPointStructures.Data.TestUtil
+namespace Riskeer.StabilityPointStructures.Data.TestUtil
 {
     /// <summary>
     /// Helper containing a source of modified <see cref="StabilityPointStructure"/> entities that can

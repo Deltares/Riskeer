@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Contribution
+namespace Riskeer.Common.Data.Contribution
 {
     /// <summary>
     /// Describes the norm types used in <see cref="FailureMechanismContribution"/>.

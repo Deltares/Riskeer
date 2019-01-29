@@ -30,7 +30,7 @@ using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 using Ringtoets.StabilityPointStructures.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.IO.Configurations
+namespace Riskeer.StabilityPointStructures.IO.Configurations
 {
     /// <summary>
     /// Reader for reading a stability point structures calculation configuration from XML and creating a collection 

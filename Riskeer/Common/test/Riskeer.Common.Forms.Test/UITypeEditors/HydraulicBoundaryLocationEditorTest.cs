@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.UITypeEditors;
 
-namespace Ringtoets.Common.Forms.Test.UITypeEditors
+namespace Riskeer.Common.Forms.Test.UITypeEditors
 {
     [TestFixture]
     public class HydraulicBoundaryLocationEditorTest

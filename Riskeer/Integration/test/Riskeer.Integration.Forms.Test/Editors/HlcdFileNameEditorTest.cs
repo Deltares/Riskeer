@@ -25,7 +25,7 @@ using System.Windows.Forms.Design;
 using NUnit.Framework;
 using Riskeer.Integration.Forms.Editors;
 
-namespace Ringtoets.Integration.Forms.Test.Editors
+namespace Riskeer.Integration.Forms.Test.Editors
 {
     [TestFixture]
     public class HlcdFileNameEditorTest

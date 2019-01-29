@@ -42,7 +42,7 @@ using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsInputViewInfoTest : ShouldCloseViewWithCalculationDataTester

@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Structures;
 using UtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Ringtoets.Common.IO.Test.Structures
+namespace Riskeer.Common.IO.Test.Structures
 {
     [TestFixture]
     public class StructuresCharacteristicsCsvReaderTest

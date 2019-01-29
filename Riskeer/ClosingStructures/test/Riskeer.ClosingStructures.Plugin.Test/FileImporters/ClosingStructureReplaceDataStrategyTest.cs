@@ -35,7 +35,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
+namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
 {
     public class ClosingStructureReplaceDataStrategyTest
     {

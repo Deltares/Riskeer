@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsDikeProfileSelectionDialogTest

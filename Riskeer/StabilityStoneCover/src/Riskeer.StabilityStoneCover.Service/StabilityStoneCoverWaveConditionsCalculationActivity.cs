@@ -26,7 +26,7 @@ using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
 
-namespace Ringtoets.StabilityStoneCover.Service
+namespace Riskeer.StabilityStoneCover.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a stability stone cover wave conditions calculation.

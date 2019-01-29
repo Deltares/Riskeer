@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Riskeer.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayer2DTest

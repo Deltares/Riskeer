@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.AssessmentSection
+namespace Riskeer.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
     public class AssessmentSectionExtensionsTest

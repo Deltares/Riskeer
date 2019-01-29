@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
+namespace Riskeer.GrassCoverErosionOutwards.Util.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationTest

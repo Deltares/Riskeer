@@ -34,7 +34,7 @@ using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.StabilityPointStructures.Plugin.Test.ExportInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class StabilityPointStructuresCalculationGroupContextExportInfoTest

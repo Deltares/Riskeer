@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
+namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for configuration of scenarios for the 

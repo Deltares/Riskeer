@@ -24,7 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.Common.IO.Test.Structures
+namespace Riskeer.Common.IO.Test.Structures
 {
     [TestFixture]
     public class StructureLocationTest

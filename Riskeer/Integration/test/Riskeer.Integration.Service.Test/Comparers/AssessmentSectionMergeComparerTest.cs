@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.Contribution;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service.Comparers;
 
-namespace Ringtoets.Integration.Service.Test.Comparers
+namespace Riskeer.Integration.Service.Test.Comparers
 {
     [TestFixture]
     public class AssessmentSectionMergeComparerTest

@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
+namespace Riskeer.StabilityPointStructures.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestStabilityPointStructuresFailureMechanismTest

@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Plugin.FileImporters
+namespace Riskeer.HeightStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="HeightStructuresFailureMechanismSectionResult"/> instance with data

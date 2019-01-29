@@ -23,7 +23,7 @@ using System;
 using System.Xml.Linq;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
+namespace Riskeer.MacroStabilityInwards.IO.Configurations.Helpers
 {
     /// <summary>
     /// Extensions methods for macro stability inwards specific <see cref="XElement"/>.

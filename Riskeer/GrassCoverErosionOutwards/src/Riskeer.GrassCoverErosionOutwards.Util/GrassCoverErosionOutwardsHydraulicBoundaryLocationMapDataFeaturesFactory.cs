@@ -24,7 +24,7 @@ using Core.Components.Gis.Features;
 using Ringtoets.Common.Util;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Util
+namespace Riskeer.GrassCoverErosionOutwards.Util
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for

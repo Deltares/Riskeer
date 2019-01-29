@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Common.Data.Test.Hydraulics
+namespace Riskeer.Common.Data.Test.Hydraulics
 {
     [TestFixture]
     public class HydraulicBoundaryDatabaseTest

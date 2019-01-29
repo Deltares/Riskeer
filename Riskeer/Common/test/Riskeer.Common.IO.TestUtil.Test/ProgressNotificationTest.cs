@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.Common.IO.TestUtil.Test
+namespace Riskeer.Common.IO.TestUtil.Test
 {
     [TestFixture]
     public class ProgressNotificationTest

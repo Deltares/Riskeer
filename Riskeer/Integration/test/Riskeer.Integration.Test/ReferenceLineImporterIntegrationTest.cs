@@ -37,7 +37,7 @@ using Ringtoets.Integration.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Handlers;
 
-namespace Ringtoets.Integration.Test
+namespace Riskeer.Integration.Test
 {
     [TestFixture]
     public class ReferenceLineImporterIntegrationTest : NUnitFormsAssertTest

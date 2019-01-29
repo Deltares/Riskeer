@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Enumeration that defines the possible failure mechanism categories.

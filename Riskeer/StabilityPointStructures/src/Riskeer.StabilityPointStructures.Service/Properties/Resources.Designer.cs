@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.StabilityPointStructures.Service.Properties {
+namespace Riskeer.StabilityPointStructures.Service.Properties {
     using System;
     
     

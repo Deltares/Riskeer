@@ -25,7 +25,7 @@ using Core.Components.Gis.Features;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for assembly results in a <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.

@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Forms;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Forms.Test
+namespace Riskeer.Piping.Forms.Test
 {
     [TestFixture]
     public class PipingSurfaceLineSelectionDialogTest

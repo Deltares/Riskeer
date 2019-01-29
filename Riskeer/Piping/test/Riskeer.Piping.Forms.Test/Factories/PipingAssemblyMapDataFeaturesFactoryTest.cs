@@ -35,7 +35,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
-namespace Ringtoets.Piping.Forms.Test.Factories
+namespace Riskeer.Piping.Forms.Test.Factories
 {
     [TestFixture]
     public class PipingAssemblyMapDataFeaturesFactoryTest

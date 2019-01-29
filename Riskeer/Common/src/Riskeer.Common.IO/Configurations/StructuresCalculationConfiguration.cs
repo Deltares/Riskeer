@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.IO.Configurations
+namespace Riskeer.Common.IO.Configurations
 {
     /// <summary>
     /// Configuration of a structure calculation.

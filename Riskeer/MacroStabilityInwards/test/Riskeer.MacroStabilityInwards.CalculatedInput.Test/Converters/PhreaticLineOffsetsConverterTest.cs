@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
 {
     [TestFixture]
     public class PhreaticLineOffsetsConverterTest

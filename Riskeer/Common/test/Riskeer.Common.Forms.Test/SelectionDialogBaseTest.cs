@@ -30,7 +30,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Test
+namespace Riskeer.Common.Forms.Test
 {
     [TestFixture]
     public class SelectionDialogBaseTest

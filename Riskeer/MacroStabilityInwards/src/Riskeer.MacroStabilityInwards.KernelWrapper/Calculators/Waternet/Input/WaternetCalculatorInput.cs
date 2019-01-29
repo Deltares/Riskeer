@@ -23,7 +23,7 @@ using System;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform a Waternet calculation.

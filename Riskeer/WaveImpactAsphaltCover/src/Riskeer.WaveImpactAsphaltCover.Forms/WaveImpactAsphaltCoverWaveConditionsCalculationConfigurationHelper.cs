@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms
+namespace Riskeer.WaveImpactAsphaltCover.Forms
 {
     /// <summary>
     /// Class that holds methods to help views when dealing with <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>

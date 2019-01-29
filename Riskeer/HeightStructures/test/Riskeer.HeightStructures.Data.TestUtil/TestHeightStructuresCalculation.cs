@@ -22,7 +22,7 @@
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil
+namespace Riskeer.HeightStructures.Data.TestUtil
 {
     /// <summary>
     /// Height structures calculation for testing purposes.

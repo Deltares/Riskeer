@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.IO.TestUtil;
 
-namespace Ringtoets.Common.IO.Test.ReferenceLines
+namespace Riskeer.Common.IO.Test.ReferenceLines
 {
     [TestFixture]
     public class ReferenceLineImporterTest

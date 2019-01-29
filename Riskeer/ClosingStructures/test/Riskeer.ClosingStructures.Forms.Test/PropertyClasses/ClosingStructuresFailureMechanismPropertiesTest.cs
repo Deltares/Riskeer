@@ -30,7 +30,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
+namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismPropertiesTest

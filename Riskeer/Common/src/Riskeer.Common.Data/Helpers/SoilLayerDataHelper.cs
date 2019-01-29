@@ -22,7 +22,7 @@
 using System.Drawing;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Helpers
+namespace Riskeer.Common.Data.Helpers
 {
     /// <summary>
     /// Helper class for getting valid soil layer data.

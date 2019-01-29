@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Primitives.Properties;
 
-namespace Ringtoets.Common.Primitives
+namespace Riskeer.Common.Primitives
 {
     /// <summary>
     /// This enum defines the possible result types for a simple assessment 

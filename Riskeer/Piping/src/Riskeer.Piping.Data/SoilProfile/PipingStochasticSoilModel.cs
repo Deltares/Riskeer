@@ -28,7 +28,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Piping.Data.SoilProfile
+namespace Riskeer.Piping.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a piping specific stochastic soil model which consists out of a 

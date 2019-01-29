@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations
+namespace Riskeer.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
     /// This class reads a macro stability inwards calculation configuration from XML and creates 

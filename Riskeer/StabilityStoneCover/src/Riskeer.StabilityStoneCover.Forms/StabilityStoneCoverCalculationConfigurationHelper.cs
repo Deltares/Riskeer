@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms
+namespace Riskeer.StabilityStoneCover.Forms
 {
     /// <summary>
     /// Class that holds methods to help views when dealing with <see cref="StabilityStoneCoverWaveConditionsCalculation"/>

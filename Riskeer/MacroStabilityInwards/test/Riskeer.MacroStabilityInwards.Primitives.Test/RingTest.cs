@@ -27,7 +27,7 @@ using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Riskeer.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
     public class RingTest

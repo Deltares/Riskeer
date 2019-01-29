@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
 {
     [TestFixture]
     public class MacroStabilityInwardsChartDataFactoryTest

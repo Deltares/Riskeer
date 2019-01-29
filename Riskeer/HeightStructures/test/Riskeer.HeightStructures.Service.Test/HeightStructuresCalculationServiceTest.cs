@@ -43,7 +43,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.HeightStructures.Service.Test
+namespace Riskeer.HeightStructures.Service.Test
 {
     [TestFixture]
     public class HeightStructuresCalculationServiceTest

@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
+namespace Riskeer.GrassCoverErosionOutwards.Util.Test
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationFactoryTest

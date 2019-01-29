@@ -36,7 +36,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.StabilityPointStructures.IO.Test
+namespace Riskeer.StabilityPointStructures.IO.Test
 {
     [TestFixture]
     public class StabilityPointStructuresImporterTest

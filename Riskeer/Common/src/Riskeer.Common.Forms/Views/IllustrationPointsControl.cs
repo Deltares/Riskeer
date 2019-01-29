@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 
-namespace Ringtoets.Common.Forms.Views
+namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
     /// Control to show illustration points.

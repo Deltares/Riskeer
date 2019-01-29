@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftV
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
 {
     [TestFixture]
     public class TestMacroStabilityInwardsCalculatorFactoryTest

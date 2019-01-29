@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.Common.IO.Test
+namespace Riskeer.Common.IO.Test
 {
     [TestFixture]
     public class AssessmentSectionSettingsTest

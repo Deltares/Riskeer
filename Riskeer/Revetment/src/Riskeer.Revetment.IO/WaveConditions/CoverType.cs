@@ -21,7 +21,7 @@
 
 using Ringtoets.Revetment.IO.Properties;
 
-namespace Ringtoets.Revetment.IO.WaveConditions
+namespace Riskeer.Revetment.IO.WaveConditions
 {
     /// <summary>
     /// Class describing the type of cover.

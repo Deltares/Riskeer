@@ -25,7 +25,7 @@ using Core.Common.Util.Settings;
 using NUnit.Framework;
 using Riskeer.Integration.Forms;
 
-namespace Ringtoets.Integration.Forms.Test
+namespace Riskeer.Integration.Forms.Test
 {
     [TestFixture]
     public class RingtoetsSettingsHelperTest

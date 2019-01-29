@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to replace failure mechanism sections with

@@ -28,7 +28,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.Piping.Primitives.Test
+namespace Riskeer.Piping.Primitives.Test
 {
     [TestFixture]
     public class PipingSurfaceLineTest

@@ -34,7 +34,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverPluginTest

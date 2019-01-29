@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views
 {
     partial class StabilityStoneCoverFailureMechanismView
     {

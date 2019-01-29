@@ -33,7 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationContextExportInfoTest

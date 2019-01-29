@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Drawing;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// Helper class for determining the colors belonging to various assembly category groups.

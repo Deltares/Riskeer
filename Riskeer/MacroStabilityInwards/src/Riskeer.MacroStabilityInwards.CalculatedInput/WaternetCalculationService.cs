@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.CalculatedInput
+namespace Riskeer.MacroStabilityInwards.CalculatedInput
 {
     /// <summary>
     /// This class can be used to calculate Waternet for a macro stability inwards

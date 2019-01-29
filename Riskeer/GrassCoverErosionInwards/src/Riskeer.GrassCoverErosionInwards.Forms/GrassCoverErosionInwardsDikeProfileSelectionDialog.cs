@@ -28,7 +28,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms
+namespace Riskeer.GrassCoverErosionInwards.Forms
 {
     /// <summary>
     /// A dialog which allows the user to make a selection from a given set of <see cref="DikeProfile"/>. Upon

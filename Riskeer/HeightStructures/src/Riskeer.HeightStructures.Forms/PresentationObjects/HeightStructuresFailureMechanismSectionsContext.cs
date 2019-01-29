@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.PresentationObjects
+namespace Riskeer.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for <see cref="HeightStructuresFailureMechanism.Sections"/>.

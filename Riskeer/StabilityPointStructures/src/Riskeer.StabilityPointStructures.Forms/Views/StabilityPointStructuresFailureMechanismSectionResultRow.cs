@@ -31,7 +31,7 @@ using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Riskeer.AssemblyTool.Data;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> for stability point structures

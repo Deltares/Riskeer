@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// Factory which creates instances of <see cref="StochasticSoilModel"/> which

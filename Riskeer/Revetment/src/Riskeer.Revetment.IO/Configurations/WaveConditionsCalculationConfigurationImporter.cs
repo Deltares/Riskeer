@@ -33,7 +33,7 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Riskeer.Revetment.IO.Configurations
 {
     /// <summary>
     /// Imports a wave conditions calculation configuration from an XML file and stores it on a

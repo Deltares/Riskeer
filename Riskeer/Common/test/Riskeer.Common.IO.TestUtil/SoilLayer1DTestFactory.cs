@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.IO.SoilProfile;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// Factory to create simple <see cref="SoilLayer1D"/> instances that can be used

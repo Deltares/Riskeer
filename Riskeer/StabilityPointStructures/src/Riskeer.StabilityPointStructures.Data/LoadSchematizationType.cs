@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Ringtoets.StabilityPointStructures.Data.Properties;
 
-namespace Ringtoets.StabilityPointStructures.Data
+namespace Riskeer.StabilityPointStructures.Data
 {
     /// <summary>
     /// Defines the types of load representations that can be used 

@@ -24,7 +24,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Converters
+namespace Riskeer.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="MacroStabilityInwardsInput"/> slip plane properties

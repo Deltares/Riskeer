@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.IO.SoilProfile;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Riskeer.Common.IO.TestUtil
 {
     /// <summary>
     /// Factory which creates simple instance of <see cref="StochasticSoilProfile"/>
