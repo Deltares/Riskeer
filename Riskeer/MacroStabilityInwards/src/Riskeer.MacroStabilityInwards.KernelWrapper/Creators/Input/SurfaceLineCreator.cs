@@ -26,7 +26,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIStability.Data.Geo;
 using Riskeer.MacroStabilityInwards.Primitives;
-using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
+using LandwardDirection = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
 using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input

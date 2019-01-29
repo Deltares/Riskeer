@@ -117,7 +117,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(context);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsProperties.GeneralFolderIcon, image);
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsProperties.GeneralFolderIcon, image);
             }
 
             mocks.VerifyAll();

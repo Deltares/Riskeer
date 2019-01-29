@@ -30,8 +30,8 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
-using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
-using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
+using PlLineCreationMethod = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
+using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
 using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
 using WtiStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
 

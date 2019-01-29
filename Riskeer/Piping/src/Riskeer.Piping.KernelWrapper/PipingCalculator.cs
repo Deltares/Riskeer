@@ -25,8 +25,8 @@ using System.Linq;
 using Deltares.WTIPiping;
 using Riskeer.Piping.KernelWrapper.Creators;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
-using EffectiveThicknessCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.EffectiveThicknessCalculator;
-using HeaveCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.HeaveCalculator;
+using EffectiveThicknessCalculator = Riskeer.Piping.KernelWrapper.SubCalculator.EffectiveThicknessCalculator;
+using HeaveCalculator = Riskeer.Piping.KernelWrapper.SubCalculator.HeaveCalculator;
 
 namespace Riskeer.Piping.KernelWrapper
 {

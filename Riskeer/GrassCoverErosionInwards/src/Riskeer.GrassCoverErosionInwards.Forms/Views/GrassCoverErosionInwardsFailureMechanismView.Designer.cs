@@ -36,7 +36,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.ringtoetsMapControl = new Ringtoets.Common.Forms.Views.RingtoetsMapControl();
+            this.ringtoetsMapControl = new Riskeer.Common.Forms.Views.RingtoetsMapControl();
             this.SuspendLayout();
             // 
             // ringtoetsMapControl

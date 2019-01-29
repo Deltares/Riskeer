@@ -47,8 +47,8 @@ namespace Riskeer.Integration.Forms.Views
             this.failureMechanismsWithProbabilityLabel = new System.Windows.Forms.Label();
             this.failureMechanismsWithoutProbabilityLabel = new System.Windows.Forms.Label();
             this.totalAssemblyCategoryGroupControl = new AssessmentSectionAssemblyCategoryGroupControl();
-            this.failureMechanismsWithProbabilityAssemblyControl = new Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyControl();
-            this.failureMechanismsWithoutProbabilityAssemblyControl = new Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl();
+            this.failureMechanismsWithProbabilityAssemblyControl = new Riskeer.Common.Forms.Controls.FailureMechanismAssemblyControl();
+            this.failureMechanismsWithoutProbabilityAssemblyControl = new Riskeer.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.manualAssemblyWarningProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -232,8 +232,8 @@ namespace Riskeer.Integration.Forms.Views
         private System.Windows.Forms.Label failureMechanismsWithProbabilityLabel;
         private System.Windows.Forms.Label failureMechanismsWithoutProbabilityLabel;
         private Controls.AssessmentSectionAssemblyCategoryGroupControl totalAssemblyCategoryGroupControl;
-        private Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyControl failureMechanismsWithProbabilityAssemblyControl;
-        private Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl failureMechanismsWithoutProbabilityAssemblyControl;
+        private Riskeer.Common.Forms.Controls.FailureMechanismAssemblyControl failureMechanismsWithProbabilityAssemblyControl;
+        private Riskeer.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl failureMechanismsWithoutProbabilityAssemblyControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;
         private System.Windows.Forms.ErrorProvider manualAssemblyWarningProvider;

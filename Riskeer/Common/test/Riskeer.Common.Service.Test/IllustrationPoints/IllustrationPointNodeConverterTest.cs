@@ -27,8 +27,8 @@ using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.IllustrationPoints;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
-using CombinationType = Ringtoets.Common.Data.IllustrationPoints.CombinationType;
-using FaultTreeIllustrationPoint = Ringtoets.Common.Data.IllustrationPoints.FaultTreeIllustrationPoint;
+using CombinationType = Riskeer.Common.Data.IllustrationPoints.CombinationType;
+using FaultTreeIllustrationPoint = Riskeer.Common.Data.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingIllustrationPointTreeNode = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraRingStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
 using HydraRingFaultTreeIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
@@ -39,10 +39,10 @@ using TestHydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation
 using TestHydraRingFaultTreeIllustrationPoint = Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints.TestFaultTreeIllustrationPoint;
 using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 using HydraRingIIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
-using IllustrationPointResult = Ringtoets.Common.Data.IllustrationPoints.IllustrationPointResult;
-using Stochast = Ringtoets.Common.Data.IllustrationPoints.Stochast;
-using SubMechanismIllustrationPoint = Ringtoets.Common.Data.IllustrationPoints.SubMechanismIllustrationPoint;
-using SubMechanismIllustrationPointStochast = Ringtoets.Common.Data.IllustrationPoints.SubMechanismIllustrationPointStochast;
+using IllustrationPointResult = Riskeer.Common.Data.IllustrationPoints.IllustrationPointResult;
+using Stochast = Riskeer.Common.Data.IllustrationPoints.Stochast;
+using SubMechanismIllustrationPoint = Riskeer.Common.Data.IllustrationPoints.SubMechanismIllustrationPoint;
+using SubMechanismIllustrationPointStochast = Riskeer.Common.Data.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
 namespace Riskeer.Common.Service.Test.IllustrationPoints
 {

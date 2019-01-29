@@ -27,11 +27,11 @@ using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using DilatancyType = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
+using DilatancyType = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using ShearStrengthModel = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
-using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using ShearStrengthModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
+using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
 using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
 

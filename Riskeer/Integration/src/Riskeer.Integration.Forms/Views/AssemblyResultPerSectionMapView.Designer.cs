@@ -39,7 +39,7 @@ namespace Riskeer.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssemblyResultPerSectionMapView));
-            this.ringtoetsMapControl = new Ringtoets.Common.Forms.Views.RingtoetsMapControl();
+            this.ringtoetsMapControl = new Riskeer.Common.Forms.Views.RingtoetsMapControl();
             this.warningPanel = new System.Windows.Forms.Panel();
             this.warningIcon = new System.Windows.Forms.PictureBox();
             this.warningText = new System.Windows.Forms.Label();
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        private Ringtoets.Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
+        private Riskeer.Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
         private Panel warningPanel;
         private PictureBox warningIcon;
         private Label warningText;

@@ -59,7 +59,7 @@ namespace Riskeer.Common.Forms.Views
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
             this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.illustrationPointsControl = new Ringtoets.Common.Forms.Views.IllustrationPointsControl();
+            this.illustrationPointsControl = new Riskeer.Common.Forms.Views.IllustrationPointsControl();
             this.ButtonGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();

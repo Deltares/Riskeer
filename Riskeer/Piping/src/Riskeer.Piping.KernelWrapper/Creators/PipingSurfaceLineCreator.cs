@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
-using RingtoetsPipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
+using RiskeerPipingSurfaceLine = Riskeer.Piping.Primitives.PipingSurfaceLine;
 
 namespace Riskeer.Piping.KernelWrapper.Creators
 {
@@ -33,11 +33,11 @@ namespace Riskeer.Piping.KernelWrapper.Creators
     internal static class PipingSurfaceLineCreator
     {
         /// <summary>
-        /// Creates a <see cref="PipingSurfaceLine"/> for the kernel given a <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// Creates a <see cref="PipingSurfaceLine"/> for the kernel given a <see cref="RiskeerPipingSurfaceLine"/>.
         /// </summary>
         /// <param name="line">The surface line configured in the Ringtoets application.</param>
         /// <returns>The surface line to be consumed by the kernel.</returns>
-        public static PipingSurfaceLine Create(RingtoetsPipingSurfaceLine line)
+        public static PipingSurfaceLine Create(RiskeerPipingSurfaceLine line)
         {
             var surfaceLine = new PipingSurfaceLine
             {
@@ -51,7 +51,7 @@ namespace Riskeer.Piping.KernelWrapper.Creators
             return surfaceLine;
         }
 
-        private static IEnumerable<PipingPoint> CreatePoints(RingtoetsPipingSurfaceLine line)
+        private static IEnumerable<PipingPoint> CreatePoints(RiskeerPipingSurfaceLine line)
         {
             Point2D[] projectedPoints = line.LocalGeometry.ToArray();
             var pipingPoints = new List<PipingPoint>();
@@ -65,7 +65,7 @@ namespace Riskeer.Piping.KernelWrapper.Creators
             return pipingPoints;
         }
 
-        private static IEnumerable<PipingPoint> CreatePoint(RingtoetsPipingSurfaceLine line, IEnumerable<Point2D> projectedPoints, int index)
+        private static IEnumerable<PipingPoint> CreatePoint(RiskeerPipingSurfaceLine line, IEnumerable<Point2D> projectedPoints, int index)
         {
             Point3D surfaceLinePoint = line.Points.ElementAt(index);
             Point2D projectedPoint = projectedPoints.ElementAt(index);

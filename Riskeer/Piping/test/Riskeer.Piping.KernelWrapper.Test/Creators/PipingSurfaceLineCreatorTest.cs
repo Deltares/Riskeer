@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
 using Riskeer.Piping.KernelWrapper.Creators;
-using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
+using PipingSurfaceLine = Riskeer.Piping.Primitives.PipingSurfaceLine;
 
 namespace Riskeer.Piping.KernelWrapper.Test.Creators
 {

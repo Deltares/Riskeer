@@ -49,8 +49,8 @@ using Riskeer.Piping.Primitives;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Importers;
 using Riskeer.Integration.Plugin.Handlers;
-using PipingSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
-using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
+using PipingSurfaceLinesCsvImporterConfigurationFactory = Riskeer.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
+using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Riskeer.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 
 namespace Riskeer.Integration.TestUtil
 {

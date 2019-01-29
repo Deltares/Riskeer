@@ -50,8 +50,8 @@ namespace Riskeer.Common.Forms.Views
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.illustrationPointsChartControl = new Ringtoets.Common.Forms.Views.IllustrationPointsChartControl();
-            this.illustrationPointsTableControl = new Ringtoets.Common.Forms.Views.IllustrationPointsTableControl();
+            this.illustrationPointsChartControl = new Riskeer.Common.Forms.Views.IllustrationPointsChartControl();
+            this.illustrationPointsTableControl = new Riskeer.Common.Forms.Views.IllustrationPointsTableControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();

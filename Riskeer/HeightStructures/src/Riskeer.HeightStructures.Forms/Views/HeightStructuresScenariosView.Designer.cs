@@ -38,7 +38,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.scenarioSelectionControl = new Ringtoets.Common.Forms.ScenarioSelectionControl();
+            this.scenarioSelectionControl = new Riskeer.Common.Forms.ScenarioSelectionControl();
             this.SuspendLayout();
             // 
             // scenarioSelectionControl

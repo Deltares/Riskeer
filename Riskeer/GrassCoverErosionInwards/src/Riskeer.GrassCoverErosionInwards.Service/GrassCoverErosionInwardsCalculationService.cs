@@ -815,8 +815,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
             else
             {
-                validationResults.AddRange(new NumericInputRule(inputParameters.Orientation, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName)).Validate());
-                validationResults.AddRange(new NumericInputRule(inputParameters.DikeHeight, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.DikeHeight_DisplayName)).Validate());
+                validationResults.AddRange(new NumericInputRule(inputParameters.Orientation, ParameterNameExtractor.GetFromDisplayName(RiskeerCommonForms.Orientation_DisplayName)).Validate());
+                validationResults.AddRange(new NumericInputRule(inputParameters.DikeHeight, ParameterNameExtractor.GetFromDisplayName(RiskeerCommonForms.DikeHeight_DisplayName)).Validate());
             }
 
             validationResults.AddRange(new UseBreakWaterRule(inputParameters).Validate());
