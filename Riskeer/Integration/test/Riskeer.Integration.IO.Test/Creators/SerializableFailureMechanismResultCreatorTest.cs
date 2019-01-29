@@ -22,12 +22,12 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Integration.IO.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
+using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Creators
 {

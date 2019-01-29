@@ -27,10 +27,10 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.TestUtil;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.Views;
 
 namespace Riskeer.Integration.Forms.Test.Views

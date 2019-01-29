@@ -31,7 +31,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
-using Riskeer.Integration.Plugin;
 using Riskeer.Integration.Plugin.Properties;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos

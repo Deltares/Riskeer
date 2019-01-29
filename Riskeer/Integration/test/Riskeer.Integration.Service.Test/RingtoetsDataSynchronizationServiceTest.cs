@@ -40,6 +40,8 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -50,9 +52,6 @@ using Riskeer.Piping.Primitives;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Service;
 
 namespace Riskeer.Integration.Service.Test
 {

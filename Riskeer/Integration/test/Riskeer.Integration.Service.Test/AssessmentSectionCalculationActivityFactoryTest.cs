@@ -39,6 +39,11 @@ using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input.Structures;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Integration.Data;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
@@ -50,12 +55,6 @@ using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.HydraRing.Calculation.Calculator.Factory;
-using Riskeer.HydraRing.Calculation.Data.Input;
-using Riskeer.HydraRing.Calculation.Data.Input.Structures;
-using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Service;
 
 namespace Riskeer.Integration.Service.Test
 {

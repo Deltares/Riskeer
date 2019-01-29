@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.StandAlone;
 
 namespace Riskeer.Integration.Forms.PresentationObjects

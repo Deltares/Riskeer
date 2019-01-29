@@ -36,11 +36,10 @@ using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Handlers;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {

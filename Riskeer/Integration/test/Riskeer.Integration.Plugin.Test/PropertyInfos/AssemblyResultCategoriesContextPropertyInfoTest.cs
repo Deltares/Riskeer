@@ -23,15 +23,14 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Integration.Forms.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
-using Riskeer.Integration.Plugin;
+using Riskeer.Integration.Forms.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {

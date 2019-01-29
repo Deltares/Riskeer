@@ -31,7 +31,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
-using Riskeer.Integration.Plugin;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {

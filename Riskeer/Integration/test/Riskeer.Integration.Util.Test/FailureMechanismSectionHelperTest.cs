@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.Util.Test
 {

@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data.Assembly;
 
 namespace Riskeer.Integration.Forms.Views

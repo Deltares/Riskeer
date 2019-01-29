@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data.StandAlone;
 
 namespace Riskeer.Integration.Forms.Views

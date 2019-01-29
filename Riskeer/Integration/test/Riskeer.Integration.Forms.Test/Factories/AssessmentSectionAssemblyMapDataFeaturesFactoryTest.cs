@@ -28,19 +28,18 @@ using Core.Common.Util;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.TestUtil;
-using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Factories;
+using Riskeer.Integration.TestUtil;
 using Riskeer.Integration.Util;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.Integration.Forms.Test.Factories
 {
@@ -63,7 +62,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         {
             // Setup
             var random = new Random(21);
-            
+
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -139,7 +138,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         {
             // Setup
             var random = new Random(21);
-            
+
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {

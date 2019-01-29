@@ -32,11 +32,11 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
-using Riskeer.Integration.TestUtil;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.IO.Importers;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Importers
 {
@@ -136,7 +136,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             string path = Path.Combine(testDataPath, "CorruptHrd");
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(Path.Combine(path, "corruptschema.sqlite"));
-            
+
             var importer = new HydraulicLocationConfigurationDatabaseImporter(new HydraulicLocationConfigurationSettings(), handler,
                                                                               hydraulicBoundaryDatabase, Path.Combine(path, "HLCD.sqlite"));
 

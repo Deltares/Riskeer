@@ -28,7 +28,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Integration.Plugin;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {

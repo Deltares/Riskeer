@@ -31,7 +31,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
-using Riskeer.Integration.Plugin;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -171,7 +170,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) objects[2];
                 Assert.AreSame(assessmentSection, assemblyResultPerSectionContext.WrappedData);
 
-                var assemblyResultPerSectionMapContext = (AssemblyResultPerSectionMapContext)objects[3];
+                var assemblyResultPerSectionMapContext = (AssemblyResultPerSectionMapContext) objects[3];
                 Assert.AreSame(assessmentSection, assemblyResultPerSectionMapContext.WrappedData);
             }
         }

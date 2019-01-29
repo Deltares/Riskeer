@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
-using Riskeer.Integration.Plugin;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {

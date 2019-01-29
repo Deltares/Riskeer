@@ -25,22 +25,21 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.Data.StandAlone;
 
 namespace Riskeer.Integration.Data.Test.Assembly
 {

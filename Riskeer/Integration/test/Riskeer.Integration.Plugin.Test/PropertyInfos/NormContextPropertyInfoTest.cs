@@ -31,7 +31,6 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
-using Riskeer.Integration.Plugin;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {

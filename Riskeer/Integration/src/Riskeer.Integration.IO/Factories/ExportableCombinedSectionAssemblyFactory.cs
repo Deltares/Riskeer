@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.Util;

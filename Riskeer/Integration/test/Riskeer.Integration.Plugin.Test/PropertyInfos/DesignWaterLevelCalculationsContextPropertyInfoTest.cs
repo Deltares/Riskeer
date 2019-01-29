@@ -29,7 +29,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Integration.Plugin;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {

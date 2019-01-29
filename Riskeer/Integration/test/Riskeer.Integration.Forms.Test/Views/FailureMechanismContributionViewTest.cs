@@ -36,7 +36,6 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
 
 namespace Riskeer.Integration.Forms.Test.Views

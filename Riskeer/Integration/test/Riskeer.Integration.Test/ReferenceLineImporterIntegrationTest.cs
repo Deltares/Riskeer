@@ -33,9 +33,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.ReferenceLines;
-using Riskeer.Integration.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Handlers;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.Integration.Test
 {

@@ -26,10 +26,9 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.TestUtil;
-using Riskeer.Integration.Data;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
 

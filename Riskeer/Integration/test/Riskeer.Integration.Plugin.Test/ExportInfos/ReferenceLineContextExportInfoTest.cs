@@ -30,7 +30,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.ReferenceLines;
-using Riskeer.Integration.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ExportInfos
@@ -78,6 +77,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<ReferenceLineExporter>(fileExporter);
             }
+
             mocks.VerifyAll();
         }
 
@@ -118,6 +118,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -142,6 +143,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

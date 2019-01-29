@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Forms.Test.PresentationObjects

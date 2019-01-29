@@ -579,7 +579,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var importHandler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseImportHandler>();
-            importHandler.Expect(ih => ih.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, 
+            importHandler.Expect(ih => ih.ImportHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
                                                                                        hlcdFilePath));
             mocks.ReplayAll();
 

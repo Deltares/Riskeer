@@ -38,7 +38,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.FileImporters;
-using Riskeer.Integration.Plugin;
 using Riskeer.Integration.Plugin.Properties;
 
 namespace Riskeer.Integration.Plugin.Test.UpdateInfos

@@ -21,7 +21,6 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Data.Test
 {

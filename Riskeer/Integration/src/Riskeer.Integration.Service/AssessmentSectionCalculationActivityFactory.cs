@@ -27,12 +27,12 @@ using Riskeer.DuneErosion.Service;
 using Riskeer.GrassCoverErosionInwards.Service;
 using Riskeer.GrassCoverErosionOutwards.Service;
 using Riskeer.HeightStructures.Service;
+using Riskeer.Integration.Data;
 using Riskeer.MacroStabilityInwards.Service;
 using Riskeer.Piping.Service;
 using Riskeer.StabilityPointStructures.Service;
 using Riskeer.StabilityStoneCover.Service;
 using Riskeer.WaveImpactAsphaltCover.Service;
-using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Service
 {

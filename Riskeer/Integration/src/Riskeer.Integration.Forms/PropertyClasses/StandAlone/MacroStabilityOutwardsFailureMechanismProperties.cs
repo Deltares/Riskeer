@@ -37,7 +37,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
     /// </summary>
     public class MacroStabilityOutwardsFailureMechanismProperties : ObjectProperties<MacroStabilityOutwardsFailureMechanism>
     {
-        private readonly IAssessmentSection assessmentSection;
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
@@ -47,6 +46,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         private const int bPropertyIndex = 7;
         private const int sectionLengthPropertyIndex = 8;
         private const int nPropertyIndex = 9;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsFailureMechanismProperties"/>.

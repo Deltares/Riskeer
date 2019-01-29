@@ -28,11 +28,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Integration.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Handlers;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {

@@ -22,6 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
@@ -30,17 +34,13 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
+using Riskeer.Integration.Data.Properties;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.Kernels;
-using Riskeer.Integration.Data.Properties;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 
 namespace Riskeer.Integration.Data.Assembly
 {

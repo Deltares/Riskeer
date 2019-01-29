@@ -24,8 +24,8 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Riskeer.Integration.Forms.Properties;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using GisFormsResources = Core.Components.Gis.Forms.Properties.Resources;
 
@@ -62,9 +62,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
                 var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
 
                 return configuration != null
-                           ? (configuration.IsConfigured
-                                  ? data.Name
-                                  : string.Empty)
+                           ? configuration.IsConfigured
+                                 ? data.Name
+                                 : string.Empty
                            : data.Name;
             }
         }

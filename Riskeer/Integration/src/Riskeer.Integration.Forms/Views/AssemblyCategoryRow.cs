@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Util;
-using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Views
 {

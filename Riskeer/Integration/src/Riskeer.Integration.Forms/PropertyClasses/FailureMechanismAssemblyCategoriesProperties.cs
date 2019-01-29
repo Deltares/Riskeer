@@ -26,8 +26,8 @@ using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Util.Attributes;
-using Riskeer.Integration.Forms.Properties;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses

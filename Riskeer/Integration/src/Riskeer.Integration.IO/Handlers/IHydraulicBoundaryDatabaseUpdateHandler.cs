@@ -66,7 +66,7 @@ namespace Riskeer.Integration.IO.Handlers
                                         ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                         ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                         IEnumerable<long> excludedLocationIds,
-                                        string hydraulicBoundaryDatabaseFilePath, 
+                                        string hydraulicBoundaryDatabaseFilePath,
                                         string hlcdFilePath);
 
         /// <summary>

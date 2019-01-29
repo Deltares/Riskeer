@@ -23,7 +23,6 @@ using System;
 using System.IO;
 using Core.Common.Util.Settings;
 using NUnit.Framework;
-using Riskeer.Integration.Forms;
 
 namespace Riskeer.Integration.Forms.Test
 {

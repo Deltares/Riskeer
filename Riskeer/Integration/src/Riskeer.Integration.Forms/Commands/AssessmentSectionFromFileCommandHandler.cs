@@ -37,8 +37,8 @@ using Riskeer.Common.IO;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Forms.Dialogs;
+using Riskeer.Integration.Forms.Properties;
 using IntegrationResources = Riskeer.Integration.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 

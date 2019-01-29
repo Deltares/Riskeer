@@ -30,9 +30,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Plugin;
+using Riskeer.Integration.Forms.Properties;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos

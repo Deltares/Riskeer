@@ -40,7 +40,6 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Commands;
 using Riskeer.Integration.Forms.Dialogs;
 

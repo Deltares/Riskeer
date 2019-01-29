@@ -26,9 +26,9 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Integration.Forms.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.Forms.TestUtil;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {

@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Forms.PresentationObjects

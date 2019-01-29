@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             // Setup
             const string filePath = "some/file/path";
             var settings = new HydraulicLocationConfigurationSettings();
-            
+
             // Call
             Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(settings, null, filePath);
 

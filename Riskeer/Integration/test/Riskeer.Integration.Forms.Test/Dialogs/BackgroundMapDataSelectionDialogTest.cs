@@ -49,18 +49,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         private ITileSourceFactory tileFactory;
         private static readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms);
 
-        public override void Setup()
-        {
-            mockRepository = new MockRepository();
-            tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
-        }
-
-        public override void TearDown()
-        {
-            mockRepository.VerifyAll();
-            base.TearDown();
-        }
-
         [Test]
         public void Constructor_MapDataNull_DefaultProperties()
         {
@@ -423,6 +411,18 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 // Assert
                 Assert.DoesNotThrow(call);
             }
+        }
+
+        public override void Setup()
+        {
+            mockRepository = new MockRepository();
+            tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+        }
+
+        public override void TearDown()
+        {
+            mockRepository.VerifyAll();
+            base.TearDown();
         }
 
         private static void AssertMapDataControls<T>(BackgroundMapDataSelectionDialog dialog)

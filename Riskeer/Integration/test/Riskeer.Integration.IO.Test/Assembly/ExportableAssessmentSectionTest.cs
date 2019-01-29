@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.Integration.IO.TestUtil;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Assembly
 {

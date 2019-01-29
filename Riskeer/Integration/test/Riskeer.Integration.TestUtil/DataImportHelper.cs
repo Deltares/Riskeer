@@ -38,6 +38,9 @@ using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.DuneErosion.Plugin.Handlers;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.IO.Importers;
+using Riskeer.Integration.Plugin.Handlers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
@@ -46,9 +49,6 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Primitives;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.IO.Importers;
-using Riskeer.Integration.Plugin.Handlers;
 using PipingSurfaceLinesCsvImporterConfigurationFactory = Riskeer.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Riskeer.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 
@@ -95,7 +95,7 @@ namespace Riskeer.Integration.TestUtil
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, System.Collections.Generic.IEnumerable{Riskeer.Common.Data.FailureMechanism.IFailureMechanism})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,

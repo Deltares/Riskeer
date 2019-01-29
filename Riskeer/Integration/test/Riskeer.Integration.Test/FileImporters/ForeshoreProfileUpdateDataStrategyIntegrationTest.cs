@@ -36,13 +36,13 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.Integration.Plugin.FileImporters;
 using Riskeer.Integration.TestUtil;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.Integration.Plugin.FileImporters;
 
 namespace Riskeer.Integration.Test.FileImporters
 {

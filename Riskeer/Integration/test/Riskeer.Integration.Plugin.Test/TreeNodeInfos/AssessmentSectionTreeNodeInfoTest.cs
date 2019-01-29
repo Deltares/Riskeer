@@ -53,6 +53,13 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HydraRing.Calculation.Calculator.Factory;
+using Riskeer.HydraRing.Calculation.Data.Input;
+using Riskeer.HydraRing.Calculation.Data.Input.Structures;
+using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -69,14 +76,6 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Riskeer.HydraRing.Calculation.Calculator.Factory;
-using Riskeer.HydraRing.Calculation.Data.Input;
-using Riskeer.HydraRing.Calculation.Data.Input.Structures;
-using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.PresentationObjects;
-using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
-using Riskeer.Integration.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -513,7 +512,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-            
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {

@@ -25,12 +25,12 @@ using Core.Common.Util.IO;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Integration.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Plugin.FileImporter;
-using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.TestUtil
 {

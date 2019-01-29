@@ -35,15 +35,15 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.Merge;
+using Riskeer.Integration.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.Merge;
-using Riskeer.Integration.Plugin.Properties;
 
 namespace Riskeer.Integration.Plugin.Merge
 {

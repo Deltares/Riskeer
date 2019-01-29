@@ -44,9 +44,8 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Util.TypeConverters;
-using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Forms.Dialogs;
-using Riskeer.Integration.Plugin;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos

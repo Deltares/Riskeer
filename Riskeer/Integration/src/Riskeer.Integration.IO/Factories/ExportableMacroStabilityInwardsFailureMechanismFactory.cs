@@ -22,12 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.Integration.IO.Factories
 {
