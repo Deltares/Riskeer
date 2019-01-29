@@ -28,11 +28,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ringtoets\Application.Ringtoets\GuiCoreIntegrationTest.cs" />
+    <Compile Include="Riskeer\Application.Riskeer\GuiCoreIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
       <Name>Riskeer.Integration.Plugin</Name>
     </ProjectReference>

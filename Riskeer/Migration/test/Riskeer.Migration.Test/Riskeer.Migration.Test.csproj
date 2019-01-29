@@ -53,7 +53,7 @@
       <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
       <Name>Migration.Scripts.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
       <Name>Riskeer.Common.Util</Name>
     </ProjectReference>
