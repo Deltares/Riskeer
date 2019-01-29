@@ -23,9 +23,9 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {

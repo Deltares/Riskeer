@@ -29,10 +29,10 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {

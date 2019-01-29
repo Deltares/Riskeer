@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Primitives;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
 {

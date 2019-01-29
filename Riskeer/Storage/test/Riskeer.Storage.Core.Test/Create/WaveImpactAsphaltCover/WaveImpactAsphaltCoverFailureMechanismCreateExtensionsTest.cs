@@ -25,10 +25,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {

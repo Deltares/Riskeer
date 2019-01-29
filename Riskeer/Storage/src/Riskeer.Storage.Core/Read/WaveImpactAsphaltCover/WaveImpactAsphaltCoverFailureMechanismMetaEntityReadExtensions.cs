@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
 {

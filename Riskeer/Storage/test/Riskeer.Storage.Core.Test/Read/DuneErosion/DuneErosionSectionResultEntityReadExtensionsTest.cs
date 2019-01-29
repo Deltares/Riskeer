@@ -22,10 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.DuneErosion.Data;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.DuneErosion;
 

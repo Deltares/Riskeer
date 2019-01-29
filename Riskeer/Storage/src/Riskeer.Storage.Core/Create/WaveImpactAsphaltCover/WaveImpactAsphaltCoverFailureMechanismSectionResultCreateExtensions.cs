@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
 {

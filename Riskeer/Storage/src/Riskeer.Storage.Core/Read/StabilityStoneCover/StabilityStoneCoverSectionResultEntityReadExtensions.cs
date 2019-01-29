@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Primitives;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.StabilityStoneCover

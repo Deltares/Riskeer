@@ -22,12 +22,12 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
-using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {
