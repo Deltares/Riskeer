@@ -60,7 +60,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
-                    AssertAssessmentSection(reader,sourceFilePath);
+                    AssertAssessmentSection(reader, sourceFilePath);
                     AssertBackgroundData(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
