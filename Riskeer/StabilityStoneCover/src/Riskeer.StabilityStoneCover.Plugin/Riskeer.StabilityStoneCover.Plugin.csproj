@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.StabilityStoneCover.Plugin</RootNamespace>
     <AssemblyName>Riskeer.StabilityStoneCover.Plugin</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />

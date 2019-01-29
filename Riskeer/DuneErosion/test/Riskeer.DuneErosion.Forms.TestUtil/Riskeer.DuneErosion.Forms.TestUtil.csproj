@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.DuneErosion.Forms.TestUtil</RootNamespace>
     <AssemblyName>Riskeer.DuneErosion.Forms.TestUtil</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
   <ItemGroup>
     <Compile Include="DuneErosionMapFeaturesTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

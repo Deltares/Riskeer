@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.Piping.Plugin</RootNamespace>
     <AssemblyName>Riskeer.Piping.Plugin</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />

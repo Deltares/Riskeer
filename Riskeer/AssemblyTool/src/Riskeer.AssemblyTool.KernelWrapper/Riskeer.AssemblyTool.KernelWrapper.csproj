@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.AssemblyTool.KernelWrapper</RootNamespace>
     <AssemblyName>Riskeer.AssemblyTool.KernelWrapper</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="Assembly.Kernel">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>

@@ -5,7 +5,7 @@
     <RootNamespace>Core.Components.BruTile.Forms</RootNamespace>
     <AssemblyName>Core.Components.BruTile.Forms</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\BruTile.0.19.0\lib\net40\BruTile.dll</HintPath>

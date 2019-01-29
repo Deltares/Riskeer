@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test</RootNamespace>
     <AssemblyName>Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
   <ItemGroup>
     <Reference Include="Assembly.Kernel">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>

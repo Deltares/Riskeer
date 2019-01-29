@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.Common.Data</RootNamespace>
     <AssemblyName>Riskeer.Common.Data</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="MathNet.Numerics, Version=3.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\MathNet.Numerics.3.19.0\lib\net40\MathNet.Numerics.dll</HintPath>

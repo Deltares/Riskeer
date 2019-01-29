@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.GrassCoverErosionInwards.Service.Test</RootNamespace>
     <AssemblyName>Riskeer.GrassCoverErosionInwards.Service.Test</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

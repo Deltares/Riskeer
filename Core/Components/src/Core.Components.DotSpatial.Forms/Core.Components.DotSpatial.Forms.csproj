@@ -5,7 +5,7 @@
     <RootNamespace>Core.Components.DotSpatial.Forms</RootNamespace>
     <AssemblyName>Core.Components.DotSpatial.Forms</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="DotSpatial.Controls, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">

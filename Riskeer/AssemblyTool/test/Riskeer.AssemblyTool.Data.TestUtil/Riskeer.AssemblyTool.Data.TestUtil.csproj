@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.AssemblyTool.Data.TestUtil</RootNamespace>
     <AssemblyName>Riskeer.AssemblyTool.Data.TestUtil</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>

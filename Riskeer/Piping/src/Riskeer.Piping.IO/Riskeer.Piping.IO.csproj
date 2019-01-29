@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.Piping.IO</RootNamespace>
     <AssemblyName>Riskeer.Piping.IO</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Compile Include="Configurations\PipingCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationWriter.cs" />

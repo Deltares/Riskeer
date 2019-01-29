@@ -5,7 +5,7 @@
     <RootNamespace>Core.Components.BruTile.TestUtil</RootNamespace>
     <AssemblyName>Core.Components.BruTile.TestUtil</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
   <ItemGroup>
     <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\BruTile.0.19.0\lib\net40\BruTile.dll</HintPath>

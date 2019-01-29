@@ -5,7 +5,7 @@
     <RootNamespace>Core.Components.GraphSharp.Forms</RootNamespace>
     <AssemblyName>Core.Components.GraphSharp.Forms</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="GraphSharp, Version=1.0.2.0, Culture=neutral, PublicKeyToken=f9c24778325a6b82, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\GraphSharp.1.1.0.0\lib\net40\GraphSharp.dll</HintPath>

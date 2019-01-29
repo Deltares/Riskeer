@@ -5,7 +5,7 @@
     <RootNamespace>Core.Plugins.Map.Test</RootNamespace>
     <AssemblyName>Core.Plugins.Map.Test</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
   <ItemGroup>
     <Reference Include="DotSpatial.Controls, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

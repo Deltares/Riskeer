@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.GrassCoverErosionOutwards.Data</RootNamespace>
     <AssemblyName>Riskeer.GrassCoverErosionOutwards.Data</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />

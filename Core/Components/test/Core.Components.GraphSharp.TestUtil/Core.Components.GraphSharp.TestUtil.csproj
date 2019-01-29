@@ -5,7 +5,7 @@
     <RootNamespace>Core.Components.GraphSharp.TestUtil</RootNamespace>
     <AssemblyName>Core.Components.GraphSharp.TestUtil</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
   <ItemGroup>
     <Compile Include="PointedTreeGraphControlHelper.cs" />
     <Compile Include="PointedTreeTestDataFactory.cs" />

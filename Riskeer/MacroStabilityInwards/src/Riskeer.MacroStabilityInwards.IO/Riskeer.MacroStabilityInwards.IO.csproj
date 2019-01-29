@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.MacroStabilityInwards.IO</RootNamespace>
     <AssemblyName>Riskeer.MacroStabilityInwards.IO</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationDikeSoilScenario.cs" />
     <Compile Include="Configurations\ConfigurationZoningBoundariesDeterminationType.cs" />

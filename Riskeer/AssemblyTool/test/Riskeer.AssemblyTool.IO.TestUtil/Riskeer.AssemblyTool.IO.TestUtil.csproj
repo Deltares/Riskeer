@@ -5,7 +5,7 @@
     <RootNamespace>Riskeer.AssemblyTool.IO.TestUtil</RootNamespace>
     <AssemblyName>Riskeer.AssemblyTool.IO.TestUtil</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
   <ItemGroup>
     <Compile Include="InvalidIdTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

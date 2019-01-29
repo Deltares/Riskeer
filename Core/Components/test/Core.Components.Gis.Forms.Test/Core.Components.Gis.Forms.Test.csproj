@@ -5,7 +5,7 @@
     <RootNamespace>Core.Components.Gis.Forms.Test</RootNamespace>
     <AssemblyName>Core.Components.Gis.Forms.Test</AssemblyName>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
   <ItemGroup>
     <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\BruTile.0.19.0\lib\net40\BruTile.dll</HintPath>
