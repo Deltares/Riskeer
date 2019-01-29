@@ -37,10 +37,10 @@
             <Directory Id="BINDIR" Name="bin">
             
               <!--
-              RingtoetsPayload.wxs defines all files going into this folder. 
+              RiskeerPayload.wxs defines all files going into this folder. 
               ThirdPartyLicensesPayload.wxs defines all license files for all used 3rd party libraries.
               
-              RingtoetsPayload.wxs and ThirdPartyLicensesPayload.wxs will be generated on pre-build. Ensure you clean first before building the installer!
+              RiskeerPayload.wxs and ThirdPartyLicensesPayload.wxs will be generated on pre-build. Ensure you clean first before building the installer!
               -->
 
             </Directory>
@@ -170,7 +170,7 @@
     </Directory>
     
     <Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no">
-      <ComponentGroupRef Id="RingtoetsApplicationComponents"/>
+      <ComponentGroupRef Id="RiskeerApplicationComponents"/>
       <ComponentGroupRef Id="ThirdPartyLicenseComponents"/>
       <ComponentGroupRef Id="Examples"/>
       <ComponentGroupRef Id="InstallationVerificationFiles"/>

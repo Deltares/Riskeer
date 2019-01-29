@@ -7,76 +7,76 @@
       </Component>
       <!-- Common -->
       <Component Id="CalculationConfigurationSchema" Guid="E4C00745-A7A5-4F19-A1B4-C2343F42B34F">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\ConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\ConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationWaveReductionSchema" Guid="C578E971-B368-4FA1-A3B3-7799EF3B057D">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\GolfReductieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\GolfReductieSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationHydraulicBoundaryLocationSchema" Guid="{8F244250-0E36-4720-9CC8-7D4BC623267D}">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\HbLocatieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\HbLocatieSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationStructureBaseSchema" Guid="65966C2B-1940-42AC-A423-1A8FFBC421E1">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\KunstwerkenBasisSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\KunstwerkenBasisSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationOrientationSchema" Guid="ADAB171C-FC0D-44F3-B90D-5C8DD4598825">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\OrientatieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\OrientatieSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationScenarioSchema" Guid="32A8A316-C662-4D81-9BBC-42E60AFD7545">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\ScenarioSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\ScenarioSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationStochastSchema" Guid="C667653D-B7CC-4DA9-A4FF-96C4EBB5D09A">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\StochastSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\StochastSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationStochastStandardDeviationSchema" Guid="CD2A555E-951B-46DB-8E87-BE2DF41CCF41">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\StochastStandaardafwijkingSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\StochastStandaardafwijkingSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationStochastVarationCoefficientSchema" Guid="146F5AAB-1A4E-4D98-BBDF-58FADF2CC885">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\StochastVariatiecoefficientSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\StochastVariatiecoefficientSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationForeshoreProfileSchema" Guid="D7A92C17-4079-4C8F-A572-6A1AB3656A0D">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\VoorlandProfielSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Resources\VoorlandProfielSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Structures -->
       <Component Id="CalculationConfigurationClosingStructuresFile" Guid="38CCDF08-9BAF-42D1-B981-BE0CAE8EA0E0">
-        <File Source="..\..\..\..\Ringtoets\ClosingStructures\src\Ringtoets.ClosingStructures.IO\Resources\KunstwerkenBetrouwbaarheidSluitenSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.IO\Resources\KunstwerkenBetrouwbaarheidSluitenSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationHeightStructuresFile" Guid="5206D092-F89A-4EE6-A35A-A966CA9A001D">
-        <File Source="..\..\..\..\Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.IO\Resources\KunstwerkenHoogteSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.IO\Resources\KunstwerkenHoogteSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationStabilityPointStructuresFile" Guid="E526BBC5-4D75-4CE0-987D-A60FB39369CB">
-        <File Source="..\..\..\..\Ringtoets\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.IO\Resources\KunstwerkenConstructiefFalenSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.IO\Resources\KunstwerkenConstructiefFalenSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Grass Cover Erosion Inwards -->
       <Component Id="CalculationConfigurationGrassCoverErosionInwardsFile" Guid="5EE832D1-2CDF-4EAB-BD93-B0F2033F79C6">
-        <File Source="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.IO\Resources\GEKBConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.IO\Resources\GEKBConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- MacroStabilityInwards -->
       <Component Id="CalculationConfigurationMacroStabilityInwardsFile" Guid="024995CD-95A8-4238-AE2E-DA8CB8EEEFF2">
-        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationMacroStabilityInwardsGridsFile" Guid="B53F0CC7-EE4F-44F7-A07F-EF8F150F9AA4">
-        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsGridsSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsGridsSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationMacroStabilityInwardsWaternetCreatorFile" Guid="1A4BF258-E1DD-492E-B0A7-B5E5C489B5EF">
-        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsWaterspanningenSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsWaterspanningenSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationMacroStabilityInwardsZonesFile" Guid="56127E53-8A7F-491E-B499-F94A66860335">
-        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsZonesSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsZonesSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Piping -->
       <Component Id="CalculationConfigurationPipingFile" Guid="1A1DBB40-B07E-4B64-89A4-33167EB944F9">
-        <File Source="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.IO\Resources\PipingConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.IO\Resources\PipingConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Revetment -->
       <Component Id="CalculationConfigurationRevetmentBaseFile" Guid="07E3754B-7CE9-4698-84D6-AA66F90B324B">
-        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenConfiguratieBasisSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.IO\Resources\BekledingenConfiguratieBasisSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationRevetmentFile" Guid="5A4CFA52-4341-464E-AA35-CE57B09BCB15">
-        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.IO\Resources\BekledingenConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Grass Cover Erosion Outwards-->
       <Component Id="CalculationConfigurationGrassCoverErosionOutwardsFile" Guid="CAE4325D-8C3F-44F3-A651-C42CAD5033F3">
-        <File Source="..\..\..\..\Ringtoets\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.IO\Resources\GEBUConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.IO\Resources\GEBUConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
     </DirectoryRef>
 	</Fragment>

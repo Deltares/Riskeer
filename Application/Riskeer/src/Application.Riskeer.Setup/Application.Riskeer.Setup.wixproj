@@ -71,7 +71,7 @@
     <Compile Include="Installer UI\WelcomeDlgDeltares.wxs" />
     <Compile Include="Installer UI\wixUI_Deltares.wxs" />
     <Compile Include="Product.wxs" />
-    <Compile Include="RingtoetsPayload.wxs" />
+    <Compile Include="RiskeerPayload.wxs" />
     <Compile Include="ThirdPartyLicensesPayload.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +248,7 @@
     <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);InstallerLicensesFolder=licenses\;ExamplesFolder=Examples\;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RingtoetsApplicationComponents -gg -dr BINDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RiskeerApplicationComponents -gg -dr BINDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)licenses -cg ThirdPartyLicenseComponents -gg -dr BINDIR -var var.InstallerLicensesFolder -sfrag -sreg -srd -o "$(ProjectDir)ThirdPartyLicensesPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentsExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"</PreBuildEvent>
   </PropertyGroup>
