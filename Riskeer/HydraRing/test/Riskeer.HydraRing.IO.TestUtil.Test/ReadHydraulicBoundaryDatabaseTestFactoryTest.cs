@@ -44,8 +44,8 @@ namespace Riskeer.HydraRing.IO.TestUtil.Test
 
             for (var i = 0; i < locations.Length; i++)
             {
-                Assert.AreEqual(i+1, locations[i].Id);
-                Assert.AreEqual($"location{i+1}", locations[i].Name);
+                Assert.AreEqual(i + 1, locations[i].Id);
+                Assert.AreEqual($"location{i + 1}", locations[i].Name);
                 Assert.IsFalse(double.IsNaN(locations[i].CoordinateX));
                 Assert.IsFalse(double.IsNaN(locations[i].CoordinateY));
             }

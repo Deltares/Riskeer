@@ -30,17 +30,17 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         [Test]
         public void Constants_Always_ExpectedValues()
         {
-           Assert.AreEqual("ScenarioName", ScenarioInformationTableDefinitions.ScenarioName);
-           Assert.AreEqual("Year", ScenarioInformationTableDefinitions.Year);
-           Assert.AreEqual("Scope", ScenarioInformationTableDefinitions.Scope);
-           Assert.AreEqual("SeaLevel", ScenarioInformationTableDefinitions.SeaLevel);
-           Assert.AreEqual("RiverDischarge", ScenarioInformationTableDefinitions.RiverDischarge);
-           Assert.AreEqual("LakeLevel", ScenarioInformationTableDefinitions.LakeLevel);
-           Assert.AreEqual("WindDirection", ScenarioInformationTableDefinitions.WindDirection);
-           Assert.AreEqual("WindSpeed", ScenarioInformationTableDefinitions.WindSpeed);
-           Assert.AreEqual("Comment", ScenarioInformationTableDefinitions.Comment);
-           Assert.AreEqual("IsScenarioInformationPresent", ScenarioInformationTableDefinitions.IsScenarioInformationPresent);
-           Assert.AreEqual("ScenarioInformation", ScenarioInformationTableDefinitions.TableName);
+            Assert.AreEqual("ScenarioName", ScenarioInformationTableDefinitions.ScenarioName);
+            Assert.AreEqual("Year", ScenarioInformationTableDefinitions.Year);
+            Assert.AreEqual("Scope", ScenarioInformationTableDefinitions.Scope);
+            Assert.AreEqual("SeaLevel", ScenarioInformationTableDefinitions.SeaLevel);
+            Assert.AreEqual("RiverDischarge", ScenarioInformationTableDefinitions.RiverDischarge);
+            Assert.AreEqual("LakeLevel", ScenarioInformationTableDefinitions.LakeLevel);
+            Assert.AreEqual("WindDirection", ScenarioInformationTableDefinitions.WindDirection);
+            Assert.AreEqual("WindSpeed", ScenarioInformationTableDefinitions.WindSpeed);
+            Assert.AreEqual("Comment", ScenarioInformationTableDefinitions.Comment);
+            Assert.AreEqual("IsScenarioInformationPresent", ScenarioInformationTableDefinitions.IsScenarioInformationPresent);
+            Assert.AreEqual("ScenarioInformation", ScenarioInformationTableDefinitions.TableName);
         }
     }
 }

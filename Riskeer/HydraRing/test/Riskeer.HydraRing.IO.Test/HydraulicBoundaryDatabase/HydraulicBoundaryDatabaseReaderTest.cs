@@ -303,7 +303,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             using (var reader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
                 // Call
-                string version= reader.ReadVersion();
+                string version = reader.ReadVersion();
 
                 // Assert
                 Assert.AreEqual("Dutch coast South19-11-2015 12:0013", version);

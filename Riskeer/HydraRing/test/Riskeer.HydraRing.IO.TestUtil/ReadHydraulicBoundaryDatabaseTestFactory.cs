@@ -40,7 +40,7 @@ namespace Riskeer.HydraRing.IO.TestUtil
             var random = new Random(21);
             return Create(new[]
             {
-                new ReadHydraulicBoundaryLocation(1, "location1", random.NextDouble(), random.NextDouble()), 
+                new ReadHydraulicBoundaryLocation(1, "location1", random.NextDouble(), random.NextDouble()),
                 new ReadHydraulicBoundaryLocation(2, "location2", random.NextDouble(), random.NextDouble())
             });
         }

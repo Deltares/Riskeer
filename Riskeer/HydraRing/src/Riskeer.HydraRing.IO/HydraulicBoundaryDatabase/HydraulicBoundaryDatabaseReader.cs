@@ -110,7 +110,6 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
             {
                 using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
                 {
-
                     if (reader.Read())
                     {
                         string version = Convert.ToString(reader[GeneralTableDefinitions.GeneratedVersion]);

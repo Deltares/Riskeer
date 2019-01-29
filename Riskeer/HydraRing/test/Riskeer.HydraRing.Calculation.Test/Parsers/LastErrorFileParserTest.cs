@@ -24,7 +24,6 @@ using System.IO;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.HydraRing.Calculation;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.Parsers;
 
