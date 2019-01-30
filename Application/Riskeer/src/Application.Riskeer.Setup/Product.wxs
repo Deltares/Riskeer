@@ -8,7 +8,7 @@
     <!--Comment left empty on purpose to remove auto-generated text.-->
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
-    <Media Id="1" Cabinet="RingtoetsFull.cab" EmbedCab="yes"/>
+    <Media Id="1" Cabinet="RiskeerFull.cab" EmbedCab="yes"/>
     <Property Id="ARPPRODUCTICON" Value="Ringtoets.ico" />
 
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" AllowSameVersionUpgrades="yes"/>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WixLocalization Culture="nl-NL" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="ApplicationLongName">Ringtoets</String>
-  <String Id="ApplicationShortName">Ringtoets</String>
+  <String Id="ApplicationLongName">Riskeer</String>
+  <String Id="ApplicationShortName">Riskeer</String>
   <String Id="ApplicationGroupShortName">WTI</String>
   <String Id="Manufacturer">Deltares</String>
   <String Id="NetFramework40Required">De installatie vereist dat Microsoft .NET Framework 4.0 geïnstalleerd is om verder te gaan.</String>
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
   <String Id="StartApplicationDescription">Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName).</String>
 
-  <String Id="UserManualName">Gebruikershandleiding</String>
-  <String Id="UserManualDescription">Open de gebruikershandleiding van Ringtoets.</String>
+  <String Id="UserManualName">Gebruikershandleiding Riskeer 19.1.1</String>
+  <String Id="UserManualDescription">Open de gebruikershandleiding van Riskeer.</String>
 
   <String Id="Examples">Voorbeelden</String>
   <String Id="InstallationVerification">Installatie verificatie</String>
