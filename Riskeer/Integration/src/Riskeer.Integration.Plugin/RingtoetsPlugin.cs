@@ -1139,7 +1139,7 @@ namespace Riskeer.Integration.Plugin
                 {
                     var addItem = new StrictContextMenuItem(
                         RiskeerFormsResources.AddAssessmentSection_DisplayName,
-                        RiskeerCommonFormsResources.RingtoetsProject_ToolTip,
+                        RiskeerCommonFormsResources.RiskeerProject_ToolTip,
                         RiskeerFormsResources.AddAssessmentSectionFolder,
                         (s, e) => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile());
 
