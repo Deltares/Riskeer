@@ -92,7 +92,7 @@ namespace Application.Riskeer.Migration.Console.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(RingtoetsFilesToMigrate))]
+        [TestCaseSource(nameof(ProjectFilesToMigrate))]
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, string fileVersion, bool isSupported)
         {
             // Given
@@ -214,7 +214,7 @@ namespace Application.Riskeer.Migration.Console.Test
 
         #region Test cases
 
-        private static IEnumerable<TestCaseData> RingtoetsFilesToMigrate()
+        private static IEnumerable<TestCaseData> ProjectFilesToMigrate()
         {
             string unsupportedProjectFilePath = ProjectMigrationTestHelper.GetOutdatedUnSupportedProjectFilePath();
             var unsupportedVersionedFile = new ProjectVersionedFile(unsupportedProjectFilePath);
@@ -224,8 +224,8 @@ namespace Application.Riskeer.Migration.Console.Test
             var supportedVersionedFile = new ProjectVersionedFile(supportedProjectFilePath);
             string supportedVersion = supportedVersionedFile.GetVersion();
 
-            yield return new TestCaseData(unsupportedProjectFilePath, unsupportedVersion, false).SetName("UnsupportedRingtoetsVersion");
-            yield return new TestCaseData(supportedProjectFilePath, supportedVersion, true).SetName("SupportedRingtoetsVersion");
+            yield return new TestCaseData(unsupportedProjectFilePath, unsupportedVersion, false).SetName("UnsupportedProjectVersion");
+            yield return new TestCaseData(supportedProjectFilePath, supportedVersion, true).SetName("SupportedProjectVersion");
         }
 
         #endregion

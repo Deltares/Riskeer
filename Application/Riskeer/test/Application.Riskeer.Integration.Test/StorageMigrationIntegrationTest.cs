@@ -46,10 +46,10 @@ namespace Application.Riskeer.Integration.Test
         [Test]
         [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string version)
+        public void GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string version)
         {
             string sourceFilePath = GetTestProjectFilePath(version);
-            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
+            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
             MigrateFile(sourceFilePath, targetFilePath);
 
             // Given
@@ -80,11 +80,11 @@ namespace Application.Riskeer.Integration.Test
         [Test]
         [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string version)
+        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string version)
         {
             // Given
             string sourceFilePath = GetTestProjectFilePath(version);
-            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
+            string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
 
             var projectStore = new StorageSqLite();
             var mocks = new MockRepository();
@@ -118,7 +118,7 @@ namespace Application.Riskeer.Integration.Test
         [Test]
         [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string version)
+        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string version)
         {
             // Given
             string sourceFilePath = GetTestProjectFilePath(version);

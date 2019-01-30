@@ -31,7 +31,7 @@ using RiskeerMigrationCoreResources = Riskeer.Migration.Core.Properties.Resource
 namespace Application.Riskeer.Migration.Console
 {
     /// <summary>
-    /// Console application that can migrate a Ringtoets database file to a newer version.
+    /// Console application that can migrate a project database file to a newer version.
     /// </summary>
     public class RiskeerMigrationConsole : ConsoleBase
     {
@@ -40,7 +40,7 @@ namespace Application.Riskeer.Migration.Console
         /// <summary>
         /// Creates a new instance of <see cref="RiskeerMigrationConsole"/>. 
         /// </summary>
-        public RiskeerMigrationConsole() : base(Resources.RingtoetsMigrationTool_ApplicationName,
+        public RiskeerMigrationConsole() : base(Resources.RiskeerMigrationTool_ApplicationName,
                                                 GetApplicationDescription()) {}
 
         protected override void ExecuteCommand(string[] args)
@@ -68,7 +68,7 @@ namespace Application.Riskeer.Migration.Console
 
         private static string GetApplicationDescription()
         {
-            return string.Format(Resources.RingtoetsMigrationTool_ApplicationDescription_Version_0, currentDatabaseVersion);
+            return string.Format(Resources.RiskeerMigrationTool_ApplicationDescription_Version_0, currentDatabaseVersion);
         }
 
         #region Commands

@@ -156,18 +156,18 @@ namespace Application.Riskeer.Migration.Console.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({0})..
         /// </summary>
-        internal static string RingtoetsMigrationTool_ApplicationDescription_Version_0 {
+        internal static string RiskeerMigrationTool_ApplicationDescription_Version_0 {
             get {
-                return ResourceManager.GetString("RingtoetsMigrationTool_ApplicationDescription_Version_0", resourceCulture);
+                return ResourceManager.GetString("RiskeerMigrationTool_ApplicationDescription_Version_0", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to MIGRATIEHULPPROGRAMMA.
         /// </summary>
-        internal static string RingtoetsMigrationTool_ApplicationName {
+        internal static string RiskeerMigrationTool_ApplicationName {
             get {
-                return ResourceManager.GetString("RingtoetsMigrationTool_ApplicationName", resourceCulture);
+                return ResourceManager.GetString("RiskeerMigrationTool_ApplicationName", resourceCulture);
             }
         }
     }

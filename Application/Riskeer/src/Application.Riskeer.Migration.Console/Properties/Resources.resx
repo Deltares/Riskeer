@@ -132,7 +132,7 @@
   <data name="CommandSupported_Detailed" xml:space="preserve">
     <value>Controleert of het projectbestand dat te vinden is in het bronprojectpad gemigreerd kan worden.</value>
   </data>
-  <data name="RingtoetsMigrationTool_ApplicationDescription_Version_0" xml:space="preserve">
+  <data name="RiskeerMigrationTool_ApplicationDescription_Version_0" xml:space="preserve">
     <value>Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({0}).</value>
   </data>
   <data name="CommandSupported_File_Able_To_Migrate_To_Version_0" xml:space="preserve">
@@ -141,7 +141,7 @@
   <data name="CommandInvalid_Command_0_Is_not_valid" xml:space="preserve">
     <value>{0} is geen geldige opdracht.</value>
   </data>
-  <data name="RingtoetsMigrationTool_ApplicationName" xml:space="preserve">
+  <data name="RiskeerMigrationTool_ApplicationName" xml:space="preserve">
     <value>MIGRATIEHULPPROGRAMMA</value>
   </data>
   <data name="CommandMigrate_Source_Or_Destination_Not_Valid_Path" xml:space="preserve">

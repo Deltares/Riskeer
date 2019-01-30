@@ -22,12 +22,12 @@
 namespace Application.Riskeer.Migration.Console
 {
     /// <summary>
-    /// Entry point to the console application that can migrate a Ringtoets database file to a newer version.
+    /// Entry point to the console application that can migrate a project database file to a newer version.
     /// </summary>
     public static class RiskeerMigrationTool
     {
         /// <summary>
-        /// Main Ringtoets migration application.
+        /// Main migration application.
         /// </summary>
         /// <param name="args">Arguments </param>
         /// <remarks>Accepted commands:<list type="bullet">
@@ -37,8 +37,8 @@ namespace Application.Riskeer.Migration.Console
         /// </list></remarks>
         public static void Main(string[] args)
         {
-            var ringtoetsMigrationTool = new RiskeerMigrationConsole();
-            ringtoetsMigrationTool.ExecuteConsoleTool(args);
+            var riskeerMigrationConsole = new RiskeerMigrationConsole();
+            riskeerMigrationConsole.ExecuteConsoleTool(args);
         }
     }
 }
