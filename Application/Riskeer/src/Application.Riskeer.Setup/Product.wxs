@@ -32,7 +32,7 @@
     <!-- File System hierarchy -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder" Name="PFiles">
-        <Directory Id="WTIDIR" Name="!(loc.ApplicationGroupShortName)">
+        <Directory Id="BOIDIR" Name="!(loc.ApplicationGroupShortName)">
           <Directory Id="INSTALLDIR" Name="$(var.ApplicationFullName)">
             <Directory Id="BINDIR" Name="bin">
             
@@ -68,7 +68,7 @@
               
               <RemoveFolder Id="RemoveBINDIR" Directory="BINDIR" On="uninstall"/>
               <RemoveFolder Id="RemoveINSTALLDIR" Directory="INSTALLDIR" On="uninstall" />
-              <RemoveFolder Id="RemoveWTIDIR" Directory="WTIDIR" On="uninstall" />
+              <RemoveFolder Id="RemoveBOIDIR" Directory="BOIDIR" On="uninstall" />
               <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerAppShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
             
@@ -86,7 +86,7 @@
 
       <!-- Start menu folder -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuWTI" Name="!(loc.ApplicationGroupShortName)">
+        <Directory Id="ProgramMenuBOI" Name="!(loc.ApplicationGroupShortName)">
           <Directory Id="ProgramMenuRiskeer" Name="!(loc.ApplicationLongName)">
             
             <Component Id="ProgramMenuShortcut" Guid="525A6CF6-DCFF-4F57-8A41-E55660F320D6">
@@ -97,7 +97,7 @@
                         WorkingDirectory="INSTALLDIR"
                         Icon="Ringtoets.ico"/>
               <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRiskeer" On="uninstall" />
-              <RemoveFolder Id="RemoveProgramMenuWTI" Directory="ProgramMenuWTI" On="uninstall" />
+              <RemoveFolder Id="RemoveProgramMenuBOI" Directory="ProgramMenuBOI" On="uninstall" />
               <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
             

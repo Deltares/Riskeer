@@ -2,7 +2,7 @@
 <WixLocalization Culture="nl-NL" xmlns="http://schemas.microsoft.com/wix/2006/localization">
   <String Id="ApplicationLongName">Riskeer</String>
   <String Id="ApplicationShortName">Riskeer</String>
-  <String Id="ApplicationGroupShortName">WTI</String>
+  <String Id="ApplicationGroupShortName">BOI</String>
   <String Id="Manufacturer">Deltares</String>
   <String Id="NetFramework40Required">De installatie vereist dat Microsoft .NET Framework 4.0 geïnstalleerd is om verder te gaan.</String>
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
