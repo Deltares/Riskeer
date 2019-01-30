@@ -4,7 +4,7 @@
   <!-- Static variables. -->
   <?include Variables.wxi ?>
   
-  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="8c52b205-2bc3-4281-9d81-080fb1b2105d">
+  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="E5E9A96A-5B83-46C3-A2BD-0799785E3A81">
     <!--Comment left empty on purpose to remove auto-generated text.-->
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
@@ -45,7 +45,7 @@
 
             </Directory>
             
-            <Component Id="FileAssociation" Guid="9EB4A417-2685-42DA-8167-6C726DC27349">
+            <Component Id="FileAssociation" Guid="1117D79E-521C-48C3-9E23-549833F7BA09">
               <File Source="Ringtoets.ico" KeyPath="yes"></File>
               
               <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Ringtoets.rtd" Name="FriendlyTypeName" Value="!(loc.RtdDescription)" Type="string" />
@@ -58,7 +58,7 @@
               
             </Component>
             
-            <Component Id="InstalledShortcut" Guid="441A8BC7-0B13-453D-9FBB-F03293282A3D">
+            <Component Id="InstalledShortcut" Guid="333E96FE-1B51-485C-8801-A57CE65C62D1">
               <Shortcut Id="ApplicationInstallDirShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
@@ -69,15 +69,15 @@
               <RemoveFolder Id="RemoveBINDIR" Directory="BINDIR" On="uninstall"/>
               <RemoveFolder Id="RemoveINSTALLDIR" Directory="INSTALLDIR" On="uninstall" />
               <RemoveFolder Id="RemoveWTIDIR" Directory="WTIDIR" On="uninstall" />
-              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsAppShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerAppShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
             
-            <Component Id="LicenseFile" Guid="4D4EEEBE-E7C4-493D-89D2-901D149C1785">
-              <File Id="RingtoetsLicense" Name="Licentie.rtf" Source="Licentie.rtf" KeyPath="yes"/>  
+            <Component Id="LicenseFile" Guid="7A302FAD-4BEF-4C0F-805E-406DB172D530">
+              <File Id="RiskeerLicense" Name="Licentie.rtf" Source="Licentie.rtf" KeyPath="yes"/>  
             </Component>
 
-            <Component Id="UserManual" Guid="{8672917E-47B3-47BF-AF8A-A2B536A53DC1}">
-              <File Id="RingtoetsUserManual" Name="Gebruikershandleiding Ringtoets 18.1.1.pdf" Source="Gebruikershandleiding Ringtoets 18.1.1.pdf" KeyPath="yes"/>
+            <Component Id="UserManual" Guid="6AD109DF-87BD-4748-BCF6-D1391F12D8A1">
+              <File Id="RiskeerUserManual" Name="Gebruikershandleiding Ringtoets 18.1.1.pdf" Source="Gebruikershandleiding Ringtoets 18.1.1.pdf" KeyPath="yes"/>
             </Component>
 
           </Directory>
@@ -87,27 +87,27 @@
       <!-- Start menu folder -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuWTI" Name="!(loc.ApplicationGroupShortName)">
-          <Directory Id="ProgramMenuRingtoets" Name="!(loc.ApplicationLongName)">
+          <Directory Id="ProgramMenuRiskeer" Name="!(loc.ApplicationLongName)">
             
-            <Component Id="ProgramMenuShortcut" Guid="1BF4BE48-FB81-425D-85E4-C30F1BF51DA4">
+            <Component Id="ProgramMenuShortcut" Guid="525A6CF6-DCFF-4F57-8A41-E55660F320D6">
               <Shortcut Id="ApplicationStartMenuShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
                         Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
                         WorkingDirectory="INSTALLDIR"
                         Icon="Ringtoets.ico"/>
-              <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRingtoets" On="uninstall" />
+              <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRiskeer" On="uninstall" />
               <RemoveFolder Id="RemoveProgramMenuWTI" Directory="ProgramMenuWTI" On="uninstall" />
-              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
             
-            <Component Id="ProgramMenuManualShortcut" Guid="579211B2-24A0-4B29-929D-147C1DB4FB81">
+            <Component Id="ProgramMenuManualShortcut" Guid="30E330BB-E0DF-43EF-9875-16F6FCEB3C66">
               <Shortcut Id="UserManualShortcut"
                         Name="!(loc.UserManualName)"
                         Description="!(loc.UserManualDescription)"
                         Target="[INSTALLDIR]Gebruikershandleiding Ringtoets 18.1.1.pdf"
                         Icon="Manual.ico"/>
-              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsProgMenuManualShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerProgMenuManualShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
           
           </Directory>
@@ -117,7 +117,7 @@
       <!-- Desktop -->
       <Directory Id="DesktopFolder" Name="Desktop">
 
-        <Component Id="DesktopShortcut" Guid="A871DE12-BE7D-4A80-86F6-5BA23249A8BB">
+        <Component Id="DesktopShortcut" Guid="D8F009EB-0C8C-4893-ADD2-22314ACCF2A7">
           <Shortcut Id="ApplicationDesktopShortcut"
                     Name="!(loc.ApplicationLongName)"
                     Description="!(loc.StartApplicationDescription)"
@@ -125,7 +125,7 @@
                     WorkingDirectory="INSTALLDIR"
                     Icon="Ringtoets.ico"/>
 
-           <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+           <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
         </Component>
       </Directory>
 
@@ -134,7 +134,7 @@
         <Directory Id="CommonDocumentsApplicationGroup" Name="!(loc.ApplicationGroupShortName)">
           <Directory Id="CommonDocumentsApplication" Name="!(loc.ApplicationShortName)">
             <Directory Id="CommonDocumentsNBPW" Name="NBPW">
-              <Component Id="IHWFile" Guid="911042BC-FE0E-4A5A-819D-B43CCA0B9544">
+              <Component Id="IHWFile" Guid="5BA794B1-2B84-46C5-A6F0-4BBAD110376D">
                 <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf"/>
                 <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.prj"/>
                 <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.qpj"/>
