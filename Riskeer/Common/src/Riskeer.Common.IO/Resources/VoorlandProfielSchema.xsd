@@ -24,7 +24,7 @@ All rights reserved.
 
   <!--Generiek element voor het specificeren van een voorlandprofiel.
   In dit element moet de naam van het geselecteerde voorlandprofiel zoals ook 
-  zichtbaar in Ringtoets worden opgenomen. Indien dit element niet is gespecificeerd,
+  zichtbaar in Riskeer worden opgenomen. Indien dit element niet is gespecificeerd,
   heeft het element golfreductie geen waarde. Pas als met dit element een 
   voorlandprofiel gespecificeerd is waarin ook een definitie van de 
   voorlandgeometrie en/of dam is opgenomen, kan het element voor golfreductie 

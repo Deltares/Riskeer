@@ -24,7 +24,7 @@ All rights reserved.
 
   <!--Generiek element voor het specificeren van een geselecteerde
   HB of HR locatie. In dit element moet de naam van de hydraulische belastingenlocatie
-  zoals ook zichtbaar in Ringtoets worden opgenomen.-->
+  zoals ook zichtbaar in Riskeer worden opgenomen.-->
   <xs:element name="hblocatie-of-hrlocatie" abstract="true" />
 
   <!--Specificeert de HB locatie. Indien dit element is opgenomen, mag geen 
