@@ -43,7 +43,7 @@ using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class RingtoetsContextMenuBuilderTest
+    public class RiskeerContextMenuBuilderTest
     {
         [Test]
         public void AddCreateCalculationGroupItem_WhenBuild_ItemAddedToContextMenu()
@@ -68,10 +68,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddCreateCalculationGroupItem(calculationGroup).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddCreateCalculationGroupItem(calculationGroup).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -112,10 +112,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => {}).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => {}).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -161,10 +161,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 updateCommandHandler,
                                                                 viewCommands,
                                                                 calculationGroup, treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -203,10 +203,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -250,10 +250,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanism,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -292,10 +292,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanism,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearAllCalculationOutputInFailureMechanismItem(failureMechanism).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -338,10 +338,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanism,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -381,10 +381,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationWithOutput,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutput).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutput).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -424,10 +424,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationWithoutOutput,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutput).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutput).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -453,10 +453,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddRenameItem();
+            riskeerContextMenuBuilder.AddRenameItem();
 
             // Assert
             mocks.VerifyAll();
@@ -472,10 +472,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddDeleteItem();
+            riskeerContextMenuBuilder.AddDeleteItem();
 
             // Assert
             mocks.VerifyAll();
@@ -491,10 +491,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddExpandAllItem();
+            riskeerContextMenuBuilder.AddExpandAllItem();
 
             // Assert
             mocks.VerifyAll();
@@ -510,10 +510,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(menuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(menuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddCollapseAllItem();
+            riskeerContextMenuBuilder.AddCollapseAllItem();
 
             // Assert
             mocks.VerifyAll();
@@ -529,10 +529,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddOpenItem();
+            riskeerContextMenuBuilder.AddOpenItem();
 
             // Assert
             mocks.VerifyAll();
@@ -548,10 +548,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddExportItem();
+            riskeerContextMenuBuilder.AddExportItem();
 
             // Assert
             mocks.VerifyAll();
@@ -567,10 +567,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddImportItem();
+            riskeerContextMenuBuilder.AddImportItem();
 
             // Assert
             mocks.VerifyAll();
@@ -586,10 +586,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddPropertiesItem();
+            riskeerContextMenuBuilder.AddPropertiesItem();
 
             // Assert
             mocks.VerifyAll();
@@ -605,10 +605,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddSeparator();
+            riskeerContextMenuBuilder.AddSeparator();
 
             // Assert
             mocks.VerifyAll();
@@ -625,10 +625,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.AddCustomItem(contextMenuItem);
+            riskeerContextMenuBuilder.AddCustomItem(contextMenuItem);
 
             // Assert
             mocks.VerifyAll();
@@ -645,10 +645,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            ringtoetsContextMenuBuilder.Build();
+            riskeerContextMenuBuilder.Build();
 
             // Assert
             mocks.VerifyAll();
@@ -697,10 +697,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 calculation,
                                                                 treeViewControl);
 
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationItem(
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationItem(
                     calculation,
                     inquiryHelper,
                     c => {}).Build();
@@ -775,10 +775,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 calculation,
                                                                 treeViewControl);
 
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationsItem(
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddUpdateForeshoreProfileOfCalculationsItem(
                     new[]
                     {
                         calculation
@@ -833,10 +833,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationItem,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddDuplicateCalculationItem(calculationItem, calculationItemContext).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddDuplicateCalculationItem(calculationItem, calculationItemContext).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -882,10 +882,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -927,12 +927,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "No valid data";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -979,10 +979,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateCalculationItem(calculationContext, null, c => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateCalculationItem(calculationContext, null, c => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1024,12 +1024,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculation,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "No valid data";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateCalculationItem(calculationContext, null, c => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateCalculationItem(calculationContext, null, c => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1087,10 +1087,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1132,10 +1132,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1189,12 +1189,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1237,12 +1237,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1300,10 +1300,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1345,10 +1345,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1402,12 +1402,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1450,12 +1450,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 calculationGroup,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInGroupItem(calculationGroupContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1504,10 +1504,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1547,10 +1547,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1594,12 +1594,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1640,12 +1640,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1693,10 +1693,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1736,10 +1736,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -1783,12 +1783,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
                     failureMechanismContext,
                     null,
                     fm => errorMessage).Build();
@@ -1832,12 +1832,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 viewCommands,
                                                                 failureMechanismContext,
                                                                 treeViewControl);
-                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+                var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 const string errorMessage = "Additional validation failed.";
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddValidateAllCalculationsInFailureMechanismItem(
                     failureMechanismContext,
                     null,
                     fm => errorMessage).Build();

@@ -127,8 +127,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
+                Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
             }
@@ -257,7 +257,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 // Call
                 using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection))
                 {
-                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     // Assert
                     MapDataCollection mapData = map.Data;
@@ -299,7 +299,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -339,7 +339,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -379,7 +379,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -418,7 +418,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -452,7 +452,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new Collection<Point3D>
@@ -494,7 +494,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -524,7 +524,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
                 var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
@@ -569,7 +569,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
 
@@ -615,7 +615,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
@@ -669,7 +669,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
@@ -720,7 +720,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -768,7 +768,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
                 {
-                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -858,7 +858,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
                 {
-                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -926,7 +926,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
                 {
-                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -984,7 +984,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 MapDataCollection mapData = map.Data;
 

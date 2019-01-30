@@ -148,9 +148,9 @@
     <Compile Include="HydraulicBoundaryLocationSelectionDialogTest.cs" />
     <Compile Include="StructureIdEqualityComparerTest.cs" />
     <Compile Include="StructureSelectionDialogTest.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilderTest.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactoryTest.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
+    <Compile Include="TreeNodeInfos\RiskeerContextMenuBuilderTest.cs" />
+    <Compile Include="TreeNodeInfos\RiskeerTreeNodeInfoFactoryTest.cs" />
+    <Compile Include="TreeNodeInfos\RiskeerContextMenuItemFactoryTest.cs" />
     <Compile Include="TypeConverters\NoProbabilityValueDoubleConverterTest.cs" />
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverterTest.cs" />
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocationTest.cs" />
@@ -179,7 +179,7 @@
     <Compile Include="Views\HydraulicBoundaryLocationCalculationRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryCalculationsViewTest.cs" />
     <Compile Include="Factories\RiskeerChartDataFactoryTest.cs" />
-    <Compile Include="Views\RingtoetsMapControlTest.cs" />
+    <Compile Include="Views\RiskeerMapControlTest.cs" />
     <Compile Include="Factories\RiskeerMapDataFactoryTest.cs" />
     <Compile Include="Factories\RiskeerMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\SelectableRowTest.cs" />

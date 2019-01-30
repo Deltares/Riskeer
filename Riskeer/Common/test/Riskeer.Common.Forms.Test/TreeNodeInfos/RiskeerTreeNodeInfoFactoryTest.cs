@@ -39,7 +39,7 @@ using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class RingtoetsTreeNodeInfoFactoryTest
+    public class RiskeerTreeNodeInfoFactoryTest
     {
         #region CreateCalculationGroupContextTreeNodeInfo
 
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
 
             // Assert
             Assert.AreEqual(typeof(TestCalculationGroupContext), treeNodeInfo.TagType);
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                },
                                                                new CalculationGroup(),
                                                                failureMechanism);
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             string text = treeNodeInfo.Text(groupContext);
@@ -94,7 +94,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void Image_CalculationGroup_Always_ReturnsFolderIcon()
         {
             // Setup
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             Image image = treeNodeInfo.Image(null);
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
 
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool result = treeNodeInfo.EnsureVisibleOnCreate(null, groupContext);
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreate_CalculationGroup_AnyOtherObject_ReturnsFalse()
         {
             // Setup
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool result = treeNodeInfo.EnsureVisibleOnCreate(null, null);
@@ -145,7 +145,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool isRenamingAllowed = treeNodeInfo.CanRename(null, groupContext);
@@ -159,7 +159,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CanRenameNode_CalculationGroup_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool isRenamingAllowed = treeNodeInfo.CanRename(null, null);
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             nodeData.Attach(observer);
 
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             treeNodeInfo.OnNodeRenamed(nodeData, newName);
@@ -205,7 +205,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var parentGroup = new CalculationGroup();
             var nodeData = new TestCalculationGroupContext(new CalculationGroup(), parentGroup, failureMechanism);
             var parentNodeData = new TestCalculationGroupContext(parentGroup, new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool isRemovalAllowed = treeNodeInfo.CanRemove(nodeData, parentNodeData);
@@ -224,7 +224,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool isRemovalAllowed = treeNodeInfo.CanRemove(nodeData, null);
@@ -245,7 +245,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var parentGroup = new CalculationGroup();
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), parentGroup, failureMechanism);
             var parentGroupContext = new TestCalculationGroupContext(parentGroup, new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool canDrag = treeNodeInfo.CanDrag(groupContext, parentGroupContext);
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
             bool canDrag = treeNodeInfo.CanDrag(groupContext, null);
@@ -295,7 +295,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             TestCalculationGroupContext targetGroupContext;
             CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism);
 
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             switch (methodToTest)
             {
@@ -343,7 +343,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             TestCalculationGroupContext targetGroupContext;
             CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism);
 
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             switch (methodToTest)
             {
@@ -400,7 +400,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             originalOwnerGroup.Attach(originalOwnerObserver);
             newOwnerGroup.Attach(newOwnerObserver);
 
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Precondition
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
@@ -453,7 +453,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             originalOwnerGroup.Attach(originalOwnerObserver);
 
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Precondition
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
@@ -517,7 +517,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             originalOwnerGroup.Attach(originalOwnerObserver);
             newOwnerGroup.Attach(newOwnerObserver);
 
-            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Precondition
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
@@ -611,7 +611,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
 
             // Assert
             Assert.AreEqual(typeof(TestCalculationContext), treeNodeInfo.TagType);
@@ -640,7 +640,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
             string text = treeNodeInfo.Text(context);
@@ -654,7 +654,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_Always_ReturnsTrue()
         {
             // Setup
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
             bool result = treeNodeInfo.EnsureVisibleOnCreate(null, null);
@@ -667,7 +667,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CanRenameCalculationContextTreeNodeInfo_Always_ReturnTrue()
         {
             // Setup
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
             bool renameAllowed = treeNodeInfo.CanRename(null, null);
@@ -692,7 +692,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             context.WrappedData.Attach(observer);
 
@@ -718,7 +718,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             var groupContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
 
@@ -742,7 +742,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             var groupContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
 
@@ -764,7 +764,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculationContext = new TestCalculationContext(new TestCalculation(), new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
             bool removalAllowed = treeNodeInfo.CanRemove(calculationContext, data);
@@ -778,7 +778,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CanDragCalculationContextTreeNodeInfo_Always_ReturnTrue()
         {
             // Setup
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
             bool canDrag = treeNodeInfo.CanDrag(null, null);
@@ -795,7 +795,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateFailureMechanismContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
             // Call
-            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), treeNodeInfo.TagType);
@@ -831,7 +831,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
 
             // Call
             string text = treeNodeInfo.Text(context);
@@ -845,7 +845,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void Image_FailureMechanism_Always_ReturnsFailureMechanismIcon()
         {
             // Setup
-            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Call
             Image image = treeNodeInfo.Image(null);
@@ -866,7 +866,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             failureMechanism.IsRelevant = true;
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
 
             // Call
             Color color = treeNodeInfo.ForeColor(context);
@@ -888,7 +888,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             failureMechanism.IsRelevant = false;
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
 
             // Call
             Color color = treeNodeInfo.ForeColor(context);
@@ -922,7 +922,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -957,7 +957,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -984,7 +984,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 failureMechanism.IsRelevant = true;
 
                 var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-                TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(
+                TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(
                     null,
                     null,
                     (mechanismContext, parent, treeViewControl) =>
@@ -1031,7 +1031,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 failureMechanism.IsRelevant = false;
 
                 var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-                TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(
+                TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(
                     null,
                     null,
                     (mechanismContext, parent, treeViewControl) =>

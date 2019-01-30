@@ -59,8 +59,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsNull(view.Data);
 
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
+                Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
             }
@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -261,7 +261,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);

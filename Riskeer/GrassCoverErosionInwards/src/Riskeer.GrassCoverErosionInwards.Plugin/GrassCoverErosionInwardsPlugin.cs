@@ -250,7 +250,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -277,12 +277,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
@@ -562,7 +562,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
             return builder
                    .AddOpenItem()
@@ -596,7 +596,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext,
                                                                     RemoveAllViewsForItem)
@@ -664,7 +664,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
@@ -883,7 +883,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 

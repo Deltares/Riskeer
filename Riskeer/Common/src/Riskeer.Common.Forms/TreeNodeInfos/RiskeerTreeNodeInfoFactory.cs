@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
     /// <summary>
     /// Factory for creating calculation related <see cref="TreeNodeInfo"/> objects.
     /// </summary>
-    public static class RingtoetsTreeNodeInfoFactory
+    public static class RiskeerTreeNodeInfoFactory
     {
         /// <summary>
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation group context of the type <typeparamref name="TCalculationGroupContext"/>.

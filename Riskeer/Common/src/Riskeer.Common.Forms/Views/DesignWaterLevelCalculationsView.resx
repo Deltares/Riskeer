@@ -167,6 +167,6 @@
     <value>DesignWaterLevelCalculationsView</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Ringtoets.Integration.Forms.Views.HydraulicBoundaryCalculationsView, Ringtoets.Integration.Forms, Culture=neutral, PublicKeyToken=null</value>
+    <value>Riskeer.Integration.Forms.Views.HydraulicBoundaryCalculationsView, Riskeer.Integration.Forms, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

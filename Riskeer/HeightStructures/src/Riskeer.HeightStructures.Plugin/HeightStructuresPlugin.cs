@@ -197,18 +197,18 @@ namespace Riskeer.HeightStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<HeightStructuresFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<HeightStructuresFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<HeightStructuresCalculationGroupContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<HeightStructuresCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<HeightStructuresCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<HeightStructuresCalculationContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
@@ -413,7 +413,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -446,7 +446,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -516,7 +516,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
@@ -735,7 +735,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;

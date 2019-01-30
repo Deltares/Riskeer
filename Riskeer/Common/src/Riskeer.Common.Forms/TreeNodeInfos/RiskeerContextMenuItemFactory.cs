@@ -42,7 +42,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
     /// <summary>
     /// This class represents a factory for creating <see cref="ToolStripItem"/>.
     /// </summary>
-    public static class RingtoetsContextMenuItemFactory
+    public static class RiskeerContextMenuItemFactory
     {
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of adding new calculation groups.
@@ -206,7 +206,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
                     var copy = (TCalculationItem) calculationItem.Clone();
                     copy.Name = NamingHelper.GetUniqueName(currentChildren,
-                                                           string.Format(Resources.RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0, calculationItem.Name),
+                                                           string.Format(Resources.RiskeerContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0, calculationItem.Name),
                                                            c => c.Name);
 
                     currentChildren.Insert(calculationItemIndex + 1, copy);

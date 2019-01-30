@@ -30,18 +30,18 @@ using Riskeer.Common.Util.TypeConverters;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// Ringtoets map control with background data synchronization.
+    /// Riskeer map control with background data synchronization.
     /// </summary>
-    public partial class RingtoetsMapControl : UserControl
+    public partial class RiskeerMapControl : UserControl
     {
         private readonly Observer backgroundDataObserver;
 
         private BackgroundData backgroundData;
 
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsMapControl"/>.
+        /// Creates a new instance of <see cref="RiskeerMapControl"/>.
         /// </summary>
-        public RingtoetsMapControl()
+        public RiskeerMapControl()
         {
             InitializeComponent();
 

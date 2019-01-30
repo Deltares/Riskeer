@@ -136,7 +136,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaveImpactAsphaltCoverFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaveImpactAsphaltCoverFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -151,12 +151,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                  .Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 WaveConditionsCalculationGroupContextChildNodeObjects,
                 WaveConditionsCalculationGroupContextContextMenuStrip,
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
@@ -333,7 +333,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -368,7 +368,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -421,7 +421,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                        object parentData, TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
 
@@ -628,7 +628,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         private ContextMenuStrip WaveConditionsCalculationContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData,
                                                                                   object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = nodeData.WrappedData;

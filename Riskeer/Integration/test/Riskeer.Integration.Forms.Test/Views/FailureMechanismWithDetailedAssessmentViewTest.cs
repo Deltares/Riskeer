@@ -86,8 +86,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
+                Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
             }
@@ -312,7 +312,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 () => tailorMadeAssemblyFeatures,
                 () => combinedAssemblyFeatures))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 // Assert
                 MapDataCollection mapData = map.Data;
@@ -354,7 +354,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                 CreateView(new TestFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -390,7 +390,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                 CreateView(new TestFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -434,7 +434,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                 CreateView(new TestFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -475,7 +475,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                 CreateView(new TestFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -510,7 +510,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                 CreateView(failureMechanism, new AssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
                 var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
@@ -562,7 +562,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 MapDataCollection mapData = map.Data;
 
@@ -645,7 +645,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 () => originalTailorMadeAssemblyFeatures,
                 () => originalCombinedAssemblyFeatures))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -730,7 +730,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 () => originalTailorMadeAssemblyFeatures,
                 () => originalCombinedAssemblyFeatures))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);

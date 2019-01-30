@@ -409,7 +409,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie.
+        ///   Looks up a localized string similar to Riskeer berekeningenconfiguratie.
         /// </summary>
         public static string CalculationConfigurationExporter_DisplayName {
             get {
@@ -2894,30 +2894,30 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string Riskeer_Category {
+            get {
+                return ResourceManager.GetString("Riskeer_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kopie van {0}.
         /// </summary>
-        public static string RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0 {
+        public static string RiskeerContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0 {
             get {
-                return ResourceManager.GetString("RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_" +
-                        "name_0", resourceCulture);
+                return ResourceManager.GetString("RiskeerContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_na" +
+                        "me_0", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Voeg een nieuw traject toe aan het project..
         /// </summary>
-        public static string RingtoetsProject_ToolTip {
+        public static string RiskeerProject_ToolTip {
             get {
-                return ResourceManager.GetString("RingtoetsProject_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string Riskeer_Category {
-            get {
-                return ResourceManager.GetString("Riskeer_Category", resourceCulture);
+                return ResourceManager.GetString("RiskeerProject_ToolTip", resourceCulture);
             }
         }
         

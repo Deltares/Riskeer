@@ -34,15 +34,15 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
     /// <summary>
     /// Decorator for <see cref="IContextMenuBuilder"/>.
     /// </summary>
-    public class RingtoetsContextMenuBuilder
+    public class RiskeerContextMenuBuilder
     {
         private readonly IContextMenuBuilder contextMenuBuilder;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsContextMenuBuilder"/> class.
+        /// Creates a new instance of the <see cref="RiskeerContextMenuBuilder"/> class.
         /// </summary>
         /// <param name="contextMenuBuilder">The context menu builder to decorate.</param>
-        public RingtoetsContextMenuBuilder(IContextMenuBuilder contextMenuBuilder)
+        public RiskeerContextMenuBuilder(IContextMenuBuilder contextMenuBuilder)
         {
             this.contextMenuBuilder = contextMenuBuilder;
         }
@@ -51,10 +51,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which adds a new calculation group to a calculation group.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to add the new calculation groups to.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddCreateCalculationGroupItem(CalculationGroup calculationGroup)
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddCreateCalculationGroupItem(CalculationGroup calculationGroup)
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup));
             return this;
         }
 
@@ -64,13 +64,13 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="addCalculationAction">The action for adding a calculation to the calculation group.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddCreateCalculationItem<TCalculationContext>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddCreateCalculationItem<TCalculationContext>(
             TCalculationContext calculationGroupContext,
             Action<TCalculationContext> addCalculationAction)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction));
             return this;
         }
 
@@ -78,10 +78,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of all calculations in a calculation group.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to clear the output for.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup));
             return this;
         }
 
@@ -95,15 +95,15 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
             CalculationGroup calculationGroup,
             TCalculationContext calculationGroupContext,
             Action<CalculationGroup, TCalculationContext> calculateAllAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction, enableMenuItemFunction));
             return this;
         }
 
@@ -116,13 +116,13 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddValidateAllCalculationsInGroupItem<TCalculationContext>(TCalculationContext calculationGroupContext,
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddValidateAllCalculationsInGroupItem<TCalculationContext>(TCalculationContext calculationGroupContext,
                                                                                                       Action<TCalculationContext> validateAllAction,
                                                                                                       Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, validateAllAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, validateAllAction, enableMenuItemFunction));
             return this;
         }
 
@@ -135,14 +135,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="calculationItemContext">The calculation item context belonging to the calculation item.</param>
         /// <exception cref="ArgumentException">Thrown when the parent calculation group of
         /// <paramref name="calculationItem"/> equals <c>null</c>.</exception>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
             TCalculationItem calculationItem,
             TCalculationItemContext calculationItemContext)
             where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailureMechanism>
             where TCalculationItem : ICalculationBase
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext));
             return this;
         }
 
@@ -157,8 +157,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
             TCalculation calculation,
             TCalculationContext calculationContext,
             Action<TCalculation, TCalculationContext> calculateAction,
@@ -166,7 +166,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, enableMenuItemFunction));
             return this;
         }
 
@@ -179,14 +179,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddValidateCalculationItem<TCalculationContext>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddValidateCalculationItem<TCalculationContext>(
             TCalculationContext calculationContext,
             Action<TCalculationContext> validateAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, validateAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, validateAction, enableMenuItemFunction));
             return this;
         }
 
@@ -194,10 +194,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of a calculation.
         /// </summary>
         /// <param name="calculation">The calculation to clear the output for.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddClearCalculationOutputItem(ICalculation calculation)
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddClearCalculationOutputItem(ICalculation calculation)
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculation));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearCalculationOutputItem(calculation));
             return this;
         }
 
@@ -205,10 +205,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of all calculations in the failure mechanism.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddClearAllCalculationOutputInFailureMechanismItem(IFailureMechanism failureMechanism)
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddClearAllCalculationOutputInFailureMechanismItem(IFailureMechanism failureMechanism)
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism));
             return this;
         }
 
@@ -221,15 +221,15 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         /// <remarks>When <paramref name="enableMenuItemFunction"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
-        public RingtoetsContextMenuBuilder AddPerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
+        public RiskeerContextMenuBuilder AddPerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction = null)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction, enableMenuItemFunction));
             return this;
         }
 
@@ -242,15 +242,15 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="enableMenuItemFunction">An optional function which determines whether the item should be enabled. If the 
         /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         /// <remarks>When <paramref name="enableMenuItemFunction"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
-        public RingtoetsContextMenuBuilder AddValidateAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
+        public RiskeerContextMenuBuilder AddValidateAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanism,
             Action<TFailureMechanismContext> validateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction = null)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, validateAllAction, enableMenuItemFunction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, validateAllAction, enableMenuItemFunction));
             return this;
         }
 
@@ -260,13 +260,13 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
         /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddToggleRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddToggleRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> onChangeAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, onChangeAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, onChangeAction));
             return this;
         }
 
@@ -279,14 +279,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="calculation">The calculation to update.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddUpdateForeshoreProfileOfCalculationItem<TCalculationInput>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddUpdateForeshoreProfileOfCalculationItem<TCalculationInput>(
             ICalculation<TCalculationInput> calculation,
             IInquiryHelper inquiryHelper,
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                                                  calculation,
                                                  inquiryHelper,
                                                  updateAction));
@@ -302,14 +302,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="calculations">The calculations to update.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="updateAction">The action to perform when the foreshore profile is updated.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddUpdateForeshoreProfileOfCalculationsItem<TCalculationInput>(
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddUpdateForeshoreProfileOfCalculationsItem<TCalculationInput>(
             IEnumerable<ICalculation<TCalculationInput>> calculations,
             IInquiryHelper inquiryHelper,
             Action<ICalculation<TCalculationInput>> updateAction)
             where TCalculationInput : ICalculationInput, IHasForeshoreProfile
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationsItem(
                                                  calculations,
                                                  inquiryHelper,
                                                  updateAction));
@@ -321,8 +321,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which starts edit mode for the name of <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddRenameItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddRenameItem()
         {
             contextMenuBuilder.AddRenameItem();
             return this;
@@ -331,8 +331,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddDeleteItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddDeleteItem()
         {
             contextMenuBuilder.AddDeleteItem();
             return this;
@@ -342,8 +342,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which removes all children of the given 
         /// <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddRemoveAllChildrenItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddRemoveAllChildrenItem()
         {
             contextMenuBuilder.AddDeleteChildrenItem();
             return this;
@@ -352,8 +352,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which expands the <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddExpandAllItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddExpandAllItem()
         {
             contextMenuBuilder.AddExpandAllItem();
             return this;
@@ -362,8 +362,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which collapses the <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddCollapseAllItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddCollapseAllItem()
         {
             contextMenuBuilder.AddCollapseAllItem();
             return this;
@@ -372,8 +372,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which opens a view for the data of the <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddOpenItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddOpenItem()
         {
             contextMenuBuilder.AddOpenItem();
             return this;
@@ -382,8 +382,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which exports the data of the <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddExportItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddExportItem()
         {
             contextMenuBuilder.AddExportItem();
             return this;
@@ -392,8 +392,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddImportItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddImportItem()
         {
             contextMenuBuilder.AddImportItem();
             return this;
@@ -402,8 +402,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which shows properties of the data of the <see cref="TreeNode"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddPropertiesItem()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddPropertiesItem()
         {
             contextMenuBuilder.AddPropertiesItem();
             return this;
@@ -414,8 +414,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// is only added if the last item that was added to the <see cref="ContextMenuStrip"/> exists and is not a 
         /// <see cref="ToolStripSeparator"/>.
         /// </summary>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddSeparator()
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddSeparator()
         {
             contextMenuBuilder.AddSeparator();
             return this;
@@ -425,8 +425,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Adds a custom item to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <param name="item">The custom <see cref="StrictContextMenuItem"/> to add to the <see cref="ContextMenuStrip"/>.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
         {
             contextMenuBuilder.AddCustomItem(item);
             return this;
@@ -434,7 +434,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         /// <summary>
         /// Obtain the <see cref="ContextMenuStrip"/>, which has been constructed by using the other methods of
-        /// <see cref="RingtoetsContextMenuBuilder"/>.
+        /// <see cref="RiskeerContextMenuBuilder"/>.
         /// </summary>
         /// <returns>The constructed <see cref="ContextMenuStrip"/>.</returns>
         public ContextMenuStrip Build()

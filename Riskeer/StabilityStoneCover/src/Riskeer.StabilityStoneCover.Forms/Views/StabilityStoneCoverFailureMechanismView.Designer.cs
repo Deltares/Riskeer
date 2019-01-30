@@ -36,22 +36,22 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.ringtoetsMapControl = new Riskeer.Common.Forms.Views.RingtoetsMapControl();
+            this.riskeerMapControl = new Riskeer.Common.Forms.Views.RiskeerMapControl();
             this.SuspendLayout();
             // 
-            // ringtoetsMapControl
+            // riskeerMapControl
             // 
-            this.ringtoetsMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ringtoetsMapControl.Location = new System.Drawing.Point(0, 0);
-            this.ringtoetsMapControl.Name = "ringtoetsMapControl";
-            this.ringtoetsMapControl.Size = new System.Drawing.Size(150, 150);
-            this.ringtoetsMapControl.TabIndex = 0;
+            this.riskeerMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.riskeerMapControl.Location = new System.Drawing.Point(0, 0);
+            this.riskeerMapControl.Name = "riskeerMapControl";
+            this.riskeerMapControl.Size = new System.Drawing.Size(150, 150);
+            this.riskeerMapControl.TabIndex = 0;
             // 
             // StabilityStoneCoverFailureMechanismView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.ringtoetsMapControl);
+            this.Controls.Add(this.riskeerMapControl);
             this.Name = "StabilityStoneCoverFailureMechanismView";
             this.ResumeLayout(false);
 
@@ -59,6 +59,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
 
         #endregion
 
-        private Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
+        private Common.Forms.Views.RiskeerMapControl riskeerMapControl;
     }
 }

@@ -947,49 +947,49 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = NormContextMenuStrip
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
                 GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismContext>(
                 GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MacroStabilityOutwardsFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MacroStabilityOutwardsFailureMechanismContext>(
                 MacroStabilityOutwardsFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MicrostabilityFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MicrostabilityFailureMechanismContext>(
                 MicrostabilityFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
                 PipingStructureFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismContext>(
                 StrengthStabilityLengthwiseConstructionFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TechnicalInnovationFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TechnicalInnovationFailureMechanismContext>(
                 TechnicalInnovationFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismContext>(
                 WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
@@ -1789,7 +1789,7 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -1811,7 +1811,7 @@ namespace Riskeer.Integration.Plugin
                                                                                     object parentData,
                                                                                     TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()

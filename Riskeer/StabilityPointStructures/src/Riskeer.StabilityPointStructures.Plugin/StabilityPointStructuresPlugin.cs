@@ -127,7 +127,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityPointStructuresFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityPointStructuresFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -177,12 +177,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityPointStructuresCalculationGroupContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityPointStructuresCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityPointStructuresCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityPointStructuresCalculationContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
@@ -410,7 +410,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -443,7 +443,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(stabilityPointStructuresFailureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(stabilityPointStructuresFailureMechanismContext, treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(stabilityPointStructuresFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -512,7 +512,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
@@ -735,7 +735,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;

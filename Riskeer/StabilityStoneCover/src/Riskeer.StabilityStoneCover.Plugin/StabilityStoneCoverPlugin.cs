@@ -124,18 +124,18 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityStoneCoverFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityStoneCoverFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 WaveConditionsCalculationGroupContextChildNodeObjects,
                 WaveConditionsCalculationGroupContextContextMenuStrip,
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
@@ -329,7 +329,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -364,7 +364,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
@@ -416,7 +416,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                        TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
@@ -624,7 +624,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                   object parentData,
                                                                                   TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StabilityStoneCoverWaveConditionsCalculation calculation = nodeData.WrappedData;

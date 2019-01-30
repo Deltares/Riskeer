@@ -82,7 +82,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -280,7 +280,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -299,7 +299,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext,
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext,
                                                                   treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext,

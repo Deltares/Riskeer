@@ -39,7 +39,7 @@ namespace Riskeer.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssemblyResultPerSectionMapView));
-            this.ringtoetsMapControl = new Riskeer.Common.Forms.Views.RingtoetsMapControl();
+            this.riskeerMapControl = new Riskeer.Common.Forms.Views.RiskeerMapControl();
             this.warningPanel = new System.Windows.Forms.Panel();
             this.warningIcon = new System.Windows.Forms.PictureBox();
             this.warningText = new System.Windows.Forms.Label();
@@ -47,14 +47,14 @@ namespace Riskeer.Integration.Forms.Views
             ((System.ComponentModel.ISupportInitialize)(this.warningIcon)).BeginInit();
             this.SuspendLayout();
             // 
-            // ringtoetsMapControl
+            // riskeerMapControl
             // 
-            this.ringtoetsMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ringtoetsMapControl.Location = new System.Drawing.Point(0, 0);
-            this.ringtoetsMapControl.Margin = new System.Windows.Forms.Padding(0);
-            this.ringtoetsMapControl.Name = "ringtoetsMapControl";
-            this.ringtoetsMapControl.Size = new System.Drawing.Size(562, 150);
-            this.ringtoetsMapControl.TabIndex = 0;
+            this.riskeerMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.riskeerMapControl.Location = new System.Drawing.Point(0, 0);
+            this.riskeerMapControl.Margin = new System.Windows.Forms.Padding(0);
+            this.riskeerMapControl.Name = "riskeerMapControl";
+            this.riskeerMapControl.Size = new System.Drawing.Size(562, 150);
+            this.riskeerMapControl.TabIndex = 0;
             // 
             // warningPanel
             // 
@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Forms.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.ringtoetsMapControl);
+            this.Controls.Add(this.riskeerMapControl);
             this.Controls.Add(this.warningPanel);
             this.Name = "AssemblyResultPerSectionMapView";
             this.Size = new System.Drawing.Size(562, 150);
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        private Riskeer.Common.Forms.Views.RingtoetsMapControl ringtoetsMapControl;
+        private Riskeer.Common.Forms.Views.RiskeerMapControl riskeerMapControl;
         private Panel warningPanel;
         private PictureBox warningIcon;
         private Label warningText;

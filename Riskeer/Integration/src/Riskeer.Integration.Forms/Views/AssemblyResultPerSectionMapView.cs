@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Forms.Views
             SetAllMapDataFeatures();
             SetWarningPanel();
 
-            ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return ringtoetsMapControl.MapControl;
+                return riskeerMapControl.MapControl;
             }
         }
 

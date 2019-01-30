@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{4D840673-3812-4338-A352-84854E32B8A0}</ProjectGuid>
@@ -236,16 +236,16 @@
     </Compile>
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelper.cs" />
     <Compile Include="Factories\RiskeerChartDataFactory.cs" />
-    <Compile Include="Views\RingtoetsMapControl.cs">
+    <Compile Include="Views\RiskeerMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\RingtoetsMapControl.Designer.cs">
-      <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
+    <Compile Include="Views\RiskeerMapControl.Designer.cs">
+      <DependentUpon>RiskeerMapControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Factories\RiskeerMapDataFeaturesFactory.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
-    <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
+    <Compile Include="TreeNodeInfos\RiskeerContextMenuBuilder.cs" />
+    <Compile Include="TreeNodeInfos\RiskeerTreeNodeInfoFactory.cs" />
+    <Compile Include="TreeNodeInfos\RiskeerContextMenuItemFactory.cs" />
     <Compile Include="TypeConverters\NoProbabilityValueDoubleConverter.cs" />
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverter.cs" />
     <Compile Include="Views\CommentView.cs">
@@ -327,8 +327,8 @@
       <DependentUpon>HydraulicBoundaryCalculationsView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\RingtoetsMapControl.resx">
-      <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
+    <EmbeddedResource Include="Views\RiskeerMapControl.resx">
+      <DependentUpon>RiskeerMapControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WaveHeightCalculationsView.resx">
       <DependentUpon>WaveHeightCalculationsView.cs</DependentUpon>

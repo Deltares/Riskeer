@@ -455,7 +455,7 @@ handmatig</value>
   <data name="SelectionDialogIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_form.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RingtoetsProject_ToolTip" xml:space="preserve">
+  <data name="RiskeerProject_ToolTip" xml:space="preserve">
     <value>Voeg een nieuw traject toe aan het project.</value>
   </data>
   <data name="CalculationGroup_Generate_calculations" xml:space="preserve">
@@ -961,7 +961,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Riskeer berekeningenconfiguratie</value>
   </data>
   <data name="CalculationConfigurationExporter_DisplayName" xml:space="preserve">
-    <value>Ringtoets berekeningenconfiguratie</value>
+    <value>Riskeer berekeningenconfiguratie</value>
   </data>
   <data name="CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip" xml:space="preserve">
     <value>Er zijn geen berekeningen om bij te werken.</value>
@@ -1168,7 +1168,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CopyHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CopyHS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0" xml:space="preserve">
+  <data name="RiskeerContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0" xml:space="preserve">
     <value>Kopie van {0}</value>
   </data>
   <data name="SoilLayer_IsAquifer_Description" xml:space="preserve">

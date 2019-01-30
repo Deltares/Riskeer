@@ -590,7 +590,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         private static IMapControl GetMapControl(AssemblyResultPerSectionMapView view)
         {
-            var mapControl = (RingtoetsMapControl) view.Controls[0];
+            var mapControl = (RiskeerMapControl) view.Controls[0];
             return mapControl.MapControl;
         }
 

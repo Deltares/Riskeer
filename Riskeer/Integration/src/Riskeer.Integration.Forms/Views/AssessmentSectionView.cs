@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.Views
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
 
             SetAllMapDataFeatures();
-            ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
 
         public object Data { get; set; }
@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return ringtoetsMapControl.MapControl;
+                return riskeerMapControl.MapControl;
             }
         }
 

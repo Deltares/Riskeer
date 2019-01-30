@@ -129,18 +129,18 @@ namespace Riskeer.ClosingStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<ClosingStructuresFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<ClosingStructuresFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<ClosingStructuresCalculationGroupContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<ClosingStructuresCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
@@ -391,7 +391,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -424,7 +424,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext,
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext,
                                                                   treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext,
@@ -503,7 +503,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
@@ -722,7 +722,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;

@@ -112,7 +112,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
             CreateMapData();
             SetAllMapDataFeatures();
-            ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         {
             get
             {
-                return ringtoetsMapControl.MapControl;
+                return riskeerMapControl.MapControl;
             }
         }
 

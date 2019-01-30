@@ -108,7 +108,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 
             CreateMapData();
             SetMapDataFeatures();
-            ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         {
             get
             {
-                return ringtoetsMapControl.MapControl;
+                return riskeerMapControl.MapControl;
             }
         }
 

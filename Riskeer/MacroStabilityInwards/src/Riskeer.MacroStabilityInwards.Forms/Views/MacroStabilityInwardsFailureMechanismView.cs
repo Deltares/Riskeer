@@ -109,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             CreateMapData();
             SetAllMapDataFeatures();
-            ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             get
             {
-                return ringtoetsMapControl.MapControl;
+                return riskeerMapControl.MapControl;
             }
         }
 

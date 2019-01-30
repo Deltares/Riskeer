@@ -40,7 +40,7 @@ using Riskeer.Common.Util.TypeConverters;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class RingtoetsMapControlTest
+    public class RiskeerMapControlTest
     {
         private DirectoryDisposeHelper directoryDisposeHelper;
         private TestSettingsHelper testSettingsHelper;
@@ -63,24 +63,24 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            var ringtoetsMapControl = new RingtoetsMapControl();
+            var riskeerMapControl = new RiskeerMapControl();
 
             // Assert
-            Assert.IsInstanceOf<UserControl>(ringtoetsMapControl);
-            Assert.IsNotNull(ringtoetsMapControl.MapControl);
-            Assert.IsNull(ringtoetsMapControl.MapControl.Data);
-            Assert.IsNull(ringtoetsMapControl.MapControl.BackgroundMapData);
+            Assert.IsInstanceOf<UserControl>(riskeerMapControl);
+            Assert.IsNotNull(riskeerMapControl.MapControl);
+            Assert.IsNull(riskeerMapControl.MapControl.Data);
+            Assert.IsNull(riskeerMapControl.MapControl.BackgroundMapData);
         }
 
         [Test]
         public void SetAllData_MapDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsMapControl = new RingtoetsMapControl();
+            var riskeerMapControl = new RiskeerMapControl();
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
-            TestDelegate test = () => ringtoetsMapControl.SetAllData(null, backgroundData);
+            TestDelegate test = () => riskeerMapControl.SetAllData(null, backgroundData);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -91,11 +91,11 @@ namespace Riskeer.Common.Forms.Test.Views
         public void SetAllData_BackgroundDataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsMapControl = new RingtoetsMapControl();
+            var riskeerMapControl = new RiskeerMapControl();
             var mapDataCollection = new MapDataCollection("Collection");
 
             // Call
-            TestDelegate test = () => ringtoetsMapControl.SetAllData(mapDataCollection, null);
+            TestDelegate test = () => riskeerMapControl.SetAllData(mapDataCollection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -112,15 +112,15 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var ringtoetsMapControl = new RingtoetsMapControl())
+            using (var riskeerMapControl = new RiskeerMapControl())
             {
                 // Call
-                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
+                riskeerMapControl.SetAllData(mapDataCollection, backgroundData);
 
                 // Assert
-                Assert.AreSame(mapDataCollection, ringtoetsMapControl.MapControl.Data);
-                Assert.IsNotNull(ringtoetsMapControl.MapControl.BackgroundMapData);
-                MapDataTestHelper.AssertImageBasedMapData(backgroundData, ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.AreSame(mapDataCollection, riskeerMapControl.MapControl.Data);
+                Assert.IsNotNull(riskeerMapControl.MapControl.BackgroundMapData);
+                MapDataTestHelper.AssertImageBasedMapData(backgroundData, riskeerMapControl.MapControl.BackgroundMapData);
             }
         }
 
@@ -134,20 +134,20 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var ringtoetsMapControl = new RingtoetsMapControl())
+            using (var riskeerMapControl = new RiskeerMapControl())
             {
-                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
+                riskeerMapControl.SetAllData(mapDataCollection, backgroundData);
 
                 // Precondition
-                Assert.IsNotNull(ringtoetsMapControl.MapControl.Data);
-                Assert.IsNotNull(ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.IsNotNull(riskeerMapControl.MapControl.Data);
+                Assert.IsNotNull(riskeerMapControl.MapControl.BackgroundMapData);
 
                 // Call
-                ringtoetsMapControl.RemoveAllData();
+                riskeerMapControl.RemoveAllData();
 
                 // Assert
-                Assert.IsNull(ringtoetsMapControl.MapControl.Data);
-                Assert.IsNull(ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.IsNull(riskeerMapControl.MapControl.Data);
+                Assert.IsNull(riskeerMapControl.MapControl.BackgroundMapData);
             }
         }
 
@@ -165,13 +165,13 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(new TestTileSourceFactory(BackgroundDataConverter.ConvertFrom(originalBackgroundData))))
             {
-                var ringtoetsMapControl = new RingtoetsMapControl();
+                var riskeerMapControl = new RiskeerMapControl();
                 var mapDataCollection = new MapDataCollection("Collection");
 
-                ringtoetsMapControl.SetAllData(mapDataCollection, originalBackgroundData);
-                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
+                riskeerMapControl.SetAllData(mapDataCollection, originalBackgroundData);
+                riskeerMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                ImageBasedMapData oldMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
+                ImageBasedMapData oldMapData = riskeerMapControl.MapControl.BackgroundMapData;
 
                 // When
                 originalBackgroundData.Name = newBackgroundData.Name;
@@ -181,9 +181,9 @@ namespace Riskeer.Common.Forms.Test.Views
                 originalBackgroundData.NotifyObservers();
 
                 // Then
-                Assert.IsNotNull(ringtoetsMapControl.MapControl.BackgroundMapData);
-                Assert.AreNotSame(oldMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
-                Assert.AreNotEqual(oldMapData.GetType(), ringtoetsMapControl.MapControl.BackgroundMapData.GetType());
+                Assert.IsNotNull(riskeerMapControl.MapControl.BackgroundMapData);
+                Assert.AreNotSame(oldMapData, riskeerMapControl.MapControl.BackgroundMapData);
+                Assert.AreNotEqual(oldMapData.GetType(), riskeerMapControl.MapControl.BackgroundMapData.GetType());
                 mocks.VerifyAll(); // Expect no observers notified
             }
         }
@@ -204,19 +204,19 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
-                var ringtoetsMapControl = new RingtoetsMapControl();
-                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
-                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
+                var riskeerMapControl = new RiskeerMapControl();
+                riskeerMapControl.SetAllData(mapDataCollection, backgroundData);
+                riskeerMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
+                ImageBasedMapData oldBackgroundMapData = riskeerMapControl.MapControl.BackgroundMapData;
 
                 // When
                 backgroundData.Transparency = (RoundedDouble) 0.3;
                 backgroundData.NotifyObservers();
 
                 // Then
-                Assert.AreSame(oldBackgroundMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
-                Assert.AreEqual(0.3, ringtoetsMapControl.MapControl.BackgroundMapData.Transparency.Value);
+                Assert.AreSame(oldBackgroundMapData, riskeerMapControl.MapControl.BackgroundMapData);
+                Assert.AreEqual(0.3, riskeerMapControl.MapControl.BackgroundMapData.Transparency.Value);
                 mocks.VerifyAll();
             }
         }
@@ -237,20 +237,20 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
-                var ringtoetsMapControl = new RingtoetsMapControl();
-                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
-                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
+                var riskeerMapControl = new RiskeerMapControl();
+                riskeerMapControl.SetAllData(mapDataCollection, backgroundData);
+                riskeerMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
+                ImageBasedMapData oldBackgroundMapData = riskeerMapControl.MapControl.BackgroundMapData;
 
                 // When
                 backgroundData.Configuration = new WmtsBackgroundDataConfiguration();
                 backgroundData.NotifyObservers();
 
                 // Then
-                Assert.AreSame(oldBackgroundMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.AreSame(oldBackgroundMapData, riskeerMapControl.MapControl.BackgroundMapData);
 
-                var newWmtsMapData = (WmtsMapData) ringtoetsMapControl.MapControl.BackgroundMapData;
+                var newWmtsMapData = (WmtsMapData) riskeerMapControl.MapControl.BackgroundMapData;
                 Assert.IsNull(newWmtsMapData.SourceCapabilitiesUrl);
                 Assert.IsNull(newWmtsMapData.SelectedCapabilityIdentifier);
                 Assert.IsNull(newWmtsMapData.PreferredFormat);
@@ -274,20 +274,20 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(mapData))
             {
-                var ringtoetsMapControl = new RingtoetsMapControl();
-                ringtoetsMapControl.SetAllData(mapDataCollection, backgroundData);
-                ringtoetsMapControl.MapControl.BackgroundMapData.Attach(observer);
+                var riskeerMapControl = new RiskeerMapControl();
+                riskeerMapControl.SetAllData(mapDataCollection, backgroundData);
+                riskeerMapControl.MapControl.BackgroundMapData.Attach(observer);
 
-                ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
+                ImageBasedMapData oldBackgroundMapData = riskeerMapControl.MapControl.BackgroundMapData;
 
                 // When
                 backgroundData.Configuration = new WellKnownBackgroundDataConfiguration(RiskeerWellKnownTileSource.BingRoads);
                 backgroundData.NotifyObservers();
 
                 // Then
-                Assert.AreSame(oldBackgroundMapData, ringtoetsMapControl.MapControl.BackgroundMapData);
+                Assert.AreSame(oldBackgroundMapData, riskeerMapControl.MapControl.BackgroundMapData);
 
-                var newWellKnownMapData = (WellKnownTileSourceMapData) ringtoetsMapControl.MapControl.BackgroundMapData;
+                var newWellKnownMapData = (WellKnownTileSourceMapData) riskeerMapControl.MapControl.BackgroundMapData;
                 Assert.AreEqual(WellKnownTileSource.BingRoads, newWellKnownMapData.TileSource);
                 mocks.VerifyAll();
             }
@@ -298,10 +298,10 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             testSettingsHelper = new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(RingtoetsMapControlTest))
+                ApplicationLocalUserSettingsDirectory = TestHelper.GetScratchPadPath(nameof(RiskeerMapControlTest))
             };
 
-            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(RingtoetsMapControlTest));
+            directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(RiskeerMapControlTest));
         }
 
         [OneTimeTearDown]

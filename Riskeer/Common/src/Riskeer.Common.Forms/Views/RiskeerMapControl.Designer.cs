@@ -21,7 +21,7 @@
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class RingtoetsMapControl
+    partial class RiskeerMapControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -50,12 +50,12 @@ namespace Riskeer.Common.Forms.Views
             this.mapControl.TabIndex = 0;
             this.mapControl.Text = "mapControl";
             // 
-            // RingtoetsMapControl
+            // RiskeerMapControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.mapControl);
-            this.Name = "RingtoetsMapControl";
+            this.Name = "RiskeerMapControl";
             this.ResumeLayout(false);
 
         }
