@@ -222,7 +222,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
             };
@@ -232,7 +232,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
             };
@@ -242,7 +242,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };

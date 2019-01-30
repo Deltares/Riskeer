@@ -32,13 +32,13 @@ using Riskeer.Common.Plugin.TestUtil;
 namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
-    public class RingtoetsPluginHelperTest
+    public class RiskeerPluginHelperTest
     {
         [Test]
         public void FormatCategoryBoundaryName_CategoryBoundaryNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsPluginHelper.FormatCategoryBoundaryName(null);
+            TestDelegate call = () => RiskeerPluginHelper.FormatCategoryBoundaryName(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Service.Test
             const string categoryBoundaryName = "A";
 
             // Call
-            string formattedCategoryBoundaryName = RingtoetsPluginHelper.FormatCategoryBoundaryName(categoryBoundaryName);
+            string formattedCategoryBoundaryName = RiskeerPluginHelper.FormatCategoryBoundaryName(categoryBoundaryName);
 
             // Assert
             Assert.AreEqual("Categoriegrens " + categoryBoundaryName, formattedCategoryBoundaryName);
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Service.Test
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
-                return RingtoetsPluginHelper.ShouldCloseViewWithCalculationData(view, o);
+                return RiskeerPluginHelper.ShouldCloseViewWithCalculationData(view, o);
             }
 
             protected override IView GetView(ICalculation data)
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Service.Test
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
-                return RingtoetsPluginHelper.ShouldCloseForFailureMechanismView((FailureMechanismSectionsView) view, o);
+                return RiskeerPluginHelper.ShouldCloseForFailureMechanismView((FailureMechanismSectionsView) view, o);
             }
 
             protected override IView GetView(IFailureMechanism failureMechanism)

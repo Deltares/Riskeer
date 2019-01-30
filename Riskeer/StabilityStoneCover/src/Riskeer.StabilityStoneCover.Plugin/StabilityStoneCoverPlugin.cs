@@ -113,7 +113,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
                     () => context.AssessmentSection.GetHydraulicBoundaryLocationCalculation(context.Calculation.InputParameters.HydraulicBoundaryLocation,

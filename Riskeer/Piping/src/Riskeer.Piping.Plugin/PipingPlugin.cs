@@ -269,7 +269,7 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RiskeerCommonFormsResources.SectionsIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   context.WrappedData,
                                                                                                   ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput),

@@ -453,7 +453,7 @@ namespace Riskeer.Integration.Plugin
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName} - " +
-                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                                                 $"{RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
@@ -470,7 +470,7 @@ namespace Riskeer.Integration.Plugin
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName} - " +
-                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                                                 $"{RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
@@ -661,7 +661,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RiskeerCommonFormsResources.SectionsIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
             };
@@ -671,7 +671,7 @@ namespace Riskeer.Integration.Plugin
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
             };
 
@@ -695,7 +695,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismAssemblyCategoriesView(context.WrappedData,
                                                                                        context.AssessmentSection,
                                                                                        context.GetFailureMechanismCategoriesFunc,
@@ -706,7 +706,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new MacroStabilityOutwardsAssemblyCategoriesView((MacroStabilityOutwardsFailureMechanism) context.WrappedData,
                                                                                              context.AssessmentSection,
                                                                                              context.GetFailureMechanismSectionAssemblyCategoriesFunc)
@@ -1045,7 +1045,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
             };
@@ -1060,7 +1060,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaveHeightCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaveHeightCalculationsContextMenuStrip
             };

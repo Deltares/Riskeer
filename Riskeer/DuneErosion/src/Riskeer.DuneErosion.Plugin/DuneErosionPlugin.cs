@@ -110,7 +110,7 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
             };
@@ -144,7 +144,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
-                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                                                 $"{RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationCalculationsViewForData,

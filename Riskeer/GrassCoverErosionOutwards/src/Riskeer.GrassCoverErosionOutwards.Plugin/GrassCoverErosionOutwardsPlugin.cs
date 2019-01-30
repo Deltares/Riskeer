@@ -173,7 +173,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName} " +
-                                                 $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                                                 $"- {RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
@@ -190,7 +190,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 WaveHeightCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName} " +
-                                                 $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                                                 $"- {RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
@@ -207,7 +207,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
                     () => context.FailureMechanism.GetHydraulicBoundaryLocationCalculation(
@@ -274,14 +274,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsContextMenuStrip
             };

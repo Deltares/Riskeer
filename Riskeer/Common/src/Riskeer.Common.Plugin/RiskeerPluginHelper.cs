@@ -34,9 +34,9 @@ using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 namespace Riskeer.Common.Plugin
 {
     /// <summary>
-    /// Class with helper methods to be used in Ringtoets implementations of <see cref="PluginBase"/>.
+    /// Class with helper methods to be used in Riskeer implementations of <see cref="PluginBase"/>.
     /// </summary>
-    public static class RingtoetsPluginHelper
+    public static class RiskeerPluginHelper
     {
         /// <summary>
         /// Checks whether a view that contains <see cref="ICalculation"/> as <see cref="IView.Data"/>
