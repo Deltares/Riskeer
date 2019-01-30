@@ -96,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
             var affectedObjects = new List<IObservable>();
             foreach (MacroStabilityInwardsCalculation affectedCalculation in affectedCalculations)
             {
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
             }
 
             return affectedObjects;

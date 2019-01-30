@@ -475,7 +475,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
         private static double GetExpectedNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, Func<double> getNormFunc)
         {
-            return RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+            return RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
                 getNormFunc(),
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);

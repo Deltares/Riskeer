@@ -55,7 +55,7 @@ namespace Riskeer.Common.Service
                 input
             };
 
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
             foreach (IObservable affectedObject in affectedObjects)
             {

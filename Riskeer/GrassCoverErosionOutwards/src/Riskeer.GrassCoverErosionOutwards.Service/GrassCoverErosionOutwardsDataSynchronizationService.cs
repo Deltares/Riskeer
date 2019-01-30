@@ -161,18 +161,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             }
 
             var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
                                          failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
                                          failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
                                          failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm));
 
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
                                          failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
                                          failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
                                          failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
 
             return affectedObjects;

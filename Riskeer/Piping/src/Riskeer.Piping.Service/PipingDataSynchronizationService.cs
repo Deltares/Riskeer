@@ -238,7 +238,7 @@ namespace Riskeer.Piping.Service
 
             foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearStochasticSoilModel(pipingCalculationScenario.InputParameters));
             }
 
@@ -271,7 +271,7 @@ namespace Riskeer.Piping.Service
             var affectedObjects = new List<IObservable>();
             foreach (PipingCalculation calculation in affectedCalculationScenarios)
             {
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearStochasticSoilModel(calculation.InputParameters));
             }
 
@@ -307,7 +307,7 @@ namespace Riskeer.Piping.Service
 
             foreach (PipingCalculation pipingCalculationScenario in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearStochasticSoilProfile(pipingCalculationScenario.InputParameters));
             }
 
@@ -341,7 +341,7 @@ namespace Riskeer.Piping.Service
 
             foreach (PipingCalculation calculation in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 changedObservables.Add(calculation.InputParameters);
             }
 
@@ -353,7 +353,7 @@ namespace Riskeer.Piping.Service
             var changedObservables = new List<IObservable>();
             foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
             }
 

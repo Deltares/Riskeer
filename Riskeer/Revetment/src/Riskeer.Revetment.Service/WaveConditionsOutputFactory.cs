@@ -53,7 +53,7 @@ namespace Riskeer.Revetment.Service
 
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
 
-            CalculationConvergence convergence = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculatedConvergence);
+            CalculationConvergence convergence = RiskeerCommonDataCalculationService.GetCalculationConvergence(calculatedConvergence);
 
             return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
                                             targetReliability, calculatedProbability, calculatedReliability, convergence);

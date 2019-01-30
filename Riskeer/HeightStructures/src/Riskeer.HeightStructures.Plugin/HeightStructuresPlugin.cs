@@ -852,7 +852,7 @@ namespace Riskeer.HeightStructures.Plugin
                 calculation.InputParameters
             };
 
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
             foreach (IObservable affectedObject in affectedObjects)
             {

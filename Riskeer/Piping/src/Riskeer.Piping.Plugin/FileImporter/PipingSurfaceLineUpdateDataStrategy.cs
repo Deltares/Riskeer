@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
             var affectedObjects = new List<IObservable>();
             foreach (PipingCalculation affectedCalculation in affectedCalculations)
             {
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
             }
 
             return affectedObjects;

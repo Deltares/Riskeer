@@ -35,7 +35,7 @@ namespace Riskeer.Common.Service
     /// <summary>
     /// Service for synchronizing common data 
     /// </summary>
-    public static class RingtoetsCommonDataSynchronizationService
+    public static class RiskeerCommonDataSynchronizationService
     {
         /// <summary>
         /// Clears the output of the provided hydraulic boundary location calculations.

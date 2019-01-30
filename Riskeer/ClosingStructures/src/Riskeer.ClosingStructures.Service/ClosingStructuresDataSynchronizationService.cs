@@ -127,7 +127,7 @@ namespace Riskeer.ClosingStructures.Service
 
             return failureMechanism.Calculations
                                    .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                   .SelectMany(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 
@@ -150,7 +150,7 @@ namespace Riskeer.ClosingStructures.Service
             var affectedItems = new List<IObservable>();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
-                affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
                                                                                 .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
@@ -215,7 +215,7 @@ namespace Riskeer.ClosingStructures.Service
             var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedStructure)
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
                 calculation.InputParameters.ClearStructure();
                 changedObservables.Add(calculation.InputParameters);

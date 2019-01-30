@@ -124,7 +124,7 @@ namespace Riskeer.StabilityPointStructures.Service
 
             return failureMechanism.Calculations
                                    .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
-                                   .SelectMany(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 
@@ -148,7 +148,7 @@ namespace Riskeer.StabilityPointStructures.Service
             var affectedItems = new List<IObservable>();
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
             {
-                affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
                                                                                 .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
@@ -213,7 +213,7 @@ namespace Riskeer.StabilityPointStructures.Service
             var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStructure)
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
                 calculation.InputParameters.ClearStructure();
                 changedObservables.Add(calculation.InputParameters);

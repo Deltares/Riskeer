@@ -248,7 +248,7 @@ namespace Riskeer.Common.Service
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculatorConverged);
+            CalculationConvergence converged = RiskeerCommonDataCalculationService.GetCalculationConvergence(calculatorConverged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {

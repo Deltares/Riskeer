@@ -60,8 +60,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsCommonDataCalculationService.cs" />
-    <Compile Include="RingtoetsCommonDataSynchronizationService.cs" />
+    <Compile Include="RiskeerCommonDataCalculationService.cs" />
+    <Compile Include="RiskeerCommonDataSynchronizationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

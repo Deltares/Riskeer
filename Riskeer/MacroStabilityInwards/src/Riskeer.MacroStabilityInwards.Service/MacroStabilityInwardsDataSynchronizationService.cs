@@ -236,7 +236,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             foreach (MacroStabilityInwardsCalculation calculationScenario in calculationScenarios)
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculationScenario));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculationScenario));
                 changedObservables.AddRange(ClearStochasticSoilModel(calculationScenario.InputParameters));
             }
 
@@ -269,7 +269,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             var affectedObjects = new List<IObservable>();
             foreach (MacroStabilityInwardsCalculation calculation in affectedCalculationScenarios)
             {
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearStochasticSoilModel(calculation.InputParameters));
             }
 
@@ -304,7 +304,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             foreach (MacroStabilityInwardsCalculation calculationScenario in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculationScenario));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculationScenario));
                 changedObservables.AddRange(ClearStochasticSoilProfile(calculationScenario.InputParameters));
             }
 
@@ -337,7 +337,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             foreach (MacroStabilityInwardsCalculation calculation in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 changedObservables.Add(calculation.InputParameters);
             }
 
@@ -349,7 +349,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             var changedObservables = new List<IObservable>();
             foreach (MacroStabilityInwardsCalculation calculationScenario in calculationScenarios)
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculationScenario));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculationScenario));
                 changedObservables.AddRange(ClearSurfaceLine(calculationScenario.InputParameters));
             }
 

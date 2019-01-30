@@ -27,7 +27,7 @@ using Riskeer.Common.Data.Hydraulics;
 namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
-    public class RingtoetsCommonDataCalculationServiceTest
+    public class RiskeerCommonDataCalculationServiceTest
     {
         [Test]
         [TestCase(true, CalculationConvergence.CalculatedConverged)]
@@ -36,7 +36,7 @@ namespace Riskeer.Common.Service.Test
         public void GetCalculationConvergence_WithDifferentValues_ReturnsExpectedConvergence(bool? value, CalculationConvergence expectedConvergence)
         {
             // Call
-            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(value);
+            CalculationConvergence calculationConverged = RiskeerCommonDataCalculationService.GetCalculationConvergence(value);
 
             // Assert
             Assert.AreEqual(expectedConvergence, calculationConverged);
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Service.Test
             [Values(10, 1)] double n)
         {
             // Call
-            double probability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
+            double probability = RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
 
             // Assert
             double expectedProfileSpecificRequiredProbability = norm * (failureMechanismContribution / 100) / n;
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Service.Test
             var n = (RoundedDouble) 10;
 
             // Call
-            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
+            TestDelegate action = () => RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Service.Test
             var n = (RoundedDouble) 10;
 
             // Call
-            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
+            TestDelegate action = () => RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
@@ -107,7 +107,7 @@ namespace Riskeer.Common.Service.Test
             const double failureMechanismContribution = 50;
 
             // Call
-            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
+            TestDelegate action = () => RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(action);

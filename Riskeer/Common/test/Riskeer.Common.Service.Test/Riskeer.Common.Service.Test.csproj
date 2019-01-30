@@ -51,8 +51,8 @@
     <Compile Include="MessageProviders\WaveHeightCalculationMessageProviderTest.cs" />
     <Compile Include="ParameterNameExtractorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RingtoetsCommonDataCalculationServiceTest.cs" />
-    <Compile Include="RingtoetsCommonDataSynchronizationServiceTest.cs" />
+    <Compile Include="RiskeerCommonDataCalculationServiceTest.cs" />
+    <Compile Include="RiskeerCommonDataSynchronizationServiceTest.cs" />
     <Compile Include="Structures\StructuresCalculationServiceBaseTest.cs" />
     <Compile Include="SynchronizeCalculationWithForeshoreProfileHelperTest.cs" />
     <Compile Include="TargetProbabilityCalculationServiceHelperTest.cs" />

@@ -34,13 +34,13 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.Common.Service.Test
 {
     [TestFixture]
-    public class RingtoetsCommonDataSynchronizationServiceTest
+    public class RiskeerCommonDataSynchronizationServiceTest
     {
         [Test]
         public void ClearHydraulicBoundaryLocationCalculationOutput_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
+            TestDelegate test = () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -73,7 +73,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedCalculations = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculations);
+            IEnumerable<IObservable> affectedCalculations = RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculations);
 
             // Assert
             Assert.IsTrue(calculations.All(c => c.Output == null));
@@ -88,7 +88,7 @@ namespace Riskeer.Common.Service.Test
         public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(null);
+            TestDelegate test = () => RiskeerCommonDataSynchronizationService.ClearCalculationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -106,7 +106,7 @@ namespace Riskeer.Common.Service.Test
             mocks.ReplayAll();
 
             // Call
-            IEnumerable<IObservable> changedObjects = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
+            IEnumerable<IObservable> changedObjects = RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Service.Test
             mocks.ReplayAll();
 
             // Call
-            IEnumerable<IObservable> changedObjects = RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation);
+            IEnumerable<IObservable> changedObjects = RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
@@ -174,7 +174,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<TestStructureInput, TestStructure>(
+            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearForeshoreProfile<TestStructureInput, TestStructure>(
                 calculations, foreshoreProfileToBeRemoved);
 
             // Assert

@@ -31,7 +31,7 @@ namespace Riskeer.Common.Service
     /// <summary>
     /// Service for providing common data calculation services.
     /// </summary>
-    public static class RingtoetsCommonDataCalculationService
+    public static class RiskeerCommonDataCalculationService
     {
         private static readonly Range<double> normValidityRange = new Range<double>(0, 1);
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
@@ -71,14 +71,14 @@ namespace Riskeer.Common.Service
         {
             if (!normValidityRange.InRange(norm))
             {
-                string message = string.Format(Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_,
+                string message = string.Format(Resources.RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_,
                                                normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(nameof(norm), norm, message);
             }
 
             if (!contributionValidityRange.InRange(failureMechanismContribution))
             {
-                string message = string.Format(Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_Range_0_,
+                string message = string.Format(Resources.RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_Range_0_,
                                                contributionValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(nameof(failureMechanismContribution), failureMechanismContribution,
                                                       message);
@@ -87,7 +87,7 @@ namespace Riskeer.Common.Service
             if (n <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(n), n,
-                                                      Resources.RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0);
+                                                      Resources.RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0);
             }
 
             return norm * (failureMechanismContribution / 100) / n;

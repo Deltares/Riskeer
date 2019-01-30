@@ -577,7 +577,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 double norm = dikeHeightCalculationType == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
                                   ? assessmentSection.FailureMechanismContribution.Norm
-                                  : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                                  : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
                                       assessmentSection.FailureMechanismContribution.Norm,
                                       assessmentSection.GrassCoverErosionInwards.Contribution,
                                       generalInput.N);
@@ -1051,7 +1051,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 double norm = overtoppingRateCalculationType == OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
                                   ? assessmentSection.FailureMechanismContribution.Norm
-                                  : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                                  : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
                                       assessmentSection.FailureMechanismContribution.Norm,
                                       assessmentSection.GrassCoverErosionInwards.Contribution,
                                       generalInput.N);

@@ -252,7 +252,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             var affectedObjects = new List<IObservable>();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationsWithRemovedDikeProfile)
             {
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
             }
 

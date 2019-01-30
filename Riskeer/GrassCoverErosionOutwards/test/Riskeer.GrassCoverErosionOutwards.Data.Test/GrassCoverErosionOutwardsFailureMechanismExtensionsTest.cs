@@ -389,7 +389,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         private static double GetMechanismSpecificNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                        double norm)
         {
-            return RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+            return RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
                 norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);

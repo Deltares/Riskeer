@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
             {
                 ((IHasForeshoreProfile) calculation.InputParameters).ForeshoreProfile = null;
                 affectedObjects.Add(calculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
             }
 
             return affectedObjects;
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
             foreach (ICalculation<ICalculationInput> calculation in affectedCalculations)
             {
                 affectedObjects.Add(calculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
                 if (!objectToUpdate.Geometry.Any())
                 {

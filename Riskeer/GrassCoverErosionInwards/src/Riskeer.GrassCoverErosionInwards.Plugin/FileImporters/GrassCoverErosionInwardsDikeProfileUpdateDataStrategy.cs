@@ -107,7 +107,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
             foreach (GrassCoverErosionInwardsCalculation calculation in GetAffectedCalculationsWithDikeProfile(objectToUpdate))
             {
                 affectedObjects.Add(calculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
                 if (!objectToUpdate.ForeshoreGeometry.Any())
                 {

@@ -311,7 +311,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 {
                     GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
 
-                    double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                    double expectedNorm = RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
                         assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
                         failureMechanism.Contribution,
                         failureMechanism.GeneralInput.N);

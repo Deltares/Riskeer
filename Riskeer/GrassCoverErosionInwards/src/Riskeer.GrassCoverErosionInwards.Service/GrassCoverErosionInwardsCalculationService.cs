@@ -695,7 +695,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculator.Converged);
+            CalculationConvergence converged = RiskeerCommonDataCalculationService.GetCalculationConvergence(calculator.Converged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
@@ -747,7 +747,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculator.Converged);
+            CalculationConvergence converged = RiskeerCommonDataCalculationService.GetCalculationConvergence(calculator.Converged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
@@ -864,7 +864,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         {
             return input.DikeHeightCalculationType == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
                        ? assessmentSection.FailureMechanismContribution.Norm
-                       : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                       : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
                            assessmentSection.FailureMechanismContribution.Norm,
                            failureMechanismContribution,
                            generalInput.N);
@@ -877,7 +877,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         {
             return input.OvertoppingRateCalculationType == OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
                        ? assessmentSection.FailureMechanismContribution.Norm
-                       : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                       : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
                            assessmentSection.FailureMechanismContribution.Norm,
                            failureMechanismContribution,
                            generalInput.N);

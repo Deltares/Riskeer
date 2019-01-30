@@ -246,14 +246,14 @@ namespace Riskeer.Integration.Service
             var affectedObjects = new List<IObservable>();
 
             affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForSignalingNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForLowerLimitNorm));
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
             return affectedObjects.ToArray();
         }
@@ -360,7 +360,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>();
-            changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<HeightStructuresInput, HeightStructure>(calculations, profile));
+            changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearForeshoreProfile<HeightStructuresInput, HeightStructure>(calculations, profile));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -392,7 +392,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>();
-            changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<ClosingStructuresInput, ClosingStructure>(calculations, profile));
+            changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearForeshoreProfile<ClosingStructuresInput, ClosingStructure>(calculations, profile));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -424,7 +424,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>();
-            changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearForeshoreProfile<StabilityPointStructuresInput, StabilityPointStructure>(calculations, profile));
+            changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearForeshoreProfile<StabilityPointStructuresInput, StabilityPointStructure>(calculations, profile));
 
             failureMechanism.ForeshoreProfiles.Remove(profile);
             changedObservables.Add(failureMechanism.ForeshoreProfiles);
@@ -568,7 +568,7 @@ namespace Riskeer.Integration.Service
                                                                                       .ToArray();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
-                foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
+                foreach (IObservable calculationWithRemovedOutput in RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation))
                 {
                     changedObservables.Add(calculationWithRemovedOutput);
                 }
@@ -623,7 +623,7 @@ namespace Riskeer.Integration.Service
             {
                 ((IHasForeshoreProfile) calculation.InputParameters).ForeshoreProfile = null;
                 affectedObjects.Add(calculation.InputParameters);
-                affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
             }
 
             foreshoreProfiles.Clear();
@@ -715,7 +715,7 @@ namespace Riskeer.Integration.Service
             var changedObservables = new List<IObservable>();
             foreach (Tuple<ICalculation, WaveConditionsInput> input in calculationInputs.Where(input => ReferenceEquals(input.Item2.ForeshoreProfile, profile)))
             {
-                foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(input.Item1))
+                foreach (IObservable calculationWithRemovedOutput in RiskeerCommonDataSynchronizationService.ClearCalculationOutput(input.Item1))
                 {
                     changedObservables.Add(calculationWithRemovedOutput);
                 }

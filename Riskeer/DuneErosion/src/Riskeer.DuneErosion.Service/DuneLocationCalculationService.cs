@@ -179,7 +179,7 @@ namespace Riskeer.DuneErosion.Service
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
 
-            CalculationConvergence converged = RingtoetsCommonDataCalculationService.GetCalculationConvergence(calculator.Converged);
+            CalculationConvergence converged = RiskeerCommonDataCalculationService.GetCalculationConvergence(calculator.Converged);
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {

@@ -843,7 +843,7 @@ namespace Riskeer.Piping.Plugin
                 scenario.InputParameters
             };
 
-            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(scenario));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(scenario));
 
             foreach (IObservable affectedObject in affectedObjects)
             {

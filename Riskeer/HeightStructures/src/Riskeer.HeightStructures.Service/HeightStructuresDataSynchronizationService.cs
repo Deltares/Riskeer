@@ -126,7 +126,7 @@ namespace Riskeer.HeightStructures.Service
 
             return failureMechanism.Calculations
                                    .Cast<StructuresCalculation<HeightStructuresInput>>()
-                                   .SelectMany(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 
@@ -149,7 +149,7 @@ namespace Riskeer.HeightStructures.Service
             var affectedItems = new List<IObservable>();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
-                affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
                                                                                 .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
@@ -214,7 +214,7 @@ namespace Riskeer.HeightStructures.Service
             var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedStructure)
             {
-                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
                 calculation.InputParameters.ClearStructure();
                 changedObservables.Add(calculation.InputParameters);
