@@ -1,8 +1,8 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
-// This file is part of Ringtoets.
+// This file is part of Riskeer.
 //
-// Ringtoets is free software: you can redistribute it and/or modify
+// Riskeer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
@@ -83,11 +83,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2018. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
         ///
-        ///This file is part of Ringtoets.
+        ///This file is part of Riskeer.
         ///
-        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///Riskeer is free software: you can redistribute it and/or modify
         ///it under the terms of the GNU General Public License as published by
         ///the Free Software Foundation, either version 3 of the License, or
         ///(at your option) any later version.
@@ -103,11 +103,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2018. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
         ///
-        ///This file is part of Ringtoets.
+        ///This file is part of Riskeer.
         ///
-        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///Riskeer is free software: you can redistribute it and/or modify
         ///it under the terms of the GNU General Public License as published by
         ///the Free Software Foundation, either version 3 of the License, or
         ///(at your option) any later version.
@@ -123,11 +123,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2018. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
         ///
-        ///This file is part of Ringtoets.
+        ///This file is part of Riskeer.
         ///
-        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///Riskeer is free software: you can redistribute it and/or modify
         ///it under the terms of the GNU General Public License as published by
         ///the Free Software Foundation, either version 3 of the License, or
         ///(at your option) any later version.
@@ -143,11 +143,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
-        ///Copyright (C) Stichting Deltares 2018. All rights reserved.
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
         ///
-        ///This file is part of Ringtoets.
+        ///This file is part of Riskeer.
         ///
-        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///Riskeer is free software: you can redistribute it and/or modify
         ///it under the terms of the GNU General Public License as published by
         ///the Free Software Foundation, either version 3 of the License, or
         ///(at your option) any later version.
