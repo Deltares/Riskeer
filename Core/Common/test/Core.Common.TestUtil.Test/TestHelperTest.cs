@@ -177,7 +177,7 @@ namespace Core.Common.TestUtil.Test
             string actualPath = TestHelper.GetScratchPadPath();
 
             // Assert
-            string expectedPath = Path.Combine(Path.GetTempPath(), "Ringtoets_Scratchpad");
+            string expectedPath = Path.Combine(Path.GetTempPath(), "Riskeer_Scratchpad");
             Assert.AreEqual(expectedPath, actualPath);
             Assert.IsTrue(Directory.Exists(actualPath),
                           $"The directory '{expectedPath}' should exist, such that unit tests have a clean environment to temporarily write files and directories to.");
@@ -193,7 +193,7 @@ namespace Core.Common.TestUtil.Test
             string actualPath = TestHelper.GetScratchPadPath(subPath);
 
             // Assert
-            string expectedPath = Path.Combine(Path.GetTempPath(), "Ringtoets_Scratchpad", subPath);
+            string expectedPath = Path.Combine(Path.GetTempPath(), "Riskeer_Scratchpad", subPath);
             Assert.AreEqual(expectedPath, actualPath);
             Assert.IsFalse(File.Exists(actualPath),
                            $"The file '{expectedPath}' should not exist, as the folder should always be empty at the start of any unit test.");

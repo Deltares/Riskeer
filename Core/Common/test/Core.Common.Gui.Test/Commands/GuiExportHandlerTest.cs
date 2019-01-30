@@ -73,9 +73,9 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             string sourceTypeName = source == null ? "null" : source.GetType().FullName;
-            TestHelper.AssertLogMessageIsGenerated(call, $"Ringtoets kan de huidige selectie ({sourceTypeName}) niet exporteren.");
+            TestHelper.AssertLogMessageIsGenerated(call, $"Riskeer kan de huidige selectie ({sourceTypeName}) niet exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
+            Assert.AreEqual("Riskeer kan de huidige selectie niet exporteren.", messageBoxText);
             mockRepository.VerifyAll();
         }
 
@@ -112,9 +112,9 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             string sourceTypeName = source == null ? "null" : source.GetType().FullName;
-            TestHelper.AssertLogMessageIsGenerated(call, $"Ringtoets kan de huidige selectie ({sourceTypeName}) niet exporteren.");
+            TestHelper.AssertLogMessageIsGenerated(call, $"Riskeer kan de huidige selectie ({sourceTypeName}) niet exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
+            Assert.AreEqual("Riskeer kan de huidige selectie niet exporteren.", messageBoxText);
             mockRepository.VerifyAll();
         }
 

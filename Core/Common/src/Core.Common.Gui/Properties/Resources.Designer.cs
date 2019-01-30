@@ -759,12 +759,12 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. &apos;Stack trace&apos;: {0}.
+        ///   Looks up a localized string similar to Slechts één instantie van de Riskeer grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. &apos;Stack trace&apos;: {0}.
         /// </summary>
-        public static string GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0 {
+        public static string GuiCore_Only_a_single_instance_of_Riskeer_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0 {
             get {
-                return ResourceManager.GetString("GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_proce" +
-                        "ss_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0", resourceCulture);
+                return ResourceManager.GetString("GuiCore_Only_a_single_instance_of_Riskeer_is_allowed_at_the_same_time_per_process" +
+                        "_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0", resourceCulture);
             }
         }
         
@@ -823,7 +823,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets kan de huidige selectie ({0}) niet exporteren..
+        ///   Looks up a localized string similar to Riskeer kan de huidige selectie ({0}) niet exporteren..
         /// </summary>
         public static string GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available {
             get {
@@ -833,7 +833,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets kan de huidige selectie niet exporteren..
+        ///   Looks up a localized string similar to Riskeer kan de huidige selectie niet exporteren..
         /// </summary>
         public static string GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available {
             get {

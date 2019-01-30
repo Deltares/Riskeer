@@ -63,7 +63,7 @@ namespace Core.Common.TestUtil
         /// <seealso cref="GetScratchPadPath(string)"/>
         public static string GetScratchPadPath()
         {
-            string scratchPadPath = Path.Combine(Path.GetTempPath(), "Ringtoets_Scratchpad");
+            string scratchPadPath = Path.Combine(Path.GetTempPath(), "Riskeer_Scratchpad");
             if (!Directory.Exists(scratchPadPath))
             {
                 Directory.CreateDirectory(scratchPadPath);

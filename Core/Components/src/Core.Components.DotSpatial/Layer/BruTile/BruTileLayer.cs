@@ -42,7 +42,7 @@
 // | Felix Obermaier      |  2013.09.19 | Making deserialization work by adding AssemblyResolve event,
 // |                      |             | handler
 // -------------------------------------------------------------------------------------------------------
-// Changes upon original work have been implemented to suit functional requirements for Ringtoets.
+// Changes upon original work have been implemented to suit functional requirements for Riskeer.
 // These changes have been implemented as of 13 Januari 2017.
 // ********************************************************************************************************
 

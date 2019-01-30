@@ -203,7 +203,7 @@ namespace Application.Riskeer
         }
 
         /// <summary>
-        /// <code>app.config</code> has been configured to use <see cref="RingtoetsUserDataFolderConverter"/>
+        /// <code>app.config</code> has been configured to use <see cref="RiskeerUserDataFolderConverter"/>
         /// to write log files to the Riskeer user data folder. This method deletes the old log files
         /// that have been written there.
         /// </summary>

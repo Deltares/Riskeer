@@ -41,7 +41,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appenders\RingtoetsUserDataFolderConverterTest.cs" />
+    <Compile Include="Appenders\RiskeerUserDataFolderConverterTest.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderEvaluationMethodAttributeTest.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttributeTest.cs" />

@@ -44,8 +44,8 @@ namespace Core.Common.Base.Storage
         MigrationRequired ShouldMigrate(string filePath);
 
         /// <summary>
-        /// Determines the target file path to place the migrated Ringtoets project based
-        /// on it's original file path.
+        /// Determines the target file path to place the migrated project based
+        /// on its original file path.
         /// </summary>
         /// <returns>The file path to be used as location for the migration result. Value
         /// will be <c>null</c> if no target file path can be provided.</returns>

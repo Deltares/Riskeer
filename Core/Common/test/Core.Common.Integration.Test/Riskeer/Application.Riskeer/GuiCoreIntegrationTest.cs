@@ -33,7 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Plugin;
 
-namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
+namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
 {
     [TestFixture]
     public class GuiCoreIntegrationTest

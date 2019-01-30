@@ -22,7 +22,7 @@
 namespace Core.Common.Base.Storage
 {
     /// <summary>
-    /// Enum to indicate if migration of a Ringtoets project file is required or not.
+    /// Enum to indicate if migration of a project file is required or not.
     /// </summary>
     public enum MigrationRequired
     {

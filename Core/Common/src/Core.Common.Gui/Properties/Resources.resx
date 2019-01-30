@@ -268,8 +268,8 @@
   <data name="information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\information.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0" xml:space="preserve">
-    <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. 'Stack trace': {0}</value>
+  <data name="GuiCore_Only_a_single_instance_of_Riskeer_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0" xml:space="preserve">
+    <value>Slechts één instantie van de Riskeer grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. 'Stack trace': {0}</value>
   </data>
   <data name="Ribbon_Show_Log" xml:space="preserve">
     <value>Log Tonen</value>
@@ -302,10 +302,10 @@
     <value>Exporteren van '{0}' is gestart.</value>
   </data>
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available" xml:space="preserve">
-    <value>Ringtoets kan de huidige selectie niet exporteren.</value>
+    <value>Riskeer kan de huidige selectie niet exporteren.</value>
   </data>
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available" xml:space="preserve">
-    <value>Ringtoets kan de huidige selectie ({0}) niet exporteren.</value>
+    <value>Riskeer kan de huidige selectie ({0}) niet exporteren.</value>
   </data>
   <data name="SplashScreen_Version" xml:space="preserve">
     <value>Versie</value>

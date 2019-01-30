@@ -30,7 +30,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
+    <Compile Include="Appenders\RiskeerUserDataFolderConverter.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderEvaluationMethodAttribute.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderAttribute.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttribute.cs" />

@@ -89,7 +89,7 @@ namespace Core.Common.Gui
                 isAlreadyRunningInstanceOfIGui = false; // reset to that the consecutive creations won't fail.
                 throw new InvalidOperationException(
                     string.Format(CultureInfo.CurrentCulture,
-                                  Resources.GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0,
+                                  Resources.GuiCore_Only_a_single_instance_of_Riskeer_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0,
                                   instanceCreationStackTrace));
             }
 
