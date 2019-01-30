@@ -34,7 +34,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
     [TestFixture]
     public class ProjectMigrationTestHelperTest
     {
-        private readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+        private readonly string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
         [Test]
         public void GetLatestProjectFilePath_Always_ReturnsProjectFilePathToLatestProjectVersion()

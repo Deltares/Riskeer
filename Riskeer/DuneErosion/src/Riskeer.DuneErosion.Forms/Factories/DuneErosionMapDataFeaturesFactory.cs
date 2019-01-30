@@ -62,7 +62,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
 
         private static MapFeature CreateDuneLocationFeature(AggregatedDuneLocation location)
         {
-            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
+            MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;

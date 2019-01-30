@@ -174,9 +174,9 @@ namespace Riskeer.Common.Util.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is geen geldige Ringtoets versie..
         /// </summary>
-        public static string RingtoetsVersionHelper_Version_0_Not_Valid {
+        public static string RiskeerVersionHelper_Version_0_Not_Valid {
             get {
-                return ResourceManager.GetString("RingtoetsVersionHelper_Version_0_Not_Valid", resourceCulture);
+                return ResourceManager.GetString("RiskeerVersionHelper_Version_0_Not_Valid", resourceCulture);
             }
         }
     }

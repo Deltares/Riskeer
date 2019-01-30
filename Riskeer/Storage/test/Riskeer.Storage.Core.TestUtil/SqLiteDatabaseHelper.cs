@@ -43,7 +43,7 @@ namespace Riskeer.Storage.Core.TestUtil
         public static void CreateCorruptDatabaseFile(string databaseFilePath)
         {
             CreateDatabaseFile(databaseFilePath, GetCorruptSchema());
-            AddVersionEntity(databaseFilePath, RingtoetsVersionHelper.GetCurrentDatabaseVersion());
+            AddVersionEntity(databaseFilePath, ProjectVersionHelper.GetCurrentDatabaseVersion());
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.TestUtil
         public static void CreateCompleteDatabaseFileWithoutProjectData(string databaseFilePath)
         {
             CreateCompleteDatabaseFileEmpty(databaseFilePath);
-            AddVersionEntity(databaseFilePath, RingtoetsVersionHelper.GetCurrentDatabaseVersion());
+            AddVersionEntity(databaseFilePath, ProjectVersionHelper.GetCurrentDatabaseVersion());
         }
 
         /// <summary>

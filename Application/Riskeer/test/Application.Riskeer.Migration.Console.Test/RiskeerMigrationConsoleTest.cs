@@ -136,7 +136,7 @@ namespace Application.Riskeer.Migration.Console.Test
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core, file);
             var console = new RiskeerMigrationConsole();
-            string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string expectedVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             using (var consoleOutput = new ConsoleOutput())
             {
@@ -168,7 +168,7 @@ namespace Application.Riskeer.Migration.Console.Test
             string sourceFilePath = ProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
             string targetFilePath = TestHelper.GetScratchPadPath($"{nameof(RiskeerMigrationConsoleTest)}.{nameof(GivenConsole_WhenMigrateCalledWithArguments_MigratesToNewVersion)}");
             var console = new RiskeerMigrationConsole();
-            string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string expectedVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             using (new FileDisposeHelper(targetFilePath))
             {
@@ -234,7 +234,7 @@ namespace Application.Riskeer.Migration.Console.Test
 
         private static string GetConsoleFullDescription()
         {
-            string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             return "Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een "
                    + $"eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({currentDatabaseVersion})."
                    + Environment.NewLine + Environment.NewLine

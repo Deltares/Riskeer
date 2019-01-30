@@ -33,7 +33,7 @@ namespace Riskeer.Migration.Integration.Test
     [TestFixture]
     public class MigrationIntegrationTest
     {
-        private readonly string latestVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+        private readonly string latestVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core);
 
         [Test]

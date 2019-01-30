@@ -26,13 +26,13 @@ using NUnit.Framework;
 namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
-    public class RingtoetsVersionHelperTest
+    public class ProjectVersionHelperTest
     {
         [Test]
         public void GetCurrentDatabaseVersion_ReturnsExpectedValue()
         {
             // Call
-            string currentVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string currentVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Assert
             Assert.AreEqual("19.1", currentVersion);
@@ -44,7 +44,7 @@ namespace Riskeer.Common.Util.Test
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
-            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(newerVersion);
+            bool isNewer = ProjectVersionHelper.IsNewerThanCurrent(newerVersion);
 
             // Assert
             Assert.IsTrue(isNewer);
@@ -54,10 +54,10 @@ namespace Riskeer.Common.Util.Test
         public void IsNewerThanCurrentString_SameVersion_ReturnsFalse()
         {
             // Setup
-            string currentVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string currentVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
-            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(currentVersion);
+            bool isNewer = ProjectVersionHelper.IsNewerThanCurrent(currentVersion);
 
             // Assert
             Assert.IsFalse(isNewer);
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Util.Test
         public void IsNewerThanCurrentString_OlderVersion_ReturnsFalse(string olderVersion)
         {
             // Call
-            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(olderVersion);
+            bool isNewer = ProjectVersionHelper.IsNewerThanCurrent(olderVersion);
 
             // Assert
             Assert.IsFalse(isNewer);
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Util.Test
         public void IsNewerThanCurrentString_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
-            bool isNewer = RingtoetsVersionHelper.IsNewerThanCurrent(invalidVersion);
+            bool isNewer = ProjectVersionHelper.IsNewerThanCurrent(invalidVersion);
 
             // Assert
             Assert.IsFalse(isNewer);
@@ -91,7 +91,7 @@ namespace Riskeer.Common.Util.Test
         public void IsValidVersion_ValidVersion_ReturnsTrue(string validVersion)
         {
             // Call
-            bool isNewer = RingtoetsVersionHelper.IsValidVersion(validVersion);
+            bool isNewer = ProjectVersionHelper.IsValidVersion(validVersion);
 
             // Assert
             Assert.IsTrue(isNewer);
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Util.Test
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
-            bool isNewer = RingtoetsVersionHelper.IsValidVersion(invalidVersion);
+            bool isNewer = ProjectVersionHelper.IsValidVersion(invalidVersion);
 
             // Assert
             Assert.IsFalse(isNewer);
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Util.Test
         public void ValidateVersion_ValidVersion_DoesNotThrowException(string validVersion)
         {
             // Call
-            TestDelegate call = () => RingtoetsVersionHelper.ValidateVersion(validVersion);
+            TestDelegate call = () => ProjectVersionHelper.ValidateVersion(validVersion);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Util.Test
         public void ValidateVersion_InvalidVersion_ThrowArgumentException(string validVersion)
         {
             // Call
-            TestDelegate call = () => RingtoetsVersionHelper.ValidateVersion(validVersion);
+            TestDelegate call = () => ProjectVersionHelper.ValidateVersion(validVersion);
 
             // Assert
             string expectedMessage = $@"'{validVersion}' is geen geldige Ringtoets versie.";

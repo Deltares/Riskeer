@@ -35,7 +35,7 @@ namespace Application.Riskeer.Migration.Console
     /// </summary>
     public class RiskeerMigrationConsole : ConsoleBase
     {
-        private static readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+        private static readonly string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
         /// <summary>
         /// Creates a new instance of <see cref="RiskeerMigrationConsole"/>. 

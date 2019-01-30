@@ -41,7 +41,7 @@ namespace Riskeer.Migration.Core
         /// <summary>
         /// Creates a new instance of the <see cref="ProjectFileMigrator"/> class.
         /// </summary>
-        public ProjectFileMigrator() : base(new RingtoetsVersionComparer())
+        public ProjectFileMigrator() : base(new ProjectVersionComparer())
         {
             scriptResource = typeof(Resources).Assembly;
         }

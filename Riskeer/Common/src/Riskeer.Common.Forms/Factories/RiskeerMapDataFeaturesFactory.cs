@@ -242,7 +242,7 @@ namespace Riskeer.Common.Forms.Factories
                 var i = 0;
                 foreach (StructureBase structure in structures)
                 {
-                    MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(structure.Location);
+                    MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(structure.Location);
                     feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = structure.Name;
 
                     mapFeatures[i] = feature;

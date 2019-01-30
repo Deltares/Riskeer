@@ -190,7 +190,7 @@ namespace Riskeer.Storage.Core
                 {
                     dbContext.VersionEntities.Add(new VersionEntity
                     {
-                        Version = RingtoetsVersionHelper.GetCurrentDatabaseVersion(),
+                        Version = ProjectVersionHelper.GetCurrentDatabaseVersion(),
                         Timestamp = DateTime.Now,
                         FingerPrint = FingerprintHelper.Get(stagedProject.Entity)
                     });
@@ -224,7 +224,7 @@ namespace Riskeer.Storage.Core
             try
             {
                 string databaseVersion = riskeerEntities.VersionEntities.Select(v => v.Version).Single();
-                if (!RingtoetsVersionHelper.IsValidVersion(databaseVersion))
+                if (!ProjectVersionHelper.IsValidVersion(databaseVersion))
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid,
                                              databaseVersion);
@@ -232,10 +232,10 @@ namespace Riskeer.Storage.Core
                     throw new StorageValidationException(message);
                 }
 
-                if (RingtoetsVersionHelper.IsNewerThanCurrent(databaseVersion))
+                if (ProjectVersionHelper.IsNewerThanCurrent(databaseVersion))
                 {
                     string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_,
-                                             databaseVersion, RingtoetsVersionHelper.GetCurrentDatabaseVersion());
+                                             databaseVersion, ProjectVersionHelper.GetCurrentDatabaseVersion());
                     string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
                     throw new StorageValidationException(message);
                 }

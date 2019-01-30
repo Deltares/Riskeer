@@ -22,14 +22,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsMapDataFeaturesFactoryHelper.cs" />
-    <Compile Include="RingtoetsVersionComparer.cs" />
+    <Compile Include="RiskeerMapDataFeaturesFactoryHelper.cs" />
+    <Compile Include="ProjectVersionComparer.cs" />
     <Compile Include="StructuresHelper.cs" />
     <Compile Include="SectionResultWithCalculationAssignment.cs" />
     <Compile Include="SectionSegments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SectionSegmentsHelper.cs" />
-    <Compile Include="RingtoetsVersionHelper.cs" />
+    <Compile Include="ProjectVersionHelper.cs" />
     <Compile Include="TypeConverters\BackgroundDataConverter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -26,13 +26,13 @@ using NUnit.Framework;
 namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
-    public class RingtoetsVersionComparerTest
+    public class ProjectVersionComparerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var comparer = new RingtoetsVersionComparer();
+            var comparer = new ProjectVersionComparer();
 
             // Assert
             Assert.IsInstanceOf<IComparer>(comparer);
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Util.Test
         public void CompareObject_FirstLessThanSecond_ReturnsLessThanZero(object first, object second)
         {
             // Setup
-            var comparer = new RingtoetsVersionComparer();
+            var comparer = new ProjectVersionComparer();
 
             // Call
             int compare = comparer.Compare(first, second);
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Util.Test
         public void CompareObject_FirstGreaterThanSecond_ReturnsMoreThanZero(object first, object second)
         {
             // Setup
-            var comparer = new RingtoetsVersionComparer();
+            var comparer = new ProjectVersionComparer();
 
             // Call
             int compare = comparer.Compare(first, second);
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Util.Test
         public void CompareObject_FirstEqualToSecond_ReturnsZero(object first, object second)
         {
             // Setup
-            var comparer = new RingtoetsVersionComparer();
+            var comparer = new ProjectVersionComparer();
 
             // Call
             int compare = comparer.Compare(first, second);
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Util.Test
         public void CompareString_FirstLessThanSecond_ReturnsLessThanZero(string first, string second)
         {
             // Setup
-            var comparer = new RingtoetsVersionComparer();
+            var comparer = new ProjectVersionComparer();
 
             // Call
             int compare = comparer.Compare(first, second);
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Util.Test
         public void CompareString_FirstGreaterThanSecond_ReturnsGreaterThanZero(string first, string second)
         {
             // Setup
-            var comparer = new RingtoetsVersionComparer();
+            var comparer = new ProjectVersionComparer();
 
             // Call
             int compare = comparer.Compare(first, second);
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Util.Test
         public void CompareString_FirstEqualToSecond_ReturnsZero(string first, string second)
         {
             // Setup
-            var comparer = new RingtoetsVersionComparer();
+            var comparer = new ProjectVersionComparer();
 
             // Call
             int compare = comparer.Compare(first, second);

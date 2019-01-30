@@ -40,7 +40,7 @@ namespace Riskeer.Migration.Core.TestUtil
         /// <returns>A file path to a project file with the latest database version.</returns>
         public static string GetLatestProjectFilePath()
         {
-            string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             string versionSuffix = currentDatabaseVersion.Replace(".", string.Empty);
             string projectFileName = $"MigrationTestProject{versionSuffix}.rtd";
 

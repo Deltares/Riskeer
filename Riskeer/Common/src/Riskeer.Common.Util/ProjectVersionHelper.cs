@@ -25,9 +25,9 @@ using Riskeer.Common.Util.Properties;
 namespace Riskeer.Common.Util
 {
     /// <summary>
-    /// This class is capable of comparing Ringtoets database versions.
+    /// This class is capable of comparing project database versions.
     /// </summary>
-    public static class RingtoetsVersionHelper
+    public static class ProjectVersionHelper
     {
         private const string validDatabaseVersion = "5";
         private const string currentDatabaseVersion = "19.1";
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Util
         /// database version, <c>false</c> otherwise.</returns>
         public static bool IsNewerThanCurrent(string version)
         {
-            var versionComparer = new RingtoetsVersionComparer();
+            var versionComparer = new ProjectVersionComparer();
             return versionComparer.Compare(version, currentDatabaseVersion) > 0;
         }
 
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Util
         /// <remarks>A valid version must be greater than <see cref="validDatabaseVersion"/>.</remarks>
         public static bool IsValidVersion(string version)
         {
-            var versionComparer = new RingtoetsVersionComparer();
+            var versionComparer = new ProjectVersionComparer();
             return versionComparer.Compare(version, validDatabaseVersion) >= 0;
         }
 
@@ -71,13 +71,13 @@ namespace Riskeer.Common.Util
         /// </summary>
         /// <param name="version">The version to compare.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="version"/> is not a 
-        /// valid Ringtoets database version.</exception>
+        /// valid project database version.</exception>
         /// <seealso cref="IsValidVersion"/>
         public static void ValidateVersion(string version)
         {
             if (!IsValidVersion(version))
             {
-                throw new ArgumentException(string.Format(Resources.RingtoetsVersionHelper_Version_0_Not_Valid, version), version);
+                throw new ArgumentException(string.Format(Resources.RiskeerVersionHelper_Version_0_Not_Valid, version), version);
             }
         }
     }

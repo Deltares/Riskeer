@@ -30,13 +30,13 @@ using NUnit.Framework;
 namespace Riskeer.Common.Util.Test
 {
     [TestFixture]
-    public class RingtoetsMapDataFeaturesFactoryHelperTest
+    public class RiskeerMapDataFeaturesFactoryHelperTest
     {
         [Test]
         public void CreateSinglePointMapFeature_PointNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(null);
+            TestDelegate test = () => RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Util.Test
             var point = new Point2D(0, 0);
 
             // Call
-            MapFeature pointMapFeature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(point);
+            MapFeature pointMapFeature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(point);
 
             // Assert
             MapGeometry[] mapGeometries = pointMapFeature.MapGeometries.ToArray();

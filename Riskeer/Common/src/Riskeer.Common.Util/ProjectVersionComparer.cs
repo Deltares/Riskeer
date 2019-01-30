@@ -28,9 +28,9 @@ using System.Linq;
 namespace Riskeer.Common.Util
 {
     /// <summary>
-    /// This class can be used to compare Ringtoets database files.
+    /// This class can be used to compare project database files.
     /// </summary>
-    public class RingtoetsVersionComparer : IComparer, IComparer<string>
+    public class ProjectVersionComparer : IComparer, IComparer<string>
     {
         private const string versionSeparator = ".";
 

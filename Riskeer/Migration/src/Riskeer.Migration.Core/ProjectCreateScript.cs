@@ -47,7 +47,7 @@ namespace Riskeer.Migration.Core
         /// </list></exception>
         public ProjectCreateScript(string version, string query) : base(version)
         {
-            RingtoetsVersionHelper.ValidateVersion(version);
+            ProjectVersionHelper.ValidateVersion(version);
 
             if (string.IsNullOrWhiteSpace(query))
             {

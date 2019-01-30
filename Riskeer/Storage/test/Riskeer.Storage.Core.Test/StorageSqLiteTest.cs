@@ -171,7 +171,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException));
-            string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             TestDelegate precondition = () =>
             {
@@ -199,7 +199,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempRingtoetsFile = Path.Combine(workingDirectory, $"{nameof(LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
-            string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             string versionCode = additionalVersionNumber + currentDatabaseVersion;
 
             TestDelegate precondition = () =>

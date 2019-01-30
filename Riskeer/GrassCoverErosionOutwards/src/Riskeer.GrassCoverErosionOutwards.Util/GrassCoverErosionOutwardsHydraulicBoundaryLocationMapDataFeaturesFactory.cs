@@ -52,7 +52,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Util
                 throw new ArgumentNullException(nameof(nameProvider));
             }
 
-            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
+            MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm.ToString();

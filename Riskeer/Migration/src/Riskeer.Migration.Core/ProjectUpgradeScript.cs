@@ -57,8 +57,8 @@ namespace Riskeer.Migration.Core
                 throw new ArgumentException(@"Query must have a value.", nameof(query));
             }
 
-            RingtoetsVersionHelper.ValidateVersion(fromVersion);
-            RingtoetsVersionHelper.ValidateVersion(toVersion);
+            ProjectVersionHelper.ValidateVersion(fromVersion);
+            ProjectVersionHelper.ValidateVersion(toVersion);
 
             upgradeQuery = query;
             this.logDatabaseLocation = logDatabaseLocation;

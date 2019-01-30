@@ -71,7 +71,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_InvalidQuery_ThrowsArgumentException(string query)
         {
             // Setup
-            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string version = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             TestDelegate call = () => new ProjectCreateScript(version, query);
@@ -86,7 +86,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string query = "Valid query";
-            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string version = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             var createScript = new ProjectCreateScript(version, query);
@@ -101,7 +101,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string query = ";";
-            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string version = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileDoesNotExist_ReturnsVersionedFile));
             var createScript = new ProjectCreateScript(version, query);
@@ -119,7 +119,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string query = ";";
-            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string version = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_FileExistsButNotWritable_ThrowsArgumentException));
             var createScript = new ProjectCreateScript(version, query);
@@ -144,7 +144,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string query = "THIS WILL FAIL";
-            string version = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string version = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             string filePath = TestHelper.GetScratchPadPath(nameof(CreateEmptyVersionedFile_QueryFails_ThrowsCriticalMigrationException));
             var createScript = new ProjectCreateScript(version, query);

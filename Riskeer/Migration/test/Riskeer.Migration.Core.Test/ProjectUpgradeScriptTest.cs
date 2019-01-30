@@ -40,7 +40,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string query = "Valid query";
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
@@ -56,7 +56,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_ToVersionNullOrEmpty_ThrowsArgumentException(string toVersion)
         {
             // Setup
-            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string fromVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             const string query = "Valid query";
 
             // Call
@@ -73,7 +73,7 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             const string query = "Valid query";
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
@@ -88,7 +88,7 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_InvalidToVersion_ThrowsArgumentException(string toVersion)
         {
             // Setup
-            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string fromVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             const string query = "Valid query";
 
             // Call
@@ -106,8 +106,8 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_InvalidQuery_ThrowsArgumentException(string query)
         {
             // Setup
-            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string fromVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             // Call
             TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
@@ -121,8 +121,8 @@ namespace Riskeer.Migration.Core.Test
         public void Constructor_ValidParameters_ReturnsExpectedValues()
         {
             // Setup
-            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string fromVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             const string query = ";";
 
             // Call
@@ -138,8 +138,8 @@ namespace Riskeer.Migration.Core.Test
         public void Upgrade_UpgradeFails_ThrowsCriticalMigrationException()
         {
             // Setup
-            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string fromVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             string fileLocation = TestHelper.GetScratchPadPath(nameof(Upgrade_UpgradeFails_ThrowsCriticalMigrationException));
             var upgradeScript = new ProjectUpgradeScript(fromVersion, toVersion, "THIS WILL FAIL", string.Empty);
@@ -162,8 +162,8 @@ namespace Riskeer.Migration.Core.Test
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Upgrade_ValidParameters_ExpectedProperties));
-            string fromVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
-            string toVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+            string fromVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
+            string toVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             var upgradeScript = new ProjectUpgradeScript(fromVersion, toVersion, ";", "");
 

@@ -42,7 +42,7 @@ namespace Riskeer.Migration
     /// </summary>
     public class ProjectMigrator : IMigrateProject
     {
-        private static readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+        private static readonly string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
         private readonly ILog log = LogManager.GetLogger(typeof(ProjectMigrator));
         private readonly ProjectFileMigrator fileMigrator;

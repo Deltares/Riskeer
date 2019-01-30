@@ -41,7 +41,7 @@ namespace Riskeer.Migration.Test
     public class ProjectMigratorTest
     {
         private const string testDirectory = nameof(ProjectMigratorTest);
-        private readonly string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
+        private readonly string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [SetUp]
@@ -263,7 +263,7 @@ namespace Riskeer.Migration.Test
 
             string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
 
-            string versionWithDashes = RingtoetsVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
+            string versionWithDashes = ProjectVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
             var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Ringtoets project");
             string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
@@ -295,7 +295,7 @@ namespace Riskeer.Migration.Test
             string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
 
             var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Ringtoets project");
-            string versionWithDashes = RingtoetsVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
+            string versionWithDashes = ProjectVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
             string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
             var mocks = new MockRepository();

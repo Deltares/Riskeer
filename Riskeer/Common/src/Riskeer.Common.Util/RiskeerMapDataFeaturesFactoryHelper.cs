@@ -29,7 +29,7 @@ namespace Riskeer.Common.Util
     /// <summary>
     /// Helper class for map data features factory.
     /// </summary>
-    public static class RingtoetsMapDataFeaturesFactoryHelper
+    public static class RiskeerMapDataFeaturesFactoryHelper
     {
         /// <summary>
         /// Creates a map feature with one single point.

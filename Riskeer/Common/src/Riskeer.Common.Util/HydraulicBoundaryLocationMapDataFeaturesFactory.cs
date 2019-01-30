@@ -44,7 +44,7 @@ namespace Riskeer.Common.Util
                 throw new ArgumentNullException(nameof(location));
             }
 
-            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
+            MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[Resources.MetaData_ID] = location.Id;
             feature.MetaData[Resources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm.ToString();

@@ -25,14 +25,14 @@
     <Compile Include="CalculationWithLocationTest.cs" />
     <Compile Include="FailureMechanismNormHelperTest.cs" />
     <Compile Include="HydraulicBoundaryLocationMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="RingtoetsMapDataFeaturesFactoryHelperTest.cs" />
-    <Compile Include="RingtoetsVersionComparerTest.cs" />
+    <Compile Include="RiskeerMapDataFeaturesFactoryHelperTest.cs" />
+    <Compile Include="ProjectVersionComparerTest.cs" />
     <Compile Include="StructuresHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SectionResultWithCalculationAssignmentTest.cs" />
     <Compile Include="SectionSegmentsHelperTest.cs" />
     <Compile Include="SectionSegmentsTest.cs" />
-    <Compile Include="RingtoetsVersionHelperTest.cs" />
+    <Compile Include="ProjectVersionHelperTest.cs" />
     <Compile Include="TypeConverters\BackgroundDataConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
