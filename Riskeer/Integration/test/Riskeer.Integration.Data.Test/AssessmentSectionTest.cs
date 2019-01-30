@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual(0.60, backgroundData.Transparency, backgroundData.Transparency.GetAccuracy());
             Assert.AreEqual("Bing Maps - Satelliet", backgroundData.Name);
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
-            Assert.AreEqual(RingtoetsWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
+            Assert.AreEqual(RiskeerWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
 
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);

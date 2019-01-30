@@ -27,59 +27,59 @@ using Riskeer.Common.Data.AssessmentSection;
 namespace Riskeer.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class RiskeerWellKnownTileSourceTest : EnumWithResourcesDisplayNameTestFixture<RingtoetsWellKnownTileSource>
+    public class RiskeerWellKnownTileSourceTest : EnumWithResourcesDisplayNameTestFixture<RiskeerWellKnownTileSource>
     {
-        protected override IDictionary<RingtoetsWellKnownTileSource, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<RiskeerWellKnownTileSource, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<RingtoetsWellKnownTileSource, string>
+                return new Dictionary<RiskeerWellKnownTileSource, string>
                 {
                     {
-                        RingtoetsWellKnownTileSource.OpenStreetMap, null
+                        RiskeerWellKnownTileSource.OpenStreetMap, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingAerial, null
+                        RiskeerWellKnownTileSource.BingAerial, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingHybrid, null
+                        RiskeerWellKnownTileSource.BingHybrid, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingRoads, null
+                        RiskeerWellKnownTileSource.BingRoads, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldTopo, null
+                        RiskeerWellKnownTileSource.EsriWorldTopo, null
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldShadedRelief, null
+                        RiskeerWellKnownTileSource.EsriWorldShadedRelief, null
                     }
                 };
             }
         }
 
-        protected override IDictionary<RingtoetsWellKnownTileSource, int> ExpectedValueForEnumValues
+        protected override IDictionary<RiskeerWellKnownTileSource, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<RingtoetsWellKnownTileSource, int>
+                return new Dictionary<RiskeerWellKnownTileSource, int>
                 {
                     {
-                        RingtoetsWellKnownTileSource.OpenStreetMap, 1
+                        RiskeerWellKnownTileSource.OpenStreetMap, 1
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingAerial, 2
+                        RiskeerWellKnownTileSource.BingAerial, 2
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingHybrid, 3
+                        RiskeerWellKnownTileSource.BingHybrid, 3
                     },
                     {
-                        RingtoetsWellKnownTileSource.BingRoads, 4
+                        RiskeerWellKnownTileSource.BingRoads, 4
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldTopo, 5
+                        RiskeerWellKnownTileSource.EsriWorldTopo, 5
                     },
                     {
-                        RingtoetsWellKnownTileSource.EsriWorldShadedRelief, 6
+                        RiskeerWellKnownTileSource.EsriWorldShadedRelief, 6
                     }
                 };
             }

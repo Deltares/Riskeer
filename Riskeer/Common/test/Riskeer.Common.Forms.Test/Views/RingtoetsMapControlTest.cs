@@ -281,7 +281,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 ImageBasedMapData oldBackgroundMapData = ringtoetsMapControl.MapControl.BackgroundMapData;
 
                 // When
-                backgroundData.Configuration = new WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource.BingRoads);
+                backgroundData.Configuration = new WellKnownBackgroundDataConfiguration(RiskeerWellKnownTileSource.BingRoads);
                 backgroundData.NotifyObservers();
 
                 // Then

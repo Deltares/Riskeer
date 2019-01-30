@@ -114,7 +114,7 @@ namespace Riskeer.Storage.Core.Read
                 backgroundDataMetaEntities.Single(metaEntity => metaEntity.Key.Equals(BackgroundDataIdentifiers.WellKnownTileSource))
                                           .Read();
 
-            var wellKnownTileSource = (RingtoetsWellKnownTileSource) Convert.ToInt32(parameter.Value);
+            var wellKnownTileSource = (RiskeerWellKnownTileSource) Convert.ToInt32(parameter.Value);
             return new WellKnownBackgroundDataConfiguration(wellKnownTileSource);
         }
     }

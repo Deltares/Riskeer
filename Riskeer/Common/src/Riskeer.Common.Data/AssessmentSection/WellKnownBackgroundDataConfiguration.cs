@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// Creates a new instance of <see cref="WellKnownBackgroundDataConfiguration"/>.
         /// </summary>
         /// <param name="wellKnownTileSource">The type of well known tile source.</param>
-        public WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource wellKnownTileSource)
+        public WellKnownBackgroundDataConfiguration(RiskeerWellKnownTileSource wellKnownTileSource)
         {
             WellKnownTileSource = wellKnownTileSource;
         }
@@ -38,6 +38,6 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the type of well known tile source.
         /// </summary>
-        public RingtoetsWellKnownTileSource WellKnownTileSource { get; }
+        public RiskeerWellKnownTileSource WellKnownTileSource { get; }
     }
 }

@@ -128,7 +128,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             const string name = "A";
             var mapData = new TestImageBasedMapData(name, false);
 
-            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration(RingtoetsWellKnownTileSource.BingAerial))
+            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration(RiskeerWellKnownTileSource.BingAerial))
             {
                 Name = mapData.Name,
                 Transparency = mapData.Transparency,

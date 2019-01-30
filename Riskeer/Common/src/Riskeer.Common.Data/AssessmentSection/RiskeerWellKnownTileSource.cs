@@ -24,7 +24,7 @@ namespace Riskeer.Common.Data.AssessmentSection
     /// <summary>
     /// All well known tile sources for which built-in support is provided.
     /// </summary>
-    public enum RingtoetsWellKnownTileSource
+    public enum RiskeerWellKnownTileSource
     {
         /// <summary>
         /// OpenStreetMap.

@@ -115,7 +115,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
 
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
-            var mapDataTileSource = (RingtoetsWellKnownTileSource) mapData.TileSource;
+            var mapDataTileSource = (RiskeerWellKnownTileSource) mapData.TileSource;
             Assert.AreEqual(mapDataTileSource, configuration.WellKnownTileSource);
         }
 
@@ -178,7 +178,7 @@ namespace Riskeer.Common.Util.Test.TypeConverters
         public void ConvertFrom_BackgroundDataWithInvalidWellKnownTileSourceValue_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) 999));
+            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration((RiskeerWellKnownTileSource) 999));
 
             // Call
             TestDelegate call = () => BackgroundDataConverter.ConvertFrom(backgroundData);

@@ -632,7 +632,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(mapData.Transparency, backgroundData.Transparency);
 
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
-            var wellKnownTileSource = (RingtoetsWellKnownTileSource) mapData.TileSource;
+            var wellKnownTileSource = (RiskeerWellKnownTileSource) mapData.TileSource;
             Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
 

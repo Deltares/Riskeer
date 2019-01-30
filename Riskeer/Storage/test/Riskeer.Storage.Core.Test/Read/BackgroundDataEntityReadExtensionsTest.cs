@@ -116,7 +116,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
 
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RiskeerWellKnownTileSource>();
 
             var entity = new BackgroundDataEntity
             {

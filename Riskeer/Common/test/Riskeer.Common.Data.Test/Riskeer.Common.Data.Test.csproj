@@ -30,8 +30,8 @@
     <Compile Include="AssessmentSection\BackgroundDataTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMetaTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
-    <Compile Include="AssessmentSection\RingtoetsWellKnownTileSourceExtensionTest.cs" />
-    <Compile Include="AssessmentSection\RingtoetsWellKnownTileSourceTest.cs" />
+    <Compile Include="AssessmentSection\RiskeerWellKnownTileSourceExtensionTest.cs" />
+    <Compile Include="AssessmentSection\RiskeerWellKnownTileSourceTest.cs" />
     <Compile Include="AssessmentSection\WellKnownBackgroundDataConfigurationTest.cs" />
     <Compile Include="AssessmentSection\WMTSBackgroundDataConfigurationTest.cs" />
     <Compile Include="CommentTest.cs" />

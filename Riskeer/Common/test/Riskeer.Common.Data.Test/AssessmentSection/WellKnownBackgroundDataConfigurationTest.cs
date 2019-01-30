@@ -34,7 +34,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RiskeerWellKnownTileSource>();
 
             // Call
             var configuration = new WellKnownBackgroundDataConfiguration(wellKnownTileSource);

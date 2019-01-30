@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Data
     public sealed class AssessmentSection : Observable, IAssessmentSection
     {
         private const double defaultNorm = 1.0 / 30000;
-        private const RingtoetsWellKnownTileSource defaultWellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
+        private const RiskeerWellKnownTileSource defaultWellKnownTileSource = RiskeerWellKnownTileSource.BingAerial;
 
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();

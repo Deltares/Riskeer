@@ -243,7 +243,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.IsInstanceOf<WellKnownTileSourceMapData>(imageBasedMapData);
 
                 var wellKnownTileSourceMapData = (WellKnownTileSourceMapData) imageBasedMapData;
-                Assert.AreEqual(wellKnownBackgroundDataConfiguration.WellKnownTileSource, (RingtoetsWellKnownTileSource) wellKnownTileSourceMapData.TileSource);
+                Assert.AreEqual(wellKnownBackgroundDataConfiguration.WellKnownTileSource, (RiskeerWellKnownTileSource) wellKnownTileSourceMapData.TileSource);
                 Assert.IsTrue(wellKnownTileSourceMapData.IsConfigured);
 
                 return;

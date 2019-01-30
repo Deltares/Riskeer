@@ -28,8 +28,8 @@
     <Compile Include="AssessmentSection\IBackgroundDataConfiguration.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMeta.cs" />
-    <Compile Include="AssessmentSection\RingtoetsWellKnownTileSource.cs" />
-    <Compile Include="AssessmentSection\RingtoetsWellKnownTileSourceExtension.cs" />
+    <Compile Include="AssessmentSection\RiskeerWellKnownTileSource.cs" />
+    <Compile Include="AssessmentSection\RiskeerWellKnownTileSourceExtension.cs" />
     <Compile Include="AssessmentSection\WellKnownBackgroundDataConfiguration.cs" />
     <Compile Include="AssessmentSection\WmtsBackgroundDataConfiguration.cs" />
     <Compile Include="Calculation\ICalculatable.cs" />

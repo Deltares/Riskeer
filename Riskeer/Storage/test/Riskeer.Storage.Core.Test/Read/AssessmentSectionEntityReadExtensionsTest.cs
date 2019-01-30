@@ -132,7 +132,7 @@ namespace Riskeer.Storage.Core.Test.Read
             bool isVisible = random.NextBoolean();
             const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
 
-            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RiskeerWellKnownTileSource>();
             string wellKnownTileSourceValue = ((int) wellKnownTileSource).ToString();
 
             var backgroundDataMetaEntities = new[]

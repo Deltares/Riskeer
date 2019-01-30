@@ -28,15 +28,15 @@ using Riskeer.Common.Data.AssessmentSection;
 namespace Riskeer.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class RingtoetsWellKnownTileSourceExtensionTest
+    public class RiskeerWellKnownTileSourceExtensionTest
     {
         [Test]
-        [TestCaseSource(nameof(GetValidRingtoetsWellKnownTileSources))]
-        public void GetDisplayName_ValidEnum_ReturnsExpectedDislayName(RingtoetsWellKnownTileSource ringtoetsWellKnownTileSource,
+        [TestCaseSource(nameof(GetValidRiskeerWellKnownTileSources))]
+        public void GetDisplayName_ValidEnum_ReturnsExpectedDislayName(RiskeerWellKnownTileSource riskeerWellKnownTileSource,
                                                                        string expectedDisplayName)
         {
             // Call
-            string displayName = ringtoetsWellKnownTileSource.GetDisplayName();
+            string displayName = riskeerWellKnownTileSource.GetDisplayName();
 
             // Assert
             Assert.AreEqual(expectedDisplayName, displayName);
@@ -47,25 +47,25 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Setup
             const int invalidValue = 9999;
-            const RingtoetsWellKnownTileSource ringtoetsWellKnownTileSource = (RingtoetsWellKnownTileSource) invalidValue;
+            const RiskeerWellKnownTileSource wellKnownTileSource = (RiskeerWellKnownTileSource) invalidValue;
 
             // Call
-            TestDelegate call = () => ringtoetsWellKnownTileSource.GetDisplayName();
+            TestDelegate call = () => wellKnownTileSource.GetDisplayName();
 
             // Assert
-            string expectedMessage = $"The value of argument 'ringtoetsWellKnownTileSource' ({invalidValue}) is invalid for Enum type '{nameof(RingtoetsWellKnownTileSource)}'.";
+            string expectedMessage = $"The value of argument 'riskeerWellKnownTileSource' ({invalidValue}) is invalid for Enum type '{nameof(RiskeerWellKnownTileSource)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
-            Assert.AreEqual("ringtoetsWellKnownTileSource", parameterName);
+            Assert.AreEqual("riskeerWellKnownTileSource", parameterName);
         }
 
-        private static IEnumerable<TestCaseData> GetValidRingtoetsWellKnownTileSources()
+        private static IEnumerable<TestCaseData> GetValidRiskeerWellKnownTileSources()
         {
-            yield return new TestCaseData(RingtoetsWellKnownTileSource.OpenStreetMap, "OpenStreetMap");
-            yield return new TestCaseData(RingtoetsWellKnownTileSource.BingAerial, "Bing Maps - Satelliet");
-            yield return new TestCaseData(RingtoetsWellKnownTileSource.BingHybrid, "Bing Maps - Satelliet + Wegen");
-            yield return new TestCaseData(RingtoetsWellKnownTileSource.BingRoads, "Bing Maps - Wegen");
-            yield return new TestCaseData(RingtoetsWellKnownTileSource.EsriWorldTopo, "Esri World - Topografisch");
-            yield return new TestCaseData(RingtoetsWellKnownTileSource.EsriWorldShadedRelief, "Esri World - Reliëf");
+            yield return new TestCaseData(RiskeerWellKnownTileSource.OpenStreetMap, "OpenStreetMap");
+            yield return new TestCaseData(RiskeerWellKnownTileSource.BingAerial, "Bing Maps - Satelliet");
+            yield return new TestCaseData(RiskeerWellKnownTileSource.BingHybrid, "Bing Maps - Satelliet + Wegen");
+            yield return new TestCaseData(RiskeerWellKnownTileSource.BingRoads, "Bing Maps - Wegen");
+            yield return new TestCaseData(RiskeerWellKnownTileSource.EsriWorldTopo, "Esri World - Topografisch");
+            yield return new TestCaseData(RiskeerWellKnownTileSource.EsriWorldShadedRelief, "Esri World - Reliëf");
         }
     }
 }

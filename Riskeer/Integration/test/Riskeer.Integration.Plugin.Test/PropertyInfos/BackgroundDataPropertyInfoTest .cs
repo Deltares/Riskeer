@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                     new BackgroundData(new TestBackgroundDataConfiguration()))
                 .SetName("Arbitrary BackgroundData Configuration");
             yield return new TestCaseData(
-                new BackgroundData(new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) wellKnownMapData.TileSource))
+                new BackgroundData(new WellKnownBackgroundDataConfiguration((RiskeerWellKnownTileSource) wellKnownMapData.TileSource))
                 {
                     Name = wellKnownMapData.Name
                 }).SetName("WellKnown BingRoads BackgroundData");

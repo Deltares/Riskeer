@@ -27,7 +27,7 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.Contribution
 {
     /// <summary>
-    /// This class represents a failure mechanism which has no representative within Ringtoets but 
+    /// This class represents a failure mechanism which has no representative within Riskeer, but 
     /// contributes to the overall verdict nonetheless.
     /// </summary>
     public class OtherFailureMechanism : FailureMechanismBase

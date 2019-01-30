@@ -136,7 +136,7 @@ namespace Riskeer.Common.Util.TypeConverters
 
         private static WellKnownBackgroundDataConfiguration CreateWellKnownBackgroundDataConfiguration(WellKnownTileSourceMapData mapData)
         {
-            return new WellKnownBackgroundDataConfiguration((RingtoetsWellKnownTileSource) mapData.TileSource);
+            return new WellKnownBackgroundDataConfiguration((RiskeerWellKnownTileSource) mapData.TileSource);
         }
 
         private static WmtsBackgroundDataConfiguration CreateWmtsBackgroundDataConfiguration(WmtsMapData mapData)

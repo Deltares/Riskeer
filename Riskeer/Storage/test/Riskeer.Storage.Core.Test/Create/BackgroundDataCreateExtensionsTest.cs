@@ -141,7 +141,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
+            var wellKnownTileSource = random.NextEnumValue<RiskeerWellKnownTileSource>();
 
             const string name = "background";
             const bool isVisible = true;
