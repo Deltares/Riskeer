@@ -35,7 +35,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Demo.Riskeer.GUIs
 {
     /// <summary>
-    /// UI plug-in that provides access to the demo projects for Ringtoets.
+    /// UI plug-in that provides access to the demo projects for Riskeer.
     /// </summary>
     public class DemoProjectPlugin : PluginBase
     {
