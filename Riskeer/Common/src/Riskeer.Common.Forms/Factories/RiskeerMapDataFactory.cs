@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Factories
     /// <summary>
     /// Factory for creating <see cref="FeatureBasedMapData"/> for data used as input in the assessment section.
     /// </summary>
-    public static class RingtoetsMapDataFactory
+    public static class RiskeerMapDataFactory
     {
         private const int thinLineWidth = 2;
         private const int thickLineWidth = 3;

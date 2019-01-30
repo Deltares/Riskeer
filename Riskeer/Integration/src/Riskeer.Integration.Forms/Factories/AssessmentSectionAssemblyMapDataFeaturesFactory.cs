@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Factories
                 IEnumerable<Point2D> geometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(assessmentSection.ReferenceLine,
                                                                                                                  assemblyResult.SectionStart,
                                                                                                                  assemblyResult.SectionEnd);
-                MapFeature mapFeature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
+                MapFeature mapFeature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
                 mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyCategory_Group_DisplayName] =
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(

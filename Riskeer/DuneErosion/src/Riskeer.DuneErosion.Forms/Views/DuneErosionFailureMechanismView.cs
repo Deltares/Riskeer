@@ -174,13 +174,13 @@ namespace Riskeer.DuneErosion.Forms.Views
         private void CreateMapData()
         {
             mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            duneLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
+            duneLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
             tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
@@ -231,7 +231,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void SetReferenceLineMapData()
         {
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
+            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
                                                                                                         AssessmentSection.Id,
                                                                                                         AssessmentSection.Name);
         }
@@ -253,9 +253,9 @@ namespace Riskeer.DuneErosion.Forms.Views
         private void SetFailureMechanismMapData()
         {
             IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion

@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.ExportInfos
     /// <summary>
     /// Factory for creating standard <see cref="ExportInfo"/> objects. 
     /// </summary>
-    public static class RingtoetsExportInfoFactory
+    public static class RiskeerExportInfoFactory
     {
         /// <summary>
         /// Creates a <see cref="ExportInfo"/> object for a calculation group configuration

@@ -35,7 +35,7 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.Test.ImportInfos
 {
     [TestFixture]
-    public class RingtoetsImportInfoFactoryTest
+    public class RiskeerImportInfoFactoryTest
     {
         [Test]
         public void CreateCalculationConfigurationImportInfo_WithArguments_ExpectedPropertiesSet()
@@ -48,15 +48,15 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
             Func<ICalculationContext<CalculationGroup, IFailureMechanism>, string, IFileImporter> createFileImporter = (context, s) => fileImporter;
 
             // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo = RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo(createFileImporter);
+            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo = RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo(createFileImporter);
 
             // Assert
             Assert.AreSame(createFileImporter, importInfo.CreateFileImporter);
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie", importInfo.Name);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", importInfo.Name);
             Assert.AreEqual("Algemeen", importInfo.Category);
 
             FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
 
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, importInfo.Image);
             Assert.IsTrue(importInfo.IsEnabled(null));

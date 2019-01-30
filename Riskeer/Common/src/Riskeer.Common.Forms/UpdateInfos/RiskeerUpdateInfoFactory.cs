@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.UpdateInfos
     /// <summary>
     /// Factory for creating standard <see cref="UpdateInfo"/> objects. 
     /// </summary>
-    public static class RingtoetsUpdateInfoFactory
+    public static class RiskeerUpdateInfoFactory
     {
         /// <summary>
         /// Creates a <see cref="UpdateInfo"/> object for a <see cref="TSectionContext"/>.
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.UpdateInfos
             return new UpdateInfo<TSectionContext>
             {
                 Name = Resources.FailureMechanismSections_DisplayName,
-                Category = Resources.Ringtoets_Category,
+                Category = Resources.Riskeer_Category,
                 Image = Resources.SectionsIcon,
                 FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                               RiskeerCommonIOResources.Shape_file_filter_Description),

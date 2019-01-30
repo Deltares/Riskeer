@@ -77,8 +77,8 @@ namespace Riskeer.Integration.Forms.Views
 
             var mapDataCollection = new MapDataCollection(Resources.AssemblyResultPerSectionMapView_DisplayName);
             assemblyResultsMapData = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
+            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetReferenceLineMapData()
         {
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
+            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
                                                                                                         AssessmentSection.Id,
                                                                                                         AssessmentSection.Name);
         }
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetHydraulicBoundaryLocationsMapData()
         {
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
+            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
         }
 
         #endregion

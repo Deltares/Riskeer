@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ringtoets_Category" xml:space="preserve">
+  <data name="Riskeer_Category" xml:space="preserve">
     <value>Algemeen</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -958,7 +958,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>xml</value>
   </data>
   <data name="DataTypeDisplayName_xml_file_filter_Description" xml:space="preserve">
-    <value>Ringtoets berekeningenconfiguratie</value>
+    <value>Riskeer berekeningenconfiguratie</value>
   </data>
   <data name="CalculationConfigurationExporter_DisplayName" xml:space="preserve">
     <value>Ringtoets berekeningenconfiguratie</value>
@@ -1063,10 +1063,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="IllustrationPoint_WindDirection_DisplayName" xml:space="preserve">
     <value>Windrichting</value>
   </data>
-  <data name="RingtoetsStackChartDataFactory_RemainingRow_DisplayName" xml:space="preserve">
+  <data name="RiskeerStackChartDataFactory_RemainingRow_DisplayName" xml:space="preserve">
     <value>Overig</value>
   </data>
-  <data name="RingtoetsStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1" xml:space="preserve">
+  <data name="RiskeerStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
   <data name="Categories_OutputSettings" xml:space="preserve">

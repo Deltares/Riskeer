@@ -36,13 +36,13 @@ using Riskeer.Common.Forms.Helpers;
 namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
-    public class RingtoetsGraphNodeFactoryTest
+    public class RiskeerGraphNodeFactoryTest
     {
         [Test]
         public void CreateGraphNode_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(null, Enumerable.Empty<GraphNode>());
+            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(null, Enumerable.Empty<GraphNode>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                 Enumerable.Empty<IllustrationPointResult>());
 
             // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
+            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                 Enumerable.Empty<IllustrationPointResult>());
 
             // Call
-            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
+            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
             {
                 CreateTestGraphNode()
             });
@@ -104,7 +104,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                 random.NextEnumValue<CombinationType>());
 
             // Call
-            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint,
+            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
                                                                             Enumerable.Empty<GraphNode>());
 
             // Assert
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint,
+            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
                                                                             childGraphNodes);
 
             // Assert
@@ -160,7 +160,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             var illustrationPoint = new TestFaultTreeIllustrationPoint();
 
             // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
+            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -174,7 +174,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             var illustrationPoint = new TestIllustrationPoint();
 
             // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
+            TestDelegate test = () => RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
             {
                 CreateTestGraphNode()
             });

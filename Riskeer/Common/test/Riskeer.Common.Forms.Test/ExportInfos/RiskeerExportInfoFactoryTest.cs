@@ -35,7 +35,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.Common.Forms.Test.ExportInfos
 {
     [TestFixture]
-    public class RingtoetsExportInfoFactoryTest
+    public class RiskeerExportInfoFactoryTest
     {
         [Test]
         public void CreateCalculationConfigurationExportInfo_WithArguments_ExpectedPropertiesSet()
@@ -49,15 +49,15 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
 
             // Call
             ExportInfo<ICalculationContext<ICalculation, IFailureMechanism>> exportInfo =
-                RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo(createFileExporter);
+                RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo(createFileExporter);
 
             // Assert
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie", exportInfo.Name);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
 
             TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
             Assert.IsTrue(exportInfo.IsEnabled(null));
@@ -78,16 +78,16 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
 
             // Call
             ExportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> exportInfo =
-                RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo(createFileExporter, isEnabled);
+                RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo(createFileExporter, isEnabled);
 
             // Assert
             Assert.AreSame(isEnabled, exportInfo.IsEnabled);
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie", exportInfo.Name);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
 
             TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
         }

@@ -34,13 +34,13 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
-    public class RingtoetsStackChartDataFactoryTest
+    public class RiskeerStackChartDataFactoryTest
     {
         [Test]
         public void Create_Always_ReturnStackChartData()
         {
             // Call
-            StackChartData stackChartData = RingtoetsStackChartDataFactory.Create();
+            StackChartData stackChartData = RiskeerStackChartDataFactory.Create();
 
             // Assert
             CollectionAssert.IsEmpty(stackChartData.Columns);
@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateColumns_IllustrationPointControlItemsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(null, new StackChartData());
+            TestDelegate test = () => RiskeerStackChartDataFactory.CreateColumns(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateColumns_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(Enumerable.Empty<IllustrationPointControlItem>(), null);
+            TestDelegate test = () => RiskeerStackChartDataFactory.CreateColumns(Enumerable.Empty<IllustrationPointControlItem>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
+            RiskeerStackChartDataFactory.CreateColumns(controlItems, stackChartData);
 
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
@@ -125,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
+            RiskeerStackChartDataFactory.CreateColumns(controlItems, stackChartData);
 
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
+            RiskeerStackChartDataFactory.CreateColumns(controlItems, stackChartData);
 
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateRows_IllustrationPointControlItemsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(null, new StackChartData());
+            TestDelegate test = () => RiskeerStackChartDataFactory.CreateRows(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -187,7 +187,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateRows_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(Enumerable.Empty<IllustrationPointControlItem>(), null);
+            TestDelegate test = () => RiskeerStackChartDataFactory.CreateRows(Enumerable.Empty<IllustrationPointControlItem>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -240,10 +240,10 @@ namespace Riskeer.Common.Forms.Test.Factories
                                                  }, beta)
             };
 
-            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
+            RiskeerStackChartDataFactory.CreateColumns(controlItems, stackChartData);
 
             // Call
-            RingtoetsStackChartDataFactory.CreateRows(controlItems, stackChartData);
+            RiskeerStackChartDataFactory.CreateRows(controlItems, stackChartData);
 
             // Assert
             RowChartData[] rows = stackChartData.Rows.ToArray();

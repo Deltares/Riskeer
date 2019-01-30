@@ -117,7 +117,7 @@ namespace Riskeer.Piping.Plugin
             yield return new ImportInfo<PipingSurfaceLinesContext>
             {
                 Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = PipingSurfaceLineFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -132,7 +132,7 @@ namespace Riskeer.Piping.Plugin
             yield return new ImportInfo<PipingStochasticSoilModelCollectionContext>
             {
                 Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -145,7 +145,7 @@ namespace Riskeer.Piping.Plugin
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<PipingCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<PipingCalculationGroupContext>(
                 (context, filePath) =>
                     new PipingCalculationConfigurationImporter(
                         filePath,
@@ -156,11 +156,11 @@ namespace Riskeer.Piping.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<PipingCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<PipingCalculationGroupContext>(
                 (context, filePath) => new PipingCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<PipingCalculationScenarioContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<PipingCalculationScenarioContext>(
                 (context, filePath) => new PipingCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -172,7 +172,7 @@ namespace Riskeer.Piping.Plugin
             yield return new UpdateInfo<PipingSurfaceLinesContext>
             {
                 Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = PipingSurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -188,7 +188,7 @@ namespace Riskeer.Piping.Plugin
             yield return new UpdateInfo<PipingStochasticSoilModelCollectionContext>
             {
                 Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -202,7 +202,7 @@ namespace Riskeer.Piping.Plugin
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 PipingFailureMechanismSectionsContext, PipingFailureMechanism, PipingFailureMechanismSectionResult>(
                 new PipingFailureMechanismSectionResultUpdateStrategy());
         }

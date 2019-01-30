@@ -30,7 +30,7 @@ namespace Riskeer.Common.Forms.Factories
     /// <summary>
     /// Factory for creating <see cref="ChartData"/> based on information used as input.
     /// </summary>
-    public static class RingtoetsChartDataFactory
+    public static class RiskeerChartDataFactory
     {
         /// <summary>
         /// Create <see cref="ChartLineData"/> with default styling for a foreshore geometry.

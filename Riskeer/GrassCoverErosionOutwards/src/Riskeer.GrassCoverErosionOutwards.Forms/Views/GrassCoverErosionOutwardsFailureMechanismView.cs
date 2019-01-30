@@ -167,15 +167,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         private void CreateMapData()
         {
             mapDataCollection = new MapDataCollection(GrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsFailureMechanism_DisplayName);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
-            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
+            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
+            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            foreshoreProfilesMapData = RiskeerMapDataFactory.CreateForeshoreProfileMapData();
+            calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
 
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
             tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
@@ -347,7 +347,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         private void SetReferenceLineMapData()
         {
             ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
+            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
         }
 
         #endregion
@@ -368,9 +368,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         {
             IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
 
-            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion
@@ -386,7 +386,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         private void SetForeshoreProfilesMapData()
         {
             IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
-            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
+            foreshoreProfilesMapData.Features = RiskeerMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
         }
 
         #endregion

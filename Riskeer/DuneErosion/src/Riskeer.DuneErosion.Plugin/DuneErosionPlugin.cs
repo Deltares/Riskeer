@@ -188,7 +188,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 DuneErosionFailureMechanismSectionsContext, DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
                 new DuneErosionFailureMechanismSectionResultUpdateStrategy());
         }

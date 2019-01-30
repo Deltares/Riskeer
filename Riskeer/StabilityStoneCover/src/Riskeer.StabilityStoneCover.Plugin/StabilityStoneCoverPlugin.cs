@@ -182,7 +182,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
                     new AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
                         filePath,
@@ -217,11 +217,11 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
                 (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -230,7 +230,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
                 new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
         }

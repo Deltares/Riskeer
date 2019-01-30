@@ -48,8 +48,8 @@
     <Compile Include="Factories\AssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\AssemblyMapDataFactory.cs" />
     <Compile Include="Factories\MapThemeFactory.cs" />
-    <Compile Include="Factories\RingtoetsGraphNodeFactory.cs" />
-    <Compile Include="Factories\RingtoetsStackChartDataFactory.cs" />
+    <Compile Include="Factories\RiskeerGraphNodeFactory.cs" />
+    <Compile Include="Factories\RiskeerStackChartDataFactory.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="Helpers\AssemblyCategoryGroupColorHelper.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
     <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
-    <Compile Include="ImportInfos\RingtoetsImportInfoFactory.cs" />
+    <Compile Include="ImportInfos\RiskeerImportInfoFactory.cs" />
     <Compile Include="IScenarioRow.cs" />
     <Compile Include="Observers\FailureMechanismResultObserver.cs" />
     <Compile Include="Observers\CalculatableFailureMechanismResultObserver.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="PropertyClasses\UseForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
-    <Compile Include="ExportInfos\RingtoetsExportInfoFactory.cs" />
+    <Compile Include="ExportInfos\RiskeerExportInfoFactory.cs" />
     <Compile Include="PropertyClasses\TopLevelSubMechanismIllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\WaveHeightCalculationProperties.cs" />
     <Compile Include="PropertyClasses\WaveHeightCalculationsProperties.cs" />
@@ -175,7 +175,7 @@
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
-    <Compile Include="UpdateInfos\RingtoetsUpdateInfoFactory.cs" />
+    <Compile Include="UpdateInfos\RiskeerUpdateInfoFactory.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
     <Compile Include="Views\CloseForFailureMechanismView.cs">
       <SubType>UserControl</SubType>
@@ -235,14 +235,14 @@
       <DependentUpon>HydraulicBoundaryCalculationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelper.cs" />
-    <Compile Include="Factories\RingtoetsChartDataFactory.cs" />
+    <Compile Include="Factories\RiskeerChartDataFactory.cs" />
     <Compile Include="Views\RingtoetsMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\RingtoetsMapControl.Designer.cs">
       <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Factories\RingtoetsMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\RiskeerMapDataFeaturesFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
@@ -260,7 +260,7 @@
     <Compile Include="Views\FailureMechanismResultView.Designer.cs">
       <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Factories\RingtoetsMapDataFactory.cs" />
+    <Compile Include="Factories\RiskeerMapDataFactory.cs" />
     <Compile Include="Views\SelectableRow.cs" />
     <Compile Include="Views\GeneralResultFaultTreeIllustrationPointView.cs">
       <SubType>UserControl</SubType>

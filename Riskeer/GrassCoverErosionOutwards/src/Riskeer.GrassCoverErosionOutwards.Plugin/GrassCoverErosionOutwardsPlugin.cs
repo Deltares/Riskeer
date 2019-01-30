@@ -132,7 +132,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
                     new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(
                         filePath,
@@ -368,11 +368,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                               RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                 (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -381,7 +381,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
                 new GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy());
         }

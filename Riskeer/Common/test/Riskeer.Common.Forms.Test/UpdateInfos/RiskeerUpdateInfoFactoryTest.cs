@@ -37,13 +37,13 @@ using Riskeer.Common.IO.FileImporters;
 namespace Riskeer.Common.Forms.Test.UpdateInfos
 {
     [TestFixture]
-    public class RingtoetsUpdateInfoFactoryTest
+    public class RiskeerUpdateInfoFactoryTest
     {
         [Test]
         public void CreateFailureMechanismSectionsUpdateInfo_SectionResultUpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            TestDelegate call = () => RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(null);
 
             // Assert
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             mocks.ReplayAll();
 
             // Call
-            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
 
             // Assert
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             mocks.ReplayAll();
 
             // Call
-            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
 
             // Assert
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             mocks.ReplayAll();
 
             // Call
-            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
 
             // Assert
@@ -133,7 +133,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             mocks.ReplayAll();
 
             // Call
-            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
 
             // Assert
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             mocks.ReplayAll();
 
             // Call
-            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
 
             // Assert
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
             mocks.ReplayAll();
 
             // Call
-            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
 
             // Assert

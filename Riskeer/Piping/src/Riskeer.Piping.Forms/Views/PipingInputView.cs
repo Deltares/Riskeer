@@ -71,14 +71,14 @@ namespace Riskeer.Piping.Forms.Views
             calculationInputObserver = new Observer(UpdateViewData);
 
             chartDataCollection = new ChartDataCollection(RiskeerCommonFormsResources.Calculation_Input);
-            soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
-            surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
-            ditchPolderSideChartData = RingtoetsChartDataFactory.CreateDitchPolderSideChartData();
-            bottomDitchPolderSideChartData = RingtoetsChartDataFactory.CreateBottomDitchPolderSideChartData();
-            bottomDitchDikeSideChartData = RingtoetsChartDataFactory.CreateBottomDitchDikeSideChartData();
-            ditchDikeSideChartData = RingtoetsChartDataFactory.CreateDitchDikeSideChartData();
-            dikeToeAtPolderChartData = RingtoetsChartDataFactory.CreateDikeToeAtPolderChartData();
-            dikeToeAtRiverChartData = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
+            soilProfileChartData = RiskeerChartDataFactory.CreateSoilProfileChartData();
+            surfaceLineChartData = RiskeerChartDataFactory.CreateSurfaceLineChartData();
+            ditchPolderSideChartData = RiskeerChartDataFactory.CreateDitchPolderSideChartData();
+            bottomDitchPolderSideChartData = RiskeerChartDataFactory.CreateBottomDitchPolderSideChartData();
+            bottomDitchDikeSideChartData = RiskeerChartDataFactory.CreateBottomDitchDikeSideChartData();
+            ditchDikeSideChartData = RiskeerChartDataFactory.CreateDitchDikeSideChartData();
+            dikeToeAtPolderChartData = RiskeerChartDataFactory.CreateDikeToeAtPolderChartData();
+            dikeToeAtRiverChartData = RiskeerChartDataFactory.CreateDikeToeAtRiverChartData();
             exitPointChartData = PipingChartDataFactory.CreateExitPointChartData();
             entryPointChartData = PipingChartDataFactory.CreateEntryPointChartData();
 

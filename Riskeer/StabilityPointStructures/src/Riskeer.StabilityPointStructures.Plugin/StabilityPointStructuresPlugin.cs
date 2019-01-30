@@ -207,7 +207,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                     new ImportMessageProvider(),
                     new StabilityPointStructureReplaceStrategy(context.FailureMechanism)),
                 Name = RiskeerCommonFormsResources.StructuresImporter_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateStabilityPointStructureFileFilter(),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
@@ -216,7 +216,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                     RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityPointStructuresCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityPointStructuresCalculationGroupContext>(
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
@@ -228,11 +228,11 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityPointStructuresCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityPointStructuresCalculationGroupContext>(
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityPointStructuresCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityPointStructuresCalculationContext>(
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -249,7 +249,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                     new UpdateMessageProvider(),
                     new StabilityPointStructureUpdateDataStrategy(context.FailureMechanism)),
                 Name = RiskeerCommonDataResources.StructureCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateStabilityPointStructureFileFilter(),
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -259,7 +259,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                     RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 StabilityPointStructuresFailureMechanismSectionsContext, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResult>(
                 new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy());
         }

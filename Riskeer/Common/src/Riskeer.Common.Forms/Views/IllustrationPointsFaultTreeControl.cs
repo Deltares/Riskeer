@@ -92,7 +92,7 @@ namespace Riskeer.Common.Forms.Views
         {
             GraphNode[] childNodes = node.Children.Select(RegisterNode).ToArray();
 
-            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(node.Data, childNodes);
+            GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(node.Data, childNodes);
             drawnNodes.Add(new DrawnIllustrationPointNode
             {
                 IllustrationPointNode = node,

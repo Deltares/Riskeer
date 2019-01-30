@@ -28,13 +28,13 @@ using Riskeer.Common.Forms.Factories;
 namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
-    public class RingtoetsChartDataFactoryTest
+    public class RiskeerChartDataFactoryTest
     {
         [Test]
         public void CreateForeshoreGeometryChartData_ReturnsChartDataWithExpectedStyling()
         {
             // Call
-            ChartLineData data = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
+            ChartLineData data = RiskeerChartDataFactory.CreateForeshoreGeometryChartData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Points);
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateSurfaceLineChartData_ReturnsChartLineDataWithExpectedStyling()
         {
             // Call
-            ChartLineData data = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
+            ChartLineData data = RiskeerChartDataFactory.CreateSurfaceLineChartData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Points);
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateSoilProfileChartData_ReturnsEmptyChartDataCollection()
         {
             // Call
-            ChartDataCollection data = RingtoetsChartDataFactory.CreateSoilProfileChartData();
+            ChartDataCollection data = RiskeerChartDataFactory.CreateSoilProfileChartData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Collection);
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateDitchPolderSideChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call
-            ChartPointData data = RingtoetsChartDataFactory.CreateDitchPolderSideChartData();
+            ChartPointData data = RiskeerChartDataFactory.CreateDitchPolderSideChartData();
 
             // Assert
             Assert.IsFalse(data.HasData);
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateBottomDitchPolderSideChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call
-            ChartPointData data = RingtoetsChartDataFactory.CreateBottomDitchPolderSideChartData();
+            ChartPointData data = RiskeerChartDataFactory.CreateBottomDitchPolderSideChartData();
 
             // Assert
             Assert.IsFalse(data.HasData);
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateBottomDitchDikeSideChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call
-            ChartPointData data = RingtoetsChartDataFactory.CreateBottomDitchDikeSideChartData();
+            ChartPointData data = RiskeerChartDataFactory.CreateBottomDitchDikeSideChartData();
 
             // Assert
             Assert.IsFalse(data.HasData);
@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateDitchDikeSideChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call
-            ChartPointData data = RingtoetsChartDataFactory.CreateDitchDikeSideChartData();
+            ChartPointData data = RiskeerChartDataFactory.CreateDitchDikeSideChartData();
 
             // Assert
             Assert.IsFalse(data.HasData);
@@ -117,7 +117,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateDikeToeAtPolderChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call
-            ChartPointData data = RingtoetsChartDataFactory.CreateDikeToeAtPolderChartData();
+            ChartPointData data = RiskeerChartDataFactory.CreateDikeToeAtPolderChartData();
 
             // Assert
             Assert.IsFalse(data.HasData);
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateDikeToeAtRiverChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call
-            ChartPointData data = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
+            ChartPointData data = RiskeerChartDataFactory.CreateDikeToeAtRiverChartData();
 
             // Assert
             Assert.IsFalse(data.HasData);

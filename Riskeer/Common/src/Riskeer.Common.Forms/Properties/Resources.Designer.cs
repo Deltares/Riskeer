@@ -1101,7 +1101,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets berekeningenconfiguratie.
+        ///   Looks up a localized string similar to Riskeer berekeningenconfiguratie.
         /// </summary>
         public static string DataTypeDisplayName_xml_file_filter_Description {
             get {
@@ -2894,15 +2894,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string Ringtoets_Category {
-            get {
-                return ResourceManager.GetString("Ringtoets_Category", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kopie van {0}.
         /// </summary>
         public static string RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0 {
@@ -2922,20 +2913,29 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string Riskeer_Category {
+            get {
+                return ResourceManager.GetString("Riskeer_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
-        public static string RingtoetsStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1 {
+        public static string RiskeerStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1 {
             get {
-                return ResourceManager.GetString("RingtoetsStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1", resourceCulture);
+                return ResourceManager.GetString("RiskeerStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Overig.
         /// </summary>
-        public static string RingtoetsStackChartDataFactory_RemainingRow_DisplayName {
+        public static string RiskeerStackChartDataFactory_RemainingRow_DisplayName {
             get {
-                return ResourceManager.GetString("RingtoetsStackChartDataFactory_RemainingRow_DisplayName", resourceCulture);
+                return ResourceManager.GetString("RiskeerStackChartDataFactory_RemainingRow_DisplayName", resourceCulture);
             }
         }
         

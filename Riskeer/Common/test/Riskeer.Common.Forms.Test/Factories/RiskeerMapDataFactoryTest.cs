@@ -28,13 +28,13 @@ using Riskeer.Common.Forms.Factories;
 namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
-    public class RingtoetsMapDataFactoryTest
+    public class RiskeerMapDataFactoryTest
     {
         [Test]
         public void CreateReferenceLineMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = RingtoetsMapDataFactory.CreateReferenceLineMapData();
+            MapLineData data = RiskeerMapDataFactory.CreateReferenceLineMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionsMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+            MapLineData data = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionsStartPointMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
-            MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            MapPointData data = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionsEndPointMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
-            MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            MapPointData data = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationsMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
-            MapPointData data = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            MapPointData data = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateDikeProfileMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = RingtoetsMapDataFactory.CreateDikeProfileMapData();
+            MapLineData data = RiskeerMapDataFactory.CreateDikeProfileMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateForeshoreProfileMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
+            MapLineData data = RiskeerMapDataFactory.CreateForeshoreProfileMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateStructuresMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
-            MapPointData data = RingtoetsMapDataFactory.CreateStructuresMapData();
+            MapPointData data = RiskeerMapDataFactory.CreateStructuresMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateCalculationsMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = RingtoetsMapDataFactory.CreateCalculationsMapData();
+            MapLineData data = RiskeerMapDataFactory.CreateCalculationsMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -149,7 +149,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateSurfaceLinesMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
+            MapLineData data = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateStochasticSoilModelsMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
+            MapLineData data = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
@@ -175,7 +175,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateSectionsMapDataCollection_ReturnsEmptyMapDataCollectionWithExpectedName()
         {
             // Call
-            MapDataCollection data = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            MapDataCollection data = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
 
             // Assert
             CollectionAssert.IsEmpty(data.Collection);

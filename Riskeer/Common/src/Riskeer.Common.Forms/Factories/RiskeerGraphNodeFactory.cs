@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Factories
     /// <summary>
     /// Factory for creating <see cref="GraphNode"/>.
     /// </summary>
-    public static class RingtoetsGraphNodeFactory
+    public static class RiskeerGraphNodeFactory
     {
         private static readonly XmlWriterSettings xmlWriterSettings = new XmlWriterSettings
         {

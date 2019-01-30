@@ -54,12 +54,12 @@
     <Compile Include="Controls\AssemblyResultWithProbabilityControlTest.cs" />
     <Compile Include="Controls\FailureMechanismAssemblyControlTest.cs" />
     <Compile Include="Controls\FailureMechanismAssemblyCategoryGroupControlTest.cs" />
-    <Compile Include="ExportInfos\RingtoetsExportInfoFactoryTest.cs" />
+    <Compile Include="ExportInfos\RiskeerExportInfoFactoryTest.cs" />
     <Compile Include="Factories\AssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\MapThemeFactoryTest.cs" />
-    <Compile Include="Factories\RingtoetsGraphNodeFactoryTest.cs" />
+    <Compile Include="Factories\RiskeerGraphNodeFactoryTest.cs" />
     <Compile Include="Factories\AssemblyMapDataFactoryTest.cs" />
-    <Compile Include="Factories\RingtoetsStackChartDataFactoryTest.cs" />
+    <Compile Include="Factories\RiskeerStackChartDataFactoryTest.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\AssemblyCategoryGroupColorHelperTest.cs" />
     <Compile Include="Helpers\FailureMechanismSectionAssemblyCategoryGroupHelperTest.cs" />
@@ -68,7 +68,7 @@
     <Compile Include="Helpers\ObserverHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
-    <Compile Include="ImportInfos\RingtoetsImportInfoFactoryTest.cs" />
+    <Compile Include="ImportInfos\RiskeerImportInfoFactoryTest.cs" />
     <Compile Include="Observers\CalculatableFailureMechanismResultObserverTest.cs" />
     <Compile Include="Observers\FailureMechanismResultObserverTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />
@@ -157,7 +157,7 @@
     <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />
-    <Compile Include="UpdateInfos\RingtoetsUpdateInfoFactoryTest.cs" />
+    <Compile Include="UpdateInfos\RiskeerUpdateInfoFactoryTest.cs" />
     <Compile Include="Views\CalculatableRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelCalculationsViewTest.cs" />
     <Compile Include="Views\FailureMechanismSectionProbabilityAssessmentRowTest.cs" />
@@ -178,10 +178,10 @@
     <Compile Include="Views\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationCalculationRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryCalculationsViewTest.cs" />
-    <Compile Include="Factories\RingtoetsChartDataFactoryTest.cs" />
+    <Compile Include="Factories\RiskeerChartDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapControlTest.cs" />
-    <Compile Include="Factories\RingtoetsMapDataFactoryTest.cs" />
-    <Compile Include="Factories\RingtoetsMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Factories\RiskeerMapDataFactoryTest.cs" />
+    <Compile Include="Factories\RiskeerMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\SelectableRowTest.cs" />
     <Compile Include="Views\GeneralResultFaultTreeIllustrationPointViewTest.cs" />
     <Compile Include="Views\WaveHeightCalculationsViewTest.cs" />

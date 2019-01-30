@@ -150,7 +150,7 @@ namespace Riskeer.Revetment.Forms.Factories
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
         /// <param name="input">The <see cref="WaveConditionsInput"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="RingtoetsChartDataFactory.CreateForeshoreGeometryChartData"/>) when:
+        /// <remarks>A default name is set (the same as in <see cref="RiskeerChartDataFactory.CreateForeshoreGeometryChartData"/>) when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the foreshore profile in <paramref name="input"/> is <c>null</c>;</item>

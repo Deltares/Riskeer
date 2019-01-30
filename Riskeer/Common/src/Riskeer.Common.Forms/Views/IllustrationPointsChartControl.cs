@@ -41,7 +41,7 @@ namespace Riskeer.Common.Forms.Views
         {
             InitializeComponent();
 
-            chartData = RingtoetsStackChartDataFactory.Create();
+            chartData = RiskeerStackChartDataFactory.Create();
             stackChartControl.Data = chartData;
         }
 
@@ -74,8 +74,8 @@ namespace Riskeer.Common.Forms.Views
 
         private void SetChartData()
         {
-            RingtoetsStackChartDataFactory.CreateColumns(data, chartData);
-            RingtoetsStackChartDataFactory.CreateRows(data, chartData);
+            RiskeerStackChartDataFactory.CreateColumns(data, chartData);
+            RiskeerStackChartDataFactory.CreateRows(data, chartData);
         }
     }
 }

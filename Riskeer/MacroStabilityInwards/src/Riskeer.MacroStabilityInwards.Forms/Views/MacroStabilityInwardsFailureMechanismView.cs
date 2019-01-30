@@ -165,16 +165,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private void CreateMapData()
         {
             mapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            stochasticSoilModelsMapData = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
-            surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
-            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
+            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
+            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            stochasticSoilModelsMapData = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
+            surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
+            calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
 
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
             tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
@@ -333,7 +333,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void SetHydraulicBoundaryLocationsMapData()
         {
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
+            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
         }
 
         #endregion
@@ -349,7 +349,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private void SetReferenceLineMapData()
         {
             ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
+            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
         }
 
         #endregion
@@ -370,9 +370,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
 
-            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion

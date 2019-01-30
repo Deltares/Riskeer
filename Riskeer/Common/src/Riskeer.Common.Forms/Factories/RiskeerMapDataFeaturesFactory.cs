@@ -42,9 +42,9 @@ namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
-    /// (created via <see cref="RingtoetsMapDataFactory"/>).
+    /// (created via <see cref="RiskeerMapDataFactory"/>).
     /// </summary>
-    public static class RingtoetsMapDataFeaturesFactory
+    public static class RiskeerMapDataFeaturesFactory
     {
         /// <summary>
         /// Create a single <see cref="MapFeature"/> representing a single line.

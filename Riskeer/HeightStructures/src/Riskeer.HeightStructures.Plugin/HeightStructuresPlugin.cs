@@ -98,7 +98,7 @@ namespace Riskeer.HeightStructures.Plugin
             yield return new ImportInfo<HeightStructuresContext>
             {
                 Name = RiskeerCommonFormsResources.StructuresImporter_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.StructuresIcon,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
                 FileFilterGenerator = CreateHeightStructureFileFilter(),
@@ -110,7 +110,7 @@ namespace Riskeer.HeightStructures.Plugin
                         RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<HeightStructuresCalculationGroupContext>(
                 (context, filePath) => new HeightStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
@@ -125,7 +125,7 @@ namespace Riskeer.HeightStructures.Plugin
             yield return new UpdateInfo<HeightStructuresContext>
             {
                 Name = RiskeerCommonDataResources.StructureCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.StructuresIcon,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 FileFilterGenerator = CreateHeightStructureFileFilter(),
@@ -138,18 +138,18 @@ namespace Riskeer.HeightStructures.Plugin
                         RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResult>(
                 new HeightStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<HeightStructuresCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<HeightStructuresCalculationGroupContext>(
                 (context, filePath) => new HeightStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<HeightStructuresCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<HeightStructuresCalculationContext>(
                 (context, filePath) => new HeightStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData

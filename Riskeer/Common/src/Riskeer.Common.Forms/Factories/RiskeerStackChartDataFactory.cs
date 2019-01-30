@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Factories
     /// <summary>
     /// Factory for creating <see cref="StackChartData"/> based on information used as input.
     /// </summary>
-    public static class RingtoetsStackChartDataFactory
+    public static class RiskeerStackChartDataFactory
     {
         private const double minAlphaSquared = 0.01;
 
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Factories
 
                 if (showClosingSituation)
                 {
-                    columnName = string.Format(Resources.RingtoetsStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1,
+                    columnName = string.Format(Resources.RiskeerStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1,
                                                columnName,
                                                label.Item2);
                 }
@@ -166,7 +166,7 @@ namespace Riskeer.Common.Forms.Factories
 
             if (remainingStochasts.Any())
             {
-                stackChartData.AddRow(Resources.RingtoetsStackChartDataFactory_RemainingRow_DisplayName,
+                stackChartData.AddRow(Resources.RiskeerStackChartDataFactory_RemainingRow_DisplayName,
                                       GetValuesForRemainingRow(remainingStochasts),
                                       Color.Gray);
             }

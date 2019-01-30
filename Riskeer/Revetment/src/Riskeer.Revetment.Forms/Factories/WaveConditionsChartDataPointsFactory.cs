@@ -33,7 +33,7 @@ namespace Riskeer.Revetment.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="Point2D"/> to use in <see cref="ChartData"/>
-    /// (created via <see cref="RingtoetsChartDataFactory"/> and <see cref="WaveConditionsChartDataFactory"/>) .
+    /// (created via <see cref="RiskeerChartDataFactory"/> and <see cref="WaveConditionsChartDataFactory"/>) .
     /// </summary>
     internal static class WaveConditionsChartDataPointsFactory
     {

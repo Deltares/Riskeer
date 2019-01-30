@@ -100,7 +100,7 @@ namespace Riskeer.Revetment.Forms.Views
             hydraulicBoundaryLocationCalculationObserver.Observable = getHydraulicBoundaryLocationCalculationFunc();
 
             chartDataCollection = new ChartDataCollection(RiskeerCommonFormsResources.Calculation_Input);
-            foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
+            foreshoreChartData = RiskeerChartDataFactory.CreateForeshoreGeometryChartData();
             lowerBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);
             upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);
             lowerBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartData();

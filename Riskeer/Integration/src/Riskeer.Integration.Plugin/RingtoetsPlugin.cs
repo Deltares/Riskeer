@@ -733,7 +733,7 @@ namespace Riskeer.Integration.Plugin
             yield return new ImportInfo<ReferenceLineContext>
             {
                 Name = RiskeerCommonDataResources.ReferenceLine_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.ReferenceLineIcon,
                 FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                               RiskeerCommonIOResources.Shape_file_filter_Description),
@@ -745,7 +745,7 @@ namespace Riskeer.Integration.Plugin
             yield return new ImportInfo<FailureMechanismSectionsContext>
             {
                 Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.SectionsIcon,
                 FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                               RiskeerCommonIOResources.Shape_file_filter_Description),
@@ -767,7 +767,7 @@ namespace Riskeer.Integration.Plugin
                                                                                           context.WrappedData),
                                                   new ImportMessageProvider()),
                 Name = Resources.ForeshoreProfilesImporter_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => HasGeometry(context.ParentAssessmentSection.ReferenceLine),
@@ -778,7 +778,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = RiskeerCommonFormsResources.DatabaseIcon,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
                                                               Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
@@ -830,7 +830,7 @@ namespace Riskeer.Integration.Plugin
                                                   new ForeshoreProfileUpdateDataStrategy(context.ParentFailureMechanism, context.WrappedData),
                                                   new UpdateMessageProvider()),
                 Name = Resources.ForeshoreProfilesImporter_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 CurrentPath = context => context.WrappedData.SourcePath,
@@ -838,35 +838,35 @@ namespace Riskeer.Integration.Plugin
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 GrassCoverSlipOffInwardsFailureMechanismSectionsContext, GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
                 new GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy());
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 GrassCoverSlipOffOutwardsFailureMechanismSectionsContext, GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
                 new GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy());
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 MacroStabilityOutwardsFailureMechanismSectionsContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
                 new MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy());
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 MicrostabilityFailureMechanismSectionsContext, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
                 new MicrostabilityFailureMechanismSectionResultUpdateStrategy());
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 PipingStructureFailureMechanismSectionsContext, PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
                 new PipingStructureFailureMechanismSectionResultUpdateStrategy());
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext, StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
                 new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategy());
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 TechnicalInnovationFailureMechanismSectionsContext, TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>(
                 new TechnicalInnovationFailureMechanismSectionResultUpdateStrategy());
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>(
                 new WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
         }

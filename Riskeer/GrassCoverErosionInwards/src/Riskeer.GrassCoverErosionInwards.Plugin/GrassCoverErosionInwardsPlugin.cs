@@ -109,7 +109,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
                 (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
@@ -125,7 +125,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                                      new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(context.ParentFailureMechanism),
                                                                                      new ImportMessageProvider()),
                 Name = RiskeerCommonIOResources.DikeProfilesImporter_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.DikeProfile,
                 FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine.Points.Any(),
@@ -144,7 +144,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                                      new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(context.ParentFailureMechanism),
                                                                                      new UpdateMessageProvider()),
                 Name = RiskeerCommonIOResources.DikeProfilesImporter_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.DikeProfile,
                 FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
                 CurrentPath = context => context.WrappedData.SourcePath,
@@ -153,18 +153,18 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                           Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_with_DikeProfile_data_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 GrassCoverErosionInwardsFailureMechanismSectionsContext, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>(
                 new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
                 (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionInwardsCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionInwardsCalculationContext>(
                 (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData

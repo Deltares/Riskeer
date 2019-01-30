@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.ImportInfos
     /// <summary>
     /// Factory for creating standard <see cref="ImportInfo"/> objects. 
     /// </summary>
-    public static class RingtoetsImportInfoFactory
+    public static class RiskeerImportInfoFactory
     {
         /// <summary>
         /// Creates a <see cref="ImportInfo"/> object for a calculation configuration 
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.ImportInfos
             return new ImportInfo<TCalculationGroupContext>
             {
                 Name = Resources.DataTypeDisplayName_xml_file_filter_Description,
-                Category = Resources.Ringtoets_Category,
+                Category = Resources.Riskeer_Category,
                 Image = Resources.GeneralFolderIcon,
                 FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
                                                               Resources.DataTypeDisplayName_xml_file_filter_Description),

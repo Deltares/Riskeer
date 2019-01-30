@@ -209,7 +209,7 @@ namespace Riskeer.ClosingStructures.Plugin
                     new ImportMessageProvider(),
                     new ClosingStructureReplaceDataStrategy(context.FailureMechanism)),
                 Name = RiskeerCommonFormsResources.StructuresImporter_DisplayName,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateClosingStructureFileFilter(),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
@@ -218,7 +218,7 @@ namespace Riskeer.ClosingStructures.Plugin
                     RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<ClosingStructuresCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<ClosingStructuresCalculationGroupContext>(
                 (context, filePath) => new ClosingStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
@@ -238,7 +238,7 @@ namespace Riskeer.ClosingStructures.Plugin
                     new UpdateMessageProvider(),
                     new ClosingStructureUpdateDataStrategy(context.FailureMechanism)),
                 Name = RiskeerCommonDataResources.StructureCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateClosingStructureFileFilter(),
                 IsEnabled = c => c.FailureMechanism.ClosingStructures.SourcePath != null,
@@ -248,18 +248,18 @@ namespace Riskeer.ClosingStructures.Plugin
                     RiskeerCommonIOResources.VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 ClosingStructuresFailureMechanismSectionsContext, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismSectionResult>(
                 new ClosingStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<ClosingStructuresCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<ClosingStructuresCalculationGroupContext>(
                 (context, filePath) => new ClosingStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<ClosingStructuresCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<ClosingStructuresCalculationContext>(
                 (context, filePath) => new ClosingStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData

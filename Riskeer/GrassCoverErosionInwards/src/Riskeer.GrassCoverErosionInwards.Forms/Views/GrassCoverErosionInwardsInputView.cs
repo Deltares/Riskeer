@@ -58,7 +58,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             calculationInputObserver = new Observer(UpdateChartData);
 
             chartDataCollection = new ChartDataCollection(RiskeerCommonFormsResources.Calculation_Input);
-            foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
+            foreshoreChartData = RiskeerChartDataFactory.CreateForeshoreGeometryChartData();
             dikeGeometryChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
             dikeHeightChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 

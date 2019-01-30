@@ -37,7 +37,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 
-    /// to use in <see cref="FeatureBasedMapData"/> (created via <see cref="RingtoetsMapDataFactory"/>).
+    /// to use in <see cref="FeatureBasedMapData"/> (created via <see cref="RiskeerMapDataFactory"/>).
     /// </summary>
     internal static class DuneErosionMapDataFeaturesFactory
     {

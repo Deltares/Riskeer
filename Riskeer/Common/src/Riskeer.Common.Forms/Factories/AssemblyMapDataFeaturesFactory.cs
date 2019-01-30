@@ -99,7 +99,7 @@ namespace Riskeer.Common.Forms.Factories
         {
             foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
             {
-                MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
+                MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
 
                 FailureMechanismSectionAssembly assemblyResult;
                 try
@@ -128,7 +128,7 @@ namespace Riskeer.Common.Forms.Factories
         {
             foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
             {
-                MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
+                MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
 
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup;
                 try

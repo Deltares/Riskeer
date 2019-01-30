@@ -41,13 +41,13 @@ using Riskeer.Common.Forms.TestUtil;
 namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
-    public class RingtoetsMapDataFeaturesFactoryTest
+    public class RiskeerMapDataFeaturesFactoryTest
     {
         [Test]
         public void CreateSingleLineMapFeature_PointsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(null);
+            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(points);
+            MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(points);
 
             // Assert
             Assert.AreEqual(1, feature.MapGeometries.Count());
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateReferenceLineFeatures_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(null, string.Empty, string.Empty);
+            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(null, string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateReferenceLineFeatures_ReferenceLineWithEmptyGeometry_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(new ReferenceLine(), string.Empty, string.Empty);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(new ReferenceLine(), string.Empty, string.Empty);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             referenceLine.SetGeometry(points);
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, id, name);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, id, name);
 
             // Assert
             MapFeature mapFeature = features.Single();
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
+            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -140,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationFeatures_NoLocations_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
                 new AssessmentSectionStub());
 
             // Assert
@@ -161,7 +161,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             }, setOutput);
 
             // Call
-            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection).ToArray();
+            MapFeature[] features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection).ToArray();
 
             // Assert
             MapFeaturesTestHelper.AssertHydraulicBoundaryFeaturesData(assessmentSection, features);
@@ -171,7 +171,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionFeatures_SectionsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(null);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -181,7 +181,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionFeatures_NoSections_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(
                 Enumerable.Empty<FailureMechanismSection>());
 
             // Assert
@@ -213,7 +213,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(sections);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(sections);
 
             // Assert
             Assert.AreEqual(2, features.Count());
@@ -234,7 +234,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionStartPointFeatures_SectionsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(null);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -244,7 +244,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionStartPointFeatures_NoSections_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(Enumerable.Empty<FailureMechanismSection>());
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(Enumerable.Empty<FailureMechanismSection>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -271,7 +271,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(sections);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(sections);
 
             // Assert
             Assert.AreEqual(1, features.Count());
@@ -287,7 +287,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionEndPointFeatures_SectionsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(null);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -297,7 +297,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionEndPointFeatures_NoSections_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(Enumerable.Empty<FailureMechanismSection>());
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(Enumerable.Empty<FailureMechanismSection>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -324,7 +324,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(sections);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(sections);
 
             // Assert
             Assert.AreEqual(1, features.Count());
@@ -340,7 +340,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateStructuresFeatures_NullStructures_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(null);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateStructuresFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -353,7 +353,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             IEnumerable<StructureBase> structures = Enumerable.Empty<StructureBase>();
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateStructuresFeatures(structures);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -373,7 +373,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateStructuresFeatures(structures);
 
             // Assert
             Assert.AreEqual(2, features.Count());
@@ -393,7 +393,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateStructureCalculationsFeatures_NullLocations_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures<
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateStructureCalculationsFeatures<
                 SimpleStructuresInput, StructureBase>(null);
 
             // Assert
@@ -404,7 +404,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateStructureCalculationsFeatures_EmptyLocations_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateStructureCalculationsFeatures
                 <SimpleStructuresInput, StructureBase>(Enumerable.Empty<SimpleStructuresCalculation>());
 
             // Assert
@@ -440,7 +440,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateStructureCalculationsFeatures
                 <SimpleStructuresInput, StructureBase>(new[]
                 {
                     simpleStructuresCalculationA,
@@ -470,7 +470,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateCalculationsFeatures_NullLocations_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(null);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -480,7 +480,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateCalculationsFeatures_EmptyLocations_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(
                 new MapCalculationData[0]);
 
             // Assert
@@ -498,7 +498,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(new[]
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(new[]
             {
                 new MapCalculationData("calculationA", calculationLocationA, hydraulicBoundaryLocationA),
                 new MapCalculationData("calculationB", calculationLocationB, hydraulicBoundaryLocationB)
@@ -527,7 +527,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateDikeProfilesFeatures_NullDikeProfiles_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(null);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateDikeProfilesFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -537,7 +537,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateDikeProfilesFeatures_EmptyDikeProfiles_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateDikeProfilesFeatures(
                 Enumerable.Empty<DikeProfile>());
 
             // Assert
@@ -589,7 +589,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateDikeProfilesFeatures(dikeProfiles);
 
             // Assert
             Assert.AreEqual(2, features.Count());
@@ -622,7 +622,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateForeshoreProfilesFeatures_NullForeshoreProfiles_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(null);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -632,7 +632,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateForeshoreProfilesFeatures_EmptyForeshoreProfiles_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
@@ -682,7 +682,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
 
             // Assert
             Assert.AreEqual(2, features.Count());

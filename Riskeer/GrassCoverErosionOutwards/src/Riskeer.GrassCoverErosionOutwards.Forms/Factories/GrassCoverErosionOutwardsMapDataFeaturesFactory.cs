@@ -63,7 +63,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
                         calculation.InputParameters.ForeshoreProfile.WorldReferencePoint,
                         calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
-            return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
+            return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }
 
         /// <summary>

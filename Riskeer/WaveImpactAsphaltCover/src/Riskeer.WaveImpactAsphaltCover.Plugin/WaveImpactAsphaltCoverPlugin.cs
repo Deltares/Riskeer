@@ -124,7 +124,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
                     new AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
                         filePath,
@@ -219,11 +219,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                               RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
             };
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
                 (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -232,7 +232,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                 new WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
         }

@@ -115,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ImportInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
                 Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -130,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ImportInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
                 Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -143,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<MacroStabilityInwardsCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<MacroStabilityInwardsCalculationGroupContext>(
                 (context, filePath) =>
                     new MacroStabilityInwardsCalculationConfigurationImporter(
                         filePath,
@@ -154,11 +154,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<MacroStabilityInwardsCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<MacroStabilityInwardsCalculationGroupContext>(
                 (context, filePath) => new MacroStabilityInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
-            yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<MacroStabilityInwardsCalculationScenarioContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<MacroStabilityInwardsCalculationScenarioContext>(
                 (context, filePath) => new MacroStabilityInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -170,7 +170,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new UpdateInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
                 Name = RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -186,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new UpdateInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
                 Name = RiskeerCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                Category = RiskeerCommonFormsResources.Ringtoets_Category,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
@@ -203,7 +203,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                         Resources.MacroStabilityInwardsPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResult>(
                 new MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy());
         }

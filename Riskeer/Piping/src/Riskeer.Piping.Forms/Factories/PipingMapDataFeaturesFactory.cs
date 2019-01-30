@@ -35,7 +35,7 @@ namespace Riskeer.Piping.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
-    /// (created via <see cref="RingtoetsMapDataFactory"/>).
+    /// (created via <see cref="RiskeerMapDataFactory"/>).
     /// </summary>
     internal static class PipingMapDataFeaturesFactory
     {
@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.Factories
                 {
                     PipingSurfaceLine surfaceLine = surfaceLines.ElementAt(i);
 
-                    MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
+                    MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
                     feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = surfaceLine.Name;
 
                     features[i] = feature;
@@ -81,7 +81,7 @@ namespace Riskeer.Piping.Forms.Factories
                 {
                     PipingStochasticSoilModel stochasticSoilModel = stochasticSoilModels.ElementAt(i);
 
-                    MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
+                    MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
                     feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = stochasticSoilModel.Name;
 
                     features[i] = feature;
@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Forms.Factories
                         calculation.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint,
                         calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
-            return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
+            return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }
 
         private static IEnumerable<Point2D> GetWorldPoints(PipingSurfaceLine surfaceLine)
