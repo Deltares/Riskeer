@@ -878,7 +878,7 @@ namespace Riskeer.Integration.Plugin
         /// <returns>Sequence of child data.</returns>
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
         {
-            var project = viewData as RingtoetsProject;
+            var project = viewData as RiskeerProject;
             if (project != null)
             {
                 foreach (AssessmentSection item in project.AssessmentSections)
@@ -1130,7 +1130,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<RingtoetsProject>
+            yield return new TreeNodeInfo<RiskeerProject>
             {
                 Text = project => project.Name,
                 Image = project => GuiResources.ProjectIcon,
@@ -1295,7 +1295,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void VerifyHydraulicBoundaryDatabasePath(IProject project)
         {
-            var ringtoetsProject = project as RingtoetsProject;
+            var ringtoetsProject = project as RiskeerProject;
             if (ringtoetsProject == null)
             {
                 return;
@@ -1734,7 +1734,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
         {
-            var parentProject = (RingtoetsProject) parentNodeData;
+            var parentProject = (RiskeerProject) parentNodeData;
             var assessmentSection = (AssessmentSection) nodeData;
             parentProject.AssessmentSections.Remove(assessmentSection);
             parentProject.NotifyObservers();

@@ -91,14 +91,14 @@ namespace Riskeer.Integration.Plugin.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
                     plugin.Gui = gui;
                     gui.Run();
 
-                    var project = new RingtoetsProject
+                    var project = new RiskeerProject
                     {
                         AssessmentSections =
                         {
@@ -131,14 +131,14 @@ namespace Riskeer.Integration.Plugin.Test
             string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
             string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
                     plugin.Gui = gui;
                     gui.Run();
 
-                    var project = new RingtoetsProject
+                    var project = new RiskeerProject
                     {
                         AssessmentSections =
                         {
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                     const string nonExistingFile = "not_existing_file";
 
-                    var project = new RingtoetsProject
+                    var project = new RiskeerProject
                     {
                         AssessmentSections =
                         {
@@ -619,7 +619,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(Comment)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsProject)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RiskeerProject)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultTotalContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultPerSectionContext)));
@@ -658,7 +658,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetChildDataWithViewDefinitions_RingtoetsProjectWithChildren_ReturnChildren()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
             project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
             project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));

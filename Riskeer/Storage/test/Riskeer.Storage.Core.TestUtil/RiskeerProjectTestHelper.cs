@@ -66,15 +66,15 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Storage.Core.TestUtil
 {
     /// <summary>
-    /// This class can be used to create <see cref="RingtoetsProject"/> instances which have their properties set and can be used in tests.
+    /// This class can be used to create <see cref="RiskeerProject"/> instances which have their properties set and can be used in tests.
     /// </summary>
     public static class RiskeerProjectTestHelper
     {
         /// <summary>
-        /// Returns a new complete instance of <see cref="RingtoetsProject"/>.
+        /// Returns a new complete instance of <see cref="RiskeerProject"/>.
         /// </summary>
-        /// <returns>A new complete instance of <see cref="RingtoetsProject"/>.</returns>
-        public static RingtoetsProject GetFullTestProject()
+        /// <returns>A new complete instance of <see cref="RiskeerProject"/>.</returns>
+        public static RiskeerProject GetFullTestProject()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -194,7 +194,7 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
 
-            var fullTestProject = new RingtoetsProject
+            var fullTestProject = new RiskeerProject
             {
                 Name = "tempProjectFile",
                 Description = "description",

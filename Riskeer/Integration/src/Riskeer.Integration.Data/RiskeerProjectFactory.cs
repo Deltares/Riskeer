@@ -20,24 +20,14 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using NUnit.Framework;
 
-namespace Riskeer.Integration.Data.Test
+namespace Riskeer.Integration.Data
 {
-    [TestFixture]
-    public class RingtoetsProjectFactoryTest
+    public class RiskeerProjectFactory : IProjectFactory
     {
-        [Test]
-        public void CreateNewProject_ReturnsNewRingtoetsProject()
+        public IProject CreateNewProject()
         {
-            // Setup
-            var projectFactory = new RingtoetsProjectFactory();
-
-            // Call
-            IProject result = projectFactory.CreateNewProject();
-
-            // Assert
-            Assert.IsInstanceOf<RingtoetsProject>(result);
+            return new RiskeerProject();
         }
     }
 }

@@ -155,7 +155,7 @@ namespace Application.Riskeer
             };
             var mainWindow = new MainWindow();
             var projectMigrator = new ProjectMigrator(new DialogBasedInquiryHelper(mainWindow));
-            gui = new GuiCore(mainWindow, new StorageSqLite(), projectMigrator, new RingtoetsProjectFactory(), settings)
+            gui = new GuiCore(mainWindow, new StorageSqLite(), projectMigrator, new RiskeerProjectFactory(), settings)
             {
                 Plugins =
                 {

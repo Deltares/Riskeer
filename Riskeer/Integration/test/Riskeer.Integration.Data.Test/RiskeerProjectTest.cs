@@ -31,13 +31,13 @@ using Riskeer.Common.Data.AssessmentSection;
 namespace Riskeer.Integration.Data.Test
 {
     [TestFixture]
-    public class RingtoetsProjectTest
+    public class RiskeerProjectTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValue()
         {
             // Call
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             // Assert
             Assert.IsInstanceOf<IProject>(project);
@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Data.Test
             const string someName = "<Some name>";
 
             // Call
-            var project = new RingtoetsProject(someName);
+            var project = new RiskeerProject(someName);
 
             // Assert
             Assert.IsInstanceOf<IProject>(project);
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Data.Test
             const string nicerDescription = "Nicer description";
 
             // Call
-            var project = new RingtoetsProject
+            var project = new RiskeerProject
             {
                 Name = niceProjectName,
                 Description = nicerDescription
@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Data.Test
             observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             project.Attach(observer);
 
             // Call
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Data.Test
             observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             project.Attach(observer);
             project.NotifyObservers();
 
@@ -122,49 +122,49 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [TestFixture]
-        private class RingtoetsProjectEqualsTest : EqualsTestFixture<RingtoetsProject, DerivedRingtoetsProject>
+        private class RiskeerProjectEqualsTest : EqualsTestFixture<RiskeerProject, DerivedRiskeerProject>
         {
-            protected override RingtoetsProject CreateObject()
+            protected override RiskeerProject CreateObject()
             {
                 return CreateProject();
             }
 
-            protected override DerivedRingtoetsProject CreateDerivedObject()
+            protected override DerivedRiskeerProject CreateDerivedObject()
             {
-                return new DerivedRingtoetsProject(CreateProject());
+                return new DerivedRiskeerProject(CreateProject());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                RingtoetsProject baseProject = CreateProject();
+                RiskeerProject baseProject = CreateProject();
 
-                yield return new TestCaseData(new RingtoetsProject("Different name")
+                yield return new TestCaseData(new RiskeerProject("Different name")
                 {
                     Description = baseProject.Description
                 }).SetName("Name");
 
-                yield return new TestCaseData(new RingtoetsProject(baseProject.Name))
+                yield return new TestCaseData(new RiskeerProject(baseProject.Name))
                     .SetName("Description");
 
                 var random = new Random(21);
-                RingtoetsProject differentAssessmentSections = CreateProject();
+                RiskeerProject differentAssessmentSections = CreateProject();
                 differentAssessmentSections.AssessmentSections.Add(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
                 yield return new TestCaseData(differentAssessmentSections)
                     .SetName("AssessmentSections");
             }
 
-            private static RingtoetsProject CreateProject()
+            private static RiskeerProject CreateProject()
             {
-                return new RingtoetsProject("Some name")
+                return new RiskeerProject("Some name")
                 {
                     Description = "Some desctiption"
                 };
             }
         }
 
-        private class DerivedRingtoetsProject : RingtoetsProject
+        private class DerivedRiskeerProject : RiskeerProject
         {
-            public DerivedRingtoetsProject(RingtoetsProject project)
+            public DerivedRiskeerProject(RiskeerProject project)
             {
                 Name = project.Name;
                 Description = project.Description;

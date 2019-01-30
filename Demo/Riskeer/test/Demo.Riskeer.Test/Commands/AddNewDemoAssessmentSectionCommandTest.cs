@@ -79,7 +79,7 @@ namespace Demo.Riskeer.Test.Commands
         public void Execute_GuiIsProperlyInitialized_AddNewAssessmentSectionWithDemoDataToRootProject()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             var mocks = new MockRepository();
             var projectOwner = mocks.Stub<IProjectOwner>();

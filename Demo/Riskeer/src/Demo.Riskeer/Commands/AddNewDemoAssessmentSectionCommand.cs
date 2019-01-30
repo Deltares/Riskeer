@@ -79,7 +79,7 @@ namespace Demo.Riskeer.Commands
 
         public void Execute()
         {
-            var project = (RingtoetsProject) projectOwner.Project;
+            var project = (RiskeerProject) projectOwner.Project;
             project.AssessmentSections.Add(CreateNewDemoAssessmentSection());
             project.NotifyObservers();
         }

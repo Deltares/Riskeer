@@ -481,7 +481,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             project.AssessmentSections.Add(assessmentSection);
             project.Attach(observer);
 

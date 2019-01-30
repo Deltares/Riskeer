@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
@@ -219,7 +219,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
@@ -302,7 +302,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
@@ -337,7 +337,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
@@ -377,7 +377,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
@@ -417,7 +417,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
@@ -462,7 +462,7 @@ namespace Riskeer.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             var viewController = mockRepository.StrictMock<IDocumentViewController>();

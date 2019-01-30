@@ -248,7 +248,7 @@ namespace Riskeer.Storage.Core.TestUtil.Test
         {
             // Setup
             string validPath = TestHelper.GetScratchPadPath(nameof(CreateValidRingtoetsDatabase_ValidArguments_SavesProjectToFile));
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             var fileDisposeHelper = new FileDisposeHelper(validPath);
             try

@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             // Call
             TestDelegate test = () => project.Create(null);
@@ -50,7 +50,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             const string testdescription = "testDescription";
-            var project = new RingtoetsProject
+            var project = new RiskeerProject
             {
                 Description = testdescription
             };
@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             const string testdescription = "original description";
-            var project = new RingtoetsProject
+            var project = new RiskeerProject
             {
                 Description = testdescription
             };
@@ -87,7 +87,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_WithAssessmentSections_AddsSectionsToEntity()
         {
             // Setup
-            var project = new RingtoetsProject
+            var project = new RiskeerProject
             {
                 AssessmentSections =
                 {

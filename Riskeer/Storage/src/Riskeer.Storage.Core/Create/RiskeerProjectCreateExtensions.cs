@@ -27,18 +27,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="RingtoetsProject"/> related to creating database entities.
+    /// Extension methods for <see cref="RiskeerProject"/> related to creating database entities.
     /// </summary>
     internal static class RiskeerProjectCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="RingtoetsProject"/>.
+        /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="RiskeerProject"/>.
         /// </summary>
         /// <param name="project">The project to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="ProjectEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static ProjectEntity Create(this RingtoetsProject project, PersistenceRegistry registry)
+        internal static ProjectEntity Create(this RiskeerProject project, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Create
             return entity;
         }
 
-        private static void AddEntitiesForAssessmentSections(RingtoetsProject project, ProjectEntity entity, PersistenceRegistry registry)
+        private static void AddEntitiesForAssessmentSections(RiskeerProject project, ProjectEntity entity, PersistenceRegistry registry)
         {
             for (var index = 0; index < project.AssessmentSections.Count; index++)
             {

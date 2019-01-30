@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core
 
         public void StageProject(IProject project)
         {
-            var ringtoetsProject = project as RingtoetsProject;
+            var ringtoetsProject = project as RiskeerProject;
             if (ringtoetsProject == null)
             {
                 throw new ArgumentNullException(nameof(project));
@@ -115,7 +115,7 @@ namespace Riskeer.Storage.Core
             string connectionString = GetConnectionToExistingFile(databaseFilePath);
             try
             {
-                RingtoetsProject project;
+                RiskeerProject project;
                 using (var dbContext = new RiskeerEntities(connectionString))
                 {
                     ValidateDatabaseVersion(dbContext, databaseFilePath);
@@ -353,13 +353,13 @@ namespace Riskeer.Storage.Core
 
         private class StagedProject
         {
-            public StagedProject(RingtoetsProject projectModel, ProjectEntity projectEntity)
+            public StagedProject(RiskeerProject projectModel, ProjectEntity projectEntity)
             {
                 Model = projectModel;
                 Entity = projectEntity;
             }
 
-            public RingtoetsProject Model { get; }
+            public RiskeerProject Model { get; }
             public ProjectEntity Entity { get; }
         }
     }

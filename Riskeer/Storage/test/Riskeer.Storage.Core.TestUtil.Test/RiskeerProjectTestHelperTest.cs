@@ -61,7 +61,7 @@ namespace Riskeer.Storage.Core.TestUtil.Test
             const string expectedAssessmentSectionName = "assessmentSection";
 
             // Call
-            RingtoetsProject project = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject project = RiskeerProjectTestHelper.GetFullTestProject();
 
             // Assert
             Assert.AreEqual(expectedProjectName, project.Name);

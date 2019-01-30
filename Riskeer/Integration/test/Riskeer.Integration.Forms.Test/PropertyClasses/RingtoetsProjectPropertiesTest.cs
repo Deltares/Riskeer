@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Name_WithData_ReturnsName()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var properties = new RingtoetsProjectProperties
             {
                 Data = project
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Description_WithData_ReturnsDescription()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var properties = new RingtoetsProjectProperties
             {
                 Data = project
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var properties = new RingtoetsProjectProperties
             {
-                Data = new RingtoetsProject()
+                Data = new RiskeerProject()
             };
 
             // Call

@@ -27,18 +27,18 @@ using Core.Common.Base.Properties;
 
 namespace Riskeer.Integration.Data
 {
-    public class RingtoetsProject : Observable, IProject
+    public class RiskeerProject : Observable, IProject
     {
         /// <summary>
-        /// Constructs a new <see cref="RingtoetsProject"/>. 
+        /// Constructs a new <see cref="RiskeerProject"/>. 
         /// </summary>
-        public RingtoetsProject() : this(Resources.Project_Constructor_Default_name) {}
+        public RiskeerProject() : this(Resources.Project_Constructor_Default_name) {}
 
         /// <summary>
-        /// Constructs a new <see cref="RingtoetsProject"/>. 
+        /// Constructs a new <see cref="RiskeerProject"/>. 
         /// </summary>
-        /// <param name="name">The name of the <see cref="RingtoetsProject"/>.</param>
-        public RingtoetsProject(string name)
+        /// <param name="name">The name of the <see cref="RiskeerProject"/>.</param>
+        public RiskeerProject(string name)
         {
             Name = name;
             Description = "";
@@ -47,17 +47,17 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the assessmentSections of the <see cref="RingtoetsProject"/>.
+        /// Gets or sets the assessmentSections of the <see cref="RiskeerProject"/>.
         /// </summary>
         public List<AssessmentSection> AssessmentSections { get; }
 
         /// <summary>
-        /// Gets or sets the name of the <see cref="RingtoetsProject"/>.
+        /// Gets or sets the name of the <see cref="RiskeerProject"/>.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the description of the <see cref="RingtoetsProject"/>.
+        /// Gets or sets the description of the <see cref="RiskeerProject"/>.
         /// </summary>
         public string Description { get; set; }
 
@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Data
                 return false;
             }
 
-            return Equals((RingtoetsProject) obj);
+            return Equals((RiskeerProject) obj);
         }
 
         public override int GetHashCode()
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Data
 
         private bool Equals(IProject other)
         {
-            var otherProject = other as RingtoetsProject;
+            var otherProject = other as RiskeerProject;
             if (otherProject == null)
             {
                 return false;

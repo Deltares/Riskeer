@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(new RingtoetsProject());
+            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(new RiskeerProject());
             mocks.ReplayAll();
 
             var service = new LoadAssessmentSectionService(storeProject);
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void LoadAssessmentSections_LoadingProjectSuccessful_ReturnsRingtoetsProject()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();

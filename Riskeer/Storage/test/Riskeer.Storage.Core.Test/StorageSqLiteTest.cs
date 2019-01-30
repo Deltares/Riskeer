@@ -255,7 +255,7 @@ namespace Riskeer.Storage.Core.Test
             string projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<RingtoetsProject>();
+            var project = mockRepository.StrictMock<RiskeerProject>();
             project.Description = "<some description>";
 
             // Precondition
@@ -265,7 +265,7 @@ namespace Riskeer.Storage.Core.Test
             IProject loadedProject = storage.LoadProject(tempRingtoetsFile);
 
             // Assert
-            Assert.IsInstanceOf<RingtoetsProject>(loadedProject);
+            Assert.IsInstanceOf<RiskeerProject>(loadedProject);
             Assert.AreEqual(projectName, loadedProject.Name);
             Assert.AreEqual(project.Description, loadedProject.Description);
         }
@@ -290,7 +290,7 @@ namespace Riskeer.Storage.Core.Test
         public void SaveProjectAs_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -309,7 +309,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException));
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
@@ -328,7 +328,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException));
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
@@ -346,7 +346,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException));
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
@@ -398,7 +398,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storage = new StorageSqLite();
-            storage.StageProject(new RingtoetsProject());
+            storage.StageProject(new RiskeerProject());
 
             string path = Path.Combine(testPath, "ValidCharacteristics.csv");
             char[] invalidCharacters = Path.GetInvalidPathChars();
@@ -433,7 +433,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            storageSqLite.StageProject(new RingtoetsProject());
+            storageSqLite.StageProject(new RiskeerProject());
 
             // Call
             bool hasChanges = storageSqLite.HasStagedProjectChanges(null);
@@ -447,7 +447,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            var storedProject = new RingtoetsProject();
+            var storedProject = new RiskeerProject();
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoaded_ReturnsFalse));
 
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
@@ -466,7 +466,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            var storedProject = new RingtoetsProject();
+            var storedProject = new RiskeerProject();
             const string changedName = "some name";
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse));
 
@@ -487,7 +487,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            RingtoetsProject storedProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject storedProject = RiskeerProjectTestHelper.GetFullTestProject();
             const string changedDescription = "some description";
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithAffectedChange_ReturnsTrue));
 
@@ -509,7 +509,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<RingtoetsProject>();
+            var project = mockRepository.StrictMock<RiskeerProject>();
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));

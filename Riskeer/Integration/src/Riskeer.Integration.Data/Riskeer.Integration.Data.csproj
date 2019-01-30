@@ -19,8 +19,8 @@
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Merge\AssessmentSectionMergeData.cs" />
     <Compile Include="Merge\AssessmentSectionsOwner.cs" />
-    <Compile Include="RingtoetsProjectFactory.cs" />
-    <Compile Include="RingtoetsProject.cs" />
+    <Compile Include="RiskeerProjectFactory.cs" />
+    <Compile Include="RiskeerProject.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\MacroStabilityOutwardsFailureMechanismAssemblyFactory.cs" />

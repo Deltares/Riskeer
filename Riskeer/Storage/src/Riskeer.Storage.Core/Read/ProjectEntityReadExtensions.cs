@@ -27,26 +27,26 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="RingtoetsProject"/> based on the
+    /// This class defines extension methods for read operations for an <see cref="RiskeerProject"/> based on the
     /// <see cref="ProjectEntity"/>.
     /// </summary>
     internal static class ProjectEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="ProjectEntity"/> and use the information to construct a <see cref="RingtoetsProject"/>.
+        /// Reads the <see cref="ProjectEntity"/> and use the information to construct a <see cref="RiskeerProject"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="ProjectEntity"/> to create <see cref="RingtoetsProject"/> for.</param>
+        /// <param name="entity">The <see cref="ProjectEntity"/> to create <see cref="RiskeerProject"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="RingtoetsProject"/>.</returns>
+        /// <returns>A new <see cref="RiskeerProject"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static RingtoetsProject Read(this ProjectEntity entity, ReadConversionCollector collector)
+        internal static RiskeerProject Read(this ProjectEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var project = new RingtoetsProject
+            var project = new RiskeerProject
             {
                 Description = entity.Description
             };

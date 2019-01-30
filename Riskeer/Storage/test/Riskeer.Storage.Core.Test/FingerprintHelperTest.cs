@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Test
         public void GivenProjectEntity_WhenGeneratingFingerprintMultipleTime_ThenHashRemainsEqual()
         {
             // Given
-            RingtoetsProject project = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject project = RiskeerProjectTestHelper.GetFullTestProject();
             ProjectEntity entity = project.Create(new PersistenceRegistry());
 
             // When
@@ -65,7 +65,7 @@ namespace Riskeer.Storage.Core.Test
         public void GivenProjectEntity_WhenComparingFingerprintsBeforeAndAfterChange_ThenHashDifferent()
         {
             // Given
-            RingtoetsProject project = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject project = RiskeerProjectTestHelper.GetFullTestProject();
             ProjectEntity entity = project.Create(new PersistenceRegistry());
 
             // When
@@ -83,8 +83,8 @@ namespace Riskeer.Storage.Core.Test
         public void GivenProjectEntity_WhenGeneratingFingerprintEqualData_ThenHashRemainsEqual()
         {
             // Setup
-            RingtoetsProject project1 = RiskeerProjectTestHelper.GetFullTestProject();
-            RingtoetsProject project2 = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject project1 = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject project2 = RiskeerProjectTestHelper.GetFullTestProject();
             ProjectEntity entity1 = project1.Create(new PersistenceRegistry());
             ProjectEntity entity2 = project2.Create(new PersistenceRegistry());
 

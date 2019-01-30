@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string testName = "ttt";
-            var project = new RingtoetsProject(testName);
+            var project = new RiskeerProject(testName);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
             project.AssessmentSections.Add(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_ContextMenuItemAddAssessmentSectionEnabled()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var project = new RiskeerProject();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsProject));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RiskeerProject));
         }
     }
 }

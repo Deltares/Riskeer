@@ -58,7 +58,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            RingtoetsProject project = entity.Read(new ReadConversionCollector());
+            RiskeerProject project = entity.Read(new ReadConversionCollector());
 
             // Assert
             Assert.IsNotNull(project);
@@ -135,7 +135,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             // Call
-            RingtoetsProject project = entity.Read(new ReadConversionCollector());
+            RiskeerProject project = entity.Read(new ReadConversionCollector());
 
             // Assert
             Assert.AreEqual(2, project.AssessmentSections.Count);

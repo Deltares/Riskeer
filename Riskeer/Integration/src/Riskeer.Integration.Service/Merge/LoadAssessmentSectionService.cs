@@ -29,7 +29,7 @@ using Riskeer.Integration.Service.Exceptions;
 namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
-    /// Service to load a <see cref="RingtoetsProject"/> from a file.
+    /// Service to load a <see cref="RiskeerProject"/> from a file.
     /// </summary>
     public class LoadAssessmentSectionService : ILoadAssessmentSectionService
     {
@@ -53,10 +53,10 @@ namespace Riskeer.Integration.Service.Merge
 
         public IEnumerable<AssessmentSection> LoadAssessmentSections(string filePath)
         {
-            RingtoetsProject openedProject;
+            RiskeerProject openedProject;
             try
             {
-                openedProject = (RingtoetsProject) storage.LoadProject(filePath);
+                openedProject = (RiskeerProject) storage.LoadProject(filePath);
             }
             catch (StorageException e)
             {

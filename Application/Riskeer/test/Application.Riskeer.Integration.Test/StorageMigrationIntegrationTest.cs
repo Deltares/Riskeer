@@ -60,7 +60,7 @@ namespace Application.Riskeer.Integration.Test
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 gui.Run(targetFilePath);
@@ -71,7 +71,7 @@ namespace Application.Riskeer.Integration.Test
                 string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
                 Assert.AreEqual("description", gui.Project.Description);
-                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                Assert.IsInstanceOf<RiskeerProject>(gui.Project);
             }
 
             mocks.VerifyAll();
@@ -99,7 +99,7 @@ namespace Application.Riskeer.Integration.Test
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 gui.Run(sourceFilePath);
@@ -109,7 +109,7 @@ namespace Application.Riskeer.Integration.Test
                 string expectedProjectName = Path.GetFileNameWithoutExtension(targetFilePath);
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
                 Assert.AreEqual("description", gui.Project.Description);
-                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
+                Assert.IsInstanceOf<RiskeerProject>(gui.Project);
             }
 
             mocks.VerifyAll();
@@ -132,7 +132,7 @@ namespace Application.Riskeer.Integration.Test
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 gui.Run(sourceFilePath);

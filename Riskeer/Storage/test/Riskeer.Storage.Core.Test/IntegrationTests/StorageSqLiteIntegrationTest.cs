@@ -76,8 +76,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         public void SaveProjectAs_DuplicateItemsInProjectSaveAsNewFile_ProjectAsEntitiesInFile()
         {
             // Setup
-            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
-            RingtoetsProject duplicateProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject duplicateProject = RiskeerProjectTestHelper.GetFullTestProject();
 
             AssessmentSection duplicateAssessmentSection = duplicateProject.AssessmentSections.First();
             fullProject.AssessmentSections.Add(duplicateAssessmentSection);
@@ -89,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             // Call
             storage.SaveProjectAs(ringtoetsFile);
-            var firstProject = (RingtoetsProject) storage.LoadProject(ringtoetsFile);
+            var firstProject = (RiskeerProject) storage.LoadProject(ringtoetsFile);
 
             // Assert
             AssertProjectsAreEqual(fullProject, firstProject);
@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
-            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string firstRingtoetsFile = GetRandomRingtoetsFile();
             string secondRingtoetsFile = GetRandomRingtoetsFile();
 
@@ -110,8 +110,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             // Call
             storage.StageProject(fullProject);
             storage.SaveProjectAs(secondRingtoetsFile);
-            var firstProject = (RingtoetsProject) storage.LoadProject(firstRingtoetsFile);
-            var secondProject = (RingtoetsProject) storage.LoadProject(secondRingtoetsFile);
+            var firstProject = (RiskeerProject) storage.LoadProject(firstRingtoetsFile);
+            var secondProject = (RiskeerProject) storage.LoadProject(secondRingtoetsFile);
 
             // Assert
             AssertProjectsAreEqual(firstProject, secondProject);
@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         public void GivenRingtoetsProject_WhenComparingFingerPrintsVariousScenariosUnchangedData_ThenFingerprintUnchanged()
         {
             // Given
-            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string tempRingtoetsFile = GetRandomRingtoetsFile();
 
             // When
@@ -136,7 +136,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             ProjectEntity entityAfterSave = fullProject.Create(new PersistenceRegistry());
             byte[] hash2 = FingerprintHelper.Get(entityAfterSave);
 
-            var openedProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
+            var openedProject = (RiskeerProject) storage.LoadProject(tempRingtoetsFile);
             ProjectEntity entityAfterOpening = openedProject.Create(new PersistenceRegistry());
 
             byte[] hash3 = FingerprintHelper.Get(entityAfterOpening);
@@ -151,13 +151,13 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             // Setup
             var storage = new StorageSqLite();
-            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             storage.StageProject(fullProject);
             string tempRingtoetsFile = GetRandomRingtoetsFile();
             storage.SaveProjectAs(tempRingtoetsFile);
 
             // Call
-            var loadedProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
+            var loadedProject = (RiskeerProject) storage.LoadProject(tempRingtoetsFile);
 
             // Assert
             AssertProjectsAreEqual(fullProject, loadedProject);
@@ -177,7 +177,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             var projectStore = new StorageSqLite();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 gui.Run(testFile);
@@ -187,8 +187,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual("Project", gui.Project.Name);
                 Assert.IsEmpty(gui.Project.Description);
-                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                CollectionAssert.IsEmpty(((RingtoetsProject) gui.Project).AssessmentSections);
+                Assert.IsInstanceOf<RiskeerProject>(gui.Project);
+                CollectionAssert.IsEmpty(((RiskeerProject) gui.Project).AssessmentSections);
             }
 
             mocks.VerifyAll();
@@ -209,12 +209,12 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             var projectStore = new StorageSqLite();
 
-            RingtoetsProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
+            RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string expectedProjectDescription = fullProject.Description;
 
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
                 Action action = () => gui.Run(tempRingtoetsFile);
@@ -231,8 +231,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
                 Assert.AreEqual(expectedProjectDescription, gui.Project.Description);
 
-                Assert.IsInstanceOf<RingtoetsProject>(gui.Project);
-                AssertProjectsAreEqual(fullProject, (RingtoetsProject) gui.Project);
+                Assert.IsInstanceOf<RiskeerProject>(gui.Project);
+                AssertProjectsAreEqual(fullProject, (RiskeerProject) gui.Project);
             }
 
             mocks.VerifyAll();
@@ -258,7 +258,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                 string.Concat(Path.GetRandomFileName(), tempExtension));
         }
 
-        private static void AssertProjectsAreEqual(RingtoetsProject expectedProject, RingtoetsProject actualProject)
+        private static void AssertProjectsAreEqual(RiskeerProject expectedProject, RiskeerProject actualProject)
         {
             Assert.NotNull(expectedProject);
             Assert.NotNull(actualProject);

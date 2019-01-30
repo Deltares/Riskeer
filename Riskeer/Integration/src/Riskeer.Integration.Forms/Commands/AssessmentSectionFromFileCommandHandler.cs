@@ -95,7 +95,7 @@ namespace Riskeer.Integration.Forms.Commands
             }
 
             AssessmentSection assessmentSection = GetAssessmentSectionFromDialog();
-            var ringtoetsProject = projectOwner.Project as RingtoetsProject;
+            var ringtoetsProject = projectOwner.Project as RiskeerProject;
             if (assessmentSection == null || ringtoetsProject == null)
             {
                 return;
@@ -143,11 +143,11 @@ namespace Riskeer.Integration.Forms.Commands
             assessmentSection.HeightStructures.GeneralInput.N = roundedN;
         }
 
-        private void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
+        private void SetAssessmentSectionToProject(RiskeerProject riskeerProject, AssessmentSection assessmentSection)
         {
-            assessmentSection.Name = GetUniqueForAssessmentSectionName(ringtoetsProject.AssessmentSections, assessmentSection.Name);
-            ringtoetsProject.AssessmentSections.Add(assessmentSection);
-            ringtoetsProject.NotifyObservers();
+            assessmentSection.Name = GetUniqueForAssessmentSectionName(riskeerProject.AssessmentSections, assessmentSection.Name);
+            riskeerProject.AssessmentSections.Add(assessmentSection);
+            riskeerProject.NotifyObservers();
 
             viewController.OpenViewForData(assessmentSection);
         }
