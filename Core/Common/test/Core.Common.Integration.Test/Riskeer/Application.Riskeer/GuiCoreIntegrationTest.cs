@@ -52,7 +52,7 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_GuiWithRingtoetsPlugin_DoesNotCrash()
+        public void Run_GuiWithRiskeerPlugin_DoesNotCrash()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
