@@ -969,7 +969,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #endregion
 
-        #region Ringtoets macro stability inwards surface line importer
+        #region Macro stability inwards surface line importer
 
         private static FileFilterGenerator SurfaceLineFileFilter
         {

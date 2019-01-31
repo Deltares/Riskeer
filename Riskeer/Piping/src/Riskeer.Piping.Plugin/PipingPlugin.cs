@@ -1082,7 +1082,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        #region Ringtoets piping surface line importer
+        #region Piping surface line importer
 
         private static FileFilterGenerator PipingSurfaceLineFileFilter
         {

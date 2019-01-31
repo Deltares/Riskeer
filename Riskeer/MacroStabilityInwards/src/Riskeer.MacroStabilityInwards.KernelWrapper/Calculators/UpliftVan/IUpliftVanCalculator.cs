@@ -30,8 +30,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
     /// <list type="bullet">
-    /// <item>Ringtoets macro stability inwards input into calculator input;</item>
-    /// <item>calculator output into Ringtoets macro stability inwards output.</item>
+    /// <item>Riskeer macro stability inwards input into calculator input;</item>
+    /// <item>calculator output into Riskeer macro stability inwards output.</item>
     /// </list>
     /// </remarks>
     public interface IUpliftVanCalculator

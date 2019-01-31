@@ -35,7 +35,7 @@ namespace Riskeer.Piping.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="PipingSurfaceLine"/> for the kernel given a <see cref="RiskeerPipingSurfaceLine"/>.
         /// </summary>
-        /// <param name="line">The surface line configured in the Ringtoets application.</param>
+        /// <param name="line">The surface line configured in the application.</param>
         /// <returns>The surface line to be consumed by the kernel.</returns>
         public static PipingSurfaceLine Create(RiskeerPipingSurfaceLine line)
         {
