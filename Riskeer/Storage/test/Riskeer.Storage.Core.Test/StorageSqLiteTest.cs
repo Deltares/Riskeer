@@ -113,7 +113,7 @@ namespace Riskeer.Storage.Core.Test
             TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Ringtoets bestand.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Riskeer bestand.";
 
             var exception = Assert.Throws<StorageException>(test);
             Assert.IsInstanceOf<Exception>(exception);
@@ -259,7 +259,7 @@ namespace Riskeer.Storage.Core.Test
             project.Description = "<some description>";
 
             // Precondition
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, project);
+            SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, project);
 
             // Call
             IProject loadedProject = storage.LoadProject(tempProjectFilePath);
@@ -327,15 +327,15 @@ namespace Riskeer.Storage.Core.Test
         public void SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException));
             var project = new RiskeerProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
-            using (File.Create(tempRingtoetsFile)) {}
+            using (File.Create(tempProjectFilePath)) {}
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
+            TestDelegate test = () => storage.SaveProjectAs(tempProjectFilePath);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -345,19 +345,19 @@ namespace Riskeer.Storage.Core.Test
         public void SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException));
             var project = new RiskeerProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
-            using (var fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile))
+            using (var fileDisposeHelper = new FileDisposeHelper(tempProjectFilePath))
             {
                 try
                 {
                     fileDisposeHelper.LockFiles();
 
                     // Call
-                    TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
+                    TestDelegate test = () => storage.SaveProjectAs(tempProjectFilePath);
 
                     // Assert
                     var exception = Assert.Throws<StorageException>(test);
@@ -365,7 +365,7 @@ namespace Riskeer.Storage.Core.Test
                     Assert.IsInstanceOf<Exception>(exception);
                     Assert.IsInstanceOf<IOException>(exception.InnerException);
                     Assert.IsInstanceOf<Exception>(exception);
-                    Assert.AreEqual($@"Kan geen tijdelijk bestand maken van het originele bestand ({tempRingtoetsFile}).",
+                    Assert.AreEqual($@"Kan geen tijdelijk bestand maken van het originele bestand ({tempProjectFilePath}).",
                                     exception.Message);
                 }
                 finally
@@ -450,7 +450,7 @@ namespace Riskeer.Storage.Core.Test
             var storedProject = new RiskeerProject();
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoaded_ReturnsFalse));
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, storedProject);
+            SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, storedProject);
             IProject loadedProject = storageSqLite.LoadProject(tempProjectFilePath);
             storageSqLite.StageProject(loadedProject);
 
@@ -470,7 +470,7 @@ namespace Riskeer.Storage.Core.Test
             const string changedName = "some name";
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse));
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, storedProject);
+            SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, storedProject);
             IProject loadedProject = storageSqLite.LoadProject(tempProjectFilePath);
             storageSqLite.StageProject(loadedProject);
 
@@ -491,7 +491,7 @@ namespace Riskeer.Storage.Core.Test
             const string changedDescription = "some description";
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithAffectedChange_ReturnsTrue));
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, storedProject);
+            SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, storedProject);
             IProject loadedProject = storageSqLite.LoadProject(tempProjectFilePath);
 
             loadedProject.Description = changedDescription;

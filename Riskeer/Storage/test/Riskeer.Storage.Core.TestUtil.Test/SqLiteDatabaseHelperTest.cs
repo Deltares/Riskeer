@@ -244,17 +244,17 @@ namespace Riskeer.Storage.Core.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidRingtoetsDatabase_ValidArguments_SavesProjectToFile()
+        public void CreateValidProjectDatabase_ValidArguments_SavesProjectToFile()
         {
             // Setup
-            string validPath = TestHelper.GetScratchPadPath(nameof(CreateValidRingtoetsDatabase_ValidArguments_SavesProjectToFile));
+            string validPath = TestHelper.GetScratchPadPath(nameof(CreateValidProjectDatabase_ValidArguments_SavesProjectToFile));
             var project = new RiskeerProject();
 
             var fileDisposeHelper = new FileDisposeHelper(validPath);
             try
             {
                 // Call
-                TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(validPath, project);
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateValidProjectDatabase(validPath, project);
 
                 // Assert
                 Assert.DoesNotThrow(test);

@@ -212,7 +212,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string expectedProjectDescription = fullProject.Description;
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(projectFilePath, fullProject);
+            SqLiteDatabaseHelper.CreateValidProjectDatabase(projectFilePath, fullProject);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {

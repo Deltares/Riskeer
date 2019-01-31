@@ -105,11 +105,11 @@ namespace Riskeer.Storage.Core.TestUtil
         }
 
         /// <summary>
-        /// Converts the <paramref name="project"/> into a new Ringtoets database file.
+        /// Converts the <paramref name="project"/> into a new project database file.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <param name="project"><see cref="RiskeerProject"/> to save.</param>
-        public static void CreateValidRingtoetsDatabase(string databaseFilePath, RiskeerProject project)
+        public static void CreateValidProjectDatabase(string databaseFilePath, RiskeerProject project)
         {
             try
             {
