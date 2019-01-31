@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Test
 
             // Assert
             Assert.IsInstanceOf<IStoreProject>(storage);
-            Assert.AreEqual("Riskeerproject (*.rtd)|*.rtd", storage.FileFilter);
+            Assert.AreEqual("Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd", storage.FileFilter);
         }
 
         [Test]

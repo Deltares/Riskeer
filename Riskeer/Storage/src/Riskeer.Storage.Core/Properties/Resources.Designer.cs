@@ -147,7 +147,7 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Riskeerproject (*.rtd)|*.rtd.
+        ///   Looks up a localized string similar to Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd.
         /// </summary>
         public static string Riskeer_project_file_filter {
             get {

@@ -127,7 +127,7 @@
     <value>Een fout is opgetreden met schrijven naar het nieuwe Riskeerbestand.</value>
   </data>
   <data name="Riskeer_project_file_filter" xml:space="preserve">
-    <value>Riskeerproject (*.rtd)|*.rtd</value>
+    <value>Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd</value>
   </data>
   <data name="StorageSqLite_LoadProject_Invalid_Riskeer_database_file" xml:space="preserve">
     <value>Het bestand is geen geldig Riskeer bestand.</value>
