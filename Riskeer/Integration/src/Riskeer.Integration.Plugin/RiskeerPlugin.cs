@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        private RingtoetsRibbon ribbonCommandHandler;
+        private RiskeerRibbon ribbonCommandHandler;
 
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
@@ -284,7 +284,7 @@ namespace Riskeer.Integration.Plugin
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
                                                                   new AssessmentSectionMergeHandler(Gui.ViewCommands));
 
-            ribbonCommandHandler = new RingtoetsRibbon
+            ribbonCommandHandler = new RiskeerRibbon
             {
                 AddAssessmentSectionButtonCommand = new AddAssessmentSectionCommand(assessmentSectionFromFileCommandHandler)
             };

@@ -27,14 +27,14 @@ using Fluent;
 namespace Riskeer.Integration.Plugin
 {
     /// <summary>
-    /// Interaction logic for RingtoetsRibbon.xaml
+    /// Interaction logic for RiskeerRibbon.xaml
     /// </summary>
-    public partial class RingtoetsRibbon : IRibbonCommandHandler
+    public partial class RiskeerRibbon : IRibbonCommandHandler
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RingtoetsRibbon"/> class.
+        /// Initializes a new instance of the <see cref="RiskeerRibbon"/> class.
         /// </summary>
-        public RingtoetsRibbon()
+        public RiskeerRibbon()
         {
             InitializeComponent();
         }
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin
 
         public Ribbon GetRibbonControl()
         {
-            return RingtoetsRibbonControl;
+            return RiskeerRibbonControl;
         }
 
         public void ValidateItems() {}

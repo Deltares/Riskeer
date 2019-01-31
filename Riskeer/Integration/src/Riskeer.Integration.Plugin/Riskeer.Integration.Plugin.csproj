@@ -56,8 +56,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RiskeerPlugin.cs" />
-    <Compile Include="RingtoetsRibbon.xaml.cs">
-      <DependentUpon>RingtoetsRibbon.xaml</DependentUpon>
+    <Compile Include="RiskeerRibbon.xaml.cs">
+      <DependentUpon>RiskeerRibbon.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -283,7 +283,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="RingtoetsRibbon.xaml">
+    <Page Include="RiskeerRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

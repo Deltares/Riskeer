@@ -30,14 +30,14 @@ using Rhino.Mocks;
 namespace Riskeer.Integration.Plugin.Test
 {
     [TestFixture]
-    public class RingtoetsRibbonTest
+    public class RiskeerRibbonTest
     {
         [Test]
         [Apartment(ApartmentState.STA)]
         public void GetRibbonControl_Always_ReturnRibbon()
         {
             // Setup
-            var ribbon = new RingtoetsRibbon();
+            var ribbon = new RiskeerRibbon();
 
             // Call
             Ribbon control = ribbon.GetRibbonControl();
@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test
             command.Expect(c => c.Execute());
             mockRepository.ReplayAll();
 
-            var ribbon = new RingtoetsRibbon
+            var ribbon = new RiskeerRibbon
             {
                 AddAssessmentSectionButtonCommand = command
             };
@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Test
             var addAssessmentSectionButton = ribbon.GetRibbonControl().FindName("AddAssessmentSectionButton") as Button;
 
             // Precondition
-            Assert.IsNotNull(addAssessmentSectionButton, "RingtoetsRibbon should have an add assessment section button.");
+            Assert.IsNotNull(addAssessmentSectionButton, "RiskeerRibbon should have an add assessment section button.");
 
             // Call
             addAssessmentSectionButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));

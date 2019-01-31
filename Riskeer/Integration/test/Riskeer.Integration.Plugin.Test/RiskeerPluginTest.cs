@@ -768,7 +768,7 @@ namespace Riskeer.Integration.Plugin.Test
                 plugin.Activate();
 
                 // Assert
-                Assert.IsInstanceOf<RingtoetsRibbon>(plugin.RibbonCommandHandler);
+                Assert.IsInstanceOf<RiskeerRibbon>(plugin.RibbonCommandHandler);
             }
 
             mockRepository.VerifyAll();
