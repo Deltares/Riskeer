@@ -264,7 +264,7 @@ namespace Riskeer.Migration.Test
             string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
 
             string versionWithDashes = ProjectVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
-            var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Ringtoets project");
+            var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Riskeer project");
             string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
             string expectedReturnPath = TestHelper.GetScratchPadPath("Im_a_file_path_to_the_migrated_file.rtd");
@@ -294,7 +294,7 @@ namespace Riskeer.Migration.Test
 
             string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
 
-            var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Ringtoets project");
+            var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Riskeer project");
             string versionWithDashes = ProjectVersionHelper.GetCurrentDatabaseVersion().Replace('.', '-');
             string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
@@ -538,7 +538,7 @@ namespace Riskeer.Migration.Test
                 Assert.AreEqual(currentDatabaseVersion, toVersionedFile.GetVersion());
             }
 
-            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
             Assert.IsFalse(File.Exists(logPath));
 
             mocks.VerifyAll();
@@ -559,7 +559,7 @@ namespace Riskeer.Migration.Test
 
             string logDirectory = $"{nameof(Migrate_MigrationLogDatabaseInUse_MigrationFailsAndLogsError)}_log";
 
-            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+            string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
 
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
@@ -578,7 +578,7 @@ namespace Riskeer.Migration.Test
 
                 // Assert
                 Tuple<string, LogLevelConstant> logMessage = Tuple.Create(
-                    $"Het is niet mogelijk om het Ringtoets logbestand '{logPath}' aan te maken.",
+                    $"Het is niet mogelijk om het Riskeer logbestand '{logPath}' aan te maken.",
                     LogLevelConstant.Error);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, logMessage);
                 Assert.IsFalse(migrationSuccessful);
@@ -628,7 +628,7 @@ namespace Riskeer.Migration.Test
                 });
                 Assert.IsFalse(migrationSuccessful);
 
-                string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+                string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
 
@@ -671,7 +671,7 @@ namespace Riskeer.Migration.Test
                 });
                 Assert.IsFalse(migrationSuccessful);
 
-                string logPath = Path.Combine(TestHelper.GetScratchPadPath(logDirectory), "RingtoetsMigrationLog.sqlite");
+                string logPath = Path.Combine(TestHelper.GetScratchPadPath(logDirectory), "RiskeerMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
 
@@ -711,7 +711,7 @@ namespace Riskeer.Migration.Test
                 });
                 Assert.IsFalse(migrationSuccessful);
 
-                string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
+                string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RiskeerMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
 

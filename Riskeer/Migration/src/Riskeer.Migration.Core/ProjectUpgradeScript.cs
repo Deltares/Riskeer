@@ -77,7 +77,7 @@ namespace Riskeer.Migration.Core
             }
             catch (SQLiteException exception)
             {
-                throw new CriticalMigrationException(string.Format(Resources.RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed,
+                throw new CriticalMigrationException(string.Format(Resources.ProjectUpgradeScript_Upgrading_Version_0_To_Version_1_Failed,
                                                                    FromVersion(), ToVersion()), exception);
             }
         }

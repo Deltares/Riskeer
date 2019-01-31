@@ -22,7 +22,7 @@
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Defines the table and column names of the table 'VersionEntity' in the Ringtoets database.
+    /// Defines the table and column names of the table 'VersionEntity' in the project database.
     /// </summary>
     public static class VersionTableDefinitions
     {

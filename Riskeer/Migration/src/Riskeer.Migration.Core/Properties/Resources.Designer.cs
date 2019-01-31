@@ -102,27 +102,27 @@ namespace Riskeer.Migration.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het aanmaken van het Ringtoets projectbestand met versie &apos;{0}&apos; is mislukt..
         /// </summary>
-        public static string RingtoetsCreateScript_Creating_Version_0_Failed {
+        public static string ProjectCreateScript_Creating_Version_0_Failed {
             get {
-                return ResourceManager.GetString("RingtoetsCreateScript_Creating_Version_0_Failed", resourceCulture);
+                return ResourceManager.GetString("ProjectCreateScript_Creating_Version_0_Failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; moet een geldig Ringtoets projectbestand zijn..
         /// </summary>
-        public static string RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0 {
+        public static string ProjectDatabaseSourceFile_Invalid_Project_File_Path_0 {
             get {
-                return ResourceManager.GetString("RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0", resourceCulture);
+                return ResourceManager.GetString("ProjectDatabaseSourceFile_Invalid_Project_File_Path_0", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het migreren van het Ringtoets projectbestand van versie &apos;{0}&apos; naar &apos;{1}&apos; is mislukt..
         /// </summary>
-        public static string RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed {
+        public static string ProjectUpgradeScript_Upgrading_Version_0_To_Version_1_Failed {
             get {
-                return ResourceManager.GetString("RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed", resourceCulture);
+                return ResourceManager.GetString("ProjectUpgradeScript_Upgrading_Version_0_To_Version_1_Failed", resourceCulture);
             }
         }
     }

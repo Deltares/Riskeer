@@ -82,49 +82,40 @@ namespace Riskeer.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to rtd.
+        ///   Looks up a localized string similar to Riskeer project.
         /// </summary>
-        internal static string RingtoetsProject_FileExtension {
+        internal static string Project_TypeDescription {
             get {
-                return ResourceManager.GetString("RingtoetsProject_FileExtension", resourceCulture);
+                return ResourceManager.GetString("Project_TypeDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets project.
+        ///   Looks up a localized string similar to Het is niet mogelijk om het Riskeer logbestand &apos;{0}&apos; aan te maken..
         /// </summary>
-        internal static string RingtoetsProject_TypeDescription {
+        internal static string ProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0 {
             get {
-                return ResourceManager.GetString("RingtoetsProject_TypeDescription", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_f" +
+                        "ile_0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet mogelijk om het Ringtoets logbestand &apos;{0}&apos; aan te maken..
+        ///   Looks up a localized string similar to Het opruimen van het Riskeer logbestand &apos;{0}&apos; is mislukt..
         /// </summary>
-        internal static string RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0 {
+        internal static string ProjectMigrator_Deleting_migration_log_file_0_failed {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migrat" +
-                        "ion_log_file_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het opruimen van het Ringtoets logbestand &apos;{0}&apos; is mislukt..
-        /// </summary>
-        internal static string RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed {
-            get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_Deleting_migration_log_file_0_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het migreren van het projectbestand &apos;{0}&apos; is geannuleerd..
         /// </summary>
-        internal static string RingtoetsProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled {
+        internal static string ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfil" +
-                        "e_0_was_cancelled", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_c" +
+                        "ancelled", resourceCulture);
             }
         }
         
@@ -133,30 +124,30 @@ namespace Riskeer.Migration.Properties {
         ///
         ///Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({0})?.
         /// </summary>
-        internal static string RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire {
+        internal static string ProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_" +
-                        "0_inquire", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire" +
+                        "", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het projectbestand &apos;{0}&apos; is succesvol gemigreerd naar &apos;{1}&apos; (versie {2})..
         /// </summary>
-        internal static string RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_ {
+        internal static string ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_ {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesful" +
-                        "ly_updated_to_target_filepath_1_version_2_", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_update" +
+                        "d_to_target_filepath_1_version_2_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het migreren van het projectbestand &apos;{0}&apos; is mislukt: {1}.
         /// </summary>
-        internal static string RingtoetsProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_ {
+        internal static string ProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_ {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_" +
-                        "failed_with_exception_1_", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_wi" +
+                        "th_exception_1_", resourceCulture);
             }
         }
         
@@ -164,38 +155,46 @@ namespace Riskeer.Migration.Properties {
         ///   Looks up a localized string similar to Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.
         ///.
         /// </summary>
-        internal static string RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report {
+        internal static string ProjectMigrator_Project_file_modified_click_details_for_migration_report {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_Project_file_modified_click_details_for_migration_report", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Bron.
         /// </summary>
-        internal static string RingtoetsProjectMigrator_Source_Descriptor {
+        internal static string ProjectMigrator_Source_Descriptor {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_Source_Descriptor", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_Source_Descriptor", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Doel.
         /// </summary>
-        internal static string RingtoetsProjectMigrator_Target_Descriptor {
+        internal static string ProjectMigrator_Target_Descriptor {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_Target_Descriptor", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_Target_Descriptor", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0}projectpad moet een geldig projectpad zijn..
         /// </summary>
-        internal static string RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path {
+        internal static string ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path {
             get {
-                return ResourceManager.GetString("RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_" +
-                        "valid_path", resourceCulture);
+                return ResourceManager.GetString("ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_pat" +
+                        "h", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rtd.
+        /// </summary>
+        internal static string RiskeerProject_FileExtension {
+            get {
+                return ResourceManager.GetString("RiskeerProject_FileExtension", resourceCulture);
             }
         }
     }

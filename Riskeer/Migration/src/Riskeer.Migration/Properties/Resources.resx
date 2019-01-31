@@ -117,43 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire" xml:space="preserve">
+  <data name="ProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire" xml:space="preserve">
     <value>Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Ringtoets.
 
 Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({0})?</value>
   </data>
-  <data name="RingtoetsProject_FileExtension" xml:space="preserve">
+  <data name="RiskeerProject_FileExtension" xml:space="preserve">
     <value>rtd</value>
   </data>
-  <data name="RingtoetsProject_TypeDescription" xml:space="preserve">
-    <value>Ringtoets project</value>
+  <data name="Project_TypeDescription" xml:space="preserve">
+    <value>Riskeer project</value>
   </data>
-  <data name="RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_" xml:space="preserve">
+  <data name="ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_" xml:space="preserve">
     <value>Het projectbestand '{0}' is succesvol gemigreerd naar '{1}' (versie {2}).</value>
   </data>
-  <data name="RingtoetsProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_" xml:space="preserve">
+  <data name="ProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_" xml:space="preserve">
     <value>Het migreren van het projectbestand '{0}' is mislukt: {1}</value>
   </data>
-  <data name="RingtoetsProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled" xml:space="preserve">
+  <data name="ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled" xml:space="preserve">
     <value>Het migreren van het projectbestand '{0}' is geannuleerd.</value>
   </data>
-  <data name="RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path" xml:space="preserve">
+  <data name="ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path" xml:space="preserve">
     <value>{0}projectpad moet een geldig projectpad zijn.</value>
   </data>
-  <data name="RingtoetsProjectMigrator_Source_Descriptor" xml:space="preserve">
+  <data name="ProjectMigrator_Source_Descriptor" xml:space="preserve">
     <value>Bron</value>
   </data>
-  <data name="RingtoetsProjectMigrator_Target_Descriptor" xml:space="preserve">
+  <data name="ProjectMigrator_Target_Descriptor" xml:space="preserve">
     <value>Doel</value>
   </data>
-  <data name="RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed" xml:space="preserve">
-    <value>Het opruimen van het Ringtoets logbestand '{0}' is mislukt.</value>
+  <data name="ProjectMigrator_Deleting_migration_log_file_0_failed" xml:space="preserve">
+    <value>Het opruimen van het Riskeer logbestand '{0}' is mislukt.</value>
   </data>
-  <data name="RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report" xml:space="preserve">
+  <data name="ProjectMigrator_Project_file_modified_click_details_for_migration_report" xml:space="preserve">
     <value>Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.
 </value>
   </data>
-  <data name="RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0" xml:space="preserve">
-    <value>Het is niet mogelijk om het Ringtoets logbestand '{0}' aan te maken.</value>
+  <data name="ProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0" xml:space="preserve">
+    <value>Het is niet mogelijk om het Riskeer logbestand '{0}' aan te maken.</value>
   </data>
 </root>

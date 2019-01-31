@@ -69,7 +69,7 @@ namespace Riskeer.Migration.Core
             }
             catch (SystemException exception)
             {
-                throw new StorageValidationException(string.Format(Resources.RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0,
+                throw new StorageValidationException(string.Format(Resources.ProjectDatabaseSourceFile_Invalid_Project_File_Path_0,
                                                                    Path), exception);
             }
         }

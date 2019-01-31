@@ -106,7 +106,7 @@ namespace Riskeer.Migration.Core.Test
         }
 
         [Test]
-        public void GetVersion_EmptyRingtoetsDatabaseFile_ReturnsEmpty()
+        public void GetVersion_EmptyProjectDatabaseFile_ReturnsEmpty()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(testPath, "EmptyDatabase.rtd");

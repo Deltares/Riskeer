@@ -63,15 +63,15 @@ namespace Riskeer.Migration
             }
 
             migrationLogPath = Path.Combine(SettingsHelper.Instance.GetLocalUserTemporaryDirectory(),
-                                            "RingtoetsMigrationLog.sqlite");
+                                            "RiskeerMigrationLog.sqlite");
 
             this.inquiryHelper = inquiryHelper;
             fileMigrator = new ProjectFileMigrator
             {
                 LogPath = migrationLogPath
             };
-            fileFilter = new FileFilterGenerator(Resources.RingtoetsProject_FileExtension,
-                                                 Resources.RingtoetsProject_TypeDescription);
+            fileFilter = new FileFilterGenerator(Resources.RiskeerProject_FileExtension,
+                                                 Resources.Project_TypeDescription);
         }
 
         public MigrationRequired ShouldMigrate(string filePath)
@@ -81,7 +81,7 @@ namespace Riskeer.Migration
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            ValidateProjectPath(filePath, nameof(filePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
+            ValidateProjectPath(filePath, nameof(filePath), Resources.ProjectMigrator_Source_Descriptor);
 
             var versionedFile = new ProjectVersionedFile(filePath);
             string version = versionedFile.GetVersion();
@@ -99,7 +99,7 @@ namespace Riskeer.Migration
                 return MigrationRequired.Aborted;
             }
 
-            string query = string.Format(Resources.RingtoetsProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire,
+            string query = string.Format(Resources.ProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire,
                                          currentDatabaseVersion);
             if (inquiryHelper.InquireContinuation(query))
             {
@@ -117,7 +117,7 @@ namespace Riskeer.Migration
                 throw new ArgumentNullException(nameof(originalFilePath));
             }
 
-            ValidateProjectPath(originalFilePath, nameof(originalFilePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
+            ValidateProjectPath(originalFilePath, nameof(originalFilePath), Resources.ProjectMigrator_Source_Descriptor);
 
             string suggestedFileName = GetSuggestedFileName(originalFilePath);
             string migrationLocation = inquiryHelper.GetTargetFileLocation(fileFilter.Filter, suggestedFileName);
@@ -141,8 +141,8 @@ namespace Riskeer.Migration
                 throw new ArgumentNullException(nameof(targetFilePath));
             }
 
-            ValidateProjectPath(sourceFilePath, nameof(sourceFilePath), Resources.RingtoetsProjectMigrator_Source_Descriptor);
-            ValidateProjectPath(targetFilePath, nameof(targetFilePath), Resources.RingtoetsProjectMigrator_Target_Descriptor);
+            ValidateProjectPath(sourceFilePath, nameof(sourceFilePath), Resources.ProjectMigrator_Source_Descriptor);
+            ValidateProjectPath(targetFilePath, nameof(targetFilePath), Resources.ProjectMigrator_Target_Descriptor);
 
             return MigrateToTargetLocation(sourceFilePath, targetFilePath);
         }
@@ -158,7 +158,7 @@ namespace Riskeer.Migration
             {
                 var versionedFile = new ProjectVersionedFile(sourceFilePath);
                 fileMigrator.Migrate(versionedFile, currentDatabaseVersion, targetLocation);
-                string message = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
+                string message = string.Format(Resources.ProjectMigrator_MigrateToTargetLocation_Outdated_projectfile_0_succesfully_updated_to_target_filepath_1_version_2_,
                                                sourceFilePath, targetLocation, currentDatabaseVersion);
                 log.Info(message);
 
@@ -168,7 +168,7 @@ namespace Riskeer.Migration
             }
             catch (CriticalMigrationException e)
             {
-                string errorMessage = string.Format(Resources.RingtoetsProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_,
+                string errorMessage = string.Format(Resources.ProjectMigrator_MigrateToTargetLocation_Updating_outdated_projectfile_0_failed_with_exception_1_,
                                                     sourceFilePath, e.Message);
                 log.Error(errorMessage, e);
                 return false;
@@ -189,7 +189,7 @@ namespace Riskeer.Migration
                     return;
                 }
 
-                var migrationLog = new StringBuilder(Resources.RingtoetsProjectMigrator_Project_file_modified_click_details_for_migration_report);
+                var migrationLog = new StringBuilder(Resources.ProjectMigrator_Project_file_modified_click_details_for_migration_report);
                 foreach (MigrationLogMessage logMessage in migrationLogMessages)
                 {
                     migrationLog.AppendLine(logMessage.Message);
@@ -207,7 +207,7 @@ namespace Riskeer.Migration
             }
             catch (ArgumentException exception)
             {
-                log.Error(string.Format(Resources.RingtoetsProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0, migrationLogPath),
+                log.Error(string.Format(Resources.ProjectMigrator_CreateInitializedDatabaseLogFile_Unable_to_create_migration_log_file_0, migrationLogPath),
                           exception);
                 return false;
             }
@@ -227,7 +227,7 @@ namespace Riskeer.Migration
             catch (SystemException exception) when (exception is IOException
                                                     || exception is UnauthorizedAccessException)
             {
-                string errorMessage = string.Format(Resources.RingtoetsProjectMigrator_Deleting_migration_log_file_0_failed, migrationLogPath);
+                string errorMessage = string.Format(Resources.ProjectMigrator_Deleting_migration_log_file_0_failed, migrationLogPath);
                 log.Error(errorMessage, exception);
             }
         }
@@ -243,7 +243,7 @@ namespace Riskeer.Migration
 
         private void GenerateMigrationCancelledLogMessage(string sourceFilePath)
         {
-            string warningMessage = string.Format(Resources.RingtoetsProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled, sourceFilePath);
+            string warningMessage = string.Format(Resources.ProjectMigrator_GenerateMigrationCancelledLogMessage_Updating_projectfile_0_was_cancelled, sourceFilePath);
             log.Warn(warningMessage);
         }
 
@@ -259,7 +259,7 @@ namespace Riskeer.Migration
         {
             if (!IOUtils.IsValidFilePath(filePath))
             {
-                string message = string.Format(Resources.RingtoetsProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path,
+                string message = string.Format(Resources.ProjectMigrator_ValidateProjectPath_TypeDescriptor_0_filepath_must_be_a_valid_path,
                                                pathDescription);
                 throw new ArgumentException(message, argumentName);
             }

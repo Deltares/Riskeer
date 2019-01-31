@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RingtoetsDatabaseSourceFile_Invalid_Ringtoets_File_Path_0" xml:space="preserve">
+  <data name="ProjectDatabaseSourceFile_Invalid_Project_File_Path_0" xml:space="preserve">
     <value>Het bestand '{0}' moet een geldig Ringtoets projectbestand zijn.</value>
   </data>
-  <data name="RingtoetsCreateScript_Creating_Version_0_Failed" xml:space="preserve">
+  <data name="ProjectCreateScript_Creating_Version_0_Failed" xml:space="preserve">
     <value>Het aanmaken van het Ringtoets projectbestand met versie '{0}' is mislukt.</value>
   </data>
-  <data name="RingtoetsUpgradeScript_Upgrading_Version_0_To_Version_1_Failed" xml:space="preserve">
+  <data name="ProjectUpgradeScript_Upgrading_Version_0_To_Version_1_Failed" xml:space="preserve">
     <value>Het migreren van het Ringtoets projectbestand van versie '{0}' naar '{1}' is mislukt.</value>
   </data>
   <data name="CommandSupported_Source_Not_Valid_Path" xml:space="preserve">
