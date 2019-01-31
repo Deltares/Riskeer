@@ -215,7 +215,7 @@ namespace Riskeer.Storage.Core.Test
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': Riskeer "
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': riskeer "
                             + $"bestand versie '{versionCode}' is hoger dan de huidig ondersteunde versie "
                             + $"('{currentDatabaseVersion}'). Update Riskeer naar een nieuwere versie.",
                             exception.Message);
@@ -242,7 +242,7 @@ namespace Riskeer.Storage.Core.Test
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': Riskeer "
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': riskeer "
                             + $"bestand versie '{versionCode}' is niet valide. De versie van het Riskeer projectbestand "
                             + "dient '16.4' of hoger te zijn.", exception.Message);
         }
