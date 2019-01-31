@@ -50,7 +50,7 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Integration.TestUtil
 {
     /// <summary>
-    /// Class that generates fully configured Ringtoets objects.
+    /// Class that generates fully configured Riskeer objects.
     /// </summary>
     public static class TestDataGenerator
     {
