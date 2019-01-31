@@ -395,15 +395,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw.
-        /// </summary>
-        public static string RingtoetsRibbon_GroupBox_New {
-            get {
-                return ResourceManager.GetString("RingtoetsRibbon_GroupBox_New", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Achtergrondkaart.
         /// </summary>
         public static string RiskeerPlugin_BackgroundDataContext_Text {
@@ -433,6 +424,15 @@ namespace Riskeer.Integration.Plugin.Properties {
             get {
                 return ResourceManager.GetString("RiskeerPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_defini" +
                         "tions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw.
+        /// </summary>
+        public static string RiskeerRibbon_GroupBox_New {
+            get {
+                return ResourceManager.GetString("RiskeerRibbon_GroupBox_New", resourceCulture);
             }
         }
     }
