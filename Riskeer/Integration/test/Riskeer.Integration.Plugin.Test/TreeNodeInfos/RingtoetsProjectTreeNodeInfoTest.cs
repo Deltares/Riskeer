@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             const string testName = "ttt";
             var project = new RiskeerProject(testName);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var project = new RiskeerProject();
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var project = new RiskeerProject();
             project.AssessmentSections.Add(assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -160,7 +160,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(project, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
-        private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RiskeerProject));
         }

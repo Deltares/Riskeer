@@ -55,7 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsPlugin.cs" />
+    <Compile Include="RiskeerPlugin.cs" />
     <Compile Include="RingtoetsRibbon.xaml.cs">
       <DependentUpon>RingtoetsRibbon.xaml</DependentUpon>
     </Compile>

@@ -36,13 +36,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class ForeshoreProfileTreeNodeInfoTest
     {
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ForeshoreProfile));
         }
 
@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var p = new RingtoetsPlugin())
+                using (var p = new RiskeerPlugin())
                 {
                     p.Gui = gui;
                     TreeNodeInfo i = p.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ForeshoreProfile));

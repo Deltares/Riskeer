@@ -48,13 +48,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private MockRepository mocks;
         private TreeNodeInfo info;
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StrengthStabilityLengthwiseConstructionFailureMechanismContext));
         }
 

@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -128,7 +128,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(mapData);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var wellKnownTileSource = random.NextEnumValue<WellKnownTileSource>();
             BackgroundData backgroundData = BackgroundDataConverter.ConvertTo(new WellKnownTileSourceMapData(wellKnownTileSource));
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -185,7 +185,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -250,7 +250,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
             using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
@@ -360,7 +360,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "EmptyWmtsConnectionInfo")
             }))
             using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
@@ -424,7 +424,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }))
             using (new UseCustomTileSourceFactoryConfig(newMapData))
             using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
@@ -492,7 +492,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "EmptyWmtsConnectionInfo")
             }))
             using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
@@ -558,7 +558,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }))
             using (new UseCustomTileSourceFactoryConfig(newMapData))
             using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
@@ -636,7 +636,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(wellKnownTileSource, configuration.WellKnownTileSource);
         }
 
-        private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(BackgroundData));
         }

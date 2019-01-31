@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsSetName()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssemblyResultCategoriesContext));
         }

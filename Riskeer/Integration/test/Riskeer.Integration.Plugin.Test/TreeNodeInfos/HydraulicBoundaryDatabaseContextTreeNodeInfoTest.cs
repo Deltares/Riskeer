@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -101,7 +101,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -117,7 +117,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsGeneralFolderIcon()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -160,7 +160,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -260,7 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -280,7 +280,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -306,7 +306,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -348,7 +348,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -399,7 +399,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -446,7 +446,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
@@ -542,7 +542,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks = new MockRepository();
         }
 
-        private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));
         }

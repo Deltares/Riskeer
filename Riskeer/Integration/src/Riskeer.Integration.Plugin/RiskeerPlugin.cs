@@ -117,9 +117,9 @@ using GuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.Integration.Plugin
 {
     /// <summary>
-    /// The plug-in for the Ringtoets application.
+    /// The plug-in for the Riskeer application.
     /// </summary>
-    public class RingtoetsPlugin : PluginBase
+    public class RiskeerPlugin : PluginBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PluginBase));
 
@@ -291,7 +291,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="PropertyInfo"/> instances provided for data of <see cref="RingtoetsPlugin"/>.
+        /// Returns all <see cref="PropertyInfo"/> instances provided for data of <see cref="RiskeerPlugin"/>.
         /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -429,7 +429,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="ViewInfo"/> instances provided for data of <see cref="RingtoetsPlugin"/>.
+        /// Returns all <see cref="ViewInfo"/> instances provided for data of <see cref="RiskeerPlugin"/>.
         /// </summary>
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
@@ -771,7 +771,7 @@ namespace Riskeer.Integration.Plugin
                 Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => HasGeometry(context.ParentAssessmentSection.ReferenceLine),
-                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
 
             yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
@@ -835,7 +835,7 @@ namespace Riskeer.Integration.Plugin
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
-                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RiskeerPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
@@ -895,7 +895,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="RingtoetsPlugin"/>.
+        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="RiskeerPlugin"/>.
         /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
@@ -915,7 +915,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<BackgroundData>
             {
-                Text = data => Resources.RingtoetsPlugin_BackgroundDataContext_Text,
+                Text = data => Resources.RiskeerPlugin_BackgroundDataContext_Text,
                 Image = data => RiskeerFormsResources.Map,
                 ContextMenuStrip = BackgroundDataMenuStrip,
                 ForeColor = data =>

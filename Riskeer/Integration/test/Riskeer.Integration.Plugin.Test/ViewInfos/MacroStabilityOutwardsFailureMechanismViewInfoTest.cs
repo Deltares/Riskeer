@@ -41,14 +41,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     public class MacroStabilityOutwardsFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism,
                            MacroStabilityOutwardsFailureMechanismSectionResult>));

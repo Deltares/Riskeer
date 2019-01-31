@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        private TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionsContext));
         }

@@ -34,13 +34,13 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
     [TestFixture]
     public class FailureMechanismSectionsPropertyInfoTest
     {
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private PropertyInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismSectionsProperties));
         }
 

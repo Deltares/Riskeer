@@ -66,14 +66,14 @@ using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resource
 namespace Riskeer.Integration.Plugin.Test
 {
     [TestFixture]
-    public class RingtoetsPluginTest : NUnitFormTest
+    public class RiskeerPluginTest : NUnitFormTest
     {
         [Test]
         [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     plugin.Gui = gui;
                     gui.Run();
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     plugin.Gui = gui;
                     gui.Run();
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     plugin.Gui = gui;
                     gui.Run();
@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
@@ -371,7 +371,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
@@ -388,7 +388,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -580,7 +580,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
@@ -639,7 +639,7 @@ namespace Riskeer.Integration.Plugin.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(assessmentSection);
@@ -663,7 +663,7 @@ namespace Riskeer.Integration.Plugin.Test
             project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
             project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
@@ -678,7 +678,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetChildDataWithViewDefinitions_UnsupportedData_ReturnEmpty()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(1);
@@ -692,7 +692,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetImportInfos_ReturnsSupportedImportInfos()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
@@ -710,7 +710,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetImportInfos_ReturnsSupportedUpdateInfos()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
@@ -733,7 +733,7 @@ namespace Riskeer.Integration.Plugin.Test
         public void Activate_WithoutGui_ThrowsInvalidOperationException()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 TestDelegate test = () => plugin.Activate();
@@ -760,7 +760,7 @@ namespace Riskeer.Integration.Plugin.Test
             gui.Expect(g => g.ViewCommands).Return(viewCommands);
             mockRepository.ReplayAll();
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;
 

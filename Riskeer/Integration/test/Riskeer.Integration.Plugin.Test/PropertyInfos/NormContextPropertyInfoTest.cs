@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 PropertyInfo info = GetInfo(plugin);
@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;
 
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             mocks.VerifyAll();
         }
 
-        private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
+        private static PropertyInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(NormProperties));
         }

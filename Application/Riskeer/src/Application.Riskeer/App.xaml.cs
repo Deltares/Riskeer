@@ -161,7 +161,7 @@ namespace Application.Riskeer
                 {
                     new ProjectExplorerPlugin(),
                     new CommonToolsPlugin(),
-                    new RingtoetsPlugin(),
+                    new RiskeerPlugin(),
                     new ClosingStructuresPlugin(),
                     new StabilityPointStructuresPlugin(),
                     new WaveImpactAsphaltCoverPlugin(),

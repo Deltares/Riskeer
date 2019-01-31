@@ -146,7 +146,7 @@ Wilt u doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="RingtoetsPlugin_BackgroundDataContext_Text" xml:space="preserve">
+  <data name="RiskeerPlugin_BackgroundDataContext_Text" xml:space="preserve">
     <value>Achtergrondkaart</value>
   </data>
   <data name="AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
@@ -163,12 +163,12 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="BackgroundData_SelectMapData_Tooltip" xml:space="preserve">
     <value>Selecteer een achtergrondkaart.</value>
   </data>
-  <data name="RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
+  <data name="RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u voorlandprofielen importeert, dan worden de  resultaten van alle berekeningen in dit toetsspoor die voorlandprofielen gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
+  <data name="RiskeerPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als voorlandprofielen wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze voorlandprofielen gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>

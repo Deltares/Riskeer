@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
     {
         private MockRepository mocks;
         private ImportInfo importInfo;
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
 
         [SetUp]
         public void SetUp()
@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
-            plugin = new RingtoetsPlugin
+            plugin = new RiskeerPlugin
             {
                 Gui = gui
             };

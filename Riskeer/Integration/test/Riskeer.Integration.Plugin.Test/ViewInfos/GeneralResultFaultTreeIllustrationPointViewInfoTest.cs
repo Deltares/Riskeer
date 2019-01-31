@@ -49,13 +49,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     [Apartment(ApartmentState.STA)]
     public class GeneralResultFaultTreeIllustrationPointViewInfoTest
     {
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView));
         }
 
@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new RiskeerPlugin())
                 {
                     return plugin.GetViewInfos()
                                  .First(tni => tni.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView))

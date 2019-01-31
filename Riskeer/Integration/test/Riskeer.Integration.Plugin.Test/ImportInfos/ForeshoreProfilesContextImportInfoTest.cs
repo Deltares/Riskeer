@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
 
             var importTarget = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
 
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
 
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var context = new ForeshoreProfilesContext(foreshoreProfiles, failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;
 
@@ -280,7 +280,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
                 }
             };
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 plugin.Gui = gui;
 
@@ -301,7 +301,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             mocks.VerifyAll();
         }
 
-        private static ImportInfo GetImportInfo(RingtoetsPlugin plugin)
+        private static ImportInfo GetImportInfo(RiskeerPlugin plugin)
         {
             return plugin.GetImportInfos().First(ii => ii.DataType == typeof(ForeshoreProfilesContext));
         }

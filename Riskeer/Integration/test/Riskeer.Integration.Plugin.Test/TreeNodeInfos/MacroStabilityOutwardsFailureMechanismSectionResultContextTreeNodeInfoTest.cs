@@ -39,14 +39,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class MacroStabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>));
         }
 

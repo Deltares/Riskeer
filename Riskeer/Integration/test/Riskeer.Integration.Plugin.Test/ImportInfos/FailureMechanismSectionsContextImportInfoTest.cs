@@ -40,12 +40,12 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
     public class FailureMechanismSectionsContextImportInfoTest
     {
         private ImportInfo importInfo;
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(FailureMechanismSectionsContext));
         }
 

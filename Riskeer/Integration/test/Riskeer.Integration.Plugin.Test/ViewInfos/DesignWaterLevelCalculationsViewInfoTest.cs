@@ -51,13 +51,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         private const int calculateColumnIndex = 0;
         private const int designWaterLevelColumnIndex = 5;
 
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = GetViewInfo(plugin);
         }
 
@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                    getNormFunc,
                                                                    categoryBoundaryName))
 
-            using (var ringtoetsPlugin = new RingtoetsPlugin())
+            using (var ringtoetsPlugin = new RiskeerPlugin())
             {
                 ViewInfo viewInfo = GetViewInfo(ringtoetsPlugin);
                 ringtoetsPlugin.Gui = gui;
@@ -352,7 +352,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             }
         }
 
-        private static ViewInfo GetViewInfo(RingtoetsPlugin plugin)
+        private static ViewInfo GetViewInfo(RiskeerPlugin plugin)
         {
             return plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelCalculationsView));
         }

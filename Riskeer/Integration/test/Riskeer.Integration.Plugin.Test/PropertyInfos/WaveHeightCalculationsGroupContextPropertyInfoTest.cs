@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 PropertyInfo info = GetInfo(plugin);
@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var context = new WaveHeightCalculationsGroupContext(locations, new AssessmentSectionStub());
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             }
         }
 
-        private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
+        private static PropertyInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveHeightCalculationsGroupContext));
         }

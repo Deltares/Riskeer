@@ -100,7 +100,7 @@
     <Compile Include="PropertyInfos\SelectedTopLevelSubMechanismIllustrationPointPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SelectedTopLevelFaultTreeIllustrationPointPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveHeightCalculationsContextPropertyInfoTest.cs" />
-    <Compile Include="RingtoetsPluginTest.cs" />
+    <Compile Include="RiskeerPluginTest.cs" />
     <Compile Include="RingtoetsRibbonTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultCategoriesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultPerSectionContextTreeNodeInfoTest.cs" />

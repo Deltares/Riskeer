@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         [SetUp]
         public void SetUp()
         {
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsView));
             }

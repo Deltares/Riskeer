@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 // Call
                 ExportInfo info = GetExportInfo(plugin);
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
 
             const string filePath = "test";
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         public void FileFilterGenerator_Always_ReturnFileFilter()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var context = new AssemblyResultsContext(assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
 
             var context = new AssemblyResultsContext(assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
@@ -137,7 +137,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
             }
         }
 
-        private static ExportInfo GetExportInfo(RingtoetsPlugin plugin)
+        private static ExportInfo GetExportInfo(RiskeerPlugin plugin)
         {
             return plugin.GetExportInfos().First(ei => ei.DataType == typeof(AssemblyResultsContext));
         }

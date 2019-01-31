@@ -38,14 +38,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class StructuresOutputContextTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StructuresOutputContext));
         }
 

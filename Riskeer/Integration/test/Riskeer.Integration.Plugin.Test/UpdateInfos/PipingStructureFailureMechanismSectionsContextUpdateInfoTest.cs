@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
@@ -101,7 +101,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
             var context = new PipingStructureFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingStructureFailureMechanism();
             var context = new PipingStructureFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
@@ -144,7 +144,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
         public void FileFilterGenerator_Always_ReturnExpectedFileFilter()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo importInfo = GetUpdateInfo(plugin);
 
@@ -168,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingStructureFailureMechanism();
             var context = new PipingStructureFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
             var context = new PipingStructureFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
                 UpdateInfo updateInfo = GetUpdateInfo(plugin);
 
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             }
         }
 
-        private static UpdateInfo GetUpdateInfo(RingtoetsPlugin plugin)
+        private static UpdateInfo GetUpdateInfo(RiskeerPlugin plugin)
         {
             return plugin.GetUpdateInfos().First(ii => ii.DataType == typeof(PipingStructureFailureMechanismSectionsContext));
         }

@@ -36,13 +36,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class AssemblyResultTotalViewInfoTest
     {
-        private RingtoetsPlugin plugin;
+        private RiskeerPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new RingtoetsPlugin();
+            plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssemblyResultTotalView));
         }
 

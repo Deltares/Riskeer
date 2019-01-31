@@ -395,11 +395,20 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuw.
+        /// </summary>
+        public static string RingtoetsRibbon_GroupBox_New {
+            get {
+                return ResourceManager.GetString("RingtoetsRibbon_GroupBox_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Achtergrondkaart.
         /// </summary>
-        public static string RingtoetsPlugin_BackgroundDataContext_Text {
+        public static string RiskeerPlugin_BackgroundDataContext_Text {
             get {
-                return ResourceManager.GetString("RingtoetsPlugin_BackgroundDataContext_Text", resourceCulture);
+                return ResourceManager.GetString("RiskeerPlugin_BackgroundDataContext_Text", resourceCulture);
             }
         }
         
@@ -408,10 +417,10 @@ namespace Riskeer.Integration.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+        public static string RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_def" +
-                        "initions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_defin" +
+                        "itions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         
@@ -420,19 +429,10 @@ namespace Riskeer.Integration.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
+        public static string RiskeerPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_defi" +
-                        "nitions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw.
-        /// </summary>
-        public static string RingtoetsRibbon_GroupBox_New {
-            get {
-                return ResourceManager.GetString("RingtoetsRibbon_GroupBox_New", resourceCulture);
+                return ResourceManager.GetString("RiskeerPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_defini" +
+                        "tions_assigned_to_calculations_output_will_be_cleared_confirm", resourceCulture);
             }
         }
     }

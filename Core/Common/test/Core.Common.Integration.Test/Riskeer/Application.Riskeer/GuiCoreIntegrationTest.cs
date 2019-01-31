@@ -63,7 +63,7 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new RingtoetsPlugin());
+                gui.Plugins.Add(new RiskeerPlugin());
                 gui.Run();
             }
 
@@ -112,7 +112,7 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new RingtoetsPlugin());
+                gui.Plugins.Add(new RiskeerPlugin());
                 gui.Plugins.Add(new ProjectExplorerPlugin());
 
                 gui.Run();
