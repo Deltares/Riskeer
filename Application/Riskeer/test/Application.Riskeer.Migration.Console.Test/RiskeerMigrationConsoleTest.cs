@@ -236,7 +236,7 @@ namespace Application.Riskeer.Migration.Console.Test
         {
             string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             return "Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een "
-                   + $"eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({currentDatabaseVersion})."
+                   + $"eerdere versie van Riskeer of Ringtoets projectbestand te migreren naar het formaat van de huidige versie van Riskeer ({currentDatabaseVersion})."
                    + Environment.NewLine + Environment.NewLine
                    + "MIGRATIEHULPPROGRAMMA -h" + Environment.NewLine
                    + "MIGRATIEHULPPROGRAMMA --help" + Environment.NewLine

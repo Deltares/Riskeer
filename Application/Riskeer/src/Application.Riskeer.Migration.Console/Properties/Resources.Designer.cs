@@ -154,7 +154,7 @@ namespace Application.Riskeer.Migration.Console.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({0})..
+        ///   Looks up a localized string similar to Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Riskeer of Ringtoets projectbestand te migreren naar het formaat van de huidige versie van Riskeer ({0})..
         /// </summary>
         internal static string RiskeerMigrationTool_ApplicationDescription_Version_0 {
             get {

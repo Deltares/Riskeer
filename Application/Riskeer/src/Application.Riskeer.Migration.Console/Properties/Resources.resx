@@ -133,7 +133,7 @@
     <value>Controleert of het projectbestand dat te vinden is in het bronprojectpad gemigreerd kan worden.</value>
   </data>
   <data name="RiskeerMigrationTool_ApplicationDescription_Version_0" xml:space="preserve">
-    <value>Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Ringtoets te migreren naar het formaat van de huidige versie van Ringtoets ({0}).</value>
+    <value>Dit hulpprogramma kan worden gebruikt om een projectbestand in het formaat van een eerdere versie van Riskeer of Ringtoets projectbestand te migreren naar het formaat van de huidige versie van Riskeer ({0}).</value>
   </data>
   <data name="CommandSupported_File_Able_To_Migrate_To_Version_0" xml:space="preserve">
     <value>Het projectbestand kan gemigreerd worden naar versie '{0}'.</value>

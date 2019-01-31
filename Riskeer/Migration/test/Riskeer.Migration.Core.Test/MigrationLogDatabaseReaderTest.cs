@@ -65,7 +65,7 @@ namespace Riskeer.Migration.Core.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
-                Assert.AreEqual("Kritieke fout opgetreden bij het uitlezen van het Ringtoets logbestand van de migratie.",
+                Assert.AreEqual("Kritieke fout opgetreden bij het uitlezen van het Riskeer logbestand van de migratie.",
                                 exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
@@ -104,7 +104,7 @@ namespace Riskeer.Migration.Core.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
-                Assert.AreEqual("Kritieke fout opgetreden bij het uitlezen van het Ringtoets logbestand van de migratie.",
+                Assert.AreEqual("Kritieke fout opgetreden bij het uitlezen van het Riskeer logbestand van de migratie.",
                                 exception.Message);
                 Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
             }

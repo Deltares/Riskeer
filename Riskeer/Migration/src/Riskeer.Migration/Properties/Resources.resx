@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire" xml:space="preserve">
-    <value>Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Ringtoets.
+    <value>Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Riskeer of Ringtoets.
 
-Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({0})?</value>
+Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Riskeerversie ({0})?</value>
   </data>
   <data name="RiskeerProject_FileExtension" xml:space="preserve">
     <value>rtd</value>

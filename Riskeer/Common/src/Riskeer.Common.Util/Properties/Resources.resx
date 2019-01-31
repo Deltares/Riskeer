@@ -148,6 +148,6 @@
     <value>Hs gr.A</value>
   </data>
   <data name="RiskeerVersionHelper_Version_0_Not_Valid" xml:space="preserve">
-    <value>'{0}' is geen geldige Ringtoets versie.</value>
+    <value>'{0}' is geen geldige Riskeer of Ringtoets projectbestand versie.</value>
   </data>
 </root>

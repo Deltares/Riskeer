@@ -159,9 +159,9 @@ namespace Riskeer.Migration.Test
         public void ShouldMigrate_OutdatedProjectSupported_AskMigrationConfirmationAndReturnBasedOnConfirmation(bool confirmContinuation)
         {
             // Setup
-            string question = "Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Ringtoets." +
+            string question = "Het project dat u wilt openen is opgeslagen in het formaat van een eerdere versie van Riskeer of Ringtoets." +
                               $"{Environment.NewLine}{Environment.NewLine}" +
-                              $"Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Ringtoetsversie ({currentDatabaseVersion})?";
+                              $"Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Riskeerversie ({currentDatabaseVersion})?";
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquireContinuation(question)).Return(confirmContinuation);

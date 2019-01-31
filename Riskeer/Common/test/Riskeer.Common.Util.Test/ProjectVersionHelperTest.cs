@@ -127,7 +127,7 @@ namespace Riskeer.Common.Util.Test
             TestDelegate call = () => ProjectVersionHelper.ValidateVersion(validVersion);
 
             // Assert
-            string expectedMessage = $@"'{validVersion}' is geen geldige Ringtoets versie.";
+            string expectedMessage = $@"'{validVersion}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

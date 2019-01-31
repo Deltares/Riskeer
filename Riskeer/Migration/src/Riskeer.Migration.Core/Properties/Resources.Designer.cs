@@ -91,7 +91,7 @@ namespace Riskeer.Migration.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van het Ringtoets logbestand van de migratie..
+        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van het Riskeer logbestand van de migratie..
         /// </summary>
         public static string MigrationLogDatabaseReader_GetMigrationLogMessages_failed {
             get {
@@ -100,7 +100,7 @@ namespace Riskeer.Migration.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het aanmaken van het Ringtoets projectbestand met versie &apos;{0}&apos; is mislukt..
+        ///   Looks up a localized string similar to Het aanmaken van het Riskeer projectbestand met versie &apos;{0}&apos; is mislukt..
         /// </summary>
         public static string ProjectCreateScript_Creating_Version_0_Failed {
             get {
@@ -109,7 +109,7 @@ namespace Riskeer.Migration.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; moet een geldig Ringtoets projectbestand zijn..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; moet een geldig Riskeer of Ringtoets projectbestand zijn..
         /// </summary>
         public static string ProjectDatabaseSourceFile_Invalid_Project_File_Path_0 {
             get {
@@ -118,7 +118,7 @@ namespace Riskeer.Migration.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het migreren van het Ringtoets projectbestand van versie &apos;{0}&apos; naar &apos;{1}&apos; is mislukt..
+        ///   Looks up a localized string similar to Het migreren van het Riskeer of Ringtoets projectbestand van versie &apos;{0}&apos; naar &apos;{1}&apos; is mislukt..
         /// </summary>
         public static string ProjectUpgradeScript_Upgrading_Version_0_To_Version_1_Failed {
             get {

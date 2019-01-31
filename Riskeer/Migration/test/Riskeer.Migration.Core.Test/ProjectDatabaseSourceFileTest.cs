@@ -100,7 +100,7 @@ namespace Riskeer.Migration.Core.Test
 
                 // Assert
                 string message = Assert.Throws<StorageValidationException>(call).Message;
-                Assert.AreEqual($"Het bestand '{filePath}' moet een geldig Ringtoets projectbestand zijn.",
+                Assert.AreEqual($"Het bestand '{filePath}' moet een geldig Riskeer of Ringtoets projectbestand zijn.",
                                 message);
             }
         }

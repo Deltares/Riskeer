@@ -79,7 +79,7 @@ namespace Riskeer.Migration.Core.Test
             TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
-            string expectedMessage = $@"'{fromVersion}' is geen geldige Ringtoets versie.";
+            string expectedMessage = $@"'{fromVersion}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -95,7 +95,7 @@ namespace Riskeer.Migration.Core.Test
             TestDelegate call = () => new ProjectUpgradeScript(fromVersion, toVersion, query, string.Empty);
 
             // Assert
-            string expectedMessage = $@"'{toVersion}' is geen geldige Ringtoets versie.";
+            string expectedMessage = $@"'{toVersion}' is geen geldige Riskeer of Ringtoets projectbestand versie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -151,7 +151,7 @@ namespace Riskeer.Migration.Core.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalMigrationException>(call);
-                Assert.AreEqual($"Het migreren van het Ringtoets projectbestand van versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
+                Assert.AreEqual($"Het migreren van het Riskeer of Ringtoets projectbestand van versie '{fromVersion}' naar '{fromVersion}' is mislukt.",
                                 exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
