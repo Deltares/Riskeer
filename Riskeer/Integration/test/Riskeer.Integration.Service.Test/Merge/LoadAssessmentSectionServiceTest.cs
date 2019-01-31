@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void LoadAssessmentSections_LoadingProjectSuccessful_ReturnsRingtoetsProject()
+        public void LoadAssessmentSections_LoadingProjectSuccessful_ReturnsRiskeerProject()
         {
             // Setup
             var project = new RiskeerProject();

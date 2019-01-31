@@ -56,13 +56,13 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Integration.Service.Test
 {
     [TestFixture]
-    public class RingtoetsDataSynchronizationServiceTest
+    public class RiskeerDataSynchronizationServiceTest
     {
         [Test]
         public void ClearFailureMechanismCalculationOutputs_WithoutAssessmentSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection) null);
+            TestDelegate test = () => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Service.Test
                                                                                .ToList();
 
             // Call
-            IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -96,7 +96,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithoutFailureMechanisms_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>) null);
+            TestDelegate test = () => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Service.Test
                                                               .ToList();
 
             // Call
-            IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanisms);
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanisms);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -132,7 +132,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            TestDelegate test = () => RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Service.Test
                                                             .Where(i => i.HydraulicBoundaryLocation != null));
 
             // Call
-            IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutput_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
+            TestDelegate test = () => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -370,7 +370,7 @@ namespace Riskeer.Integration.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
 
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
@@ -401,7 +401,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IAssessmentSection) null);
+            TestDelegate test = () => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IAssessmentSection) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -422,7 +422,7 @@ namespace Riskeer.Integration.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
 
             // Assert
             CollectionAssert.IsEmpty(affectedObjects);
@@ -451,7 +451,7 @@ namespace Riskeer.Integration.Service.Test
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -481,7 +481,7 @@ namespace Riskeer.Integration.Service.Test
             IEnumerable<IObservable> expectedAffectedItems = DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(duneErosionFailureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -496,7 +496,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IEnumerable<IFailureMechanism>) null);
+            TestDelegate test = () => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IEnumerable<IFailureMechanism>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -507,7 +507,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_FailureMechanismsContainingNoLocations_DoNothing()
         {
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 new DuneErosionFailureMechanism()
@@ -530,7 +530,7 @@ namespace Riskeer.Integration.Service.Test
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
             {
                 grassCoverErosionOutwardsFailureMechanism
             });
@@ -554,7 +554,7 @@ namespace Riskeer.Integration.Service.Test
             IEnumerable<IObservable> expectedAffectedItems = DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(duneErosionFailureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
             {
                 duneErosionFailureMechanism
             });
@@ -570,7 +570,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearReferenceLine_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -584,7 +584,7 @@ namespace Riskeer.Integration.Service.Test
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             // Call
-            RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
+            RiskeerDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -694,7 +694,7 @@ namespace Riskeer.Integration.Service.Test
             IEnumerable<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
 
             // Call
-            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
+            ClearResults results = RiskeerDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
 
             // Assert
             AssertChangedObjects(results, assessmentSection);
@@ -710,7 +710,7 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((StabilityStoneCoverFailureMechanism) null, profile);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityStoneCoverFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -724,7 +724,7 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -749,7 +749,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
 
             // Call
-            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -784,7 +784,7 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((WaveImpactAsphaltCoverFailureMechanism) null, profile);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((WaveImpactAsphaltCoverFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -798,7 +798,7 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -823,7 +823,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
 
             // Call
-            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -858,7 +858,7 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((GrassCoverErosionOutwardsFailureMechanism) null, profile);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((GrassCoverErosionOutwardsFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -872,7 +872,7 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -896,7 +896,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
 
             // Call
-            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -931,7 +931,7 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((HeightStructuresFailureMechanism) null, profile);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((HeightStructuresFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -945,7 +945,7 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -970,7 +970,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
 
             // Call
-            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -1005,7 +1005,7 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((ClosingStructuresFailureMechanism) null, profile);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((ClosingStructuresFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1019,7 +1019,7 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1044,7 +1044,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
 
             // Call
-            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -1079,7 +1079,7 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((StabilityPointStructuresFailureMechanism) null, profile);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityPointStructuresFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1093,7 +1093,7 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1118,7 +1118,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsNotEmpty(calculationsWithForeshoreProfile);
 
             // Call
-            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -1150,7 +1150,7 @@ namespace Riskeer.Integration.Service.Test
         public void RemoveAllForeshoreProfiles_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles<ICalculationInput>(null,
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles<ICalculationInput>(null,
                                                                                                                         new ForeshoreProfileCollection());
 
             // Assert
@@ -1162,7 +1162,7 @@ namespace Riskeer.Integration.Service.Test
         public void RemoveAllForeshoreProfiles_ForeshoreProfilesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(Enumerable.Empty<ICalculation<ICalculationInput>>(),
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles(Enumerable.Empty<ICalculation<ICalculationInput>>(),
                                                                                                      null);
 
             // Assert
@@ -1202,7 +1202,7 @@ namespace Riskeer.Integration.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(calculations, foreshoreProfiles);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles(calculations, foreshoreProfiles);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -1228,7 +1228,7 @@ namespace Riskeer.Integration.Service.Test
             DikeProfile profile = DikeProfileTestFactory.CreateDikeProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(null, profile);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveDikeProfile(null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1242,7 +1242,7 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, null);
+            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1268,7 +1268,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsNotEmpty(sectionResults);
 
             // Call
-            IEnumerable<IObservable> observables = RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
+            IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with

@@ -125,7 +125,7 @@ namespace Riskeer.Integration.TestUtil
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
-            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
+            RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
 
             return assessmentSection;
         }
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.TestUtil
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
-            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
+            RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             return assessmentSection;
         }

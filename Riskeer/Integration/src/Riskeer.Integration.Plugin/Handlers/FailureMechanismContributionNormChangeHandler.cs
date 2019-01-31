@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearAllNormDependentCalculationOutput()
         {
-            List<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToList();
+            List<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToList();
             if (affectedObjects.Count > 0)
             {
                 log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationCalculationOutput()
         {
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
 
             if (affectedObjects.Any())
             {

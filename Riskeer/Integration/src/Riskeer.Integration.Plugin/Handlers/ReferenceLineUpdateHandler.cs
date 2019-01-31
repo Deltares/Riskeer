@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             removedObjects.Clear();
 
-            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
+            ClearResults results = RiskeerDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
             foreach (object removedObject in results.RemovedObjects)
             {
                 removedObjects.Enqueue(removedObject);

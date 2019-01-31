@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 duneLocationsReplacementHandler.Replace(hydraulicBoundaryDatabase.Locations);
 
                 changedObjects.AddRange(GetLocationsAndCalculationsObservables(hydraulicBoundaryDatabase));
-                changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
+                changedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection));
             }
             else
             {

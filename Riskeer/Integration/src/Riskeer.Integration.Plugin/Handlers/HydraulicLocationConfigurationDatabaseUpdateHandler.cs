@@ -88,8 +88,8 @@ namespace Riskeer.Integration.Plugin.Handlers
                 hydraulicBoundaryDatabase
             };
 
-            changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));
-            changedObjects.AddRange(RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection));
+            changedObjects.AddRange(RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection));
+            changedObjects.AddRange(RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection));
 
             return changedObjects;
         }

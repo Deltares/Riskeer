@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
         {
             IEnumerable<ICalculation<ICalculationInput>> calculations = FailureMechanism.Calculations
                                                                                         .Cast<ICalculation<ICalculationInput>>();
-            return RingtoetsDataSynchronizationService.RemoveAllForeshoreProfiles(calculations, foreshoreProfileCollection);
+            return RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles(calculations, foreshoreProfileCollection);
         }
     }
 }

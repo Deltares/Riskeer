@@ -26,7 +26,7 @@
     <Compile Include="Merge\LoadAssessmentSectionsActivityTest.cs" />
     <Compile Include="Merge\LoadAssessmentSectionServiceTest.cs" />
     <Compile Include="AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactoryTest.cs" />
-    <Compile Include="RingtoetsDataSynchronizationServiceTest.cs" />
+    <Compile Include="RiskeerDataSynchronizationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

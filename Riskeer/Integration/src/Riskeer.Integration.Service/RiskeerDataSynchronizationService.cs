@@ -55,9 +55,9 @@ using Riskeer.WaveImpactAsphaltCover.Service;
 namespace Riskeer.Integration.Service
 {
     /// <summary>
-    /// Service for synchronizing ringtoets.
+    /// Service for synchronizing Riskeer items.
     /// </summary>
-    public static class RingtoetsDataSynchronizationService
+    public static class RiskeerDataSynchronizationService
     {
         /// <summary>
         /// Clears all the output data and hydraulic boundary locations within the <see cref="IAssessmentSection"/>.

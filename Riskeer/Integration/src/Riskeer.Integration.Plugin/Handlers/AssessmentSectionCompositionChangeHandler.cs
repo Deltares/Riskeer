@@ -95,7 +95,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 IFailureMechanism[] failureMechanismsToClearOutputFor = GetFailureMechanismsToClearOutputFor(assessmentSection, oldFailureMechanismContributions).ToArray();
 
                 IObservable[] affectedCalculations =
-                    RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanismsToClearOutputFor).ToArray();
+                    RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanismsToClearOutputFor).ToArray();
 
                 if (affectedCalculations.Length > 0)
                 {
@@ -157,7 +157,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         private IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(IEnumerable<IFailureMechanism> failureMechanismsToClearOutputFor)
         {
             IEnumerable<IObservable> affectedObjects =
-                RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(failureMechanismsToClearOutputFor);
+                RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(failureMechanismsToClearOutputFor);
             if (affectedObjects.Any())
             {
                 log.Info(Resources.AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared);
