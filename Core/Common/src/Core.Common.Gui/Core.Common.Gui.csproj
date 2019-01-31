@@ -298,4 +298,7 @@
     <None Include="Resources\bug-exclamation.ico" />
     <None Include="Resources\textfield_rename.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Riskeer.ico" />
+  </ItemGroup>
 </Project>

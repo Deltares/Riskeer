@@ -1401,9 +1401,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        public static System.Drawing.Icon Ringtoets {
+        public static System.Drawing.Icon Riskeer {
             get {
-                object obj = ResourceManager.GetObject("Ringtoets", resourceCulture);
+                object obj = ResourceManager.GetObject("Riskeer", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

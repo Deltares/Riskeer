@@ -25,7 +25,7 @@ All rights reserved.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:properties="clr-namespace:Core.Common.Gui.Properties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.SplashScreen.SplashScreen"
-             WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,0" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Ringtoets.ico" SizeToContent="WidthAndHeight">
+             WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,0" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Riskeer.ico" SizeToContent="WidthAndHeight">
     <Grid Width="492" Height="312">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

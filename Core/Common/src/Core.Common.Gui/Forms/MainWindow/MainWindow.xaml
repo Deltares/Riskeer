@@ -31,7 +31,7 @@ All rights reserved.
     xmlns:viewHost="clr-namespace:Core.Common.Gui.Forms.ViewHost"
         mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.MainWindow.MainWindow"
         Title="MainWindow" Height="768" Width="1024" Background="White" Foreground="Black" x:Name="Window"
-        Icon="/Core.Common.Gui;component\Resources/Ringtoets.ico"
+        Icon="/Core.Common.Gui;component\Resources/Riskeer.ico"
     ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     Loaded="MainWindow_OnLoaded">

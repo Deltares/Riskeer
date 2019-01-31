@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// </summary>
         /// <param name="dialogParent">The dialog parent for which this dialog should be shown on top.</param>
         /// <param name="activities">The activities to be executed when the dialog is shown.</param>
-        public ActivityProgressDialog(IWin32Window dialogParent, IEnumerable<Activity> activities) : base(dialogParent, Resources.Ringtoets, 520, 150)
+        public ActivityProgressDialog(IWin32Window dialogParent, IEnumerable<Activity> activities) : base(dialogParent, Resources.Riskeer, 520, 150)
         {
             InitializeComponent();
 

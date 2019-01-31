@@ -192,7 +192,7 @@
     <Content Include="InstallationVerification\WBI2017_IJsselmeer_12-2_v02.sqlite" />
     <Content Include="Licentie.rtf" />
     <Content Include="Manual.ico" />
-    <Content Include="Ringtoets.ico" />
+    <Content Include="Riskeer.ico" />
     <Content Include="Start_493x312.bmp" />
     <Content Include="Variables.wxi" />
   </ItemGroup>
