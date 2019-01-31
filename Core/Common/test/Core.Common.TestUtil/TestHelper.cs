@@ -674,7 +674,7 @@ namespace Core.Common.TestUtil
 
         private static string GetSolutionRoot()
         {
-            const string solutionName = "Ringtoets.sln";
+            const string solutionName = "Riskeer.sln";
             //get the current directory and scope up
             //TODO find a faster safer method 
             var testContext = new TestContext(new TestExecutionContext.AdhocContext());
