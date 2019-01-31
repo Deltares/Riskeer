@@ -36,7 +36,6 @@ All rights reserved.
     </UserControl.Resources>
     <fluent:Ribbon x:Name="RiskeerRibbonControl" x:FieldModifier="private">
         <fluent:RibbonTabItem Header="{x:Static guiProperties:Resources.Ribbon_TabItem_Start}" fluent:KeyTip.Keys="S" >
-            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.RingtoetsRibbon_GroupBox_New}" fluent:KeyTip.Keys="ZN">
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.RiskeerRibbon_GroupBox_New}" fluent:KeyTip.Keys="ZN">
                 <fluent:Button x:Name="AddAssessmentSectionButton" Header="{x:Static properties:Resources.RiskeerRibbon_AddAssessmentSection}" LargeIcon="{Binding Source={x:Static properties:Resources.AddAssessmentSectionFolder}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonAddAssessmentSectionToolWindowClick" fluent:KeyTip.Keys="T" />
             </fluent:RibbonGroupBox>
