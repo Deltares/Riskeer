@@ -280,7 +280,7 @@
     <Resource Include="Resources\Paste.png" />
     <Resource Include="Resources\PasteLarge.png" />
     <Resource Include="Resources\PropertiesHS.png" />
-    <Resource Include="Resources\Ringtoets.ico" />
+    <Resource Include="Resources\Riskeer.ico" />
     <Resource Include="Resources\SaveAsHH.png" />
     <Resource Include="Resources\saveHS.png" />
     <Resource Include="Resources\SplashScreenBackground.png" />
@@ -297,8 +297,5 @@
     <None Include="Resources\table_refresh.png" />
     <None Include="Resources\bug-exclamation.ico" />
     <None Include="Resources\textfield_rename.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Riskeer.ico" />
   </ItemGroup>
 </Project>
