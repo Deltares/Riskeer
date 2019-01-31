@@ -12,13 +12,13 @@
   </Target>
   
    <Target Name="AssemblyVersion" DependsOnTargets="Release">
-   <Delete Files="Ringtoets.doxygen"/>
-    <Exec Command="assembly_insert_version.cmd ..\..\Core\Common\src\Core.Common.Version GlobalAssembly.cs Ringtoets.doxygen.svn Ringtoets.doxygen" WorkingDirectory="Technical_documentation" />
+   <Delete Files="Riskeer.doxygen"/>
+    <Exec Command="assembly_insert_version.cmd ..\..\Core\Common\src\Core.Common.Version GlobalAssembly.cs Riskeer.doxygen.svn Riskeer.doxygen" WorkingDirectory="Technical_documentation" />
   </Target>
   
   <Target Name="RunDoxygen" DependsOnTargets="AssemblyVersion">
     <MakeDir Directories="$(DoxygenOutputDirectory)" />
-    <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\Ringtoets.doxygen"/>
+    <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\Riskeer.doxygen"/>
   </Target>
   
    <Target Name="RunPDF2LaTeX" DependsOnTargets="RunDoxygen">
@@ -28,7 +28,7 @@
   </Target>
   
   <Target Name="TechnicalDocumentation" DependsOnTargets="RunPDF2LaTeX">
-	<Exec Command="ren refman.pdf Ringtoets_Technical_documentation.pdf" WorkingDirectory="..\target\Technical_documentation\latex"/>
+	<Exec Command="ren refman.pdf Riskeer_Technical_documentation.pdf" WorkingDirectory="..\target\Technical_documentation\latex"/>
   </Target>
   
 </Project>
