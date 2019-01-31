@@ -251,7 +251,7 @@ SELECT
 	"Conform WBI2017",
 	"Conform WBI2017",
 	"Conform WBI2017",
-	"Gegenereerd door Ringtoets (conform WBI2017)"
+	"Gegenereerd door Riskeer (conform WBI2017)"
 FROM SOURCEPROJECT.AssessmentSectionEntity
 WHERE [HydraulicDatabaseLocation] IS NOT NULL;
 

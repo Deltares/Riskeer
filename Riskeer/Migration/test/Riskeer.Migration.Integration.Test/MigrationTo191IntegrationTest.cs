@@ -118,7 +118,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[HydraulicLocationConfigurationSettingsLakeLevel] IS 'Conform WBI2017' " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsWindDirection] IS 'Conform WBI2017' " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsWindSpeed] IS 'Conform WBI2017' " +
-                "AND NEW.[HydraulicLocationConfigurationSettingsComment] IS 'Gegenereerd door Ringtoets (conform WBI2017)'; " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsComment] IS 'Gegenereerd door Riskeer (conform WBI2017)'; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateHydraulicDatabase);
         }
