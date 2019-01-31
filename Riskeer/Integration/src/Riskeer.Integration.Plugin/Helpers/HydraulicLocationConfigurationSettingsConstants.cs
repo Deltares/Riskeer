@@ -31,6 +31,6 @@ namespace Riskeer.Integration.Plugin.Helpers
         internal const string MandatoryConfigurationPropertyDefaultValue = "WBI2017";
         internal const int YearDefaultValue = 2023;
         internal const string OptionalConfigurationPropertyDefaultValue = "Conform WBI2017";
-        internal const string AdditionalInformationConfigurationPropertyValue = "Gegenereerd door Ringtoets (conform WBI2017)";
+        internal const string AdditionalInformationConfigurationPropertyValue = "Gegenereerd door Riskeer (conform WBI2017)";
     }
 }

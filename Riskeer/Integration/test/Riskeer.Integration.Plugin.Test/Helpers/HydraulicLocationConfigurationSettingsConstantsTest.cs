@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             Assert.AreEqual("WBI2017", HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue);
             Assert.AreEqual(2023, HydraulicLocationConfigurationSettingsConstants.YearDefaultValue);
             Assert.AreEqual("Conform WBI2017", HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue);
-            Assert.AreEqual("Gegenereerd door Ringtoets (conform WBI2017)", HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue);
+            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", HydraulicLocationConfigurationSettingsConstants.AdditionalInformationConfigurationPropertyValue);
         }
     }
 }
