@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual("Conform WBI2017", settings.LakeLevel);
             Assert.AreEqual("Conform WBI2017", settings.WindDirection);
             Assert.AreEqual("Conform WBI2017", settings.WindSpeed);
-            Assert.AreEqual("Gegenereerd door Ringtoets (conform WBI2017)", settings.Comment);
+            Assert.AreEqual("Gegenereerd door Riskeer (conform WBI2017)", settings.Comment);
         }
 
         [Test]

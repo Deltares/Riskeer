@@ -655,7 +655,7 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        public void GetChildDataWithViewDefinitions_RingtoetsProjectWithChildren_ReturnChildren()
+        public void GetChildDataWithViewDefinitions_ProjectWithChildren_ReturnChildren()
         {
             // Setup
             var project = new RiskeerProject();

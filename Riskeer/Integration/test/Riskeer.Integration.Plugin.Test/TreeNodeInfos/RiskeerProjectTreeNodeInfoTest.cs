@@ -37,7 +37,7 @@ using GuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class RingtoetsProjectTreeNodeInfoTest
+    public class RiskeerProjectTreeNodeInfoTest
     {
         private MockRepository mockRepository;
 

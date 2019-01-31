@@ -278,11 +278,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                    getNormFunc,
                                                                    categoryBoundaryName))
 
-            using (var ringtoetsPlugin = new RiskeerPlugin())
+            using (var plugin = new RiskeerPlugin())
             {
-                ViewInfo viewInfo = GetViewInfo(ringtoetsPlugin);
-                ringtoetsPlugin.Gui = gui;
-                ringtoetsPlugin.Activate();
+                ViewInfo viewInfo = GetViewInfo(plugin);
+                plugin.Gui = gui;
+                plugin.Activate();
 
                 // Call
                 viewInfo.AfterCreate(view, context);

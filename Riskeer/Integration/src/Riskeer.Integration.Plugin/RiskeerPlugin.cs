@@ -1295,13 +1295,13 @@ namespace Riskeer.Integration.Plugin
 
         private static void VerifyHydraulicBoundaryDatabasePath(IProject project)
         {
-            var ringtoetsProject = project as RiskeerProject;
-            if (ringtoetsProject == null)
+            var riskeerProject = project as RiskeerProject;
+            if (riskeerProject == null)
             {
                 return;
             }
 
-            IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
+            IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = riskeerProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
             foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(section.HydraulicBoundaryDatabase.FilePath,
