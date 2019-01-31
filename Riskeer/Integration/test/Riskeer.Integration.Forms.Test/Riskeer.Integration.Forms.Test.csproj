@@ -81,6 +81,7 @@
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\RiskeerProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
@@ -90,11 +91,10 @@
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionCompositionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="Dialogs\ReferenceLineMetaSelectionDialogTest.cs" />
-    <Compile Include="RingtoetsSettingsHelperTest.cs" />
+    <Compile Include="RiskeerSettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="Views\AssemblyResultCategoriesViewTest.cs" />

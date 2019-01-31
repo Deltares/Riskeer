@@ -26,40 +26,40 @@ using Core.Common.Util.Settings;
 namespace Riskeer.Integration.Forms
 {
     /// <summary>
-    /// Class that defines helper methods related to Ringtoets settings.
+    /// Class that defines helper methods related to Riskeer settings.
     /// </summary>
-    public class RingtoetsSettingsHelper : SettingsHelper
+    public class RiskeerSettingsHelper : SettingsHelper
     {
         /// <summary>
         /// Gets the directory of the "NBPW" shape file within the common documents directory.
         /// </summary>
         /// <returns>Directory path where the "NBPW" shape file can be found.</returns>
-        public static string GetCommonDocumentsRingtoetsShapeFileDirectory()
+        public static string GetCommonDocumentsRiskeerShapeFileDirectory()
         {
-            string commonDocuments = new RingtoetsSettingsHelper().GetCommonDocumentsDirectory();
+            string commonDocuments = new RiskeerSettingsHelper().GetCommonDocumentsDirectory();
             return Path.Combine(commonDocuments, "NBPW");
         }
 
         public override string GetCommonDocumentsDirectory(params string[] subPath)
         {
-            var ringtoetsCommonDocumentsPath = new List<string>
+            var documentsPath = new List<string>
             {
                 "WTI",
                 "Ringtoets"
             };
-            ringtoetsCommonDocumentsPath.AddRange(subPath);
-            return base.GetCommonDocumentsDirectory(ringtoetsCommonDocumentsPath.ToArray());
+            documentsPath.AddRange(subPath);
+            return base.GetCommonDocumentsDirectory(documentsPath.ToArray());
         }
 
         public override string GetApplicationLocalUserSettingsDirectory(params string[] subPath)
         {
-            var ringtoetsApplicationPath = new List<string>
+            var applicationPath = new List<string>
             {
                 "WTI",
                 "Ringtoets"
             };
-            ringtoetsApplicationPath.AddRange(subPath);
-            return base.GetApplicationLocalUserSettingsDirectory(ringtoetsApplicationPath.ToArray());
+            applicationPath.AddRange(subPath);
+            return base.GetApplicationLocalUserSettingsDirectory(applicationPath.ToArray());
         }
     }
 }

@@ -28,14 +28,14 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class RingtoetsProjectPropertiesTest
+    public class RiskeerProjectPropertiesTest
     {
         [Test]
         public void Name_WithData_ReturnsName()
         {
             // Setup
             var project = new RiskeerProject();
-            var properties = new RingtoetsProjectProperties
+            var properties = new RiskeerProjectProperties
             {
                 Data = project
             };
@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var project = new RiskeerProject();
-            var properties = new RingtoetsProjectProperties
+            var properties = new RiskeerProjectProperties
             {
                 Data = project
             };
@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void GetProperties_Always_ReturnsTwoProperties()
         {
             // Setup
-            var properties = new RingtoetsProjectProperties
+            var properties = new RiskeerProjectProperties
             {
                 Data = new RiskeerProject()
             };

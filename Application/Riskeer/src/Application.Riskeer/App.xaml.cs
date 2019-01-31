@@ -89,7 +89,7 @@ namespace Application.Riskeer
 
         static App()
         {
-            SettingsHelper.Instance = new RingtoetsSettingsHelper();
+            SettingsHelper.Instance = new RiskeerSettingsHelper();
             SetLanguage();
 
             string userDisplay = UserDisplay();

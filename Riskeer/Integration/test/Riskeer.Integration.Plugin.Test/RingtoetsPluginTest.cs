@@ -228,7 +228,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(IProject),
-                    typeof(RingtoetsProjectProperties));
+                    typeof(RiskeerProjectProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

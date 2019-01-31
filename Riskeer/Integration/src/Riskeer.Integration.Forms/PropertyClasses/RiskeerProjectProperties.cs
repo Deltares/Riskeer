@@ -31,12 +31,12 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// This class describes the presentation of properties of a <see cref="IProject"/>.
     /// </summary>
-    public class RingtoetsProjectProperties : ObjectProperties<IProject>
+    public class RiskeerProjectProperties : ObjectProperties<IProject>
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Name_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Name_Description))]
+        [ResourcesDisplayName(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RiskeerProjectProperties_Name_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RiskeerProjectProperties_Name_Description))]
         public string Name
         {
             get
@@ -47,8 +47,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Description_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RingtoetsProjectProperties_Description_Description))]
+        [ResourcesDisplayName(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RiskeerProjectProperties_Description_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerIntegrationFormsResources), nameof(RiskeerIntegrationFormsResources.RiskeerProjectProperties_Description_Description))]
         public string Description
         {
             get

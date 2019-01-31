@@ -1009,54 +1009,54 @@ namespace Riskeer.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Database op pad &apos;{0}&apos; gekoppeld..
         /// </summary>
-        public static string RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked {
+        public static string RiskeerPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked {
             get {
-                return ResourceManager.GetString("RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked", resourceCulture);
+                return ResourceManager.GetString("RiskeerPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Korte beschrijving van het project..
         /// </summary>
-        public static string RingtoetsProjectProperties_Description_Description {
+        public static string RiskeerProjectProperties_Description_Description {
             get {
-                return ResourceManager.GetString("RingtoetsProjectProperties_Description_Description", resourceCulture);
+                return ResourceManager.GetString("RiskeerProjectProperties_Description_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Omschrijving.
         /// </summary>
-        public static string RingtoetsProjectProperties_Description_DisplayName {
+        public static string RiskeerProjectProperties_Description_DisplayName {
             get {
-                return ResourceManager.GetString("RingtoetsProjectProperties_Description_DisplayName", resourceCulture);
+                return ResourceManager.GetString("RiskeerProjectProperties_Description_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Naam van het project..
         /// </summary>
-        public static string RingtoetsProjectProperties_Name_Description {
+        public static string RiskeerProjectProperties_Name_Description {
             get {
-                return ResourceManager.GetString("RingtoetsProjectProperties_Name_Description", resourceCulture);
+                return ResourceManager.GetString("RiskeerProjectProperties_Name_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
-        public static string RingtoetsProjectProperties_Name_DisplayName {
+        public static string RiskeerProjectProperties_Name_DisplayName {
             get {
-                return ResourceManager.GetString("RingtoetsProjectProperties_Name_DisplayName", resourceCulture);
+                return ResourceManager.GetString("RiskeerProjectProperties_Name_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Traject Toevoegen.
         /// </summary>
-        public static string RingtoetsRibbon_AddAssessmentSection {
+        public static string RiskeerRibbon_AddAssessmentSection {
             get {
-                return ResourceManager.GetString("RingtoetsRibbon_AddAssessmentSection", resourceCulture);
+                return ResourceManager.GetString("RiskeerRibbon_AddAssessmentSection", resourceCulture);
             }
         }
         

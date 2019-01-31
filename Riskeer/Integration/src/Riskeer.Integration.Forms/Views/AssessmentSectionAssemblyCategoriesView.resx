@@ -136,7 +136,7 @@
     <value>assemblyCategoriesTable</value>
   </data>
   <data name="&gt;&gt;assemblyCategoriesTable.Type" xml:space="preserve">
-    <value>Ringtoets.Integration.Forms.Views.AssessmentSectionAssemblyCategoriesTable, Ringtoets.Common.Forms, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Riskeer.Integration.Forms.Views.AssessmentSectionAssemblyCategoriesTable, Riskeer.Common.Forms, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;assemblyCategoriesTable.Parent" xml:space="preserve">
     <value>$this</value>

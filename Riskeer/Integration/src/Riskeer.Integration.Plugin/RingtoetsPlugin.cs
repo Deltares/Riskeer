@@ -295,7 +295,7 @@ namespace Riskeer.Integration.Plugin
         /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<IProject, RingtoetsProjectProperties>();
+            yield return new PropertyInfo<IProject, RiskeerProjectProperties>();
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<BackgroundData, BackgroundDataProperties>
             {

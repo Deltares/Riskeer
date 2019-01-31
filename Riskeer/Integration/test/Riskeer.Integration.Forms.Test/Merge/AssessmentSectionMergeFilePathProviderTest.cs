@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Ringtoetsproject (*.rtd)|*.rtd")).Return(expectedFilePath);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Riskeerproject (*.rtd)|*.rtd")).Return(expectedFilePath);
             mocks.ReplayAll();
 
             var provider = new AssessmentSectionMergeFilePathProvider(inquiryHelper);

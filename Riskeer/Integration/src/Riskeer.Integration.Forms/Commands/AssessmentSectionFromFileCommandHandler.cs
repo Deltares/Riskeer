@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Commands
     public class AssessmentSectionFromFileCommandHandler : IAssessmentSectionFromFileCommandHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionFromFileCommandHandler));
-        private readonly string shapeFileDirectory = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
+        private readonly string shapeFileDirectory = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
 
         private readonly IWin32Window dialogParent;
         private readonly IProjectOwner projectOwner;
@@ -95,13 +95,13 @@ namespace Riskeer.Integration.Forms.Commands
             }
 
             AssessmentSection assessmentSection = GetAssessmentSectionFromDialog();
-            var ringtoetsProject = projectOwner.Project as RiskeerProject;
-            if (assessmentSection == null || ringtoetsProject == null)
+            var project = projectOwner.Project as RiskeerProject;
+            if (assessmentSection == null || project == null)
             {
                 return;
             }
 
-            SetAssessmentSectionToProject(ringtoetsProject, assessmentSection);
+            SetAssessmentSectionToProject(project, assessmentSection);
         }
 
         #region Dialog

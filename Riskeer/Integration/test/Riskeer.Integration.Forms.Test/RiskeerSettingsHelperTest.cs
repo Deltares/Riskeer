@@ -27,13 +27,13 @@ using NUnit.Framework;
 namespace Riskeer.Integration.Forms.Test
 {
     [TestFixture]
-    public class RingtoetsSettingsHelperTest
+    public class RiskeerSettingsHelperTest
     {
         [Test]
         public void Constructor_ExpectedProperties()
         {
             // Call
-            var settingsHelper = new RingtoetsSettingsHelper();
+            var settingsHelper = new RiskeerSettingsHelper();
 
             // Assert
             Assert.IsInstanceOf<SettingsHelper>(settingsHelper);
@@ -43,38 +43,38 @@ namespace Riskeer.Integration.Forms.Test
         public void GetApplicationLocalUserSettingsDirectory_WithoutParams_ReturnsExpectedDirectory()
         {
             // Setup
-            var settingsHelper = new RingtoetsSettingsHelper();
+            var settingsHelper = new RiskeerSettingsHelper();
 
             // Call
-            string ringtoetsLocalApplicationDataPath = settingsHelper.GetApplicationLocalUserSettingsDirectory();
+            string localUserSettingsDirectory = settingsHelper.GetApplicationLocalUserSettingsDirectory();
 
             // Assert
             string localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string expectedPath = Path.Combine(localApplicationDataPath, "WTI", "Ringtoets");
-            Assert.AreEqual(expectedPath, ringtoetsLocalApplicationDataPath);
+            Assert.AreEqual(expectedPath, localUserSettingsDirectory);
         }
 
         [Test]
         public void GetApplicationLocalUserSettingsDirectory_WithParams_ReturnsExpectedDirectory()
         {
             // Setup
-            var settingsHelper = new RingtoetsSettingsHelper();
+            var settingsHelper = new RiskeerSettingsHelper();
             string localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string rootPath = Path.Combine(localApplicationDataPath, "WTI", "Ringtoets");
 
             // Call
-            string ringtoetsLocalApplicationDataPath = settingsHelper.GetApplicationLocalUserSettingsDirectory("subFolder", "subSubFolder");
+            string localUserSettingsDirectory = settingsHelper.GetApplicationLocalUserSettingsDirectory("subFolder", "subSubFolder");
 
             // Assert
             string expectedPath = Path.Combine(rootPath, "subFolder", "subSubFolder");
-            Assert.AreEqual(expectedPath, ringtoetsLocalApplicationDataPath);
+            Assert.AreEqual(expectedPath, localUserSettingsDirectory);
         }
 
         [Test]
-        public void GetCommonDocumentsRingtoetsDirectory_WithoutParams_ReturnsExpectedDirectory()
+        public void GetCommonDocumentsRiskeerDirectory_WithoutParams_ReturnsExpectedDirectory()
         {
             // Setup
-            var settingsHelper = new RingtoetsSettingsHelper();
+            var settingsHelper = new RiskeerSettingsHelper();
 
             // Call
             string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory();
@@ -85,10 +85,10 @@ namespace Riskeer.Integration.Forms.Test
         }
 
         [Test]
-        public void GetCommonDocumentsRingtoetsDirectory_WithParams_ReturnsExpectedDirectory()
+        public void GetCommonDocumentsRiskeerDirectory_WithParams_ReturnsExpectedDirectory()
         {
             // Setup
-            var settingsHelper = new RingtoetsSettingsHelper();
+            var settingsHelper = new RiskeerSettingsHelper();
 
             // Call
             string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory("some folder");
@@ -99,13 +99,13 @@ namespace Riskeer.Integration.Forms.Test
         }
 
         [Test]
-        public void GetCommonDocumentsRingtoetsShapeFileDirectory_ReturnsExpectedDirectory()
+        public void GetCommonDocumentsRiskeerShapeFileDirectory_ReturnsExpectedDirectory()
         {
             // Setup
             string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "NBPW");
 
             // Call
-            string pathFromSettings = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
+            string pathFromSettings = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
 
             // Assert
             Assert.AreEqual(expectedPath, pathFromSettings);

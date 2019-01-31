@@ -58,7 +58,7 @@ namespace Application.Riskeer.Test
 
                 // Assert
                 Assert.IsInstanceOf<System.Windows.Application>(app);
-                Assert.IsInstanceOf<RingtoetsSettingsHelper>(SettingsHelper.Instance);
+                Assert.IsInstanceOf<RiskeerSettingsHelper>(SettingsHelper.Instance);
                 app.Shutdown();
             });
         }

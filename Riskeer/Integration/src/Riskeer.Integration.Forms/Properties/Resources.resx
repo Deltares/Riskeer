@@ -153,7 +153,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
     <value>HRD database locatie</value>
   </data>
-  <data name="RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
+  <data name="RiskeerPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
     <value>Database op pad '{0}' gekoppeld.</value>
   </data>
   <data name="FailureMechanismContributionView_ProbabilityPerYear_Not_applicable" xml:space="preserve">
@@ -204,22 +204,22 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RingtoetsProjectProperties_Description_Description" xml:space="preserve">
+  <data name="RiskeerProjectProperties_Description_Description" xml:space="preserve">
     <value>Korte beschrijving van het project.</value>
   </data>
-  <data name="RingtoetsProjectProperties_Description_DisplayName" xml:space="preserve">
+  <data name="RiskeerProjectProperties_Description_DisplayName" xml:space="preserve">
     <value>Omschrijving</value>
   </data>
-  <data name="RingtoetsProjectProperties_Name_Description" xml:space="preserve">
+  <data name="RiskeerProjectProperties_Name_Description" xml:space="preserve">
     <value>Naam van het project.</value>
   </data>
-  <data name="RingtoetsProjectProperties_Name_DisplayName" xml:space="preserve">
+  <data name="RiskeerProjectProperties_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="AddAssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AddFolder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RingtoetsRibbon_AddAssessmentSection" xml:space="preserve">
+  <data name="RiskeerRibbon_AddAssessmentSection" xml:space="preserve">
     <value>Traject Toevoegen</value>
   </data>
   <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
