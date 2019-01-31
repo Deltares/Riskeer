@@ -17,7 +17,7 @@
 
   <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
   
-  <String Id="RtdDescription">!(loc.ApplicationShortName)-databasebestand</String>
+  <String Id="RiskDescription">!(loc.ApplicationShortName)-databasebestand</String>
 
   <String Id="WelcomeDlgDescription">[ProductName] wordt geïnstalleerd op uw computer. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>
   <String Id="MaintenanceWelcomeDlgDescription">Met het installatiehulpprogramma kunt u de manier wijzigen waarop onderdelen van [ProductName] op uw computer worden geïnstalleerd of kunt u dit helemaal van uw computer verwijderen. Klik op Volgende om door te gaan of op Annuleren als u het installatiehulpprogramma wilt afsluiten.</String>

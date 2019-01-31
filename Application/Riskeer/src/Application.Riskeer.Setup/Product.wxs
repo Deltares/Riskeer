@@ -48,11 +48,11 @@
             <Component Id="FileAssociation" Guid="1117D79E-521C-48C3-9E23-549833F7BA09">
               <File Source="Ringtoets.ico" KeyPath="yes"></File>
               
-              <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Ringtoets.rtd" Name="FriendlyTypeName" Value="!(loc.RtdDescription)" Type="string" />
-              <ProgId Id="Ringtoets.rtd" Description="!(loc.RtdDescription)" Icon="Ringtoets.ico">
-                <Extension Id="rtd" ContentType="application/rtd">
+              <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Riskeer.risk" Name="FriendlyTypeName" Value="!(loc.RiskDescription)" Type="string" />
+              <ProgId Id="Riskeer.risk" Description="!(loc.RiskDescription)" Icon="Ringtoets.ico">
+                <Extension Id="risk" ContentType="application/risk">
                   <Verb Id="open" TargetFile="fil91CB09E13AB30875601EC5267FEE0EB4" Command="Open" Argument="&quot;%1&quot;"/>
-                  <MIME ContentType="application/rtd" Default="yes" />
+                  <MIME ContentType="application/risk" Default="yes" />
                 </Extension>
               </ProgId>
               
