@@ -44,8 +44,8 @@ namespace Riskeer.Integration.Forms
         {
             var documentsPath = new List<string>
             {
-                "WTI",
-                "Ringtoets"
+                "BOI",
+                "Riskeer"
             };
             documentsPath.AddRange(subPath);
             return base.GetCommonDocumentsDirectory(documentsPath.ToArray());
@@ -55,8 +55,8 @@ namespace Riskeer.Integration.Forms
         {
             var applicationPath = new List<string>
             {
-                "WTI",
-                "Ringtoets"
+                "BOI",
+                "Riskeer"
             };
             applicationPath.AddRange(subPath);
             return base.GetApplicationLocalUserSettingsDirectory(applicationPath.ToArray());

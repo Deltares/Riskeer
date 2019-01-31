@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Test
 
             // Assert
             string localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string expectedPath = Path.Combine(localApplicationDataPath, "WTI", "Ringtoets");
+            string expectedPath = Path.Combine(localApplicationDataPath, "BOI", "Riskeer");
             Assert.AreEqual(expectedPath, localUserSettingsDirectory);
         }
 
@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Forms.Test
             // Setup
             var settingsHelper = new RiskeerSettingsHelper();
             string localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string rootPath = Path.Combine(localApplicationDataPath, "WTI", "Ringtoets");
+            string rootPath = Path.Combine(localApplicationDataPath, "BOI", "Riskeer");
 
             // Call
             string localUserSettingsDirectory = settingsHelper.GetApplicationLocalUserSettingsDirectory("subFolder", "subSubFolder");
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test
             string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory();
 
             // Assert
-            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "BOI", "Riskeer");
             Assert.AreEqual(expectedPath, pathFromSettings);
         }
 
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Forms.Test
             string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory("some folder");
 
             // Assert
-            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "some folder");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "BOI", "Riskeer", "some folder");
             Assert.AreEqual(expectedPath, pathFromSettings);
         }
 
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Forms.Test
         public void GetCommonDocumentsRiskeerShapeFileDirectory_ReturnsExpectedDirectory()
         {
             // Setup
-            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "WTI", "Ringtoets", "NBPW");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "BOI", "Riskeer", "NBPW");
 
             // Call
             string pathFromSettings = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
