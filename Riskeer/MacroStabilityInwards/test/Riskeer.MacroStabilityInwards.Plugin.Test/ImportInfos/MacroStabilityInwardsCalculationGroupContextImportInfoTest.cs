@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
             string name = importInfo.Name;
 
             // Assert
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie", name);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", name);
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
             FileFilterGenerator fileFilterGenerator = importInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
         }
 
         [Test]

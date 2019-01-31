@@ -51,7 +51,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsNotNull(info.CreateFileImporter);
                 Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Ringtoets berekeningenconfiguratie", info.Name);
+                Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
@@ -97,7 +97,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
                 FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+                Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
             }
         }
 

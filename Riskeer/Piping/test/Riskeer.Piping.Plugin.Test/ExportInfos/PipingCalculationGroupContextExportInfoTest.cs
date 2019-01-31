@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Ringtoets berekeningenconfiguratie", info.Name);
+                Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
@@ -100,7 +100,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
                 FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+                Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
             }
         }
 

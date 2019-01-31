@@ -48,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             {
                 exportInfo = plugin.GetExportInfos()
                                    .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)
-                                                 && ei.Name.Equals("Ringtoets berekeningenconfiguratie"));
+                                                 && ei.Name.Equals("Riskeer berekeningenconfiguratie"));
             }
         }
 
@@ -99,7 +99,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
 
             // Assert
-            Assert.AreEqual("Ringtoets berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
         }
 
         [Test]
