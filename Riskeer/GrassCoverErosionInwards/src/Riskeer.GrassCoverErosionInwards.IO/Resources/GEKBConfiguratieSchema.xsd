@@ -72,7 +72,7 @@ All rights reserved.
   <!--Volgende elementen zijn specifiek voor dit toetsspoor.-->
   
   <!--Specificeert het geselecteerde dijkprofiel. In dit element moet de naam van
-  het dijkprofiel zoals ook zichtbaar in Ringtoets worden opgenomen.-->
+  het dijkprofiel zoals ook zichtbaar in Riskeer worden opgenomen.-->
   <xs:element name="dijkprofiel">
     <xs:simpleType>
       <xs:restriction base="xs:string">

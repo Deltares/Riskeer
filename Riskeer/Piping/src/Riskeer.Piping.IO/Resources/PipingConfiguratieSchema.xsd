@@ -30,7 +30,7 @@ All rights reserved.
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft. Hierin
   wordt een keuze gegeven voor specificatie van een HB locatie of een 
   waterstand (handmatig gespecificeerde waterstand) vergelijkbaar met een
-  piping berekening in Ringtoets.-->
+  piping berekening in Riskeer.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
     <xs:complexType name="berekeningType">
       <xs:complexContent>
@@ -111,7 +111,7 @@ All rights reserved.
   </xs:element>
 
   <!--In dit element moet de naam van de geselecteerde profielschematisatie zoals
-  ook zichtbaar in Ringtoets worden opgenomen.-->
+  ook zichtbaar in Riskeer worden opgenomen.-->
   <xs:element name="profielschematisatie">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -135,7 +135,7 @@ All rights reserved.
   </xs:element>
 
   <!--In dit element moet de naam van het geselecteerde ondergrondmodel zoals ook 
-  zichtbaar in Ringtoets worden opgenomen.-->
+  zichtbaar in Riskeer worden opgenomen.-->
   <xs:element name="ondergrondmodel">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -145,7 +145,7 @@ All rights reserved.
   </xs:element>
 
   <!--In dit element moet de naam van de geselecteerde ondergrondschematisatie zoals ook 
-  zichtbaar in Ringtoets worden opgenomen.-->
+  zichtbaar in Riskeer worden opgenomen.-->
   <xs:element name="ondergrondschematisatie">
     <xs:simpleType>
       <xs:restriction base="xs:string">
