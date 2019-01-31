@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core
     public static class StorageSqliteCreator
     {
         /// <summary>
-        /// Creates a new file with the basic database structure for a Ringtoets database at
+        /// Creates a new file with the basic database structure for a Riskeer database at
         /// <paramref name="databaseFilePath"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path of the new database file.</param>

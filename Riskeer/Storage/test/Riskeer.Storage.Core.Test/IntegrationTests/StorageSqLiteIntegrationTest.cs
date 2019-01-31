@@ -82,14 +82,14 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssessmentSection duplicateAssessmentSection = duplicateProject.AssessmentSections.First();
             fullProject.AssessmentSections.Add(duplicateAssessmentSection);
 
-            string ringtoetsFile = GetRandomRingtoetsFile();
+            string projectFilePath = GetRandomProjectFilePath();
 
             var storage = new StorageSqLite();
             storage.StageProject(fullProject);
 
             // Call
-            storage.SaveProjectAs(ringtoetsFile);
-            var firstProject = (RiskeerProject) storage.LoadProject(ringtoetsFile);
+            storage.SaveProjectAs(projectFilePath);
+            var firstProject = (RiskeerProject) storage.LoadProject(projectFilePath);
 
             // Assert
             AssertProjectsAreEqual(fullProject, firstProject);
@@ -100,29 +100,29 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             // Setup
             RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
-            string firstRingtoetsFile = GetRandomRingtoetsFile();
-            string secondRingtoetsFile = GetRandomRingtoetsFile();
+            string firstProjectFilePath = GetRandomProjectFilePath();
+            string secondProjectFilePath = GetRandomProjectFilePath();
 
             var storage = new StorageSqLite();
             storage.StageProject(fullProject);
-            storage.SaveProjectAs(firstRingtoetsFile);
+            storage.SaveProjectAs(firstProjectFilePath);
 
             // Call
             storage.StageProject(fullProject);
-            storage.SaveProjectAs(secondRingtoetsFile);
-            var firstProject = (RiskeerProject) storage.LoadProject(firstRingtoetsFile);
-            var secondProject = (RiskeerProject) storage.LoadProject(secondRingtoetsFile);
+            storage.SaveProjectAs(secondProjectFilePath);
+            var firstProject = (RiskeerProject) storage.LoadProject(firstProjectFilePath);
+            var secondProject = (RiskeerProject) storage.LoadProject(secondProjectFilePath);
 
             // Assert
             AssertProjectsAreEqual(firstProject, secondProject);
         }
 
         [Test]
-        public void GivenRingtoetsProject_WhenComparingFingerPrintsVariousScenariosUnchangedData_ThenFingerprintUnchanged()
+        public void GivenProject_WhenComparingFingerPrintsVariousScenariosUnchangedData_ThenFingerprintUnchanged()
         {
             // Given
             RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
-            string tempRingtoetsFile = GetRandomRingtoetsFile();
+            string projectFilePath = GetRandomProjectFilePath();
 
             // When
             ProjectEntity entityBeforeSave = fullProject.Create(new PersistenceRegistry());
@@ -131,12 +131,12 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             var storage = new StorageSqLite();
             storage.StageProject(fullProject);
-            storage.SaveProjectAs(tempRingtoetsFile);
+            storage.SaveProjectAs(projectFilePath);
 
             ProjectEntity entityAfterSave = fullProject.Create(new PersistenceRegistry());
             byte[] hash2 = FingerprintHelper.Get(entityAfterSave);
 
-            var openedProject = (RiskeerProject) storage.LoadProject(tempRingtoetsFile);
+            var openedProject = (RiskeerProject) storage.LoadProject(projectFilePath);
             ProjectEntity entityAfterOpening = openedProject.Create(new PersistenceRegistry());
 
             byte[] hash3 = FingerprintHelper.Get(entityAfterOpening);
@@ -153,11 +153,11 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             var storage = new StorageSqLite();
             RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             storage.StageProject(fullProject);
-            string tempRingtoetsFile = GetRandomRingtoetsFile();
-            storage.SaveProjectAs(tempRingtoetsFile);
+            string projectFilePath = GetRandomProjectFilePath();
+            storage.SaveProjectAs(projectFilePath);
 
             // Call
-            var loadedProject = (RiskeerProject) storage.LoadProject(tempRingtoetsFile);
+            var loadedProject = (RiskeerProject) storage.LoadProject(projectFilePath);
 
             // Assert
             AssertProjectsAreEqual(fullProject, loadedProject);
@@ -168,7 +168,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public void GivenRingtoetsGuiWithStorageSqlAndMigrator_WhenRunWithEmptyFile_DefaultProjectStillSet(string testFile)
+        public void GivenRiskeerGuiWithStorageSqlAndMigrator_WhenRunWithEmptyFile_DefaultProjectStillSet(string testFile)
         {
             // Given
             var mocks = new MockRepository();
@@ -196,15 +196,15 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGuiWithStorageSqlAndMigrator_WhenRunWithValidFile_ProjectSet()
+        public void GivenRiskeerGuiWithStorageSqlAndMigrator_WhenRunWithValidFile_ProjectSet()
         {
             // Given
-            string tempRingtoetsFile = GetRandomRingtoetsFile();
-            string expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
+            string projectFilePath = GetRandomProjectFilePath();
+            string expectedProjectName = Path.GetFileNameWithoutExtension(projectFilePath);
 
             var mocks = new MockRepository();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            projectMigrator.Stub(pm => pm.ShouldMigrate(tempRingtoetsFile)).Return(MigrationRequired.No);
+            projectMigrator.Stub(pm => pm.ShouldMigrate(projectFilePath)).Return(MigrationRequired.No);
             mocks.ReplayAll();
 
             var projectStore = new StorageSqLite();
@@ -212,12 +212,12 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
             string expectedProjectDescription = fullProject.Description;
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
+            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(projectFilePath, fullProject);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
-                Action action = () => gui.Run(tempRingtoetsFile);
+                Action action = () => gui.Run(projectFilePath);
 
                 // Then
                 Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -226,7 +226,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                     Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(action, expectedMessages, 3);
-                Assert.AreEqual(tempRingtoetsFile, gui.ProjectFilePath);
+                Assert.AreEqual(projectFilePath, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
                 Assert.AreEqual(expectedProjectDescription, gui.Project.Description);
@@ -252,7 +252,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             directoryDisposeHelper.Dispose();
         }
 
-        private static string GetRandomRingtoetsFile()
+        private static string GetRandomProjectFilePath()
         {
             return Path.Combine(TestHelper.GetScratchPadPath(), nameof(StorageSqLiteIntegrationTest),
                                 string.Concat(Path.GetRandomFileName(), tempExtension));

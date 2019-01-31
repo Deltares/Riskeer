@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core
         {
             get
             {
-                return Resources.Ringtoets_project_file_filter;
+                return Resources.Riskeer_project_file_filter;
             }
         }
 
@@ -68,15 +68,15 @@ namespace Riskeer.Storage.Core
 
         public void StageProject(IProject project)
         {
-            var ringtoetsProject = project as RiskeerProject;
-            if (ringtoetsProject == null)
+            var riskeerProject = project as RiskeerProject;
+            if (riskeerProject == null)
             {
                 throw new ArgumentNullException(nameof(project));
             }
 
             var registry = new PersistenceRegistry();
 
-            stagedProject = new StagedProject(ringtoetsProject, ringtoetsProject.Create(registry));
+            stagedProject = new StagedProject(riskeerProject, riskeerProject.Create(registry));
         }
 
         public void UnstageProject()
@@ -129,7 +129,7 @@ namespace Riskeer.Storage.Core
                     }
                     catch (InvalidOperationException exception)
                     {
-                        throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file, exception);
+                        throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Riskeer_database_file, exception);
                     }
 
                     project = projectEntity.Read(new ReadConversionCollector());
@@ -140,11 +140,11 @@ namespace Riskeer.Storage.Core
             }
             catch (DataException exception)
             {
-                throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file, exception);
+                throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Riskeer_database_file, exception);
             }
             catch (SystemException exception)
             {
-                throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file, exception);
+                throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Riskeer_database_file, exception);
             }
         }
 
@@ -264,7 +264,7 @@ namespace Riskeer.Storage.Core
         }
 
         /// <summary>
-        /// Sets the connection to a newly created (empty) Ringtoets database file.
+        /// Sets the connection to a newly created (empty) Riskeer database file.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <exception cref="ArgumentException">Thrown when:
@@ -300,7 +300,7 @@ namespace Riskeer.Storage.Core
         }
 
         /// <summary>
-        /// Sets the connection to the Ringtoets database.
+        /// Sets the connection to the Riskeer database.
         /// </summary>
         /// <param name="databaseFilePath">The path of the file, which is used for creating exceptions.</param>
         /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
@@ -317,7 +317,7 @@ namespace Riskeer.Storage.Core
                 }
                 catch (Exception exception)
                 {
-                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
+                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_LoadProject_Invalid_Riskeer_database_file);
                     throw new StorageValidationException(message, exception);
                 }
             }

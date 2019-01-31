@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error_during_connection" xml:space="preserve">
-    <value>Er is een fout opgetreden in de verbinding met het Ringtoets bestand.</value>
+    <value>Er is een fout opgetreden in de verbinding met het Riskeer bestand.</value>
   </data>
   <data name="Error_saving_database" xml:space="preserve">
-    <value>Een fout is opgetreden tijdens het opslaan van het Ringtoets bestand.</value>
+    <value>Een fout is opgetreden tijdens het opslaan van het Riskeer bestand.</value>
   </data>
   <data name="Error_writing_structure_to_database" xml:space="preserve">
-    <value>Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.</value>
+    <value>Een fout is opgetreden met schrijven naar het nieuwe Riskeerbestand.</value>
   </data>
-  <data name="Ringtoets_project_file_filter" xml:space="preserve">
-    <value>Ringtoetsproject (*.rtd)|*.rtd</value>
+  <data name="Riskeer_project_file_filter" xml:space="preserve">
+    <value>Riskeerproject (*.rtd)|*.rtd</value>
   </data>
-  <data name="StorageSqLite_LoadProject_Invalid_Ringtoets_database_file" xml:space="preserve">
-    <value>Het bestand is geen geldig Ringtoets bestand.</value>
+  <data name="StorageSqLite_LoadProject_Invalid_Riskeer_database_file" xml:space="preserve">
+    <value>Het bestand is geen geldig Riskeer bestand.</value>
   </data>
   <data name="SafeOverwriteFileHelper_CreateNewTemporaryFile_Cannot_create_temporary_FilePath_0_Try_change_save_location" xml:space="preserve">
     <value>Kan geen tijdelijk bestand maken van het originele bestand ({0}).</value>
@@ -145,10 +145,10 @@
     <value>Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.</value>
   </data>
   <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid" xml:space="preserve">
-    <value>Ringtoets bestand versie '{0}' is niet valide. De versie van het Ringtoets projectbestand dient '16.4' of hoger te zijn.</value>
+    <value>Riskeer bestand versie '{0}' is niet valide. De versie van het Riskeer projectbestand dient '16.4' of hoger te zijn.</value>
   </data>
   <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_" xml:space="preserve">
-    <value>Ringtoets bestand versie '{0}' is hoger dan de huidig ondersteunde versie ('{1}'). Update Ringtoets naar een nieuwere versie.</value>
+    <value>Riskeer bestand versie '{0}' is hoger dan de huidig ondersteunde versie ('{1}'). Update Riskeer naar een nieuwere versie.</value>
   </data>
   <data name="StorageSqLite_ValidateDatabaseVersion_Database_must_have_one_VersionEntity_row" xml:space="preserve">
     <value>Database moet één rij in de VersionEntity tabel hebben.</value>

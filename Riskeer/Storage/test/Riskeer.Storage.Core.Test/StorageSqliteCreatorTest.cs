@@ -105,17 +105,17 @@ namespace Riskeer.Storage.Core.Test
         [Test]
         public void CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException()
         {
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException));
-            using (var disposeHelper = new FileDisposeHelper(tempRingtoetsFile))
+            string tempProjectFile = TestHelper.GetScratchPadPath(nameof(CreateDatabaseStructure_ValidExistingFile_ThrowsStorageException));
+            using (var disposeHelper = new FileDisposeHelper(tempProjectFile))
             {
                 disposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(tempRingtoetsFile);
+                TestDelegate call = () => StorageSqliteCreator.CreateDatabaseStructure(tempProjectFile);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentException>(call);
-                string expectedMessage = $@"File '{tempRingtoetsFile}' already exists.";
+                string expectedMessage = $@"File '{tempProjectFile}' already exists.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

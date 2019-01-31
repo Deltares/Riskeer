@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Merge
 
         public string GetFilePath()
         {
-            return inquiryHelper.GetSourceFileLocation(RiskeerStorageCoreResources.Ringtoets_project_file_filter);
+            return inquiryHelper.GetSourceFileLocation(RiskeerStorageCoreResources.Riskeer_project_file_filter);
         }
     }
 }

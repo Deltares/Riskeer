@@ -29,7 +29,7 @@ namespace Riskeer.Storage.Core.Test.DbContext
     [TestFixture]
     public class RiskeerEntitiesTest
     {
-        private const string entityConnectionString = "metadata=res://*/DbContext.RingtoetsEntities.csdl|" +
+        private const string entityConnectionString = "metadata=res://*/DbContext.RiskeerEntities.csdl|" +
                                                       "res://*/DbContext.RiskeerEntities.ssdl|" +
                                                       "res://*/DbContext.RiskeerEntities.msl;" +
                                                       "provider=System.Data.SQLite.EF6;" +
@@ -49,12 +49,12 @@ namespace Riskeer.Storage.Core.Test.DbContext
                                                         connectionString);
 
             // Call
-            using (var ringtoetsEntities = new RiskeerEntities(fullConnectionString))
+            using (var entities = new RiskeerEntities(fullConnectionString))
             {
                 // Assert
-                Assert.IsInstanceOf<System.Data.Entity.DbContext>(ringtoetsEntities);
-                Assert.AreEqual(connectionString, ringtoetsEntities.Database.Connection.ConnectionString);
-                Assert.IsFalse(ringtoetsEntities.Configuration.LazyLoadingEnabled);
+                Assert.IsInstanceOf<System.Data.Entity.DbContext>(entities);
+                Assert.AreEqual(connectionString, entities.Database.Connection.ConnectionString);
+                Assert.IsFalse(entities.Configuration.LazyLoadingEnabled);
             }
         }
 
@@ -66,9 +66,9 @@ namespace Riskeer.Storage.Core.Test.DbContext
                                                         connectionString);
 
             // Call
-            using (var ringtoetsEntities = new TestRiskeerEntities(fullConnectionString))
+            using (var entities = new TestRiskeerEntities(fullConnectionString))
             {
-                TestDelegate test = () => ringtoetsEntities.CallOnModelCreating();
+                TestDelegate test = () => entities.CallOnModelCreating();
 
                 // Assert
                 Assert.Throws<UnintentionalCodeFirstException>(test);

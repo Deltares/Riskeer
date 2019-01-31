@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Test
         /// which is used to auto-generate the database code.
         /// </summary>
         [Test]
-        public void RingtoetsDatabaseCreator_Explicit_CreatesRiskeerProjectDatabaseFile()
+        public void DatabaseCreator_Explicit_CreatesProjectDatabaseFile()
         {
             // Setup
             string storageFile = GetPathToStorageFile();
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Test
 
         private static string GetPathToStorageFile()
         {
-            return Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Ringtoets", "Storage", "src", "Riskeer.Storage.Core", "Riskeer.rtd");
+            return Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Riskeer", "Storage", "src", "Riskeer.Storage.Core", "Riskeer.rtd");
         }
     }
 }

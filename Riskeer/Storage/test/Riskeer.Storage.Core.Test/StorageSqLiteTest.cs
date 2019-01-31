@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Test
 
             // Assert
             Assert.IsInstanceOf<IStoreProject>(storage);
-            Assert.AreEqual("Ringtoetsproject (*.rtd)|*.rtd", storage.FileFilter);
+            Assert.AreEqual("Riskeerproject (*.rtd)|*.rtd", storage.FileFilter);
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [Test]
-        public void LoadProject_RingtoetsFileWithoutSchema_ThrowsStorageExceptionAndStorageValidationException()
+        public void LoadProject_ProjectFileWithoutSchema_ThrowsStorageExceptionAndStorageValidationException()
         {
             // Setup
             const string validPath = "empty.rtd";
@@ -96,24 +96,24 @@ namespace Riskeer.Storage.Core.Test
 
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempFile}': het bestand is geen geldig Ringtoets bestand.",
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempFile}': het bestand is geen geldig Riskeer bestand.",
                             exception.Message);
         }
 
         [Test]
-        public void LoadProject_RingtoetsFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException()
+        public void LoadProject_ProjectFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(LoadProject_RingtoetsFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_ProjectFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException));
 
-            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(tempRingtoetsFile);
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(tempProjectFilePath);
             Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{tempRingtoetsFile}': het bestand is geen geldig Ringtoets bestand.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Ringtoets bestand.";
 
             var exception = Assert.Throws<StorageException>(test);
             Assert.IsInstanceOf<Exception>(exception);
@@ -121,20 +121,20 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [Test]
-        public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
+        public void LoadProject_CorruptProjectFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace));
-            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(tempRingtoetsFile);
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_CorruptProjectFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace));
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(tempProjectFilePath);
             Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
             var exception = Assert.Throws<StorageException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': het bestand is geen geldig Ringtoets bestand.",
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Riskeer bestand.",
                             exception.Message);
 
             Assert.IsInstanceOf<DataException>(exception.InnerException);
@@ -150,18 +150,18 @@ namespace Riskeer.Storage.Core.Test
         public void LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException));
 
-            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempProjectFilePath);
             Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': database moet één rij in de VersionEntity tabel hebben.",
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': database moet één rij in de VersionEntity tabel hebben.",
                             exception.Message);
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
@@ -170,24 +170,24 @@ namespace Riskeer.Storage.Core.Test
         public void LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException));
+            string projectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException));
             string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
             TestDelegate precondition = () =>
             {
-                SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
-                SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersion);
-                SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersion);
+                SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(projectFilePath);
+                SqLiteDatabaseHelper.AddVersionEntity(projectFilePath, currentDatabaseVersion);
+                SqLiteDatabaseHelper.AddVersionEntity(projectFilePath, currentDatabaseVersion);
             };
             Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(projectFilePath);
 
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': database moet één rij in de VersionEntity tabel hebben.",
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{projectFilePath}': database moet één rij in de VersionEntity tabel hebben.",
                             exception.Message);
             Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
         }
@@ -198,26 +198,26 @@ namespace Riskeer.Storage.Core.Test
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int additionalVersionNumber)
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, $"{nameof(LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
+            string tempProjectFilePath = Path.Combine(workingDirectory, $"{nameof(LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
             string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             string versionCode = additionalVersionNumber + currentDatabaseVersion;
 
             TestDelegate precondition = () =>
             {
-                SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
-                SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, versionCode);
+                SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempProjectFilePath);
+                SqLiteDatabaseHelper.AddVersionEntity(tempProjectFilePath, versionCode);
             };
             Assert.DoesNotThrow(precondition, "Precondition failed: creating future database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': ringtoets "
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': Riskeer "
                             + $"bestand versie '{versionCode}' is hoger dan de huidig ondersteunde versie "
-                            + $"('{currentDatabaseVersion}'). Update Ringtoets naar een nieuwere versie.",
+                            + $"('{currentDatabaseVersion}'). Update Riskeer naar een nieuwere versie.",
                             exception.Message);
         }
 
@@ -227,23 +227,23 @@ namespace Riskeer.Storage.Core.Test
         public void LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException(string versionCode)
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, $"{nameof(LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
+            string tempProjectFilePath = Path.Combine(workingDirectory, $"{nameof(LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
 
             TestDelegate precondition = () =>
             {
-                SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
-                SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, versionCode);
+                SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempProjectFilePath);
+                SqLiteDatabaseHelper.AddVersionEntity(tempProjectFilePath, versionCode);
             };
             Assert.DoesNotThrow(precondition, "Precondition failed: creating future database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
             StorageException exception = Assert.Throws<StorageValidationException>(test);
             Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempRingtoetsFile}': ringtoets "
-                            + $"bestand versie '{versionCode}' is niet valide. De versie van het Ringtoets projectbestand "
+            Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': Riskeer "
+                            + $"bestand versie '{versionCode}' is niet valide. De versie van het Riskeer projectbestand "
                             + "dient '16.4' of hoger te zijn.", exception.Message);
         }
 
@@ -251,18 +251,18 @@ namespace Riskeer.Storage.Core.Test
         public void LoadProject_ValidDatabase_ReturnsProject()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(LoadProject_ValidDatabase_ReturnsProject));
-            string projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_ValidDatabase_ReturnsProject));
+            string projectName = Path.GetFileNameWithoutExtension(tempProjectFilePath);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
             var project = mockRepository.StrictMock<RiskeerProject>();
             project.Description = "<some description>";
 
             // Precondition
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, project);
+            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, project);
 
             // Call
-            IProject loadedProject = storage.LoadProject(tempRingtoetsFile);
+            IProject loadedProject = storage.LoadProject(tempProjectFilePath);
 
             // Assert
             Assert.IsInstanceOf<RiskeerProject>(loadedProject);
@@ -308,16 +308,16 @@ namespace Riskeer.Storage.Core.Test
         public void SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException()
         {
             // Setup
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException));
             var project = new RiskeerProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
             // Precondition
-            Assert.IsFalse(File.Exists(tempRingtoetsFile));
+            Assert.IsFalse(File.Exists(tempProjectFilePath));
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
+            TestDelegate test = () => storage.SaveProjectAs(tempProjectFilePath);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -379,14 +379,14 @@ namespace Riskeer.Storage.Core.Test
         public void SaveProjectAs_NoStagedProject_ThrowInvalidOperationException()
         {
             // Setup
-            string tempRingtoetsFile = TestHelper.GetScratchPadPath(nameof(SaveProjectAs_NoStagedProject_ThrowInvalidOperationException));
+            string tempProjectFilePath = TestHelper.GetScratchPadPath(nameof(SaveProjectAs_NoStagedProject_ThrowInvalidOperationException));
             var storage = new StorageSqLite();
 
             // Precondition
             Assert.IsFalse(storage.HasStagedProject);
 
             // Call
-            TestDelegate call = () => storage.SaveProjectAs(tempRingtoetsFile);
+            TestDelegate call = () => storage.SaveProjectAs(tempProjectFilePath);
 
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
@@ -448,14 +448,14 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             var storageSqLite = new StorageSqLite();
             var storedProject = new RiskeerProject();
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoaded_ReturnsFalse));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoaded_ReturnsFalse));
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-            IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, storedProject);
+            IProject loadedProject = storageSqLite.LoadProject(tempProjectFilePath);
             storageSqLite.StageProject(loadedProject);
 
             // Call
-            bool hasChanges = storageSqLite.HasStagedProjectChanges(tempRingtoetsFile);
+            bool hasChanges = storageSqLite.HasStagedProjectChanges(tempProjectFilePath);
 
             // Assert
             Assert.IsFalse(hasChanges);
@@ -468,15 +468,15 @@ namespace Riskeer.Storage.Core.Test
             var storageSqLite = new StorageSqLite();
             var storedProject = new RiskeerProject();
             const string changedName = "some name";
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse));
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-            IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, storedProject);
+            IProject loadedProject = storageSqLite.LoadProject(tempProjectFilePath);
             storageSqLite.StageProject(loadedProject);
 
             // Call
             loadedProject.Name = changedName;
-            bool hasChanges = storageSqLite.HasStagedProjectChanges(tempRingtoetsFile);
+            bool hasChanges = storageSqLite.HasStagedProjectChanges(tempProjectFilePath);
 
             // Assert
             Assert.IsFalse(hasChanges);
@@ -489,16 +489,16 @@ namespace Riskeer.Storage.Core.Test
             var storageSqLite = new StorageSqLite();
             RiskeerProject storedProject = RiskeerProjectTestHelper.GetFullTestProject();
             const string changedDescription = "some description";
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithAffectedChange_ReturnsTrue));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithAffectedChange_ReturnsTrue));
 
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
-            IProject loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
+            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempProjectFilePath, storedProject);
+            IProject loadedProject = storageSqLite.LoadProject(tempProjectFilePath);
 
             loadedProject.Description = changedDescription;
             storageSqLite.StageProject(loadedProject);
 
             // Call
-            bool hasChanges = storageSqLite.HasStagedProjectChanges(tempRingtoetsFile);
+            bool hasChanges = storageSqLite.HasStagedProjectChanges(tempProjectFilePath);
 
             // Assert
             Assert.IsTrue(hasChanges);
@@ -512,17 +512,17 @@ namespace Riskeer.Storage.Core.Test
             var project = mockRepository.StrictMock<RiskeerProject>();
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
-            string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));
 
             // Precondition, required to set the connection string
             storage.StageProject(project);
-            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
+            TestDelegate precondition = () => storage.SaveProjectAs(tempProjectFilePath);
             Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
 
             storage.StageProject(project);
 
             // Call
-            bool hasChanges = storage.HasStagedProjectChanges(tempRingtoetsFile);
+            bool hasChanges = storage.HasStagedProjectChanges(tempProjectFilePath);
 
             // Assert
             Assert.IsFalse(hasChanges);
