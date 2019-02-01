@@ -23,6 +23,9 @@ using Core.Common.Base.Data;
 
 namespace Riskeer.Integration.Data
 {
+    /// <summary>
+    /// Factory to create instances of <see cref="RiskeerProject"/>.
+    /// </summary>
     public class RiskeerProjectFactory : IProjectFactory
     {
         public IProject CreateNewProject()

@@ -27,6 +27,9 @@ using Core.Common.Base.Properties;
 
 namespace Riskeer.Integration.Data
 {
+    /// <summary>
+    /// Class which defines a project for the application.
+    /// </summary>
     public class RiskeerProject : Observable, IProject
     {
         /// <summary>
@@ -47,7 +50,7 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the assessmentSections of the <see cref="RiskeerProject"/>.
+        /// Gets or sets the assessment sections of the <see cref="RiskeerProject"/>.
         /// </summary>
         public List<AssessmentSection> AssessmentSections { get; }
 

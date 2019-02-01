@@ -22,7 +22,7 @@
 namespace Riskeer.Migration.Core
 {
     /// <summary>
-    /// Defines the table and column names of the table 'MigrationLogEntity' in the RIskeer 
+    /// Defines the table and column names of the table 'MigrationLogEntity' in the Riskeer 
     /// migration log database.
     /// </summary>
     internal static class MigrationLogEntityTableDefinitions
