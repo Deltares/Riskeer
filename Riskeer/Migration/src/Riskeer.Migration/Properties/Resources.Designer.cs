@@ -190,7 +190,7 @@ namespace Riskeer.Migration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to rtd.
+        ///   Looks up a localized string similar to risk.
         /// </summary>
         internal static string RiskeerProject_FileExtension {
             get {

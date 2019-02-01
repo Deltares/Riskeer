@@ -259,7 +259,7 @@ namespace Riskeer.Migration.Test
         {
             // Setup
             const string originalFileName = "Im_a_valid_file_path";
-            const string expectedFileExtension = "rtd";
+            const string expectedFileExtension = "risk";
 
             string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
 
@@ -267,7 +267,7 @@ namespace Riskeer.Migration.Test
             var expectedFileFilter = new FileFilterGenerator(expectedFileExtension, "Riskeer project");
             string expectedSuggestedFileName = $"{originalFileName}_{versionWithDashes}";
 
-            string expectedReturnPath = TestHelper.GetScratchPadPath("Im_a_file_path_to_the_migrated_file.rtd");
+            string expectedReturnPath = TestHelper.GetScratchPadPath("Im_a_file_path_to_the_migrated_file.risk");
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
@@ -290,7 +290,7 @@ namespace Riskeer.Migration.Test
         {
             // Setup
             const string originalFileName = "Im_a_valid_file_path";
-            const string expectedFileExtension = "rtd";
+            const string expectedFileExtension = "risk";
 
             string validFilePath = TestHelper.GetScratchPadPath($"{originalFileName}.{expectedFileExtension}");
 

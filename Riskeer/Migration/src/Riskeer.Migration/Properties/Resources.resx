@@ -123,7 +123,7 @@
 Weet u zeker dat u het bestand wilt migreren naar het formaat van uw huidige Riskeerversie ({0})?</value>
   </data>
   <data name="RiskeerProject_FileExtension" xml:space="preserve">
-    <value>rtd</value>
+    <value>risk</value>
   </data>
   <data name="Project_TypeDescription" xml:space="preserve">
     <value>Riskeer project</value>
