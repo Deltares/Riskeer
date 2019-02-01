@@ -32,7 +32,7 @@ namespace Riskeer.Storage.Core.Test.Serializers
     public class DataCollectionSerializerTest
     {
         private const string invalidXml = "<ArrayOfTestDataCollectionSerializer.TestSerializableObject " +
-                                          "xmlns=\"http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers\" " +
+                                          "xmlns=\"http://schemas.datacontract.org/2004/07/Application.Riskeer.Storage.Serializers\" " +
                                           "xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">Invalid</ArrayOfTestDataCollectionSerializer.TestSerializableObject>";
 
         [Test]

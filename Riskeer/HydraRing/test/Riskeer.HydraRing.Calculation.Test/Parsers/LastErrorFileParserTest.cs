@@ -85,7 +85,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Parsers
             lastErrorFileParser.Parse(lastErrorTestDataDirectory, 1);
 
             // Assert
-            string expectedContent = " File not found: D:\\Repos\\Ringtoets\\Ringtoets\\Integration\\test\\Ringtoets.Integra"
+            string expectedContent = " File not found: D:\\Repos\\Riskeer\\Riskeer\\Integration\\test\\Riskeer.Integra"
                                      + Environment.NewLine +
                                      " tion.Service.Test\\test-data\\HLCD.sqlite"
                                      + Environment.NewLine;
