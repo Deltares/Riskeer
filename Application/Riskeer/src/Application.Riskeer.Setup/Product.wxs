@@ -9,7 +9,7 @@
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
     <Media Id="1" Cabinet="RiskeerFull.cab" EmbedCab="yes"/>
-    <Property Id="ARPPRODUCTICON" Value="Ringtoets.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Riskeer.ico" />
 
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" AllowSameVersionUpgrades="yes"/>
 
@@ -46,10 +46,10 @@
             </Directory>
             
             <Component Id="FileAssociation" Guid="1117D79E-521C-48C3-9E23-549833F7BA09">
-              <File Source="Ringtoets.ico" KeyPath="yes"></File>
+              <File Source="Riskeer.ico" KeyPath="yes"></File>
               
               <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Riskeer.risk" Name="FriendlyTypeName" Value="!(loc.RiskDescription)" Type="string" />
-              <ProgId Id="Riskeer.risk" Description="!(loc.RiskDescription)" Icon="Ringtoets.ico">
+              <ProgId Id="Riskeer.risk" Description="!(loc.RiskDescription)" Icon="Riskeer.ico">
                 <Extension Id="risk" ContentType="application/risk">
                   <Verb Id="open" TargetFile="fil91CB09E13AB30875601EC5267FEE0EB4" Command="Open" Argument="&quot;%1&quot;"/>
                   <MIME ContentType="application/risk" Default="yes" />
@@ -64,7 +64,7 @@
                         Description="!(loc.StartApplicationDescription)"
                         Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
                         WorkingDirectory="INSTALLDIR"
-                        Icon="Ringtoets.ico"/>
+                        Icon="Riskeer.ico"/>
               
               <RemoveFolder Id="RemoveBINDIR" Directory="BINDIR" On="uninstall"/>
               <RemoveFolder Id="RemoveINSTALLDIR" Directory="INSTALLDIR" On="uninstall" />
@@ -95,7 +95,7 @@
                         Description="!(loc.StartApplicationDescription)"
                         Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
                         WorkingDirectory="INSTALLDIR"
-                        Icon="Ringtoets.ico"/>
+                        Icon="Riskeer.ico"/>
               <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRiskeer" On="uninstall" />
               <RemoveFolder Id="RemoveProgramMenuBOI" Directory="ProgramMenuBOI" On="uninstall" />
               <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
@@ -123,7 +123,7 @@
                     Description="!(loc.StartApplicationDescription)"
                     Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
                     WorkingDirectory="INSTALLDIR"
-                    Icon="Ringtoets.ico"/>
+                    Icon="Riskeer.ico"/>
 
            <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
         </Component>
@@ -185,7 +185,7 @@
       <ComponentRef Id="FileAssociation"/>
     </Feature>
 
-    <Icon Id="Ringtoets.ico" SourceFile="Ringtoets.ico"/>
+    <Icon Id="Riskeer.ico" SourceFile="Riskeer.ico"/>
     <Icon Id="Manual.ico" SourceFile="Manual.ico"/>
   </Product>
 </Wix>
