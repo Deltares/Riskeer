@@ -751,10 +751,10 @@ namespace Riskeer.HydraRing.Calculation.Services
                         "aDefault", 1 // Fixed: not relevant
                     },
                     {
-                        "bDefault", "WTI 2017" // Fixed: not relevant
+                        "bDefault", "BOI" // Fixed: not relevant
                     },
                     {
-                        "cDefault", "Ringtoets calculation" // Fixed: not relevant
+                        "cDefault", "Riskeer calculation" // Fixed: not relevant
                     }
                 }
             };

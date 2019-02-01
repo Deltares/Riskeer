@@ -201,7 +201,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Projects];" + Environment.NewLine +
-                                            "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
+                                            "INSERT INTO [Projects] VALUES (1, 'BOI', 'Riskeer calculation');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine +
                                             expectedBreakWatersScript;
@@ -415,7 +415,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
                                             "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Projects];" + Environment.NewLine +
-                                            "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
+                                            "INSERT INTO [Projects] VALUES (1, 'BOI', 'Riskeer calculation');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Breakwaters];" + Environment.NewLine +
                                             "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine +
