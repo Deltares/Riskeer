@@ -126,7 +126,7 @@
   <data name="Error_writing_structure_to_database" xml:space="preserve">
     <value>Een fout is opgetreden met schrijven naar het nieuwe Riskeerbestand.</value>
   </data>
-  <data name="Riskeer_project_file_filter" xml:space="preserve">
+  <data name="Supported_Riskeer_projects_file_filter" xml:space="preserve">
     <value>Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd</value>
   </data>
   <data name="StorageSqLite_LoadProject_Invalid_Riskeer_database_file" xml:space="preserve">
