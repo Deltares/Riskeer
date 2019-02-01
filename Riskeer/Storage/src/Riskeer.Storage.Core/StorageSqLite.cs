@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core
         {
             get
             {
-                return Resources.Riskeer_project_file_filter;
+                return Resources.Supported_Riskeer_projects_file_filter;
             }
         }
 

@@ -451,4 +451,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="HlcdFileNameEditor_InitializeDialog_FileFilter" xml:space="preserve">
     <value>HLCD bestand|*.sqlite</value>
   </data>
+  <data name="RiskeerProject_FileFilter" xml:space="preserve">
+    <value>Riskeerproject (*.risk)|*.risk</value>
+  </data>
 </root>

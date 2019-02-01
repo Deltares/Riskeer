@@ -149,7 +149,7 @@ namespace Riskeer.Storage.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd.
         /// </summary>
-        public static string Riskeer_project_file_filter {
+        public static string Supported_Riskeer_projects_file_filter {
             get {
                 return ResourceManager.GetString("Riskeer_project_file_filter", resourceCulture);
             }
