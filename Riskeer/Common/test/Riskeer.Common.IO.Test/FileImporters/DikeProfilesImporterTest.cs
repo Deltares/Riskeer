@@ -192,9 +192,9 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
             {
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoGeometry - Ringtoets.prfl")}' wordt overgeslagen.",
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoGeometry.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoGeometry - Ringtoets.prfl")}' wordt overgeslagen.",
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoGeometry.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);

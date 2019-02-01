@@ -344,7 +344,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            string erroneousProfileFile = Path.Combine(testFileDirectory, "profiel005 - Ringtoets.prfl");
+            string erroneousProfileFile = Path.Combine(testFileDirectory, "profiel005.prfl");
             string expectedMessage = $"Fout bij het lezen van bestand '{erroneousProfileFile}' op regel 6: het ingelezen damtype ('4') moet 0, 1, 2 of 3 zijn.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);

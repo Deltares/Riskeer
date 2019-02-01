@@ -220,10 +220,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
             Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create(
-                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
+                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoForeshoreNoDam.prfl")}' wordt overgeslagen.",
                     LogLevelConstant.Warn),
                 Tuple.Create(
-                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoForeshoreNoDam - Ringtoets.prfl")}' wordt overgeslagen.",
+                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoForeshoreNoDam.prfl")}' wordt overgeslagen.",
                     LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);

@@ -81,7 +81,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
             char[] invalidPathChars = Path.GetInvalidPathChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                              Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
+                                                              Path.Combine("DikeProfiles", "profiel001.prfl"));
             string invalidFilePath = validFilePath.Replace("-", invalidPathChars[3].ToString());
 
             var reader = new DikeProfileDataReader(new string[0]);
@@ -120,8 +120,8 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        [TestCase("profiel001 - Ringtoets.prfl")]
-        [TestCase("profiel001 - Ringtoets_WithWhiteSpaceAfterValues.prfl")]
+        [TestCase("profiel001.prfl")]
+        [TestCase("profiel001_WithWhiteSpaceAfterValues.prfl")]
         public void ReadDikeProfileData_ValidFilePath1_ReturnDikeProfileData(
             string validFileName)
         {
@@ -165,7 +165,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                              Path.Combine("DikeProfiles", "profiel004 - Ringtoets.prfl"));
+                                                              Path.Combine("DikeProfiles", "profiel004.prfl"));
 
             const string profielId = "profiel004";
             var reader = new DikeProfileDataReader(new[]
@@ -315,7 +315,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
         {
             // Setup
             string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                               Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
+                                                               Path.Combine("DikeProfiles", "profiel001.prfl"));
 
             var reader = new DikeProfileDataReader(new[]
             {
