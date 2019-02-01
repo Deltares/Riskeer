@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.ReplayAll();
 
             var provider = new AssessmentSectionProvider(viewParent);
-            string filePath = Path.Combine(testDataPath, "project.rtd");
+            string filePath = Path.Combine(testDataPath, "project.risk");
 
             DialogBoxHandler = (name, wnd) =>
             {

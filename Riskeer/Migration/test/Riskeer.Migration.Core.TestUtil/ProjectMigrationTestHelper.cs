@@ -42,7 +42,7 @@ namespace Riskeer.Migration.Core.TestUtil
         {
             string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             string versionSuffix = currentDatabaseVersion.Replace(".", string.Empty);
-            string projectFileName = $"MigrationTestProject{versionSuffix}.rtd";
+            string projectFileName = $"MigrationTestProject{versionSuffix}.risk";
 
             return TestHelper.GetTestDataPath(testDataPath, projectFileName);
         }
