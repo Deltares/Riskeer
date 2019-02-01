@@ -28,7 +28,7 @@ using Riskeer.Storage.Core.TestUtil;
 namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
-    [Explicit("Creates a new Riskeer.rtd file in the root of the Riskeer.Storage.Core")]
+    [Explicit("Creates a new Riskeer.risk file in the root of the Riskeer.Storage.Core")]
     public class RiskeerDatabaseCreatorTest
     {
         /// <summary>
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Test
 
         private static string GetPathToStorageFile()
         {
-            return Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Riskeer", "Storage", "src", "Riskeer.Storage.Core", "Riskeer.rtd");
+            return Path.Combine(Path.GetDirectoryName(TestHelper.SolutionRoot), "Riskeer", "Storage", "src", "Riskeer.Storage.Core", "Riskeer.risk");
         }
     }
 }
