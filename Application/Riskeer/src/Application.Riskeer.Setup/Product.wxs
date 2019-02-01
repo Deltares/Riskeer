@@ -54,6 +54,9 @@
                   <Verb Id="open" TargetFile="fil91CB09E13AB30875601EC5267FEE0EB4" Command="Open" Argument="&quot;%1&quot;"/>
                   <MIME ContentType="application/risk" Default="yes" />
                 </Extension>
+                <Extension Id="rtd" ContentType="application/rtd">
+                  <MIME ContentType="application/rtd" Default="no" />
+                </Extension>
               </ProgId>
               
             </Component>
