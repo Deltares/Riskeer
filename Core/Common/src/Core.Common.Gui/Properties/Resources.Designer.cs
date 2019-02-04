@@ -787,6 +787,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gegevens zijn geëxporteerd naar bestand &apos;{0}&apos;.
+        /// </summary>
+        public static string GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0 {
+            get {
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporteren van &apos;{0}&apos; is mislukt..
         /// </summary>
         public static string GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed {

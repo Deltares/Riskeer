@@ -146,6 +146,7 @@ namespace Core.Common.Gui.Commands
 
                     if (exporter.Export())
                     {
+                        log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0, exportFilePath);
                         log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful,
                                        exportInfo.Name);
                     }
