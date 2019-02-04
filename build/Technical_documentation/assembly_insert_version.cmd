@@ -12,8 +12,8 @@ IF %argcount%==0 (
     ECHO "usage: replace SVNREV text with revision number, SVNROOT with repository"
     ECHO "versionFile: path of file containing the version info"
 	ECHO "path: execute at specific location"
-    ECHO "[optional] infile: file to read, defaults to ringtoets.doxygen.svn"
-    ECHO "[optional] outfile: file to create, defaults to ringtoets.doxygen"
+    ECHO "[optional] infile: file to read, defaults to Riskeer.doxyfile"
+    ECHO "[optional] outfile: file to create, defaults to Riskeer.doxygen"
     GOTO EOF
 )
 
@@ -23,8 +23,8 @@ IF %argcount%==1 (
     ECHO "setting default in and out files."
 	SET VERSIONPATH=..\..\Core\Common\src\Core.Common.Version
 	SET VERSIONFILE=GlobalAssembly.cs
-    SET INTEXTFILE=Ringtoets.doxygen.svn
-    SET OUTTEXTFILE=Ringtoets.doxygen
+    SET INTEXTFILE=Riskeer.doxyfile
+    SET OUTTEXTFILE=Riskeer.doxygen
 ) ELSE (
     ECHO "setting custom in and out files."
     SET VERSIONPATH=%1

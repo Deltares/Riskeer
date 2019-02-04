@@ -13,7 +13,7 @@
   
    <Target Name="AssemblyVersion" DependsOnTargets="Release">
    <Delete Files="Riskeer.doxygen"/>
-    <Exec Command="assembly_insert_version.cmd ..\..\Core\Common\src\Core.Common.Version GlobalAssembly.cs Riskeer.doxygen.svn Riskeer.doxygen" WorkingDirectory="Technical_documentation" />
+    <Exec Command="assembly_insert_version.cmd ..\..\Core\Common\src\Core.Common.Version GlobalAssembly.cs Riskeer.doxyfile Riskeer.doxygen" WorkingDirectory="Technical_documentation" />
   </Target>
   
   <Target Name="RunDoxygen" DependsOnTargets="AssemblyVersion">
