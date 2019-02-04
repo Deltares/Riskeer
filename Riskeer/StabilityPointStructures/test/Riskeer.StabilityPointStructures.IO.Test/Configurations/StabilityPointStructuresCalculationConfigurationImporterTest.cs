@@ -582,7 +582,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -614,7 +614,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             // Assert
             const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -922,9 +922,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 new StabilityPointStructuresFailureMechanism());
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
             var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
@@ -1169,7 +1171,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }

@@ -226,7 +226,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                     $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoForeshoreNoDam.prfl")}' wordt overgeslagen.",
                     LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsTrue(importResult);
         }
 
@@ -302,9 +302,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             foreshoreProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
-            bool importResult = foreshoreProfilesImporter.Import();
+            var importResult = false;
+            Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
             var expectedProgressMessages = new List<ProgressNotification>
             {

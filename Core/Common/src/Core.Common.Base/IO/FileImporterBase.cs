@@ -75,6 +75,8 @@ namespace Core.Common.Base.IO
                     LogImportUncancelableMessage();
                     Canceled = false;
                 }
+
+                LogImportSuccessfulMessage();
             }
             else
             {
@@ -152,6 +154,11 @@ namespace Core.Common.Base.IO
         private void LogImportUncancelableMessage()
         {
             Log.Warn(Resources.FileImporterBase_LogUncancelableMessage_Import_cannot_be_canceled_and_continued);
+        }
+
+        private void LogImportSuccessfulMessage()
+        {
+            Log.InfoFormat(Resources.FileImporterBase_Import_Data_imported_from_File_0, FilePath);
         }
     }
 }

@@ -163,11 +163,13 @@ namespace Core.Common.Base.Test.IO
             Action call = () => simpleImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.");
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(
+                                                                "Huidige actie was niet meer te annuleren en is daarom voortgezet.",
+                                                                LogLevelConstant.Warn));
         }
 
         [Test]
-        public void Import_CancelGivesUnsuccessfulImport_CallsLogImportoverigensCanceledMessage()
+        public void Import_CancelGivesUnsuccessfulImport_CallsLogImportCanceledMessage()
         {
             //  Setup
             var importTarget = new object();
@@ -183,6 +185,25 @@ namespace Core.Common.Base.Test.IO
 
             // Assert
             Assert.IsTrue(simpleImporter.LogCanceledMessageCalled);
+        }
+
+        [Test]
+        public void Import_ImportSuccessful_LogsImportSuccessfulMessage()
+        {
+            // Setup
+            var importTarget = new object();
+            var simpleImporter = new SimpleFileImporter<object>(importTarget)
+            {
+                ImportSuccessful = true
+            };
+
+            // Call
+            Action call = () => simpleImporter.Import();
+
+            // Asset
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(
+                                                                $"Gegevens zijn geïmporteerd vanuit bestand '{string.Empty}'.",
+                                                                LogLevelConstant.Info));
         }
 
         private class SimpleFileImporter<T> : FileImporterBase<T>

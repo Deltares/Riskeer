@@ -186,4 +186,7 @@
   <data name="Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescription_2_" xml:space="preserve">
     <value>Stap {0} van {1} | {2}</value>
   </data>
+  <data name="FileImporterBase_Import_Data_imported_from_File_0" xml:space="preserve">
+    <value>Gegevens zijn geïmporteerd vanuit bestand '{0}'.</value>
+  </data>
 </root>

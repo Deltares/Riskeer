@@ -480,7 +480,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
         }
 
@@ -566,7 +566,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 2);
             Assert.IsTrue(importResult);
         }
 

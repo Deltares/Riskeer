@@ -258,7 +258,7 @@ namespace Riskeer.HeightStructures.IO.Test
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(4, messages.Length);
+                Assert.AreEqual(5, messages.Length);
 
                 const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 
@@ -315,7 +315,7 @@ namespace Riskeer.HeightStructures.IO.Test
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(4, messages.Length);
+                Assert.AreEqual(5, messages.Length);
 
                 const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 
@@ -362,9 +362,11 @@ namespace Riskeer.HeightStructures.IO.Test
                                                         messageProvider, strategy);
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 13);
             Assert.IsTrue(importResult);
         }
 

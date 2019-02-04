@@ -135,7 +135,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             const string expectedMessage = "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -163,7 +163,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             const string expectedMessage = "Een gemiddelde van '-1' is ongeldig voor stochast 'overslagdebiet'. " +
                                            "Gemiddelde moet groter zijn dan 0. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -191,7 +191,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             const string expectedMessage = "Een standaardafwijking van '-2,1' is ongeldig voor stochast 'overslagdebiet'. " +
                                            "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -216,7 +216,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "De hydraulische belastingenlocatie 'Locatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -241,7 +241,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Het dijkprofiel met ID 'Dijkprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -266,7 +266,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Er is geen dijkprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -291,7 +291,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Er is geen dijkprofiel opgegeven om de dijkhoogte aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -316,7 +316,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Er is geen dijkprofiel opgegeven om de oriëntatie aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -345,7 +345,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Het opgegeven dijkprofiel 'Dijkprofiel ID' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -535,9 +535,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+
             Assert.IsTrue(successful);
 
             var expectedCalculation = new GrassCoverErosionInwardsCalculation

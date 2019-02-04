@@ -103,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "De hydraulische belastingenlocatie 'Locatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -126,7 +126,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "De profielschematisatie 'Profielschematisatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -150,7 +150,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -197,7 +197,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel'doorkruist de profielschematisatie 'Profielschematisatie' niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -244,7 +244,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "De ondergrondschematisatie 'Ondergrondschematisatie' bestaat niet binnen het stochastische ondergrondmodel 'Ondergrondmodel'. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -268,7 +268,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie 'Ondergrondschematisatie'. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -295,7 +295,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
                                            "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -458,7 +458,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             const string expectedMessage = "Een waarde van '0,00' als tangentlijn Z-boven en '10,00' als tangentlijn Z-onder is ongeldig. " +
                                            "Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN. " +
                                            "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -511,9 +511,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
                                                                                      new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculations = new[]
@@ -659,9 +661,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
                                                                                      new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculations = new[]
@@ -812,7 +816,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -867,9 +871,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
                                                                                      failureMechanism);
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new MacroStabilityInwardsCalculationScenario

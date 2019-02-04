@@ -646,7 +646,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
             Assert.IsTrue(importSuccessful);
             CollectionAssert.IsNotEmpty(updateStrategy.ImportedFailureMechanismSections);
             mocks.VerifyAll();
@@ -677,9 +677,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             importer.SetProgressChanged(null);
 
             // Call
-            bool importSuccessful = importer.Import();
+            var importSuccessful = false;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{sectionsFilePath}'.", 1);
             Assert.IsTrue(importSuccessful);
 
             IEnumerable<FailureMechanismSection> sections = updateStrategy.ImportedFailureMechanismSections;

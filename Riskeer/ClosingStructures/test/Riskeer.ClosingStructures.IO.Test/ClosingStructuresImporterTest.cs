@@ -250,9 +250,11 @@ namespace Riskeer.ClosingStructures.IO.Test
                                                                    filePath, messageProvider, updateStrategy);
 
             // Call
-            bool importResult = structuresImporter.Import();
+            var importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 5);
             Assert.IsTrue(importResult);
         }
 
@@ -300,7 +302,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(9, messages.Length);
+                Assert.AreEqual(10, messages.Length);
 
                 const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 
@@ -357,7 +359,7 @@ namespace Riskeer.ClosingStructures.IO.Test
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(9, messages.Length);
+                Assert.AreEqual(10, messages.Length);
 
                 const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 

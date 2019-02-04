@@ -197,7 +197,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoGeometry.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
             Assert.IsTrue(importResult);
             Assert.IsTrue(updateStrategy.Updated);
             Assert.AreEqual(5, updateStrategy.ReadDikeProfiles.Length);
@@ -262,9 +262,12 @@ namespace Riskeer.Common.IO.Test.FileImporters
             dikeProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
-            bool importResult = dikeProfilesImporter.Import();
+            var importResult = false;
+            Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+
             Assert.IsTrue(importResult);
             var expectedProgressMessages = new List<ProgressNotification>
             {

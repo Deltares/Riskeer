@@ -261,9 +261,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test
                                                                           updateStrategy);
 
             // Call
-            bool importResult = structuresImporter.Import();
+            var importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 9);
             Assert.IsTrue(importResult);
         }
 
@@ -315,7 +317,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(11, messages.Length);
+                Assert.AreEqual(12, messages.Length);
 
                 const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 
@@ -377,7 +379,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(11, messages.Length);
+                Assert.AreEqual(12, messages.Length);
 
                 const string structure = "'Coupure Den Oever (90k1)' (KUNST1)";
 

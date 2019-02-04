@@ -426,7 +426,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 2);
             Assert.IsTrue(importResult);
         }
 

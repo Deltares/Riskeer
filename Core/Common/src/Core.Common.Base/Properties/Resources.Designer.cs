@@ -165,6 +165,15 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gegevens zijn geïmporteerd vanuit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string FileImporterBase_Import_Data_imported_from_File_0 {
+            get {
+                return ResourceManager.GetString("FileImporterBase_Import_Data_imported_from_File_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Huidige actie was niet meer te annuleren en is daarom voortgezet..
         /// </summary>
         public static string FileImporterBase_LogUncancelableMessage_Import_cannot_be_canceled_and_continued {

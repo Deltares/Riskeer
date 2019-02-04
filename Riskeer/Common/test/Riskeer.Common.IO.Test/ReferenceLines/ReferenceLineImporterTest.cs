@@ -110,9 +110,11 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(originalReferenceLine, handler, path);
 
             // Call
-            bool importSuccessful = importer.Import();
+            var importSuccessful = false;
+            Action call = () => importSuccessful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{path}'.", 1);
             Assert.IsTrue(importSuccessful);
             mocks.VerifyAll();
         }
@@ -278,9 +280,9 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Call
             importer.Import();
             Action call = () => importResult = importer.Import();
-
+    
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }

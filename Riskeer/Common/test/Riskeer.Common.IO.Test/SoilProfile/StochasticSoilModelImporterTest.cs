@@ -294,9 +294,11 @@ namespace Riskeer.Common.IO.Test.SoilProfile
                                             progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 1);
             Assert.IsTrue(importResult);
 
             var expectedProgressMessages = new List<ProgressNotification>
@@ -546,7 +548,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 2);
             Assert.IsTrue(importResult);
         }
 
@@ -642,7 +644,7 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             // Assert
             const string expectedLogMessage = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 2);
             Assert.IsTrue(importResult);
         }
 

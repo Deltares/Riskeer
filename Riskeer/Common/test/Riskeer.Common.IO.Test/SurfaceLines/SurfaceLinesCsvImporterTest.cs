@@ -216,9 +216,11 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 4);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(validFilePath, surfaceLineUpdateStrategy.FilePath);
@@ -275,7 +277,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 $"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv")})"
             };
 
-            TestHelper.AssertLogMessagesAreGenerated(call, messages, 4);
+            TestHelper.AssertLogMessagesAreGenerated(call, messages, 5);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(validFilePath, surfaceLineUpdateStrategy.FilePath);
@@ -450,7 +452,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLogLevel, 4);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLogLevel, 5);
             Assert.IsTrue(importResult);
         }
 
@@ -747,7 +749,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {expectedCharacteristicPointsFile})", LogLevelConstant.Info)
             };
 
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -795,7 +797,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {characteristicPointsFilePath})", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -854,7 +856,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv")})", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(path, surfaceLineUpdateStrategy.FilePath);
@@ -897,7 +899,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingZeroLength.krp.csv")})", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 4);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(path, surfaceLineUpdateStrategy.FilePath);
@@ -938,7 +940,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Assert
             string expectedLogMessage = $"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {nonExistingCharacteristicFile})";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 3);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 4);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1170,7 +1172,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1284,7 +1286,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie 'Rotterdam1Invalid'.", LogLevelConstant.Warn),
                 Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 7);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1352,7 +1354,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie \'Rotterdam1\'.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1420,7 +1422,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create("Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie \'Extra\'.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);

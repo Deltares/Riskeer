@@ -339,9 +339,11 @@ namespace Riskeer.Integration.IO.Test.Importers
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -382,9 +384,11 @@ namespace Riskeer.Integration.IO.Test.Importers
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -426,9 +430,11 @@ namespace Riskeer.Integration.IO.Test.Importers
             var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, hydraulicBoundaryDatabaseFilePath);
 
             // Call
-            bool importResult = importer.Import();
+            var importResult = false;
+            Action call = () => importResult = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{hydraulicBoundaryDatabaseFilePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -556,7 +562,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 2);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }

@@ -142,7 +142,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -165,7 +165,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "De hydraulische belastingenlocatie 'Locatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -188,7 +188,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "De profielschematisatie 'Profielschematisatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -212,7 +212,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             // Assert
             const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -260,7 +260,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             // Assert
             const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel'doorkruist de profielschematisatie 'Profielschematisatie' niet." +
                                            " Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -308,7 +308,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             // Assert
             const string expectedMessage = "De ondergrondschematisatie 'Ondergrondschematisatie' bestaat niet binnen het stochastische ondergrondmodel 'Ondergrondmodel'. " +
                                            "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -333,7 +333,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             // Assert
             const string expectedMessage = "Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie 'Ondergrondschematisatie'. " +
                                            "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -362,7 +362,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             // Assert
             const string expectedMessage = "Er is geen profielschematisatie, maar wel een intrede- of uittredepunt opgegeven. " +
                                            "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -383,9 +383,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                                       pipingFailureMechanism);
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
@@ -413,9 +415,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                                       pipingFailureMechanism);
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
@@ -454,9 +458,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                                       pipingFailureMechanism);
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
@@ -502,7 +508,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             // Assert
             const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
                                            "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -523,9 +529,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                                       pipingFailureMechanism);
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
@@ -554,9 +562,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                                       pipingFailureMechanism);
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
@@ -619,9 +629,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                                                       pipingFailureMechanism);
 
             // Call
-            bool successful = importer.Import();
+            var successful = false;
+            Action call = () => successful = importer.Import();
 
             // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
