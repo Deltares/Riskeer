@@ -195,7 +195,7 @@ namespace Core.Common.Gui.Test.Commands
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 $"Exporteren van '{exportInfoName}' is gestart.",
-                $"Gegevens zijn geëxporteerd naar bestand '{targetExportFileName}'",
+                $"Gegevens zijn geëxporteerd naar bestand '{targetExportFileName}'.",
                 $"Exporteren van '{exportInfoName}' is gelukt."
             });
             mockRepository.VerifyAll();
