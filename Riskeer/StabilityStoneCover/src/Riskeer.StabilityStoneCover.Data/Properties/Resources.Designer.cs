@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.StabilityStoneCover.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -96,6 +96,33 @@ namespace Riskeer.StabilityStoneCover.Data.Properties {
         public static string StabilityStoneCoverFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("StabilityStoneCoverFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steen (blokken).
+        /// </summary>
+        public static string StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steen (blokken en zuilen).
+        /// </summary>
+        public static string StabilityStoneCoverWaveConditionsCalculationType_Both_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationType_Both_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steen (zuilen).
+        /// </summary>
+        public static string StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName", resourceCulture);
             }
         }
     }

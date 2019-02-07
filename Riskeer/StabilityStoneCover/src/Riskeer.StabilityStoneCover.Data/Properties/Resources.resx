@@ -123,4 +123,13 @@
   <data name="StabilityStoneCoverFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Stabiliteit steenzetting</value>
   </data>
+  <data name="StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName" xml:space="preserve">
+    <value>Steen (blokken)</value>
+  </data>
+  <data name="StabilityStoneCoverWaveConditionsCalculationType_Both_DisplayName" xml:space="preserve">
+    <value>Steen (blokken en zuilen)</value>
+  </data>
+  <data name="StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName" xml:space="preserve">
+    <value>Steen (zuilen)</value>
+  </data>
 </root>
