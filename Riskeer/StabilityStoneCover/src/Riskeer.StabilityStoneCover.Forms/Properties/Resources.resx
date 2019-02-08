@@ -141,7 +141,4 @@
   <data name="StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName" xml:space="preserve">
     <value>Hydraulische belastingen voor zuilen</value>
   </data>
-  <data name="StabilityStoneCoverWaveConditionsInputContextPorperties_RevetmentType" xml:space="preserve">
-    <value>Steen (blokken en zuilen)</value>
-  </data>
 </root>

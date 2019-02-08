@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -114,15 +114,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Properties {
         public static string StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description {
             get {
                 return ResourceManager.GetString("StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Steen (blokken en zuilen).
-        /// </summary>
-        public static string StabilityStoneCoverWaveConditionsInputContextPorperties_RevetmentType {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsInputContextPorperties_RevetmentType", resourceCulture);
             }
         }
         
