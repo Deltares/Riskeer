@@ -81,7 +81,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput,TCategory}"/>.
+        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput,TCategory, TCalculationType}"/>.
         /// </summary>
         /// <param name="context">The <see cref="WaveConditionsInputContext{TInput}"/> for which the properties are shown.</param>
         /// <param name="getAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the assessment level.</param>
@@ -125,7 +125,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => SetCategoryType(value), propertyChangeHandler);
+                HandleChangeProperty(() => SetCategoryType(value));
             }
         }
 
@@ -165,7 +165,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.UpperBoundaryRevetment = value, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.UpperBoundaryRevetment = value);
             }
         }
 
@@ -181,7 +181,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.LowerBoundaryRevetment = value, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.LowerBoundaryRevetment = value);
             }
         }
 
@@ -197,7 +197,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.UpperBoundaryWaterLevels = value, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.UpperBoundaryWaterLevels = value);
             }
         }
 
@@ -213,7 +213,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.LowerBoundaryWaterLevels = value, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.LowerBoundaryWaterLevels = value);
             }
         }
 
@@ -230,7 +230,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.StepSize = value, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.StepSize = value);
             }
         }
 
@@ -251,7 +251,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_RevetmentType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_RevetmentType_Description))]
-        public abstract TCalculationType RevetmentType { get; }
+        public abstract TCalculationType RevetmentType { get; set; }
 
         [PropertyOrder(worldReferencePointPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
@@ -280,7 +280,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.Orientation = value, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.Orientation = value);
             }
         }
 
@@ -325,7 +325,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ForeshoreProfile = value, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.ForeshoreProfile = value);
             }
         }
 
@@ -346,7 +346,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
+                HandleChangeProperty(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation);
             }
         }
 
@@ -373,5 +373,16 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         /// </summary>
         /// <param name="categoryType">The category type to set.</param>
         protected abstract void SetCategoryType(TCategory categoryType);
+
+        /// <summary>
+        /// Handles the property change.
+        /// </summary>
+        /// <param name="setPropertyDelegate">The property change action.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="setPropertyDelegate"/>
+        /// is <c>null</c>.</exception>
+        protected void HandleChangeProperty(SetObservablePropertyValueDelegate setPropertyDelegate)
+        {
+            PropertyChangeHelper.ChangePropertyAndNotify(setPropertyDelegate, propertyChangeHandler);
+        }
     }
 }

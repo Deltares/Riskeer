@@ -47,11 +47,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                                                                              IObservablePropertyChangeHandler propertyChangeHandler)
             : base(context, getAssessmentLevelFunc, propertyChangeHandler) {}
 
+        /// <inheritdoc/>
+        /// <exception cref="InvalidOperationException">Thrown when trying to set a new value.</exception>
         public override string RevetmentType
         {
             get
             {
                 return Resources.GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType;
+            }
+            set
+            {
+                throw new InvalidOperationException();
             }
         }
     }

@@ -19,12 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PropertyClasses;
@@ -54,7 +55,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Call
-            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
+            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext,
@@ -62,6 +64,32 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Asfalt", properties.RevetmentType);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void RevetmentType_SetNewValue_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                assessmentSection,
+                Enumerable.Empty<ForeshoreProfile>());
+
+            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
+
+            // Call
+            TestDelegate test = () => properties.RevetmentType = string.Empty;
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
         }
     }
 }

@@ -141,6 +141,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 {
                     return "";
                 }
+                set
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
 

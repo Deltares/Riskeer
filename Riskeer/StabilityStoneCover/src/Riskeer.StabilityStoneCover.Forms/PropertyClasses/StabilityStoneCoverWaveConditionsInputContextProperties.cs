@@ -58,6 +58,10 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             {
                 return data.WrappedData.CalculationType;
             }
+            set
+            {
+                HandleChangeProperty(() => data.WrappedData.CalculationType = value);
+            }
         }
     }
 }

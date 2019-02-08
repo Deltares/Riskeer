@@ -141,6 +141,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 {
                     return "";
                 }
+                set
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
 
@@ -150,9 +154,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             public TestAssessmentSectionCategoryWaveConditionsInputContext(AssessmentSectionCategoryWaveConditionsInput wrappedData,
                                                                            ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation,
                                                                            IAssessmentSection assessmentSection)
-                : base(wrappedData,
-                       calculation,
-                       assessmentSection) {}
+                : base(wrappedData, calculation, assessmentSection) {}
 
             public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
             {

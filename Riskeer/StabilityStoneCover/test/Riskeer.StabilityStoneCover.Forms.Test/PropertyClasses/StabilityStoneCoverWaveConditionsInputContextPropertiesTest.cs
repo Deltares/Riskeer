@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -28,7 +30,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
@@ -84,7 +88,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
+            var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -97,8 +102,48 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
                                                                             modelSettingsCategory,
                                                                             "Type bekleding",
-                                                                            "Het type van de bekleding waarvoor berekend wordt.",
-                                                                            true);
+                                                                            "Het type van de bekleding waarvoor berekend wordt.");
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RevetmentType_Always_InputChangedAndObservablesNotified()
+        {
+            var calculationType = new Random(21).NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>();
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(
+                properties => properties.RevetmentType = calculationType);
+        }
+
+        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
+            Action<StabilityStoneCoverWaveConditionsInputContextProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var context = new StabilityStoneCoverWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                assessmentSection,
+                Enumerable.Empty<ForeshoreProfile>());
+
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
+
+            var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, customHandler);
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsTrue(customHandler.Called);
             mocks.VerifyAll();
         }
     }

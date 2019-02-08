@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -51,15 +52,40 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context,
-                                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                                               handler);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, string>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Gras", properties.RevetmentType);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void RevetmentType_SetNewValue_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                assessmentSection,
+                new GrassCoverErosionOutwardsFailureMechanism());
+
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
+
+            // Call
+            TestDelegate test = () => properties.RevetmentType = string.Empty;
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
         }
     }
 }
