@@ -56,7 +56,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                return StabilityStoneCoverWaveConditionsCalculationType.Columns;
+                return data.WrappedData.CalculationType;
             }
         }
     }
