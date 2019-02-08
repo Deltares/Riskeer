@@ -125,7 +125,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         }
 
         private class TestAssessmentSectionCategoryWaveConditionsInputContextProperties
-            : AssessmentSectionCategoryWaveConditionsInputContextProperties<TestAssessmentSectionCategoryWaveConditionsInputContext, object>
+            : AssessmentSectionCategoryWaveConditionsInputContextProperties<TestAssessmentSectionCategoryWaveConditionsInputContext,
+                AssessmentSectionCategoryWaveConditionsInput, object>
         {
             public TestAssessmentSectionCategoryWaveConditionsInputContextProperties(TestAssessmentSectionCategoryWaveConditionsInputContext context,
                                                                                      Func<RoundedDouble> getAssessmentLevelFunc,

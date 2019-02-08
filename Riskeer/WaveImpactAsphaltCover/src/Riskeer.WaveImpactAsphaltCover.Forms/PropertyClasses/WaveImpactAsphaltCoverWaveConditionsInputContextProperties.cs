@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.Properties;
@@ -32,7 +33,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// ViewModel of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContextProperties
-        : AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext, string>
+        : AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext,
+            AssessmentSectionCategoryWaveConditionsInput, string>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContextProperties"/>.

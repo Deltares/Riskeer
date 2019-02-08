@@ -60,7 +60,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInputContextProperties<
-                StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsCalculationType>>(properties);
+                StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInput,
+                StabilityStoneCoverWaveConditionsCalculationType>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual(StabilityStoneCoverWaveConditionsCalculationType.Columns, properties.RevetmentType);
             mockRepository.VerifyAll();

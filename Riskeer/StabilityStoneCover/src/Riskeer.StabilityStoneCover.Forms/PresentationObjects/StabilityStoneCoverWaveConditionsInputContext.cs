@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Data;
 
@@ -33,7 +32,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for wave conditions input of the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsInputContext : WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>
+    public class StabilityStoneCoverWaveConditionsInputContext : WaveConditionsInputContext<StabilityStoneCoverWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsInputContext"/>.
@@ -43,8 +42,8 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="StabilityStoneCoverFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsInputContext(AssessmentSectionCategoryWaveConditionsInput wrappedData,
-                                                             ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation,
+        public StabilityStoneCoverWaveConditionsInputContext(StabilityStoneCoverWaveConditionsInput wrappedData,
+                                                             ICalculation<StabilityStoneCoverWaveConditionsInput> calculation,
                                                              IAssessmentSection assessmentSection,
                                                              IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)

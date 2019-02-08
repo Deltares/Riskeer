@@ -27,7 +27,6 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.Properties;
 
 namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {
@@ -36,6 +35,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
     /// </summary>
     public class StabilityStoneCoverWaveConditionsInputContextProperties
         : AssessmentSectionCategoryWaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext,
+            StabilityStoneCoverWaveConditionsInput,
             StabilityStoneCoverWaveConditionsCalculationType>
     {
         /// <summary>

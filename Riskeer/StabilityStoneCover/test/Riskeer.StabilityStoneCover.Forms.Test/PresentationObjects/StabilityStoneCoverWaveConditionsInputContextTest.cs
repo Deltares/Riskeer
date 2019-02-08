@@ -24,7 +24,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
@@ -53,7 +52,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
                                                                             foreshoreProfiles);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext<StabilityStoneCoverWaveConditionsInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

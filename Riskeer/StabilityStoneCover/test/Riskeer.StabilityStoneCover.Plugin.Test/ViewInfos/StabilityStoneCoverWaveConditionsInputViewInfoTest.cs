@@ -101,7 +101,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 }
             };
             var context = new StabilityStoneCoverWaveConditionsInputContext(
-                new AssessmentSectionCategoryWaveConditionsInput(),
+                new StabilityStoneCoverWaveConditionsInput(),
                 calculation,
                 new AssessmentSectionStub(),
                 new ForeshoreProfile[0]);
