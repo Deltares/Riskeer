@@ -69,12 +69,13 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         private const int stepSizePropertyIndex = 8;
         private const int waterLevelsPropertyIndex = 9;
 
-        private const int foreshoreProfilePropertyIndex = 10;
-        private const int worldReferencePointPropertyIndex = 11;
-        private const int orientationPropertyIndex = 12;
-        private const int breakWaterPropertyIndex = 13;
-        private const int foreshoreGeometryPropertyIndex = 14;
-        private const int revetmentTypePropertyIndex = 15;
+        private const int revetmentTypePropertyIndex = 10;
+
+        private const int foreshoreProfilePropertyIndex = 11;
+        private const int worldReferencePointPropertyIndex = 12;
+        private const int orientationPropertyIndex = 13;
+        private const int breakWaterPropertyIndex = 14;
+        private const int foreshoreGeometryPropertyIndex = 15;
 
         private readonly Func<RoundedDouble> getAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
@@ -246,6 +247,12 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(revetmentTypePropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_RevetmentType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_RevetmentType_Description))]
+        public abstract TCalculationType RevetmentType { get; }
+
         [PropertyOrder(worldReferencePointPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WorldReferencePoint_DisplayName))]
@@ -304,12 +311,6 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
                 return new UseForeshoreProperties(data.WrappedData, propertyChangeHandler);
             }
         }
-
-        [PropertyOrder(revetmentTypePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_RevetmentType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_RevetmentType_Description))]
-        public abstract string RevetmentType { get; }
 
         [PropertyOrder(foreshoreProfilePropertyIndex)]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]

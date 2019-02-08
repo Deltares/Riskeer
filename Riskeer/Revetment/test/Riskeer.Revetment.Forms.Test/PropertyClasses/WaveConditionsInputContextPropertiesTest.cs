@@ -61,12 +61,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         private const int stepSizePropertyIndex = 8;
         private const int waterLevelsPropertyIndex = 9;
 
-        private const int foreshoreProfilePropertyIndex = 10;
-        private const int worldReferencePointPropertyIndex = 11;
-        private const int orientationPropertyIndex = 12;
-        private const int breakWaterPropertyIndex = 13;
-        private const int foreshoreGeometryPropertyIndex = 14;
-        private const int revetmentTypePropertyIndex = 15;
+        private const int revetmentTypePropertyIndex = 10;
+
+        private const int foreshoreProfilePropertyIndex = 11;
+        private const int worldReferencePointPropertyIndex = 12;
+        private const int orientationPropertyIndex = 13;
+        private const int breakWaterPropertyIndex = 14;
+        private const int foreshoreGeometryPropertyIndex = 15;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -247,6 +248,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(16, dynamicProperties.Count);
 
             const string hydraulicParametersCategory = "Hydraulische gegevens";
+            const string modelSettingsCategory = "Modelinstellingen";
             const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
@@ -314,6 +316,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             "De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen en op basis van de stapgrootte.",
                                                                             true);
 
+            PropertyDescriptor revetmentTypeProperty = dynamicProperties[revetmentTypePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Type bekleding",
+                                                                            "Het type van de bekleding waarvoor berekend wordt.",
+                                                                            true);
+
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(foreshoreProfileProperty,
                                                                             schematizationCategory,
@@ -347,13 +356,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             schematizationCategory,
                                                                             "Voorlandgeometrie",
                                                                             "Eigenschappen van de voorlandgeometrie.",
-                                                                            true);
-
-            PropertyDescriptor revetmentTypeProperty = dynamicProperties[revetmentTypePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
-                                                                            schematizationCategory,
-                                                                            "Type bekleding",
-                                                                            "Het type van de bekleding waarvoor berekend wordt.",
                                                                             true);
 
             mocks.VerifyAll();
@@ -845,7 +847,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                             IObservablePropertyChangeHandler handler)
                 : base(context, getAssessmentLevelFunc, handler) {}
 
-            public override string RevetmentType
+            public override object RevetmentType
             {
                 get
                 {

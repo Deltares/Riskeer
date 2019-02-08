@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
+using Core.Common.Util;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
@@ -49,11 +51,12 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
                                                                        IObservablePropertyChangeHandler propertyChangeHandler)
             : base(context, getAssessmentLevelFunc, propertyChangeHandler) {}
 
-        public override string RevetmentType
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public override StabilityStoneCoverWaveConditionsCalculationType RevetmentType
         {
             get
             {
-                return Resources.StabilityStoneCoverWaveConditionsInputContextPorperties_RevetmentType;
+                return StabilityStoneCoverWaveConditionsCalculationType.Columns;
             }
         }
     }

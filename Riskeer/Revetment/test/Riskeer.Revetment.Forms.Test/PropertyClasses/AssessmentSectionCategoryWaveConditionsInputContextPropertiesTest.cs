@@ -134,7 +134,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                        getAssessmentLevelFunc,
                        propertyChangeHandler) {}
 
-            public override string RevetmentType
+            public override object RevetmentType
             {
                 get
                 {
