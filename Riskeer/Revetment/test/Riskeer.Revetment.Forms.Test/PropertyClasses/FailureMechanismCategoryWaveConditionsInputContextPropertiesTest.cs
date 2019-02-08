@@ -67,7 +67,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<
                 TestFailureMechanismCategoryWaveConditionsInputContext,
                 FailureMechanismCategoryWaveConditionsInput,
-                FailureMechanismCategoryType>>(properties);
+                FailureMechanismCategoryType,
+                object>>(properties);
             Assert.AreSame(properties.Data, inputContext);
             Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
             mocks.VerifyAll();
@@ -125,7 +126,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         }
 
         private class TestFailureMechanismCategoryWaveConditionsInputContextProperties
-            : FailureMechanismCategoryWaveConditionsInputContextProperties<TestFailureMechanismCategoryWaveConditionsInputContext>
+            : FailureMechanismCategoryWaveConditionsInputContextProperties<TestFailureMechanismCategoryWaveConditionsInputContext, object>
         {
             public TestFailureMechanismCategoryWaveConditionsInputContextProperties(TestFailureMechanismCategoryWaveConditionsInputContext context,
                                                                                     Func<RoundedDouble> getAssessmentLevelFunc,

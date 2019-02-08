@@ -32,7 +32,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// ViewModel of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContextProperties
-        : AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>
+        : AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext, string>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContextProperties"/>.

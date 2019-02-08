@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Revetment.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.Properties;
 
@@ -32,7 +33,8 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
     /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsInputContextProperties
-        : AssessmentSectionCategoryWaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>
+        : AssessmentSectionCategoryWaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext,
+            StabilityStoneCoverWaveConditionsCalculationType>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsInputContextProperties"/>.

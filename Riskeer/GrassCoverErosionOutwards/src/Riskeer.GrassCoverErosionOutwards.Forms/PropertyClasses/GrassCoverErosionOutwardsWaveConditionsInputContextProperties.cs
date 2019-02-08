@@ -32,7 +32,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-        : FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>
+        : FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, string>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContextProperties"/>.

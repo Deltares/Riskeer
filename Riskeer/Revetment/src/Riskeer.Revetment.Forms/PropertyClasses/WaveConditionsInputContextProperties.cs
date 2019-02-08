@@ -50,7 +50,8 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
     /// <typeparam name="TContext">The type of the wave conditions input context.</typeparam>
     /// <typeparam name="TInput">The type of the contained wave conditions input.</typeparam>
     /// <typeparam name="TCategory">The category type contained by the wave conditions input.</typeparam>
-    public abstract class WaveConditionsInputContextProperties<TContext, TInput, TCategory>
+    /// <typeparam name="TCalculationType">The type of the calculation.</typeparam>
+    public abstract class WaveConditionsInputContextProperties<TContext, TInput, TCategory, TCalculationType>
         : ObjectProperties<TContext>,
           IHasHydraulicBoundaryLocationProperty,
           IHasForeshoreProfileProperty

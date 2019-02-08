@@ -56,7 +56,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInputContextProperties<
+                StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsCalculationType>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Steen (blokken en zuilen)", properties.RevetmentType);
             mockRepository.VerifyAll();

@@ -66,7 +66,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<
                 TestAssessmentSectionCategoryWaveConditionsInputContext,
                 AssessmentSectionCategoryWaveConditionsInput,
-                AssessmentSectionCategoryType>>(properties);
+                AssessmentSectionCategoryType,
+                object>>(properties);
             Assert.AreSame(properties.Data, inputContext);
             Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
             mocks.VerifyAll();
@@ -124,7 +125,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         }
 
         private class TestAssessmentSectionCategoryWaveConditionsInputContextProperties
-            : AssessmentSectionCategoryWaveConditionsInputContextProperties<TestAssessmentSectionCategoryWaveConditionsInputContext>
+            : AssessmentSectionCategoryWaveConditionsInputContextProperties<TestAssessmentSectionCategoryWaveConditionsInputContext, object>
         {
             public TestAssessmentSectionCategoryWaveConditionsInputContextProperties(TestAssessmentSectionCategoryWaveConditionsInputContext context,
                                                                                      Func<RoundedDouble> getAssessmentLevelFunc,

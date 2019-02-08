@@ -33,16 +33,18 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
     /// wave conditions input is of type <see cref="FailureMechanismCategoryWaveConditionsInput"/>.
     /// </summary>
     /// <typeparam name="TContext">The type of the wave conditions input context.</typeparam>
-    public abstract class FailureMechanismCategoryWaveConditionsInputContextProperties<TContext>
+    /// <typeparam name="TCalculationType">The type of the calculation.</typeparam>
+    public abstract class FailureMechanismCategoryWaveConditionsInputContextProperties<TContext, TCalculationType>
         : WaveConditionsInputContextProperties<
             TContext,
             FailureMechanismCategoryWaveConditionsInput,
-            FailureMechanismCategoryType>
+            FailureMechanismCategoryType,
+            TCalculationType>
         where TContext : WaveConditionsInputContext<FailureMechanismCategoryWaveConditionsInput>
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsInputContextProperties{TContext}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsInputContextProperties{TContext, TCalculationType}"/>.
         /// </summary>
         protected FailureMechanismCategoryWaveConditionsInputContextProperties(TContext context,
                                                                                Func<RoundedDouble> getAssessmentLevelFunc,

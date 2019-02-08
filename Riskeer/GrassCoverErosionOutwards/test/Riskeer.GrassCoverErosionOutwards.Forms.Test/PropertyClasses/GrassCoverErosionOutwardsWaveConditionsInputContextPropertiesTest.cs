@@ -56,7 +56,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                                                handler);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, string>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Gras", properties.RevetmentType);
             mockRepository.VerifyAll();

@@ -838,7 +838,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, TestCategoryType>
+        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, TestCategoryType, object>
         {
             public TestWaveConditionsInputContextProperties(TestWaveConditionsInputContext context,
                                                             Func<RoundedDouble> getAssessmentLevelFunc,
