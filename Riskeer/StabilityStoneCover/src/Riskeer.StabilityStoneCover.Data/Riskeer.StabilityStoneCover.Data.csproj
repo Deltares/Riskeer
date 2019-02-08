@@ -23,6 +23,7 @@
     <Compile Include="StabilityStoneCoverFailureMechanism.cs" />
     <Compile Include="StabilityStoneCoverFailureMechanismSectionResult.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationType.cs" />
+    <Compile Include="StabilityStoneCoverWaveConditionsInput.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsOutput.cs" />
   </ItemGroup>
   <ItemGroup>
