@@ -63,5 +63,10 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
                 HandleChangeProperty(() => data.WrappedData.CalculationType = value);
             }
         }
+
+        public override bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return false;
+        }
     }
 }

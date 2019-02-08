@@ -247,6 +247,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(revetmentTypePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_RevetmentType_DisplayName))]
@@ -383,6 +384,17 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         protected void HandleChangeProperty(SetObservablePropertyValueDelegate setPropertyDelegate)
         {
             PropertyChangeHelper.ChangePropertyAndNotify(setPropertyDelegate, propertyChangeHandler);
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public virtual bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(RevetmentType))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

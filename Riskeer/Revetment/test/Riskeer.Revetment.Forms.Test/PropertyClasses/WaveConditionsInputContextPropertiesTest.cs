@@ -321,7 +321,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Type bekleding",
                                                                             "Het type van de bekleding waarvoor berekend wordt.",
-                                                                            false);
+                                                                            true);
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(foreshoreProfileProperty,
