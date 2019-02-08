@@ -30,7 +30,7 @@ namespace Riskeer.StabilityStoneCover.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculation : CloneableObservable, ICalculation<AssessmentSectionCategoryWaveConditionsInput>
+    public class StabilityStoneCoverWaveConditionsCalculation : CloneableObservable, ICalculation<StabilityStoneCoverWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
@@ -38,7 +38,7 @@ namespace Riskeer.StabilityStoneCover.Data
         public StabilityStoneCoverWaveConditionsCalculation()
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
-            InputParameters = new AssessmentSectionCategoryWaveConditionsInput();
+            InputParameters = new StabilityStoneCoverWaveConditionsInput();
             Comments = new Comment();
         }
 
@@ -47,7 +47,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// </summary>
         public StabilityStoneCoverWaveConditionsOutput Output { get; set; }
 
-        public AssessmentSectionCategoryWaveConditionsInput InputParameters { get; private set; }
+        public StabilityStoneCoverWaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
@@ -79,7 +79,7 @@ namespace Riskeer.StabilityStoneCover.Data
             var clone = (StabilityStoneCoverWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (AssessmentSectionCategoryWaveConditionsInput) InputParameters.Clone();
+            clone.InputParameters = (StabilityStoneCoverWaveConditionsInput) InputParameters.Clone();
 
             if (Output != null)
             {
