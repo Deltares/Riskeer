@@ -104,29 +104,16 @@ namespace Riskeer.StabilityStoneCover.Service
 
             try
             {
-                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started);
-                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculation.InputParameters,
-                                                                                          assessmentLevel,
-                                                                                          aBlocks,
-                                                                                          bBlocks,
-                                                                                          cBlocks,
-                                                                                          norm,
-                                                                                          assessmentSection.HydraulicBoundaryDatabase);
-                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished);
+                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateBlocks(calculation, assessmentSection, assessmentLevel,
+                                                                                  aBlocks, bBlocks, cBlocks, norm);
 
-                IEnumerable<WaveConditionsOutput> columnsOutputs = null;
-                if (!Canceled)
+                if (Canceled)
                 {
-                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started);
-                    columnsOutputs = CalculateWaveConditions(calculation.InputParameters,
-                                                             assessmentLevel,
-                                                             aColumns,
-                                                             bColumns,
-                                                             cColumns,
-                                                             norm,
-                                                             assessmentSection.HydraulicBoundaryDatabase);
-                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished);
+                    return;
                 }
+
+                IEnumerable<WaveConditionsOutput> columnsOutputs = CalculateColumns(calculation, assessmentSection, assessmentLevel,
+                                                                                    aColumns, bColumns, cColumns, norm);
 
                 if (!Canceled)
                 {
@@ -137,6 +124,38 @@ namespace Riskeer.StabilityStoneCover.Service
             {
                 CalculationServiceHelper.LogCalculationEnd();
             }
+        }
+
+        private IEnumerable<WaveConditionsOutput> CalculateColumns(StabilityStoneCoverWaveConditionsCalculation calculation,
+                                                                   IAssessmentSection assessmentSection, RoundedDouble assessmentLevel,
+                                                                   RoundedDouble aColumns, RoundedDouble bColumns, RoundedDouble cColumns, double norm)
+        {
+            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started);
+            IEnumerable<WaveConditionsOutput> columnsOutputs = CalculateWaveConditions(calculation.InputParameters,
+                                                                                       assessmentLevel,
+                                                                                       aColumns,
+                                                                                       bColumns,
+                                                                                       cColumns,
+                                                                                       norm,
+                                                                                       assessmentSection.HydraulicBoundaryDatabase);
+            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished);
+            return columnsOutputs;
+        }
+
+        private IEnumerable<WaveConditionsOutput> CalculateBlocks(StabilityStoneCoverWaveConditionsCalculation calculation,
+                                                                  IAssessmentSection assessmentSection, RoundedDouble assessmentLevel,
+                                                                  RoundedDouble aBlocks, RoundedDouble bBlocks, RoundedDouble cBlocks, double norm)
+        {
+            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started);
+            IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculation.InputParameters,
+                                                                                      assessmentLevel,
+                                                                                      aBlocks,
+                                                                                      bBlocks,
+                                                                                      cBlocks,
+                                                                                      norm,
+                                                                                      assessmentSection.HydraulicBoundaryDatabase);
+            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished);
+            return blocksOutputs;
         }
     }
 }
