@@ -94,18 +94,30 @@ namespace Riskeer.StabilityStoneCover.Service
 
             TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
 
+            StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
+
             try
             {
-                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateBlocks(calculation, assessmentSection, assessmentLevel,
-                                                                                  generalWaveConditionsInput.GeneralBlocksWaveConditionsInput, norm);
+                IEnumerable<WaveConditionsOutput> blocksOutputs = new List<WaveConditionsOutput>();
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both 
+                    || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
+                {
+                    blocksOutputs = CalculateBlocks(calculation, assessmentSection, assessmentLevel,
+                                                    generalWaveConditionsInput.GeneralBlocksWaveConditionsInput, norm);
+                }
 
                 if (Canceled)
                 {
                     return;
                 }
 
-                IEnumerable<WaveConditionsOutput> columnsOutputs = CalculateColumns(calculation, assessmentSection, assessmentLevel,
-                                                                                    generalWaveConditionsInput.GeneralColumnsWaveConditionsInput, norm);
+                IEnumerable<WaveConditionsOutput> columnsOutputs = new List<WaveConditionsOutput>();
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both 
+                    || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+                {
+                    columnsOutputs = CalculateColumns(calculation, assessmentSection, assessmentLevel,
+                                                      generalWaveConditionsInput.GeneralColumnsWaveConditionsInput, norm);
+                }
 
                 if (!Canceled)
                 {
