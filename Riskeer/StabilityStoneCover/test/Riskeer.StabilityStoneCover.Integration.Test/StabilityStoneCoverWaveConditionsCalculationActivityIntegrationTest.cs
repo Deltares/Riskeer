@@ -90,7 +90,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     Assert.AreEqual("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. " +
                                     $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.", msgs[2]);
@@ -132,7 +132,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -171,7 +171,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -347,7 +347,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                     RoundedDouble firstWaterLevel = GetWaterLevels(calculation, assessmentSection).First();
 
                     Assert.AreEqual(10, msgs.Length);
-                    Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
@@ -404,7 +404,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                     RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
 
                     Assert.AreEqual(21, msgs.Length);
-                    Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);

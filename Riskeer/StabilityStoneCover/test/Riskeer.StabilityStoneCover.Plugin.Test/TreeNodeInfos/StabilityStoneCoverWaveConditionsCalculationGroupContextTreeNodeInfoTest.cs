@@ -1165,15 +1165,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(56, messages.Length);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gestart.", messages[0]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[27]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[27]);
 
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gestart.", messages[28]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[28]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[31]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messages[54]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gelukt.", messages[55]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[55]);
                     });
                     Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());

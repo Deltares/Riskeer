@@ -24,7 +24,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Service;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Service.Properties;
+using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Service
 {
@@ -64,7 +64,7 @@ namespace Riskeer.StabilityStoneCover.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            Description = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_Perform_calculation_with_name_0_, calculation.Name);
+            Description = string.Format(RiskeerCommonServiceResources.Perform_wave_conditions_calculation_with_name_0_, calculation.Name);
 
             calculationService = new StabilityStoneCoverWaveConditionsCalculationService();
         }

@@ -1326,10 +1326,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(28, messages.Length);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gestart.", messages[0]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[27]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[27]);
                     });
                     Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
