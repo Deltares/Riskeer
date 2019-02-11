@@ -2029,7 +2029,8 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
+                            CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns
                         }
                     }
                 }

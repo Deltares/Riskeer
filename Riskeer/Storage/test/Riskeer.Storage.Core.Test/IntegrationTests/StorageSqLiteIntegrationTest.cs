@@ -1961,7 +1961,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             AssertComments(expectedCalculation.Comments, actualCalculation.Comments);
 
-            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+            AssertStabilityStoneCoverWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
 
             if (expectedCalculation.HasOutput)
             {
@@ -1972,6 +1972,13 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             {
                 Assert.IsFalse(actualCalculation.HasOutput);
             }
+        }
+
+        private static void AssertStabilityStoneCoverWaveConditionsInput(StabilityStoneCoverWaveConditionsInput expectedInput, 
+                                                                         StabilityStoneCoverWaveConditionsInput actualInput)
+        {
+            AssertWaveConditionsInput(expectedInput, actualInput);
+            Assert.AreEqual(expectedInput.CalculationType, actualInput.CalculationType);
         }
 
         #endregion
