@@ -84,7 +84,8 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3.40,
                     StepSize = random.NextEnumValue<WaveConditionsInputStepSize>(),
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>(),
+                    CalculationType = random.NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>()
                 }
             };
 
@@ -94,7 +95,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             StabilityStoneCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, order);
 
             // Assert
-            AssessmentSectionCategoryWaveConditionsInput input = calculation.InputParameters;
+            StabilityStoneCoverWaveConditionsInput input = calculation.InputParameters;
             Assert.AreEqual(input.Orientation, entity.Orientation, input.Orientation.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
@@ -104,6 +105,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
             Assert.AreEqual(Convert.ToByte(input.CategoryType), entity.CategoryType);
+            Assert.AreEqual(Convert.ToByte(input.CalculationType), entity.CalculationType);
 
             Assert.AreEqual(order, entity.Order);
             Assert.IsNull(entity.CalculationGroupEntity);

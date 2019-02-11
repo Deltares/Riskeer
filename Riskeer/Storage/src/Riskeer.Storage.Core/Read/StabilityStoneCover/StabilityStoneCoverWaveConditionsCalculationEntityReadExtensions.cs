@@ -73,7 +73,7 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
             return calculation;
         }
 
-        private static void ReadCalculationInputs(AssessmentSectionCategoryWaveConditionsInput inputParameters,
+        private static void ReadCalculationInputs(StabilityStoneCoverWaveConditionsInput inputParameters,
                                                   StabilityStoneCoverWaveConditionsCalculationEntity entity,
                                                   ReadConversionCollector collector)
         {
@@ -90,6 +90,7 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
             inputParameters.CategoryType = (AssessmentSectionCategoryType) entity.CategoryType;
+            inputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) entity.CalculationType;
         }
 
         private static void ReadCalculationOutputs(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)

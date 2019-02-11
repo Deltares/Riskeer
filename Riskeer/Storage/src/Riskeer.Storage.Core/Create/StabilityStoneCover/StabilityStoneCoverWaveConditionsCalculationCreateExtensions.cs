@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
         }
 
         private static void SetInputParameters(StabilityStoneCoverWaveConditionsCalculationEntity entity,
-                                               AssessmentSectionCategoryWaveConditionsInput calculationInput,
+                                               StabilityStoneCoverWaveConditionsInput calculationInput,
                                                PersistenceRegistry registry)
         {
             if (calculationInput.HydraulicBoundaryLocation != null)
@@ -93,6 +93,7 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
             entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
             entity.StepSize = Convert.ToByte(calculationInput.StepSize);
             entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
+            entity.CalculationType = Convert.ToByte(calculationInput.CalculationType);
         }
 
         private static void SetOutputEntities(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)
