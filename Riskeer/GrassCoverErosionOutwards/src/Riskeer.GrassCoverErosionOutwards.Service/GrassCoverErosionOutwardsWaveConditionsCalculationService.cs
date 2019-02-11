@@ -98,15 +98,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                                                                                 calculation.InputParameters.CategoryType);
 
             TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
+            CurrentCalculationType = "gras";
 
             try
             {
                 IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                     assessmentLevel,
-                                                                                    a,
-                                                                                    b,
-                                                                                    c,
-                                                                                    norm,
+                                                                                    a, b, c, norm,
                                                                                     assessmentSection.HydraulicBoundaryDatabase);
 
                 if (!Canceled)

@@ -30,6 +30,7 @@ using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Service;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.WaveImpactAsphaltCover.Service.Properties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Service
 {
@@ -91,16 +92,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
             RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                  calculation.InputParameters.CategoryType);
 
+            CurrentCalculationType = Resources.WaveImpactAsphaltCover_DisplayName;
             TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
 
             try
             {
                 IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                     assessmentLevel,
-                                                                                    a,
-                                                                                    b,
-                                                                                    c,
-                                                                                    norm,
+                                                                                    a, b, c, norm,
                                                                                     assessmentSection.HydraulicBoundaryDatabase);
 
                 if (!Canceled)

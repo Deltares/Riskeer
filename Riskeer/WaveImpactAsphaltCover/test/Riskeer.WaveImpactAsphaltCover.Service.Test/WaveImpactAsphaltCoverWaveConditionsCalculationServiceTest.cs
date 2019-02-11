@@ -712,6 +712,49 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void Calculate_Always_SendsProgressNotifications()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+            int nrOfCalculators = waterLevels.Length;
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(nrOfCalculators);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var currentStep = 1;
+                var stabilityStoneCoverWaveConditionsCalculationService = new WaveImpactAsphaltCoverWaveConditionsCalculationService();
+                stabilityStoneCoverWaveConditionsCalculationService.OnProgressChanged += (description, step, steps) =>
+                {
+                    // Assert
+                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor asfalt berekenen.";
+                    Assert.AreEqual(text, description);
+                    Assert.AreEqual(currentStep++, step);
+                    Assert.AreEqual(nrOfCalculators, steps);
+                };
+
+                // Call
+                stabilityStoneCoverWaveConditionsCalculationService.Calculate(calculation,
+                                                                              assessmentSection,
+                                                                              failureMechanism.GeneralInput);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+
         private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);

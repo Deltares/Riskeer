@@ -217,7 +217,8 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 int totalSteps = waterLevels.Length * 2;
                 for (var i = 0; i < totalSteps; i++)
                 {
-                    string text = $"Stap {i + 1} van {totalSteps} | Berekenen voor een waterstand van '{waterLevels[i % waterLevels.Length]}' [m+NAP].";
+                    string revetment = i < waterLevels.Length ? "blokken" : "zuilen";
+                    string text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' [m+NAP] voor {revetment} berekenen.";
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }

@@ -48,9 +48,11 @@ namespace Riskeer.Revetment.Service
     public abstract class WaveConditionsCalculationServiceBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsCalculationServiceBase));
-        protected int TotalWaterLevelCalculations;
         private int currentStep = 1;
         private IWaveConditionsCosineCalculator calculator;
+
+        protected int TotalWaterLevelCalculations;
+        protected string CurrentCalculationType;
 
         /// <summary>
         /// Fired when the calculation progress changed.
@@ -173,10 +175,7 @@ namespace Riskeer.Revetment.Service
                     NotifyProgress(waterLevel, currentStep++, TotalWaterLevelCalculations);
 
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
-                                                                      a,
-                                                                      b,
-                                                                      c,
-                                                                      norm,
+                                                                      a, b, c, norm,
                                                                       waveConditionsInput,
                                                                       HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase));
 
@@ -242,7 +241,7 @@ namespace Riskeer.Revetment.Service
 
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
         {
-            string message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_for_waterlevel_0_, waterLevel);
+            string message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_Waterlevel_0_for_Revetment_1, waterLevel, CurrentCalculationType);
             OnProgressChanged?.Invoke(message, currentStepNumber, totalStepsNumber);
         }
 

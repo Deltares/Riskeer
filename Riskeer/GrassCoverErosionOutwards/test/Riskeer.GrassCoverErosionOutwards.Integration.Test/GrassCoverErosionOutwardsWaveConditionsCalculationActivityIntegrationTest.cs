@@ -245,7 +245,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 // Assert
                 for (var i = 0; i < waterLevels.Length; i++)
                 {
-                    string text = $"Stap {i + 1} van {waterLevels.Length} | Berekenen voor een waterstand van '{waterLevels[i]}' [m+NAP].";
+                    string text = $"Stap {i + 1} van {waterLevels.Length} | Waterstand '{waterLevels[i]}' [m+NAP] voor gras berekenen.";
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }

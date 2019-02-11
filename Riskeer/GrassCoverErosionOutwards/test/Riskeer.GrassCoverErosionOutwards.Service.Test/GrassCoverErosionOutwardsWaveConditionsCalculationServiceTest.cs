@@ -773,6 +773,56 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void Calculate_Always_SendsProgressNotifications()
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
+            int nrOfCalculators = waterLevels.Length;
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(nrOfCalculators);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var currentStep = 1;
+                var grassCoverErosionOutwardsWaveConditionsCalculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
+                grassCoverErosionOutwardsWaveConditionsCalculationService.OnProgressChanged += (description, step, steps) =>
+                {
+                    // Assert
+                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor gras berekenen.";
+                    Assert.AreEqual(text, description);
+                    Assert.AreEqual(currentStep++, step);
+                    Assert.AreEqual(nrOfCalculators, steps);
+                };
+
+                // Call
+                grassCoverErosionOutwardsWaveConditionsCalculationService.Calculate(calculation,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
         private static AssessmentSectionStub CreateAssessmentSection()
         {
             string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");

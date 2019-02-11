@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -123,11 +123,11 @@ namespace Riskeer.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekenen voor een waterstand van &apos;{0}&apos; [m+NAP]..
+        ///   Looks up a localized string similar to Waterstand &apos;{0}&apos; [m+NAP] voor {1} berekenen..
         /// </summary>
-        public static string WaveConditionsCalculationService_OnRun_Calculate_for_waterlevel_0_ {
+        public static string WaveConditionsCalculationService_OnRun_Calculate_Waterlevel_0_for_Revetment_1 {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Calculate_for_waterlevel_0_", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Calculate_Waterlevel_0_for_Revetment_1", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Riskeer.StabilityStoneCover.Service.Properties {
+namespace Riskeer.WaveImpactAsphaltCover.Service.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Riskeer.StabilityStoneCover.Service.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Riskeer.StabilityStoneCover.Service.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Riskeer.WaveImpactAsphaltCover.Service.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -82,70 +82,11 @@ namespace Riskeer.StabilityStoneCover.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to blokken.
+        ///   Looks up a localized string similar to asfalt.
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditions_Blocks_DisplayName {
+        internal static string WaveImpactAsphaltCover_DisplayName {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditions_Blocks_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to zuilen.
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditions_Columns_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditions_Columns_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfcondities voor blokken en zuilen berekenen voor &apos;{0}&apos;.
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_Perform_calculation_with_name_0_ {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_Perform_calculation_with_nam" +
-                        "e_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor blokken is beëindigd..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blo" +
-                        "cks_finished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor blokken is gestart..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blo" +
-                        "cks_started", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor zuilen is beëindigd..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_col" +
-                        "umns_finished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor zuilen is gestart..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_col" +
-                        "umns_started", resourceCulture);
+                return ResourceManager.GetString("WaveImpactAsphaltCover_DisplayName", resourceCulture);
             }
         }
     }

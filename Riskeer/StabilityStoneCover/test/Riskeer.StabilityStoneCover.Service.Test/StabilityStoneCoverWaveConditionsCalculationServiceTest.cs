@@ -330,7 +330,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 stabilityStoneCoverWaveConditionsCalculationService.OnProgressChanged += (description, step, steps) =>
                 {
                     // Assert
-                    string text = $"Berekenen voor een waterstand van '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP].";
+                    string revetment = step <= waterLevels.Length ? "blokken" : "zuilen";
+                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {revetment} berekenen.";
                     Assert.AreEqual(text, description);
                     Assert.AreEqual(currentStep++, step);
                     Assert.AreEqual(nrOfCalculators, steps);
