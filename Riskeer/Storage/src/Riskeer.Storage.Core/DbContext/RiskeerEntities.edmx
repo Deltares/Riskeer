@@ -1348,6 +1348,7 @@
           <Property Name="LowerBoundaryWaterLevels" Type="real" />
           <Property Name="StepSize" Type="tinyint" Nullable="false" />
           <Property Name="CategoryType" Type="tinyint" Nullable="false" />
+          <Property Name="CalculationType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverWaveConditionsOutputEntity">
           <Key>
@@ -6380,6 +6381,7 @@
           <Property Name="LowerBoundaryWaterLevels" Type="Double" />
           <Property Name="StepSize" Type="Byte" Nullable="false" />
           <Property Name="CategoryType" Type="Byte" Nullable="false" />
+          <Property Name="CalculationType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_2_0" FromRole="StabilityStoneCoverWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0" FromRole="StabilityStoneCoverWaveConditionsCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_0_0" FromRole="StabilityStoneCoverWaveConditionsCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -9735,6 +9737,7 @@
           <EntitySetMapping Name="StabilityStoneCoverWaveConditionsCalculationEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity">
               <MappingFragment StoreEntitySet="StabilityStoneCoverWaveConditionsCalculationEntity">
+                <ScalarProperty Name="CalculationType" ColumnName="CalculationType" />
                 <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
                 <ScalarProperty Name="StepSize" ColumnName="StepSize" />
                 <ScalarProperty Name="LowerBoundaryWaterLevels" ColumnName="LowerBoundaryWaterLevels" />
