@@ -22,9 +22,9 @@
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// The type of wave conditions output.
+    /// The type of stability stone cover wave conditions output.
     /// </summary>
-    public enum WaveConditionsOutputType
+    public enum StabilityStoneCoverWaveConditionsOutputType
     {
         /// <summary>
         /// Corresponds to the wave conditions output for columns.

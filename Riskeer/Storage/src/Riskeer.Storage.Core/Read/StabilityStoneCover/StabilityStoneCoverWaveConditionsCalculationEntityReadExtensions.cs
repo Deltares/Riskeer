@@ -106,11 +106,11 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
             foreach (StabilityStoneCoverWaveConditionsOutputEntity conditionsOutputEntity in entity.StabilityStoneCoverWaveConditionsOutputEntities.OrderBy(oe => oe.Order))
             {
                 WaveConditionsOutput output = conditionsOutputEntity.Read();
-                if (conditionsOutputEntity.OutputType == Convert.ToByte(WaveConditionsOutputType.Columns))
+                if (conditionsOutputEntity.OutputType == Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Columns))
                 {
                     columnsOutput.Add(output);
                 }
-                else if (conditionsOutputEntity.OutputType == Convert.ToByte(WaveConditionsOutputType.Blocks))
+                else if (conditionsOutputEntity.OutputType == Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Blocks))
                 {
                     blocksOutput.Add(output);
                 }

@@ -267,21 +267,21 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputBLevel,
                         Order = 1,
-                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                        OutputType = Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Columns)
                     },
                     new StabilityStoneCoverWaveConditionsOutputEntity
                     {
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputCLevel,
                         Order = 2,
-                        OutputType = Convert.ToByte(WaveConditionsOutputType.Blocks)
+                        OutputType = Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Blocks)
                     },
                     new StabilityStoneCoverWaveConditionsOutputEntity
                     {
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputALevel,
                         Order = 0,
-                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                        OutputType = Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Columns)
                     }
                 }
             };
@@ -318,14 +318,14 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputBLevel,
                         Order = 1,
-                        OutputType = Convert.ToByte(WaveConditionsOutputType.Blocks)
+                        OutputType = Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Blocks)
                     },
                     new StabilityStoneCoverWaveConditionsOutputEntity
                     {
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputALevel,
                         Order = 0,
-                        OutputType = Convert.ToByte(WaveConditionsOutputType.Blocks)
+                        OutputType = Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Blocks)
                     }
                 }
             };
@@ -361,14 +361,14 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputBLevel,
                         Order = 1,
-                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                        OutputType = Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Columns)
                     },
                     new StabilityStoneCoverWaveConditionsOutputEntity
                     {
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         WaterLevel = outputALevel,
                         Order = 0,
-                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                        OutputType = Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Columns)
                     }
                 }
             };

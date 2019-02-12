@@ -246,8 +246,8 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                 1
             }, outputEntities.Select(oe => oe.Order));
 
-            Assert.AreEqual(Convert.ToByte(WaveConditionsOutputType.Blocks), outputEntities.ElementAt(0).OutputType);
-            Assert.AreEqual(Convert.ToByte(WaveConditionsOutputType.Columns), outputEntities.ElementAt(1).OutputType);
+            Assert.AreEqual(Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Blocks), outputEntities.ElementAt(0).OutputType);
+            Assert.AreEqual(Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Columns), outputEntities.ElementAt(1).OutputType);
         }
 
         [Test]
@@ -276,7 +276,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                 1
             }, outputEntities.Select(oe => oe.Order));
 
-            Assert.IsTrue(outputEntities.All(o => o.OutputType == Convert.ToByte(WaveConditionsOutputType.Blocks)));
+            Assert.IsTrue(outputEntities.All(o => o.OutputType == Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Blocks)));
         }
 
         [Test]
@@ -305,7 +305,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                 1
             }, outputEntities.Select(oe => oe.Order));
 
-            Assert.IsTrue(outputEntities.All(o => o.OutputType == Convert.ToByte(WaveConditionsOutputType.Columns)));
+            Assert.IsTrue(outputEntities.All(o => o.OutputType == Convert.ToByte(StabilityStoneCoverWaveConditionsOutputType.Columns)));
         }
     }
 }

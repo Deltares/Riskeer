@@ -65,11 +65,11 @@ namespace Riskeer.Storage.Core.Create
         /// </summary>
         /// <param name="output">The calculation output for stability stone cover failure mechanism to 
         /// create a database entity for.</param>
-        /// <param name="type">The type of the <see cref="WaveConditionsOutput"/>.</param>
+        /// <param name="type">The type of the <see cref="StabilityStoneCoverWaveConditionsOutputType"/>.</param>
         /// <param name="order">The position of <paramref name="output"/> in the list of all outputs.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.</returns>
         internal static StabilityStoneCoverWaveConditionsOutputEntity CreateStabilityStoneCoverWaveConditionsOutputEntity(
-            this WaveConditionsOutput output, WaveConditionsOutputType type, int order)
+            this WaveConditionsOutput output, StabilityStoneCoverWaveConditionsOutputType type, int order)
         {
             var entity = new StabilityStoneCoverWaveConditionsOutputEntity
             {

@@ -34,9 +34,9 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
     public class StabilityStoneCoverWaveConditionsOutputCreateExtensionsTest
     {
         [Test]
-        [TestCase(WaveConditionsOutputType.Blocks)]
-        [TestCase(WaveConditionsOutputType.Columns)]
-        public void Create_AllOutputValuesSet_ReturnEntity(WaveConditionsOutputType outputType)
+        [TestCase(StabilityStoneCoverWaveConditionsOutputType.Blocks)]
+        [TestCase(StabilityStoneCoverWaveConditionsOutputType.Columns)]
+        public void Create_AllOutputValuesSet_ReturnEntity(StabilityStoneCoverWaveConditionsOutputType outputType)
         {
             // Setup
             var output = new TestWaveConditionsOutput();
@@ -64,9 +64,9 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         }
 
         [Test]
-        [TestCase(WaveConditionsOutputType.Blocks)]
-        [TestCase(WaveConditionsOutputType.Columns)]
-        public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues(WaveConditionsOutputType outputType)
+        [TestCase(StabilityStoneCoverWaveConditionsOutputType.Blocks)]
+        [TestCase(StabilityStoneCoverWaveConditionsOutputType.Columns)]
+        public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues(StabilityStoneCoverWaveConditionsOutputType outputType)
         {
             // Setup
             var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
