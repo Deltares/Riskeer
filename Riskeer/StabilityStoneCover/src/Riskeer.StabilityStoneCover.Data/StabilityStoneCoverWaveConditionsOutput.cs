@@ -38,7 +38,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// </summary>
         /// <param name="columnsOutput">The wave conditions output for columns.</param>
         /// <param name="blocksOutput">The wave conditions output for blocks.</param>
-        public StabilityStoneCoverWaveConditionsOutput(IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
+        internal StabilityStoneCoverWaveConditionsOutput(IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
         {
             ColumnsOutput = columnsOutput;
             BlocksOutput = blocksOutput;

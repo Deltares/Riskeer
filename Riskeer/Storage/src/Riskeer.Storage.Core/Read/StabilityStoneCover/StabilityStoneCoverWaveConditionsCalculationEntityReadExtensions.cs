@@ -115,7 +115,7 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
                 }
             }
 
-            calculation.Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
+            calculation.Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(columnsOutput, blocksOutput);
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)

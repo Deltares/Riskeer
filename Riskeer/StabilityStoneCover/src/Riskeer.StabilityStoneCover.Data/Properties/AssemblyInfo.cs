@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer.StabilityStoneCover.Data")]
 [assembly: AssemblyProduct("Riskeer.StabilityStoneCover.Data")]
+[assembly: InternalsVisibleTo("Riskeer.StabilityStoneCover.Data.Test")] 
+[assembly: InternalsVisibleTo("Riskeer.StabilityStoneCover.Data.TestUtil")] 

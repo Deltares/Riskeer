@@ -125,7 +125,7 @@ namespace Riskeer.StabilityStoneCover.Service
 
                 if (!Canceled)
                 {
-                    calculation.Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutputs, blocksOutputs);
+                    calculation.Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(columnsOutputs, blocksOutputs);
                 }
             }
             finally
