@@ -38,20 +38,8 @@ namespace Riskeer.StabilityStoneCover.Data
         /// </summary>
         /// <param name="columnsOutput">The wave conditions output for columns.</param>
         /// <param name="blocksOutput">The wave conditions output for blocks.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="columnsOutput"/> 
-        /// or <paramref name="blocksOutput"/> is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsOutput(IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
         {
-            if (columnsOutput == null)
-            {
-                throw new ArgumentNullException(nameof(columnsOutput));
-            }
-
-            if (blocksOutput == null)
-            {
-                throw new ArgumentNullException(nameof(blocksOutput));
-            }
-
             ColumnsOutput = columnsOutput;
             BlocksOutput = blocksOutput;
         }

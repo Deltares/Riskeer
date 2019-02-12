@@ -35,28 +35,6 @@ namespace Riskeer.StabilityStoneCover.Data.Test
     public class StabilityStoneCoverWaveConditionsOutputTest
     {
         [Test]
-        public void Constructor_ColumnsOutputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsOutput(null, Enumerable.Empty<WaveConditionsOutput>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("columnsOutput", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_BlocksOutputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("blocksOutput", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
