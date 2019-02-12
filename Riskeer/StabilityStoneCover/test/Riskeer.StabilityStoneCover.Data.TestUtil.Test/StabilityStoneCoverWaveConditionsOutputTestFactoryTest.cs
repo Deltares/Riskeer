@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.StabilityStoneCover.Data.TestUtil.Test
 {
@@ -27,7 +30,7 @@ namespace Riskeer.StabilityStoneCover.Data.TestUtil.Test
     public class StabilityStoneCoverWaveConditionsOutputTestFactoryTest
     {
         [Test]
-        public void Create_Always_ReturnsOutput()
+        public void Create_WithoutParameters_ReturnsOutput()
         {
             // Call
             StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
@@ -35,6 +38,21 @@ namespace Riskeer.StabilityStoneCover.Data.TestUtil.Test
             // Assert
             CollectionAssert.IsEmpty(output.BlocksOutput);
             CollectionAssert.IsEmpty(output.ColumnsOutput);
+        }
+
+        [Test]
+        public void Create_WithParameters_ReturnsOutput()
+        {
+            // Setup
+            IEnumerable<WaveConditionsOutput> blocks = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> columns = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(columns, blocks);
+
+            // Assert
+            Assert.AreSame(blocks, output.BlocksOutput);
+            Assert.AreSame(columns, output.ColumnsOutput);
         }
     }
 }

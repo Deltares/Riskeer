@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Riskeer.Revetment.Data;
 
@@ -28,7 +29,7 @@ namespace Riskeer.StabilityStoneCover.Data.TestUtil
     /// Factory that creates simple instances of <see cref="StabilityStoneCoverWaveConditionsOutput"/>
     /// that can be used in tests.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsOutputTestFactory
+    public static class StabilityStoneCoverWaveConditionsOutputTestFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>
@@ -38,6 +39,18 @@ namespace Riskeer.StabilityStoneCover.Data.TestUtil
         public static StabilityStoneCoverWaveConditionsOutput Create()
         {
             return new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>
+        /// with the given output.
+        /// </summary>
+        /// <param name="columnsOutput">The columns output.</param>
+        /// <param name="blocksOutput">The blocks output.</param>
+        /// <returns>The created <see cref="StabilityStoneCoverWaveConditionsOutput"/>.</returns>
+        public static StabilityStoneCoverWaveConditionsOutput Create(IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
+        {
+            return new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
         }
     }
 }
