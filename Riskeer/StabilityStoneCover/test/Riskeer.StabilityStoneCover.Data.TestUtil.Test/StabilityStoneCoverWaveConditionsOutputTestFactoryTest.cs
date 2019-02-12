@@ -19,25 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
-using Riskeer.Revetment.Data;
+using NUnit.Framework;
 
-namespace Riskeer.StabilityStoneCover.Data.TestUtil
+namespace Riskeer.StabilityStoneCover.Data.TestUtil.Test
 {
-    /// <summary>
-    /// Factory that creates simple instances of <see cref="StabilityStoneCoverWaveConditionsOutput"/>
-    /// that can be used in tests.
-    /// </summary>
-    public class StabilityStoneCoverWaveConditionsOutputTestFactory
+    [TestFixture]
+    public class StabilityStoneCoverWaveConditionsOutputTestFactoryTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>
-        /// with default output.
-        /// </summary>
-        /// <returns>The created <see cref="StabilityStoneCoverWaveConditionsOutput"/>.</returns>
-        public static StabilityStoneCoverWaveConditionsOutput Create()
+        [Test]
+        public void Create_Always_ReturnsOutput()
         {
-            return new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            // Call
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
+
+            // Assert
+            CollectionAssert.IsEmpty(output.BlocksOutput);
+            CollectionAssert.IsEmpty(output.ColumnsOutput);
         }
     }
 }
