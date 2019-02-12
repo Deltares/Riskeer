@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -106,7 +107,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+                StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
                 var context = new StabilityStoneCoverWaveConditionsOutputContext(output, new StabilityStoneCoverWaveConditionsInput());
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();

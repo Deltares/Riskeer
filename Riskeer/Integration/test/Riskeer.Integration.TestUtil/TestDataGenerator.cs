@@ -45,6 +45,7 @@ using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Integration.TestUtil
@@ -673,8 +674,7 @@ namespace Riskeer.Integration.TestUtil
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var calculationWithForeshoreProfile = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -691,8 +691,7 @@ namespace Riskeer.Integration.TestUtil
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = profile2
                 },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var calculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -710,8 +709,7 @@ namespace Riskeer.Integration.TestUtil
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = profile2
                 },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -719,8 +717,7 @@ namespace Riskeer.Integration.TestUtil
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var subCalculationWithHydraulicBoundaryLocation = new StabilityStoneCoverWaveConditionsCalculation
             {

@@ -142,6 +142,10 @@
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Riskeer.StabilityStoneCover.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\test\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj">
+      <Project>{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}</Project>
+      <Name>Riskeer.StabilityStoneCover.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
       <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>

@@ -50,6 +50,7 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -1294,13 +1295,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var group = new CalculationGroup();
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationA.Output = new StabilityStoneCoverWaveConditionsOutput(
-                Enumerable.Empty<WaveConditionsOutput>(),
-                Enumerable.Empty<WaveConditionsOutput>());
+            calculationA.Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
             StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationB.Output = new StabilityStoneCoverWaveConditionsOutput(
-                Enumerable.Empty<WaveConditionsOutput>(),
-                Enumerable.Empty<WaveConditionsOutput>());
+            calculationB.Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
             calculationA.Attach(observerA);

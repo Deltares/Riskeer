@@ -32,6 +32,7 @@ using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.IO.Exporters;
 
 namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
@@ -109,7 +110,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                 {
                     new StabilityStoneCoverWaveConditionsCalculation
                     {
-                        Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
+                        Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
                     }
                 };
 

@@ -61,5 +61,9 @@
       <Project>{cf6b8598-2993-4a8e-801d-121cc0ef358e}</Project>
       <Name>Riskeer.StabilityStoneCover.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj">
+      <Project>{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}</Project>
+      <Name>Riskeer.StabilityStoneCover.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

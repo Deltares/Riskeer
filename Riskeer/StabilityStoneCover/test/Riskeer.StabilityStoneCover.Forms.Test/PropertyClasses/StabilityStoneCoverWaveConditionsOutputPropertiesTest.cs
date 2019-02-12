@@ -33,6 +33,7 @@ using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
@@ -58,8 +59,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_InputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
-            
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
+
             // Call
             TestDelegate call = () => new StabilityStoneCoverWaveConditionsOutputProperties(output, null);
 
@@ -72,7 +73,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
 
             // Call
             var properties = new StabilityStoneCoverWaveConditionsOutputProperties(output, new StabilityStoneCoverWaveConditionsInput());
@@ -250,15 +251,13 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             StabilityStoneCoverWaveConditionsCalculationType calculationType, bool blocksVisible, bool columnsVisible)
         {
             // Setup
-            var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(
-                Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
             var input = new StabilityStoneCoverWaveConditionsInput
             {
                 CalculationType = calculationType
             };
 
-            var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
-                stabilityStoneCoverWaveConditionsOutput, input);
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties(output, input);
 
             // Call & Assert
             Assert.AreEqual(blocksVisible, properties.DynamicVisibleValidationMethod(nameof(properties.Blocks)));

@@ -25,6 +25,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 
@@ -52,7 +53,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_SetsOutputAsData()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
             var context = new StabilityStoneCoverWaveConditionsOutputContext(output, new StabilityStoneCoverWaveConditionsInput());
 
             using (var plugin = new StabilityStoneCoverPlugin())

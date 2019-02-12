@@ -25,6 +25,7 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
@@ -36,7 +37,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         public void Constructor_InputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
 
             // Call
             TestDelegate call = () => new StabilityStoneCoverWaveConditionsOutputContext(output, null);
@@ -50,7 +51,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            StabilityStoneCoverWaveConditionsOutput output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
             var input = new StabilityStoneCoverWaveConditionsInput();
 
             // Call

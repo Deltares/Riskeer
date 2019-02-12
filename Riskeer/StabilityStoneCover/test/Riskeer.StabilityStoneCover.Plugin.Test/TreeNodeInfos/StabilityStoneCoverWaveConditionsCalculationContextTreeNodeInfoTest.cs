@@ -49,6 +49,7 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
@@ -228,8 +229,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
@@ -296,8 +296,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             calculation.Attach(observer);
 
@@ -325,8 +324,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
@@ -357,8 +355,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
@@ -390,8 +387,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
@@ -961,7 +957,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     ForeshoreProfile = foreshoreProfileInput
                 },
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
@@ -1648,8 +1644,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   parent,
@@ -1704,8 +1699,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
-                                                                     Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             calculation.Attach(observer);
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,

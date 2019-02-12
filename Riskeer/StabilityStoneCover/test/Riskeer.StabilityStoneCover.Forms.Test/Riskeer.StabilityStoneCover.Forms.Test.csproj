@@ -149,5 +149,9 @@
       <Name>Riskeer.StabilityStoneCover.Forms</Name>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj">
+      <Project>{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}</Project>
+      <Name>Riskeer.StabilityStoneCover.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

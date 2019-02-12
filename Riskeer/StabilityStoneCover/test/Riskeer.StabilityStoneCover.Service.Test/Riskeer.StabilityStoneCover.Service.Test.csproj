@@ -84,6 +84,10 @@
       <Project>{66dd5ffb-ee06-40f2-9260-01f26d6fd1b4}</Project>
       <Name>Riskeer.StabilityStoneCover.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj">
+      <Project>{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}</Project>
+      <Name>Riskeer.StabilityStoneCover.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
