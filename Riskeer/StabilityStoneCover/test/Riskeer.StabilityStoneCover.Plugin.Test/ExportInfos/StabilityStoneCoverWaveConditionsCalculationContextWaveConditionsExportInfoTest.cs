@@ -31,6 +31,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -126,7 +127,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
-                    Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                    Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                     {
                         new TestWaveConditionsOutput()
                     }, new[]

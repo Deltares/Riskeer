@@ -30,6 +30,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.StabilityStoneCover;
 using Riskeer.Storage.Core.DbContext;
@@ -221,7 +222,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             var registry = new PersistenceRegistry();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                 {
                     new TestWaveConditionsOutput()
                 }, new[]

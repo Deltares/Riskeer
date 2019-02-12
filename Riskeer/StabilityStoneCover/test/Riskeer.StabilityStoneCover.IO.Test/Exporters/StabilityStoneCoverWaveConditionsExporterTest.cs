@@ -154,7 +154,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CategoryType = AssessmentSectionCategoryType.SignalingNorm
                         },
-                        Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                        Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                         {
                             new TestWaveConditionsOutput()
                         }, new[]

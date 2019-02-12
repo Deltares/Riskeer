@@ -31,6 +31,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -161,7 +162,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             };
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput)
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(columnsOutput, blocksOutput)
             });
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
@@ -201,7 +202,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
                     new TestWaveConditionsOutput()
                 };
 
-                stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
+                stabilityStoneCoverWaveConditionsOutput = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(columnsOutput, blocksOutput);
             }
 
             calculationGroup.Children.Add(

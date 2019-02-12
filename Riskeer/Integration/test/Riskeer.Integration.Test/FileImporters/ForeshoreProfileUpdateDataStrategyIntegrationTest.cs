@@ -42,6 +42,7 @@ using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Integration.Test.FileImporters
@@ -298,14 +299,14 @@ namespace Riskeer.Integration.Test.FileImporters
                 {
                     ForeshoreProfile = unaffectedForeshoreProfile
                 },
-                Output = new StabilityStoneCoverWaveConditionsOutput(new[]
-                                                                     {
-                                                                         new TestWaveConditionsOutput()
-                                                                     },
-                                                                     new[]
-                                                                     {
-                                                                         new TestWaveConditionsOutput()
-                                                                     })
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
+                                                                                   {
+                                                                                       new TestWaveConditionsOutput()
+                                                                                   },
+                                                                                   new[]
+                                                                                   {
+                                                                                       new TestWaveConditionsOutput()
+                                                                                   })
             };
             stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
             return stabilityStoneCoverFailureMechanism;

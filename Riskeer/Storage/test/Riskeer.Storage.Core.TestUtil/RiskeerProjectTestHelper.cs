@@ -61,6 +61,7 @@ using Riskeer.Revetment.Data;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Storage.Core.TestUtil
@@ -2064,7 +2065,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         StepSize = WaveConditionsInputStepSize.One,
                         CategoryType = AssessmentSectionCategoryType.SignalingNorm
                     },
-                    Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                    Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                     {
                         new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
                         new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)

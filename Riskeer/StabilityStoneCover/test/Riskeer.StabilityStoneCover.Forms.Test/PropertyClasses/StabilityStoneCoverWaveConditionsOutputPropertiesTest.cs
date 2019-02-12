@@ -97,7 +97,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
-            var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
+            StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutput = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(
+                columnsOutput, blocksOutput);
 
             // Call
             var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
@@ -159,7 +160,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
-            var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
+            StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutput = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(
+                columnsOutput, blocksOutput);
 
             // Call
             var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
@@ -204,7 +206,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
-            var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
+            StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutput = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(
+                columnsOutput, blocksOutput);
             var input = new StabilityStoneCoverWaveConditionsInput
             {
                 CalculationType = calculationType
