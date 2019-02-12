@@ -64,6 +64,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertBackgroundData(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
+
+                    AssertStabilityStoneCoverWaveConditionsCalculations(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -153,6 +155,35 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[BackgroundDataType] = OLD.[BackgroundDataType]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateBackgroundData);
+        }
+
+        private static void AssertStabilityStoneCoverWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculations =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity) " +
+                "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW "+
+                "JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " + 
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] =  OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CategoryType] =  OLD.[CategoryType] " +
+                "AND NEW.[CalculationType] = 3;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculations);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
@@ -276,7 +307,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(10, messages.Count);
+                Assert.AreEqual(12, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
@@ -307,6 +338,13 @@ namespace Riskeer.Migration.Integration.Test
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'WithHydraulicDatabase'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),
+                    messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "* Traject: 'StabilityStoneCoverCalculations'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),

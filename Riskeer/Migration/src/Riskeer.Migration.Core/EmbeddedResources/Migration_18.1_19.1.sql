@@ -192,7 +192,46 @@ INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].S
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
-INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
+INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity (
+	[StabilityStoneCoverWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize],
+	[CategoryType],
+	[CalculationType])
+SELECT [StabilityStoneCoverWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize],
+	[CategoryType],
+	3 
+FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
