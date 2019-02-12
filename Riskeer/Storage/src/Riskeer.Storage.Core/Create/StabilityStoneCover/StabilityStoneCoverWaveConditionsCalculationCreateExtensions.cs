@@ -101,14 +101,20 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
             if (calculation.HasOutput)
             {
                 var i = 0;
-                foreach (WaveConditionsOutput output in calculation.Output.BlocksOutput)
+                if (calculation.Output.BlocksOutput != null)
                 {
-                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++));
+                    foreach (WaveConditionsOutput output in calculation.Output.BlocksOutput)
+                    {
+                        entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++));
+                    }
                 }
 
-                foreach (WaveConditionsOutput output in calculation.Output.ColumnsOutput)
+                if (calculation.Output.ColumnsOutput != null)
                 {
-                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++));
+                    foreach (WaveConditionsOutput output in calculation.Output.ColumnsOutput)
+                    {
+                        entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++));
+                    }
                 }
             }
         }

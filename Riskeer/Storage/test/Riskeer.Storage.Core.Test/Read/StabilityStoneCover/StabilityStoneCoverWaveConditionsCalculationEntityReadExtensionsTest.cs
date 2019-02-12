@@ -252,7 +252,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
         }
 
         [Test]
-        public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
+        public void Read_EntityWithCalculationOutputEntityWithBlocksAndColumns_CalculationWithOutput()
         {
             // Setup
             const double outputALevel = 5.4;
@@ -301,6 +301,92 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
 
             Assert.AreEqual(1, calculation.Output.BlocksOutput.Count());
             Assert.AreEqual(outputCLevel, calculation.Output.BlocksOutput.ElementAt(0).WaterLevel, accuracy);
+        }
+
+        [Test]
+        public void Read_EntityWithCalculationOutputEntityWithBlocks_CalculationWithOutput()
+        {
+            // Setup
+            const double outputALevel = 5.4;
+            const double outputBLevel = 2.3;
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            {
+                StabilityStoneCoverWaveConditionsOutputEntities =
+                {
+                    new StabilityStoneCoverWaveConditionsOutputEntity
+                    {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        WaterLevel = outputBLevel,
+                        Order = 1,
+                        OutputType = Convert.ToByte(WaveConditionsOutputType.Blocks)
+                    },
+                    new StabilityStoneCoverWaveConditionsOutputEntity
+                    {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        WaterLevel = outputALevel,
+                        Order = 0,
+                        OutputType = Convert.ToByte(WaveConditionsOutputType.Blocks)
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            double accuracy = calculation.Output.BlocksOutput.ElementAt(0).WaterLevel.GetAccuracy();
+
+            Assert.AreEqual(2, calculation.Output.BlocksOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.BlocksOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.BlocksOutput.ElementAt(1).WaterLevel, accuracy);
+
+            Assert.IsNull(calculation.Output.ColumnsOutput);
+        }
+
+        [Test]
+        public void Read_EntityWithCalculationOutputEntityWithColumns_CalculationWithOutput()
+        {
+            // Setup
+            const double outputALevel = 5.4;
+            const double outputBLevel = 2.3;
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            {
+                StabilityStoneCoverWaveConditionsOutputEntities =
+                {
+                    new StabilityStoneCoverWaveConditionsOutputEntity
+                    {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        WaterLevel = outputBLevel,
+                        Order = 1,
+                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                    },
+                    new StabilityStoneCoverWaveConditionsOutputEntity
+                    {
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        WaterLevel = outputALevel,
+                        Order = 0,
+                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            double accuracy = calculation.Output.ColumnsOutput.ElementAt(0).WaterLevel.GetAccuracy();
+
+            Assert.AreEqual(2, calculation.Output.ColumnsOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.ColumnsOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.ColumnsOutput.ElementAt(1).WaterLevel, accuracy);
+
+            Assert.IsNull(calculation.Output.BlocksOutput);
         }
 
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)

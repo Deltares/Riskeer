@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -218,13 +219,13 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         }
 
         [Test]
-        public void Create_HasCalculationOutputs_EntityHasOrderedCalculationOutputEntity()
+        public void Create_HasCalculationOutputWithBlocksAndColumns_EntityHasOrderedCalculationOutputEntity()
         {
             // Setup
             var registry = new PersistenceRegistry();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
+                Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(new[]
                 {
                     new TestWaveConditionsOutput()
                 }, new[]
@@ -237,12 +238,74 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             StabilityStoneCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(2, entity.StabilityStoneCoverWaveConditionsOutputEntities.Count);
-            Assert.AreEqual(new[]
+            ICollection<StabilityStoneCoverWaveConditionsOutputEntity> outputEntities = entity.StabilityStoneCoverWaveConditionsOutputEntities;
+            Assert.AreEqual(2, outputEntities.Count);
+            CollectionAssert.AreEqual(new[]
             {
                 0,
                 1
-            }, entity.StabilityStoneCoverWaveConditionsOutputEntities.Select(oe => oe.Order));
+            }, outputEntities.Select(oe => oe.Order));
+
+            Assert.AreEqual(Convert.ToByte(WaveConditionsOutputType.Blocks), outputEntities.ElementAt(0).OutputType);
+            Assert.AreEqual(Convert.ToByte(WaveConditionsOutputType.Columns), outputEntities.ElementAt(1).OutputType);
+        }
+
+        [Test]
+        public void Create_HasCalculationOutputWithBlocks_EntityHasOrderedCalculationOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(new[]
+                {
+                    new TestWaveConditionsOutput(),
+                    new TestWaveConditionsOutput(),
+                })
+            };
+
+            // Call
+            StabilityStoneCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            ICollection<StabilityStoneCoverWaveConditionsOutputEntity> outputEntities = entity.StabilityStoneCoverWaveConditionsOutputEntities;
+            Assert.AreEqual(2, outputEntities.Count);
+            CollectionAssert.AreEqual(new[]
+            {
+                0, 
+                1
+            }, outputEntities.Select(oe => oe.Order));
+
+            Assert.IsTrue(outputEntities.All(o => o.OutputType == Convert.ToByte(WaveConditionsOutputType.Blocks)));
+        }
+
+        [Test]
+        public void Create_HasCalculationOutputWithColumns_EntityHasOrderedCalculationOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(new[]
+                {
+                    new TestWaveConditionsOutput(),
+                    new TestWaveConditionsOutput(),
+                })
+            };
+
+            // Call
+            StabilityStoneCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            ICollection<StabilityStoneCoverWaveConditionsOutputEntity> outputEntities = entity.StabilityStoneCoverWaveConditionsOutputEntities;
+            Assert.AreEqual(2, outputEntities.Count);
+            CollectionAssert.AreEqual(new[]
+            {
+                0,
+                1
+            }, outputEntities.Select(oe => oe.Order));
+
+            Assert.IsTrue(outputEntities.All(o => o.OutputType == Convert.ToByte(WaveConditionsOutputType.Columns)));
         }
     }
 }
