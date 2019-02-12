@@ -40,8 +40,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsOutputPropertiesTest
     {
-        private const int requiredBlockPropertyIndex = 0;
-        private const int requiredColumnPropertyIndex = 1;
+        private const int blockPropertyIndex = 0;
+        private const int columnPropertyIndex = 1;
 
         [Test]
         public void Constructor_OutputNull_ThrowsArgumentNullException()
@@ -145,7 +145,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_CalculationTypeBoth_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var blocksOutput = new[]
@@ -168,21 +168,102 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(2, dynamicProperties.Count);
 
-            PropertyDescriptor blocksProperty = dynamicProperties[requiredBlockPropertyIndex];
-            Assert.IsNotNull(blocksProperty);
-            Assert.IsTrue(blocksProperty.IsReadOnly);
-            Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
-            Assert.AreEqual("Resultaat", blocksProperty.Category);
-            Assert.AreEqual("Hydraulische belastingen voor blokken", blocksProperty.DisplayName);
-            Assert.AreEqual("Berekende hydraulische belastingen voor blokken.", blocksProperty.Description);
+            const string resultCategory = "Resultaat";
 
-            PropertyDescriptor columnsProperty = dynamicProperties[requiredColumnPropertyIndex];
-            Assert.IsNotNull(columnsProperty);
-            Assert.IsTrue(columnsProperty.IsReadOnly);
+            PropertyDescriptor blocksProperty = dynamicProperties[blockPropertyIndex];
+            Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
+                                                                            resultCategory,
+                                                                            "Hydraulische belastingen voor blokken",
+                                                                            "Berekende hydraulische belastingen voor blokken.",
+                                                                            true);
+
+            PropertyDescriptor columnsProperty = dynamicProperties[columnPropertyIndex];
             Assert.IsInstanceOf<ExpandableArrayConverter>(columnsProperty.Converter);
-            Assert.AreEqual("Resultaat", columnsProperty.Category);
-            Assert.AreEqual("Hydraulische belastingen voor zuilen", columnsProperty.DisplayName);
-            Assert.AreEqual("Berekende hydraulische belastingen voor zuilen.", columnsProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
+                                                                            resultCategory,
+                                                                            "Hydraulische belastingen voor zuilen",
+                                                                            "Berekende hydraulische belastingen voor zuilen.",
+                                                                            true);
+        }
+
+        [Test]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Blocks)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Columns)]
+        public void Constructor_CalculationTypeBlocksOrColumns_PropertiesHaveExpectedAttributesValues(StabilityStoneCoverWaveConditionsCalculationType calculationType)
+        {
+            // Setup
+            var blocksOutput = new[]
+            {
+                new TestWaveConditionsOutput()
+            };
+
+            var columnsOutput = new[]
+            {
+                new TestWaveConditionsOutput()
+            };
+
+            var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
+            var input = new StabilityStoneCoverWaveConditionsInput
+            {
+                CalculationType = calculationType
+            };
+
+            // Call
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
+                stabilityStoneCoverWaveConditionsOutput, input);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            const string resultCategory = "Resultaat";
+
+            if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
+            {
+                PropertyDescriptor blocksProperty = dynamicProperties[0];
+                Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
+                                                                                resultCategory,
+                                                                                "Hydraulische belastingen voor blokken",
+                                                                                "Berekende hydraulische belastingen voor blokken.",
+                                                                                true);
+            }
+
+            if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+            {
+                PropertyDescriptor columnsProperty = dynamicProperties[0];
+                Assert.IsInstanceOf<ExpandableArrayConverter>(columnsProperty.Converter);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
+                                                                                resultCategory,
+                                                                                "Hydraulische belastingen voor zuilen",
+                                                                                "Berekende hydraulische belastingen voor zuilen.",
+                                                                                true);
+            }
+        }
+
+        [Test]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Both, true, true)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Blocks, true, false)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Columns, false, true)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(
+            StabilityStoneCoverWaveConditionsCalculationType calculationType, bool blocksVisible, bool columnsVisible)
+        {
+            // Setup
+            var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(
+                Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            var input = new StabilityStoneCoverWaveConditionsInput
+            {
+                CalculationType = calculationType
+            };
+
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
+                stabilityStoneCoverWaveConditionsOutput, input);
+
+            // Call & Assert
+            Assert.AreEqual(blocksVisible, properties.DynamicVisibleValidationMethod(nameof(properties.Blocks)));
+            Assert.AreEqual(columnsVisible, properties.DynamicVisibleValidationMethod(nameof(properties.Columns)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
