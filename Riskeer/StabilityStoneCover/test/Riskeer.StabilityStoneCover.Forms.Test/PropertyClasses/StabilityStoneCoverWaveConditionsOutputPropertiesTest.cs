@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -27,6 +29,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
@@ -41,18 +44,46 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         private const int requiredColumnPropertyIndex = 1;
 
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsOutputProperties();
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsOutputProperties(null, new StabilityStoneCoverWaveConditionsInput());
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverWaveConditionsOutput>>(properties);
-            Assert.IsNull(properties.Data);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
         }
 
         [Test]
-        public void Data_WithBlocksAndColumns_ReturnsExpectedValues()
+        public void Constructor_InputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            
+            // Call
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsOutputProperties(output, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+
+            // Call
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties(output, new StabilityStoneCoverWaveConditionsInput());
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverWaveConditionsOutput>>(properties);
+            Assert.AreSame(output, properties.Data);
+        }
+
+        [Test]
+        public void Constructor_WithData_ReturnsExpectedValues()
         {
             // Setup
             var blocksOutput = new[]
@@ -68,10 +99,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsOutputProperties
-            {
-                Data = stabilityStoneCoverWaveConditionsOutput
-            };
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
+                stabilityStoneCoverWaveConditionsOutput, new StabilityStoneCoverWaveConditionsInput());
 
             // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.Blocks, typeof(WaveConditionsOutputProperties));
@@ -132,10 +161,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsOutputProperties
-            {
-                Data = stabilityStoneCoverWaveConditionsOutput
-            };
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties(
+                stabilityStoneCoverWaveConditionsOutput, new StabilityStoneCoverWaveConditionsInput());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

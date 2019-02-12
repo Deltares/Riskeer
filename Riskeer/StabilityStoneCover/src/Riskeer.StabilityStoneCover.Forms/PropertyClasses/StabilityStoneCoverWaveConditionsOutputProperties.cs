@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
@@ -36,6 +37,28 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
     /// </summary>
     public class StabilityStoneCoverWaveConditionsOutputProperties : ObjectProperties<StabilityStoneCoverWaveConditionsOutput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsOutputProperties"/>.
+        /// </summary>
+        /// <param name="output">The data to show.</param>
+        /// <param name="input">The input to use.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StabilityStoneCoverWaveConditionsOutputProperties(
+            StabilityStoneCoverWaveConditionsOutput output, StabilityStoneCoverWaveConditionsInput input)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            Data = output;
+        }
+
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName))]
