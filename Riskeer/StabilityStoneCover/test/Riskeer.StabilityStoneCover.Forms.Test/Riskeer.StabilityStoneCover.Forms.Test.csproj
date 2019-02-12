@@ -37,6 +37,7 @@
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsInputContextTest.cs" />
+    <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsOutputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsInputContextPropertiesTest.cs" />
