@@ -125,13 +125,33 @@ namespace Riskeer.StabilityStoneCover.Service
 
                 if (!Canceled)
                 {
-                    calculation.Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(columnsOutputs, blocksOutputs);
+                    SetOutput(calculation, calculationType, blocksOutputs, columnsOutputs);
                 }
             }
             finally
             {
                 CalculationServiceHelper.LogCalculationEnd();
             }
+        }
+
+        private static void SetOutput(StabilityStoneCoverWaveConditionsCalculation calculation, StabilityStoneCoverWaveConditionsCalculationType calculationType, IEnumerable<WaveConditionsOutput> blocksOutputs, IEnumerable<WaveConditionsOutput> columnsOutputs)
+        {
+            StabilityStoneCoverWaveConditionsOutput output;
+
+            if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
+            {
+                output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(blocksOutputs);
+            }
+            else if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+            {
+                output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(columnsOutputs);
+            }
+            else
+            {
+                output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(columnsOutputs, blocksOutputs);
+            }
+
+            calculation.Output = output;
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateColumns(StabilityStoneCoverWaveConditionsCalculation calculation,

@@ -493,22 +493,23 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Calculate_WithValidInput_SetsOutput()
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Both, false, false)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Blocks, false, true)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Columns, true, false)]
+        public void Calculate_WithValidInput_SetsOutput(StabilityStoneCoverWaveConditionsCalculationType calculationType, bool blocksNull, bool columnsNull)
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            calculation.InputParameters.CalculationType = calculationType;
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(null))
                              .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
+                             .Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -520,8 +521,18 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
-                Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
-                Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
+                Assert.AreEqual(blocksNull, calculation.Output.BlocksOutput == null);
+                Assert.AreEqual(columnsNull, calculation.Output.ColumnsOutput == null);
+
+                if (!columnsNull)
+                {
+                    Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
+                }
+
+                if (!blocksNull)
+                {
+                    Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
+                }
             }
 
             mockRepository.VerifyAll();
