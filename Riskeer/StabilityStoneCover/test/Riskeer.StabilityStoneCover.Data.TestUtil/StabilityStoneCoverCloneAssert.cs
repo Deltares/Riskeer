@@ -60,5 +60,19 @@ namespace Riskeer.StabilityStoneCover.Data.TestUtil
             CoreCloneAssert.AreEnumerationClones(original.BlocksOutput, clone.BlocksOutput, WaveConditionsCloneAssert.AreClones);
             CoreCloneAssert.AreEnumerationClones(original.ColumnsOutput, clone.ColumnsOutput, WaveConditionsCloneAssert.AreClones);
         }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(StabilityStoneCoverWaveConditionsInput original, StabilityStoneCoverWaveConditionsInput clone)
+        {
+            Assert.AreEqual(original.CalculationType, clone.CalculationType);
+            WaveConditionsCloneAssert.AreClones(original, clone);
+        }
     }
 }

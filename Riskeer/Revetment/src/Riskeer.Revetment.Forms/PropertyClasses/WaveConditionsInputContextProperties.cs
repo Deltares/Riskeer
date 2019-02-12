@@ -133,7 +133,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_AssessmentLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_AssessmentLevel_Description))]
-        public virtual RoundedDouble AssessmentLevel
+        public RoundedDouble AssessmentLevel
         {
             get
             {
@@ -145,7 +145,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_UpperBoundaryAssessmentLevel_Description))]
-        public virtual RoundedDouble UpperBoundaryAssessmentLevel
+        public RoundedDouble UpperBoundaryAssessmentLevel
         {
             get
             {

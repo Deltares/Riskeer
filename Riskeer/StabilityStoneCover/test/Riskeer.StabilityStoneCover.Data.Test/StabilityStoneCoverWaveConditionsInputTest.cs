@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.StabilityStoneCover.Data.TestUtil;
 
 namespace Riskeer.StabilityStoneCover.Data.Test
 {
@@ -36,6 +39,40 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             // Assert
             Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInput>(input);
             Assert.AreEqual(StabilityStoneCoverWaveConditionsCalculationType.Both, input.CalculationType);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new StabilityStoneCoverWaveConditionsInput();
+
+            WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
+            original.CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Blocks;
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, StabilityStoneCoverCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new StabilityStoneCoverWaveConditionsInput();
+
+            WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
+
+            original.ForeshoreProfile = null;
+            original.HydraulicBoundaryLocation = null;
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, StabilityStoneCoverCloneAssert.AreClones);
         }
     }
 }

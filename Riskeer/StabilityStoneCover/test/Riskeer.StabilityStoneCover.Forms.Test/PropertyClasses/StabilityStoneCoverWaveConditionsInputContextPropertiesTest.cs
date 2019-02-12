@@ -95,12 +95,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(16, dynamicProperties.Count);
 
-            const string modelSettingsCategory = "Modelinstellingen";
-
             PropertyDescriptor revetmentTypeProperty = dynamicProperties[10];
             Assert.IsInstanceOf<EnumTypeConverter>(revetmentTypeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
-                                                                            modelSettingsCategory,
+                                                                            "Modelinstellingen",
                                                                             "Type bekleding",
                                                                             "Het type van de bekleding waarvoor berekend wordt.");
             mocks.VerifyAll();
@@ -108,14 +106,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
         [Test]
         public void RevetmentType_Always_InputChangedAndObservablesNotified()
-        {
-            var calculationType = new Random(21).NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>();
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(
-                properties => properties.RevetmentType = calculationType);
-        }
-
-        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
-            Action<StabilityStoneCoverWaveConditionsInputContextProperties> setProperty)
         {
             // Setup
             var mocks = new MockRepository();
@@ -139,8 +129,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(
                 context, AssessmentSectionTestHelper.GetTestAssessmentLevel, customHandler);
 
+            var calculationType = new Random(21).NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>();
+
             // Call
-            setProperty(properties);
+            properties.RevetmentType = calculationType;
 
             // Assert
             Assert.IsTrue(customHandler.Called);

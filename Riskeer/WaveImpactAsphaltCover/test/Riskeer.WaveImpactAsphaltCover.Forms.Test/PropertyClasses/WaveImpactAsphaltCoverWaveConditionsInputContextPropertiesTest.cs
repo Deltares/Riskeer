@@ -90,6 +90,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
+            mockRepository.VerifyAll();
         }
     }
 }
