@@ -29,12 +29,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest
+    public class StabilityStoneCoverWaveConditionsOutputContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -70,14 +71,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
-
             using (var plugin = new StabilityStoneCoverPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string nodeText = info.Text(output);
+                string nodeText = info.Text(null);
 
                 // Assert
                 Assert.AreEqual("Resultaat", nodeText);
@@ -88,14 +87,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnOutputIcon()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
-
             using (var plugin = new StabilityStoneCoverPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Image icon = info.Image(output);
+                Image icon = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, icon);
@@ -110,6 +107,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+                var context = new StabilityStoneCoverWaveConditionsOutputContext(output, new StabilityStoneCoverWaveConditionsInput());
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -119,7 +117,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new StabilityStoneCoverPlugin())
@@ -128,7 +126,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    info.ContextMenuStrip(output, null, treeViewControl);
+                    info.ContextMenuStrip(context, null, treeViewControl);
                 }
             }
 
@@ -138,7 +136,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
         private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsOutput));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsOutputContext));
         }
     }
 }

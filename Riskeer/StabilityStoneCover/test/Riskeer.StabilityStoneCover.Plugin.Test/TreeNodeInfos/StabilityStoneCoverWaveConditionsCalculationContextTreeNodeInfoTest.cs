@@ -266,8 +266,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 location
             }, inputContext.HydraulicBoundaryLocations);
 
-            var output = (StabilityStoneCoverWaveConditionsOutput) children[2];
-            Assert.AreSame(calculation.Output, output);
+            var outputContext = (StabilityStoneCoverWaveConditionsOutputContext) children[2];
+            Assert.AreSame(calculation.Output, outputContext.WrappedData);
+            Assert.AreSame(calculation.InputParameters, outputContext.Input);
         }
 
         [Test]

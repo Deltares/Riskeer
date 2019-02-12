@@ -150,10 +150,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsOutput>
+            yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsOutputContext>
             {
-                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
+                Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -610,7 +610,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             if (calculation.HasOutput)
             {
-                childNodes.Add(calculation.Output);
+                childNodes.Add(new StabilityStoneCoverWaveConditionsOutputContext(calculation.Output, calculation.InputParameters));
             }
             else
             {

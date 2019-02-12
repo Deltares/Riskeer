@@ -40,7 +40,7 @@
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\StabilityStoneCoverFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityStoneCoverFailureMechanismViewInfoTest.cs" />
