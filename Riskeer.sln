@@ -2037,6 +2037,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.HydraRing.IO.TestUt
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.StabilityStoneCover.Data.TestUtil.Test", "Riskeer\StabilityStoneCover\test\Riskeer.StabilityStoneCover.Data.TestUtil.Test\Riskeer.StabilityStoneCover.Data.TestUtil.Test.csproj", "{02266309-9A78-4843-AE3A-E563B744AF95}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -5373,6 +5378,16 @@ Global
 		{12B27394-C1AC-4B59-BD49-1662525B91C7}.Release|x86.Build.0 = Release|x86
 		{12B27394-C1AC-4B59-BD49-1662525B91C7}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{12B27394-C1AC-4B59-BD49-1662525B91C7}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.Debug|x86.ActiveCfg = Debug|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.Debug|x86.Build.0 = Debug|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.Release|x86.ActiveCfg = Release|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.Release|x86.Build.0 = Release|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{02266309-9A78-4843-AE3A-E563B744AF95}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5809,6 +5824,7 @@ Global
 		{430C588F-004A-4E19-91FB-F31E35174DF5} = {209AC67F-DCFA-4355-B45A-9D9A2E4593D2}
 		{7FB79768-1A8B-41CA-9614-8EC6C3C79482} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
 		{12B27394-C1AC-4B59-BD49-1662525B91C7} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
+		{02266309-9A78-4843-AE3A-E563B744AF95} = {41023317-95BB-4147-8154-87B45837E752}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}
