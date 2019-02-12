@@ -27,6 +27,7 @@
     <Compile Include="StabilityStoneCoverFailureMechanismTest.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationTypeTest.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsInputTest.cs" />
+    <Compile Include="StabilityStoneCoverWaveConditionsOutputFactoryTest.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsOutputTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -25,6 +25,7 @@
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationType.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsInput.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsOutput.cs" />
+    <Compile Include="StabilityStoneCoverWaveConditionsOutputFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
