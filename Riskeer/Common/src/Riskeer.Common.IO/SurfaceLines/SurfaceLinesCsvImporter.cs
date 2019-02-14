@@ -222,13 +222,7 @@ namespace Riskeer.Common.IO.SurfaceLines
                     return new ReadResult<SurfaceLine>(true);
                 }
 
-                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                               FilePath);
-
                 ReadResult<SurfaceLine> readSurfaceLines = ReadSurfaceLines(reader);
-
-                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                               FilePath);
 
                 return readSurfaceLines;
             }
@@ -374,14 +368,7 @@ namespace Riskeer.Common.IO.SurfaceLines
                     return new ReadResult<CharacteristicPoints>(true);
                 }
 
-                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_,
-                               characteristicPointsFilePath);
-
                 ReadResult<CharacteristicPoints> readCharacteristicPoints = ReadCharacteristicPoints(characteristicPointsFilePath, reader);
-
-                Log.InfoFormat(RiskeerCommonIOResources.SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_,
-                               characteristicPointsFilePath);
-
                 return readCharacteristicPoints;
             }
         }

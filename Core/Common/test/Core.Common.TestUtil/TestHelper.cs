@@ -732,7 +732,7 @@ namespace Core.Common.TestUtil
 
         private static Color[] GetImageAsColorArray(Image image)
         {
-// Convert image to ARGB bitmap using 8bits/channel:
+            // Convert image to ARGB bitmap using 8bits/channel:
             Bitmap bitmap = new Bitmap(image).Clone(new Rectangle(0, 0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
 
             var index = 0;

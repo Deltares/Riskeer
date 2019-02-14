@@ -220,7 +220,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 4);
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 2);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(validFilePath, surfaceLineUpdateStrategy.FilePath);
@@ -271,13 +271,11 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Assert
             string[] messages =
             {
-                $"Begonnen met het inlezen van profielschematisaties uit bestand '{validFilePath}'.",
                 "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd.",
-                $"Klaar met het inlezen van profielschematisaties uit bestand '{validFilePath}'.",
                 $"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv")})"
             };
 
-            TestHelper.AssertLogMessagesAreGenerated(call, messages, 5);
+            TestHelper.AssertLogMessagesAreGenerated(call, messages, 3);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(validFilePath, surfaceLineUpdateStrategy.FilePath);
@@ -334,7 +332,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Assert
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 3);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
         }
 
@@ -373,7 +371,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Assert
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 4);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 2);
             Assert.IsFalse(importResult);
         }
 
@@ -412,7 +410,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             // Assert
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 4);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 2);
             Assert.IsFalse(importResult);
         }
 
@@ -452,7 +450,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Assert
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLogLevel, 5);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLogLevel, 3);
             Assert.IsTrue(importResult);
         }
 
@@ -543,22 +541,18 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                Assert.AreEqual(3, loggedMessages.Length);
+                Assert.AreEqual(1, loggedMessages.Length);
 
-                Exception loggedException = loggedMessages[1].Item3;
+                Exception loggedException = loggedMessages[0].Item3;
                 Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
                 CollectionAssert.AreEqual(new[]
                 {
-                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.",
-                    loggedException.Message,
-                    $"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'."
+                    loggedException.Message
                 }, loggedMessages.Select(m => m.Item1));
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    Level.Info,
-                    Level.Error,
-                    Level.Info
+                    Level.Error
                 }, loggedMessages.Select(m => m.Item2));
             });
 
@@ -588,22 +582,18 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                Assert.AreEqual(3, loggedMessages.Length);
+                Assert.AreEqual(1, loggedMessages.Length);
 
-                Exception loggedException = loggedMessages[1].Item3;
+                Exception loggedException = loggedMessages[0].Item3;
                 Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
                 CollectionAssert.AreEqual(new[]
                 {
-                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.",
-                    loggedException.Message,
-                    $"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'."
+                    loggedException.Message
                 }, loggedMessages.Select(m => m.Item1));
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    Level.Info,
-                    Level.Error,
-                    Level.Info
+                    Level.Error
                 }, loggedMessages.Select(m => m.Item2));
             });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -632,22 +622,18 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                Assert.AreEqual(3, loggedMessages.Length);
+                Assert.AreEqual(1, loggedMessages.Length);
 
-                Exception loggedException = loggedMessages[1].Item3;
+                Exception loggedException = loggedMessages[0].Item3;
                 Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
                 CollectionAssert.AreEqual(new[]
                 {
-                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.",
-                    loggedException.Message,
-                    $"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'."
+                    loggedException.Message
                 }, loggedMessages.Select(m => m.Item1));
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    Level.Info,
-                    Level.Error,
-                    Level.Info
+                    Level.Error
                 }, loggedMessages.Select(m => m.Item2));
             });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -685,22 +671,18 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
                     Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                    Assert.AreEqual(3, loggedMessages.Length);
+                    Assert.AreEqual(1, loggedMessages.Length);
 
-                    Exception loggedException = loggedMessages[1].Item3;
+                    Exception loggedException = loggedMessages[0].Item3;
                     Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
                     CollectionAssert.AreEqual(new[]
                     {
-                        $"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.",
-                        loggedException.Message,
-                        $"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'."
+                        loggedException.Message
                     }, loggedMessages.Select(m => m.Item1));
 
                     CollectionAssert.AreEqual(new[]
                     {
-                        Level.Info,
-                        Level.Error,
-                        Level.Info
+                        Level.Error
                     }, loggedMessages.Select(m => m.Item2));
                 });
                 AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -743,13 +725,11 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             var duplicateDefinitionMessage = "Meerdere definities gevonden voor profielschematisatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn),
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {expectedCharacteristicPointsFile})", LogLevelConstant.Info)
             };
 
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -792,12 +772,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             string characteristicPointsFilePath = Path.Combine(ioTestDataPath, "TwoValidAndOneInvalidNumberRowSurfaceLines.krp.csv");
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {characteristicPointsFilePath})", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -851,12 +829,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                           .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv")})", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(path, surfaceLineUpdateStrategy.FilePath);
@@ -894,12 +870,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                           .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nDeze profielschematisatie wordt overgeslagen.", LogLevelConstant.Error),
                 Tuple.Create($"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingZeroLength.krp.csv")})", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(path, surfaceLineUpdateStrategy.FilePath);
@@ -940,7 +914,7 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Assert
             string expectedLogMessage = $"Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {nonExistingCharacteristicFile})";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 4);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 2);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -958,7 +932,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             const string fileName = "TwoValidSurfaceLines_EmptyCharacteristicPoints";
             string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -974,26 +947,18 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                Assert.AreEqual(5, loggedMessages.Length);
+                Assert.AreEqual(1, loggedMessages.Length);
 
-                Exception loggedException = loggedMessages[3].Item3;
+                Exception loggedException = loggedMessages[0].Item3;
                 Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
                 CollectionAssert.AreEqual(new[]
                 {
-                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
-                    $"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
-                    $"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.",
-                    loggedException.Message,
-                    $"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'."
+                    loggedException.Message
                 }, loggedMessages.Select(m => m.Item1));
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    Level.Info,
-                    Level.Info,
-                    Level.Info,
-                    Level.Error,
-                    Level.Info
+                    Level.Error
                 }, loggedMessages.Select(m => m.Item2));
             });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -1008,7 +973,6 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
 
             const string fileName = "TwoValidSurfaceLines_InvalidHeaderCharacteristicPoints";
             string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -1024,26 +988,18 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                Assert.AreEqual(5, loggedMessages.Length);
+                Assert.AreEqual(1, loggedMessages.Length);
 
-                Exception loggedException = loggedMessages[3].Item3;
+                Exception loggedException = loggedMessages[0].Item3;
                 Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
                 CollectionAssert.AreEqual(new[]
                 {
-                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
-                    $"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
-                    $"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.",
-                    loggedException.Message,
-                    $"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'."
+                    loggedException.Message
                 }, loggedMessages.Select(m => m.Item1));
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    Level.Info,
-                    Level.Info,
-                    Level.Info,
-                    Level.Error,
-                    Level.Info
+                    Level.Error
                 }, loggedMessages.Select(m => m.Item2));
             });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -1093,26 +1049,18 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
                     Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                    Assert.AreEqual(5, loggedMessages.Length);
+                    Assert.AreEqual(1, loggedMessages.Length);
 
-                    Exception loggedException = loggedMessages[3].Item3;
+                    Exception loggedException = loggedMessages[0].Item3;
                     Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
                     CollectionAssert.AreEqual(new[]
                     {
-                        $"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.",
-                        $"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.",
-                        $"Begonnen met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'.",
-                        loggedException.Message,
-                        $"Klaar met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'."
+                        loggedException.Message
                     }, loggedMessages.Select(m => m.Item1));
 
                     CollectionAssert.AreEqual(new[]
                     {
-                        Level.Info,
-                        Level.Info,
-                        Level.Info,
-                        Level.Error,
-                        Level.Info
+                        Level.Error
                     }, loggedMessages.Select(m => m.Item2));
                 });
                 AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
@@ -1166,13 +1114,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             const string duplicateDefinitionMessage = "Meerdere karakteristieke punten definities gevonden voor locatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create(duplicateDefinitionMessage, LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1213,25 +1157,17 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
                 Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
-                Assert.AreEqual(5, loggedMessages.Length);
+                Assert.AreEqual(1, loggedMessages.Length);
 
-                Exception loggedException = loggedMessages[4].Item3;
+                Exception loggedException = loggedMessages[0].Item3;
                 Assert.IsInstanceOf<ImportedDataTransformException>(loggedException);
                 CollectionAssert.AreEqual(new[]
                 {
-                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{validSurfaceLinesFilePath}'.",
-                    $"Klaar met het inlezen van profielschematisaties uit bestand '{validSurfaceLinesFilePath}'.",
-                    $"Begonnen met het inlezen van karakteristieke punten uit bestand '{characteristicPointsFilePath}'.",
-                    $"Klaar met het inlezen van karakteristieke punten uit bestand '{characteristicPointsFilePath}'.",
                     loggedException.Message
                 }, loggedMessages.Select(m => m.Item1));
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    Level.Info,
-                    Level.Info,
-                    Level.Info,
-                    Level.Info,
                     Level.Error
                 }, loggedMessages.Select(m => m.Item2));
             });
@@ -1279,14 +1215,10 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
                                           .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"{internalErrorMessage} \r\nDeze locatie met karakteristieke punten wordt overgeslagen.", LogLevelConstant.Error),
-                Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie 'Rotterdam1Invalid'.", LogLevelConstant.Warn),
-                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info)
+                Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie 'Rotterdam1Invalid'.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 7);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1348,13 +1280,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Assert
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie \'Rotterdam1\'.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
@@ -1416,13 +1344,9 @@ namespace Riskeer.Common.IO.Test.SurfaceLines
             // Assert
             Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create("Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie \'Extra\'.", LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 6);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
 
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);

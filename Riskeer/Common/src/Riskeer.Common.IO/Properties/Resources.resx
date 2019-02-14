@@ -717,9 +717,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_" xml:space="preserve">
     <value>Er konden geen karakteristieke punten gevonden worden voor locatie '{0}'.</value>
   </data>
-  <data name="SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_" xml:space="preserve">
-    <value>Begonnen met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
-  </data>
   <data name="SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_" xml:space="preserve">
     <value>Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie '{0}'.</value>
   </data>
@@ -740,15 +737,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="SurfaceLinesCsvImporter_Reading_surface_line_file" xml:space="preserve">
     <value>Inlezen van het profielschematisatiesbestand.</value>
-  </data>
-  <data name="SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" xml:space="preserve">
-    <value>Begonnen met het inlezen van profielschematisaties uit bestand '{0}'.</value>
-  </data>
-  <data name="SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_" xml:space="preserve">
-    <value>Klaar met het inlezen van profielschematisaties uit bestand '{0}'.</value>
-  </data>
-  <data name="SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_" xml:space="preserve">
-    <value>Klaar met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
   <data name="SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
     <value>Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{0}'.</value>

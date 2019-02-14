@@ -360,7 +360,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ConfiguratieSchema {
             get {
@@ -870,7 +871,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GolfReductieSchema {
             get {
@@ -890,7 +892,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string HbLocatieSchema {
             get {
@@ -1153,7 +1156,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string KunstwerkenBasisSchema {
             get {
@@ -1182,7 +1186,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string OrientatieSchema {
             get {
@@ -1508,7 +1513,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ScenarioSchema {
             get {
@@ -1853,7 +1859,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastSchema {
             get {
@@ -1873,7 +1880,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastStandaardafwijkingSchema {
             get {
@@ -1893,7 +1901,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string StochastVariatiecoefficientSchema {
             get {
@@ -2400,16 +2409,6 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klaar met het inlezen van karakteristieke punten uit bestand &apos;{0}&apos;..
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_ {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_" +
-                        "points_from_File_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Deze locatie met karakteristieke punten wordt overgeslagen..
         /// </summary>
@@ -2417,16 +2416,6 @@ namespace Riskeer.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_Characterist" +
                         "icPoints_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begonnen met het inlezen van karakteristieke punten uit bestand &apos;{0}&apos;..
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_ {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_poi" +
-                        "nts_from_File_0_", resourceCulture);
             }
         }
         
@@ -2449,32 +2438,12 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klaar met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_ {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File" +
-                        "_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Deze profielschematisatie wordt overgeslagen..
         /// </summary>
         public static string SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped {
             get {
                 return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begonnen met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_ {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" +
-                        "", resourceCulture);
             }
         }
         
@@ -2615,7 +2584,8 @@ namespace Riskeer.Common.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string VoorlandProfielSchema {
             get {
@@ -2636,7 +2606,7 @@ namespace Riskeer.Common.IO.Properties {
         ///
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///MERCHANTABILITY [rest of string was truncated]&quot;;.
+        ///MERCHANTABILITY or  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string XmlGeometrySchema {
             get {
