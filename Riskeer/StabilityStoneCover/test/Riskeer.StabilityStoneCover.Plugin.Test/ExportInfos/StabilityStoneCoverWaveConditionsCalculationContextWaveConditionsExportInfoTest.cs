@@ -127,13 +127,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
-                    Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
-                    {
-                        new TestWaveConditionsOutput()
-                    }, new[]
-                    {
-                        new TestWaveConditionsOutput()
-                    })
+                    Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
                 },
                 new CalculationGroup(),
                 new StabilityStoneCoverFailureMechanism(),

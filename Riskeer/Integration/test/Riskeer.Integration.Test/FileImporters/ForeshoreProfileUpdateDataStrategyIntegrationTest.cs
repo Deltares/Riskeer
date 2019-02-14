@@ -299,14 +299,7 @@ namespace Riskeer.Integration.Test.FileImporters
                 {
                     ForeshoreProfile = unaffectedForeshoreProfile
                 },
-                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
-                                                                                   {
-                                                                                       new TestWaveConditionsOutput()
-                                                                                   },
-                                                                                   new[]
-                                                                                   {
-                                                                                       new TestWaveConditionsOutput()
-                                                                                   })
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
             return stabilityStoneCoverFailureMechanism;

@@ -19,13 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
 
@@ -60,10 +57,23 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_WithOutputSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             StabilityStoneCoverWaveConditionsOutput original = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditionsOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, StabilityStoneCoverCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_OutputNull_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            StabilityStoneCoverWaveConditionsOutput original = new StabilityStoneCoverWaveConditionsOutput(null, null);
 
             // Call
             object clone = original.Clone();

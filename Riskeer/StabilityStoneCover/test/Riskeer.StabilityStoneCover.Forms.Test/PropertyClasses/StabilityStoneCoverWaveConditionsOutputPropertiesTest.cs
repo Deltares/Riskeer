@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -29,7 +28,6 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Data;
@@ -110,17 +108,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             TestWaveConditionsOutput firstBlocksOutput = blocksOutput[0];
             WaveConditionsOutputProperties firstBlocksProperties = properties.Blocks[0];
-            Assert.AreEqual(firstBlocksOutput.WaterLevel, firstBlocksProperties.WaterLevel);
-            Assert.AreEqual(firstBlocksOutput.WaveHeight, firstBlocksProperties.WaveHeight);
-            Assert.AreEqual(firstBlocksOutput.WavePeakPeriod, firstBlocksProperties.WavePeakPeriod);
-            Assert.AreEqual(firstBlocksOutput.WaveAngle, firstBlocksProperties.WaveAngle);
-            Assert.AreEqual(firstBlocksOutput.WaveDirection, firstBlocksProperties.WaveDirection);
-            Assert.AreEqual(firstBlocksOutput.TargetProbability, firstBlocksProperties.TargetProbability);
-            Assert.AreEqual(firstBlocksOutput.TargetReliability, firstBlocksProperties.TargetReliability,
-                            firstBlocksProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(firstBlocksOutput.CalculatedProbability, firstBlocksProperties.CalculatedProbability);
-            Assert.AreEqual(firstBlocksOutput.TargetReliability, firstBlocksProperties.TargetReliability,
-                            firstBlocksProperties.TargetReliability.GetAccuracy());
+            Assert.AreSame(firstBlocksOutput, firstBlocksProperties.Data);
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstBlocksOutput.CalculationConvergence).DisplayName;
             Assert.AreEqual(convergenceValue, firstBlocksProperties.Convergence);
@@ -130,17 +118,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             TestWaveConditionsOutput firstColumnsOutput = columnsOutput[0];
             WaveConditionsOutputProperties firstColumnsProperties = properties.Columns[0];
-            Assert.AreEqual(firstColumnsOutput.WaterLevel, firstColumnsProperties.WaterLevel);
-            Assert.AreEqual(firstColumnsOutput.WaveHeight, firstColumnsProperties.WaveHeight);
-            Assert.AreEqual(firstColumnsOutput.WavePeakPeriod, firstColumnsProperties.WavePeakPeriod);
-            Assert.AreEqual(firstColumnsOutput.WaveAngle, firstColumnsProperties.WaveAngle);
-            Assert.AreEqual(firstColumnsOutput.WaveDirection, firstColumnsProperties.WaveDirection);
-            Assert.AreEqual(firstColumnsOutput.TargetProbability, firstColumnsProperties.TargetProbability);
-            Assert.AreEqual(firstColumnsOutput.TargetReliability, firstColumnsProperties.TargetReliability,
-                            firstColumnsProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(firstBlocksOutput.CalculatedProbability, firstColumnsProperties.CalculatedProbability);
-            Assert.AreEqual(firstColumnsOutput.TargetReliability, firstColumnsProperties.TargetReliability,
-                            firstColumnsProperties.TargetReliability.GetAccuracy());
+            Assert.AreSame(firstColumnsOutput, firstColumnsProperties.Data);
 
             convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstColumnsOutput.CalculationConvergence).DisplayName;
             Assert.AreEqual(convergenceValue, firstColumnsProperties.Convergence);
@@ -223,27 +201,24 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             const string resultCategory = "Resultaat";
 
+            string revetmentType = null;
             if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
             {
-                PropertyDescriptor blocksProperty = dynamicProperties[0];
-                Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
-                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
-                                                                                resultCategory,
-                                                                                "Hydraulische belastingen voor blokken",
-                                                                                "Berekende hydraulische belastingen voor blokken.",
-                                                                                true);
+                revetmentType = "blokken";
             }
 
             if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
             {
-                PropertyDescriptor columnsProperty = dynamicProperties[0];
-                Assert.IsInstanceOf<ExpandableArrayConverter>(columnsProperty.Converter);
-                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
-                                                                                resultCategory,
-                                                                                "Hydraulische belastingen voor zuilen",
-                                                                                "Berekende hydraulische belastingen voor zuilen.",
-                                                                                true);
+                revetmentType = "zuilen";
             }
+
+            PropertyDescriptor outputProperty = dynamicProperties[0];
+            Assert.IsInstanceOf<ExpandableArrayConverter>(outputProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(outputProperty,
+                                                                            resultCategory,
+                                                                            $"Hydraulische belastingen voor {revetmentType}",
+                                                                            $"Berekende hydraulische belastingen voor {revetmentType}.",
+                                                                            true);
         }
 
         [Test]

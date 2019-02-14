@@ -31,7 +31,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
     public class StabilityStoneCoverWaveConditionsOutputFactoryTest
     {
         [Test]
-        public void CreateOutputWithBlocks_OutputNull_ThrowsArgumentNullException()
+        public void CreateOutputWithBlocks_BlocksNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(null);
@@ -56,7 +56,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void CreateOutputWithColumns_OutputNull_ThrowsArgumentNullException()
+        public void CreateOutputWithColumns_ColumnsNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(null);

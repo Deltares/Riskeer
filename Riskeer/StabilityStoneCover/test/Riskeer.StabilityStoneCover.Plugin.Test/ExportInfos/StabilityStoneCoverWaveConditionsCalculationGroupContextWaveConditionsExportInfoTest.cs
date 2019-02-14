@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
@@ -151,18 +150,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
-            var columnsOutput = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
-
-            var blocksOutput = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(columnsOutput, blocksOutput)
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             });
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
@@ -192,17 +182,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutput = null;
             if (hasOutput)
             {
-                var columnsOutput = new[]
-                {
-                    new TestWaveConditionsOutput()
-                };
-
-                var blocksOutput = new[]
-                {
-                    new TestWaveConditionsOutput()
-                };
-
-                stabilityStoneCoverWaveConditionsOutput = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(columnsOutput, blocksOutput);
+                stabilityStoneCoverWaveConditionsOutput = StabilityStoneCoverWaveConditionsOutputTestFactory.Create();
             }
 
             calculationGroup.Children.Add(

@@ -100,7 +100,7 @@ namespace Riskeer.StabilityStoneCover.Service
 
             try
             {
-                IEnumerable<WaveConditionsOutput> blocksOutputs = new List<WaveConditionsOutput>();
+                IEnumerable<WaveConditionsOutput> blocksOutputs = null;
                 if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both 
                     || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
                 {
@@ -114,7 +114,7 @@ namespace Riskeer.StabilityStoneCover.Service
                     return;
                 }
 
-                IEnumerable<WaveConditionsOutput> columnsOutputs = new List<WaveConditionsOutput>();
+                IEnumerable<WaveConditionsOutput> columnsOutputs = null;
                 if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both 
                     || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
                 {
@@ -125,7 +125,7 @@ namespace Riskeer.StabilityStoneCover.Service
 
                 if (!Canceled)
                 {
-                    SetOutput(calculation, calculationType, blocksOutputs, columnsOutputs);
+                    CreateOutput(calculation, blocksOutputs, columnsOutputs);
                 }
             }
             finally
@@ -134,8 +134,11 @@ namespace Riskeer.StabilityStoneCover.Service
             }
         }
 
-        private static void SetOutput(StabilityStoneCoverWaveConditionsCalculation calculation, StabilityStoneCoverWaveConditionsCalculationType calculationType, IEnumerable<WaveConditionsOutput> blocksOutputs, IEnumerable<WaveConditionsOutput> columnsOutputs)
+        private static void CreateOutput(StabilityStoneCoverWaveConditionsCalculation calculation,
+                                      IEnumerable<WaveConditionsOutput> blocksOutputs,
+                                      IEnumerable<WaveConditionsOutput> columnsOutputs)
         {
+            StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
             StabilityStoneCoverWaveConditionsOutput output;
 
             if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -58,8 +57,8 @@ namespace Riskeer.StabilityStoneCover.Data
         {
             var clone = (StabilityStoneCoverWaveConditionsOutput) base.Clone();
 
-            clone.ColumnsOutput = ColumnsOutput.Select(column => (WaveConditionsOutput) column.Clone()).ToArray();
-            clone.BlocksOutput = BlocksOutput.Select(block => (WaveConditionsOutput) block.Clone()).ToArray();
+            clone.ColumnsOutput = ColumnsOutput?.Select(column => (WaveConditionsOutput) column.Clone()).ToArray();
+            clone.BlocksOutput = BlocksOutput?.Select(block => (WaveConditionsOutput) block.Clone()).ToArray();
 
             return clone;
         }

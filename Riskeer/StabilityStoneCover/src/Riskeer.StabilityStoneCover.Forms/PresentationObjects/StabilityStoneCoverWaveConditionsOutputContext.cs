@@ -36,7 +36,8 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
         /// <param name="wrappedData">The wrapped data.</param>
         /// <param name="input">The input belonging to the wrapped data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsOutputContext(StabilityStoneCoverWaveConditionsOutput wrappedData, StabilityStoneCoverWaveConditionsInput input)
+        public StabilityStoneCoverWaveConditionsOutputContext(StabilityStoneCoverWaveConditionsOutput wrappedData,
+                                                              StabilityStoneCoverWaveConditionsInput input)
             : base(wrappedData)
         {
             if (input == null)

@@ -54,13 +54,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
-                {
-                    new TestWaveConditionsOutput()
-                }, new[]
-                {
-                    new TestWaveConditionsOutput()
-                })
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
 
             // Precondition
