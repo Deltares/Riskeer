@@ -21,10 +21,10 @@
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
-    /// <summary> 
+    /// <summary>
     /// Enum defining the possible grass cover erosion outwards category type
     /// value in a read wave conditions calculation. 
-    /// </summary> 
+    /// </summary>
     public enum ConfigurationGrassCoverErosionOutwardsCategoryType
     {
         /// <summary>
