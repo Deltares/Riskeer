@@ -111,6 +111,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
         /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
+        /// <param name="coverType">The <see cref="CoverType"/> that the <paramref name="output"/> represents.</param>
         /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
@@ -118,14 +119,20 @@ namespace Riskeer.Revetment.IO.WaveConditions
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
             string name,
             AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
-            IEnumerable<WaveConditionsOutput> output)
+            IEnumerable<WaveConditionsOutput> output,
+            CoverType coverType)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Asphalt,
+            if (coverType == null)
+            {
+                throw new ArgumentNullException(nameof(coverType));
+            }
+
+            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, coverType,
                                                             GetCategoryBoundaryName(waveConditionsInput.CategoryType));
         }
 

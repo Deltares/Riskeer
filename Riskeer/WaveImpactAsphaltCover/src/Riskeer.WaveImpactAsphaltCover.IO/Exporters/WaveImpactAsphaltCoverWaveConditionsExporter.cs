@@ -59,7 +59,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Exporters
             {
                 exportableWaveConditions.AddRange(
                     ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.Items));
+                        calculation.Name, calculation.InputParameters, calculation.Output.Items, CoverType.Asphalt));
             }
 
             return exportableWaveConditions;
