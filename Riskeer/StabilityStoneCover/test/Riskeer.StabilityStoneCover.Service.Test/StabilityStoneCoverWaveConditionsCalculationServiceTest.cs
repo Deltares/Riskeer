@@ -302,14 +302,12 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
             int nrOfCalculators = waterLevels.Length * 2;
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(null))
                              .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
+                             .Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
