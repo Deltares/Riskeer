@@ -52,19 +52,33 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            var exportableWaveConditions = new List<ExportableWaveConditions>();
-
             IEnumerable<StabilityStoneCoverWaveConditionsCalculation> exportableCalculations =
                 calculations.Where(c => c.HasOutput && c.InputParameters.HydraulicBoundaryLocation != null);
 
+            return CreateExportableWaveConditions(exportableCalculations);
+        }
+
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditions(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> exportableCalculations)
+        {
+            var exportableWaveConditions = new List<ExportableWaveConditions>();
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in exportableCalculations)
             {
-                exportableWaveConditions.AddRange(
-                    ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, CoverType.StoneCoverColumns));
-                exportableWaveConditions.AddRange(
-                    ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.BlocksOutput, CoverType.StoneCoverBlocks));
+                StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both ||
+                    calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+                {
+                    exportableWaveConditions.AddRange(
+                        ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                            calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, CoverType.StoneCoverColumns));
+                }
+
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both ||
+                    calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
+                {
+                    exportableWaveConditions.AddRange(
+                        ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                            calculation.Name, calculation.InputParameters, calculation.Output.BlocksOutput, CoverType.StoneCoverBlocks));
+                }
             }
 
             return exportableWaveConditions;

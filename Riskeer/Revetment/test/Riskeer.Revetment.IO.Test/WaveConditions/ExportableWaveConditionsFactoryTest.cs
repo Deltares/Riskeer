@@ -172,7 +172,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
                                                                                                                new AssessmentSectionCategoryWaveConditionsInput(),
                                                                                                                waveConditionsOutputCollection,
-                                                                                                               (CoverType) null);
+                                                                                                               null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

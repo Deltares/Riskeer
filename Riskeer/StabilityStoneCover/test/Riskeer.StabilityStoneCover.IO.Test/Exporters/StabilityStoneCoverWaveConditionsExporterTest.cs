@@ -129,10 +129,10 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_ValidData_ValidFile()
+        public void Export_ValidDataWithColumnsAndBlocksOutput_ValidFile()
         {
             // Setup
-            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidData_ValidFile)}";
+            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithColumnsAndBlocksOutput_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
@@ -152,7 +152,8 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = AssessmentSectionCategoryType.SignalingNorm
+                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Both
                         },
                         Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                         {
@@ -175,6 +176,110 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                 string fileContent = File.ReadAllText(filePath);
                 string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
                                       $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Steen (zuilen), A, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Steen (blokken), A, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                Assert.AreEqual(expectedText, fileContent);
+            }
+        }
+
+        [Test]
+        public void Export_ValidDataWithColumnsOutput_ValidFile()
+        {
+            // Setup
+            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithColumnsOutput_ValidFile)}";
+            string directoryPath = TestHelper.GetScratchPadPath(folderName);
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
+            {
+                string filePath = Path.Combine(directoryPath, "test.csv");
+
+                var calculations = new[]
+                {
+                    new StabilityStoneCoverWaveConditionsCalculation
+                    {
+                        Name = "aCalculation",
+                        InputParameters =
+                        {
+                            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
+                            ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
+                            LowerBoundaryRevetment = (RoundedDouble) 1.384,
+                            UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
+                            StepSize = WaveConditionsInputStepSize.Half,
+                            LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
+                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
+                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns
+                        },
+                        Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
+                        {
+                            new TestWaveConditionsOutput()
+                        }, new[]
+                        {
+                            new TestWaveConditionsOutput()
+                        })
+                    }
+                };
+
+                var exporter = new StabilityStoneCoverWaveConditionsExporter(calculations, filePath);
+
+                // Call
+                bool isExported = exporter.Export();
+
+                // Assert
+                Assert.IsTrue(isExported);
+                Assert.IsTrue(File.Exists(filePath));
+                string fileContent = File.ReadAllText(filePath);
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Steen (zuilen), A, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                Assert.AreEqual(expectedText, fileContent);
+            }
+        }
+
+        [Test]
+        public void Export_ValidDataWithBlocksOutput_ValidFile()
+        {
+            // Setup
+            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithBlocksOutput_ValidFile)}";
+            string directoryPath = TestHelper.GetScratchPadPath(folderName);
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
+            {
+                string filePath = Path.Combine(directoryPath, "test.csv");
+
+                var calculations = new[]
+                {
+                    new StabilityStoneCoverWaveConditionsCalculation
+                    {
+                        Name = "aCalculation",
+                        InputParameters =
+                        {
+                            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
+                            ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
+                            LowerBoundaryRevetment = (RoundedDouble) 1.384,
+                            UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
+                            StepSize = WaveConditionsInputStepSize.Half,
+                            LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
+                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
+                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Blocks
+                        },
+                        Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
+                        {
+                            new TestWaveConditionsOutput()
+                        }, new[]
+                        {
+                            new TestWaveConditionsOutput()
+                        })
+                    }
+                };
+
+                var exporter = new StabilityStoneCoverWaveConditionsExporter(calculations, filePath);
+
+                // Call
+                bool isExported = exporter.Export();
+
+                // Assert
+                Assert.IsTrue(isExported);
+                Assert.IsTrue(File.Exists(filePath));
+                string fileContent = File.ReadAllText(filePath);
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
                                       $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Steen (blokken), A, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
