@@ -41,7 +41,7 @@ namespace Riskeer.StabilityStoneCover.Service
     public class StabilityStoneCoverWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StabilityStoneCoverWaveConditionsCalculationService));
-        
+
         /// <summary>
         /// Performs a wave conditions calculation for the stability of stone revetment failure mechanism based on the supplied 
         /// <see cref="StabilityStoneCoverWaveConditionsCalculation"/>  and sets 
@@ -94,14 +94,14 @@ namespace Riskeer.StabilityStoneCover.Service
 
             StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
             int waterLevelCount = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
-            TotalWaterLevelCalculations = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both 
+            TotalWaterLevelCalculations = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                                               ? waterLevelCount * 2
                                               : waterLevelCount;
 
             try
             {
                 IEnumerable<WaveConditionsOutput> blocksOutputs = null;
-                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both 
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                     || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
                 {
                     CurrentCalculationType = Resources.StabilityStoneCoverWaveConditions_Blocks_DisplayName;
@@ -115,7 +115,7 @@ namespace Riskeer.StabilityStoneCover.Service
                 }
 
                 IEnumerable<WaveConditionsOutput> columnsOutputs = null;
-                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both 
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                     || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
                 {
                     CurrentCalculationType = Resources.StabilityStoneCoverWaveConditions_Columns_DisplayName;
@@ -135,8 +135,8 @@ namespace Riskeer.StabilityStoneCover.Service
         }
 
         private static void CreateOutput(StabilityStoneCoverWaveConditionsCalculation calculation,
-                                      IEnumerable<WaveConditionsOutput> blocksOutputs,
-                                      IEnumerable<WaveConditionsOutput> columnsOutputs)
+                                         IEnumerable<WaveConditionsOutput> blocksOutputs,
+                                         IEnumerable<WaveConditionsOutput> columnsOutputs)
         {
             StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
             StabilityStoneCoverWaveConditionsOutput output;
