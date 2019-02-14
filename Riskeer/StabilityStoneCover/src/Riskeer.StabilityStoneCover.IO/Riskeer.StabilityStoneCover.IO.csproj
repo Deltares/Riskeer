@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationStabilityStoneCoverCalculationType.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationStabilityStoneCoverCalculationTypeConverter.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exporters\StabilityStoneCoverWaveConditionsExporter.cs" />
