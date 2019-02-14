@@ -126,8 +126,8 @@
   <data name="Error_writing_structure_to_database" xml:space="preserve">
     <value>Een fout is opgetreden met schrijven naar het nieuwe Riskeerbestand.</value>
   </data>
-  <data name="Supported_Riskeer_projects_file_filter" xml:space="preserve">
-    <value>Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd</value>
+  <data name="Supported_Riskeer_open_projects_file_filter" xml:space="preserve">
+    <value>Alle projecten (*.risk;*.rtd)|*.risk;*.rtd|Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd</value>
   </data>
   <data name="StorageSqLite_LoadProject_Invalid_Riskeer_database_file" xml:space="preserve">
     <value>Het bestand is geen geldig Riskeer bestand.</value>
@@ -162,5 +162,8 @@
   </data>
   <data name="FingerprintHelper_Critical_error_message" xml:space="preserve">
     <value>Een kritieke fout voorkomt dat een vingerafdruk van de projectdata gemaakt kan worden.</value>
+  </data>
+  <data name="RiskeerProject_FileFilter" xml:space="preserve">
+    <value>Riskeerproject (*.risk)|*.risk</value>
   </data>
 </root>

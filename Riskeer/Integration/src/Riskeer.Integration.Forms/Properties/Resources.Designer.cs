@@ -1016,15 +1016,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Riskeerproject (*.risk)|*.risk.
-        /// </summary>
-        public static string RiskeerProject_FileFilter {
-            get {
-                return ResourceManager.GetString("RiskeerProject_FileFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Korte beschrijving van het project..
         /// </summary>
         public static string RiskeerProjectProperties_Description_Description {

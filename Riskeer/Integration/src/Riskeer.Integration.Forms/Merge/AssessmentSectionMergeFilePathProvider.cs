@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Gui;
-using Riskeer.Integration.Forms.Properties;
+using RiskeerStorageResources = Riskeer.Storage.Core.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Merge
 {
@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Merge
 
         public string GetFilePath()
         {
-            return inquiryHelper.GetSourceFileLocation(Resources.RiskeerProject_FileFilter);
+            return inquiryHelper.GetSourceFileLocation(RiskeerStorageResources.RiskeerProject_FileFilter);
         }
     }
 }

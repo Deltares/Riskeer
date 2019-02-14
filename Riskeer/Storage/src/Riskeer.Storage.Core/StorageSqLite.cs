@@ -50,11 +50,19 @@ namespace Riskeer.Storage.Core
 
         private StagedProject stagedProject;
 
-        public string FileFilter
+        public string OpenProjectFileFilter
         {
             get
             {
-                return Resources.Supported_Riskeer_projects_file_filter;
+                return Resources.Supported_Riskeer_open_projects_file_filter;
+            }
+        }
+
+        public string SaveProjectFileFilter
+        {
+            get
+            {
+                return Resources.RiskeerProject_FileFilter;
             }
         }
 

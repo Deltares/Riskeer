@@ -118,7 +118,7 @@ namespace Core.Common.Gui.Commands
         {
             using (var openFileDialog = new OpenFileDialog
             {
-                Filter = projectPersistor.FileFilter,
+                Filter = projectPersistor.OpenProjectFileFilter,
                 Title = Resources.OpenFileDialog_Title
             })
             {
@@ -309,7 +309,7 @@ namespace Core.Common.Gui.Commands
         /// <returns>The selected project file, or <c>null</c> otherwise.</returns>
         private string OpenProjectSaveFileDialog(string projectName)
         {
-            return inquiryHelper.GetTargetFileLocation(projectPersistor.FileFilter, projectName);
+            return inquiryHelper.GetTargetFileLocation(projectPersistor.SaveProjectFileFilter, projectName);
         }
     }
 }

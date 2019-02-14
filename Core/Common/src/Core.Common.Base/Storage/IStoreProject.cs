@@ -30,9 +30,14 @@ namespace Core.Common.Base.Storage
     public interface IStoreProject
     {
         /// <summary>
-        /// Gets the file name filter string.
+        /// Gets the file name filter string for opening a project.
         /// </summary>
-        string FileFilter { get; }
+        string OpenProjectFileFilter { get; }
+
+        /// <summary>
+        /// Gets the file name filter string when saving a project
+        /// </summary>
+        string SaveProjectFileFilter { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance has staged project.

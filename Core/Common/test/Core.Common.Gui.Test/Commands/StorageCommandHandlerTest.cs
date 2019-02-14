@@ -722,7 +722,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwner.Stub(po => po.Project).Return(project);
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             projectStorage.Stub(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(false);
-            projectStorage.Stub(ps => ps.FileFilter).Return(string.Empty);
+            projectStorage.Stub(ps => ps.OpenProjectFileFilter).Return(string.Empty);
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
@@ -990,7 +990,7 @@ namespace Core.Common.Gui.Test.Commands
             projectStorage.Stub(ps => ps.HasStagedProject).Return(true);
             projectStorage.Expect(ps => ps.HasStagedProjectChanges(someValidFilePath)).Return(true);
             projectStorage.Expect(ps => ps.UnstageProject());
-            projectStorage.Stub(ps => ps.FileFilter).Return(fileFilter);
+            projectStorage.Stub(ps => ps.SaveProjectFileFilter).Return(fileFilter);
             projectStorage.Expect(p => p.SaveProjectAs(someValidFilePath));
 
             var projectMigrator = mocks.Stub<IMigrateProject>();

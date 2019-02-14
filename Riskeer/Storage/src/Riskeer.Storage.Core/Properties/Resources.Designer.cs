@@ -147,6 +147,15 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Riskeerproject (*.risk)|*.risk.
+        /// </summary>
+        public static string RiskeerProject_FileFilter {
+            get {
+                return ResourceManager.GetString("RiskeerProject_FileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen tijdelijk bestand maken van het originele bestand ({0})..
         /// </summary>
         public static string SafeOverwriteFileHelper_CreateNewTemporaryFile_Cannot_create_temporary_FilePath_0_Try_change_save_location {
@@ -234,11 +243,11 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd.
+        ///   Looks up a localized string similar to Alle projecten (*.risk;*.rtd)|*.risk;*.rtd|Riskeerproject (*.risk)|*.risk|Ringtoetsproject (*.rtd)|*.rtd.
         /// </summary>
-        public static string Supported_Riskeer_projects_file_filter {
+        public static string Supported_Riskeer_open_projects_file_filter {
             get {
-                return ResourceManager.GetString("Supported_Riskeer_projects_file_filter", resourceCulture);
+                return ResourceManager.GetString("Supported_Riskeer_open_projects_file_filter", resourceCulture);
             }
         }
     }
