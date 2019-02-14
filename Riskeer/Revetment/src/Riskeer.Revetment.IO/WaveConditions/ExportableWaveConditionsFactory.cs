@@ -36,55 +36,6 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// Creates a collection of <see cref="ExportableWaveConditions"/>.
         /// </summary>
         /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
-        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
-        /// <param name="columnsOutput">The <see cref="WaveConditionsOutput"/> resulting from columns calculations.</param>
-        /// <param name="blocksOutput">The <see cref="WaveConditionsOutput"/> resulting from blocks calculations.</param>
-        /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
-        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name,
-            AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
-            IEnumerable<WaveConditionsOutput> columnsOutput,
-            IEnumerable<WaveConditionsOutput> blocksOutput)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            if (waveConditionsInput == null)
-            {
-                throw new ArgumentNullException(nameof(waveConditionsInput));
-            }
-
-            if (columnsOutput == null)
-            {
-                throw new ArgumentNullException(nameof(columnsOutput));
-            }
-
-            if (blocksOutput == null)
-            {
-                throw new ArgumentNullException(nameof(blocksOutput));
-            }
-
-            string categoryBoundaryName = GetCategoryBoundaryName(waveConditionsInput.CategoryType);
-
-            var exportableWaveConditionsCollection = new List<ExportableWaveConditions>();
-            exportableWaveConditionsCollection.AddRange(CreateExportableWaveConditionsCollection(name, waveConditionsInput,
-                                                                                                 columnsOutput, CoverType.StoneCoverColumns,
-                                                                                                 categoryBoundaryName));
-            exportableWaveConditionsCollection.AddRange(CreateExportableWaveConditionsCollection(name, waveConditionsInput,
-                                                                                                 blocksOutput, CoverType.StoneCoverBlocks,
-                                                                                                 categoryBoundaryName));
-            return exportableWaveConditionsCollection;
-        }
-
-        /// <summary>
-        /// Creates a collection of <see cref="ExportableWaveConditions"/>.
-        /// </summary>
-        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
         /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
         /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>

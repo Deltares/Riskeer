@@ -61,7 +61,10 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
             {
                 exportableWaveConditions.AddRange(
                     ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, calculation.Output.BlocksOutput));
+                        calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, CoverType.StoneCoverColumns));
+                exportableWaveConditions.AddRange(
+                    ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                        calculation.Name, calculation.InputParameters, calculation.Output.BlocksOutput, CoverType.StoneCoverBlocks));
             }
 
             return exportableWaveConditions;
