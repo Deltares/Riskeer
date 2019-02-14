@@ -32,10 +32,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
-using Riskeer.Revetment.Data;
-using Riskeer.Revetment.Data.TestUtil;
-using Riskeer.Revetment.Service;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -43,6 +39,10 @@ using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Service;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 {
@@ -722,15 +722,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length;
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(null))
                              .IgnoreArguments()
-                             .Return(new TestWaveConditionsCosineCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
+                             .Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
+
+            int nrOfCalculators = waterLevels.Length;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -754,7 +753,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             mockRepository.VerifyAll();
         }
 
-
         private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
@@ -771,7 +769,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-            
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

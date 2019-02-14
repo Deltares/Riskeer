@@ -32,10 +32,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.TestUtil;
-using Riskeer.Revetment.Data;
-using Riskeer.Revetment.Data.TestUtil;
-using Riskeer.Revetment.Service;
-using Riskeer.StabilityStoneCover.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -43,6 +39,10 @@ using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Service;
+using Riskeer.StabilityStoneCover.Data;
 
 namespace Riskeer.StabilityStoneCover.Service.Test
 {
@@ -233,7 +233,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Both, 18)]
         [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Blocks, 10)]
         [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Columns, 10)]
-        public void Calculate_CalculateWithValidInputAndDifferentCalculationTypes_LogStartAndEnd(StabilityStoneCoverWaveConditionsCalculationType calculationType, int messageCount)
+        public void Calculate_CalculateWithValidInputAndDifferentCalculationTypes_LogStartAndEnd(
+            StabilityStoneCoverWaveConditionsCalculationType calculationType, int expectedMessageCount)
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
@@ -265,7 +266,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(messageCount, msgs.Length);
+                    Assert.AreEqual(expectedMessageCount, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
@@ -278,29 +279,17 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                     if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns ||
                         calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both)
                     {
-                        int countStart = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns ? 1 : 9;
+                        int countStart = calculationType != StabilityStoneCoverWaveConditionsCalculationType.Columns
+                                             ? expectedMessageCount / 2
+                                             : 1;
                         AssertCalculationLogs(msgs, waterLevels, "zuilen", countStart);
                     }
 
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[messageCount - 1]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedMessageCount - 1]);
                 });
             }
 
             mockRepository.VerifyAll();
-        }
-
-        private static void AssertCalculationLogs(string[] msgs, RoundedDouble[] waterLevels, string calculationType, int i)
-        {
-            Assert.AreEqual($"Berekening voor {calculationType} is gestart.", msgs[i++]);
-
-            foreach (RoundedDouble waterLevel in waterLevels)
-            {
-                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i++]);
-                StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i++]);
-                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is beëindigd.", msgs[i++]);
-            }
-
-            Assert.AreEqual($"Berekening voor {calculationType} is beëindigd.", msgs[i]);
         }
 
         [Test]
@@ -952,11 +941,25 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             mockRepository.VerifyAll();
         }
 
+        private static void AssertCalculationLogs(string[] logMessages, RoundedDouble[] waterLevels, string calculationType, int index)
+        {
+            Assert.AreEqual($"Berekening voor {calculationType} is gestart.", logMessages[index++]);
+
+            foreach (RoundedDouble waterLevel in waterLevels)
+            {
+                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", logMessages[index++]);
+                StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", logMessages[index++]);
+                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is beëindigd.", logMessages[index++]);
+            }
+
+            Assert.AreEqual($"Berekening voor {calculationType} is beëindigd.", logMessages[index]);
+        }
+
         private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
             string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
             var assessmentSection = new AssessmentSectionStub
@@ -971,7 +974,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-            
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

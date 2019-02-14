@@ -100,16 +100,6 @@ namespace Riskeer.StabilityStoneCover.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfcondities voor blokken en zuilen berekenen voor &apos;{0}&apos;.
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_Perform_calculation_with_name_0_ {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_Perform_calculation_with_nam" +
-                        "e_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekening voor blokken is beëindigd..
         /// </summary>
         internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished {
