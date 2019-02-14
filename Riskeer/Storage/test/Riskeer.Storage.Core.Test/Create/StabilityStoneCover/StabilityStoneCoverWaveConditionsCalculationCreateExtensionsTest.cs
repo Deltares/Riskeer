@@ -31,7 +31,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.StabilityStoneCover;
 using Riskeer.Storage.Core.DbContext;
