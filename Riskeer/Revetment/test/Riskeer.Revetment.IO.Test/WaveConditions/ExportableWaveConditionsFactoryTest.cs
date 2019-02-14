@@ -61,7 +61,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         {
             // Call
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
-                                                                                                               (FailureMechanismCategoryWaveConditionsInput) null,
+                                                                                                               null,
                                                                                                                waveConditionsOutputCollection);
 
             // Assert
@@ -155,7 +155,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection( "aName",
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
                                                                                                                new AssessmentSectionCategoryWaveConditionsInput(),
                                                                                                                null,
                                                                                                                CoverType.Asphalt);
