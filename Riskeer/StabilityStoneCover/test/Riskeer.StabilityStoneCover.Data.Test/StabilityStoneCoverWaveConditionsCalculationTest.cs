@@ -39,7 +39,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
+            Assert.IsInstanceOf<ICalculation<StabilityStoneCoverWaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);

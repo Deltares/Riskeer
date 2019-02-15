@@ -39,7 +39,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
+            Assert.IsInstanceOf<ICalculation<AssessmentSectionCategoryWaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
