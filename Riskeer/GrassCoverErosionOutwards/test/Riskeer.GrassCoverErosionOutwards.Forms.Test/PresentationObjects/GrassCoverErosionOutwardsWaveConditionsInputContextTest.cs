@@ -49,7 +49,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
                                                                                   failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext<FailureMechanismCategoryWaveConditionsInput>>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext<GrassCoverErosionOutwardsWaveConditionsInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

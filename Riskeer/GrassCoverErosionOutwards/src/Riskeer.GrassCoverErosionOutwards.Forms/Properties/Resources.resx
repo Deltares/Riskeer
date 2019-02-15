@@ -123,9 +123,6 @@
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName" xml:space="preserve">
     <value>Hydraulische belastingen voor gras</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType" xml:space="preserve">
-    <value>Gras</value>
-  </data>
   <data name="MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
     <value>h gr.Vv</value>
   </data>
@@ -167,5 +164,11 @@
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_DisplayName" xml:space="preserve">
     <value>Golfoploop</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_Description" xml:space="preserve">
+    <value>Het type van de belasting waarvoor berekend wordt.</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_DisplayName" xml:space="preserve">
+    <value>Type belasting</value>
   </data>
 </root>

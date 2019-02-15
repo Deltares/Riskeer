@@ -20,11 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -56,20 +61,64 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, string>>(properties);
+            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInputContextProperties<
+                GrassCoverErosionOutwardsWaveConditionsInputContext,
+                GrassCoverErosionOutwardsWaveConditionsInput,
+                GrassCoverErosionOutwardsWaveConditionsCalculationType>>(properties);
             Assert.AreSame(context, properties.Data);
-            Assert.AreEqual("Gras", properties.RevetmentType);
+            Assert.AreEqual(calculation.InputParameters.CalculationType, properties.RevetmentType);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void RevetmentType_SetNewValue_ThrowsInvalidOperationException()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                calculation.InputParameters,
+                calculation,
+                assessmentSection,
+                new GrassCoverErosionOutwardsFailureMechanism());
+
+            // Call
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(16, dynamicProperties.Count);
+
+            PropertyDescriptor revetmentTypeProperty = dynamicProperties[10];
+            Assert.IsInstanceOf<EnumTypeConverter>(revetmentTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
+                                                                            "Modelinstellingen",
+                                                                            "Type belasting",
+                                                                            "Het type van de belasting waarvoor berekend wordt.");
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RevetmentType_SetNewValue_InputChangedAndObservablesNotified()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
@@ -79,13 +128,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
-                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
+                context, AssessmentSectionTestHelper.GetTestAssessmentLevel, customHandler);
 
             // Call
-            TestDelegate test = () => properties.RevetmentType = string.Empty;
+            properties.RevetmentType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsCalculationType>();
 
             // Assert
-            Assert.Throws<InvalidOperationException>(test);
+            Assert.IsTrue(customHandler.Called);
+            mocks.VerifyAll();
         }
     }
 }

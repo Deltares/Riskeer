@@ -20,8 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
+using Core.Common.Util;
+using Core.Common.Util.Attributes;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.Properties;
 using Riskeer.Revetment.Forms.PropertyClasses;
@@ -32,7 +36,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-        : FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, string>
+        : FailureMechanismCategoryWaveConditionsInputContextProperties<
+            GrassCoverErosionOutwardsWaveConditionsInputContext,
+            GrassCoverErosionOutwardsWaveConditionsInput,
+            GrassCoverErosionOutwardsWaveConditionsCalculationType>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContextProperties"/>.
@@ -47,18 +54,24 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                                                                              IObservablePropertyChangeHandler propertyChangeHandler)
             : base(context, getAssessmentLevelFunc, propertyChangeHandler) {}
 
-        /// <inheritdoc/>
-        /// <exception cref="InvalidOperationException">Thrown when trying to set a new value.</exception>
-        public override string RevetmentType
+        [TypeConverter(typeof(EnumTypeConverter))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_Description))]
+        public override GrassCoverErosionOutwardsWaveConditionsCalculationType RevetmentType
         {
             get
             {
-                return Resources.GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType;
+                return data.Calculation.InputParameters.CalculationType;
             }
             set
             {
-                throw new InvalidOperationException();
+                HandleChangeProperty(() => data.Calculation.InputParameters.CalculationType = value);
             }
+        }
+
+        public override bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return false;
         }
     }
 }

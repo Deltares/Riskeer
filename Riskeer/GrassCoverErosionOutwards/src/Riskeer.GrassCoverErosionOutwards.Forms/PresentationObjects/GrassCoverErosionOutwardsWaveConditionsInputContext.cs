@@ -25,7 +25,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PresentationObjects;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -33,7 +32,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for wave conditions input of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsInputContext : WaveConditionsInputContext<FailureMechanismCategoryWaveConditionsInput>
+    public class GrassCoverErosionOutwardsWaveConditionsInputContext : WaveConditionsInputContext<GrassCoverErosionOutwardsWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/>.
@@ -44,8 +43,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
         /// the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsInputContext(FailureMechanismCategoryWaveConditionsInput wrappedData,
-                                                                   ICalculation<FailureMechanismCategoryWaveConditionsInput> calculation,
+        public GrassCoverErosionOutwardsWaveConditionsInputContext(GrassCoverErosionOutwardsWaveConditionsInput wrappedData,
+                                                                   ICalculation<GrassCoverErosionOutwardsWaveConditionsInput> calculation,
                                                                    IAssessmentSection assessmentSection,
                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(wrappedData, calculation, assessmentSection)

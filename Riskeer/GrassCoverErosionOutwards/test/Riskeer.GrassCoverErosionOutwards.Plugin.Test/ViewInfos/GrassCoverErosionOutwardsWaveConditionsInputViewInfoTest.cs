@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 }
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new FailureMechanismCategoryWaveConditionsInput(),
+                new GrassCoverErosionOutwardsWaveConditionsInput(),
                 calculation,
                 new AssessmentSectionStub(),
                 new GrassCoverErosionOutwardsFailureMechanism());
