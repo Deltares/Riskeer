@@ -88,9 +88,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            RoundedDouble a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
-            RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
-            RoundedDouble c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
+            RoundedDouble a = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput.A;
+            RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput.B;
+            RoundedDouble c = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput.C;
 
             double norm = failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType);
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,

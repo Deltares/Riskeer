@@ -103,7 +103,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
-            GeneralWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput.GeneralWaveConditionsInput;
+            GeneralWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput;
             Assert.AreEqual(generalWaveConditionsInput.A, properties.A);
             Assert.AreEqual(generalWaveConditionsInput.B, properties.B);
             Assert.AreEqual(generalWaveConditionsInput.C, properties.C);

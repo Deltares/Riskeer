@@ -39,9 +39,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
             Assert.AreEqual(2.0, inputParameters.N, inputParameters.N.GetAccuracy());
-            Assert.AreEqual(1.0, inputParameters.GeneralWaveConditionsInput.A, inputParameters.GeneralWaveConditionsInput.A.GetAccuracy());
-            Assert.AreEqual(0.67, inputParameters.GeneralWaveConditionsInput.B, inputParameters.GeneralWaveConditionsInput.B.GetAccuracy());
-            Assert.AreEqual(0.0, inputParameters.GeneralWaveConditionsInput.C, inputParameters.GeneralWaveConditionsInput.C.GetAccuracy());
+            Assert.AreEqual(1.0, inputParameters.GeneralWaveImpactWaveConditionsInput.A, inputParameters.GeneralWaveImpactWaveConditionsInput.A.GetAccuracy());
+            Assert.AreEqual(0.67, inputParameters.GeneralWaveImpactWaveConditionsInput.B, inputParameters.GeneralWaveImpactWaveConditionsInput.B.GetAccuracy());
+            Assert.AreEqual(0.0, inputParameters.GeneralWaveImpactWaveConditionsInput.C, inputParameters.GeneralWaveImpactWaveConditionsInput.C.GetAccuracy());
         }
 
         [Test]

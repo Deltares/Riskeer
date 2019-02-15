@@ -204,7 +204,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralInput.GeneralWaveConditionsInput.A;
+                return data.GeneralInput.GeneralWaveImpactWaveConditionsInput.A;
             }
         }
 
@@ -217,7 +217,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralInput.GeneralWaveConditionsInput.B;
+                return data.GeneralInput.GeneralWaveImpactWaveConditionsInput.B;
             }
         }
 
@@ -230,7 +230,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralInput.GeneralWaveConditionsInput.C;
+                return data.GeneralInput.GeneralWaveImpactWaveConditionsInput.C;
             }
         }
 

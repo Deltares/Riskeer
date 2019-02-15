@@ -314,9 +314,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels.ElementAt(waterLevelIndex++),
-                                                                                 generalInput.GeneralWaveConditionsInput.A,
-                                                                                 generalInput.GeneralWaveConditionsInput.B,
-                                                                                 generalInput.GeneralWaveConditionsInput.C);
+                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.A,
+                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.B,
+                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.C);
 
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 }
