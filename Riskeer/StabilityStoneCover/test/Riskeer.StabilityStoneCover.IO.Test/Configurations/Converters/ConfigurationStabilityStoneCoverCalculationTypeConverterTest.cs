@@ -171,5 +171,67 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations.Converters
             // Assert
             Assert.IsFalse(canConvertFrom);
         }
+
+        [Test]
+        public void ConvertFrom_InvalidStabilityStoneCoverWaveConditionsCalculationType_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const StabilityStoneCoverWaveConditionsCalculationType invalidValue = (StabilityStoneCoverWaveConditionsCalculationType)99;
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(StabilityStoneCoverWaveConditionsCalculationType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase("Steen (blokken en zuilen)", ConfigurationStabilityStoneCoverCalculationType.Both)]
+        [TestCase("Steen (blokken)", ConfigurationStabilityStoneCoverCalculationType.Blocks)]
+        [TestCase("Steen (zuilen)", ConfigurationStabilityStoneCoverCalculationType.Columns)]
+        public void ConvertFrom_ValidStringValue_ReturnConfigurationStabilityStoneCoverCalculationType(
+            string originalValue, ConfigurationStabilityStoneCoverCalculationType expectedValue)
+        {
+            // Setup
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+
+            // Call
+            object convertedValue = converter.ConvertFrom(originalValue);
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Both, ConfigurationStabilityStoneCoverCalculationType.Both)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Blocks, ConfigurationStabilityStoneCoverCalculationType.Blocks)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Columns, ConfigurationStabilityStoneCoverCalculationType.Columns)]
+        public void ConvertFrom_ValidStabilityStoneCoverWaveConditionsCalculationType_ReturnConfigurationStabilityStoneCoverCalculationType(
+            StabilityStoneCoverWaveConditionsCalculationType originalValue, ConfigurationStabilityStoneCoverCalculationType expectedValue)
+        {
+            // Setup
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+
+            // Call
+            object convertedValue = converter.ConvertFrom(originalValue);
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        public void ConvertFrom_Null_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(null);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
     }
 }

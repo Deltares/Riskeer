@@ -91,5 +91,50 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations.Converters
                    || sourceType == typeof(StabilityStoneCoverWaveConditionsCalculationType)
                    || base.CanConvertFrom(context, sourceType);
         }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value is StabilityStoneCoverWaveConditionsCalculationType)
+            {
+                var calculationType = (StabilityStoneCoverWaveConditionsCalculationType) value;
+                if (!Enum.IsDefined(typeof(StabilityStoneCoverWaveConditionsCalculationType), calculationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) calculationType,
+                                                           typeof(StabilityStoneCoverWaveConditionsCalculationType));
+                }
+
+                switch (calculationType)
+                {
+                    case StabilityStoneCoverWaveConditionsCalculationType.Columns:
+                        return ConfigurationStabilityStoneCoverCalculationType.Columns;
+                    case StabilityStoneCoverWaveConditionsCalculationType.Blocks:
+                        return ConfigurationStabilityStoneCoverCalculationType.Blocks;
+                    case StabilityStoneCoverWaveConditionsCalculationType.Both:
+                        return ConfigurationStabilityStoneCoverCalculationType.Both;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            var stringValue = value as string;
+            if (stringValue != null)
+            {
+                if (stringValue == RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName)
+                {
+                    return ConfigurationStabilityStoneCoverCalculationType.Columns;
+                }
+                if (stringValue == RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName)
+                {
+                    return ConfigurationStabilityStoneCoverCalculationType.Blocks;
+                }
+                if (stringValue == RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Both_DisplayName)
+                {
+                    return ConfigurationStabilityStoneCoverCalculationType.Both;
+                }
+            }
+            
+            return base.ConvertFrom(context, culture, value);
+        }
     }
 }
