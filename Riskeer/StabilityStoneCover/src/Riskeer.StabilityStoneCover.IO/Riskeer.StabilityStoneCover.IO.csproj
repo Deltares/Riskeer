@@ -9,11 +9,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationStabilityStoneCoverCalculationType.cs" />
     <Compile Include="Configurations\Converters\ConfigurationStabilityStoneCoverCalculationTypeConverter.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfiguration.cs" />
+    <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exporters\StabilityStoneCoverWaveConditionsExporter.cs" />
   </ItemGroup>
@@ -37,6 +39,10 @@
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Riskeer.Common.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>

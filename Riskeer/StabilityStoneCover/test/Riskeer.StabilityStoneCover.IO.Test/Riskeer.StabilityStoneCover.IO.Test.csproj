@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{BDF21BAD-0879-4B94-9C6C-1D55A5966495}</ProjectGuid>
@@ -18,6 +18,7 @@
     <Compile Include="Configurations\ConfigurationStabilityStoneCoverCalculationTypeTest.cs" />
     <Compile Include="Configurations\Converters\ConfigurationStabilityStoneCoverCalculationTypeConverterTest.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationTest.cs" />
+    <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exporters\StabilityStoneCoverWaveConditionsExporterTest.cs" />
   </ItemGroup>
@@ -40,9 +41,17 @@
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Riskeer.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Riskeer.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj">
+      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
+      <Name>Riskeer.Common.IO.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
