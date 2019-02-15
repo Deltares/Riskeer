@@ -59,5 +59,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         {
             CoreCloneAssert.AreEnumerationClones(original.Items, clone.Items, WaveConditionsCloneAssert.AreClones);
         }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(GrassCoverErosionOutwardsWaveConditionsInput original, GrassCoverErosionOutwardsWaveConditionsInput clone)
+        {
+            Assert.AreEqual(original.CalculationType, clone.CalculationType);
+            WaveConditionsCloneAssert.AreClones(original, clone);
+        }
     }
 }
