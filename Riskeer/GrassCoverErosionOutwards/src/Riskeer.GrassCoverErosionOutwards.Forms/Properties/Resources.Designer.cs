@@ -82,6 +82,42 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfklap.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfoploop..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfoploop.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gras.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType {

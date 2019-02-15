@@ -156,4 +156,16 @@
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm" xml:space="preserve">
     <value>Hs gr.IIv</value>
   </data>
+  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description" xml:space="preserve">
+    <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap.</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_DisplayName" xml:space="preserve">
+    <value>Golfklap</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_Description" xml:space="preserve">
+    <value>De modelinstellingen voor het berekenen van golfcondities voor golfoploop.</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_DisplayName" xml:space="preserve">
+    <value>Golfoploop</value>
+  </data>
 </root>

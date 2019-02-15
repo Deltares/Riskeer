@@ -32,7 +32,6 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
@@ -45,9 +44,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int contributionPropertyIndex = 3;
         private const int isRelevantPropertyIndex = 4;
         private const int nPropertyIndex = 5;
-        private const int aPropertyIndex = 6;
-        private const int bPropertyIndex = 7;
-        private const int cPropertyIndex = 8;
+        private const int waveRunUpPropertyIndex = 6;
+        private const int waveImpactPropertyIndex = 7;
 
         [Test]
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
@@ -103,11 +101,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
-            GeneralWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput;
-            Assert.AreEqual(generalWaveConditionsInput.A, properties.A);
-            Assert.AreEqual(generalWaveConditionsInput.B, properties.B);
-            Assert.AreEqual(generalWaveConditionsInput.C, properties.C);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N, properties.N.GetAccuracy());
+            GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
+            Assert.AreSame(generalInput.GeneralWaveRunUpWaveConditionsInput, properties.WaveRunUp.Data);
+            Assert.AreSame(generalInput.GeneralWaveImpactWaveConditionsInput, properties.WaveImpact.Data);
         }
 
         [Test]
@@ -128,7 +124,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -174,25 +170,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
-            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
+            PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRunUpProperty,
                                                                             modelSettingsCategory,
-                                                                            "a",
-                                                                            "De waarde van de parameter 'a' in de berekening voor golf condities.",
+                                                                            "Golfoploop",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfoploop.",
                                                                             true);
 
-            PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
+            PropertyDescriptor waveImpactProperty = dynamicProperties[waveImpactPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveImpactProperty,
                                                                             modelSettingsCategory,
-                                                                            "b",
-                                                                            "De waarde van de parameter 'b' in de berekening voor golf condities.",
-                                                                            true);
-
-            PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
-                                                                            modelSettingsCategory,
-                                                                            "c",
-                                                                            "De waarde van de parameter 'c' in de berekening voor golf condities.",
+                                                                            "Golfklap",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfklap.",
                                                                             true);
 
             mockRepository.VerifyAll();
@@ -338,9 +327,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaveRunUp)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpact)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));

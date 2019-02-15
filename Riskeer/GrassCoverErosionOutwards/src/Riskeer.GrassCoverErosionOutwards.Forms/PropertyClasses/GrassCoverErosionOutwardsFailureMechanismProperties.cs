@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -28,8 +29,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.Properties;
+using Riskeer.Revetment.Forms.PropertyClasses;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
@@ -44,9 +46,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int contributionPropertyIndex = 4;
         private const int isRelevantPropertyIndex = 5;
         private const int nPropertyIndex = 6;
-        private const int aPropertyIndex = 7;
-        private const int bPropertyIndex = 8;
-        private const int cPropertyIndex = 9;
+        private const int waveRunUpPropertyIndex = 7;
+        private const int waveImpactPropertyIndex = 8;
 
         private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> propertyChangeHandler;
 
@@ -122,9 +123,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
             return nameof(Contribution).Equals(propertyName)
-                   || nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(C).Equals(propertyName)
+                   || nameof(WaveRunUp).Equals(propertyName)
+                   || nameof(WaveImpact).Equals(propertyName)
                    || nameof(N).Equals(propertyName);
         }
 
@@ -196,41 +196,36 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         #region Model settings
 
         [DynamicVisible]
-        [PropertyOrder(aPropertyIndex)]
+        [PropertyOrder(waveRunUpPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_A_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_A_Description))]
-        public RoundedDouble A
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_Description))]
+        public GeneralWaveConditionsInputProperties WaveRunUp
         {
             get
             {
-                return data.GeneralInput.GeneralWaveImpactWaveConditionsInput.A;
+                return new GeneralWaveConditionsInputProperties
+                {
+                    Data = data.GeneralInput.GeneralWaveRunUpWaveConditionsInput
+                };
             }
         }
 
         [DynamicVisible]
-        [PropertyOrder(bPropertyIndex)]
+        [PropertyOrder(waveImpactPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_B_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_B_Description))]
-        public RoundedDouble B
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description))]
+        public GeneralWaveConditionsInputProperties WaveImpact
         {
             get
             {
-                return data.GeneralInput.GeneralWaveImpactWaveConditionsInput.B;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(cPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_C_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_C_Description))]
-        public RoundedDouble C
-        {
-            get
-            {
-                return data.GeneralInput.GeneralWaveImpactWaveConditionsInput.C;
+                return new GeneralWaveConditionsInputProperties
+                {
+                    Data = data.GeneralInput.GeneralWaveImpactWaveConditionsInput
+                };
             }
         }
 
