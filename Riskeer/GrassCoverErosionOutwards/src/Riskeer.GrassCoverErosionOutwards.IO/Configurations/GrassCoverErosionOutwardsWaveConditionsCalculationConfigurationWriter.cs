@@ -40,7 +40,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
-        protected override void WriteConfigurationCategoryTypeWhenAvailable(
+        protected override void WriteWaveConditionsSpecificParameters(
             XmlWriter writer, GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration)
         {
             if (!configuration.CategoryType.HasValue)

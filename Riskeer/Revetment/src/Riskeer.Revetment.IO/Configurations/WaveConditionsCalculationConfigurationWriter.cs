@@ -61,7 +61,7 @@ namespace Riskeer.Revetment.IO.Configurations
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
                 configuration.HydraulicBoundaryLocationName);
 
-            WriteConfigurationCategoryTypeWhenAvailable(writer, configuration);
+            WriteWaveConditionsSpecificParameters(writer, configuration);
 
             WriteElementWhenContentAvailable(
                 writer,
@@ -99,15 +99,15 @@ namespace Riskeer.Revetment.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the category type in XML format to file.
+        /// Writes the specific parameters in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The configuration to get the category type from.</param>
+        /// <param name="configuration">The configuration to get the parameters from.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the conversion of the category type 
+        /// <exception cref="NotSupportedException">Thrown when the conversion of a type 
         /// cannot be performed.</exception>
-        protected abstract void WriteConfigurationCategoryTypeWhenAvailable(XmlWriter writer, T configuration);
+        protected abstract void WriteWaveConditionsSpecificParameters(XmlWriter writer, T configuration);
 
         /// <summary>
         /// Writes the <paramref name="stepSize"/> in XML format to file.

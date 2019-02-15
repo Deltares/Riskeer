@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,7 +41,7 @@ namespace Riskeer.Revetment.IO.Configurations
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
-        protected override void WriteConfigurationCategoryTypeWhenAvailable(
+        protected override void WriteWaveConditionsSpecificParameters(
             XmlWriter writer, TConfiguration configuration)
         {
             if (!configuration.CategoryType.HasValue)

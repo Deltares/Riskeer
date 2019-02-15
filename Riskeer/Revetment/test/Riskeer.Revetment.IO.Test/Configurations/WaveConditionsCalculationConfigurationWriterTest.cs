@@ -156,7 +156,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             public TestWaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-            protected override void WriteConfigurationCategoryTypeWhenAvailable(XmlWriter writer, WaveConditionsCalculationConfiguration configuration) {}
+            protected override void WriteWaveConditionsSpecificParameters(XmlWriter writer, WaveConditionsCalculationConfiguration configuration) {}
         }
     }
 }
