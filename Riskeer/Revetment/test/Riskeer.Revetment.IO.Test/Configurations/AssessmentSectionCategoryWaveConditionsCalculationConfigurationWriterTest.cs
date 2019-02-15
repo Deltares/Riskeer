@@ -33,7 +33,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 {
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
-        AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter,
+        AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>,
         AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
         [Test]
@@ -45,13 +45,13 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Riskeer.Revetment.IO,
-                Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
+                Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>), "sparseConfiguration.xml"));
 
             var calculation = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("Berekening 1");
 
             try
             {
-                var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+                var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -80,7 +80,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Riskeer.Revetment.IO,
-                Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
+                Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>), "completeConfiguration.xml"));
 
             var calculation = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("Berekening 1")
             {
@@ -104,7 +104,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             try
             {
-                var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+                var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -133,7 +133,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 CategoryType = (ConfigurationAssessmentSectionCategoryType?) 99
             };
 
-            var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter("valid");
+            var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>("valid");
 
             // Call
             TestDelegate call = () => writer.Write(new[]
@@ -146,9 +146,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
-        protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration> CreateWriterInstance(string filePath)
         {
-            return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+            return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(filePath);
         }
     }
 }

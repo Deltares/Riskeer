@@ -30,7 +30,7 @@ namespace Riskeer.Revetment.IO.Configurations
     /// Exports an assessment section category wave conditions calculation configuration and stores it as an XML file.
     /// </summary>
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
-        AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter,
+        AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>,
         AssessmentSectionCategoryWaveConditionsCalculationConfiguration,
         ICalculation<AssessmentSectionCategoryWaveConditionsInput>>
     {
@@ -41,9 +41,9 @@ namespace Riskeer.Revetment.IO.Configurations
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
-        protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
+        protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration> CreateWriter(string filePath)
         {
-            return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+            return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(filePath);
         }
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ToConfiguration(

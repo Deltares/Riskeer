@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,18 +29,20 @@ namespace Riskeer.Revetment.IO.Configurations
     /// Writer for calculations that contain <see cref="AssessmentSectionCategoryWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter
-        : WaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
+    /// <typeparam name="TConfiguration">The type of the configuration</typeparam>
+    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<TConfiguration>
+        : WaveConditionsCalculationConfigurationWriter<TConfiguration>
+        where TConfiguration : AssessmentSectionCategoryWaveConditionsCalculationConfiguration
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter{TConfiguration}"/>.
         /// </summary>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
         protected override void WriteConfigurationCategoryTypeWhenAvailable(
-            XmlWriter writer, AssessmentSectionCategoryWaveConditionsCalculationConfiguration configuration)
+            XmlWriter writer, TConfiguration configuration)
         {
             if (!configuration.CategoryType.HasValue)
             {

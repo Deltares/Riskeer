@@ -38,7 +38,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporterTest : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
         AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter,
-        AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter,
+        AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>,
         ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
         AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
