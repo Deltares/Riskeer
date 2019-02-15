@@ -21,7 +21,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using Riskeer.StabilityStoneCover.Data;
+using RiskeerStabilityStoneCoverDataResources = Riskeer.StabilityStoneCover.Data.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.IO.Configurations.Converters
 {
@@ -35,6 +37,52 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations.Converters
         {
             return destinationType == typeof(StabilityStoneCoverWaveConditionsCalculationType)
                    || base.CanConvertTo(context, destinationType);
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationStabilityStoneCoverCalculationType"/>.</exception>
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            var calculationType = (ConfigurationStabilityStoneCoverCalculationType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationStabilityStoneCoverCalculationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) calculationType,
+                                                       typeof(ConfigurationStabilityStoneCoverCalculationType));
+            }
+
+            if (destinationType == typeof(StabilityStoneCoverWaveConditionsCalculationType))
+            {
+                switch (calculationType)
+                {
+                    case ConfigurationStabilityStoneCoverCalculationType.Columns:
+                        return StabilityStoneCoverWaveConditionsCalculationType.Columns;
+                    case ConfigurationStabilityStoneCoverCalculationType.Blocks:
+                        return StabilityStoneCoverWaveConditionsCalculationType.Blocks;
+                    case ConfigurationStabilityStoneCoverCalculationType.Both:
+                        return StabilityStoneCoverWaveConditionsCalculationType.Both;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            if (destinationType == typeof(string))
+            {
+                switch (calculationType)
+                {
+                    case ConfigurationStabilityStoneCoverCalculationType.Columns:
+                        return RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName;
+                    case ConfigurationStabilityStoneCoverCalculationType.Blocks:
+                        return RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName;
+                    case ConfigurationStabilityStoneCoverCalculationType.Both:
+                        return RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Both_DisplayName;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            return base.ConvertTo(context, culture, value, destinationType);
         }
     }
 }
