@@ -132,5 +132,44 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations.Converters
             // Assert
             Assert.AreEqual(expectedText, calculationType);
         }
+
+        [Test]
+        public void CanConvertFrom_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertFrom);
+        }
+
+        [Test]
+        public void CanConvertFrom_StabilityStoneCoverWaveConditionsCalculationType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(StabilityStoneCoverWaveConditionsCalculationType));
+
+            // Assert
+            Assert.IsTrue(canConvertFrom);
+        }
+
+        [Test]
+        public void CanConvertFrom_OtherType_ReturnFalse()
+        {
+            // Setup
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertFrom);
+        }
     }
 }
