@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         {
             Assert.AreEqual(original.Name, clone.Name);
             CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
-            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, WaveConditionsCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
 

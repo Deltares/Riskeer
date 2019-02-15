@@ -40,7 +40,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
+            Assert.IsInstanceOf<ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual(RiskeerCommonDataResources.Calculation_DefaultName, calculation.Name);

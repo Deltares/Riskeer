@@ -30,7 +30,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculation : CloneableObservable, ICalculation<FailureMechanismCategoryWaveConditionsInput>
+    public class GrassCoverErosionOutwardsWaveConditionsCalculation : CloneableObservable, ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
@@ -38,7 +38,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         public GrassCoverErosionOutwardsWaveConditionsCalculation()
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
-            InputParameters = new FailureMechanismCategoryWaveConditionsInput();
+            InputParameters = new GrassCoverErosionOutwardsWaveConditionsInput();
             Comments = new Comment();
         }
 
@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         public GrassCoverErosionOutwardsWaveConditionsOutput Output { get; set; }
 
-        public FailureMechanismCategoryWaveConditionsInput InputParameters { get; private set; }
+        public GrassCoverErosionOutwardsWaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
@@ -79,7 +79,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             var clone = (GrassCoverErosionOutwardsWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (FailureMechanismCategoryWaveConditionsInput) InputParameters.Clone();
+            clone.InputParameters = (GrassCoverErosionOutwardsWaveConditionsInput) InputParameters.Clone();
 
             if (Output != null)
             {
