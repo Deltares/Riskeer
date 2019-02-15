@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
@@ -39,9 +40,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
             Assert.AreEqual(2.0, inputParameters.N, inputParameters.N.GetAccuracy());
-            Assert.AreEqual(1.0, inputParameters.GeneralWaveImpactWaveConditionsInput.A, inputParameters.GeneralWaveImpactWaveConditionsInput.A.GetAccuracy());
-            Assert.AreEqual(0.67, inputParameters.GeneralWaveImpactWaveConditionsInput.B, inputParameters.GeneralWaveImpactWaveConditionsInput.B.GetAccuracy());
-            Assert.AreEqual(0.0, inputParameters.GeneralWaveImpactWaveConditionsInput.C, inputParameters.GeneralWaveImpactWaveConditionsInput.C.GetAccuracy());
+
+            GeneralWaveConditionsInput generalWaveImpactWaveConditionsInput = inputParameters.GeneralWaveImpactWaveConditionsInput;
+            Assert.AreEqual(1.0, generalWaveImpactWaveConditionsInput.A, generalWaveImpactWaveConditionsInput.A.GetAccuracy());
+            Assert.AreEqual(0.67, generalWaveImpactWaveConditionsInput.B, generalWaveImpactWaveConditionsInput.B.GetAccuracy());
+            Assert.AreEqual(0.0, generalWaveImpactWaveConditionsInput.C, generalWaveImpactWaveConditionsInput.C.GetAccuracy());
+
+            GeneralWaveConditionsInput generalWaveRunUpWaveConditionsInput = inputParameters.GeneralWaveRunUpWaveConditionsInput;
+            Assert.AreEqual(1.0, generalWaveRunUpWaveConditionsInput.A, generalWaveRunUpWaveConditionsInput.A.GetAccuracy());
+            Assert.AreEqual(1.7, generalWaveRunUpWaveConditionsInput.B, generalWaveRunUpWaveConditionsInput.B.GetAccuracy());
+            Assert.AreEqual(0.3, generalWaveRunUpWaveConditionsInput.C, generalWaveRunUpWaveConditionsInput.C.GetAccuracy());
         }
 
         [Test]
