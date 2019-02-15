@@ -267,6 +267,9 @@ namespace Core.Common.TestUtil.Test
             path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityPointStructures.IO);
             Assert.IsTrue(Directory.Exists(path));
 
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityStoneCover.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
             path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Storage.Core);
             Assert.IsTrue(Directory.Exists(path));
         }

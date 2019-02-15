@@ -19,8 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.TestUtil;
+using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 
 namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
@@ -29,6 +34,94 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
     public class StabilityStoneCoverWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
         StabilityStoneCoverWaveConditionsCalculationConfigurationWriter, StabilityStoneCoverWaveConditionsCalculationConfiguration>
     {
+        [Test]
+        public void Write_SparseCalculation_WritesSparseConfigurationToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(Write_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
+
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Riskeer.StabilityStoneCover.IO,
+                Path.Combine(nameof(StabilityStoneCoverWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculationConfiguration("Berekening 1");
+
+            try
+            {
+                var writer = new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(filePath);
+
+                // Call
+                writer.Write(new[]
+                {
+                    calculation
+                });
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Write_CompleteCalculation_WritesCompleteConfigurationToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(Write_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
+
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Riskeer.StabilityStoneCover.IO,
+                Path.Combine(nameof(StabilityStoneCoverWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculationConfiguration("Berekening 1")
+            {
+                HydraulicBoundaryLocationName = "Locatie1",
+                CategoryType = ConfigurationAssessmentSectionCategoryType.LowerLimitNorm,
+                UpperBoundaryRevetment = (RoundedDouble)1.5,
+                LowerBoundaryRevetment = (RoundedDouble)0.5,
+                UpperBoundaryWaterLevels = (RoundedDouble)1.4,
+                LowerBoundaryWaterLevels = (RoundedDouble)0.6,
+                StepSize = ConfigurationWaveConditionsInputStepSize.One,
+                ForeshoreProfileId = "profiel1",
+                Orientation = (RoundedDouble)67.1,
+                WaveReduction = new WaveReductionConfiguration
+                {
+                    UseForeshoreProfile = true,
+                    UseBreakWater = true,
+                    BreakWaterHeight = (RoundedDouble)1.23,
+                    BreakWaterType = ConfigurationBreakWaterType.Dam
+                }
+            };
+
+            try
+            {
+                var writer = new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(filePath);
+
+                // Call
+                writer.Write(new[]
+                {
+                    calculation
+                });
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
             return new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(filePath);

@@ -128,6 +128,11 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "StabilityPointStructures", "test", "Riskeer.StabilityPointStructures.IO.Test");
             }
 
+            public static class StabilityStoneCover
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "StabilityStoneCover", "test", "Riskeer.StabilityStoneCover.IO.Test");
+            }
+
             public static class Storage
             {
                 public static readonly TestDataPath Core = System.IO.Path.Combine("Riskeer", "Storage", "test", "Riskeer.Storage.Core.Test");
