@@ -123,4 +123,13 @@
   <data name="GrassCoverErosionOutwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Grasbekleding erosie buitentalud</value>
   </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationType_Both_DisplayName" xml:space="preserve">
+    <value>Gras (golfoploop en golfklap)</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpact_DisplayName" xml:space="preserve">
+    <value>Gras (golfklap)</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_DisplayName" xml:space="preserve">
+    <value>Gras (golfoploop)</value>
+  </data>
 </root>
