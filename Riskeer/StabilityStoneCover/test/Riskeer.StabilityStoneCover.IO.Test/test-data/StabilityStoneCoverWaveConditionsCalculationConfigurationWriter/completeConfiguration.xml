@@ -3,6 +3,7 @@
   <berekening naam="Berekening 1">
     <hblocatie>Locatie1</hblocatie>
     <categoriegrens>B</categoriegrens>
+    <typebekleding>Steen (blokken en zuilen)</typebekleding>
     <bovengrensbekleding>1.5</bovengrensbekleding>
     <ondergrensbekleding>0.5</ondergrensbekleding>
     <bovengrenswaterstanden>1.4</bovengrenswaterstanden>

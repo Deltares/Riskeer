@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.IO;
 using Core.Common.Base.Data;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
@@ -84,20 +86,21 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             {
                 HydraulicBoundaryLocationName = "Locatie1",
                 CategoryType = ConfigurationAssessmentSectionCategoryType.LowerLimitNorm,
-                UpperBoundaryRevetment = (RoundedDouble)1.5,
-                LowerBoundaryRevetment = (RoundedDouble)0.5,
-                UpperBoundaryWaterLevels = (RoundedDouble)1.4,
-                LowerBoundaryWaterLevels = (RoundedDouble)0.6,
+                UpperBoundaryRevetment = (RoundedDouble) 1.5,
+                LowerBoundaryRevetment = (RoundedDouble) 0.5,
+                UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
+                LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
                 StepSize = ConfigurationWaveConditionsInputStepSize.One,
                 ForeshoreProfileId = "profiel1",
-                Orientation = (RoundedDouble)67.1,
+                Orientation = (RoundedDouble) 67.1,
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseForeshoreProfile = true,
                     UseBreakWater = true,
-                    BreakWaterHeight = (RoundedDouble)1.23,
+                    BreakWaterHeight = (RoundedDouble) 1.23,
                     BreakWaterType = ConfigurationBreakWaterType.Dam
-                }
+                },
+                CalculationType = ConfigurationStabilityStoneCoverCalculationType.Both
             };
 
             try
@@ -120,6 +123,28 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
+        }
+
+        [Test]
+        public void Write_InvalidCalculationType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new StabilityStoneCoverWaveConditionsCalculationConfiguration("fail")
+            {
+                CalculationType = (ConfigurationStabilityStoneCoverCalculationType?) 99
+            };
+
+            var writer = new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)

@@ -22,6 +22,7 @@
 using System.Xml;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.IO.Configurations.Converters;
 
 namespace Riskeer.StabilityStoneCover.IO.Configurations
 {
@@ -38,5 +39,19 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         /// </summary>
         public StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(string filePath) 
             : base(filePath) {}
+
+        protected override void WriteWaveConditionsSpecificParameters(XmlWriter writer, StabilityStoneCoverWaveConditionsCalculationConfiguration configuration)
+        {
+            base.WriteWaveConditionsSpecificParameters(writer, configuration);
+
+            if (!configuration.CalculationType.HasValue)
+            {
+                return;
+            }
+
+            var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
+            writer.WriteElementString("typebekleding",
+                                      converter.ConvertToInvariantString(configuration.CalculationType.Value));
+        }
     }
 }
