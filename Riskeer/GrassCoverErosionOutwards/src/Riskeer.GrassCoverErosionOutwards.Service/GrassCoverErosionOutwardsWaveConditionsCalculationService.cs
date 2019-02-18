@@ -88,11 +88,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            RoundedDouble a = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput.A;
-            RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput.B;
-            RoundedDouble c = failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput.C;
-
-            double norm = failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType);
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                 calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                 calculation.InputParameters.CategoryType);
@@ -102,10 +97,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             try
             {
-                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
-                                                                                    assessmentLevel,
-                                                                                    a, b, c, norm,
-                                                                                    assessmentSection.HydraulicBoundaryDatabase);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                outputs = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
 
                 if (!Canceled)
                 {
@@ -116,6 +109,43 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             {
                 CalculationServiceHelper.LogCalculationEnd();
             }
+        }
+
+        private IEnumerable<WaveConditionsOutput> CalculateWaveImpact(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                                      GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection,
+                                                                      RoundedDouble assessmentLevel)
+        {
+            return Calculate(calculation, 
+                             failureMechanism, 
+                             assessmentSection, 
+                             assessmentLevel,
+                             failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput);
+        }
+
+        private IEnumerable<WaveConditionsOutput> CalculateWaveRunUp(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                                     GrassCoverErosionOutwardsFailureMechanism failureMechanism, 
+                                                                     IAssessmentSection assessmentSection,
+                                                                     RoundedDouble assessmentLevel)
+        {
+            return Calculate(calculation, 
+                             failureMechanism,
+                             assessmentSection, 
+                             assessmentLevel,
+                             failureMechanism.GeneralInput.GeneralWaveRunUpWaveConditionsInput);
+        }
+
+        private IEnumerable<WaveConditionsOutput> Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                            IAssessmentSection assessmentSection,
+                                                            RoundedDouble assessmentLevel,
+                                                            GeneralWaveConditionsInput generalInput)
+        {
+            double norm = failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType);
+            return CalculateWaveConditions(calculation.InputParameters,
+                                           assessmentLevel,
+                                           generalInput.A, generalInput.B, generalInput.C, norm,
+                                           assessmentSection.HydraulicBoundaryDatabase);
         }
     }
 }
