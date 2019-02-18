@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationStabilityStoneCoverCalculationTypeTest.cs" />
     <Compile Include="Configurations\Converters\ConfigurationStabilityStoneCoverCalculationTypeConverterTest.cs" />
+    <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationWriterTest.cs" />
