@@ -845,7 +845,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 grassCoverErosionOutwardsWaveConditionsCalculationService.OnProgressChanged += (description, step, steps) =>
                 {
                     // Assert
-                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor gras berekenen.";
+                    string loadType = step <= waterLevels.Length ? "golfoploop" : "golfklap";
+                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {loadType} berekenen.";
                     Assert.AreEqual(text, description);
                     Assert.AreEqual(currentStep++, step);
                     Assert.AreEqual(nrOfCalculators, steps);

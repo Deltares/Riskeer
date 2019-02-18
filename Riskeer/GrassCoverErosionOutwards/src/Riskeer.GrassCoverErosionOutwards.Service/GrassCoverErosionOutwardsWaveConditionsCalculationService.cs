@@ -92,14 +92,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                                                                                 calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                 calculation.InputParameters.CategoryType);
 
-            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
-            CurrentCalculationType = "gras";
+            int nrOfWaterLevel = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
+            TotalWaterLevelCalculations = nrOfWaterLevel * 2;
 
             try
             {
+                CurrentCalculationType = "golfoploop";
                 IEnumerable<WaveConditionsOutput> outputs = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
-                outputs = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
 
+
+                CurrentCalculationType = "golfklap";
+                outputs = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                
                 if (!Canceled)
                 {
                     calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputs);
