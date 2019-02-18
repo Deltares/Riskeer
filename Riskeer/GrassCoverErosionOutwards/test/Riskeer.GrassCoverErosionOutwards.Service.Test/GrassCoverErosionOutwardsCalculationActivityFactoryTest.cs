@@ -353,7 +353,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
+            int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
