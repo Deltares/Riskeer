@@ -167,6 +167,10 @@
       <Project>{8e4e1877-697a-45d3-81cf-169efdf65aa0}</Project>
       <Name>Riskeer.StabilityStoneCover.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.IO\Riskeer.StabilityStoneCover.IO.csproj">
+      <Project>{CF6B8598-2993-4A8E-801D-121CC0EF358E}</Project>
+      <Name>Riskeer.StabilityStoneCover.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj">
       <Project>{9ddc42cc-a2cc-4900-a711-aa1dd6d3a94a}</Project>
       <Name>Riskeer.StabilityStoneCover.Plugin</Name>

@@ -29,9 +29,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
@@ -88,7 +88,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculationConfigurationExporter>(fileExporter);
             mocks.VerifyAll();
         }
 

@@ -53,6 +53,7 @@ using Riskeer.StabilityStoneCover.Forms;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Forms.Views;
+using Riskeer.StabilityStoneCover.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Exporters;
 using Riskeer.StabilityStoneCover.Plugin.FileImporters;
 using Riskeer.StabilityStoneCover.Service;
@@ -221,11 +222,11 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
-                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
-                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(new[]
+                (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
                 }, filePath));
