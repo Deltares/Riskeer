@@ -30,14 +30,14 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
     /// Writer for calculations that contain <see cref="StabilityStoneCoverWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationConfigurationWriter 
+    public class StabilityStoneCoverWaveConditionsCalculationConfigurationWriter
         : AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<StabilityStoneCoverWaveConditionsCalculationConfiguration>
     {
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationConfigurationWriter"/>.
         /// </summary>
-        public StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(string filePath) 
+        public StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
         protected override void WriteWaveConditionsSpecificParameters(XmlWriter writer, StabilityStoneCoverWaveConditionsCalculationConfiguration configuration)
@@ -50,7 +50,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
             }
 
             var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
-            writer.WriteElementString("typebekleding",
+            writer.WriteElementString(StabilityStoneCoverWaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,
                                       converter.ConvertToInvariantString(configuration.CalculationType.Value));
         }
     }
