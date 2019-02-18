@@ -166,21 +166,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(8, msgs.Length);
+                    const int expectedNrOfMessages = 18;
+                    Assert.AreEqual(expectedNrOfMessages, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
-                    var i = 0;
-                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation, failureMechanism, assessmentSection))
-                    {
-                        Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
-                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
-                        Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is beëindigd.", msgs[i + 3]);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfoploop", 1);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfklap", 9);
 
-                        i = i + 3;
-                    }
-
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedNrOfMessages - 1]);
                 });
             }
 
@@ -243,21 +237,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(8, msgs.Length);
+                    const int expectedNrOfMessages = 18;
+                    Assert.AreEqual(expectedNrOfMessages, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
-                    var i = 0;
-                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation, failureMechanism, assessmentSection))
-                    {
-                        Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
-                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
-                        Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is beëindigd.", msgs[i + 3]);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfoploop", 1);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfklap", 9);
 
-                        i = i + 3;
-                    }
-
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedNrOfMessages - 1]);
                 });
             }
 
@@ -458,6 +446,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 });
             ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
+            int nrOfCalculators = waterLevels.Length * 2;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -465,7 +455,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(3);
+                             .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -686,6 +676,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
+            int nrOfCalculators = waterLevels.Length * 2;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -698,7 +690,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              })
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(3);
+                             .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -859,6 +851,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             }
 
             mockRepository.VerifyAll();
+        }
+
+        private static void AssertCalculationLogs(string[] logMessages, IEnumerable<RoundedDouble> waterLevels, string calculationType, int index)
+        {
+            Assert.AreEqual($"Berekening voor {calculationType} is gestart.", logMessages[index++]);
+
+            foreach (RoundedDouble waterLevel in waterLevels)
+            {
+                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", logMessages[index++]);
+                StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", logMessages[index++]);
+                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is beëindigd.", logMessages[index++]);
+            }
+
+            Assert.AreEqual($"Berekening voor {calculationType} is beëindigd.", logMessages[index]);
         }
 
         private static AssessmentSectionStub CreateAssessmentSection()
