@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations.Converters;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.IO.Configurations.Converters;
 
 namespace Riskeer.StabilityStoneCover.IO.Configurations
 {
@@ -40,7 +42,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) 
+        public StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
@@ -52,7 +54,11 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
             ICalculation<StabilityStoneCoverWaveConditionsInput> calculation)
         {
             var configuration = new StabilityStoneCoverWaveConditionsCalculationConfiguration(calculation.Name);
-
+            SetConfigurationProperties(configuration, calculation);
+            configuration.CategoryType = (ConfigurationAssessmentSectionCategoryType?) new ConfigurationAssessmentSectionCategoryTypeConverter()
+                .ConvertFrom(calculation.InputParameters.CategoryType);
+            configuration.CalculationType = (ConfigurationStabilityStoneCoverCalculationType?) new ConfigurationStabilityStoneCoverCalculationTypeConverter()
+                .ConvertFrom(calculation.InputParameters.CalculationType);
             return configuration;
         }
     }

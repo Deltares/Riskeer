@@ -21,10 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
@@ -37,6 +40,62 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         StabilityStoneCoverWaveConditionsCalculationConfigurationExporter, StabilityStoneCoverWaveConditionsCalculationConfigurationWriter,
         ICalculation<StabilityStoneCoverWaveConditionsInput>, StabilityStoneCoverWaveConditionsCalculationConfiguration>
     {
+        [Test]
+        public void Export_ValidData_ReturnTrueAndWritesFile()
+        {
+            // Setup
+            var calculation1 = new TestWaveConditionsCalculation<StabilityStoneCoverWaveConditionsInput>(new StabilityStoneCoverWaveConditionsInput())
+            {
+                Name = "Calculation A",
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
+                    CategoryType = AssessmentSectionCategoryType.FactorizedSignalingNorm
+                }
+            };
+
+            var calculation2 = new TestWaveConditionsCalculation<StabilityStoneCoverWaveConditionsInput>(new StabilityStoneCoverWaveConditionsInput())
+            {
+                Name = "PK001_0002 W1-6_4_1D1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0),
+                    UseBreakWater = true,
+                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                    CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Blocks
+                }
+            };
+
+            var calculationGroup2 = new CalculationGroup
+            {
+                Name = "PK001_0002",
+                Children =
+                {
+                    calculation2
+                }
+            };
+
+            var calculationGroup = new CalculationGroup
+            {
+                Name = "PK001_0001",
+                Children =
+                {
+                    calculation1,
+                    calculationGroup2
+                }
+            };
+
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityStoneCover.IO,
+                                                                    Path.Combine(
+                                                                        nameof(StabilityStoneCoverWaveConditionsCalculationConfigurationExporter),
+                                                                        "fullValidConfiguration.xml"));
+            // Call and Assert
+            WriteAndValidate(new[]
+            {
+                calculationGroup
+            }, expectedXmlFilePath);
+        }
+
         protected override ICalculation<StabilityStoneCoverWaveConditionsInput> CreateCalculation()
         {
             var random = new Random(21);
