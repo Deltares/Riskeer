@@ -17,6 +17,7 @@
     <Compile Include="Configurations\Converters\ConfigurationStabilityStoneCoverCalculationTypeConverter.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfiguration.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationImporter.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationReader.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationWriter.cs" />
