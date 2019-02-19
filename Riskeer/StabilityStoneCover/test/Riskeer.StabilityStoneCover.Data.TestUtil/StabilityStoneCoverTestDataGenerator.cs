@@ -47,21 +47,5 @@ namespace Riskeer.StabilityStoneCover.Data.TestUtil
 
             return calculation;
         }
-
-        /// <summary>
-        /// Creates a random instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.
-        /// </summary>
-        /// <returns>A random instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.</returns>
-        public static StabilityStoneCoverWaveConditionsOutput GetRandomStabilityStoneCoverWaveConditionsOutput()
-        {
-            return new StabilityStoneCoverWaveConditionsOutput(new[]
-                                                               {
-                                                                   WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
-                                                               },
-                                                               new[]
-                                                               {
-                                                                   WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
-                                                               });
-        }
     }
 }

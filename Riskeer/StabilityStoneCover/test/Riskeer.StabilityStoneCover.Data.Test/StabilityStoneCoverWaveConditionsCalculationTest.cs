@@ -25,6 +25,7 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
 
 namespace Riskeer.StabilityStoneCover.Data.Test
@@ -122,7 +123,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
+                Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
 
             // Call
@@ -138,7 +139,14 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             // Setup
             StabilityStoneCoverWaveConditionsCalculation original = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditionsCalculation();
 
-            original.Output = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditionsOutput();
+            original.Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
+                                                                                        {
+                                                                                            WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                                                                                        },
+                                                                                        new[]
+                                                                                        {
+                                                                                            WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                                                                                        });
 
             // Call
             object clone = original.Clone();

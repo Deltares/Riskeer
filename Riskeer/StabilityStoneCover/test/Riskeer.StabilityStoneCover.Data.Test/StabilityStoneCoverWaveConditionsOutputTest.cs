@@ -60,7 +60,14 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void Clone_WithOutputSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            StabilityStoneCoverWaveConditionsOutput original = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditionsOutput();
+            var original = new StabilityStoneCoverWaveConditionsOutput(new[]
+                                                                       {
+                                                                           WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                                                                       },
+                                                                       new[]
+                                                                       {
+                                                                           WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                                                                       });
 
             // Call
             object clone = original.Clone();
