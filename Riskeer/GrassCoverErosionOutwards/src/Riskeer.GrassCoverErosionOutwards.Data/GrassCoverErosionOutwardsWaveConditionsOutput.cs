@@ -36,28 +36,28 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.
         /// </summary>
-        /// <param name="items">The wave conditions output items.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="items"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> items)
+        /// <param name="waveRunUpOutput">The wave conditions output items.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveRunUpOutput"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput)
         {
-            if (items == null)
+            if (waveRunUpOutput == null)
             {
-                throw new ArgumentNullException(nameof(items));
+                throw new ArgumentNullException(nameof(waveRunUpOutput));
             }
 
-            Items = items;
+            WaveRunUpOutput = waveRunUpOutput;
         }
 
         /// <summary>
-        /// Gets the output items.
+        /// Gets the wave conditions output for wave run up.
         /// </summary>
-        public IEnumerable<WaveConditionsOutput> Items { get; private set; }
+        public IEnumerable<WaveConditionsOutput> WaveRunUpOutput { get; private set; }
 
         public override object Clone()
         {
             var clone = (GrassCoverErosionOutwardsWaveConditionsOutput) base.Clone();
 
-            clone.Items = Items.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+            clone.WaveRunUpOutput = WaveRunUpOutput.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
 
             return clone;
         }

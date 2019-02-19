@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(GrassCoverErosionOutwardsWaveConditionsOutput original, GrassCoverErosionOutwardsWaveConditionsOutput clone)
         {
-            CoreCloneAssert.AreEnumerationClones(original.Items, clone.Items, WaveConditionsCloneAssert.AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.WaveRunUpOutput, clone.WaveRunUpOutput, WaveConditionsCloneAssert.AreClones);
         }
 
         /// <summary>

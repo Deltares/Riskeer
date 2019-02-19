@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
-using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
@@ -40,32 +42,30 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("items", exception.ParamName);
+            Assert.AreEqual("waveRunUpOutput", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var outputItems = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
+            IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputItems);
+            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput);
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
-            Assert.AreSame(outputItems, output.Items);
+            Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
         }
 
         [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsOutput original = GrassCoverErosionOutwardsTestDataGenerator.GetRandomGrassCoverErosionOutwardsWaveConditionsOutput();
+            GrassCoverErosionOutwardsWaveConditionsOutput original =
+                GrassCoverErosionOutwardsTestDataGenerator.GetRandomGrassCoverErosionOutwardsWaveConditionsOutput();
 
             // Call
             object clone = original.Clone();

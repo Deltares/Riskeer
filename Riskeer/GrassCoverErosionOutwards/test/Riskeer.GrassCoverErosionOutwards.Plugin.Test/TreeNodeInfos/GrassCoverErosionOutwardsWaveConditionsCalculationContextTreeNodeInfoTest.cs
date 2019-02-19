@@ -1558,7 +1558,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(28, messages.Length);
                     });
 
-                    Assert.AreEqual(3, calculation.Output.Items.Count());
+                    Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
                 }
             }
         }

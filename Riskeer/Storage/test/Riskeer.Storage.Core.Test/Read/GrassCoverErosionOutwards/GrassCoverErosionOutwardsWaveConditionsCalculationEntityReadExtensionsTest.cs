@@ -261,10 +261,10 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            double accuracy = calculation.Output.Items.First().WaterLevel.GetAccuracy();
-            Assert.AreEqual(2, calculation.Output.Items.Count());
-            Assert.AreEqual(outputALevel, calculation.Output.Items.ElementAt(0).WaterLevel, accuracy);
-            Assert.AreEqual(outputBLevel, calculation.Output.Items.ElementAt(1).WaterLevel, accuracy);
+            double accuracy = calculation.Output.WaveRunUpOutput.First().WaterLevel.GetAccuracy();
+            Assert.AreEqual(2, calculation.Output.WaveRunUpOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.WaveRunUpOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.WaveRunUpOutput.ElementAt(1).WaterLevel, accuracy);
         }
 
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)

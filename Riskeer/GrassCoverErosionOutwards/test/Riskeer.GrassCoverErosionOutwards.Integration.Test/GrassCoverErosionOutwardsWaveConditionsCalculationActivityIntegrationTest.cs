@@ -502,7 +502,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
-                Assert.AreEqual(3, calculation.Output.Items.Count());
+                Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
             }
 
             mockRepository.VerifyAll();

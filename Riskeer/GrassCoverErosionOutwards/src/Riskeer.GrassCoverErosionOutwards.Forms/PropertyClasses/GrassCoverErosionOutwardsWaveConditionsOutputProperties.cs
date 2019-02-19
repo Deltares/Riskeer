@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Items.Select(waveConditionsOutput => new WaveConditionsOutputProperties
+                return data.WaveRunUpOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
                 {
                     Data = waveConditionsOutput
                 }).ToArray();

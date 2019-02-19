@@ -538,7 +538,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
-                Assert.AreEqual(3, calculation.Output.Items.Count());
+                Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
             }
 
             mockRepository.VerifyAll();
@@ -724,7 +724,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[24]);
                 });
 
-                WaveConditionsOutput[] waveConditionsOutputs = calculation.Output.Items.ToArray();
+                WaveConditionsOutput[] waveConditionsOutputs = calculation.Output.WaveRunUpOutput.ToArray();
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
                 double targetNorm = CalculateTargetNorm(assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
