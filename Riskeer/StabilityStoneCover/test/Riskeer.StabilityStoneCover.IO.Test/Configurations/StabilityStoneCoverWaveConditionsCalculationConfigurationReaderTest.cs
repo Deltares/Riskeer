@@ -21,10 +21,12 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.IO.Configurations;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 
@@ -86,6 +88,36 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculation.xml");
+            var reader = new StabilityStoneCoverWaveConditionsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
+
+            // Assert
+            var calculation = (StabilityStoneCoverWaveConditionsCalculationConfiguration)readItems.Single();
+
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
+            Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
+            Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
+            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
+            Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfileId);
+            Assert.AreEqual(5.5, calculation.Orientation);
+            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);
+            Assert.AreEqual(6.6, calculation.WaveReduction.BreakWaterHeight);
+            Assert.IsFalse(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.AreEqual(ConfigurationAssessmentSectionCategoryType.SignalingNorm, calculation.CategoryType);
+            Assert.AreEqual(ConfigurationStabilityStoneCoverCalculationType.Columns, calculation.CalculationType);
         }
     }
 }

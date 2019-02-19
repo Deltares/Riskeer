@@ -23,7 +23,10 @@ using System;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Riskeer.Common.IO.Configurations;
+using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Revetment.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations.Converters;
+using Riskeer.StabilityStoneCover.IO.Configurations.Converters;
 using Riskeer.StabilityStoneCover.IO.Properties;
 
 namespace Riskeer.StabilityStoneCover.IO.Configurations
@@ -52,7 +55,16 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            throw new NotImplementedException();
+            var configuration = new StabilityStoneCoverWaveConditionsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value);
+            ParseCalculationElementData(calculationElement, configuration);
+            configuration.CategoryType = (ConfigurationAssessmentSectionCategoryType?)
+                calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationAssessmentSectionCategoryTypeConverter>(
+                    WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType);
+
+            configuration.CalculationType = (ConfigurationStabilityStoneCoverCalculationType?)
+                calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationStabilityStoneCoverCalculationTypeConverter>(
+                    StabilityStoneCoverWaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType);
+            return configuration;
         }
     }
 }
