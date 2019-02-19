@@ -30,9 +30,9 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.IO.Configurations;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
@@ -125,7 +125,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(context, "");
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculationConfigurationImporter>(importer);
             mocks.VerifyAll();
         }
     }

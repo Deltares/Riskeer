@@ -46,7 +46,6 @@ using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
-using Riskeer.Revetment.IO.Configurations;
 using Riskeer.Revetment.Service;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms;
@@ -188,7 +187,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
         {
             yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
-                    new AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
+                    new StabilityStoneCoverWaveConditionsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
                         context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
