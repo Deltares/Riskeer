@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Include="GrassCoverErosionOutwardsAssessmentSectionTestHelperTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelperTest.cs" />
+    <Compile Include="GrassCoverErosionOutwardsWaveConditionsOutputTestFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +37,10 @@
     <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Riskeer.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
+      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
+      <Name>Riskeer.Revetment.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>

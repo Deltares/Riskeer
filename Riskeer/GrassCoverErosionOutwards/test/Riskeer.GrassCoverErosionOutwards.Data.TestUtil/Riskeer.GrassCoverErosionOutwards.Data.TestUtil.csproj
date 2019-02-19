@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="GrassCoverErosionOutwardsAssessmentSectionTestHelper.cs" />
     <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.cs" />
+    <Compile Include="GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GrassCoverErosionOutwardsCloneAssert.cs" />
     <Compile Include="GrassCoverErosionOutwardsTestDataGenerator.cs" />
