@@ -19,12 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.Data;
 
@@ -50,12 +51,24 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
-            throw new NotImplementedException();
+            return new StabilityStoneCoverWaveConditionsCalculationConfigurationReader(xmlFilePath);
         }
 
         protected override void SetCategoryType(StabilityStoneCoverWaveConditionsCalculationConfiguration calculationConfiguration, StabilityStoneCoverWaveConditionsCalculation calculation, NormType normType)
         {
-            throw new NotImplementedException();
+            if (calculationConfiguration.CategoryType.HasValue)
+            {
+                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) calculationConfiguration.CategoryType.Value;
+            }
+            else
+            {
+                WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
+            }
+
+            if (calculationConfiguration.CalculationType.HasValue)
+            {
+                calculation.InputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) calculationConfiguration.CalculationType.Value;
+            }
         }
     }
 }
