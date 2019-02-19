@@ -28,6 +28,7 @@
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationTypeTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsInputTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsOutputTest.cs" />
+    <Compile Include="GrassCoverErosionOutwardsWaveConditionsOutputFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
