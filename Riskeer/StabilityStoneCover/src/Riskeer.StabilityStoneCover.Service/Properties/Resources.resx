@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started" xml:space="preserve">
-    <value>Berekening voor blokken is gestart.</value>
-  </data>
-  <data name="StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished" xml:space="preserve">
-    <value>Berekening voor blokken is beëindigd.</value>
-  </data>
-  <data name="StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started" xml:space="preserve">
-    <value>Berekening voor zuilen is gestart.</value>
-  </data>
-  <data name="StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished" xml:space="preserve">
-    <value>Berekening voor zuilen is beëindigd.</value>
-  </data>
   <data name="StabilityStoneCoverWaveConditions_Blocks_DisplayName" xml:space="preserve">
     <value>blokken</value>
   </data>

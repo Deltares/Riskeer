@@ -98,45 +98,5 @@ namespace Riskeer.StabilityStoneCover.Service.Properties {
                 return ResourceManager.GetString("StabilityStoneCoverWaveConditions_Columns_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor blokken is beëindigd..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blo" +
-                        "cks_finished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor blokken is gestart..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blo" +
-                        "cks_started", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor zuilen is beëindigd..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_col" +
-                        "umns_finished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening voor zuilen is gestart..
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_col" +
-                        "umns_started", resourceCulture);
-            }
-        }
     }
 }

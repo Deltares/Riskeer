@@ -32,6 +32,7 @@ using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Service;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Service.Properties;
+using RevetmentServiceResources = Riskeer.Revetment.Service.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Service
 {
@@ -162,8 +163,7 @@ namespace Riskeer.StabilityStoneCover.Service
                                                                    GeneralWaveConditionsInput generalInput, double norm)
         {
             return Calculate(calculation, assessmentSection, assessmentLevel, generalInput, norm,
-                             Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started,
-                             Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished);
+                             Resources.StabilityStoneCoverWaveConditions_Columns_DisplayName);
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateBlocks(StabilityStoneCoverWaveConditionsCalculation calculation,
@@ -171,21 +171,20 @@ namespace Riskeer.StabilityStoneCover.Service
                                                                   GeneralWaveConditionsInput generalInput, double norm)
         {
             return Calculate(calculation, assessmentSection, assessmentLevel, generalInput, norm,
-                             Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started,
-                             Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished);
+                             Resources.StabilityStoneCoverWaveConditions_Blocks_DisplayName);
         }
 
         private IEnumerable<WaveConditionsOutput> Calculate(StabilityStoneCoverWaveConditionsCalculation calculation,
                                                             IAssessmentSection assessmentSection, RoundedDouble assessmentLevel,
                                                             GeneralWaveConditionsInput generalInput, double norm,
-                                                            string startMessage, string endMessage)
+                                                            string calculationType)
         {
-            log.InfoFormat(startMessage);
+            log.InfoFormat(RevetmentServiceResources.WaveConditionsCalculationService_Calculate_calculationType_0_started, calculationType);
             IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                 assessmentLevel, generalInput.A,
                                                                                 generalInput.B, generalInput.C, norm,
                                                                                 assessmentSection.HydraulicBoundaryDatabase);
-            log.InfoFormat(endMessage);
+            log.InfoFormat(RevetmentServiceResources.WaveConditionsCalculationService_Calculate_calculationType_0_ended, calculationType);
             return outputs;
         }
     }
