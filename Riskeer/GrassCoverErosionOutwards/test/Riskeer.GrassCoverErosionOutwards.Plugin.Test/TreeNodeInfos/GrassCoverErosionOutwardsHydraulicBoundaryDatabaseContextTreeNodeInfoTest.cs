@@ -329,7 +329,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                  })
                                  .Return(waveConditionsCalculator)
                                  .Repeat
-                                 .Times(3);
+                                 .Times(6);
                 mockRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -345,7 +345,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(95, msgs.Length);
+                        Assert.AreEqual(108, msgs.Length);
 
                         const string designWaterLevelCalculationTypeDisplayName = "Waterstand";
                         const string designWaterLevelCalculationDisplayName = "Waterstand berekening";
@@ -383,11 +383,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(
                             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result);
                         Assert.AreEqual(3, waterLevels.Count());
-                        AssertWaveConditionsCalculationMessages(msgs, 84, waterLevels.First());
-                        AssertWaveConditionsCalculationMessages(msgs, 87, waterLevels.ElementAt(1));
-                        AssertWaveConditionsCalculationMessages(msgs, 90, waterLevels.ElementAt(2));
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(93));
-                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(94));
+                        AssertWaveConditionsCalculationMessages(msgs,waterLevels, "golfoploop", 84);
+                        AssertWaveConditionsCalculationMessages(msgs,waterLevels ,"golfklap", 95);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(106));
+                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(107));
                     });
                 }
             }
@@ -489,13 +488,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
         }
 
-        private static void AssertWaveConditionsCalculationMessages(IEnumerable<string> messages, int startIndex, RoundedDouble waterLevel)
+        private static void AssertWaveConditionsCalculationMessages(string[] logMessages, IEnumerable<RoundedDouble> waterLevels, string calculationType, int index)
         {
-            Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", messages.ElementAt(startIndex));
-            Assert.AreEqual("Golfcondities berekening is uitgevoerd op de tijdelijke locatie ''. " +
-                            "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.",
-                            messages.ElementAt(startIndex + 1));
-            Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is beëindigd.", messages.ElementAt(startIndex + 2));
+            Assert.AreEqual($"Berekening voor {calculationType} is gestart.", logMessages[index++]);
+
+            foreach (RoundedDouble waterLevel in waterLevels)
+            {
+                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", logMessages[index++]);
+                StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", logMessages[index++]);
+                Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is beëindigd.", logMessages[index++]);
+            }
+
+            Assert.AreEqual($"Berekening voor {calculationType} is beëindigd.", logMessages[index]);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)

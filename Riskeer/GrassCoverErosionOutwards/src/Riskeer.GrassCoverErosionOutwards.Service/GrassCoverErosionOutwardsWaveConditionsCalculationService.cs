@@ -100,11 +100,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             try
             {
-                CurrentCalculationType = "golfoploop";
-                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                IEnumerable<WaveConditionsOutput> outputs = null;
 
-                CurrentCalculationType = "golfklap";
-                outputs = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
+                {
+                    CurrentCalculationType = "golfoploop";
+                    outputs = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                }
+
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
+                {
+                    CurrentCalculationType = "golfklap";
+                    outputs = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                }
 
                 if (!Canceled)
                 {
@@ -126,7 +137,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                              failureMechanism,
                              assessmentSection,
                              assessmentLevel,
-                             failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput, 
+                             failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput,
                              "golfklap");
         }
 

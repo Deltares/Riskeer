@@ -1555,7 +1555,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
-                        Assert.AreEqual(15, messages.Length);
+                        Assert.AreEqual(28, messages.Length);
                     });
 
                     Assert.AreEqual(3, calculation.Output.Items.Count());

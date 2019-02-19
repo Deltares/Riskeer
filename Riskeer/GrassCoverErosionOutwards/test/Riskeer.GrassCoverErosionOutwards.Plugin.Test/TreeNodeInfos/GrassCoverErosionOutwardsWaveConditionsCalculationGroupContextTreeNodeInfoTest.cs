@@ -1215,16 +1215,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(test, m =>
                     {
                         string[] messages = m.ToArray();
-                        Assert.AreEqual(30, messages.Length);
+                        Assert.AreEqual(56, messages.Length);
                         Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[13]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[14]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[27]);
 
-                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[15]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[18]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[28]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[29]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[28]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[31]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[54]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[55]);
                     });
                 }
 

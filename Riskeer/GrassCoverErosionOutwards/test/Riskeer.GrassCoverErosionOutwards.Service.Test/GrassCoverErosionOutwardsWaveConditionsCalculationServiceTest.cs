@@ -253,6 +253,77 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, 18)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, 10)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, 10)]
+        public void Calculate_CalculateWithValidInputAndDifferentCalculationTypes_LogStartAndEnd(
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, int expectedMessageCount)
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            calculation.InputParameters.CalculationType = calculationType;
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
+            int nrOfCalculators = calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                                      ? waterLevels.Length * 2
+                                      : waterLevels.Length;
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
+                             .Return(new TestWaveConditionsCosineCalculator())
+                             .Repeat
+                             .Times(nrOfCalculators);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation, 
+                                                                                                              failureMechanism, 
+                                                                                                              assessmentSection);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(expectedMessageCount, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+
+                    if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp ||
+                        calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both)
+                    {
+                        AssertCalculationLogs(msgs, waterLevels, "golfoploop", 1);
+                    }
+
+                    if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact ||
+                        calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both)
+                    {
+                        int countStart = calculationType != GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
+                                             ? expectedMessageCount / 2
+                                             : 1;
+                        AssertCalculationLogs(msgs, waterLevels, "golfklap", countStart);
+                    }
+
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedMessageCount - 1]);
+                });
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         [TestCase(BreakWaterType.Caisson)]
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam)]

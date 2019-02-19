@@ -161,7 +161,7 @@ namespace Riskeer.Integration.Service.Test
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);
+                                 .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(6);
 
                 calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
                                              Arg<HydraRingCalculationSettings>.Is.NotNull))
