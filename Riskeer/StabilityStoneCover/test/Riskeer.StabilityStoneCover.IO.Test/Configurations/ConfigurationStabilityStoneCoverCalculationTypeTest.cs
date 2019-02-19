@@ -36,10 +36,10 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 return new Dictionary<ConfigurationStabilityStoneCoverCalculationType, int>
                 {
                     {
-                        ConfigurationStabilityStoneCoverCalculationType.Columns, 1
+                        ConfigurationStabilityStoneCoverCalculationType.Blocks, 1
                     },
                     {
-                        ConfigurationStabilityStoneCoverCalculationType.Blocks, 2
+                        ConfigurationStabilityStoneCoverCalculationType.Columns, 2
                     },
                     {
                         ConfigurationStabilityStoneCoverCalculationType.Both, 3

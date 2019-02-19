@@ -35,10 +35,10 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 return new Dictionary<StabilityStoneCoverWaveConditionsCalculationType, int>
                 {
                     {
-                        StabilityStoneCoverWaveConditionsCalculationType.Columns, 1
+                        StabilityStoneCoverWaveConditionsCalculationType.Blocks, 1
                     },
                     {
-                        StabilityStoneCoverWaveConditionsCalculationType.Blocks, 2
+                        StabilityStoneCoverWaveConditionsCalculationType.Columns, 2
                     },
                     {
                         StabilityStoneCoverWaveConditionsCalculationType.Both, 3
@@ -54,10 +54,10 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 return new Dictionary<StabilityStoneCoverWaveConditionsCalculationType, string>
                 {
                     {
-                        StabilityStoneCoverWaveConditionsCalculationType.Columns, "Steen (zuilen)"
+                        StabilityStoneCoverWaveConditionsCalculationType.Blocks, "Steen (blokken)"
                     },
                     {
-                        StabilityStoneCoverWaveConditionsCalculationType.Blocks, "Steen (blokken)"
+                        StabilityStoneCoverWaveConditionsCalculationType.Columns, "Steen (zuilen)"
                     },
                     {
                         StabilityStoneCoverWaveConditionsCalculationType.Both, "Steen (blokken en zuilen)"

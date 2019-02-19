@@ -126,7 +126,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (StabilityStoneCoverWaveConditionsCalculation)calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (StabilityStoneCoverWaveConditionsCalculation) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -195,7 +195,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (StabilityStoneCoverWaveConditionsCalculation)calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (StabilityStoneCoverWaveConditionsCalculation) calculationGroup.Children[0]);
         }
 
         private static void AssertWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation,

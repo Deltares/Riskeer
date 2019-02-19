@@ -30,16 +30,16 @@ namespace Riskeer.StabilityStoneCover.Data
     public enum StabilityStoneCoverWaveConditionsCalculationType
     {
         /// <summary>
-        /// Calculate the columns.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName))]
-        Columns = 1,
-
-        /// <summary>
         /// Calculate the blocks.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName))]
-        Blocks = 2,
+        Blocks = 1,
+
+        /// <summary>
+        /// Calculate the columns.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName))]
+        Columns = 2,
 
         /// <summary>
         /// Calculate both the blocks and columns.

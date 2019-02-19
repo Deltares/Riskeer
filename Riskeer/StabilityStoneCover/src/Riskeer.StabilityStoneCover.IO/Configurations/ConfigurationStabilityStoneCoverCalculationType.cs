@@ -28,14 +28,14 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
     public enum ConfigurationStabilityStoneCoverCalculationType
     {
         /// <summary>
-        /// Calculate the columns.
-        /// </summary>
-        Columns = 1,
-
-        /// <summary>
         /// Calculate the blocks.
         /// </summary>
-        Blocks = 2,
+        Blocks = 1,
+
+        /// <summary>
+        /// Calculate the columns.
+        /// </summary>
+        Columns = 2,
 
         /// <summary>
         /// Calculate both the blocks and columns.
