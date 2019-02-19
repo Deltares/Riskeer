@@ -55,9 +55,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
             return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override void SetCategoryType(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration calculationConfiguration,
-                                                GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                NormType normType)
+        protected override void SetCalculationSpecificParameters(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration calculationConfiguration,
+                                                                 GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                                 NormType normType)
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {

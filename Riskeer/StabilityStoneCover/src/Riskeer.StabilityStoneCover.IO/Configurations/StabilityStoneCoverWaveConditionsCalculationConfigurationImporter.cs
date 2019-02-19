@@ -54,7 +54,8 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
             return new StabilityStoneCoverWaveConditionsCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override void SetCategoryType(StabilityStoneCoverWaveConditionsCalculationConfiguration calculationConfiguration, StabilityStoneCoverWaveConditionsCalculation calculation, NormType normType)
+        protected override void SetCalculationSpecificParameters(StabilityStoneCoverWaveConditionsCalculationConfiguration calculationConfiguration,
+                                                                 StabilityStoneCoverWaveConditionsCalculation calculation, NormType normType)
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {

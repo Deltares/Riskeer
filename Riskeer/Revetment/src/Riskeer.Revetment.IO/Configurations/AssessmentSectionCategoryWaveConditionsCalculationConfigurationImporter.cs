@@ -54,9 +54,9 @@ namespace Riskeer.Revetment.IO.Configurations
             return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override void SetCategoryType(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration,
-                                                T calculation,
-                                                NormType normType)
+        protected override void SetCalculationSpecificParameters(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration,
+                                                                 T calculation,
+                                                                 NormType normType)
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {

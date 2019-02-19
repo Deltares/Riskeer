@@ -371,9 +371,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 return new TestWaveConditionsCalculationConfigurationReader(xmlFilePath);
             }
 
-            protected override void SetCategoryType(WaveConditionsCalculationConfiguration calculationConfiguration,
-                                                    TestTargetTestWaveConditionsCalculation calculation,
-                                                    NormType normType)
+            protected override void SetCalculationSpecificParameters(WaveConditionsCalculationConfiguration calculationConfiguration,
+                                                                     TestTargetTestWaveConditionsCalculation calculation,
+                                                                     NormType normType)
             {
                 NormType = normType;
             }
