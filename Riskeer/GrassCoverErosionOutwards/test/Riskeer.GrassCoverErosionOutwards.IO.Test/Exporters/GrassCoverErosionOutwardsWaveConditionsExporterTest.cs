@@ -116,7 +116,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 {
                     new GrassCoverErosionOutwardsWaveConditionsCalculation
                     {
-                        Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+                        Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
                     }
                 };
 
@@ -163,7 +163,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                         Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                         {
                             new TestWaveConditionsOutput()
-                        })
+                        }, null)
                     }
                 };
 

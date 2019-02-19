@@ -56,7 +56,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
-            var grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(items);
+            var grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(items, null);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
@@ -95,7 +95,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
-            var grassCoverErosionOutwardsOutputProperties = new GrassCoverErosionOutwardsWaveConditionsOutput(items);
+            var grassCoverErosionOutwardsOutputProperties = new GrassCoverErosionOutwardsWaveConditionsOutput(items, null);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties

@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
                                                                      .OrderBy(e => e.Order)
                                                                      .Select(e => e.Read())
                                                                      .ToList();
-            calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveConditionsOutputs);
+            calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveConditionsOutputs, null);
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity,

@@ -359,7 +359,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
         {
             return new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
             };
         }
     }

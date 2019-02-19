@@ -137,7 +137,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
                     new TestWaveConditionsOutput()
                 };
 
-                calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
+                calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(output, null);
             }
 
             calculationGroup.Children.Add(calculation);
@@ -172,7 +172,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
                 {
                     new TestWaveConditionsOutput()
                 };
-                grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
+                grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(output, null);
             }
 
             calculationGroup.Children.Add(

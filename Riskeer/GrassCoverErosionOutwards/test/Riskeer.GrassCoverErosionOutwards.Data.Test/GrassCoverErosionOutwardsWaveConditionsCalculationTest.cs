@@ -19,13 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
-using Riskeer.Revetment.Data;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
@@ -56,7 +54,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+                Output = GrassCoverErosionOutwardsTestDataGenerator.GetRandomGrassCoverErosionOutwardsWaveConditionsOutput()
             };
 
             // Precondition
@@ -91,7 +89,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+                Output = GrassCoverErosionOutwardsTestDataGenerator.GetRandomGrassCoverErosionOutwardsWaveConditionsOutput()
             };
 
             // Call
@@ -123,7 +121,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+                Output = GrassCoverErosionOutwardsTestDataGenerator.GetRandomGrassCoverErosionOutwardsWaveConditionsOutput()
             };
 
             // Call

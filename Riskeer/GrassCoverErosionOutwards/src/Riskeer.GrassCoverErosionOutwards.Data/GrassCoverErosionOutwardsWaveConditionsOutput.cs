@@ -36,16 +36,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.
         /// </summary>
-        /// <param name="waveRunUpOutput">The wave conditions output items.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveRunUpOutput"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput)
+        /// <param name="waveRunUpOutput">The wave conditions output for wave run up.</param>
+        /// <param name="waveImpactOutput">The wave conditions output for wave impact.</param>
+        public GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput, 
+                                                             IEnumerable<WaveConditionsOutput> waveImpactOutput)
         {
-            if (waveRunUpOutput == null)
-            {
-                throw new ArgumentNullException(nameof(waveRunUpOutput));
-            }
-
             WaveRunUpOutput = waveRunUpOutput;
+            WaveImpactOutput = waveImpactOutput;
         }
 
         /// <summary>
@@ -53,11 +50,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         public IEnumerable<WaveConditionsOutput> WaveRunUpOutput { get; private set; }
 
+        /// <summary>
+        /// Gets the wave conditions output for wave impact.
+        /// </summary>
+        public IEnumerable<WaveConditionsOutput> WaveImpactOutput { get; private set; }
+
         public override object Clone()
         {
             var clone = (GrassCoverErosionOutwardsWaveConditionsOutput) base.Clone();
 
-            clone.WaveRunUpOutput = WaveRunUpOutput.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+            clone.WaveRunUpOutput = WaveRunUpOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+            clone.WaveImpactOutput = WaveImpactOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
 
             return clone;
         }

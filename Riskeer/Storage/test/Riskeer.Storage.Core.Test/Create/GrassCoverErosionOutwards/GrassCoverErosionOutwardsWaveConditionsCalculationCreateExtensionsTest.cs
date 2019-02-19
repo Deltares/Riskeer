@@ -225,7 +225,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                 {
                     new TestWaveConditionsOutput()
-                })
+                }, null)
             };
 
             // Call

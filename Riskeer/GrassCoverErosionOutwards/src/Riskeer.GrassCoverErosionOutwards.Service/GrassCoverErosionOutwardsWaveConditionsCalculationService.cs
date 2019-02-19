@@ -121,7 +121,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
                 if (!Canceled)
                 {
-                    calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputs);
+                    calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputs, null);
                 }
             }
             finally

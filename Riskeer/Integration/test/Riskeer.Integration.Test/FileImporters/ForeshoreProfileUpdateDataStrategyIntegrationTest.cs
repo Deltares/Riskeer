@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Test.FileImporters
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                 {
                     new TestWaveConditionsOutput()
-                })
+                }, null)
             };
             grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
             return grassCoverErosionOutwardsFailureMechanism;

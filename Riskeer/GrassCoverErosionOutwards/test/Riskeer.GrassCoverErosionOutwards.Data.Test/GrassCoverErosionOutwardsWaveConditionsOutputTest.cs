@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -28,6 +27,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
@@ -35,37 +35,47 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
     public class GrassCoverErosionOutwardsWaveConditionsOutputTest
     {
         [Test]
-        public void Constructor_OutputItemsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("waveRunUpOutput", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput);
+            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput);
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
+            Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_WithOutputSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsOutput original =
-                GrassCoverErosionOutwardsTestDataGenerator.GetRandomGrassCoverErosionOutwardsWaveConditionsOutput();
+            var original = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
+                                                                             {
+                                                                                 WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                                                                             },
+                                                                             new[]
+                                                                             {
+                                                                                 WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                                                                             });
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionOutwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_OutputNull_ReturnsNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new GrassCoverErosionOutwardsWaveConditionsOutput(null, null);
 
             // Call
             object clone = original.Clone();

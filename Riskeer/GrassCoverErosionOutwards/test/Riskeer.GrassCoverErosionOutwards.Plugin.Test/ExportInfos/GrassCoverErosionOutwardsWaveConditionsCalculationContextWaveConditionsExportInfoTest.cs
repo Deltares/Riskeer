@@ -131,7 +131,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
                     Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                     {
                         new TestWaveConditionsOutput()
-                    })
+                    }, null)
                 },
                 new CalculationGroup(),
                 new GrassCoverErosionOutwardsFailureMechanism(),

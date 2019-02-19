@@ -1933,7 +1933,7 @@ namespace Riskeer.Storage.Core.TestUtil
                     {
                         new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
                         new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
-                    })
+                    }, null)
                 });
         }
 
