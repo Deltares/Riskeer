@@ -76,20 +76,28 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("a", nameProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'a' in de berekening voor golf condities.", nameProperty.Description);
+            const string miscCategory = "Misc";
 
-            PropertyDescriptor codeProperty = dynamicProperties[1];
-            Assert.IsTrue(codeProperty.IsReadOnly);
-            Assert.AreEqual("b", codeProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'b' in de berekening voor golf condities.", codeProperty.Description);
+            PropertyDescriptor aProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
+                                                                            miscCategory,
+                                                                            "a",
+                                                                            "De waarde van de parameter 'a' in de berekening voor golfcondities.",
+                                                                            true);
 
-            PropertyDescriptor blocksProperty = dynamicProperties[2];
-            Assert.IsTrue(blocksProperty.IsReadOnly);
-            Assert.AreEqual("c", blocksProperty.DisplayName);
-            Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", blocksProperty.Description);
+            PropertyDescriptor bProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
+                                                                            miscCategory,
+                                                                            "b",
+                                                                            "De waarde van de parameter 'b' in de berekening voor golfcondities.",
+                                                                            true);
+
+            PropertyDescriptor cProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
+                                                                            miscCategory,
+                                                                            "c",
+                                                                            "De waarde van de parameter 'c' in de berekening voor golfcondities.",
+                                                                            true);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -100,7 +100,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde van de parameter &apos;a&apos; in de berekening voor golf condities..
+        ///   Looks up a localized string similar to De waarde van de parameter &apos;a&apos; in de berekening voor golfcondities..
         /// </summary>
         public static string GeneralWaveConditionsInput_A_Description {
             get {
@@ -118,7 +118,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde van de parameter &apos;b&apos; in de berekening voor golf condities..
+        ///   Looks up a localized string similar to De waarde van de parameter &apos;b&apos; in de berekening voor golfcondities..
         /// </summary>
         public static string GeneralWaveConditionsInput_B_Description {
             get {
@@ -136,7 +136,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde van de parameter &apos;c&apos; in de berekening voor golf condities..
+        ///   Looks up a localized string similar to De waarde van de parameter &apos;c&apos; in de berekening voor golfcondities..
         /// </summary>
         public static string GeneralWaveConditionsInput_C_Description {
             get {

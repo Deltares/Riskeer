@@ -124,19 +124,19 @@
     <value>Voorlandprofiel</value>
   </data>
   <data name="GeneralWaveConditionsInput_A_Description" xml:space="preserve">
-    <value>De waarde van de parameter 'a' in de berekening voor golf condities.</value>
+    <value>De waarde van de parameter 'a' in de berekening voor golfcondities.</value>
   </data>
   <data name="GeneralWaveConditionsInput_A_DisplayName" xml:space="preserve">
     <value>a</value>
   </data>
   <data name="GeneralWaveConditionsInput_B_Description" xml:space="preserve">
-    <value>De waarde van de parameter 'b' in de berekening voor golf condities.</value>
+    <value>De waarde van de parameter 'b' in de berekening voor golfcondities.</value>
   </data>
   <data name="GeneralWaveConditionsInput_B_DisplayName" xml:space="preserve">
     <value>b</value>
   </data>
   <data name="GeneralWaveConditionsInput_C_Description" xml:space="preserve">
-    <value>De waarde van de parameter 'c' in de berekening voor golf condities.</value>
+    <value>De waarde van de parameter 'c' in de berekening voor golfcondities.</value>
   </data>
   <data name="GeneralWaveConditionsInput_C_DisplayName" xml:space="preserve">
     <value>c</value>
