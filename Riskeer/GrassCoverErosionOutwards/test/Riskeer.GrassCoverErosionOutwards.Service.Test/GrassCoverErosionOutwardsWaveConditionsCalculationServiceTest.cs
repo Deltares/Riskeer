@@ -289,8 +289,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation, 
-                                                                                                              failureMechanism, 
+                Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                              failureMechanism,
                                                                                                               assessmentSection);
 
                 // Assert
@@ -504,7 +504,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Calculate_WithValidInput_SetsOutput()
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, false, false)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, false, true)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, true, false)]
+        public void Calculate_WithValidInput_SetsOutput(
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpNull, bool waveImpactNull)
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
@@ -516,9 +520,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     new TestHydraulicBoundaryLocation()
                 });
             ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            calculation.InputParameters.CalculationType = calculationType;
+
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
+            int nrOfCalculators = calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                                      ? waterLevels.Length * 2
+                                      : waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -537,8 +546,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                           assessmentSection);
 
                 // Assert
-                Assert.IsNotNull(calculation.Output);
-                Assert.AreEqual(3, calculation.Output.WaveRunUpOutput.Count());
+                GrassCoverErosionOutwardsWaveConditionsOutput calculationOutput = calculation.Output;
+                Assert.IsNotNull(calculationOutput);
+                Assert.AreEqual(waveRunUpNull, calculationOutput.WaveRunUpOutput == null);
+                Assert.AreEqual(waveImpactNull, calculationOutput.WaveImpactOutput == null);
+
+                if (!waveRunUpNull)
+                {
+                    Assert.AreEqual(3, calculationOutput.WaveRunUpOutput.Count());
+                }
+
+                if (!waveImpactNull)
+                {
+                    Assert.AreEqual(3, calculationOutput.WaveImpactOutput.Count());
+                }
             }
 
             mockRepository.VerifyAll();
@@ -724,15 +745,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[24]);
                 });
 
-                WaveConditionsOutput[] waveConditionsOutputs = calculation.Output.WaveRunUpOutput.ToArray();
-                Assert.AreEqual(3, waveConditionsOutputs.Length);
+                WaveConditionsOutput[] waveRunUpOutputs = calculation.Output.WaveRunUpOutput.ToArray();
+                Assert.AreEqual(3, waveRunUpOutputs.Length);
+
+                WaveConditionsOutput[] waveImpactOutputs = calculation.Output.WaveImpactOutput.ToArray();
+                Assert.AreEqual(3, waveImpactOutputs.Length);
 
                 double targetNorm = CalculateTargetNorm(assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
                                                         failureMechanism.Contribution,
                                                         failureMechanism.GeneralInput.N);
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
                                                                   targetNorm,
-                                                                  waveConditionsOutputs[0]);
+                                                                  waveImpactOutputs[0]);
             }
 
             mockRepository.VerifyAll();

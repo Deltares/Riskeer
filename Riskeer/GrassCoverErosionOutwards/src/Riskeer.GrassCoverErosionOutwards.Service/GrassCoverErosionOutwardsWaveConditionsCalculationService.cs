@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -102,31 +102,46 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             try
             {
-                IEnumerable<WaveConditionsOutput> outputs = null;
-
+                IEnumerable<WaveConditionsOutput> waveRunUpOutput = null;
                 GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
                 if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveRunUp_DisplayName;
-                    outputs = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                    waveRunUpOutput = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
                 }
 
+                IEnumerable<WaveConditionsOutput> waveImpactOutput = null;
                 if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpact_DisplayName;
-                    outputs = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                    waveImpactOutput = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
                 }
 
                 if (!Canceled)
                 {
-                    calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputs, null);
+                    calculation.Output = CreateOutput(calculationType, waveRunUpOutput, waveImpactOutput);
                 }
             }
             finally
             {
                 CalculationServiceHelper.LogCalculationEnd();
+            }
+        }
+
+        private static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutput(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType,
+                                                                                  IEnumerable<WaveConditionsOutput> waveRunUpOutput,
+                                                                                  IEnumerable<WaveConditionsOutput> waveImpactOutput)
+        {
+            switch (calculationType)
+            {
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp:
+                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact:
+                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
+                default:
+                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
             }
         }
 
