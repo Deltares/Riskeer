@@ -82,6 +82,24 @@ namespace Riskeer.Revetment.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekening voor {0} is beëindigd..
+        /// </summary>
+        public static string WaveConditionsCalculationService_Calculate_calculationType_0_ended {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_Calculate_calculationType_0_ended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekening voor {0} is gestart..
+        /// </summary>
+        public static string WaveConditionsCalculationService_Calculate_calculationType_0_started {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_Calculate_calculationType_0_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Golfcondities berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         public static string WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0 {
