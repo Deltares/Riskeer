@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -109,6 +109,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveRunUp_DisplayName;
                     waveRunUpOutput = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                }
+
+                if (Canceled)
+                {
+                    return;
                 }
 
                 IEnumerable<WaveConditionsOutput> waveImpactOutput = null;

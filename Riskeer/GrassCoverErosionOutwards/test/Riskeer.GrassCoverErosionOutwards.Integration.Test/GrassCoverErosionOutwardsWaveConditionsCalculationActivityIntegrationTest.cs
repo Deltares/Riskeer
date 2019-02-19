@@ -389,7 +389,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                     string[] msgs = messages.ToArray();
                     RoundedDouble firstWaterLevel = GetWaterLevels(calculation, failureMechanism, assessmentSection).First();
 
-                    Assert.AreEqual(12, msgs.Length);
+                    Assert.AreEqual(10, msgs.Length);
                     Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
@@ -401,10 +401,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                     Assert.AreEqual($"Berekening voor waterstand '{firstWaterLevel}' is beëindigd.", msgs[7]);
                     Assert.AreEqual("Berekening voor golfoploop is beëindigd.", msgs[8]);
 
-                    Assert.AreEqual("Berekening voor golfklap is gestart.", msgs[9]);
-                    Assert.AreEqual("Berekening voor golfklap is beëindigd.", msgs[10]);
-
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[11]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[9]);
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
