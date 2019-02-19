@@ -40,6 +40,7 @@ All rights reserved.
             <xs:element ref="orientatie" minOccurs="0"/>
             <xs:element ref="golfreductie" minOccurs="0"/>
             <xs:element ref="categoriegrens" minOccurs="0"/>
+            <xs:element ref="typebekleding-of-typebelasting" minOccurs="0"/>
           </xs:all>
         </xs:extension>
       </xs:complexContent>
@@ -107,5 +108,7 @@ All rights reserved.
   <xs:simpleType name="categoriegrensType">
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
+
+  <xs:element name="typebekleding-of-typebelasting" abstract="true"/>
   
 </xs:schema>

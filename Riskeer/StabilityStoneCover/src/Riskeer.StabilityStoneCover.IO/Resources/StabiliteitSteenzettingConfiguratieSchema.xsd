@@ -21,7 +21,7 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
+
   <!--Basis elementen voor een bekledingen configuratie.-->
   <xs:include schemaLocation="BekledingenConfiguratieBasisSchema.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
@@ -36,23 +36,13 @@ All rights reserved.
         <xs:enumeration value="C"/>
       </xs:restriction>
     </xs:simpleType>
-    <xs:complexType name="berekeningType">
-      <xs:complexContent>
-        <xs:extension base="berekeningType">
-          <xs:all>
-            <xs:element ref="typebekleding" minOccurs="0"/>
-          </xs:all>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
   </xs:redefine>
 
-  <!--Specificeert de type bekleding voor de bepaling van de berekening.-->
-  <xs:element name="typebekleding">
+  <xs:element name="typebekleding" substitutionGroup="typebekleding-of-typebelasting">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="Steen (zuilen)"/>
         <xs:enumeration value="Steen (blokken)"/>
+        <xs:enumeration value="Steen (zuilen)"/>
         <xs:enumeration value="Steen (blokken en zuilen)"/>
       </xs:restriction>
     </xs:simpleType>
