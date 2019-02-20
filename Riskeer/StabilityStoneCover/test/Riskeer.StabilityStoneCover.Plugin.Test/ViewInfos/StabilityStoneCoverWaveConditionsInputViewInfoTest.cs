@@ -74,7 +74,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(StabilityStoneCoverWaveConditionsInputContext), info.DataType);
-            Assert.AreEqual(typeof(ICalculation<AssessmentSectionCategoryWaveConditionsInput>), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverWaveConditionsCalculation), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 

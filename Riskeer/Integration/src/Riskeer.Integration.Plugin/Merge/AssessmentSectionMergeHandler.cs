@@ -247,7 +247,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergeStabilityStoneCover)
             {
                 targetAssessmentSection.StabilityStoneCover = sourceAssessmentSection.StabilityStoneCover;
-                UpdateCalculationHydraulicBoundaryLocationReferences<StabilityStoneCoverFailureMechanism, StabilityStoneCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<StabilityStoneCoverFailureMechanism, StabilityStoneCoverWaveConditionsCalculation, StabilityStoneCoverWaveConditionsInput>(
                     targetAssessmentSection.StabilityStoneCover, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.StabilityStoneCover);
             }

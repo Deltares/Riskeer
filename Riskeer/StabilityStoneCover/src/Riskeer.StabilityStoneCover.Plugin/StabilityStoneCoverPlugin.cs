@@ -111,7 +111,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
 
             yield return new ViewInfo<StabilityStoneCoverWaveConditionsInputContext,
-                ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
+                StabilityStoneCoverWaveConditionsCalculation,
                 WaveConditionsInputView>
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,

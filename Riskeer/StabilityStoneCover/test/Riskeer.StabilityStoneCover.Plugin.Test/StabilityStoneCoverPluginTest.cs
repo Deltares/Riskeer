@@ -92,7 +92,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityStoneCoverWaveConditionsInputContext),
-                    typeof(ICalculation<AssessmentSectionCategoryWaveConditionsInput>),
+                    typeof(StabilityStoneCoverWaveConditionsCalculation),
                     typeof(WaveConditionsInputView));
             }
         }

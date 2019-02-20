@@ -106,13 +106,13 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
             Assert.AreEqual(2, calculationBases.Count);
             var firstCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.First();
             Assert.AreEqual(name, firstCalculation.Name);
-            AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            StabilityStoneCoverWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
 
             var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", secondCalculation.Name);
-            AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            StabilityStoneCoverWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
         }
@@ -146,13 +146,13 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
             Assert.AreEqual(3, calculationBases.Count);
             var firstCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", firstCalculation.Name);
-            AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            StabilityStoneCoverWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
 
             var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual($"{name} (2)", secondCalculation.Name);
-            AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            StabilityStoneCoverWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
         }

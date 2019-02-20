@@ -1549,13 +1549,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 AssessmentSectionCategoryType expectedAssessmentSectionCategoryType = GetCategoryTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as StabilityStoneCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
-                AssessmentSectionCategoryWaveConditionsInput firstCalculationInputParameters = firstCalculation.InputParameters;
+                StabilityStoneCoverWaveConditionsInput firstCalculationInputParameters = firstCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInputParameters.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInputParameters.CategoryType);
 
                 var secondCalculation = group.Children[3] as StabilityStoneCoverWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
-                AssessmentSectionCategoryWaveConditionsInput secondCalculationInputParameters = secondCalculation.InputParameters;
+                StabilityStoneCoverWaveConditionsInput secondCalculationInputParameters = secondCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInputParameters.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInputParameters.CategoryType);
             }

@@ -148,7 +148,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
             Assert.IsNull(calculation.Name);
             Assert.IsNull(calculation.Comments.Body);
 
-            AssessmentSectionCategoryWaveConditionsInput calculationInput = calculation.InputParameters;
+            StabilityStoneCoverWaveConditionsInput calculationInput = calculation.InputParameters;
             Assert.IsNaN(calculationInput.BreakWater.Height);
             Assert.IsNaN(calculationInput.Orientation);
             Assert.IsNaN(calculationInput.UpperBoundaryRevetment);
