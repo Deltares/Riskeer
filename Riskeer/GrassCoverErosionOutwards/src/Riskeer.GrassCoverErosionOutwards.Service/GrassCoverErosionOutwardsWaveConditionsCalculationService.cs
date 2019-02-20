@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Service.Properties;
@@ -93,22 +94,28 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             CalculationServiceHelper.LogCalculationBegin();
 
+            GrassCoverErosionOutwardsWaveConditionsInput calculationInput = calculation.InputParameters;
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                                calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                calculation.InputParameters.CategoryType);
+                                                                                calculationInput.HydraulicBoundaryLocation,
+                                                                                calculationInput.CategoryType);
+            double norm = failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType);
 
-            int nrOfWaterLevel = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
-            TotalWaterLevelCalculations = nrOfWaterLevel * 2;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculationInput.CalculationType;
+            int waterLevelCount = calculationInput.GetWaterLevels(assessmentLevel).Count();
+            TotalWaterLevelCalculations = calculationInput.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                                              ? waterLevelCount * 2
+                                              : waterLevelCount;
 
             try
             {
                 IEnumerable<WaveConditionsOutput> waveRunUpOutput = null;
-                GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
                 if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveRunUp_DisplayName;
-                    waveRunUpOutput = CalculateWaveRunUp(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                    waveRunUpOutput = CalculateWaveRunUp(calculation, failureMechanism, hydraulicBoundaryDatabase, assessmentLevel, norm);
                 }
 
                 if (Canceled)
@@ -121,7 +128,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpact_DisplayName;
-                    waveImpactOutput = CalculateWaveImpact(calculation, failureMechanism, assessmentSection, assessmentLevel);
+                    waveImpactOutput = CalculateWaveImpact(calculation, failureMechanism, hydraulicBoundaryDatabase, assessmentLevel, norm);
                 }
 
                 if (!Canceled)
@@ -152,43 +159,39 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveRunUp(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                                                      GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                     IAssessmentSection assessmentSection,
-                                                                     RoundedDouble assessmentLevel)
+                                                                     HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                     RoundedDouble assessmentLevel,
+                                                                     double norm)
         {
-            return Calculate(calculation,
-                             failureMechanism,
-                             assessmentSection,
-                             assessmentLevel,
+            return Calculate(calculation, hydraulicBoundaryDatabase, norm, assessmentLevel,
                              failureMechanism.GeneralInput.GeneralWaveRunUpWaveConditionsInput,
                              Resources.GrassCoverErosionOutwardsWaveConditions_WaveRunUp_DisplayName);
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveImpact(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                      IAssessmentSection assessmentSection,
-                                                                      RoundedDouble assessmentLevel)
+                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                      RoundedDouble assessmentLevel,
+                                                                      double norm)
         {
-            return Calculate(calculation,
-                             failureMechanism,
-                             assessmentSection,
-                             assessmentLevel,
+            return Calculate(calculation, hydraulicBoundaryDatabase, norm, assessmentLevel,
                              failureMechanism.GeneralInput.GeneralWaveImpactWaveConditionsInput,
                              Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpact_DisplayName);
         }
 
         private IEnumerable<WaveConditionsOutput> Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                            IAssessmentSection assessmentSection,
+                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                            double norm,
                                                             RoundedDouble assessmentLevel,
                                                             GeneralWaveConditionsInput generalInput,
                                                             string calculationType)
         {
             log.InfoFormat(RevetmentServiceResources.WaveConditionsCalculationService_Calculate_calculationType_0_started, calculationType);
-            double norm = failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType);
+
             IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                 assessmentLevel,
                                                                                 generalInput.A, generalInput.B, generalInput.C, norm,
-                                                                                assessmentSection.HydraulicBoundaryDatabase);
+                                                                                hydraulicBoundaryDatabase);
             log.InfoFormat(RevetmentServiceResources.WaveConditionsCalculationService_Calculate_calculationType_0_ended, calculationType);
             return outputs;
         }
