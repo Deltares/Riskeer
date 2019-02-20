@@ -65,19 +65,19 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
             {
                 StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
                 if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both ||
-                    calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
-                {
-                    exportableWaveConditions.AddRange(
-                        ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                            calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, CoverType.StoneCoverColumns));
-                }
-
-                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both ||
                     calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
                             calculation.Name, calculation.InputParameters, calculation.Output.BlocksOutput, CoverType.StoneCoverBlocks));
+                }
+
+                if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both ||
+                    calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+                {
+                    exportableWaveConditions.AddRange(
+                        ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                            calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, CoverType.StoneCoverColumns));
                 }
             }
 
