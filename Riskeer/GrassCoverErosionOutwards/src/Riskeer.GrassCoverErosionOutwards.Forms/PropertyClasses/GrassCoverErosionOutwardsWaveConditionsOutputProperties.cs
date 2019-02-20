@@ -41,12 +41,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="output">The data to show.</param>
+        /// <param name="input">The input belonging to the output.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsOutputProperties(GrassCoverErosionOutwardsWaveConditionsOutput output)
+        public GrassCoverErosionOutwardsWaveConditionsOutputProperties(GrassCoverErosionOutwardsWaveConditionsOutput output, 
+                                                                       GrassCoverErosionOutwardsWaveConditionsInput input)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
+            }
+
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
             }
 
             Data = output;
