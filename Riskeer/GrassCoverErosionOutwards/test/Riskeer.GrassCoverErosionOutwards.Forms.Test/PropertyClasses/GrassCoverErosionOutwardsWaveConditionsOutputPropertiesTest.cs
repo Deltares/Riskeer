@@ -117,7 +117,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
-
             var input = new GrassCoverErosionOutwardsWaveConditionsInput();
 
             // Precondition
@@ -144,6 +143,68 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Hydraulische belastingen voor golfklap",
                                                                             "Berekende hydraulische belastingen voor golfklap.",
                                                                             true);
+        }
+
+        [Test]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)]
+        public void Constructor_CalculationTypeWaveRunUpOrWaveImpact_PropertiesHaveExpectedAttributesValues(
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
+        {
+            // Setup
+            GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
+            var input = new GrassCoverErosionOutwardsWaveConditionsInput
+            {
+                CalculationType = calculationType
+            };
+
+            // Call
+            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, input);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            string revetmentType = null;
+            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
+            {
+                revetmentType = "golfoploop";
+            }
+
+            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
+            {
+                revetmentType = "golfklap";
+            }
+
+            PropertyDescriptor outputProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(outputProperty,
+                                                                            "Resultaat",
+                                                                            $"Hydraulische belastingen voor {revetmentType}",
+                                                                            $"Berekende hydraulische belastingen voor {revetmentType}.",
+                                                                            true);
+        }
+
+        [Test]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, true, true)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, true, false)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, false, true)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpVisible, bool waveImpactVisible)
+        {
+            // Setup
+            GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
+            var input = new GrassCoverErosionOutwardsWaveConditionsInput
+            {
+                CalculationType = calculationType
+            };
+
+            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, input);
+
+            // Call & Assert
+            Assert.AreEqual(waveRunUpVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveRunUpOutput)));
+            Assert.AreEqual(waveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpactOutput)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

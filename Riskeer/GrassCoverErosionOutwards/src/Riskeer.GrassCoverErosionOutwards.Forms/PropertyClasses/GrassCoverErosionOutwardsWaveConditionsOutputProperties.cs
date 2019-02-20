@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
@@ -37,6 +38,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsOutputProperties : ObjectProperties<GrassCoverErosionOutwardsWaveConditionsOutput>
     {
+        private readonly GrassCoverErosionOutwardsWaveConditionsInput input;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismProperties"/>.
         /// </summary>
@@ -56,9 +59,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(input));
             }
 
+            this.input = input;
+
             Data = output;
         }
 
+        [DynamicVisible]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_DisplayName))]
@@ -74,6 +80,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayName))]
@@ -87,6 +94,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                     Data = output
                 }).ToArray();
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(WaveRunUpOutput))
+            {
+                return input.CalculationType != GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact;
+            }
+
+            if (propertyName == nameof(WaveImpactOutput))
+            {
+                return input.CalculationType != GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp;
+            }
+
+            return true;
         }
     }
 }
