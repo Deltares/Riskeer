@@ -91,5 +91,52 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                    || sourceType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType)
                    || base.CanConvertFrom(context, sourceType);
         }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value is GrassCoverErosionOutwardsWaveConditionsCalculationType)
+            {
+                var calculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) value;
+                if (!Enum.IsDefined(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType), calculationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) calculationType,
+                                                           typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
+                }
+
+                switch (calculationType)
+                {
+                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp:
+                        return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp;
+                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact:
+                        return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
+                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.Both:
+                        return ConfigurationGrassCoverErosionOutwardsCalculationType.Both;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            var stringValue = value as string;
+            if (stringValue != null)
+            {
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_DisplayName)
+                {
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp;
+                }
+
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpact_DisplayName)
+                {
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
+                }
+
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_Both_DisplayName)
+                {
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.Both;
+                }
+            }
+
+            return base.ConvertFrom(context, culture, value);
+        }
     }
 }

@@ -171,5 +171,67 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             // Assert
             Assert.IsFalse(canConvertFrom);
         }
+
+        [Test]
+        public void ConvertFrom_InvalidGrassCoverErosionOutwardsWaveConditionsCalculationType_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const GrassCoverErosionOutwardsWaveConditionsCalculationType invalidValue = (GrassCoverErosionOutwardsWaveConditionsCalculationType) 99;
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(GrassCoverErosionOutwardsWaveConditionsCalculationType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase("Gras (golfoploop en golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.Both)]
+        [TestCase("Gras (golfoploop)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp)]
+        [TestCase("Gras (golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
+        public void ConvertFrom_ValidStringValue_ReturnConfigurationGrassCoverErosionOutwardsCalculationType(
+            string originalValue, ConfigurationGrassCoverErosionOutwardsCalculationType expectedValue)
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            object convertedValue = converter.ConvertFrom(originalValue);
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, ConfigurationGrassCoverErosionOutwardsCalculationType.Both)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
+        public void ConvertFrom_ValidGrassCoverErosionOutwardsWaveConditionsCalculationType_ReturnConfigurationGrassCoverErosionOutwardsCalculationType(
+            GrassCoverErosionOutwardsWaveConditionsCalculationType originalValue, ConfigurationGrassCoverErosionOutwardsCalculationType expectedValue)
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            object convertedValue = converter.ConvertFrom(originalValue);
+
+            // Assert
+            Assert.AreEqual(expectedValue, convertedValue);
+        }
+
+        [Test]
+        public void ConvertFrom_Null_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(null);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
     }
 }
