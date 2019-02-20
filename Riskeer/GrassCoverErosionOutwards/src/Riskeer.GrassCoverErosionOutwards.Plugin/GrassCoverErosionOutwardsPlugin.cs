@@ -91,7 +91,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CreateInstance = context => new WaveHeightCalculationsProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutputContext, GrassCoverErosionOutwardsWaveConditionsOutputProperties>
+            {
+                CreateInstance = context => new GrassCoverErosionOutwardsWaveConditionsOutputProperties(context.WrappedData, context.Input)
+            };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsInputContext, GrassCoverErosionOutwardsWaveConditionsInputContextProperties>
             {
@@ -296,10 +299,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsOutput>
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsOutputContext>
             {
-                Text = emptyOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
-                Image = emptyOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
+                Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -905,7 +908,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             if (calculation.HasOutput)
             {
-                childNodes.Add(calculation.Output);
+                childNodes.Add(new GrassCoverErosionOutwardsWaveConditionsOutputContext(calculation.Output, calculation.InputParameters));
             }
             else
             {

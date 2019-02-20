@@ -422,8 +422,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 location
             }, inputContext.HydraulicBoundaryLocations);
 
-            var output = (GrassCoverErosionOutwardsWaveConditionsOutput) children[2];
-            Assert.AreSame(calculation.Output, output);
+            var outputContext = (GrassCoverErosionOutwardsWaveConditionsOutputContext) children[2];
+            Assert.AreSame(calculation.Output, outputContext.WrappedData);
+            Assert.AreSame(calculation.InputParameters, outputContext.Input);
         }
 
         [Test]
