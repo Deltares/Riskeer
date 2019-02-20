@@ -100,7 +100,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                     UseBreakWater = true,
                     BreakWaterHeight = (RoundedDouble) 1.23,
                     BreakWaterType = ConfigurationBreakWaterType.Dam
-                }
+                },
+                CalculationType = ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact
             };
 
             try
@@ -132,6 +133,28 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("fail")
             {
                 CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) 99
+            };
+
+            var writer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Write_InvalidCalculationType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("fail")
+            {
+                CalculationType = (ConfigurationGrassCoverErosionOutwardsCalculationType?) 99
             };
 
             var writer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter("valid");

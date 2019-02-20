@@ -43,14 +43,19 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         protected override void WriteWaveConditionsSpecificParameters(
             XmlWriter writer, GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration)
         {
-            if (!configuration.CategoryType.HasValue)
+            if (configuration.CategoryType.HasValue)
             {
-                return;
+                writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType,
+                                          new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter()
+                                              .ConvertToInvariantString(configuration.CategoryType.Value));
             }
 
-            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
-            writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType,
-                                      converter.ConvertToInvariantString(configuration.CategoryType.Value));
+            if (configuration.CalculationType.HasValue)
+            {
+                writer.WriteElementString(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,
+                                          new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter()
+                                              .ConvertToInvariantString(configuration.CalculationType.Value));
+            }
         }
     }
 }
