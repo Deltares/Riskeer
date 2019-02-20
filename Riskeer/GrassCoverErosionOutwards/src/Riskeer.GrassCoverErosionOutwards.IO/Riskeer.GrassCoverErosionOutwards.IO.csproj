@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationGrassCoverErosionOutwardsCalculationType.cs" />
     <Compile Include="Configurations\ConfigurationGrassCoverErosionOutwardsCategoryType.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter.cs" />
     <Compile Include="Configurations\Converters\ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter.cs" />
