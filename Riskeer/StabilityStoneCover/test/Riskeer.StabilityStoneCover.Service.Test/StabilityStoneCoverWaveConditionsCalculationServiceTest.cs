@@ -293,18 +293,20 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Calculate_Always_SendsProgressNotifications()
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Both)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Blocks)]
+        [TestCase(StabilityStoneCoverWaveConditionsCalculationType.Columns)]
+        public void Calculate_Always_SendsProgressNotifications(StabilityStoneCoverWaveConditionsCalculationType calculationType)
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            calculation.InputParameters.CalculationType = calculationType;
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
             calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(null))
                              .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator());
@@ -317,11 +319,22 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 stabilityStoneCoverWaveConditionsCalculationService.OnProgressChanged += (description, step, steps) =>
                 {
                     // Assert
-                    string revetment = step <= waterLevels.Length ? "blokken" : "zuilen";
-                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {revetment} berekenen.";
+                    RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+                    int totalSteps = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
+                                              ? waterLevels.Length * 2
+                                              : waterLevels.Length;
+
+                    var revetmentType = "blokken";
+                    if (step > waterLevels.Length
+                        || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+                    {
+                        revetmentType = "zuilen";
+                    }
+
+                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {revetmentType} berekenen.";
                     Assert.AreEqual(text, description);
                     Assert.AreEqual(currentStep++, step);
-                    Assert.AreEqual(nrOfCalculators, steps);
+                    Assert.AreEqual(totalSteps, steps);
                 };
 
                 // Call
