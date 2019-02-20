@@ -1915,7 +1915,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             if (expectedCalculation.HasOutput)
             {
-                AssertWaveConditionsOutputs(expectedCalculation.Output.WaveRunUpOutput.ToArray(), actualCalculation.Output.WaveRunUpOutput.ToArray());
+                AssertWaveConditionsOutputs(expectedCalculation.Output.WaveImpactOutput.ToArray(), actualCalculation.Output.WaveImpactOutput.ToArray());
             }
             else
             {
