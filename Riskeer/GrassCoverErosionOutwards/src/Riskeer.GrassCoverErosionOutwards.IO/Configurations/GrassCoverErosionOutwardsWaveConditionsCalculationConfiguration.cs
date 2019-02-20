@@ -42,5 +42,10 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         /// Gets or sets the category type.
         /// </summary>
         public ConfigurationGrassCoverErosionOutwardsCategoryType? CategoryType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the calculation type.
+        /// </summary>
+        public ConfigurationGrassCoverErosionOutwardsCalculationType? CalculationType { get; set; }
     }
 }
