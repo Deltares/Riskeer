@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -38,14 +39,29 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int waveImpactPropertyIndex = 1;
 
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties();
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsOutputProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            GrassCoverErosionOutwardsWaveConditionsOutput output = 
+                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
+
+            // Call
+            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsWaveConditionsOutput>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(output, properties.Data);
         }
 
         [Test]
@@ -66,10 +82,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput);
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
-            {
-                Data = output
-            };
+            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output);
 
             // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.WaveRunUpOutput, typeof(WaveConditionsOutputProperties));
@@ -91,10 +104,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
-            {
-                Data = output
-            };
+            var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

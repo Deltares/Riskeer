@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
@@ -36,6 +37,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsOutputProperties : ObjectProperties<GrassCoverErosionOutwardsWaveConditionsOutput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismProperties"/>.
+        /// </summary>
+        /// <param name="output">The data to show.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveConditionsOutputProperties(GrassCoverErosionOutwardsWaveConditionsOutput output)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            Data = output;
+        }
+
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_DisplayName))]
