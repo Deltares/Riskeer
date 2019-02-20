@@ -97,7 +97,6 @@ namespace Riskeer.StabilityStoneCover.Service
             RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                  calculation.InputParameters.CategoryType);
 
-            
             int waterLevelCount = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
             TotalWaterLevelCalculations = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                                               ? waterLevelCount * 2
@@ -130,7 +129,7 @@ namespace Riskeer.StabilityStoneCover.Service
 
                 if (!Canceled)
                 {
-                    CreateOutput(calculation, blocksOutputs, columnsOutputs);
+                    calculation.Output = CreateOutput(calculationType, blocksOutputs, columnsOutputs);
                 }
             }
             finally
@@ -139,27 +138,21 @@ namespace Riskeer.StabilityStoneCover.Service
             }
         }
 
-        private static void CreateOutput(StabilityStoneCoverWaveConditionsCalculation calculation,
-                                         IEnumerable<WaveConditionsOutput> blocksOutputs,
-                                         IEnumerable<WaveConditionsOutput> columnsOutputs)
+        private static StabilityStoneCoverWaveConditionsOutput CreateOutput(StabilityStoneCoverWaveConditionsCalculationType calculationType,
+                                                                            IEnumerable<WaveConditionsOutput> blocksOutputs,
+                                                                            IEnumerable<WaveConditionsOutput> columnsOutputs)
         {
-            StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
-            StabilityStoneCoverWaveConditionsOutput output;
-
             if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks)
             {
-                output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(blocksOutputs);
-            }
-            else if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
-            {
-                output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(columnsOutputs);
-            }
-            else
-            {
-                output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(columnsOutputs, blocksOutputs);
+                return StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(blocksOutputs);
             }
 
-            calculation.Output = output;
+            if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+            {
+                return StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(columnsOutputs);
+            }
+
+            return StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(columnsOutputs, blocksOutputs);
         }
 
         /// <summary>
@@ -171,7 +164,7 @@ namespace Riskeer.StabilityStoneCover.Service
         {
             if (!Enum.IsDefined(typeof(StabilityStoneCoverWaveConditionsCalculationType), calculationType))
             {
-                throw new InvalidEnumArgumentException(nameof(calculationType), (int)calculationType,
+                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType,
                                                        typeof(StabilityStoneCoverWaveConditionsCalculationType));
             }
 
