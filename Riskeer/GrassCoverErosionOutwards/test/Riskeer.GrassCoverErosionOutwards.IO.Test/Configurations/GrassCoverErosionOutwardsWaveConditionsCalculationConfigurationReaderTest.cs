@@ -117,6 +117,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             Assert.AreEqual(6.6, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsFalse(calculation.WaveReduction.UseForeshoreProfile);
             Assert.AreEqual(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, calculation.CategoryType);
+            Assert.AreEqual(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, calculation.CalculationType);
         }
     }
 }
