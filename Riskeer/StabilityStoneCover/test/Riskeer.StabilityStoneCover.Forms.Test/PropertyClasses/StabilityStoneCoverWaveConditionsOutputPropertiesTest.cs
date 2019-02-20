@@ -109,18 +109,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             WaveConditionsOutputProperties firstBlocksProperties = properties.Blocks[0];
             Assert.AreSame(firstBlocksOutput, firstBlocksProperties.Data);
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstBlocksOutput.CalculationConvergence).DisplayName;
-            Assert.AreEqual(convergenceValue, firstBlocksProperties.Convergence);
-
             CollectionAssert.AllItemsAreInstancesOfType(properties.Columns, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(columnsOutput.Length, properties.Columns.Length);
 
             TestWaveConditionsOutput firstColumnsOutput = columnsOutput[0];
             WaveConditionsOutputProperties firstColumnsProperties = properties.Columns[0];
             Assert.AreSame(firstColumnsOutput, firstColumnsProperties.Data);
-
-            convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstColumnsOutput.CalculationConvergence).DisplayName;
-            Assert.AreEqual(convergenceValue, firstColumnsProperties.Convergence);
         }
 
         [Test]
