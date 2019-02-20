@@ -52,7 +52,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         public static GrassCoverErosionOutwardsWaveConditionsOutput Create(IEnumerable<WaveConditionsOutput> waveRunUpOutput, 
                                                                            IEnumerable<WaveConditionsOutput> waveImpactOutput)
         {
-            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveRunUpOutput);
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput);
         }
     }
 }
