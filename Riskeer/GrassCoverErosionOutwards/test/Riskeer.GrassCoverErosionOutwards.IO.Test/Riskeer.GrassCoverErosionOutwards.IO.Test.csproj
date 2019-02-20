@@ -26,6 +26,7 @@
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporterTest.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReaderTest.cs" />
+    <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProviderTest.cs" />
