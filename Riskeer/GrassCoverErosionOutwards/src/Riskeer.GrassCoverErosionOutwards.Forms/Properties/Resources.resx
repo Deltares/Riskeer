@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description" xml:space="preserve">
-    <value>Berekende hydraulische belastingen voor gras.</value>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_Description" xml:space="preserve">
+    <value>Berekende hydraulische belastingen voor golfoploop.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName" xml:space="preserve">
-    <value>Hydraulische belastingen voor gras</value>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_DisplayName" xml:space="preserve">
+    <value>Hydraulische belastingen voor golfoploop</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
     <value>h gr.Vv</value>
@@ -170,5 +170,11 @@
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_DisplayName" xml:space="preserve">
     <value>Type belasting</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description" xml:space="preserve">
+    <value>Berekende hydraulische belastingen voor golfklap.</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayName" xml:space="preserve">
+    <value>Hydraulische belastingen voor golfklap</value>
   </data>
 </root>

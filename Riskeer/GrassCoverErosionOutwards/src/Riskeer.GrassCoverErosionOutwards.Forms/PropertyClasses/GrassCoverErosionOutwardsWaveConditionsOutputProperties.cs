@@ -38,15 +38,30 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description))]
-        public WaveConditionsOutputProperties[] Items
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_Description))]
+        public WaveConditionsOutputProperties[] WaveRunUpOutput
         {
             get
             {
-                return data.WaveRunUpOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
+                return data.WaveRunUpOutput.Select(output => new WaveConditionsOutputProperties
                 {
-                    Data = waveConditionsOutput
+                    Data = output
+                }).ToArray();
+            }
+        }
+
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description))]
+        public WaveConditionsOutputProperties[] WaveImpactOutput
+        {
+            get
+            {
+                return data.WaveImpactOutput.Select(output => new WaveConditionsOutputProperties
+                {
+                    Data = output
                 }).ToArray();
             }
         }

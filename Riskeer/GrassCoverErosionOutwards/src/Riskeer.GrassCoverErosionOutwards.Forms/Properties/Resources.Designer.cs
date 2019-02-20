@@ -138,22 +138,42 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor gras..
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap..
         /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocation" +
-                        "Result_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Descript" +
+                        "ion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen voor gras.
+        ///   Looks up a localized string similar to Hydraulische belastingen voor golfklap.
         /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName {
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocation" +
-                        "Result_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayN" +
+                        "ame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfoploop..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_Descripti" +
+                        "on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen voor golfoploop.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveRunUpOutput_DisplayNa" +
+                        "me", resourceCulture);
             }
         }
         

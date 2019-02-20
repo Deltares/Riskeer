@@ -22,10 +22,7 @@
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
-using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -37,6 +34,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsOutputPropertiesTest
     {
+        private const int waveRunUpPropertyIndex = 0;
+        private const int waveImpactPropertyIndex = 1;
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -57,8 +57,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
-            GrassCoverErosionOutwardsWaveConditionsOutput output = 
-                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, null);
+            var waveImpactOutput = new[]
+            {
+                new TestWaveConditionsOutput()
+            };
+
+            GrassCoverErosionOutwardsWaveConditionsOutput output =
+                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
@@ -67,29 +72,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
 
             // Assert 
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Items, typeof(WaveConditionsOutputProperties));
-            Assert.AreEqual(waveRunUpOutput.Length, properties.Items.Length);
+            CollectionAssert.AllItemsAreInstancesOfType(properties.WaveRunUpOutput, typeof(WaveConditionsOutputProperties));
+            Assert.AreEqual(waveRunUpOutput.Length, properties.WaveRunUpOutput.Length);
 
-            TestWaveConditionsOutput firstOutput = waveRunUpOutput[0];
-            WaveConditionsOutputProperties firstOutputProperties = properties.Items[0];
-            Assert.AreEqual(firstOutput.WaterLevel, firstOutputProperties.WaterLevel);
-            Assert.AreEqual(firstOutput.WaveHeight, firstOutputProperties.WaveHeight);
-            Assert.AreEqual(firstOutput.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);
-            Assert.AreEqual(firstOutput.WaveAngle, firstOutputProperties.WaveAngle);
-            Assert.AreEqual(firstOutput.WaveDirection, firstOutputProperties.WaveDirection);
-            Assert.AreEqual(firstOutput.TargetProbability, firstOutputProperties.TargetProbability);
-            Assert.AreEqual(firstOutput.TargetReliability, firstOutputProperties.TargetReliability,
-                            firstOutputProperties.TargetReliability.GetAccuracy());
-            Assert.AreEqual(firstOutput.CalculatedProbability, firstOutputProperties.CalculatedProbability);
-            Assert.AreEqual(firstOutput.TargetReliability, firstOutputProperties.TargetReliability,
-                            firstOutputProperties.TargetReliability.GetAccuracy());
+            WaveConditionsOutputProperties waveRunUpProperty = properties.WaveRunUpOutput[0];
+            Assert.AreSame(waveRunUpOutput[0], waveRunUpProperty.Data);
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(firstOutput.CalculationConvergence).DisplayName;
-            Assert.AreEqual(convergenceValue, firstOutputProperties.Convergence);
+            CollectionAssert.AllItemsAreInstancesOfType(properties.WaveImpactOutput, typeof(WaveConditionsOutputProperties));
+            Assert.AreEqual(waveImpactOutput.Length, properties.WaveImpactOutput.Length);
+            WaveConditionsOutputProperties waveImpactProperties = properties.WaveImpactOutput[0];
+            Assert.AreSame(waveImpactOutput[0], waveImpactProperties.Data);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_CalculationTypeBoth_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
@@ -103,13 +99,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(1, dynamicProperties.Count);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
-            PropertyDescriptor itemsProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(itemsProperty,
+            PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRunUpProperty,
                                                                             "Resultaat",
-                                                                            "Hydraulische belastingen voor gras",
-                                                                            "Berekende hydraulische belastingen voor gras.",
+                                                                            "Hydraulische belastingen voor golfoploop",
+                                                                            "Berekende hydraulische belastingen voor golfoploop.",
+                                                                            true);
+
+            PropertyDescriptor waveImpactProperty = dynamicProperties[waveImpactPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveImpactProperty,
+                                                                            "Resultaat",
+                                                                            "Hydraulische belastingen voor golfklap",
+                                                                            "Berekende hydraulische belastingen voor golfklap.",
                                                                             true);
         }
     }
