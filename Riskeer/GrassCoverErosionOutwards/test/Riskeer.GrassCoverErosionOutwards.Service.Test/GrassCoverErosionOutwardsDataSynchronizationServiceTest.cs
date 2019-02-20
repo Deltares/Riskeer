@@ -54,7 +54,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
 
             // Precondition
@@ -254,7 +254,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var calculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -262,7 +262,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -275,7 +275,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var subCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var subCalculationWithOutput = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -283,7 +283,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {

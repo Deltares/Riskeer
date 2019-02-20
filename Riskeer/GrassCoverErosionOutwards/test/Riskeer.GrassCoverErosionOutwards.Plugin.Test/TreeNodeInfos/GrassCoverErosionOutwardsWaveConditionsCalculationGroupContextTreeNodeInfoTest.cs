@@ -1348,9 +1348,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var group = new CalculationGroup();
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationA.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null);
+            calculationA.Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-            calculationB.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null);
+            calculationB.Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
             calculationA.Attach(observerA);

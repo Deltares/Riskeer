@@ -27,6 +27,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
@@ -222,10 +223,15 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
-                {
-                    new TestWaveConditionsOutput()
-                }, null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
+                    new[]
+                    {
+                        new TestWaveConditionsOutput()
+                    },
+                    new[]
+                    {
+                        new TestWaveConditionsOutput()
+                    })
             };
 
             // Call

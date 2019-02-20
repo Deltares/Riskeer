@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,6 +28,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.IO.Exporters;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
@@ -116,7 +116,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 {
                     new GrassCoverErosionOutwardsWaveConditionsCalculation
                     {
-                        Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                        Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
                     }
                 };
 
@@ -160,10 +160,14 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
                             CategoryType = FailureMechanismCategoryType.LowerLimitNorm
                         },
-                        Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
-                        {
-                            new TestWaveConditionsOutput()
-                        }, null)
+                        Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
+                            new[]
+                            {
+                                new TestWaveConditionsOutput()
+                            }, new[]
+                            {
+                                new TestWaveConditionsOutput()
+                            })
                     }
                 };
 

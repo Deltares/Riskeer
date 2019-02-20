@@ -183,7 +183,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             calculation.Attach(observer);
 
@@ -211,7 +211,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
@@ -242,7 +242,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
@@ -274,7 +274,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
@@ -379,7 +379,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
@@ -915,7 +915,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     ForeshoreProfile = foreshoreProfileInput
                 },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
@@ -1627,7 +1627,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "A",
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
@@ -1682,7 +1682,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "A",
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             calculation.Attach(observer);
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,

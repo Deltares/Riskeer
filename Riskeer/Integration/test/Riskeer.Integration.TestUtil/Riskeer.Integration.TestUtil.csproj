@@ -94,6 +94,10 @@
       <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
       <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\test\Riskeer.GrassCoverErosionOutwards.Data.TestUtil\Riskeer.GrassCoverErosionOutwards.Data.TestUtil.csproj">
+      <Project>{D1234D03-76BC-437D-B941-DFF14A2A108D}</Project>
+      <Name>Riskeer.GrassCoverErosionOutwards.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
       <Name>Riskeer.HeightStructures.Data</Name>

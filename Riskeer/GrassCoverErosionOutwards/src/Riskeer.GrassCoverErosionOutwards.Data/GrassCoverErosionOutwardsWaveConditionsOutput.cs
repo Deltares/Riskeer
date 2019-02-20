@@ -38,8 +38,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         /// <param name="waveRunUpOutput">The wave conditions output for wave run up.</param>
         /// <param name="waveImpactOutput">The wave conditions output for wave impact.</param>
-        public GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput, 
-                                                             IEnumerable<WaveConditionsOutput> waveImpactOutput)
+        internal GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
+                                                               IEnumerable<WaveConditionsOutput> waveImpactOutput)
         {
             WaveRunUpOutput = waveRunUpOutput;
             WaveImpactOutput = waveImpactOutput;

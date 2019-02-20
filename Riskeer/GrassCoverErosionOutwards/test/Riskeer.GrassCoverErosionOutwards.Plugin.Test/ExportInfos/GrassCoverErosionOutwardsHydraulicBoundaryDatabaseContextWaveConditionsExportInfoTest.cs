@@ -29,6 +29,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.IO.Exporters;
 using Riskeer.Revetment.Data;
@@ -145,7 +146,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             });
 
             var context = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);

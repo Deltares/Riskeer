@@ -313,6 +313,9 @@ namespace Riskeer.Storage.Core.TestUtil.Test
 
             var calculationWithOutput = (GrassCoverErosionOutwardsWaveConditionsCalculation) failureMechanism.WaveConditionsCalculationGroup.Children[2];
             Assert.IsTrue(calculationWithOutput.HasOutput);
+            GrassCoverErosionOutwardsWaveConditionsOutput calculationOutput = calculationWithOutput.Output;
+            Assert.AreEqual(2, calculationOutput.WaveRunUpOutput.Count());
+            Assert.AreEqual(2, calculationOutput.WaveImpactOutput.Count());
         }
 
         private static void AssertStabilityStoneCoverFailureMechanism(AssessmentSection assessmentSection)

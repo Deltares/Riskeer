@@ -43,6 +43,7 @@ using Riskeer.Common.Primitives;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
@@ -1929,11 +1930,17 @@ namespace Riskeer.Storage.Core.TestUtil
                         StepSize = WaveConditionsInputStepSize.One,
                         CategoryType = FailureMechanismCategoryType.LowerLimitNorm
                     },
-                    Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
-                    {
-                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
-                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
-                    }, null)
+                    Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
+                        new[]
+                        {
+                            new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
+                        },
+                        new[]
+                        {
+                            new WaveConditionsOutput(10, 20, 30, 40, 50, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
+                        })
                 });
         }
 

@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
@@ -359,7 +360,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
         {
             return new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
         }
     }

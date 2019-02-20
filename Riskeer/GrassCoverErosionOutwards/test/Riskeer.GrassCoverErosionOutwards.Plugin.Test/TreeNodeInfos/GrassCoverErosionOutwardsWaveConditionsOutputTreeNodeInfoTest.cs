@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -70,14 +71,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null);
-
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string nodeText = info.Text(output);
+                string nodeText = info.Text(null);
 
                 // Assert
                 Assert.AreEqual("Resultaat", nodeText);
@@ -88,14 +87,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnOutputIcon()
         {
             // Setup
-            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null);
-
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Image icon = info.Image(output);
+                Image icon = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, icon);
@@ -109,7 +106,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), null);
+                GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())

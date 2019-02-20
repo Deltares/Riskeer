@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
@@ -51,24 +52,25 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Data_WithCalculationOutput_ReturnsExpectedValues()
         {
             // Setup
-            var items = new[]
+            var waveRunUpOutput = new[]
             {
                 new TestWaveConditionsOutput()
             };
 
-            var grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(items, null);
+            GrassCoverErosionOutwardsWaveConditionsOutput output = 
+                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, null);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
             {
-                Data = grassCoverErosionOutwardsWaveConditionsOutput
+                Data = output
             };
 
             // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.Items, typeof(WaveConditionsOutputProperties));
-            Assert.AreEqual(items.Length, properties.Items.Length);
+            Assert.AreEqual(waveRunUpOutput.Length, properties.Items.Length);
 
-            TestWaveConditionsOutput firstOutput = items[0];
+            TestWaveConditionsOutput firstOutput = waveRunUpOutput[0];
             WaveConditionsOutputProperties firstOutputProperties = properties.Items[0];
             Assert.AreEqual(firstOutput.WaterLevel, firstOutputProperties.WaterLevel);
             Assert.AreEqual(firstOutput.WaveHeight, firstOutputProperties.WaveHeight);
@@ -90,17 +92,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var items = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
-
-            var grassCoverErosionOutwardsOutputProperties = new GrassCoverErosionOutwardsWaveConditionsOutput(items, null);
+            GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties
             {
-                Data = grassCoverErosionOutwardsOutputProperties
+                Data = output
             };
 
             // Assert

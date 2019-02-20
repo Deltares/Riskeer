@@ -34,6 +34,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Plugin.FileImporters;
@@ -275,10 +276,7 @@ namespace Riskeer.Integration.Test.FileImporters
                 {
                     ForeshoreProfile = unaffectedForeshoreProfile
                 },
-                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
-                {
-                    new TestWaveConditionsOutput()
-                }, null)
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
             return grassCoverErosionOutwardsFailureMechanism;
