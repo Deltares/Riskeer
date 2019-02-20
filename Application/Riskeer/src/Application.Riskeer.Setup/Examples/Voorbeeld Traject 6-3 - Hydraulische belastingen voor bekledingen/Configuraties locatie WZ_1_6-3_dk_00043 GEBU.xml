@@ -16,6 +16,7 @@
       <damhoogte>0</damhoogte>
       <voorlandgebruiken>true</voorlandgebruiken>
     </golfreductie>
+    <typebelasting>Gras (golfoploop)</typebelasting>
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="Stapgrootte 1.0">
@@ -34,6 +35,7 @@
         <damhoogte>0</damhoogte>
         <voorlandgebruiken>true</voorlandgebruiken>
       </golfreductie>
+      <typebelasting>Gras (golfklap)</typebelasting>
     </berekening>
     <berekening naam="Zonder voorland">
       <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
@@ -51,6 +53,7 @@
         <damhoogte>0</damhoogte>
         <voorlandgebruiken>false</voorlandgebruiken>
       </golfreductie>
+      <typebelasting>Gras (golfoploop en golfklap)</typebelasting>
     </berekening>
   </map>
 </configuratie>
