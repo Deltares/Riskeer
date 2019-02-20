@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -61,6 +62,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         /// <item>the hydraulic boundary database file path contains invalid characters.</item>
         /// <item><paramref name="failureMechanism"/> has no (0) contribution.</item>
         /// </list></exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
+        /// enum value is encountered.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
@@ -92,9 +95,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            GrassCoverErosionOutwardsWaveConditionsInput calculationInput = calculation.InputParameters;
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculationInput.CalculationType;
+
+            ValidateCalculationType(calculationType);
             CalculationServiceHelper.LogCalculationBegin();
 
-            GrassCoverErosionOutwardsWaveConditionsInput calculationInput = calculation.InputParameters;
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                 calculationInput.HydraulicBoundaryLocation,
                                                                                 calculationInput.CategoryType);
@@ -102,7 +108,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculationInput.CalculationType;
             int waterLevelCount = calculationInput.GetWaterLevels(assessmentLevel).Count();
             TotalWaterLevelCalculations = calculationInput.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
                                               ? waterLevelCount * 2
@@ -142,19 +147,44 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             }
         }
 
+        /// <summary>
+        /// Validates the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationType"/> input.
+        /// </summary>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an undefined enum is used as input.</exception>
+        /// <exception cref="NotSupportedException">Thrown when a defined enum, but is unsupported is used as input.</exception>
+        private static void ValidateCalculationType(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
+        {
+            if (!Enum.IsDefined(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType,
+                                                       typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
+            }
+
+            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
+                || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
+            {
+                return;
+            }
+
+            throw new NotSupportedException();
+        }
+
         private static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutput(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType,
                                                                                   IEnumerable<WaveConditionsOutput> waveRunUpOutput,
                                                                                   IEnumerable<WaveConditionsOutput> waveImpactOutput)
         {
-            switch (calculationType)
+            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
             {
-                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp:
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
-                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact:
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
-                default:
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
+                return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
             }
+
+            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
+            {
+                return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
+            }
+
+            return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveRunUp(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,

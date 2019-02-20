@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -119,6 +120,38 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_InvalidCalculationType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) 99
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                                failureMechanism,
+                                                                                                                assessmentSection);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'calculationType' ({(int)calculation.InputParameters.CalculationType}) " +
+                                     $"is invalid for Enum type '{nameof(GrassCoverErosionOutwardsWaveConditionsCalculationType)}'.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage)
+                                         .ParamName;
+            Assert.AreEqual("calculationType", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -944,7 +977,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                          : waterLevels.Length;
 
                     var revetmentType = "golfoploop";
-                    if (step > waterLevels.Length 
+                    if (step > waterLevels.Length
                         || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
                     {
                         revetmentType = "golfklap";

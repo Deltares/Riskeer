@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -116,6 +117,33 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("generalWaveConditionsInput", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_InvalidCalculationType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation(new TestHydraulicBoundaryLocation());
+            calculation.InputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) 99;
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                          assessmentSection,
+                                                                                                          failureMechanism.GeneralInput);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'calculationType' ({(int) calculation.InputParameters.CalculationType}) " +
+                                     $"is invalid for Enum type '{nameof(StabilityStoneCoverWaveConditionsCalculationType)}'.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage)
+                                         .ParamName;
+            Assert.AreEqual("calculationType", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -321,8 +349,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                     // Assert
                     RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
                     int totalSteps = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
-                                              ? waterLevels.Length * 2
-                                              : waterLevels.Length;
+                                         ? waterLevels.Length * 2
+                                         : waterLevels.Length;
 
                     var revetmentType = "blokken";
                     if (step > waterLevels.Length

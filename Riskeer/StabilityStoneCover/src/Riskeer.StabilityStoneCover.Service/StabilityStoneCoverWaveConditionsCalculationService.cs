@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -86,6 +87,9 @@ namespace Riskeer.StabilityStoneCover.Service
                 throw new ArgumentNullException(nameof(generalWaveConditionsInput));
             }
 
+            StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
+            ValidateCalculationType(calculationType);
+
             CalculationServiceHelper.LogCalculationBegin();
 
             double norm = assessmentSection.GetNorm(calculation.InputParameters.CategoryType);
@@ -93,7 +97,7 @@ namespace Riskeer.StabilityStoneCover.Service
             RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                  calculation.InputParameters.CategoryType);
 
-            StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
+            
             int waterLevelCount = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
             TotalWaterLevelCalculations = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                                               ? waterLevelCount * 2
@@ -156,6 +160,29 @@ namespace Riskeer.StabilityStoneCover.Service
             }
 
             calculation.Output = output;
+        }
+
+        /// <summary>
+        /// Validates the <see cref="StabilityStoneCoverWaveConditionsCalculationType"/> input.
+        /// </summary>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an undefined enum is used as input.</exception>
+        /// <exception cref="NotSupportedException">Thrown when a defined enum, but is unsupported is used as input.</exception>
+        private static void ValidateCalculationType(StabilityStoneCoverWaveConditionsCalculationType calculationType)
+        {
+            if (!Enum.IsDefined(typeof(StabilityStoneCoverWaveConditionsCalculationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationType), (int)calculationType,
+                                                       typeof(StabilityStoneCoverWaveConditionsCalculationType));
+            }
+
+            if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
+                || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks
+                || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
+            {
+                return;
+            }
+
+            throw new NotSupportedException();
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateColumns(StabilityStoneCoverWaveConditionsCalculation calculation,
