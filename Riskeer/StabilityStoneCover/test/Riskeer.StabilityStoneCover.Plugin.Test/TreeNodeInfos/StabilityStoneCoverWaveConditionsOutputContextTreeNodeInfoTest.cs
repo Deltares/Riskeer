@@ -27,7 +27,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;

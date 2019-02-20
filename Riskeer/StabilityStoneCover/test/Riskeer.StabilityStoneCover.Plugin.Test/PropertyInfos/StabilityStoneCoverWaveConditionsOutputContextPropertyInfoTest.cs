@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
