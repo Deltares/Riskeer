@@ -120,12 +120,13 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                         Height = (RoundedDouble) 6.6,
                         Type = BreakWaterType.Caisson
                     },
-                    CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm
+                    CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                 }
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<FailureMechanismCategoryWaveConditionsInput>) calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -188,16 +189,17 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                         Height = (RoundedDouble) 6.6,
                         Type = BreakWaterType.Caisson
                     },
-                    CategoryType = expectedCategory
+                    CategoryType = expectedCategory,
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
                 }
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<FailureMechanismCategoryWaveConditionsInput>) calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationGroup.Children[0]);
         }
 
-        private static void AssertWaveConditionsCalculation(ICalculation<FailureMechanismCategoryWaveConditionsInput> expectedCalculation,
-                                                            ICalculation<FailureMechanismCategoryWaveConditionsInput> actualCalculation)
+        private static void AssertWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation expectedCalculation,
+                                                            GrassCoverErosionOutwardsWaveConditionsCalculation actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
@@ -213,6 +215,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
             Assert.AreEqual(expectedCalculation.InputParameters.CategoryType, actualCalculation.InputParameters.CategoryType);
+            Assert.AreEqual(expectedCalculation.InputParameters.CalculationType, actualCalculation.InputParameters.CalculationType);
         }
     }
 }

@@ -61,11 +61,16 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {
-                calculation.InputParameters.CategoryType = (FailureMechanismCategoryType) calculationConfiguration.CategoryType;
+                calculation.InputParameters.CategoryType = (FailureMechanismCategoryType) calculationConfiguration.CategoryType.Value;
             }
             else
             {
                 WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
+            }
+
+            if (calculationConfiguration.CalculationType.HasValue)
+            {
+                calculation.InputParameters.CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) calculationConfiguration.CalculationType.Value;
             }
         }
     }
