@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="WZ_1_6-3_dk_00043">
+    <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
+    <categoriegrens>B</categoriegrens>
+    <bovengrensbekleding>6.3</bovengrensbekleding>
+    <ondergrensbekleding>4.21</ondergrensbekleding>
+    <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+    <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+    <stapgrootte>0.5</stapgrootte>
+    <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
+    <orientatie>290</orientatie>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>true</voorlandgebruiken>
+    </golfreductie>
+  </berekening>
+  <map naam="Gevoeligheid">
+    <berekening naam="Stapgrootte 1.0">
+      <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
+      <categoriegrens>B</categoriegrens>
+      <bovengrensbekleding>6.3</bovengrensbekleding>
+      <ondergrensbekleding>4.21</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>1.0</stapgrootte>
+      <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
+      <orientatie>290</orientatie>
+      <golfreductie>
+        <damgebruiken>false</damgebruiken>
+        <damtype>havendam</damtype>
+        <damhoogte>0</damhoogte>
+        <voorlandgebruiken>true</voorlandgebruiken>
+      </golfreductie>
+    </berekening>
+    <berekening naam="Zonder voorland">
+      <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
+      <categoriegrens>B</categoriegrens>
+      <bovengrensbekleding>6.3</bovengrensbekleding>
+      <ondergrensbekleding>4.21</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
+      <orientatie>290</orientatie>
+      <golfreductie>
+        <damgebruiken>false</damgebruiken>
+        <damtype>havendam</damtype>
+        <damhoogte>0</damhoogte>
+        <voorlandgebruiken>false</voorlandgebruiken>
+      </golfreductie>
+    </berekening>
+  </map>
+</configuratie>
