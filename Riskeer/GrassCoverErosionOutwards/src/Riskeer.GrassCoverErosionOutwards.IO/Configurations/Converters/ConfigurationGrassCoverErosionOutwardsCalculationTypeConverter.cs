@@ -84,5 +84,12 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
 
             return base.ConvertTo(context, culture, value, destinationType);
         }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(string)
+                   || sourceType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType)
+                   || base.CanConvertFrom(context, sourceType);
+        }
     }
 }

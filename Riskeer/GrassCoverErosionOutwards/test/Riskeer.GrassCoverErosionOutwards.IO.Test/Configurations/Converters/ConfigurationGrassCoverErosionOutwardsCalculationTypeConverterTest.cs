@@ -132,5 +132,44 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             // Assert
             Assert.AreEqual(expectedText, calculationType);
         }
+
+        [Test]
+        public void CanConvertFrom_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertFrom);
+        }
+
+        [Test]
+        public void CanConvertFrom_GrassCoverErosionOutwardsWaveConditionsCalculationType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
+
+            // Assert
+            Assert.IsTrue(canConvertFrom);
+        }
+
+        [Test]
+        public void CanConvertFrom_OtherType_ReturnFalse()
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertFrom);
+        }
     }
 }
