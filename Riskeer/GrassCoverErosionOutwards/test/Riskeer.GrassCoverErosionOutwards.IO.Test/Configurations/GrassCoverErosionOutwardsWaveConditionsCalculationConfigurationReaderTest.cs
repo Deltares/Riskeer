@@ -48,6 +48,16 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidCategoryTypeUnknownValue.xml",
                                               "The 'categoriegrens' element is invalid - The value 'A' is invalid according to its datatype 'categoriegrensType' - The Enumeration constraint failed.")
                     .SetName("invalidCategoryTypeUnknownValue");
+
+                yield return new TestCaseData("invalidCalculationMultipleRevetmentType.xml",
+                                              "Element 'typebelasting' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleRevetmentType");
+                yield return new TestCaseData("invalidRevetmentTypeUnknownValue.xml",
+                                              "The 'typebelasting' element is invalid - The value 'Gras' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidRevetmentTypeUnknownValue");
+                yield return new TestCaseData("invalidBoundaryType.xml",
+                                              "The element 'berekening' has invalid child element 'typebekleding'.")
+                    .SetName("invalidBoundaryType");
             }
         }
 

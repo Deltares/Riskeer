@@ -38,4 +38,14 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
+
+  <xs:element name="typebelasting" substitutionGroup="typebekleding-of-typebelasting">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="Gras (golfoploop)"/>
+        <xs:enumeration value="Gras (golfklap)"/>
+        <xs:enumeration value="Gras (golfoploop en golfklap)"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>
