@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil.Test
 {
@@ -36,6 +39,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil.Test
             // Assert
             CollectionAssert.IsEmpty(output.WaveRunUpOutput);
             CollectionAssert.IsEmpty(output.WaveImpactOutput);
+        }
+
+        [Test]
+        public void Create_WithArguments_ReturnsExpectedOutput()
+        {
+            // Setup
+            IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsOutput output =
+                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput);
+
+            // Assert
+            Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
+            Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
         }
     }
 }

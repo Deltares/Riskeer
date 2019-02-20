@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Riskeer.Revetment.Data;
 
@@ -39,6 +40,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         {
             return new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>());
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>
+        /// with given output.
+        /// </summary>
+        /// <param name="waveRunUpOutput">The wave run up output.</param>
+        /// <param name="waveImpactOutput">The wave impact output.</param>
+        /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
+        public static GrassCoverErosionOutwardsWaveConditionsOutput Create(IEnumerable<WaveConditionsOutput> waveRunUpOutput, 
+                                                                           IEnumerable<WaveConditionsOutput> waveImpactOutput)
+        {
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveRunUpOutput);
         }
     }
 }
