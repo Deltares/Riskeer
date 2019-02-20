@@ -3,6 +3,7 @@
   <map naam="PK001_0001">
     <berekening naam="Calculation A">
       <categoriegrens>Iv</categoriegrens>
+      <typebelasting>Gras (golfoploop en golfklap)</typebelasting>
       <bovengrensbekleding>NaN</bovengrensbekleding>
       <ondergrensbekleding>NaN</ondergrensbekleding>
       <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
@@ -21,6 +22,7 @@
       <berekening naam="PK001_0002 W1-6_4_1D1">
         <hblocatie>HydraulicLocationA</hblocatie>
         <categoriegrens>IIv</categoriegrens>
+        <typebelasting>Gras (golfoploop)</typebelasting>
         <bovengrensbekleding>NaN</bovengrensbekleding>
         <ondergrensbekleding>NaN</ondergrensbekleding>
         <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
