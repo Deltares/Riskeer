@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using NUnit.Framework;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
@@ -36,6 +37,44 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
+        }
+        [Test]
+        public void CanConvertTo_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertTo);
+        }
+
+        [Test]
+        public void CanConvertTo_GrassCoverErosionOutwardsWaveConditionsCalculationType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
+
+            // Assert
+            Assert.IsTrue(canConvertTo);
+        }
+
+        [Test]
+        public void CanConvertTo_OtherType_ReturnFalse()
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertTo);
         }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Riskeer.GrassCoverErosionOutwards.Data;
 
@@ -30,5 +31,10 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
     /// </summary>
     public class ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter : TypeConverter
     {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return destinationType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType)
+                   || base.CanConvertTo(context, destinationType);
+        }
     }
 }
