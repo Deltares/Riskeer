@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Globalization;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
@@ -38,6 +42,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
         }
+
         [Test]
         public void CanConvertTo_String_ReturnTrue()
         {
@@ -75,6 +80,57 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
 
             // Assert
             Assert.IsFalse(canConvertTo);
+        }
+
+        [Test]
+        [TestCase(typeof(string))]
+        [TestCase(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType))]
+        public void ConvertTo_InvalidConfigurationGrassCoverErosionOutwardsCalculationType_ThrowInvalidEnumArgumentException(Type destinationType)
+        {
+            // Setup
+            const GrassCoverErosionOutwardsWaveConditionsCalculationType invalidValue = (GrassCoverErosionOutwardsWaveConditionsCalculationType) 99;
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationGrassCoverErosionOutwardsCalculationType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.Both, GrassCoverErosionOutwardsWaveConditionsCalculationType.Both)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)]
+        public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCalculationType_ReturnGrassCoverErosionOutwardsWaveConditionsCalculationType(
+            ConfigurationGrassCoverErosionOutwardsCalculationType originalValue, GrassCoverErosionOutwardsWaveConditionsCalculationType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            object calculationType = converter.ConvertTo(null, CultureInfo.CurrentCulture, originalValue, typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
+
+            // Assert
+            Assert.AreEqual(expectedResult, calculationType);
+        }
+
+        [Test]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.Both, "Gras (golfoploop en golfklap)")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp, "Gras (golfoploop)")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, "Gras (golfklap)")]
+        public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCalculationType_ReturnExpectedText(
+            ConfigurationGrassCoverErosionOutwardsCalculationType originalValue, string expectedText)
+        {
+            // Setup
+            var converter = new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter();
+
+            // Call
+            object calculationType = converter.ConvertTo(null, CultureInfo.CurrentCulture, originalValue, typeof(string));
+
+            // Assert
+            Assert.AreEqual(expectedText, calculationType);
         }
     }
 }
