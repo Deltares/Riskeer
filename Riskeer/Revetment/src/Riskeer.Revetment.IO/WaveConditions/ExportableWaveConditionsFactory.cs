@@ -52,7 +52,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Grass,
+            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.GrassWaveRunUp,
                                                             GetCategoryBoundaryName(waveConditionsInput.CategoryType));
         }
 

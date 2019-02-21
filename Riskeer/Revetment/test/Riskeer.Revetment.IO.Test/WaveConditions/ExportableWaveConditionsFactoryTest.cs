@@ -110,7 +110,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             Assert.AreEqual("id", exportableWaveConditions.ForeshoreId);
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
-            Assert.AreEqual(CoverType.Grass, exportableWaveConditions.CoverType);
+            Assert.AreEqual(CoverType.GrassWaveRunUp, exportableWaveConditions.CoverType);
             Assert.AreEqual("Iv", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
@@ -225,7 +225,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         private static IEnumerable<TestCaseData> GetCoverTypes()
         {
             yield return new TestCaseData(CoverType.Asphalt);
-            yield return new TestCaseData(CoverType.Grass);
+            yield return new TestCaseData(CoverType.GrassWaveRunUp);
+            yield return new TestCaseData(CoverType.GrassWaveImpact);
             yield return new TestCaseData(CoverType.StoneCoverBlocks);
             yield return new TestCaseData(CoverType.StoneCoverColumns);
         }

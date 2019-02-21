@@ -49,10 +49,17 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void Name_Grass_CorrectName()
+        public void Name_GrassWaveRunUp_CorrectName()
         {
             // Assert
-            Assert.AreEqual("Gras", CoverType.Grass.Name);
+            Assert.AreEqual("Gras (golfoploop)", CoverType.GrassWaveRunUp.Name);
+        }
+
+        [Test]
+        public void Name_GrassWaveImpact_CorrectName()
+        {
+            // Assert
+            Assert.AreEqual("Gras (golfklap)", CoverType.GrassWaveImpact.Name);
         }
     }
 }

@@ -93,7 +93,8 @@ namespace Riskeer.Revetment.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BekledingenConfiguratieBasisSchema {
             get {
@@ -113,7 +114,8 @@ namespace Riskeer.Revetment.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BekledingenConfiguratieSchema {
             get {
@@ -149,11 +151,20 @@ namespace Riskeer.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras.
+        ///   Looks up a localized string similar to Gras (golfklap).
         /// </summary>
-        internal static string CoverType_Grass {
+        internal static string CoverType_GrassWaveImpact {
             get {
-                return ResourceManager.GetString("CoverType_Grass", resourceCulture);
+                return ResourceManager.GetString("CoverType_GrassWaveImpact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gras (golfoploop).
+        /// </summary>
+        internal static string CoverType_GrassWaveRunUp {
+            get {
+                return ResourceManager.GetString("CoverType_GrassWaveRunUp", resourceCulture);
             }
         }
         

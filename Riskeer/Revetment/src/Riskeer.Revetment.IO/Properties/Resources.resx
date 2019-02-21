@@ -138,8 +138,8 @@
   <data name="CoverType_Asphalt" xml:space="preserve">
     <value>Asfalt</value>
   </data>
-  <data name="CoverType_Grass" xml:space="preserve">
-    <value>Gras</value>
+  <data name="CoverType_GrassWaveRunUp" xml:space="preserve">
+    <value>Gras (golfoploop)</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BekledingenConfiguratieBasisSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -159,5 +159,8 @@
   </data>
   <data name="BekledingenConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\BekledingenConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CoverType_GrassWaveImpact" xml:space="preserve">
+    <value>Gras (golfklap)</value>
   </data>
 </root>
