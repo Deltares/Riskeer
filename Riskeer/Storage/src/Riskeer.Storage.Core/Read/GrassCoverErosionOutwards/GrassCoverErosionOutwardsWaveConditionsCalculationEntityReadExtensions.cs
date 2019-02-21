@@ -101,11 +101,39 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
                 return;
             }
 
-            List<WaveConditionsOutput> waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities
-                                                                     .OrderBy(e => e.Order)
-                                                                     .Select(e => e.Read())
-                                                                     .ToList();
-            calculation.Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveConditionsOutputs);
+            var waveRunUpOutput = new List<WaveConditionsOutput>();
+            var waveImpactOutput = new List<WaveConditionsOutput>();
+            foreach (GrassCoverErosionOutwardsWaveConditionsOutputEntity outputEntity in
+                entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order))
+            {
+                if (outputEntity.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp))
+                {
+                    waveRunUpOutput.Add(outputEntity.Read());
+                }
+
+                if (outputEntity.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact))
+                {
+                    waveImpactOutput.Add(outputEntity.Read());
+                }
+            }
+
+            calculation.Output = CreateGrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput);
+        }
+
+        private static GrassCoverErosionOutwardsWaveConditionsOutput CreateGrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
+                                                                                                                         IEnumerable<WaveConditionsOutput> waveImpactOutput)
+        {
+            if (!waveImpactOutput.Any())
+            {
+                return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
+            }
+
+            if (!waveRunUpOutput.Any())
+            {
+                return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
+            }
+
+            return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity,
