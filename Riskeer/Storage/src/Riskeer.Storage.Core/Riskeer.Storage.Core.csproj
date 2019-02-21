@@ -169,6 +169,7 @@
     <Compile Include="DbContext\GrassCoverErosionOutwardsWaveConditionsOutputEntity.cs">
       <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\GrassCoverErosionOutwardsWaveConditionsOutputType.cs" />
     <Compile Include="DbContext\GrassCoverSlipOffInwardsSectionResultEntity.cs">
       <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
