@@ -128,10 +128,10 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_ValidDataWithColumnsAndBlocksOutput_ValidFile()
+        public void Export_ValidDataWithCalculationTypeBoth_ValidFile()
         {
             // Setup
-            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithColumnsAndBlocksOutput_ValidFile)}";
+            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeBoth_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
@@ -181,10 +181,10 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_ValidDataWithColumnsOutput_ValidFile()
+        public void Export_ValidDataWithCalculationTypeColumns_ValidFile()
         {
             // Setup
-            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithColumnsOutput_ValidFile)}";
+            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeColumns_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {
@@ -233,10 +233,10 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_ValidDataWithBlocksOutput_ValidFile()
+        public void Export_ValidDataWithCalculationTypeBlocks_ValidFile()
         {
             // Setup
-            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithBlocksOutput_ValidFile)}";
+            string folderName = $"{nameof(StabilityStoneCoverWaveConditionsExporterTest)}.{nameof(Export_ValidDataWithCalculationTypeBlocks_ValidFile)}";
             string directoryPath = TestHelper.GetScratchPadPath(folderName);
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), folderName))
             {

@@ -58,9 +58,23 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in exportableCalculations)
             {
-                exportableWaveConditions.AddRange(
-                    ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.WaveRunUpOutput, CoverType.GrassWaveRunUp));
+                GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
+
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both ||
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
+                {
+                    exportableWaveConditions.AddRange(
+                        ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                            calculation.Name, calculation.InputParameters, calculation.Output.WaveRunUpOutput, CoverType.GrassWaveRunUp));
+                }
+
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both ||
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
+                {
+                    exportableWaveConditions.AddRange(
+                        ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                            calculation.Name, calculation.InputParameters, calculation.Output.WaveImpactOutput,CoverType.GrassWaveImpact));
+                }
             }
 
             return exportableWaveConditions;
