@@ -87,17 +87,22 @@ namespace Riskeer.StabilityStoneCover.Service
                 throw new ArgumentNullException(nameof(generalWaveConditionsInput));
             }
 
-            StabilityStoneCoverWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
-            ValidateCalculationType(calculationType);
+            StabilityStoneCoverWaveConditionsInput calculationInput = calculation.InputParameters;
+            StabilityStoneCoverWaveConditionsCalculationType calculationType = calculationInput.CalculationType;
+            if (!Enum.IsDefined(typeof(StabilityStoneCoverWaveConditionsCalculationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType,
+                                                       typeof(StabilityStoneCoverWaveConditionsCalculationType));
+            }
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            double norm = assessmentSection.GetNorm(calculation.InputParameters.CategoryType);
+            double norm = assessmentSection.GetNorm(calculationInput.CategoryType);
 
-            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                 calculation.InputParameters.CategoryType);
+            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculationInput.HydraulicBoundaryLocation,
+                                                                                 calculationInput.CategoryType);
 
-            int waterLevelCount = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
+            int waterLevelCount = calculationInput.GetWaterLevels(assessmentLevel).Count();
             TotalWaterLevelCalculations = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
                                               ? waterLevelCount * 2
                                               : waterLevelCount;
@@ -153,29 +158,6 @@ namespace Riskeer.StabilityStoneCover.Service
             }
 
             return StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumnsAndBlocks(columnsOutputs, blocksOutputs);
-        }
-
-        /// <summary>
-        /// Validates the <see cref="StabilityStoneCoverWaveConditionsCalculationType"/> input.
-        /// </summary>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when an undefined enum is used as input.</exception>
-        /// <exception cref="NotSupportedException">Thrown when a defined enum, but is unsupported is used as input.</exception>
-        private static void ValidateCalculationType(StabilityStoneCoverWaveConditionsCalculationType calculationType)
-        {
-            if (!Enum.IsDefined(typeof(StabilityStoneCoverWaveConditionsCalculationType), calculationType))
-            {
-                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType,
-                                                       typeof(StabilityStoneCoverWaveConditionsCalculationType));
-            }
-
-            if (calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
-                || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Blocks
-                || calculationType == StabilityStoneCoverWaveConditionsCalculationType.Columns)
-            {
-                return;
-            }
-
-            throw new NotSupportedException();
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateColumns(StabilityStoneCoverWaveConditionsCalculation calculation,

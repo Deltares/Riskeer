@@ -98,7 +98,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             GrassCoverErosionOutwardsWaveConditionsInput calculationInput = calculation.InputParameters;
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculationInput.CalculationType;
 
-            ValidateCalculationType(calculationType);
+            if (!Enum.IsDefined(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType,
+                                                       typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
+            }
+
             CalculationServiceHelper.LogCalculationBegin();
 
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
@@ -145,29 +150,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             {
                 CalculationServiceHelper.LogCalculationEnd();
             }
-        }
-
-        /// <summary>
-        /// Validates the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationType"/> input.
-        /// </summary>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when an undefined enum is used as input.</exception>
-        /// <exception cref="NotSupportedException">Thrown when a defined enum, but is unsupported is used as input.</exception>
-        private static void ValidateCalculationType(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
-        {
-            if (!Enum.IsDefined(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType), calculationType))
-            {
-                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType,
-                                                       typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
-            }
-
-            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
-                || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
-                || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
-            {
-                return;
-            }
-
-            throw new NotSupportedException();
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutput(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType,
