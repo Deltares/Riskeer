@@ -1911,16 +1911,24 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             AssertComments(expectedCalculation.Comments, actualCalculation.Comments);
 
-            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+            AssertGrassCoverErosionOutwardsCalculationInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
 
             if (expectedCalculation.HasOutput)
             {
+                AssertWaveConditionsOutputs(expectedCalculation.Output.WaveRunUpOutput.ToArray(), actualCalculation.Output.WaveRunUpOutput.ToArray());
                 AssertWaveConditionsOutputs(expectedCalculation.Output.WaveImpactOutput.ToArray(), actualCalculation.Output.WaveImpactOutput.ToArray());
             }
             else
             {
                 Assert.IsFalse(actualCalculation.HasOutput);
             }
+        }
+
+        private static void AssertGrassCoverErosionOutwardsCalculationInput(GrassCoverErosionOutwardsWaveConditionsInput expectedInput, 
+                                                                            GrassCoverErosionOutwardsWaveConditionsInput actualInput)
+        {
+            AssertWaveConditionsInput(expectedInput, actualInput);
+            Assert.AreEqual(expectedInput.CalculationType, actualInput.CalculationType);
         }
 
         #endregion
