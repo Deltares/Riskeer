@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         }
 
         private static void SetInputParameters(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
-                                               FailureMechanismCategoryWaveConditionsInput calculationInput,
+                                               GrassCoverErosionOutwardsWaveConditionsInput calculationInput,
                                                PersistenceRegistry registry)
         {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = calculationInput.HydraulicBoundaryLocation;
@@ -95,6 +95,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
             entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
             entity.StepSize = Convert.ToByte(calculationInput.StepSize);
             entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
+            entity.CalculationType = Convert.ToByte(calculationInput.CalculationType);
         }
 
         private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,

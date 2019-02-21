@@ -86,6 +86,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             const double upperBoundaryWaterLevels = 5.88;
             var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
             var categoryType = random.NextEnumValue<FailureMechanismCategoryType>();
+            var calculationType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsCalculationType>();
 
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
@@ -101,7 +102,8 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = Convert.ToByte(stepSize),
-                CategoryType = Convert.ToByte(categoryType)
+                CategoryType = Convert.ToByte(categoryType),
+                CalculationType = Convert.ToByte(calculationType)
             };
 
             var collector = new ReadConversionCollector();
@@ -113,7 +115,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(comments, calculation.Comments.Body);
 
-            FailureMechanismCategoryWaveConditionsInput calculationInput = calculation.InputParameters;
+            GrassCoverErosionOutwardsWaveConditionsInput calculationInput = calculation.InputParameters;
             Assert.AreEqual(useBreakWater, calculationInput.UseBreakWater);
             Assert.AreEqual(breakWaterType, calculationInput.BreakWater.Type);
             AssertRoundedDouble(breakWaterHeight, calculationInput.BreakWater.Height);
@@ -125,6 +127,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(stepSize, calculationInput.StepSize);
             Assert.AreEqual(categoryType, calculationInput.CategoryType);
+            Assert.AreEqual(calculationType, calculationInput.CalculationType);
 
             Assert.IsNull(calculationInput.HydraulicBoundaryLocation);
             Assert.IsNull(calculationInput.ForeshoreProfile);

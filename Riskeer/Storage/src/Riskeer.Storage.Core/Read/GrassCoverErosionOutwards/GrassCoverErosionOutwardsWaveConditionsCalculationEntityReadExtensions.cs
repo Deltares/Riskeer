@@ -74,7 +74,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             return calculation;
         }
 
-        private static void ReadCalculationInputs(FailureMechanismCategoryWaveConditionsInput inputParameters,
+        private static void ReadCalculationInputs(GrassCoverErosionOutwardsWaveConditionsInput inputParameters,
                                                   GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
                                                   ReadConversionCollector collector)
         {
@@ -91,6 +91,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
             inputParameters.CategoryType = (FailureMechanismCategoryType) entity.CategoryType;
+            inputParameters.CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) entity.CalculationType;
         }
 
         private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
