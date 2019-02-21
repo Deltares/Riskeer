@@ -205,7 +205,6 @@
     <Compile Include="DbContext\HydraulicLocationOutputEntity.cs">
       <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
     <Compile Include="DbContext\IGeneralResultEntity.cs" />
     <Compile Include="DbContext\IHasGeneralResultFaultTreeIllustrationPointEntity.cs" />
     <Compile Include="DbContext\IllustrationPointResultEntity.cs">
