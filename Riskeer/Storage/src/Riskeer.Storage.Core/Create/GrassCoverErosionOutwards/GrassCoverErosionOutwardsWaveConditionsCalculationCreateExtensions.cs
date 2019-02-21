@@ -103,9 +103,20 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
             if (calculation.HasOutput)
             {
                 var i = 0;
-                foreach (WaveConditionsOutput output in calculation.Output.WaveImpactOutput)
+                if (calculation.Output.WaveRunUpOutput != null)
                 {
-                    entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(i++));
+                    foreach (WaveConditionsOutput output in calculation.Output.WaveRunUpOutput)
+                    {
+                        entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp, i++));
+                    }
+                }
+
+                if (calculation.Output.WaveImpactOutput != null)
+                {
+                    foreach (WaveConditionsOutput output in calculation.Output.WaveImpactOutput)
+                    {
+                        entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact, i++));
+                    }
                 }
             }
         }

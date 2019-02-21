@@ -37,14 +37,16 @@ namespace Riskeer.Storage.Core.Create
         /// </summary>
         /// <param name="output">The calculation output for grass cover erosion outwards failure mechanism to 
         /// create a database entity for.</param>
+        /// <param name="type">The type of <see cref="GrassCoverErosionOutwardsWaveConditionsOutputType"/>.</param>
         /// <param name="order">The position of <paramref name="output"/> in the list of all outputs.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/>.</returns>
         internal static GrassCoverErosionOutwardsWaveConditionsOutputEntity CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(
-            this WaveConditionsOutput output, int order)
+            this WaveConditionsOutput output, GrassCoverErosionOutwardsWaveConditionsOutputType type, int order)
         {
             var entity = new GrassCoverErosionOutwardsWaveConditionsOutputEntity
             {
                 Order = order,
+                OutputType = Convert.ToByte(type),
                 WaterLevel = output.WaterLevel.ToNaNAsNull(),
                 WaveHeight = output.WaveHeight.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.ToNaNAsNull(),
@@ -65,7 +67,7 @@ namespace Riskeer.Storage.Core.Create
         /// </summary>
         /// <param name="output">The calculation output for stability stone cover failure mechanism to 
         /// create a database entity for.</param>
-        /// <param name="type">The type of the <see cref="StabilityStoneCoverWaveConditionsOutputType"/>.</param>
+        /// <param name="type">The type of <see cref="StabilityStoneCoverWaveConditionsOutputType"/>.</param>
         /// <param name="order">The position of <paramref name="output"/> in the list of all outputs.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.</returns>
         internal static StabilityStoneCoverWaveConditionsOutputEntity CreateStabilityStoneCoverWaveConditionsOutputEntity(

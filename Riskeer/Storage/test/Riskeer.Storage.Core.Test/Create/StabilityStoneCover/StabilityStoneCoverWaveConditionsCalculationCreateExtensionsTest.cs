@@ -259,7 +259,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                 Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithBlocks(new[]
                 {
                     new TestWaveConditionsOutput(),
-                    new TestWaveConditionsOutput(),
+                    new TestWaveConditionsOutput()
                 })
             };
 
@@ -288,7 +288,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                 Output = StabilityStoneCoverWaveConditionsOutputFactory.CreateOutputWithColumns(new[]
                 {
                     new TestWaveConditionsOutput(),
-                    new TestWaveConditionsOutput(),
+                    new TestWaveConditionsOutput()
                 })
             };
 

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -36,11 +38,14 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
+            var random = new Random(21);
+            int order = random.Next();
+            var outputType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsOutputType>();
+
             var output = new TestWaveConditionsOutput();
-            const int order = 22;
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(order);
+            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(outputType, order);
 
             // Assert
             Assert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
@@ -53,6 +58,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
+            Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
 
             Assert.IsNull(entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntity);
         }
@@ -65,7 +71,8 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                                                   double.NaN, double.NaN, double.NaN, CalculationConvergence.NotCalculated);
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(1);
+            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity =
+                output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact, 1);
 
             // Assert
             Assert.IsNull(entity.WaterLevel);
