@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
             {
                 exportableWaveConditions.AddRange(
                     ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.WaveRunUpOutput));
+                        calculation.Name, calculation.InputParameters, calculation.Output.WaveRunUpOutput, CoverType.GrassWaveRunUp));
             }
 
             return exportableWaveConditions;
