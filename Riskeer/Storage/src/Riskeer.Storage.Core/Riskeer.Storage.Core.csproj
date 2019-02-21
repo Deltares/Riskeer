@@ -339,6 +339,7 @@
     <Compile Include="DbContext\StabilityStoneCoverWaveConditionsOutputEntity.cs">
       <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\StabilityStoneCoverWaveConditionsOutputType.cs" />
     <Compile Include="DbContext\StochastEntity.cs">
       <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
@@ -372,7 +373,6 @@
     <Compile Include="DbContext\WaterPressureAsphaltCoverSectionResultEntity.cs">
       <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\StabilityStoneCoverWaveConditionsOutputType.cs" />
     <Compile Include="DbContext\WaveImpactAsphaltCoverFailureMechanismMetaEntity.cs">
       <DependentUpon>RiskeerEntities.tt</DependentUpon>
     </Compile>

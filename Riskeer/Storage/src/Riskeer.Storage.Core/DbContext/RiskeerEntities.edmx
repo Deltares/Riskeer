@@ -517,6 +517,7 @@
           <Property Name="GrassCoverErosionOutwardsWaveConditionsOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" Type="integer" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="OutputType" Type="tinyint" Nullable="false" />
           <Property Name="WaterLevel" Type="real" />
           <Property Name="WaveHeight" Type="real" />
           <Property Name="WavePeakPeriod" Type="real" />
@@ -5450,6 +5451,7 @@
           <Property Name="GrassCoverErosionOutwardsWaveConditionsOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" Type="Int64" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="OutputType" Type="Byte" Nullable="false" />
           <Property Name="WaterLevel" Type="Double" />
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="WavePeakPeriod" Type="Double" />
@@ -8893,6 +8895,7 @@
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="WaterLevel" ColumnName="WaterLevel" />
+                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" ColumnName="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsWaveConditionsOutputEntityId" ColumnName="GrassCoverErosionOutwardsWaveConditionsOutputEntityId" />

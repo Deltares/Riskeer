@@ -35,6 +35,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long GrassCoverErosionOutwardsWaveConditionsOutputEntityId { get; set; }
         public long GrassCoverErosionOutwardsWaveConditionsCalculationEntityId { get; set; }
         public int Order { get; set; }
+        public byte OutputType { get; set; }
         public double? WaterLevel { get; set; }
         public double? WaveHeight { get; set; }
         public double? WavePeakPeriod { get; set; }
