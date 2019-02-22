@@ -100,8 +100,94 @@ INSERT INTO GrassCoverErosionInwardsOvertoppingRateOutputEntity SELECT * FROM [S
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
-INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
-INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
+	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize],
+	[CategoryType],
+	[CalculationType])
+SELECT 
+	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize],
+	[CategoryType],
+	CASE
+		WHEN [HasOutput] = 1 
+			THEN 2
+		ELSE 3
+    END
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+JOIN (
+	SELECT 
+	    [GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+	    CASE 
+			WHEN GrassCoverErosionOutwardsWaveConditionsOutputEntityId IS NOT NULL
+				THEN 1
+			ELSE 0 
+	    END AS HasOutput
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+	LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
+	GROUP BY GrassCoverErosionOutwardsWaveConditionsCalculationEntityId
+) USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId);
+INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity (
+	[GrassCoverErosionOutwardsWaveConditionsOutputEntityId],
+	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+	[Order],
+	[OutputType],
+	[WaterLevel],
+	[WaveHeight],
+	[WavePeakPeriod],
+	[WaveAngle],
+	[WaveDirection],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence])
+SELECT 
+	[GrassCoverErosionOutwardsWaveConditionsOutputEntityId],
+	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+	[Order],
+	2,
+	[WaterLevel],
+	[WaveHeight],
+	[WavePeakPeriod],
+	[WaveAngle],
+	[WaveDirection],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence]
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;

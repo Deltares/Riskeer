@@ -32,15 +32,15 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "19.1";
 
         [Test]
-        public void Given181Project_WhenUpgradedTo182_ThenProjectAsExpected()
+        public void Given181Project_WhenUpgradedTo191_ThenProjectAsExpected()
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                "MigrationTestProject181.rtd");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given181Project_WhenUpgradedTo182_ThenProjectAsExpected));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given181Project_WhenUpgradedTo182_ThenProjectAsExpected), ".log"));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given181Project_WhenUpgradedTo191_ThenProjectAsExpected));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given181Project_WhenUpgradedTo191_ThenProjectAsExpected), ".log"));
             var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
@@ -64,6 +64,9 @@ namespace Riskeer.Migration.Integration.Test
                     AssertBackgroundData(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
+                    
+                    AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
+                    AssertGrassCoverErosionOutwardsWaveConditionsOutput(reader, sourceFilePath);
 
                     AssertStabilityStoneCoverWaveConditionsCalculations(reader, sourceFilePath);
                 }
@@ -162,12 +165,12 @@ namespace Riskeer.Migration.Integration.Test
             string validateCalculations =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
                 "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity) " +
-                "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW "+
+                "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW " +
                 "JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
                 "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
                 "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
                 "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
-                "AND NEW.\"Order\" = OLD.\"Order\" " + 
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
                 "AND NEW.[UseBreakWater] =  OLD.[UseBreakWater] " +
@@ -184,6 +187,86 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[CalculationType] = 3;" +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculations);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculations =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity) " +
+                "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
+                "JOIN ( " +
+                "SELECT " +
+                "[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId], " +
+                "[CalculationGroupEntityId], " +
+                "[ForeshoreProfileEntityId], " +
+                "[HydraulicLocationEntityId], " +
+                "CALC.\"Order\", " +
+                "[Name], " +
+                "[Comments], " +
+                "[UseBreakWater], " +
+                "[BreakWaterType], " +
+                "[BreakWaterHeight], " +
+                "[UseForeshore], " +
+                "[Orientation], " +
+                "[UpperBoundaryRevetment], " +
+                "[LowerBoundaryRevetment], " +
+                "[UpperBoundaryWaterLevels], " +
+                "[LowerBoundaryWaterLevels], " +
+                "[StepSize], " +
+                "[CategoryType], " +
+                "CASE WHEN GrassCoverErosionOutwardsWaveConditionsOutputEntityId IS NOT NULL " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS HasOutput " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity CALC " +
+                "LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                "GROUP BY GrassCoverErosionOutwardsWaveConditionsCalculationEntityId " +
+                ") AS OLD USING (GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" =  OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CategoryType] = OLD.[CategoryType] " +
+                "AND ((HasOutput = 1 AND NEW.[CalculationType] = 2) OR (HasOutput = 0 AND NEW.[CalculationType] = 3)); " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculations);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsWaveConditionsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateOutputs =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity) " +
+                "FROM GrassCoverErosionOutwardsWaveConditionsOutputEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity OLD USING(GrassCoverErosionOutwardsWaveConditionsOutputEntityId) " +
+                "WHERE NEW.[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId] = OLD.[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[OutputType] = 2 " +
+                "AND NEW.[WaterLevel] IS OLD.[WaterLevel] " +
+                "AND NEW.[WaveHeight] IS OLD.[WaveHeight] " +
+                "AND NEW.[WavePeakPeriod] IS OLD.[WavePeakPeriod] " +
+                "AND NEW.[WaveAngle] IS OLD.[WaveAngle] " +
+                "AND NEW.[WaveDirection] IS OLD.[WaveDirection] " +
+                "AND NEW.[TargetProbability] IS OLD.[TargetProbability] " +
+                "AND NEW.[TargetReliability] IS OLD.[TargetReliability] " +
+                "AND NEW.[CalculatedProbability] IS OLD.[CalculatedProbability] " +
+                "AND NEW.[CalculatedReliability] IS OLD.[CalculatedReliability] " +
+                "AND NEW.[CalculationConvergence] = OLD.[CalculationConvergence]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputs);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
@@ -307,7 +390,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(12, messages.Count);
+                Assert.AreEqual(14, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
@@ -345,6 +428,13 @@ namespace Riskeer.Migration.Integration.Test
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'StabilityStoneCoverCalculations'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),
+                    messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "* Traject: 'GrassCoverErosionOutwardsCalculations'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),
