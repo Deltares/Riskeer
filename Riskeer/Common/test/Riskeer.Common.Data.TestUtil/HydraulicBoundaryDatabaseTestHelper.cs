@@ -38,6 +38,7 @@ namespace Riskeer.Common.Data.TestUtil
                                                                                        "ScenarioName",
                                                                                        1337,
                                                                                        "Scope",
+                                                                                       false,
                                                                                        "SeaLevel",
                                                                                        "RiverDischarge",
                                                                                        "LakeLevel",

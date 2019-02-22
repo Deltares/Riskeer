@@ -42,6 +42,7 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.AreEqual("ScenarioName", settings.ScenarioName);
             Assert.AreEqual(1337, settings.Year);
             Assert.AreEqual("Scope", settings.Scope);
+            Assert.IsFalse(settings.UsePreprocessorClosure);
             Assert.AreEqual("SeaLevel", settings.SeaLevel);
             Assert.AreEqual("RiverDischarge", settings.RiverDischarge);
             Assert.AreEqual("LakeLevel", settings.LakeLevel);

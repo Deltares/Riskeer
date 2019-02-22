@@ -75,6 +75,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             Assert.AreEqual("WBI2017", settings.ScenarioName);
             Assert.AreEqual(2023, settings.Year);
             Assert.AreEqual("WBI2017", settings.Scope);
+            Assert.IsFalse(settings.UsePreprocessorClosure);
             Assert.AreEqual("Conform WBI2017", settings.SeaLevel);
             Assert.AreEqual("Conform WBI2017", settings.RiverDischarge);
             Assert.AreEqual("Conform WBI2017", settings.LakeLevel);
@@ -101,6 +102,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             Assert.AreEqual(readSettings.ScenarioName, settings.ScenarioName);
             Assert.AreEqual(readSettings.Year, settings.Year);
             Assert.AreEqual(readSettings.Scope, settings.Scope);
+            Assert.IsFalse(settings.UsePreprocessorClosure);
             Assert.AreEqual(readSettings.SeaLevel, settings.SeaLevel);
             Assert.AreEqual(readSettings.RiverDischarge, settings.RiverDischarge);
             Assert.AreEqual(readSettings.LakeLevel, settings.LakeLevel);

@@ -685,6 +685,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                                        "ScenarioName",
                                                                                        10,
                                                                                        "Scope",
+                                                                                       false,
                                                                                        "SeaLevel",
                                                                                        "RiverDischarge",
                                                                                        "LakeLevel",

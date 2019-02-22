@@ -57,6 +57,7 @@ namespace Riskeer.Storage.Core.Read
                                                                                        entity.HydraulicLocationConfigurationSettingsScenarioName,
                                                                                        entity.HydraulicLocationConfigurationSettingsYear,
                                                                                        entity.HydraulicLocationConfigurationSettingsScope,
+                                                                                       false,
                                                                                        entity.HydraulicLocationConfigurationSettingsSeaLevel,
                                                                                        entity.HydraulicLocationConfigurationSettingsRiverDischarge,
                                                                                        entity.HydraulicLocationConfigurationSettingsLakeLevel,

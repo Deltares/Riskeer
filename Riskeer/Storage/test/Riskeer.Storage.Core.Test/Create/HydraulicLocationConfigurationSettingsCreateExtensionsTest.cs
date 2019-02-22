@@ -56,6 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create
                                                                                        "ScenarioName",
                                                                                        random.Next(),
                                                                                        "Scope",
+                                                                                       false,
                                                                                        "SeaLevel",
                                                                                        "RiverDischarge",
                                                                                        "LakeLevel",

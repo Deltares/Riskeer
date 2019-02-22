@@ -90,6 +90,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScenarioName, settings.ScenarioName);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsYear, settings.Year);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScope, settings.Scope);
+            Assert.IsFalse(settings.UsePreprocessorClosure);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsSeaLevel, settings.SeaLevel);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsRiverDischarge, settings.RiverDischarge);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsLakeLevel, settings.LakeLevel);
