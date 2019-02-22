@@ -41,6 +41,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfiguration>(configuration);
+            Assert.AreEqual(name, configuration.Name);
             Assert.IsNull(configuration.CategoryType);
             Assert.IsNull(configuration.CalculationType);
         }

@@ -29,7 +29,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
-using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 
@@ -44,7 +43,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            var calculation1 = new TestWaveConditionsCalculation<StabilityStoneCoverWaveConditionsInput>(new StabilityStoneCoverWaveConditionsInput())
+            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "Calculation A",
                 InputParameters =
@@ -54,7 +53,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 }
             };
 
-            var calculation2 = new TestWaveConditionsCalculation<StabilityStoneCoverWaveConditionsInput>(new StabilityStoneCoverWaveConditionsInput())
+            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "PK001_0002 W1-6_4_1D1",
                 InputParameters =
@@ -99,11 +98,14 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         protected override ICalculation<StabilityStoneCoverWaveConditionsInput> CreateCalculation()
         {
             var random = new Random(21);
-            return new TestWaveConditionsCalculation<StabilityStoneCoverWaveConditionsInput>(new StabilityStoneCoverWaveConditionsInput
+            return new StabilityStoneCoverWaveConditionsCalculation
             {
-                CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>(),
-                CalculationType = random.NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>()
-            });
+                InputParameters =
+                {
+                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>(),
+                    CalculationType = random.NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>()
+                }
+            };
         }
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(

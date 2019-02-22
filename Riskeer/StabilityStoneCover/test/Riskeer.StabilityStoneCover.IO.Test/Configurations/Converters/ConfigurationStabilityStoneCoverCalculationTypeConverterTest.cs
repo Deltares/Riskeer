@@ -176,7 +176,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations.Converters
         public void ConvertFrom_InvalidStabilityStoneCoverWaveConditionsCalculationType_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            const StabilityStoneCoverWaveConditionsCalculationType invalidValue = (StabilityStoneCoverWaveConditionsCalculationType)99;
+            const StabilityStoneCoverWaveConditionsCalculationType invalidValue = (StabilityStoneCoverWaveConditionsCalculationType) 99;
             var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
 
             // Call

@@ -27,7 +27,9 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.Configurations;
+using Riskeer.Revetment.IO.Configurations.Converters;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.IO.Configurations.Converters;
 
 namespace Riskeer.StabilityStoneCover.IO.Configurations
 {
@@ -59,7 +61,8 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {
-                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) calculationConfiguration.CategoryType.Value;
+                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) new ConfigurationAssessmentSectionCategoryTypeConverter()
+                    .ConvertTo(calculationConfiguration.CategoryType.Value, typeof(AssessmentSectionCategoryType));
             }
             else
             {
@@ -68,7 +71,8 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
 
             if (calculationConfiguration.CalculationType.HasValue)
             {
-                calculation.InputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) calculationConfiguration.CalculationType.Value;
+                calculation.InputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) new ConfigurationStabilityStoneCoverCalculationTypeConverter()
+                    .ConvertTo(calculationConfiguration.CalculationType.Value, typeof(StabilityStoneCoverWaveConditionsCalculationType));
             }
         }
     }

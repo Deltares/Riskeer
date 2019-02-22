@@ -55,9 +55,9 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 yield return new TestCaseData("invalidRevetmentTypeUnknownValue.xml",
                                               "The 'typebekleding' element is invalid - The value 'Steen' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
                     .SetName("invalidRevetmentTypeUnknownValue");
-                yield return new TestCaseData("invalidBoundaryType.xml",
+                yield return new TestCaseData("invalidRevetmentType.xml",
                                               "The element 'berekening' has invalid child element 'typebelasting'.")
-                    .SetName("invalidBoundaryType");
+                    .SetName("invalidRevetmentType");
             }
         }
 

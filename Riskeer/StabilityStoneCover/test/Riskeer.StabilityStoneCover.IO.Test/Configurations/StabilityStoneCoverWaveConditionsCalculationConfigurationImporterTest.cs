@@ -132,7 +132,8 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         [Test]
         [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
         [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
-        public void Import_ValidConfigurationWithoutCategoryBoundary_DataAddedToModel(NormType normType, AssessmentSectionCategoryType expectedCategory)
+        public void Import_ValidConfigurationWithoutCategoryBoundaryAndCalculationType_DataAddedToModel(
+            NormType normType, AssessmentSectionCategoryType expectedCategory)
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationWithoutCategoryBoundary.xml");

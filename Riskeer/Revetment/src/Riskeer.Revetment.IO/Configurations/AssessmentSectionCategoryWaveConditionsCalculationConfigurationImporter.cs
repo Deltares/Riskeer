@@ -26,6 +26,7 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -60,7 +61,8 @@ namespace Riskeer.Revetment.IO.Configurations
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {
-                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) calculationConfiguration.CategoryType;
+                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) new ConfigurationAssessmentSectionCategoryTypeConverter()
+                    .ConvertTo(calculationConfiguration.CategoryType.Value, typeof(AssessmentSectionCategoryType));
             }
             else
             {

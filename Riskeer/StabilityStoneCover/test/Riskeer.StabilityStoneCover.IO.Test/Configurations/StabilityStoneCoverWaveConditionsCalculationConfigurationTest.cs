@@ -41,6 +41,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(configuration);
+            Assert.AreEqual(name, configuration.Name);
             Assert.IsNull(configuration.CalculationType);
         }
 
