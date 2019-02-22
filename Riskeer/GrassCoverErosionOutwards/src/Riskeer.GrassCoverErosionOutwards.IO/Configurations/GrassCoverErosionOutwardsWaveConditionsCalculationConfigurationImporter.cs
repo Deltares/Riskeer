@@ -26,6 +26,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.Configurations;
 
@@ -61,7 +62,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {
-                calculation.InputParameters.CategoryType = (FailureMechanismCategoryType) calculationConfiguration.CategoryType.Value;
+                calculation.InputParameters.CategoryType = (FailureMechanismCategoryType) new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter()
+                    .ConvertTo(calculationConfiguration.CategoryType.Value, typeof(FailureMechanismCategoryType));
             }
             else
             {
@@ -70,7 +72,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 
             if (calculationConfiguration.CalculationType.HasValue)
             {
-                calculation.InputParameters.CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) calculationConfiguration.CalculationType.Value;
+                calculation.InputParameters.CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter()
+                    .ConvertTo(calculationConfiguration.CalculationType.Value, typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
             }
         }
     }
