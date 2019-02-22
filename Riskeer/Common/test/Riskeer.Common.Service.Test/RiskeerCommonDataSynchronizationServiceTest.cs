@@ -30,6 +30,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Riskeer.Common.Service.Test
 {
@@ -63,7 +64,7 @@ namespace Riskeer.Common.Service.Test
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
             };
 
-            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            HydraulicBoundaryLocationCalculation[] calculations =
             {
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                 calculationWithOutput1,
@@ -82,6 +83,87 @@ namespace Riskeer.Common.Service.Test
                 calculationWithOutput1,
                 calculationWithOutput2
             }, affectedCalculations);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationIllustrationPoints_CalculationsWithAndWithoutIllustrationPoints_ClearsIllustrationPointAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var originalOutputWithIllustrationPoints1 = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
+                                                                                                           new TestGeneralResultSubMechanismIllustrationPoint());
+            var calculationWithIllustrationPoints1 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = originalOutputWithIllustrationPoints1
+            };
+
+            var originalOutputWithIllustrationPoints2 = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
+                                                                                                           new TestGeneralResultSubMechanismIllustrationPoint());
+            var calculationWithIllustrationPoints2 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = originalOutputWithIllustrationPoints2
+            };
+
+            var originalOutput1 = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            var calculationWithOutput1 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = originalOutput1
+            };
+
+            var originalOutput2 = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            var calculationWithOutput2 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = originalOutput2
+            };
+
+            HydraulicBoundaryLocationCalculation[] calculations =
+            {
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                calculationWithOutput1,
+                calculationWithIllustrationPoints1,
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                calculationWithOutput2,
+                calculationWithIllustrationPoints2,
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedCalculations = RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(calculations);
+
+            // Assert
+            CollectionAssert.AreEquivalent(new[]
+            {
+                calculationWithIllustrationPoints1,
+                calculationWithIllustrationPoints2
+            }, affectedCalculations);
+
+            HydraulicBoundaryLocationCalculation[] calculationWithOutputs =
+            {
+                calculationWithOutput1,
+                calculationWithIllustrationPoints1,
+                calculationWithOutput2,
+                calculationWithIllustrationPoints2
+            };
+            Assert.IsTrue(calculationWithOutputs.All(calc => calc.HasOutput));
+            Assert.IsTrue(calculationWithOutputs.All(calc => !calc.Output.HasGeneralResult));
+
+            AssertHydraulicBoundaryLocationOutput(originalOutput1, calculationWithOutput1.Output);
+            AssertHydraulicBoundaryLocationOutput(originalOutput2, calculationWithOutput2.Output);
+
+            AssertHydraulicBoundaryLocationOutput(originalOutputWithIllustrationPoints1, calculationWithIllustrationPoints1.Output);
+            AssertHydraulicBoundaryLocationOutput(originalOutputWithIllustrationPoints2, calculationWithIllustrationPoints2.Output);
         }
 
         [Test]
@@ -189,6 +271,17 @@ namespace Riskeer.Common.Service.Test
                 calculation3,
                 calculation3.InputParameters
             }, affectedObjects);
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationCalculationOutput expectedOutput,
+                                                                  HydraulicBoundaryLocationCalculationOutput actualOutput)
+        {
+            Assert.AreEqual(expectedOutput.Result, actualOutput.Result);
+            Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
+            Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
+            Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
+            Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
+            Assert.AreEqual(expectedOutput.CalculationConvergence, actualOutput.CalculationConvergence);
         }
 
         private class TestStructureInput : StructuresInputBase<TestStructure>

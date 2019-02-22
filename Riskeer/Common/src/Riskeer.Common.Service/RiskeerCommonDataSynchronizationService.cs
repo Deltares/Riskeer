@@ -58,6 +58,39 @@ namespace Riskeer.Common.Service
         }
 
         /// <summary>
+        /// Clears the illustration points of the provided hydraulic boundary location calculations.
+        /// </summary>
+        /// <param name="calculations">The calculations for which the illustration points need to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationIllustrationPoints(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            var affectedCalculations = new List<HydraulicBoundaryLocationCalculation>();
+            foreach (HydraulicBoundaryLocationCalculation calculation in calculations)
+            {
+                if (calculation.HasOutput && calculation.Output.HasGeneralResult)
+                {
+                    HydraulicBoundaryLocationCalculationOutput originalOutput = calculation.Output;
+                    calculation.Output = new HydraulicBoundaryLocationCalculationOutput(originalOutput.Result,
+                                                                                        originalOutput.TargetProbability,
+                                                                                        originalOutput.TargetReliability,
+                                                                                        originalOutput.CalculatedProbability,
+                                                                                        originalOutput.CalculatedReliability,
+                                                                                        originalOutput.CalculationConvergence,
+                                                                                        null);
+                    affectedCalculations.Add(calculation);
+                }
+            }
+
+            return affectedCalculations;
+        }
+
+        /// <summary>
         /// Clears the output of the given <see cref="StructuresCalculation{T}"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear the output for.</param>
