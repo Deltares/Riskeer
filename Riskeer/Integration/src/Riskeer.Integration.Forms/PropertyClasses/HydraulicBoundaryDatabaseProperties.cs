@@ -40,17 +40,18 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     {
         private const int hrdFilePathPropertyIndex = 0;
         private const int hlcdFilePathPropertyIndex = 1;
-        private const int scenarioNamePropertyIndex = 2;
-        private const int yearPropertyIndex = 3;
-        private const int scopePropertyIndex = 4;
-        private const int seaLevelPropertyIndex = 5;
-        private const int riverDischargePropertyIndex = 6;
-        private const int lakeLevelPropertyIndex = 7;
-        private const int windDirectionPropertyIndex = 8;
-        private const int windSpeedPropertyIndex = 9;
-        private const int commentPropertyIndex = 10;
-        private const int usePreprocessorPropertyIndex = 11;
-        private const int preprocessorDirectoryPropertyIndex = 12;
+        private const int usePreprocessorClosurePropertyIndex = 2;
+        private const int scenarioNamePropertyIndex = 3;
+        private const int yearPropertyIndex = 4;
+        private const int scopePropertyIndex = 5;
+        private const int seaLevelPropertyIndex = 6;
+        private const int riverDischargePropertyIndex = 7;
+        private const int lakeLevelPropertyIndex = 8;
+        private const int windDirectionPropertyIndex = 9;
+        private const int windSpeedPropertyIndex = 10;
+        private const int commentPropertyIndex = 11;
+        private const int usePreprocessorPropertyIndex = 12;
+        private const int preprocessorDirectoryPropertyIndex = 13;
 
         private readonly IHydraulicLocationConfigurationDatabaseImportHandler hydraulicLocationConfigurationDatabaseImportHandler;
 
@@ -118,6 +119,18 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get
             {
                 return data.IsLinked() ? data.HydraulicLocationConfigurationSettings.FilePath : string.Empty;
+            }
+        }
+
+        [PropertyOrder(usePreprocessorClosurePropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicLocationConfigurationSettings_UsePreprocessorClosure_Description))]
+        public bool UsePreprocessorClosure
+        {
+            get
+            {
+                return data.HydraulicLocationConfigurationSettings.UsePreprocessorClosure;
             }
         }
 

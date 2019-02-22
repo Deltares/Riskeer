@@ -451,4 +451,10 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="HlcdFileNameEditor_InitializeDialog_FileFilter" xml:space="preserve">
     <value>HLCD bestand|*.sqlite</value>
   </data>
+  <data name="HydraulicLocationConfigurationSettings_UsePreprocessorClosure_Description" xml:space="preserve">
+    <value>Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.</value>
+  </data>
+  <data name="HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName" xml:space="preserve">
+    <value>Gebruik preprocessor sluitregime database</value>
+  </data>
 </root>
