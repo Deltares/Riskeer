@@ -382,7 +382,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var nodeData = new DesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
                                                                    {
-                                                                       calculationWithOutput, 
+                                                                       calculationWithOutput,
                                                                        calculationWithIllustrationPoints,
                                                                        calculationWithoutOutput
                                                                    },
@@ -433,10 +433,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
-            
+
             var nodeData = new DesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
                                                                    {
-                                                                       calculationWithOutput, 
+                                                                       calculationWithOutput,
                                                                        calculationWithoutOutput
                                                                    },
                                                                    assessmentSection,
@@ -801,6 +801,58 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_IllustrationPointsClearedAndCalculationObserversNotified()
+        {
+            // Given
+            var random = new Random(21);
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+            };
+
+            var calculationObserver = mockRepository.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            calculation.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+
+            var nodeData = new DesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
+                                                                   {
+                                                                       calculation
+                                                                   },
+                                                                   assessmentSection,
+                                                                   () => 0.01,
+                                                                   "A");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // When
+                        contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                        // Then
+                        Assert.IsTrue(calculation.HasOutput);
+                        Assert.IsFalse(calculation.Output.HasGeneralResult);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll(); 
         }
 
         public override void Setup()
