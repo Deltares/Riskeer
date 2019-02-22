@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\GIT\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -660,6 +660,7 @@
           <Property Name="HydraulicLocationConfigurationSettingsScenarioName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="HydraulicLocationConfigurationSettingsYear" Type="int" Nullable="false" />
           <Property Name="HydraulicLocationConfigurationSettingsScope" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="HydraulicLocationConfigurationSettingsUsePreprocessorClosure" Type="tinyint" Nullable="false" />
           <Property Name="HydraulicLocationConfigurationSettingsSeaLevel" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicLocationConfigurationSettingsRiverDischarge" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicLocationConfigurationSettingsLakeLevel" Type="nvarchar" MaxLength="2147483647" />
@@ -5611,6 +5612,7 @@
           <Property Name="HydraulicLocationConfigurationSettingsScenarioName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicLocationConfigurationSettingsYear" Type="Int32" Nullable="false" />
           <Property Name="HydraulicLocationConfigurationSettingsScope" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="HydraulicLocationConfigurationSettingsUsePreprocessorClosure" Type="Byte" Nullable="false" />
           <Property Name="HydraulicLocationConfigurationSettingsSeaLevel" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicLocationConfigurationSettingsRiverDischarge" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicLocationConfigurationSettingsLakeLevel" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -9039,6 +9041,7 @@
                 <ScalarProperty Name="HydraulicLocationConfigurationSettingsLakeLevel" ColumnName="HydraulicLocationConfigurationSettingsLakeLevel" />
                 <ScalarProperty Name="HydraulicLocationConfigurationSettingsRiverDischarge" ColumnName="HydraulicLocationConfigurationSettingsRiverDischarge" />
                 <ScalarProperty Name="HydraulicLocationConfigurationSettingsSeaLevel" ColumnName="HydraulicLocationConfigurationSettingsSeaLevel" />
+                <ScalarProperty Name="HydraulicLocationConfigurationSettingsUsePreprocessorClosure" ColumnName="HydraulicLocationConfigurationSettingsUsePreprocessorClosure" />
                 <ScalarProperty Name="HydraulicLocationConfigurationSettingsScope" ColumnName="HydraulicLocationConfigurationSettingsScope" />
                 <ScalarProperty Name="HydraulicLocationConfigurationSettingsYear" ColumnName="HydraulicLocationConfigurationSettingsYear" />
                 <ScalarProperty Name="HydraulicLocationConfigurationSettingsScenarioName" ColumnName="HydraulicLocationConfigurationSettingsScenarioName" />

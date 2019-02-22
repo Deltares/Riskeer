@@ -40,6 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         public string HydraulicLocationConfigurationSettingsScenarioName { get; set; }
         public int HydraulicLocationConfigurationSettingsYear { get; set; }
         public string HydraulicLocationConfigurationSettingsScope { get; set; }
+        public byte HydraulicLocationConfigurationSettingsUsePreprocessorClosure { get; set; }
         public string HydraulicLocationConfigurationSettingsSeaLevel { get; set; }
         public string HydraulicLocationConfigurationSettingsRiverDischarge { get; set; }
         public string HydraulicLocationConfigurationSettingsLakeLevel { get; set; }
