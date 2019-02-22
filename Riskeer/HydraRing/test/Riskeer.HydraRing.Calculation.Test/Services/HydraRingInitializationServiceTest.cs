@@ -72,14 +72,14 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("D:\\preprocessor")]
-        public void GenerateInitializationScript_ReturnsExpectedInitializationScript(string preprocessorDirectory)
+        public void GenerateInitializationScript_ReturnsExpectedInitializationScript(
+            [Values("", "D:\\preprocessor")] string preprocessorDirectory,
+            [Values(true, false)] bool usePreprocessorClosure)
         {
             // Setup
             const string hlcdFilePath = "D:\\hlcd\\HlcdFile.sqlite";
 
-            var settings = new HydraRingCalculationSettings(hlcdFilePath, preprocessorDirectory, false);
+            var settings = new HydraRingCalculationSettings(hlcdFilePath, preprocessorDirectory, usePreprocessorClosure);
             var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.StructuresStructuralFailure,
                                                                                     700001,
                                                                                     TestHelper.GetScratchPadPath(),
@@ -101,6 +101,11 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
             if (preprocessorDirectory != string.Empty)
             {
                 expectedInitializationScript += Environment.NewLine + "preprocessordbdirectory = " + preprocessorDirectory;
+            }
+
+            if (usePreprocessorClosure)
+            {
+                expectedInitializationScript += Environment.NewLine + "preprocessorclosingdbfilename = D:\\hlcd\\HlcdFile_preprocClosure.sqlite";
             }
 
             try

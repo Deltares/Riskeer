@@ -47,6 +47,7 @@ namespace Riskeer.HydraRing.Calculation.Services
         private const string iniFileExtension = ".ini";
         private const string databaseFileExtension = ".sql";
         private const string logFileExtension = ".log";
+        private const string preprocessorClosureFileName = "preprocClosure.sqlite";
 
         private readonly int mechanismId;
         private readonly int sectionId;
@@ -55,6 +56,7 @@ namespace Riskeer.HydraRing.Calculation.Services
         private readonly string hydraRingDirectory;
         private readonly string configurationDatabaseFilePath;
         private readonly string preprocessorDirectory;
+        private readonly bool usePreprocessorClosure;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingInitializationService"/> class.
@@ -84,6 +86,7 @@ namespace Riskeer.HydraRing.Calculation.Services
             hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), hydraRingBinariesSubDirectory);
             configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
             preprocessorDirectory = settings.PreprocessorDirectory;
+            usePreprocessorClosure = settings.UsePreprocessorClosure;
         }
 
         /// <summary>
@@ -151,6 +154,15 @@ namespace Riskeer.HydraRing.Calculation.Services
             if (preprocessorDirectory != string.Empty)
             {
                 initializationFileContent += Environment.NewLine + "preprocessordbdirectory = " + preprocessorDirectory;
+            }
+
+            if (usePreprocessorClosure)
+            {
+                string folderPath = Path.GetDirectoryName(hlcdFilePath);
+                string hlcdFileName = Path.GetFileNameWithoutExtension(hlcdFilePath);
+                string preprocessorClosureFilePath = Path.Combine(folderPath, $"{hlcdFileName}_{preprocessorClosureFileName}");
+
+                initializationFileContent += Environment.NewLine + "preprocessorclosingdbfilename = " + preprocessorClosureFilePath;
             }
 
             File.WriteAllText(IniFilePath, initializationFileContent);
