@@ -48,6 +48,7 @@ namespace Riskeer.Common.Service.TestUtil
         {
             Assert.AreEqual(expectedSettings.HlcdFilePath, actualSettings.HlcdFilePath);
             Assert.AreEqual(expectedSettings.PreprocessorDirectory, actualSettings.PreprocessorDirectory);
+            Assert.AreEqual(expectedSettings.UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
         }
     }
 }

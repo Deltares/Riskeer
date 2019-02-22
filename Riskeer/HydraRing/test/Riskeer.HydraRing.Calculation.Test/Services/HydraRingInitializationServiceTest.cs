@@ -56,7 +56,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var settings = new HydraRingCalculationSettings("D:\\hlcd\\hlcdFilePath", "D:\\preprocessor");
+            var settings = new HydraRingCalculationSettings("D:\\hlcd\\hlcdFilePath", "D:\\preprocessor", false);
 
             // Call
             var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.AssessmentLevel,
@@ -79,7 +79,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
             // Setup
             const string hlcdFilePath = "D:\\hlcd\\HlcdFile.sqlite";
 
-            var settings = new HydraRingCalculationSettings(hlcdFilePath, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdFilePath, preprocessorDirectory, false);
             var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.StructuresStructuralFailure,
                                                                                     700001,
                                                                                     TestHelper.GetScratchPadPath(),

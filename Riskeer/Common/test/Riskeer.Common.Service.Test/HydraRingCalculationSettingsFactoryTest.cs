@@ -55,6 +55,7 @@ namespace Riskeer.Common.Service.Test
             // Assert
             Assert.AreEqual(hydraulicBoundaryCalculationSettings.HlcdFilePath, hydraRingCalculationSettings.HlcdFilePath);
             Assert.AreEqual(hydraulicBoundaryCalculationSettings.PreprocessorDirectory, hydraRingCalculationSettings.PreprocessorDirectory);
+            Assert.AreEqual(hydraulicBoundaryCalculationSettings.UsePreprocessorClosure, hydraRingCalculationSettings.UsePreprocessorClosure);
         }
     }
 }
