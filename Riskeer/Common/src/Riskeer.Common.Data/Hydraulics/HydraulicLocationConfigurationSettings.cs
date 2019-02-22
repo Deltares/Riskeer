@@ -80,6 +80,11 @@ namespace Riskeer.Common.Data.Hydraulics
         public string Comment { get; private set; }
 
         /// <summary>
+        /// Gets the indicator whether to use the preprocessor closure.
+        /// </summary>
+        public bool UsePreprocessorClosure { get; private set; }
+
+        /// <summary>
         /// Sets values to the <see cref="HydraulicLocationConfigurationSettings"/>.
         /// </summary>
         /// <param name="filePath">The file path.</param>

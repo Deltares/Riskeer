@@ -46,6 +46,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsNull(settings.WindDirection);
             Assert.IsNull(settings.WindSpeed);
             Assert.IsNull(settings.Comment);
+            Assert.IsFalse(settings.UsePreprocessorClosure);
         }
 
         [Test]
