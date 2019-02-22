@@ -1540,6 +1540,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                : string.Empty;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                preprocessorDirectory);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1854,6 +1855,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             string.Empty);
         }
 

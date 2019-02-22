@@ -77,6 +77,7 @@ namespace Riskeer.Common.Service.Test
             string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                string.Empty);
             var valid = true;
 
@@ -103,6 +104,7 @@ namespace Riskeer.Common.Service.Test
             var valid = false;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                string.Empty);
 
             // Call
@@ -128,6 +130,7 @@ namespace Riskeer.Common.Service.Test
             var valid = true;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                invalidPreprocessorDirectory);
 
             // Call
@@ -212,6 +215,7 @@ namespace Riskeer.Common.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             validPreprocessorDirectory);
         }
 

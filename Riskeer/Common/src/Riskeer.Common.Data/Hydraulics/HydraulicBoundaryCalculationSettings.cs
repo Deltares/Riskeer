@@ -33,11 +33,13 @@ namespace Riskeer.Common.Data.Hydraulics
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database.</param>
         /// <param name="hlcdFilePath">The file path of the HLCD.</param>
+        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>
         /// or <paramref name="hlcdFilePath"/> is <c>null</c>, is empty or consists of whitespace.</exception>
         public HydraulicBoundaryCalculationSettings(string hydraulicBoundaryDatabaseFilePath,
                                                     string hlcdFilePath,
+                                                    bool usePreprocessorClosure,
                                                     string preprocessorDirectory)
         {
             if (string.IsNullOrWhiteSpace(hydraulicBoundaryDatabaseFilePath))
@@ -52,6 +54,7 @@ namespace Riskeer.Common.Data.Hydraulics
 
             HydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             HlcdFilePath = hlcdFilePath;
+            UsePreprocessorClosure = usePreprocessorClosure;
             PreprocessorDirectory = preprocessorDirectory;
         }
 
@@ -69,5 +72,10 @@ namespace Riskeer.Common.Data.Hydraulics
         ///  Gets the preprocessor directory.
         /// </summary>
         public string PreprocessorDirectory { get; }
+
+        /// <summary>
+        /// Gets the indicator whether to use the preprocessor closure.
+        /// </summary>
+        public bool UsePreprocessorClosure { get; }
     }
 }

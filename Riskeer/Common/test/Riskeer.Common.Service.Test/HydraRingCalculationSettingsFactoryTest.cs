@@ -46,6 +46,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("HydraulicBoundaryDataBaseFilePath",
                                                                                                 "hlcdFilePath",
+                                                                                                false,
                                                                                                 "preprocessorDirectory");
 
             // Call
