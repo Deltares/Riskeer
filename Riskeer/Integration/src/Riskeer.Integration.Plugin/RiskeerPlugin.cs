@@ -2207,10 +2207,23 @@ namespace Riskeer.Integration.Plugin
                                                         nodeData.GetNormFunc(),
                                                         designWaterLevelItem);
 
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = nodeData.WrappedData.Where(calc => calc.HasOutput);
+            bool isEnabled = calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
+
+            var clearIllustrationPointsItem = new StrictContextMenuItem("Wis illustratiepunten...",
+                                                                        "Wis alle berekende illustratiepunten.",
+                                                                        RiskeerCommonFormsResources.ClearIcon,
+                                                                        (sender, args) => {})
+            {
+                Enabled = isEnabled
+            };
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddCustomItem(designWaterLevelItem)
+                      .AddSeparator()
+                      .AddCustomItem(clearIllustrationPointsItem)
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
