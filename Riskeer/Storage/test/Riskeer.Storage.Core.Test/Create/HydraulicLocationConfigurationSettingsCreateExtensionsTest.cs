@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create
                                                                                        "ScenarioName",
                                                                                        random.Next(),
                                                                                        "Scope",
-                                                                                       false,
+                                                                                       random.NextBoolean(),
                                                                                        "SeaLevel",
                                                                                        "RiverDischarge",
                                                                                        "LakeLevel",
@@ -73,6 +73,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             TestHelper.AssertAreEqualButNotSame(settings.FilePath, entity.HydraulicLocationConfigurationSettingsFilePath);
+            Assert.AreEqual(Convert.ToByte(settings.UsePreprocessorClosure), entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure);
             TestHelper.AssertAreEqualButNotSame(settings.ScenarioName, entity.HydraulicLocationConfigurationSettingsScenarioName);
             TestHelper.AssertAreEqualButNotSame(settings.Year, entity.HydraulicLocationConfigurationSettingsYear);
             TestHelper.AssertAreEqualButNotSame(settings.Scope, entity.HydraulicLocationConfigurationSettingsScope);

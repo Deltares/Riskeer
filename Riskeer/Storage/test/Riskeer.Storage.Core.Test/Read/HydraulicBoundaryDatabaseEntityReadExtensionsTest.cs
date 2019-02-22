@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Storage.Core.DbContext;
@@ -65,6 +66,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 FilePath = "hydraulicBoundaryDatabaseFilePath",
                 Version = "hydraulicBoundaryDatabaseVersion",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
+                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(random.NextBoolean()),
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
                 HydraulicLocationConfigurationSettingsYear = random.Next(),
                 HydraulicLocationConfigurationSettingsScope = "Scope",
@@ -90,7 +92,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScenarioName, settings.ScenarioName);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsYear, settings.Year);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScope, settings.Scope);
-            Assert.IsFalse(settings.UsePreprocessorClosure);
+            Assert.AreEqual(Convert.ToBoolean(entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure), settings.UsePreprocessorClosure);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsSeaLevel, settings.SeaLevel);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsRiverDischarge, settings.RiverDischarge);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsLakeLevel, settings.LakeLevel);

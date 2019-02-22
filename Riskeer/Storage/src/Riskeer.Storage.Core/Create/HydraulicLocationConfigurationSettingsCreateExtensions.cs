@@ -54,6 +54,7 @@ namespace Riskeer.Storage.Core.Create
                 FilePath = hydraulicBoundaryDatabase.FilePath.DeepClone(),
                 Version = hydraulicBoundaryDatabase.Version.DeepClone(),
                 HydraulicLocationConfigurationSettingsFilePath = settings.FilePath.DeepClone(),
+                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(settings.UsePreprocessorClosure),
                 HydraulicLocationConfigurationSettingsScenarioName = settings.ScenarioName.DeepClone(),
                 HydraulicLocationConfigurationSettingsYear = settings.Year,
                 HydraulicLocationConfigurationSettingsScope = settings.Scope.DeepClone(),
