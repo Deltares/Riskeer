@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Riskeer.Common.Data.Calculation;
@@ -313,6 +314,27 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                                                  calculations,
                                                  inquiryHelper,
                                                  updateAction));
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/> which is bound to the action
+        /// of clearing illustration points.
+        /// </summary>
+        /// <param name="isEnabledFunc">The function to determine whether this item should be enabled.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <param name="itemDescription">The description for the items for which the illustration points are cleared.</param>
+        /// <param name="clearIllustrationPointsFunc">The function to clear the illustration points.</param>
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddClearIllustrationPointResultsItem(Func<bool> isEnabledFunc,
+                                                                              IInquiryHelper inquiryHelper,
+                                                                              string itemDescription,
+                                                                              Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
+        {
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(isEnabledFunc,
+                                                                                                             inquiryHelper,
+                                                                                                             itemDescription,
+                                                                                                             clearIllustrationPointsFunc));
             return this;
         }
 
