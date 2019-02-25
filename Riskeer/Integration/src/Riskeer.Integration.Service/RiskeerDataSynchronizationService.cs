@@ -309,6 +309,56 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
+        /// Clears all the illustration point results for the design water level calculations.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
+        /// <returns>All objects that are affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsForDesignWaterLevelCalculations(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaterLevelCalculationsForSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Clears all the illustration point results for the wave height calculations.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
+        /// <returns>All objects that are affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsForWaveHeightCalculations(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaveHeightCalculationsForSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaveHeightCalculationsForLowerLimitNorm));
+            return affectedObjects;
+        }
+
+        /// <summary>
         /// Clears the reference line and all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="assessmentSection">The assessment section.</param>

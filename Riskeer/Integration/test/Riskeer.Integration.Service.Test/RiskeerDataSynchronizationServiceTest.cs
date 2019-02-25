@@ -33,6 +33,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -564,6 +565,102 @@ namespace Riskeer.Integration.Service.Test
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForDesignWaterLevelCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForDesignWaterLevelCalculations_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
+
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
+                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                                                                                       .Where(calc => calc.HasOutput)
+                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                                                                  .ToArray();
+
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
+                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
+                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
+                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
+                                                                                                       .Where(calc => calc.HasOutput)
+                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                                                                  .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(assessmentSection);
+
+            // Assert
+            CollectionAssert.AreEquivalent(waterLevelCalculationsWithIllustrationPoints, affectedObjects);
+
+            Assert.IsTrue(waterLevelCalculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waveHeightCalculationsWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForWaveHeightCalculations_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
+
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
+                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                                                                                       .Where(calc => calc.HasOutput)
+                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                                                                  .ToArray();
+
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
+                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
+                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
+                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
+                                                                                                       .Where(calc => calc.HasOutput)
+                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                                                                  .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(assessmentSection);
+
+            // Assert
+            CollectionAssert.AreEquivalent(waveHeightCalculationsWithIllustrationPoints, affectedObjects);
+
+            Assert.IsTrue(waterLevelCalculationsWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waveHeightCalculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
         }
 
         [Test]
@@ -1151,7 +1248,7 @@ namespace Riskeer.Integration.Service.Test
         {
             // Call
             TestDelegate call = () => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles<ICalculationInput>(null,
-                                                                                                                        new ForeshoreProfileCollection());
+                                                                                                                      new ForeshoreProfileCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -1163,7 +1260,7 @@ namespace Riskeer.Integration.Service.Test
         {
             // Call
             TestDelegate call = () => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles(Enumerable.Empty<ICalculation<ICalculationInput>>(),
-                                                                                                     null);
+                                                                                                   null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -1662,6 +1759,38 @@ namespace Riskeer.Integration.Service.Test
                 failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
                 failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
             }
+        }
+
+        private static IAssessmentSection GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+
+            var hydraulicBoundaryLocations = new[]
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+
+            return assessmentSection;
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationOutputConfigurations(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            var random = new Random(21);
+            calculations.ElementAt(0).Output = null;
+            calculations.ElementAt(2).Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
         }
     }
 }
