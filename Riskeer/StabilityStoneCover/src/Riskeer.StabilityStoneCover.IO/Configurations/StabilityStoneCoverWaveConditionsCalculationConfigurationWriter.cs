@@ -50,7 +50,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
             }
 
             var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
-            writer.WriteElementString(StabilityStoneCoverWaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,
+            writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,
                                       converter.ConvertToInvariantString(configuration.CalculationType.Value));
         }
     }

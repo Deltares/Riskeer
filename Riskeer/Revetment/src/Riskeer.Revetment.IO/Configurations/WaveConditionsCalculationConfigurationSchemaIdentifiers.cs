@@ -60,5 +60,10 @@ namespace Riskeer.Revetment.IO.Configurations
         /// The tag of elements containing the name of the foreshore profile.
         /// </summary>
         public const string ForeshoreProfile = "voorlandprofiel";
+
+        /// <summary>
+        /// The tag of elements containing the calculation type.
+        /// </summary>
+        public const string CalculationType = "typebekleding";
     }
 }

@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
                     WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType);
             configuration.CalculationType = (ConfigurationGrassCoverErosionOutwardsCalculationType?)
                 calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter>(
-                    GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType);
+                    WaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType);
             return configuration;
         }
     }

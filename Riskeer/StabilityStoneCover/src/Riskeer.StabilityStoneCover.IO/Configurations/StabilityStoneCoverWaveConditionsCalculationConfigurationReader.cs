@@ -63,7 +63,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
 
             configuration.CalculationType = (ConfigurationStabilityStoneCoverCalculationType?)
                 calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationStabilityStoneCoverCalculationTypeConverter>(
-                    StabilityStoneCoverWaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType);
+                    WaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType);
             return configuration;
         }
     }

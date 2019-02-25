@@ -16,6 +16,6 @@
       <damhoogte>6.6</damhoogte>
       <voorlandgebruiken>false</voorlandgebruiken>
     </golfreductie>
-    <typebelasting>Gras (golfklap)</typebelasting>
+    <typebekleding>Gras (golfklap)</typebekleding>
   </berekening>
 </configuratie>

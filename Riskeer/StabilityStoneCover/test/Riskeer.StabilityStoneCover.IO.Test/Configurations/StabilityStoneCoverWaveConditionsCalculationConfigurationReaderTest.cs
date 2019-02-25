@@ -53,11 +53,8 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                                               "Element 'typebekleding' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleRevetmentType");
                 yield return new TestCaseData("invalidRevetmentTypeUnknownValue.xml",
-                                              "The 'typebekleding' element is invalid - The value 'Steen' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                                              "The 'typebekleding' element is invalid - The value 'Steen' is invalid according to its datatype 'bekledingType' - The Enumeration constraint failed.")
                     .SetName("invalidRevetmentTypeUnknownValue");
-                yield return new TestCaseData("invalidRevetmentType.xml",
-                                              "The element 'berekening' has invalid child element 'typebelasting'.")
-                    .SetName("invalidRevetmentType");
             }
         }
 

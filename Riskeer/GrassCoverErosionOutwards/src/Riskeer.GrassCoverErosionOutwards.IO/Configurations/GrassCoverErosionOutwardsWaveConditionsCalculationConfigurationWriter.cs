@@ -52,7 +52,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 
             if (configuration.CalculationType.HasValue)
             {
-                writer.WriteElementString(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,
+                writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,
                                           new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter()
                                               .ConvertToInvariantString(configuration.CalculationType.Value));
             }

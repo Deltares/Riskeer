@@ -36,15 +36,13 @@ All rights reserved.
         <xs:enumeration value="C"/>
       </xs:restriction>
     </xs:simpleType>
-  </xs:redefine>
 
-  <xs:element name="typebekleding" substitutionGroup="typebekleding-of-typebelasting">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
+    <xs:simpleType name="bekledingType">
+      <xs:restriction base="bekledingType">
         <xs:enumeration value="Steen (blokken)"/>
         <xs:enumeration value="Steen (zuilen)"/>
         <xs:enumeration value="Steen (blokken en zuilen)"/>
       </xs:restriction>
     </xs:simpleType>
-  </xs:element>
+  </xs:redefine>
 </xs:schema>

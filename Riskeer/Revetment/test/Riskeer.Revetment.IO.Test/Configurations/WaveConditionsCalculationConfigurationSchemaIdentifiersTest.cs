@@ -38,6 +38,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.AreEqual("ondergrenswaterstanden", WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels);
             Assert.AreEqual("stapgrootte", WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize);
             Assert.AreEqual("voorlandprofiel", WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile);
+            Assert.AreEqual("typebekleding", WaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType);
         }
     }
 }

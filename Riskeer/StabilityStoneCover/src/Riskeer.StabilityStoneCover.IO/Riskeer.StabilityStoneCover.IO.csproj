@@ -19,7 +19,6 @@
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationImporter.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationReader.cs" />
-    <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StabilityStoneCoverWaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exporters\StabilityStoneCoverWaveConditionsExporter.cs" />
