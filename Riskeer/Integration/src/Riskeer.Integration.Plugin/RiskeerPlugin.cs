@@ -2210,22 +2210,24 @@ namespace Riskeer.Integration.Plugin
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = nodeData.WrappedData.Where(calc => calc.HasOutput);
             bool isEnabled = calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
 
-            
             var clearIllustrationPointsItem = new StrictContextMenuItem(
                 "Wis illustratiepunten...",
                 "Wis alle berekende illustratiepunten.",
                 RiskeerCommonFormsResources.ClearIcon,
                 (sender, args) =>
                 {
-                    var affectedCalculations = new ObservableList<IObservable>();
-                    affectedCalculations.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
-                    affectedCalculations.ForEachElementDo(calc => calc.NotifyObservers());
+                    var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+                    if (inquiryHelper.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij Categoriegrens {nodeData.CategoryBoundaryName} wilt wissen?"))
+                    {
+                        var affectedCalculations = new ObservableList<IObservable>();
+                        affectedCalculations.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
+
+                        affectedCalculations.ForEachElementDo(calc => calc.NotifyObservers());
+                    }
                 })
             {
                 Enabled = isEnabled
             };
-
-           
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()

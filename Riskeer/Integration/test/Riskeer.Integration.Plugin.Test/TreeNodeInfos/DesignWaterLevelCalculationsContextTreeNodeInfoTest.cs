@@ -804,7 +804,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_IllustrationPointsClearedAndCalculationObserversNotified()
+        [TestCase(true)]
+        [TestCase(false)]
+        [Apartment(ApartmentState.STA)]
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenInquiryAndExpectedOutputAndCalculationObserversNotified(bool continuation)
         {
             // Given
             var random = new Random(21);
@@ -814,24 +817,47 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var calculationObserver = mockRepository.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
+
+            if (continuation)
+            {
+                calculationObserver.Expect(o => o.UpdateObserver());
+            }
+
             calculation.Attach(calculationObserver);
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
 
+            const string categoryBoundaryName = "A";
             var nodeData = new DesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
                                                                    {
                                                                        calculation
                                                                    },
                                                                    assessmentSection,
                                                                    () => 0.01,
-                                                                   "A");
+                                                                   categoryBoundaryName);
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                if (continuation)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
@@ -846,8 +872,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
+                        string expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij Categoriegrens {categoryBoundaryName} wilt wissen?";
+                        Assert.AreEqual(expectedMessage, messageBoxText);
+
                         Assert.IsTrue(calculation.HasOutput);
-                        Assert.IsFalse(calculation.Output.HasGeneralResult);
+                        Assert.AreEqual(!continuation, calculation.Output.HasGeneralResult);
                     }
                 }
             }
