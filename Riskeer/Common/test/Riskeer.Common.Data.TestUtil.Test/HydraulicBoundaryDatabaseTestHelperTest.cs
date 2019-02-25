@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -28,17 +31,21 @@ namespace Riskeer.Common.Data.TestUtil.Test
     public class HydraulicBoundaryDatabaseTestHelperTest
     {
         [Test]
-        public void SetHydraulicBoundaryLocationConfigurationSettings_Always_SetsExpectedValues()
+        public void SetHydraulicBoundaryLocationConfigurationSettings_DatabaseWithFilePath_SetsExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            const string path = "C:\\TestPath";
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(path, "hrd.sqlite")
+            };
 
             // Call
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             // Assert
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
-            Assert.AreEqual("some\\Path\\ToHlcd", settings.FilePath);
+            Assert.AreEqual(Path.Combine(path, "hlcd.sqlite"), settings.FilePath);
             Assert.AreEqual("ScenarioName", settings.ScenarioName);
             Assert.AreEqual(1337, settings.Year);
             Assert.AreEqual("Scope", settings.Scope);
@@ -49,6 +56,19 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.AreEqual("WindDirection", settings.WindDirection);
             Assert.AreEqual("WindSpeed", settings.WindSpeed);
             Assert.AreEqual("Comment", settings.Comment);
+        }
+
+        [Test]
+        public void SetHydraulicBoundaryLocationConfigurationSettings_DatabaseWithoutFilePath_ThrowsArgumentException()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            TestDelegate call = () => HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "FilePath must be set.");
         }
     }
 }

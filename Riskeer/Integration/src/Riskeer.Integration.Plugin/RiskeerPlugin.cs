@@ -1305,6 +1305,7 @@ namespace Riskeer.Integration.Plugin
             foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(section.HydraulicBoundaryDatabase.FilePath,
+                                                                                                       section.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
                                                                                                        section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
                 if (validationProblem != null)
                 {

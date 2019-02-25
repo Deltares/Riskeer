@@ -49,6 +49,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
@@ -138,17 +139,20 @@ namespace Riskeer.Integration.Plugin.Test
                     plugin.Gui = gui;
                     gui.Run();
 
+                    var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    {
+                        HydraulicBoundaryDatabase =
+                        {
+                            FilePath = testFilePath
+                        }
+                    };
+                    HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
                     var project = new RiskeerProject
                     {
                         AssessmentSections =
                         {
-                            new AssessmentSection(AssessmentSectionComposition.Dike)
-                            {
-                                HydraulicBoundaryDatabase =
-                                {
-                                    FilePath = testFilePath
-                                }
-                            }
+                            assessmentSection
                         }
                     };
 

@@ -459,6 +459,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 

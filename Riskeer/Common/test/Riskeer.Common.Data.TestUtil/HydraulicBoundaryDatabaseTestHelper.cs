@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.TestUtil
@@ -32,9 +34,17 @@ namespace Riskeer.Common.Data.TestUtil
         /// Sets valid values on the <see cref="HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to set the values to.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="HydraulicBoundaryDatabase.FilePath"/> is <c>null</c>.</exception>
         public static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues("some\\Path\\ToHlcd",
+            if (hydraulicBoundaryDatabase.FilePath == null)
+            {
+                throw new ArgumentException("FilePath must be set.");
+            }
+
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath), "hlcd.sqlite");
+
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath,
                                                                                        "ScenarioName",
                                                                                        1337,
                                                                                        "Scope",

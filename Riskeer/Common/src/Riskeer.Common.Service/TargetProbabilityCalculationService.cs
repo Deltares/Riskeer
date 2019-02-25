@@ -53,6 +53,7 @@ namespace Riskeer.Common.Service
 
             string preprocessorDirectory = calculationSettings.PreprocessorDirectory;
             string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(calculationSettings.HydraulicBoundaryDatabaseFilePath,
+                                                                                                                   calculationSettings.HlcdFilePath,
                                                                                                                    preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {

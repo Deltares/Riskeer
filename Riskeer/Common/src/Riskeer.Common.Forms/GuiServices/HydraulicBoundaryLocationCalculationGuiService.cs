@@ -71,6 +71,7 @@ namespace Riskeer.Common.Forms.GuiServices
             }
 
             RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                          assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(calculations,
@@ -95,6 +96,7 @@ namespace Riskeer.Common.Forms.GuiServices
             }
 
             RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                          assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(calculations,
@@ -104,11 +106,13 @@ namespace Riskeer.Common.Forms.GuiServices
         }
 
         private void RunActivities(string hydraulicBoundaryDatabaseFilePath,
+                                   string hlcdFilePath,
                                    string preprocessorDirectory,
                                    double norm,
                                    IEnumerable<CalculatableActivity> activities)
         {
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
+                                                                                                   hlcdFilePath,
                                                                                                    preprocessorDirectory);
             if (string.IsNullOrEmpty(validationProblem))
             {

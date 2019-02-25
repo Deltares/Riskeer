@@ -791,28 +791,30 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                                    Path.Combine(nameof(HydraulicBoundaryDatabase), "complete.sqlite"));
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydraulicBoundaryDatabasePath
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var group = new CalculationGroup();
+            group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var group = new CalculationGroup();
-                group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validHydraulicBoundaryDatabasePath
-                });
-
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               failureMechanism.WaveConditionsCalculationGroup,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                     null,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
-
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
