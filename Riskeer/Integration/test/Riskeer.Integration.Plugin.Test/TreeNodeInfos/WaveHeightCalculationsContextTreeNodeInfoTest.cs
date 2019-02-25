@@ -41,6 +41,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -56,6 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class WaveHeightCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRunWaveHeightCalculationsIndex = 2;
+        private const int contextMenuClearIllustrationPointsIndex = 4;
         private MockRepository mockRepository;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
@@ -148,6 +150,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
@@ -163,6 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -197,6 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -239,6 +245,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -256,6 +263,119 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
                         TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                        Assert.IsFalse(contextMenuItem.Enabled);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+            };
+            var calculationWithIllustrationPoints = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+            };
+            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+
+            var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
+                                                             {
+                                                                 calculationWithOutput,
+                                                                 calculationWithIllustrationPoints,
+                                                                 calculationWithoutOutput
+                                                             },
+                                                             assessmentSection,
+                                                             () => 0.01,
+                                                             "A");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // Assert
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                        Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
+                        Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
+                        //                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image); // TODO: Find image
+                        Assert.IsTrue(contextMenuItem.Enabled);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndTooltipSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+            };
+            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+
+            var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
+                                                             {
+                                                                 calculationWithOutput,
+                                                                 calculationWithoutOutput
+                                                             },
+                                                             assessmentSection,
+                                                             () => 0.01,
+                                                             "A");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // Assert
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                        Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
+                        Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
+                        //                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image); // TODO: FInd image
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }
                 }
@@ -287,6 +407,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -335,6 +456,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -684,6 +806,87 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         HydraulicBoundaryLocationCalculationOutput output = hydraulicBoundaryLocationCalculation.Output;
                         Assert.AreEqual(calculator.WaveHeight, output.Result, output.Result.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        [Apartment(ApartmentState.STA)]
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenInquiryAndExpectedOutputAndCalculationObserversNotified(bool continuation)
+        {
+            // Given
+            var random = new Random(21);
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+            };
+
+            var calculationObserver = mockRepository.StrictMock<IObserver>();
+
+            if (continuation)
+            {
+                calculationObserver.Expect(o => o.UpdateObserver());
+            }
+
+            calculation.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+
+            const string categoryBoundaryName = "A";
+            var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
+                                                             {
+                                                                 calculation
+                                                             },
+                                                             assessmentSection,
+                                                             () => 0.01,
+                                                             categoryBoundaryName);
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                if (continuation)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // When
+                        contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                        // Then
+                        string expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij Categoriegrens {categoryBoundaryName} wilt wissen?";
+                        Assert.AreEqual(expectedMessage, messageBoxText);
+
+                        Assert.IsTrue(calculation.HasOutput);
+                        Assert.AreEqual(!continuation, calculation.Output.HasGeneralResult);
                     }
                 }
             }
