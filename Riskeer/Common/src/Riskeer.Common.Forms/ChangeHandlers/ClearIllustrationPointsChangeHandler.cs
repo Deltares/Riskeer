@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Util.Extensions;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.ChangeHandlers {
     /// <summary>
@@ -71,7 +72,8 @@ namespace Riskeer.Common.Forms.ChangeHandlers {
         /// </summary>
         public void ClearIllustrationPoints()
         {
-            string message = string.Format("Weet u zeker dat u alle berekende illustratiepunten bij {0} wilt wissen?", itemDescription);
+            string message = string.Format(Resources.ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_, 
+                                           itemDescription);
             if (inquiryHelper.InquireContinuation(message))
             {
                 IEnumerable<IObservable> affectedObjects = clearIllustrationPointsFunc();

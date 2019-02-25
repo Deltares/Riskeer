@@ -523,10 +523,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, itemDescription, clearIllustrationPointsFunc);
 
             return new StrictContextMenuItem(
-                "Wis illustratiepunten...",
-                "Wis alle berekende illustratiepunten.",
+                Resources.CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName,
+                Resources.CreateClearIllustrationPointsItem_ClearIllustrationPoints_ToolTipMessage,
                 Resources.ClearIcon,
-                (o, args) =>handler.ClearIllustrationPoints())
+                (o, args) => handler.ClearIllustrationPoints())
             {
                 Enabled = isContextItemEnabledFunc()
             };

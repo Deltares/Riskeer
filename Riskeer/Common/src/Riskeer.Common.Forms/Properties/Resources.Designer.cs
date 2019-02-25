@@ -989,6 +989,16 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u alle berekende illustratiepunten bij {0} wilt wissen?.
+        /// </summary>
+        public static string ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_ {
+            get {
+                return ResourceManager.GetString("ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_Il" +
+                        "lustrationPoints_for_collection_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deze berekening heeft geen uitvoer om te wissen..
         /// </summary>
         public static string ClearOutput_No_output_to_clear {
@@ -1013,6 +1023,24 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("CopyHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wis illustratiepunten....
+        /// </summary>
+        public static string CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName {
+            get {
+                return ResourceManager.GetString("CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten..
+        /// </summary>
+        public static string CreateClearIllustrationPointsItem_ClearIllustrationPoints_ToolTipMessage {
+            get {
+                return ResourceManager.GetString("CreateClearIllustrationPointsItem_ClearIllustrationPoints_ToolTipMessage", resourceCulture);
             }
         }
         

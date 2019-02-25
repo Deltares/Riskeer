@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -2208,13 +2208,15 @@ namespace Riskeer.Integration.Plugin
                                                         designWaterLevelItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+
             return builder.AddOpenItem()
                           .AddSeparator()
                           .AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
                           .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
-                                                                new DialogBasedInquiryHelper(Gui.MainWindow),
-                                                                $"Categoriegrens {nodeData.CategoryBoundaryName}",
+                                                                inquiryHelper,
+                                                                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                                                                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
                           .AddSeparator()
                           .AddPropertiesItem()
