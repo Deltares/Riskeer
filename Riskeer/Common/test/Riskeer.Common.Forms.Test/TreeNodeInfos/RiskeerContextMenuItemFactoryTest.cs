@@ -1754,5 +1754,86 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
 
         #endregion
+
+        #region CreateClearIllustrationPointsItem
+
+        [Test]
+        public void CreateClearIllustrationPointsItem_Always_CreatesDecoratedItem()
+        {
+            // Setup
+            bool isEnabled = new Random(21).NextBoolean();
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
+                                                                                                                  inquiryHelper,
+                                                                                                                  string.Empty,
+                                                                                                                  () => Enumerable.Empty<IObservable>());
+
+            // Assert
+            Assert.AreEqual("Wis illustratiepunten...", toolStripItem.Text);
+            Assert.AreEqual("Wis alle berekende illustratiepunten.", toolStripItem.ToolTipText);
+//            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image); // TODO: Find image
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateClearIllustrationPointsItem_EnabledSituation_ReturnsExpectedEnabledState(bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
+                                                                                                                  inquiryHelper,
+                                                                                                                  string.Empty,
+                                                                                                                  () => Enumerable.Empty<IObservable>());
+
+            // Assert
+            Assert.AreEqual(isEnabled, toolStripItem.Enabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenEnabledCreateClearIllustrationPointsItemAndContinuedAction_WhenClickPerformed_ThenIllustrationPointsCleared(bool continuation)
+        {
+            // Given
+            const string itemDescription = "A";
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij {itemDescription} wilt wissen?"))
+                         .Return(true);
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            Func<IEnumerable<IObservable>> clearIllustrationPointsFunc = () => new[]
+            {
+                observable
+            };
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => true,
+                                                                                                                  inquiryHelper,
+                                                                                                                  itemDescription,
+                                                                                                                  clearIllustrationPointsFunc);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        #endregion
     }
 }

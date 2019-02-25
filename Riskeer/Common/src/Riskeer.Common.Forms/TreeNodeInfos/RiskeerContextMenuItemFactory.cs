@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Util.Extensions;
@@ -503,6 +504,31 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 })
             {
                 Enabled = contextMenuEnabled
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration point results.
+        /// </summary>
+        /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <param name="itemDescription">The description of the item for which the illustration points results are cleared.</param>
+        /// <param name="clearIllustrationPointsFunc">The function to clear the illustration points.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreateClearIllustrationPointsItem(Func<bool> isContextItemEnabledFunc,
+                                                                              IInquiryHelper inquiryHelper,
+                                                                              string itemDescription,
+                                                                              Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
+        {
+            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, itemDescription, clearIllustrationPointsFunc);
+
+            return new StrictContextMenuItem(
+                "Wis illustratiepunten...",
+                "Wis alle berekende illustratiepunten.",
+                Resources.ClearIcon,
+                (o, args) =>handler.ClearIllustrationPoints())
+            {
+                Enabled = isContextItemEnabledFunc()
             };
         }
 
