@@ -165,12 +165,6 @@
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_DisplayName" xml:space="preserve">
     <value>Golfoploop</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_Description" xml:space="preserve">
-    <value>Het type van de belasting waarvoor berekend wordt.</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_DisplayName" xml:space="preserve">
-    <value>Type belasting</value>
-  </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description" xml:space="preserve">
     <value>Berekende hydraulische belastingen voor golfklap.</value>
   </data>

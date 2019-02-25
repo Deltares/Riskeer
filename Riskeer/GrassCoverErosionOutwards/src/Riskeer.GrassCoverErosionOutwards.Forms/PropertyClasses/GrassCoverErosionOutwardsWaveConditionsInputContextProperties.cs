@@ -55,8 +55,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             : base(context, getAssessmentLevelFunc, propertyChangeHandler) {}
 
         [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_Description))]
         public override GrassCoverErosionOutwardsWaveConditionsCalculationType RevetmentType
         {
             get

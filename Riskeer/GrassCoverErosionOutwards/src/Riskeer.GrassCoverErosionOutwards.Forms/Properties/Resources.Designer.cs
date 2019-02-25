@@ -118,26 +118,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het type van de belasting waarvoor berekend wordt..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_Descr" +
-                        "iption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type belasting.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_RevetmentType_Displ" +
-                        "ayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description {

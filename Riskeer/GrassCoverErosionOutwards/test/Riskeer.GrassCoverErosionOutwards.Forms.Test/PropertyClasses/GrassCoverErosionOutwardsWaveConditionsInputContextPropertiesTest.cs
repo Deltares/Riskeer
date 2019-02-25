@@ -98,8 +98,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<EnumTypeConverter>(revetmentTypeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
                                                                             "Modelinstellingen",
-                                                                            "Type belasting",
-                                                                            "Het type van de belasting waarvoor berekend wordt.");
+                                                                            "Type bekleding",
+                                                                            "Het type van de bekleding waarvoor berekend wordt.");
             mocks.VerifyAll();
         }
 
