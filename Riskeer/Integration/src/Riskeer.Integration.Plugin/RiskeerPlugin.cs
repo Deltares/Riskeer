@@ -2207,37 +2207,18 @@ namespace Riskeer.Integration.Plugin
                                                         nodeData.GetNormFunc(),
                                                         designWaterLevelItem);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = nodeData.WrappedData.Where(calc => calc.HasOutput);
-            bool isEnabled = calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
-
-            var clearIllustrationPointsItem = new StrictContextMenuItem(
-                "Wis illustratiepunten...",
-                "Wis alle berekende illustratiepunten.",
-                RiskeerCommonFormsResources.ClearIcon,
-                (sender, args) =>
-                {
-                    var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-                    if (inquiryHelper.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij Categoriegrens {nodeData.CategoryBoundaryName} wilt wissen?"))
-                    {
-                        var affectedCalculations = new ObservableList<IObservable>();
-                        affectedCalculations.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
-
-                        affectedCalculations.ForEachElementDo(calc => calc.NotifyObservers());
-                    }
-                })
-            {
-                Enabled = isEnabled
-            };
-
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddCustomItem(designWaterLevelItem)
-                      .AddSeparator()
-                      .AddCustomItem(clearIllustrationPointsItem)
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCustomItem(designWaterLevelItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
+                                                                new DialogBasedInquiryHelper(Gui.MainWindow),
+                                                                $"Categoriegrens {nodeData.CategoryBoundaryName}",
+                                                                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private ContextMenuStrip WaveHeightCalculationsContextMenuStrip(WaveHeightCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -2423,6 +2404,12 @@ namespace Riskeer.Integration.Plugin
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                                   RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
+        }
+
+        private static bool HasIllustrationPoints(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        {
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = hydraulicBoundaryLocationCalculations.Where(calc => calc.HasOutput);
+            return calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
         }
 
         #endregion
