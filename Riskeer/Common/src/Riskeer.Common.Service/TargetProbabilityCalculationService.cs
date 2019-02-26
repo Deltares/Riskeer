@@ -52,9 +52,12 @@ namespace Riskeer.Common.Service
             CalculationServiceHelper.LogValidationBegin();
 
             string preprocessorDirectory = calculationSettings.PreprocessorDirectory;
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(calculationSettings.HydraulicBoundaryDatabaseFilePath,
-                                                                                                                   calculationSettings.HlcdFilePath,
-                                                                                                                   preprocessorDirectory);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
+                calculationSettings.HydraulicBoundaryDatabaseFilePath,
+                calculationSettings.HlcdFilePath,
+                preprocessorDirectory,
+                calculationSettings.UsePreprocessorClosure);
+
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,

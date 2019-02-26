@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,11 +24,13 @@ using System.Globalization;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Properties;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using HydraRingResources = Riskeer.HydraRing.IO.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.HydraRing
 {
@@ -38,6 +40,7 @@ namespace Riskeer.Common.IO.HydraRing
     public static class HydraulicBoundaryDatabaseHelper
     {
         private const string hydraRingConfigurationDatabaseExtension = "config.sqlite";
+        private const string preprocessorClosureFileName = "preprocClosure.sqlite";
 
         /// <summary>
         /// Attempts to connect to the <paramref name="filePath"/> as if it is a Hydraulic Boundary Locations 
@@ -88,6 +91,18 @@ namespace Riskeer.Common.IO.HydraRing
             catch (CriticalFileReadException e)
             {
                 return e.Message;
+            }
+
+            if (usePreprocessorClosure)
+            {
+                string directory = Path.GetDirectoryName(hlcdFilePath);
+                string hlcdFileName = Path.GetFileNameWithoutExtension(hlcdFilePath);
+                string preprocessorClosureFilePath = Path.Combine(directory, $"{hlcdFileName}_{preprocessorClosureFileName}");
+
+                if (!File.Exists(preprocessorClosureFilePath))
+                {
+                    return new FileReaderErrorMessageBuilder(preprocessorClosureFilePath).Build(CoreCommonUtilResources.Error_File_does_not_exist);
+                }
             }
 
             return null;
