@@ -989,7 +989,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u alle berekende illustratiepunten bij {0} wilt wissen?.
+        ///   Looks up a localized string similar to Weet u zeker dat u alle berekende illustratiepunten bij &apos;{0}&apos; wilt wissen?.
         /// </summary>
         public static string ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_ {
             get {

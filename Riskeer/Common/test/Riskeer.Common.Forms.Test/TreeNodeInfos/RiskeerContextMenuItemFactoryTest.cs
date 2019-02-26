@@ -1811,7 +1811,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij {itemDescription} wilt wissen?"))
+            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij '{itemDescription}' wilt wissen?"))
                          .Return(true);
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());

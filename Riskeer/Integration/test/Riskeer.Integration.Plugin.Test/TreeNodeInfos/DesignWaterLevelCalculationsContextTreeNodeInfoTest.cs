@@ -880,7 +880,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
-                        string expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij Categoriegrens {categoryBoundaryName} wilt wissen?";
+                        string expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij 'Categoriegrens {categoryBoundaryName}' wilt wissen?";
                         Assert.AreEqual(expectedMessage, messageBoxText);
 
                         Assert.IsTrue(calculation.HasOutput);

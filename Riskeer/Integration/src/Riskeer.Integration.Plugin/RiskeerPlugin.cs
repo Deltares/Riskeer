@@ -2318,7 +2318,7 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(assessmentSection),
                                                                 inquiryHelper,
-                                                                "Waterstanden en Golfhoogten",
+                                                                Resources.HydraulicBoundaryDatabaseContextMenuStrip_ClearIllustrationPoints,
                                                                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(assessmentSection))
                           .AddSeparator()
                           .AddCollapseAllItem()

@@ -90,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij {itemDescription} wilt wissen?"))
+            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij '{itemDescription}' wilt wissen?"))
                          .Return(continuation);
             var observable = mocks.StrictMock<IObservable>();
             if (continuation)

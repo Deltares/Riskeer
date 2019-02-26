@@ -340,6 +340,15 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstanden en Golfhoogten.
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseContextMenuStrip_ClearIllustrationPoints {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseContextMenuStrip_ClearIllustrationPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
         ///
         ///Wilt u doorgaan?.

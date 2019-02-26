@@ -1513,6 +1513,6 @@ berekende kans
     <value>Wis alle berekende illustratiepunten.</value>
   </data>
   <data name="ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_" xml:space="preserve">
-    <value>Weet u zeker dat u alle berekende illustratiepunten bij {0} wilt wissen?</value>
+    <value>Weet u zeker dat u alle berekende illustratiepunten bij '{0}' wilt wissen?</value>
   </data>
 </root>
