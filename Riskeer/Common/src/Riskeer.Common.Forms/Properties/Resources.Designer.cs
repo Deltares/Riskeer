@@ -1027,6 +1027,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten..
+        /// </summary>
+        public static string CreateClearIllustrationPointsItem_Clear_IllustrationPoints {
+            get {
+                return ResourceManager.GetString("CreateClearIllustrationPointsItem_Clear_IllustrationPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wis illustratiepunten....
         /// </summary>
         public static string CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName {
@@ -1036,11 +1045,11 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten..
+        ///   Looks up a localized string similar to Er zijn geen berekeningen met illustratiepunten om te wissen..
         /// </summary>
-        public static string CreateClearIllustrationPointsItem_ClearIllustrationPoints_ToolTipMessage {
+        public static string CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear {
             get {
-                return ResourceManager.GetString("CreateClearIllustrationPointsItem_ClearIllustrationPoints_ToolTipMessage", resourceCulture);
+                return ResourceManager.GetString("CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear", resourceCulture);
             }
         }
         

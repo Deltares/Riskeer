@@ -1758,7 +1758,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         #region CreateClearIllustrationPointsItem
 
         [Test]
-        public void CreateClearIllustrationPointsItem_Always_CreatesDecoratedItem()
+        public void CreateClearIllustrationPointsItem_Always_CreatesExpectedItem()
         {
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
@@ -1775,7 +1775,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Wis illustratiepunten...", toolStripItem.Text);
-            Assert.AreEqual("Wis alle berekende illustratiepunten.", toolStripItem.ToolTipText);
 //            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image); // TODO: Find image
             mocks.VerifyAll();
         }
@@ -1783,7 +1782,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateClearIllustrationPointsItem_EnabledSituation_ReturnsExpectedEnabledState(bool isEnabled)
+        public void CreateClearIllustrationPointsItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1798,6 +1797,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(isEnabled, toolStripItem.Enabled);
+
+            string expectedToolTipMessage = isEnabled
+                                             ? "Wis alle berekende illustratiepunten."
+                                             : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
+            Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
             mocks.VerifyAll();
         }
 

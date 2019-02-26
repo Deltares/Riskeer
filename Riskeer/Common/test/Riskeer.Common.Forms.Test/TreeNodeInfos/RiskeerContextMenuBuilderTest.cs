@@ -890,9 +890,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
                               .WhenCalled(arg =>
                               {
+                                  string expectedToolTipMessage = isEnabled
+                                                                      ? "Wis alle berekende illustratiepunten."
+                                                                      : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
+
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
                                   Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
-                                  Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
+                                  Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
             mocks.ReplayAll();

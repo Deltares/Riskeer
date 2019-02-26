@@ -522,13 +522,18 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         {
             var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, itemDescription, clearIllustrationPointsFunc);
 
+            bool isEnabled = isContextItemEnabledFunc();
+            string toolTip = isEnabled
+                                 ? Resources.CreateClearIllustrationPointsItem_Clear_IllustrationPoints
+                                 : Resources.CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear;
+
             return new StrictContextMenuItem(
                 Resources.CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName,
-                Resources.CreateClearIllustrationPointsItem_ClearIllustrationPoints_ToolTipMessage,
+                toolTip,
                 Resources.ClearIcon,
                 (o, args) => handler.ClearIllustrationPoints())
             {
-                Enabled = isContextItemEnabledFunc()
+                Enabled = isEnabled
             };
         }
 
