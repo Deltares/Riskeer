@@ -2305,19 +2305,27 @@ namespace Riskeer.Integration.Plugin
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
                                                         calculateAllItem);
 
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
-                                           RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                                           RiskeerCommonFormsResources.DatabaseIcon)
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
-                      .AddSeparator()
-                      .AddCollapseAllItem()
-                      .AddExpandAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+
+            AssessmentSection assessmentSection = nodeData.AssessmentSection;
+            return builder.AddCustomImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
+                                               RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                                               RiskeerCommonFormsResources.DatabaseIcon)
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddCustomItem(calculateAllItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(assessmentSection),
+                                                                inquiryHelper,
+                                                                "Waterstanden en Golfhoogten",
+                                                                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(assessmentSection))
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -2430,6 +2438,12 @@ namespace Riskeer.Integration.Plugin
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                                   RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
+        }
+
+        private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
+        {
+            return DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection)
+                   || WaveHeightCalculationsHaveIllustrationPoints(assessmentSection);
         }
 
         private static bool WaveHeightCalculationsHaveIllustrationPoints(IAssessmentSection assessmentSection)

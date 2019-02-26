@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui;
@@ -418,6 +419,19 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public RiskeerContextMenuBuilder AddImportItem()
         {
             contextMenuBuilder.AddImportItem();
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <param name="text">The text of the import item.</param>
+        /// <param name="toolTip">The tooltip of the import item.</param>
+        /// <param name="image">The image of the import item.</param>
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddCustomImportItem(string text, string toolTip, Image image)
+        {
+            contextMenuBuilder.AddCustomImportItem(text, toolTip, image);
             return this;
         }
 

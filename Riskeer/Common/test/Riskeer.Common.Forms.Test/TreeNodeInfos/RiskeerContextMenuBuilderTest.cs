@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -636,6 +635,29 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void AddCustomImportItem_ContextMenuBuilder_CorrectlyDecorated()
+        {
+            // Setup
+            const string text = "import";
+            const string toolTip = "import tooltip";
+            Bitmap image = RiskeerFormsResources.DatabaseIcon;
+
+            var mocks = new MockRepository();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddCustomImportItem(text, toolTip, image));
+
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddCustomImportItem(text, toolTip, image);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Build_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup
@@ -849,6 +871,41 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                               RiskeerFormsResources.CopyHS);
             }
 
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region AddClearIllustrationPointResultsItem
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddClearIllustrationPointResultsItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
+                              .WhenCalled(arg =>
+                              {
+                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
+                                  Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
+                                  Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
+                              });
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddClearIllustrationPointResultsItem(() => isEnabled,
+                                                                           inquiryHelper,
+                                                                           string.Empty,
+                                                                           () => Enumerable.Empty<IObservable>());
+
+            // Assert
             mocks.VerifyAll();
         }
 
@@ -1899,41 +1956,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
-
-        #endregion
-
-        #region AddClearIllustrationPointResultsItem
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AddClearIllustrationPointResultsItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
-                              .WhenCalled(arg =>
-                              {
-                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
-                                  Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
-                                  Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
-                              });
-            mocks.ReplayAll();
-
-            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            riskeerContextMenuBuilder.AddClearIllustrationPointResultsItem(() => isEnabled,
-                                                                           inquiryHelper,
-                                                                           string.Empty,
-                                                                           () => Enumerable.Empty<IObservable>());
-
-            // Assert
-            mocks.VerifyAll();
-        }
 
         #endregion
     }
