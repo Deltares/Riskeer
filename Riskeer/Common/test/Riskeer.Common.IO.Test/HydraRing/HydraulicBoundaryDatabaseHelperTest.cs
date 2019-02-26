@@ -160,7 +160,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, customHlcdFilePath, testDataPath, true);
 
             // Assert
-            StringAssert.StartsWith($"Fout bij het lezen van bestand '{preprocessorClosureFilePath}':", result);
+            Assert.AreEqual($"Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.", result);
         }
 
         [Test]

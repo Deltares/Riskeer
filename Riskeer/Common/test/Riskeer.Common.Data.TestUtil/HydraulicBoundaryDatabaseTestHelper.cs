@@ -34,8 +34,10 @@ namespace Riskeer.Common.Data.TestUtil
         /// Sets valid values on the <see cref="HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to set the values to.</param>
+        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="HydraulicBoundaryDatabase.FilePath"/> is <c>null</c>.</exception>
-        public static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                             bool usePreprocessorClosure = false)
         {
             if (hydraulicBoundaryDatabase.FilePath == null)
             {
@@ -48,7 +50,7 @@ namespace Riskeer.Common.Data.TestUtil
                                                                                        "ScenarioName",
                                                                                        1337,
                                                                                        "Scope",
-                                                                                       false,
+                                                                                       usePreprocessorClosure,
                                                                                        "SeaLevel",
                                                                                        "RiverDischarge",
                                                                                        "LakeLevel",

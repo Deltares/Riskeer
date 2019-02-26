@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.TestUtil.Test
     public class HydraulicBoundaryDatabaseTestHelperTest
     {
         [Test]
-        public void SetHydraulicBoundaryLocationConfigurationSettings_DatabaseWithFilePath_SetsExpectedValues()
+        public void SetHydraulicBoundaryLocationConfigurationSettings_DatabaseWithFilePathAndWithoutUsePreprocessorClosure_SetsExpectedValues()
         {
             // Setup
             const string path = "C:\\TestPath";
@@ -50,6 +50,34 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.AreEqual(1337, settings.Year);
             Assert.AreEqual("Scope", settings.Scope);
             Assert.IsFalse(settings.UsePreprocessorClosure);
+            Assert.AreEqual("SeaLevel", settings.SeaLevel);
+            Assert.AreEqual("RiverDischarge", settings.RiverDischarge);
+            Assert.AreEqual("LakeLevel", settings.LakeLevel);
+            Assert.AreEqual("WindDirection", settings.WindDirection);
+            Assert.AreEqual("WindSpeed", settings.WindSpeed);
+            Assert.AreEqual("Comment", settings.Comment);
+        }
+        [Test]
+        public void SetHydraulicBoundaryLocationConfigurationSettings_DatabaseWithFilePathAndWithUsePreprocessorClosure_SetsExpectedValues()
+        {
+            // Setup
+            const string path = "C:\\TestPath";
+            const bool usePreprocessorClosure = true;
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(path, "hrd.sqlite")
+            };
+
+            // Call
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase, usePreprocessorClosure);
+
+            // Assert
+            HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
+            Assert.AreEqual(Path.Combine(path, "hlcd.sqlite"), settings.FilePath);
+            Assert.AreEqual("ScenarioName", settings.ScenarioName);
+            Assert.AreEqual(1337, settings.Year);
+            Assert.AreEqual("Scope", settings.Scope);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual("SeaLevel", settings.SeaLevel);
             Assert.AreEqual("RiverDischarge", settings.RiverDischarge);
             Assert.AreEqual("LakeLevel", settings.LakeLevel);
