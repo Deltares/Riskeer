@@ -89,6 +89,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                                   .Select(m => m.HlcdLocationId)
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
+                Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
                 Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
             }
         }
@@ -111,6 +112,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
                                                                                   .Select(m => m.HlcdLocationId)
                                                                                   .SingleOrDefault();
                 Assert.AreEqual(expectedLocationId, actualLocationId);
+                Assert.IsFalse(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
                 IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings =
                     readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings;
                 Assert.AreEqual(2, readHydraulicLocationConfigurationDatabaseSettings.Count());
@@ -163,6 +165,40 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             }
         }
 
+        [TestCase(3000, true)]
+        [TestCase(11, false)]
+        public void Read_ValidFileWithUsePreprocessClosureColumn_ExpectedValues(int trackId, bool expectedUsePreprocessorClosure)
+        {
+            string dbFile = Path.Combine(testDataPath, "hlcdWithPreprocessorClosureColumn.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            {
+                // Call
+                ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = hydraulicBoundaryDatabaseReader.Read(trackId);
+
+                // Assert
+                Assert.AreEqual(expectedUsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
+            }
+        }
+
+        [Test]
+        public void Read_InvalidFileWithUsePreprocessClosureColumn_ThrowsLineParseException()
+        {
+            string dbFile = Path.Combine(testDataPath, "hlcdWithInvalidPreprocessorClosureColumn.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read(1000);
+
+                // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                var exception = Assert.Throws<LineParseException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+            }
+        }
+
         [Test]
         public void Read_FileWithScenarioInformationAndMissingColumns_ThrowsCriticalFileReadException()
         {
@@ -208,7 +244,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
-            const int trackId = 18;
+            const int trackId = 11;
             const int hrdLocationId = 1;
             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase = null;
 
