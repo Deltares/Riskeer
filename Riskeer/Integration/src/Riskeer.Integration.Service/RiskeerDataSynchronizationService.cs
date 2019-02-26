@@ -359,6 +359,26 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
+        /// Clears all the illustration point results for the design water level and wave height calculations.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
+        /// <returns>All objects that are affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(ClearIllustrationPointResultsForWaveHeightCalculations(assessmentSection));
+            affectedObjects.AddRange(ClearIllustrationPointResultsForDesignWaterLevelCalculations(assessmentSection));
+
+            return affectedObjects;
+        }
+
+        /// <summary>
         /// Clears the reference line and all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="assessmentSection">The assessment section.</param>

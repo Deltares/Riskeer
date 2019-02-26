@@ -584,21 +584,11 @@ namespace Riskeer.Integration.Service.Test
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                                                                                       .Where(calc => calc.HasOutput)
-                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
-                                                                                                       .Where(calc => calc.HasOutput)
-                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetAllWaveHeightCalculationsWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
@@ -632,21 +622,11 @@ namespace Riskeer.Integration.Service.Test
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                                                                                                       .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                                                                                       .Where(calc => calc.HasOutput)
-                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                                                                                       .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
-                                                                                                       .Where(calc => calc.HasOutput)
-                                                                                                       .ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetAllWaveHeightCalculationsWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
@@ -661,6 +641,39 @@ namespace Riskeer.Integration.Service.Test
 
             Assert.IsTrue(waveHeightCalculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
             Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
+
+            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection)
+                                                                                      .Concat(GetAllWaveHeightCalculationsWithOutput(assessmentSection))
+                                                                                      .ToArray();
+            HydraulicBoundaryLocationCalculation[] calculationsWithIllustrationPoints = calculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                                                                  .ToArray();
+
+            // Call 
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(assessmentSection);
+
+            // Assert
+            CollectionAssert.AreEquivalent(calculationsWithIllustrationPoints, affectedObjects);
+
+            Assert.IsTrue(calculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
         }
 
         [Test]
@@ -1398,6 +1411,24 @@ namespace Riskeer.Integration.Service.Test
 
             Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
                             "Other section results with a different calculation/dikeprofile should still have their association.");
+        }
+
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllDesignWaterLevelCalculationsWithOutput(IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+                                    .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                    .Where(calc => calc.HasOutput);
+        }
+
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllWaveHeightCalculationsWithOutput(IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
+                                    .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
+                                    .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
+                                    .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
+                                    .Where(calc => calc.HasOutput);
         }
 
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
