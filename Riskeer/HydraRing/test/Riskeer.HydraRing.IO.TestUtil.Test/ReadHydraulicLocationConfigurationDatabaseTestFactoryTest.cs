@@ -38,6 +38,7 @@ namespace Riskeer.HydraRing.IO.TestUtil.Test
             // Assert
             Assert.AreEqual(2, database.LocationIdMappings.Count());
             Assert.IsNull(database.ReadHydraulicLocationConfigurationDatabaseSettings);
+            Assert.IsFalse(database.UsePreprocessorClosure);
 
             var i = 1;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
@@ -65,6 +66,7 @@ namespace Riskeer.HydraRing.IO.TestUtil.Test
             // Assert
             Assert.AreEqual(locationsIds.Length, database.LocationIdMappings.Count());
             Assert.IsNull(database.ReadHydraulicLocationConfigurationDatabaseSettings);
+            Assert.IsFalse(database.UsePreprocessorClosure);
 
             var i = 0;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
@@ -82,6 +84,8 @@ namespace Riskeer.HydraRing.IO.TestUtil.Test
             ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings();
 
             // Assert
+            Assert.IsFalse(database.UsePreprocessorClosure);
+
             var i = 1;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
             {
@@ -112,6 +116,8 @@ namespace Riskeer.HydraRing.IO.TestUtil.Test
             ReadHydraulicLocationConfigurationDatabase database = ReadHydraulicLocationConfigurationDatabaseTestFactory.CreateWithConfigurationSettings(settings);
 
             // Assert
+            Assert.IsFalse(database.UsePreprocessorClosure);
+
             var i = 1;
             foreach (ReadHydraulicLocationMapping databaseLocationIdMapping in database.LocationIdMappings)
             {

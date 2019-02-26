@@ -32,14 +32,17 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Creates a new instance of <see cref="ReadHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
         /// <param name="locationIdMappings">The location id mappings of the read hydraulic location
-        ///     configuration database.</param>
+        /// configuration database.</param>
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The hydraulic location configuration settings
-        ///     of the read hydraulic location database.</param>
+        /// of the read hydraulic location database.</param>
+        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         internal ReadHydraulicLocationConfigurationDatabase(IEnumerable<ReadHydraulicLocationMapping> locationIdMappings,
-                                                            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings)
+                                                            IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> readHydraulicLocationConfigurationDatabaseSettings,
+                                                            bool usePreprocessorClosure)
         {
             LocationIdMappings = locationIdMappings;
             ReadHydraulicLocationConfigurationDatabaseSettings = readHydraulicLocationConfigurationDatabaseSettings;
+            UsePreprocessorClosure = usePreprocessorClosure;
         }
 
         /// <summary>
@@ -51,5 +54,10 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// Gets the settings of the read hydraulic location configuration database.
         /// </summary>
         public IEnumerable<ReadHydraulicLocationConfigurationDatabaseSettings> ReadHydraulicLocationConfigurationDatabaseSettings { get; }
+
+        /// <summary>
+        /// Gets the indicator whether to use the preprocessor closure.
+        /// </summary>
+        public bool UsePreprocessorClosure { get; }
     }
 }
