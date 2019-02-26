@@ -334,7 +334,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         // Assert
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
 
-                        Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
+                        Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
                         Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
                         //                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image); // TODO: Find image
                         Assert.IsTrue(contextMenuItem.Enabled);

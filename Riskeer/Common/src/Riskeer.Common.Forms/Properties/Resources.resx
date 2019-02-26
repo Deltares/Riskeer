@@ -1507,7 +1507,7 @@ berekende kans
     <value>Gecombineerd toetsoordeel</value>
   </data>
   <data name="CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName" xml:space="preserve">
-    <value>Wis illustratiepunten...</value>
+    <value>Wis alle illustratiepunten...</value>
   </data>
   <data name="CreateClearIllustrationPointsItem_Clear_IllustrationPoints" xml:space="preserve">
     <value>Wis alle berekende illustratiepunten.</value>

@@ -895,7 +895,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                       : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
 
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
-                                  Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
                               });
