@@ -17,6 +17,7 @@
     <Compile Include="CalculationWithLocation.cs" />
     <Compile Include="FailureMechanismNormHelper.cs" />
     <Compile Include="HydraulicBoundaryLocationMapDataFeaturesFactory.cs" />
+    <Compile Include="IllustrationPointsHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

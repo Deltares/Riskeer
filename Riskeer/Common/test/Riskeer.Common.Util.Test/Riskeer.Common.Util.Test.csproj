@@ -25,6 +25,7 @@
     <Compile Include="CalculationWithLocationTest.cs" />
     <Compile Include="FailureMechanismNormHelperTest.cs" />
     <Compile Include="HydraulicBoundaryLocationMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="IllustrationPointsHelperTest.cs" />
     <Compile Include="RiskeerMapDataFeaturesFactoryHelperTest.cs" />
     <Compile Include="ProjectVersionComparerTest.cs" />
     <Compile Include="StructuresHelperTest.cs" />
