@@ -93,6 +93,11 @@
       <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
+      <Project>{6a074d65-a81c-4c1c-8e24-f36c916e4ed7}</Project>
+      <Name>Riskeer.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Riskeer.Revetment.Data</Name>

@@ -49,6 +49,7 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
+using Riskeer.Common.Util;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -635,19 +636,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
                                                                 inquiryHelper,
                                                                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                                                                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static bool HasIllustrationPoints(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-        {
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = hydraulicBoundaryLocationCalculations.Where(calc => calc.HasOutput);
-            return calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
         }
 
         #endregion
@@ -689,7 +684,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
                                                                 inquiryHelper,
                                                                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                                                                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))

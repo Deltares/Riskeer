@@ -64,6 +64,7 @@ using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
+using Riskeer.Common.Util;
 using Riskeer.Common.Util.TypeConverters;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
@@ -2215,7 +2216,7 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
                                                                 inquiryHelper,
                                                                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                                                                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
@@ -2255,7 +2256,7 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
                                                                 inquiryHelper,
                                                                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                                                                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
@@ -2448,24 +2449,18 @@ namespace Riskeer.Integration.Plugin
 
         private static bool WaveHeightCalculationsHaveIllustrationPoints(IAssessmentSection assessmentSection)
         {
-            return HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm)
-                   || HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                   || HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                   || HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
         }
 
         private static bool DesignWaterLevelCalculationsHaveIllustrationPoints(IAssessmentSection assessmentSection)
         {
-            return HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
-                   || HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                   || HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                   || HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-        }
-
-        private static bool HasIllustrationPoints(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-        {
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = hydraulicBoundaryLocationCalculations.Where(calc => calc.HasOutput);
-            return calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
+            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
         }
 
         #endregion
