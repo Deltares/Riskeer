@@ -215,6 +215,42 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             return affectedObjects;
         }
 
+        /// <summary>
+        /// Clears all the illustration point results for the wave height calculations that are relevant for the grass cover erosion
+        /// outwards failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to clear the
+        /// illustration point results for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
+        /// <returns>All objects that are affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsForWaveHeightCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                                      IAssessmentSection assessmentSection)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaveHeightCalculationsForLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
+            return affectedObjects;
+        }
+
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(WaveConditionsInput input)
         {
             if (input.HydraulicBoundaryLocation != null)

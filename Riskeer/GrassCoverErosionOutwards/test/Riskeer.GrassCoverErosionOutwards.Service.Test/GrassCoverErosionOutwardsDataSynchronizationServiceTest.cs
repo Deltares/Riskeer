@@ -314,6 +314,72 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
         }
 
+        [Test]
+        public void ClearIllustrationPointResultsForWaveHeightCalculations_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(new GrassCoverErosionOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForWaveHeightCalculations_WithArguments_IllustrationPointsClearedAndAffectedItemsReturned()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            });
+
+            ConfigureHydraulicBoundaryLocationCalculationsWithIllustrationPointResults(assessmentSection, failureMechanism);
+
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection, failureMechanism).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                                                                  .ToArray();
+
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetAllWaveHeightCalculationsWithOutput(assessmentSection, failureMechanism).ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                                                                  .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(failureMechanism,
+                                                                                                                                                                  assessmentSection);
+
+            // Assert
+            CollectionAssert.AreEquivalent(waveHeightCalculationsWithIllustrationPoints, affectedObjects);
+
+            Assert.IsTrue(waterLevelCalculationsWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waveHeightCalculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
+        }
+
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllDesignWaterLevelCalculationsWithOutput(IAssessmentSection assessmentSection,
                                                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {

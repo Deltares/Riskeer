@@ -1149,6 +1149,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
             var waveHeightItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -1159,17 +1160,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                            nodeData.FailureMechanism, assessmentSection));
+                            failureMechanism, assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
 
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(waveHeightItem)
-                      .AddSeparator()
-                      .AddCollapseAllItem()
-                      .AddExpandAllItem()
-                      .Build();
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+
+            return builder.AddCustomItem(waveHeightItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointResultsItem(
+                              () => WaveHeightCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
+                              inquiryHelper,
+                              RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
+                              () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(failureMechanism,
+                                                                                                                                               assessmentSection))
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
         }
 
         private static object[] WaveHeightCalculationsGroupContextChildNodeObjects(GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext context)
@@ -1207,6 +1217,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
                     RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
+        }
+
+        private static bool WaveHeightCalculationsHaveIllustrationPoints(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                               IAssessmentSection assessmentSection)
+        {
+            return IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
         }
 
         #endregion
