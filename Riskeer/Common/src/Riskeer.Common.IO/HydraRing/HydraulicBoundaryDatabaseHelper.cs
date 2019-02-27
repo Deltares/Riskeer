@@ -95,10 +95,7 @@ namespace Riskeer.Common.IO.HydraRing
 
             if (usePreprocessorClosure)
             {
-                string directory = Path.GetDirectoryName(hlcdFilePath);
-                string hlcdFileName = Path.GetFileNameWithoutExtension(hlcdFilePath);
-                string preprocessorClosureFilePath = Path.Combine(directory, $"{hlcdFileName}_{preprocessorClosureFileName}");
-
+                string preprocessorClosureFilePath = GetPreprocessorClosureFilePath(hlcdFilePath);
                 if (!File.Exists(preprocessorClosureFilePath))
                 {
                     return new FileReaderErrorMessageBuilder(preprocessorClosureFilePath).Build(CoreCommonUtilResources.Error_File_does_not_exist);
@@ -174,6 +171,25 @@ namespace Riskeer.Common.IO.HydraRing
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets the file path of the preprocessor closure database.
+        /// </summary>
+        /// <param name="hlcdFilePath">The file path of the Hydraulic Location Configuration Database.</param>
+        /// <returns>The file path of the preprocessor closure database.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/>
+        /// is <c>null</c>.</exception>
+        public static string GetPreprocessorClosureFilePath(string hlcdFilePath)
+        {
+            if (hlcdFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(hlcdFilePath));
+            }
+
+            string directory = Path.GetDirectoryName(hlcdFilePath);
+            string hlcdFileName = Path.GetFileNameWithoutExtension(hlcdFilePath);
+            return Path.Combine(directory, $"{hlcdFileName}_{preprocessorClosureFileName}");
         }
 
         /// <summary>

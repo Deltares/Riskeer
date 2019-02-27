@@ -317,5 +317,26 @@ namespace Riskeer.Common.IO.Test.HydraRing
             // Assert
             Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", message);
         }
+
+        [Test]
+        public void GetPreprocessorClosureFilePath_HlcdFilePathNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hlcdFilePath", exception.ParamName);
+        }
+
+        [Test]
+        public void GetPreprocessorClosureFilePath_WithHlcdFilePath_ReturnsPreprocessorClosureFilePath()
+        {
+            // Call
+            string preprocessorClosureFilePath = HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(hlcdFilePath);
+
+            // Assert
+            Assert.AreEqual(Path.Combine(testDataPath, "HLCD_preprocClosure.sqlite"), preprocessorClosureFilePath);
+        }
     }
 }

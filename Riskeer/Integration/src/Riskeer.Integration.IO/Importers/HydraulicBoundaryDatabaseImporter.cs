@@ -109,17 +109,11 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
-            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure)
+            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure 
+                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
             {
-                string folderPath = Path.GetDirectoryName(hlcdFilePath);
-                string hlcdFileName = Path.GetFileNameWithoutExtension(hlcdFilePath);
-                string preprocessorClosureFilePath = Path.Combine(folderPath, $"{hlcdFileName}_preprocClosure.sqlite");
-
-                if (!File.Exists(preprocessorClosureFilePath))
-                {
-                    Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
-                    return false;
-                }
+                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
+                return false;
             }
 
             AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
