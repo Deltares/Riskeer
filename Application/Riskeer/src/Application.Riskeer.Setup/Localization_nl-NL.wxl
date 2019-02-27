@@ -4,7 +4,7 @@
   <String Id="ApplicationShortName">Riskeer</String>
   <String Id="ApplicationGroupShortName">BOI</String>
   <String Id="Manufacturer">Deltares</String>
-  <String Id="NetFramework40Required">De installatie vereist dat Microsoft .NET Framework 4.0 geïnstalleerd is om verder te gaan.</String>
+  <String Id="NetFramework45Required">De installatie vereist dat Microsoft .NET Framework 4.5 geïnstalleerd is om verder te gaan.</String>
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
   <String Id="StartApplicationDescription">Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName).</String>
 
