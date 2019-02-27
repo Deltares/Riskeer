@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -373,10 +374,12 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        [TestCaseSource(nameof(GetValidFiles))]
+        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(
+            string filePath, bool usePreprocessorClosure)
         {
             // Setup
-            string hlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
@@ -389,7 +392,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Equal(validFilePath),
+                                         Arg<string>.Is.Equal(filePath),
                                          Arg<string>.Is.Equal(hlcdFilePath)))
                    .WhenCalled(invocation =>
                    {
@@ -398,6 +401,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
                        Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
                        Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+                       Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
                        var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
                        Assert.AreEqual(1, excludedLocationIds.Count());
@@ -405,14 +409,14 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
 
             // Call
             var importResult = false;
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -464,8 +468,7 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidFiles))]
-        public void Import_ValidFiles_ExpectedProgressNotifications(string filePath)
+        public void Import_ValidFiles_ExpectedProgressNotifications()
         {
             // Setup
             var mocks = new MockRepository();
@@ -476,7 +479,7 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, validFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
@@ -669,9 +672,9 @@ namespace Riskeer.Integration.IO.Test.Importers
         {
             return new[]
             {
-                new TestCaseData(validFilePath)
+                new TestCaseData(validFilePath, true)
                     .SetName("validFilePath"),
-                new TestCaseData(Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite"))
+                new TestCaseData(Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite"), false)
                     .SetName("withoutPreprocessorClosure")
             };
         }
