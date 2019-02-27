@@ -29,6 +29,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.HydraRing;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.IO.Handlers;
@@ -120,6 +121,13 @@ namespace Riskeer.Integration.IO.Importers
             if (intersect.Length != locationIds.Count())
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds));
+                return false;
+            }
+
+            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
+                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(FilePath)))
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
             }
 
