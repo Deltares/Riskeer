@@ -302,13 +302,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [TestCaseSource(nameof(GetWaterLevelCalculations))]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationOutputFunc)
+        public void ContextMenuStrip_WaterLevelCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationFunc)
         {
             // Setup
             var random = new Random(21);
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
-            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationOutputFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
             var nodeData = new DesignWaterLevelCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
@@ -347,7 +347,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndTooltipSet()
+        public void ContextMenuStrip_WaterLevelCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled()
         {
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();

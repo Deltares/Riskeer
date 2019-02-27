@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Service;
@@ -175,6 +176,42 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
                                          failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
 
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Clears all the illustration point results for the design water level calculations that are relevant for the grass cover erosion
+        /// outwards failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to clear the
+        /// illustration point results for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
+        /// <returns>All objects that are affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsForDesignWaterLevelCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                                            IAssessmentSection assessmentSection)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
+                                         assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
             return affectedObjects;
         }
 

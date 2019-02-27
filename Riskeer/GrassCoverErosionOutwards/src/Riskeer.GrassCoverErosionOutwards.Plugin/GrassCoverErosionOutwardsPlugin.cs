@@ -1061,6 +1061,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
             var designWaterLevelItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -1071,17 +1072,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                            nodeData.FailureMechanism, assessmentSection));
+                            failureMechanism, assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
 
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(designWaterLevelItem)
-                      .AddSeparator()
-                      .AddCollapseAllItem()
-                      .AddExpandAllItem()
-                      .Build();
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+
+            return builder.AddCustomItem(designWaterLevelItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointResultsItem(
+                              () => DesignWaterLevelCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
+                              inquiryHelper,
+                              RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
+                              () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(failureMechanism,
+                                                                                                                                                     assessmentSection))
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
         }
 
         private static object[] DesignWaterLevelCalculationsGroupContextChildNodeObjects(GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext context)
@@ -1119,6 +1129,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
                     RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
+        }
+
+        private static bool DesignWaterLevelCalculationsHaveIllustrationPoints(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                               IAssessmentSection assessmentSection)
+        {
+            return IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
         }
 
         #endregion
