@@ -28,6 +28,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
@@ -1028,6 +1029,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
+
+            IMainWindow guiMainWindow = Gui.MainWindow;
+
             var calculateAllItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
                 RiskeerCommonFormsResources.CalculationGroup_Calculate_All_ToolTip,
@@ -1035,22 +1040,37 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
-                        Gui.MainWindow,
+                        guiMainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory
-                            .CreateCalculationActivities(nodeData.FailureMechanism, assessmentSection));
+                            .CreateCalculationActivities(failureMechanism, assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
                                                         calculateAllItem);
 
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
-                      .AddSeparator()
-                      .AddCollapseAllItem()
-                      .AddExpandAllItem()
-                      .Build();
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
+
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddCustomItem(calculateAllItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointResultsItem(
+                              () => HasIllustrationPoints(failureMechanism, assessmentSection),
+                              inquiryHelper,
+                              "Waterstanden en Golfhoogten",
+                              () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(
+                                  failureMechanism, assessmentSection))
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
+        }
+
+        private static bool HasIllustrationPoints(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return DesignWaterLevelCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection)
+                   || WaveHeightCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection);
         }
 
         #endregion
@@ -1063,6 +1083,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
+            IMainWindow guiMainWindow = Gui.MainWindow;
+
             var designWaterLevelItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
                 RiskeerCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
@@ -1070,7 +1092,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
-                        Gui.MainWindow,
+                        guiMainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                             failureMechanism, assessmentSection));
                 });
@@ -1078,7 +1100,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
 
             return builder.AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
@@ -1151,6 +1173,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
+            IMainWindow guiMainWindow = Gui.MainWindow;
+
             var waveHeightItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
                 RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
@@ -1158,7 +1182,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 (sender, args) =>
                 {
                     ActivityProgressDialogRunner.Run(
-                        Gui.MainWindow,
+                        guiMainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                             failureMechanism, assessmentSection));
                 });
@@ -1166,7 +1190,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
 
             return builder.AddCustomItem(waveHeightItem)
                           .AddSeparator()
@@ -1220,7 +1244,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         }
 
         private static bool WaveHeightCalculationsHaveIllustrationPoints(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                               IAssessmentSection assessmentSection)
+                                                                         IAssessmentSection assessmentSection)
         {
             return IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm)
                    || IllustrationPointsHelper.HasIllustrationPoints(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm)

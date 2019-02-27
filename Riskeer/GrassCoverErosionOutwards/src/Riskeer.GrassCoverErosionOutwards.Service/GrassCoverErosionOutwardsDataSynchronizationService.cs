@@ -251,6 +251,25 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             return affectedObjects;
         }
 
+        /// <summary>
+        /// Clears all the illustration point results for the design water level and wave height calculations that are relevant for the grass cover erosion
+        /// outwards failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to clear the
+        /// illustration point results for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
+        /// <returns>All objects that are affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                                                         IAssessmentSection assessmentSection)
+        {
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(ClearIllustrationPointResultsForWaveHeightCalculations(failureMechanism, assessmentSection));
+            affectedObjects.AddRange(ClearIllustrationPointResultsForDesignWaterLevelCalculations(failureMechanism, assessmentSection));
+
+            return affectedObjects;
+        }
+
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(WaveConditionsInput input)
         {
             if (input.HydraulicBoundaryLocation != null)

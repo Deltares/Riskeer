@@ -380,6 +380,67 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
         }
 
+        [Test]
+        public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(new GrassCoverErosionOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+
+        [Test]
+        public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_WithArguments_IllustrationPointsClearedAndAffectedItemsReturned()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            });
+
+            ConfigureHydraulicBoundaryLocationCalculationsWithIllustrationPointResults(assessmentSection, failureMechanism);
+
+            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection, failureMechanism)
+                                                                            .Concat(GetAllWaveHeightCalculationsWithOutput(assessmentSection, failureMechanism))
+                                                                            .ToArray();
+            HydraulicBoundaryLocationCalculation[] calculationsWithIllustrationPoints = calculationsWithOutput.Where(calc => calc.Output.HasGeneralResult).ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(failureMechanism,
+                                                                                                                                                                                     assessmentSection);
+
+            // Assert
+            CollectionAssert.AreEquivalent(calculationsWithIllustrationPoints, affectedObjects);
+
+            Assert.IsTrue(calculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
+        }
+
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllDesignWaterLevelCalculationsWithOutput(IAssessmentSection assessmentSection,
                                                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
