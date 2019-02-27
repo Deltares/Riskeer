@@ -682,13 +682,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                         nodeData.GetNormFunc(),
                                                         waveHeightItem);
 
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddCustomItem(waveHeightItem)
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCustomItem(waveHeightItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
+                                                                inquiryHelper,
+                                                                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
+                                                                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
