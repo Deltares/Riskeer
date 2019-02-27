@@ -530,7 +530,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             return new StrictContextMenuItem(
                 Resources.CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName,
                 toolTip,
-                Resources.ClearIcon,
+                Resources.ClearIllustrationPointsIcon,
                 (o, args) => handler.ClearIllustrationPoints())
             {
                 Enabled = isEnabled

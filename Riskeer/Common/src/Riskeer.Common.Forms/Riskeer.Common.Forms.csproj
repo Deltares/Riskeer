@@ -508,4 +508,7 @@
   <ItemGroup>
     <None Include="Resources\pencil--exclamation.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_warning.png" />
+  </ItemGroup>
 </Project>

@@ -1775,7 +1775,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
-//            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image); // TODO: Find image
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
             mocks.VerifyAll();
         }
 

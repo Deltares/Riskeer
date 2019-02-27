@@ -337,7 +337,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                         Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
                         Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
-                        //                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image); // TODO: Find image
+                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ClearIllustrationPointsIcon, contextMenuItem.Image);
                         Assert.IsTrue(contextMenuItem.Enabled);
                     }
                 }
