@@ -183,7 +183,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
 
@@ -200,7 +203,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
 
@@ -622,13 +628,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                         nodeData.GetNormFunc(),
                                                         designWaterLevelItem);
 
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddCustomItem(designWaterLevelItem)
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCustomItem(designWaterLevelItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(nodeData.WrappedData),
+                                                                inquiryHelper,
+                                                                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
+                                                                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private static bool HasIllustrationPoints(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        {
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = hydraulicBoundaryLocationCalculations.Where(calc => calc.HasOutput);
+            return calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
         }
 
         #endregion

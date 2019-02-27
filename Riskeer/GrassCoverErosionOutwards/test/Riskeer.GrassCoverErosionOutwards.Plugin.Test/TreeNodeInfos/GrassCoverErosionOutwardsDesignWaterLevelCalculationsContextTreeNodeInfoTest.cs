@@ -34,11 +34,13 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -51,19 +53,14 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTreeNodeInfoTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRunDesignWaterLevelCalculationsIndex = 2;
+        private const int contextMenuClearIllustrationPointsIndex = 4;
         private MockRepository mockRepository;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -172,13 +169,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
 
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -229,7 +228,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var gui = mockRepository.Stub<IGui>();
                     gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-
+                    gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                     mockRepository.ReplayAll();
 
                     plugin.Gui = gui;
@@ -293,7 +292,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var gui = mockRepository.Stub<IGui>();
                     gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-
+                    gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                     mockRepository.ReplayAll();
 
                     plugin.Gui = gui;
@@ -313,6 +312,121 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+            };
+            var calculationWithIllustrationPoints = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+            };
+            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository);
+
+            var nodeData = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
+                                                                                            {
+                                                                                                calculationWithOutput,
+                                                                                                calculationWithIllustrationPoints,
+                                                                                                calculationWithoutOutput
+                                                                                            },
+                                                                                            new GrassCoverErosionOutwardsFailureMechanism
+                                                                                            {
+                                                                                                Contribution = 5
+                                                                                            }, assessmentSection,
+                                                                                            () => 0.01,
+                                                                                            "A");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // Assert
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                        Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
+                        Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
+                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ClearIllustrationPointsIcon, contextMenuItem.Image);
+                        Assert.IsTrue(contextMenuItem.Enabled);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndTooltipSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+            };
+            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+
+            var nodeData = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
+                                                                                            {
+                                                                                                calculationWithOutput,
+                                                                                                calculationWithoutOutput
+                                                                                            },
+                                                                                            new GrassCoverErosionOutwardsFailureMechanism
+                                                                                            {
+                                                                                                Contribution = 5
+                                                                                            }, assessmentSection,
+                                                                                            () => 0.01,
+                                                                                            "A");
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // Assert
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+                        Assert.IsFalse(contextMenuItem.Enabled);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -357,7 +471,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     var gui = mockRepository.Stub<IGui>();
                     gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-
+                    gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                     mockRepository.ReplayAll();
 
                     plugin.Gui = gui;
@@ -400,6 +514,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 }, failureMechanism, assessmentSection,
                 () => norm,
                 "A");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -472,6 +591,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 () => norm,
                 "A");
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();
@@ -541,6 +665,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 () => norm,
                 "A");
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();
@@ -607,6 +736,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 () => 0.01,
                 categoryBoundaryName);
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();
@@ -658,6 +792,95 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        [Apartment(ApartmentState.STA)]
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenInquiryAndExpectedOutputAndCalculationObserversNotified(bool continuation)
+        {
+            // Given
+            var random = new Random(21);
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+            };
+
+            var calculationObserver = mockRepository.StrictMock<IObserver>();
+
+            if (continuation)
+            {
+                calculationObserver.Expect(o => o.UpdateObserver());
+            }
+
+            calculation.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            const string categoryBoundaryName = "A";
+            var nodeData = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
+                                                                                            {
+                                                                                                calculation
+                                                                                            }, failureMechanism, assessmentSection,
+                                                                                            () => 0.01,
+                                                                                            categoryBoundaryName);
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                if (continuation)
+                {
+                    helper.ClickOk();
+                }
+                else
+                {
+                    helper.ClickCancel();
+                }
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // When
+                        contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                        // Then
+                        string expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij 'Categoriegrens {categoryBoundaryName}' wilt wissen?";
+                        Assert.AreEqual(expectedMessage, messageBoxText);
+
+                        Assert.IsTrue(calculation.HasOutput);
+                        Assert.AreEqual(!continuation, calculation.Output.HasGeneralResult);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            mockRepository = new MockRepository();
         }
 
         private static TreeNodeInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
