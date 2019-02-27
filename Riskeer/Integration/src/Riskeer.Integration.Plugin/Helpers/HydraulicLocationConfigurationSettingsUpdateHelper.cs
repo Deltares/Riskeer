@@ -39,11 +39,13 @@ namespace Riskeer.Integration.Plugin.Helpers
         /// </summary>
         /// <param name="hydraulicLocationConfigurationSettings">The hydraulic location configuration settings to set on.</param>
         /// <param name="readHydraulicLocationConfigurationDatabaseSettings">The read settings to set.</param>
+        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
         /// <param name="hlcdFilePath">The hlcd file path.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicLocationConfigurationSettings"/>
         /// or <paramref name="hlcdFilePath"/> is <c>null</c>.</exception>
         public static void SetHydraulicLocationConfigurationSettings(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
                                                                      ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
+                                                                     bool usePreprocessorClosure,
                                                                      string hlcdFilePath)
         {
             if (hydraulicLocationConfigurationSettings == null)
@@ -63,7 +65,7 @@ namespace Riskeer.Integration.Plugin.Helpers
                     readHydraulicLocationConfigurationDatabaseSettings.ScenarioName,
                     readHydraulicLocationConfigurationDatabaseSettings.Year,
                     readHydraulicLocationConfigurationDatabaseSettings.Scope,
-                    false,
+                    usePreprocessorClosure,
                     readHydraulicLocationConfigurationDatabaseSettings.SeaLevel,
                     readHydraulicLocationConfigurationDatabaseSettings.RiverDischarge,
                     readHydraulicLocationConfigurationDatabaseSettings.LakeLevel,
@@ -80,7 +82,7 @@ namespace Riskeer.Integration.Plugin.Helpers
                     HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
                     HydraulicLocationConfigurationSettingsConstants.YearDefaultValue,
                     HydraulicLocationConfigurationSettingsConstants.MandatoryConfigurationPropertyDefaultValue,
-                    false,
+                    usePreprocessorClosure,
                     HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
                     HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,
                     HydraulicLocationConfigurationSettingsConstants.OptionalConfigurationPropertyDefaultValue,

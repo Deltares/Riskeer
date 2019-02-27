@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         {
             // Call
             TestDelegate call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
-                null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), "");
+                null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
         {
             // Call
             TestDelegate call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
-                new HydraulicLocationConfigurationSettings(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), null);
+                new HydraulicLocationConfigurationSettings(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,9 +62,11 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             // Setup
             const string filePath = "some/file/path";
             var settings = new HydraulicLocationConfigurationSettings();
+            bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(settings, null, filePath);
+            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
+                settings, null, usePreprocessorClosure, filePath);
 
             // Assert
             const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden " +
@@ -75,7 +77,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             Assert.AreEqual("WBI2017", settings.ScenarioName);
             Assert.AreEqual(2023, settings.Year);
             Assert.AreEqual("WBI2017", settings.Scope);
-            Assert.IsFalse(settings.UsePreprocessorClosure);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual("Conform WBI2017", settings.SeaLevel);
             Assert.AreEqual("Conform WBI2017", settings.RiverDischarge);
             Assert.AreEqual("Conform WBI2017", settings.LakeLevel);
@@ -91,9 +93,11 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             const string filePath = "some/file/path";
             var settings = new HydraulicLocationConfigurationSettings();
             ReadHydraulicLocationConfigurationDatabaseSettings readSettings = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
+            bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(settings, readSettings, filePath);
+            Action call = () => HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
+                settings, readSettings, usePreprocessorClosure, filePath);
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -102,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Test.Helpers
             Assert.AreEqual(readSettings.ScenarioName, settings.ScenarioName);
             Assert.AreEqual(readSettings.Year, settings.Year);
             Assert.AreEqual(readSettings.Scope, settings.Scope);
-            Assert.IsFalse(settings.UsePreprocessorClosure);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual(readSettings.SeaLevel, settings.SeaLevel);
             Assert.AreEqual(readSettings.RiverDischarge, settings.RiverDischarge);
             Assert.AreEqual(readSettings.LakeLevel, settings.LakeLevel);
