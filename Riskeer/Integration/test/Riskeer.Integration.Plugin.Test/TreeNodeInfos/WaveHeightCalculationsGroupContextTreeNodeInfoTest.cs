@@ -301,13 +301,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [TestCaseSource(nameof(GetWaveHeightCalculations))]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationOutputFunc)
+        public void ContextMenuStrip_WaveHeightCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationFunc)
         {
             // Setup
             var random = new Random(21);
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
-            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationOutputFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
             var nodeData = new WaveHeightCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
@@ -346,7 +346,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndTooltipSet()
+        public void ContextMenuStrip_WaveHeightCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled()
         {
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
@@ -384,14 +384,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [TestCaseSource(nameof(GetWaterLevelCalculations))]
-        public void ContextMenuStrip_WaterLevelCalculationsWithIllustrationPointsAndWaveHeightWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getWaveHeightCalculationFunc)
+        public void ContextMenuStrip_WaterLevelCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationFunc)
         {
             // Setup
             var random = new Random(21);
 
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
-            HydraulicBoundaryLocationCalculation calculation = getWaveHeightCalculationFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
             var nodeData = new WaveHeightCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
@@ -571,12 +571,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCaseSource(nameof(GetWaveHeightCalculations))]
         [Apartment(ApartmentState.STA)]
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndDoNotContinue_ThenInquiryAndIllustrationPointsNotCleared(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getWaveHeightCalculationFunc)
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationFunc)
         {
             // Given
             var random = new Random(21);
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
-            HydraulicBoundaryLocationCalculation calculation = getWaveHeightCalculationFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
             HydraulicBoundaryLocationCalculation unaffectedCalculation = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First();
@@ -640,12 +640,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCaseSource(nameof(GetWaveHeightCalculations))]
         [Apartment(ApartmentState.STA)]
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinue_ThenInquiryAndIllustrationPointsCleared(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getWaveHeightCalculationFunc)
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationFunc)
         {
             // Given
             var random = new Random(21);
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
-            HydraulicBoundaryLocationCalculation calculation = getWaveHeightCalculationFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
             HydraulicBoundaryLocationCalculation unaffectedCalculation = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First();

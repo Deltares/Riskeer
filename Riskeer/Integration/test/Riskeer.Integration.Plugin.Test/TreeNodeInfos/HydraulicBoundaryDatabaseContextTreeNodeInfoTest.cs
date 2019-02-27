@@ -435,7 +435,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
         public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculation)
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc)
         {
             // Setup
             var random = new Random(21);
@@ -445,7 +445,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocation()
             });
 
-            HydraulicBoundaryLocationCalculation calculation = getHydraulicBoundaryLocationCalculation(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = getHydraulicBoundaryLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
@@ -484,7 +484,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
