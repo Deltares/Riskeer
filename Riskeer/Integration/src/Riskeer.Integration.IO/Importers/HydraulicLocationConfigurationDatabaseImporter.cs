@@ -124,7 +124,8 @@ namespace Riskeer.Integration.IO.Importers
             }
 
             AddHydraulicLocationConfigurationSettingsToDataModel(
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single());
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
+                readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
             return true;
         }
@@ -196,10 +197,11 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings)
+        private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
+                                                                          bool usePrepocessorClosure)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 3, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseSettings, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseSettings, usePrepocessorClosure, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
