@@ -2312,7 +2312,7 @@ namespace Riskeer.Integration.Plugin
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             var changeHandler = new ClearIllustrationPointsChangeHandler(
                 inquiryHelper,
-                Resources.HydraulicBoundaryDatabaseContextMenuStrip_ClearIllustrationPoints,
+                RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;

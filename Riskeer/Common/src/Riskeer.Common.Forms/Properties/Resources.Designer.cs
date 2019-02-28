@@ -4171,6 +4171,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstanden en Golfhoogten.
+        /// </summary>
+        public static string WaterLevel_and_WaveHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevel_and_WaveHeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand [m+NAP].
         /// </summary>
         public static string WaterLevel_DisplayName {

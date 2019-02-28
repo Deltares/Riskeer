@@ -240,7 +240,4 @@ Wilt u doorgaan?</value>
   <data name="HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present" xml:space="preserve">
     <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt.</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseContextMenuStrip_ClearIllustrationPoints" xml:space="preserve">
-    <value>Waterstanden en Golfhoogten</value>
-  </data>
 </root>

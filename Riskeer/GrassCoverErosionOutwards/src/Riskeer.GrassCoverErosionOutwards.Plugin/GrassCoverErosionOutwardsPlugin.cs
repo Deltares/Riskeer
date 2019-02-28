@@ -1054,7 +1054,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
             var changeHandler = new ClearIllustrationPointsChangeHandler(
                 inquiryHelper,
-                "Waterstanden en Golfhoogten",
+                RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
                 () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(
                     failureMechanism, assessmentSection));
 
