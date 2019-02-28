@@ -23,28 +23,28 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Gui;
-using Core.Common.Util.Extensions;
 using Riskeer.Common.Forms.Properties;
 
-namespace Riskeer.Common.Forms.ChangeHandlers {
+namespace Riskeer.Common.Forms.ChangeHandlers
+{
     /// <summary>
     /// Class for handling objects when illustration point results need to be cleared.
     /// </summary>
-    public class ClearIllustrationPointsChangeHandler
+    public class ClearIllustrationPointsChangeHandler : IClearIllustrationPointsChangeHandler
     {
         private readonly IInquiryHelper inquiryHelper;
-        private readonly string itemDescription;
+        private readonly string collectionDescription;
         private readonly Func<IEnumerable<IObservable>> clearIllustrationPointsFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsChangeHandler"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="itemDescription">The description of the item for which the illustration points results are cleared.</param>
+        /// <param name="collectionDescription">The description of the collection in which the illustration points results belong to.</param>
         /// <param name="clearIllustrationPointsFunc">The function to clear the illustration point results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearIllustrationPointsChangeHandler(IInquiryHelper inquiryHelper, 
-                                                    string itemDescription,
+        public ClearIllustrationPointsChangeHandler(IInquiryHelper inquiryHelper,
+                                                    string collectionDescription,
                                                     Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
         {
             if (inquiryHelper == null)
@@ -52,9 +52,9 @@ namespace Riskeer.Common.Forms.ChangeHandlers {
                 throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
-            if (itemDescription == null)
+            if (collectionDescription == null)
             {
-                throw new ArgumentNullException(nameof(itemDescription));
+                throw new ArgumentNullException(nameof(collectionDescription));
             }
 
             if (clearIllustrationPointsFunc == null)
@@ -63,22 +63,20 @@ namespace Riskeer.Common.Forms.ChangeHandlers {
             }
 
             this.inquiryHelper = inquiryHelper;
-            this.itemDescription = itemDescription;
+            this.collectionDescription = collectionDescription;
             this.clearIllustrationPointsFunc = clearIllustrationPointsFunc;
         }
 
-        /// <summary>
-        /// Clears all illustration points and updates the affected objects.
-        /// </summary>
-        public void ClearIllustrationPoints()
+        public bool InquireConfirmation()
         {
-            string message = string.Format(Resources.ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_, 
-                                           itemDescription);
-            if (inquiryHelper.InquireContinuation(message))
-            {
-                IEnumerable<IObservable> affectedObjects = clearIllustrationPointsFunc();
-                affectedObjects.ForEachElementDo(observable => observable.NotifyObservers());
-            }
+            string query = string.Format(Resources.ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_,
+                                         collectionDescription);
+            return inquiryHelper.InquireContinuation(query);
+        }
+
+        public IEnumerable<IObservable> ClearIllustrationPoints()
+        {
+            return clearIllustrationPointsFunc();
         }
     }
 }

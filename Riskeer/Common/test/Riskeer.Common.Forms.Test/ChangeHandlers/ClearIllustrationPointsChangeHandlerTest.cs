@@ -38,7 +38,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Call
             TestDelegate call = () => new ClearIllustrationPointsChangeHandler(null, string.Empty,
-                                                                               () => Enumerable.Empty<IObservable>());
+                                                                               Enumerable.Empty<IObservable>);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void Constructor_ItemDescriptionNull_ThrowsArgumentNullException()
+        public void Constructor_CollectionDescriptionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -55,11 +55,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Call
             TestDelegate call = () => new ClearIllustrationPointsChangeHandler(inquiryHelper, null,
-                                                                               () => Enumerable.Empty<IObservable>());
+                                                                               Enumerable.Empty<IObservable>);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("itemDescription", exception.ParamName);
+            Assert.AreEqual("collectionDescription", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -81,36 +81,66 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ClearIllustrationPoints_ContinuationTrueOrFalse_ExpectedObserversNotified(bool continuation)
+        public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            const string itemDescription = "A";
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Cal
+            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, string.Empty, Enumerable.Empty<IObservable>);
+
+            // Assert
+            Assert.IsInstanceOf<IClearIllustrationPointsChangeHandler>(handler);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void InquireConfirmation_Always_UsesExpectedInquiryAndReturnsExpectedConfirmation(bool expectedConfirmation)
+        {
+            // Setup
+            const string collectionDescription = "Verzameling";
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij '{itemDescription}' wilt wissen?"))
-                         .Return(continuation);
-            var observable = mocks.StrictMock<IObservable>();
-            if (continuation)
-            {
-                observable.Expect(o => o.NotifyObservers());
-            }
-
+            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij '{collectionDescription}' wilt wissen?"))
+                         .Return(expectedConfirmation);
             mocks.ReplayAll();
 
-            Func<IEnumerable<IObservable>> clearIllustrationPointsFunc = () => new[]
+            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, collectionDescription, Enumerable.Empty<IObservable>);
+
+            // Call
+            bool confirmation = handler.InquireConfirmation();
+
+            // Assert
+            Assert.AreEqual(expectedConfirmation, confirmation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_Always_ExecutesClearIllustrationPointsFunc()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var observable = mocks.StrictMock<IObservable>();
+            mocks.ReplayAll();
+
+            IObservable[] observables =
             {
                 observable
             };
 
-            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, itemDescription, clearIllustrationPointsFunc);
+            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, string.Empty, () => observables);
 
             // Call
-            handler.ClearIllustrationPoints();
+            IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();
 
             // Assert
+            Assert.AreSame(observables, affectedObjects);
             mocks.VerifyAll();
         }
     }
