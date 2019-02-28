@@ -511,17 +511,11 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration point results.
         /// </summary>
         /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
-        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="itemDescription">The description of the item for which the illustration points results are cleared.</param>
-        /// <param name="clearIllustrationPointsFunc">The function to clear the illustration points.</param>
+        /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreateClearIllustrationPointsItem(Func<bool> isContextItemEnabledFunc,
-                                                                              IInquiryHelper inquiryHelper,
-                                                                              string itemDescription,
-                                                                              Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
+                                                                              IClearIllustrationPointsChangeHandler changeHandler)
         {
-            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, itemDescription, clearIllustrationPointsFunc);
-
             bool isEnabled = isContextItemEnabledFunc();
             string toolTip = isEnabled
                                  ? Resources.CreateClearIllustrationPointsItem_Clear_IllustrationPoints
@@ -531,7 +525,13 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 Resources.CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName,
                 toolTip,
                 Resources.ClearIllustrationPointsIcon,
-                (o, args) => handler.ClearIllustrationPoints())
+                (o, args) =>
+                {
+                    if (changeHandler.InquireConfirmation())
+                    {
+                        ClearIllustrationPointResults(changeHandler);
+                    }
+                })
             {
                 Enabled = isEnabled
             };
@@ -614,6 +614,12 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
             calculation.ClearOutput();
             calculation.NotifyObservers();
+        }
+
+        private static void ClearIllustrationPointResults(IClearIllustrationPointsChangeHandler changeHandler)
+        {
+            IEnumerable<IObservable> affectedObjects = changeHandler.ClearIllustrationPoints();
+            affectedObjects.ForEachElementDo(o => o.NotifyObservers());
         }
     }
 }

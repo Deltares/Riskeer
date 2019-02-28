@@ -332,10 +332,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                                                                               string itemDescription,
                                                                               Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(isEnabledFunc,
-                                                                                                             inquiryHelper,
-                                                                                                             itemDescription,
-                                                                                                             clearIllustrationPointsFunc));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(isEnabledFunc, null));
             return this;
         }
 

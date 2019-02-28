@@ -35,6 +35,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -1701,6 +1702,98 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
+        #region CreateClearIllustrationPointsItem
+
+        [Test]
+        public void CreateClearIllustrationPointsItem_Always_CreatesExpectedItem()
+        {
+            // Setup
+            bool isEnabled = new Random(21).NextBoolean();
+
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IClearIllustrationPointsChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
+                                                                                                                  handler);
+
+            // Assert
+            Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateClearIllustrationPointsItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IClearIllustrationPointsChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
+                                                                                                                  handler);
+
+            // Assert
+            Assert.AreEqual(isEnabled, toolStripItem.Enabled);
+
+            string expectedToolTipMessage = isEnabled
+                                                ? "Wis alle berekende illustratiepunten."
+                                                : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
+            Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEnabledCreateClearIllustrationPointsItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IClearIllustrationPointsChangeHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(false);
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => true,
+                                                                                                                  handler);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEnabledCreateClearIllustrationPointsItem_WhenClickPerformedAndActionContinued_ThenIllustrationPointsClearedAndObserversUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            var handler = mocks.StrictMock<IClearIllustrationPointsChangeHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.ClearIllustrationPoints()).Return(new[]
+            {
+                observable
+            });
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => true,
+                                                                                                                  handler);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
         #region Nested types
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
@@ -1752,91 +1845,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
-
-        #endregion
-
-        #region CreateClearIllustrationPointsItem
-
-        [Test]
-        public void CreateClearIllustrationPointsItem_Always_CreatesExpectedItem()
-        {
-            // Setup
-            bool isEnabled = new Random(21).NextBoolean();
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
-            // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
-                                                                                                                  inquiryHelper,
-                                                                                                                  string.Empty,
-                                                                                                                  () => Enumerable.Empty<IObservable>());
-
-            // Assert
-            Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
-            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreateClearIllustrationPointsItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
-            // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
-                                                                                                                  inquiryHelper,
-                                                                                                                  string.Empty,
-                                                                                                                  () => Enumerable.Empty<IObservable>());
-
-            // Assert
-            Assert.AreEqual(isEnabled, toolStripItem.Enabled);
-
-            string expectedToolTipMessage = isEnabled
-                                             ? "Wis alle berekende illustratiepunten."
-                                             : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
-            Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenEnabledCreateClearIllustrationPointsItemAndContinuedAction_WhenClickPerformed_ThenIllustrationPointsCleared(bool continuation)
-        {
-            // Given
-            const string itemDescription = "A";
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij '{itemDescription}' wilt wissen?"))
-                         .Return(true);
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            Func<IEnumerable<IObservable>> clearIllustrationPointsFunc = () => new[]
-            {
-                observable
-            };
-
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => true,
-                                                                                                                  inquiryHelper,
-                                                                                                                  itemDescription,
-                                                                                                                  clearIllustrationPointsFunc);
-
-            // When
-            toolStripItem.PerformClick();
-
-            // Then
-            mocks.VerifyAll();
-        }
 
         #endregion
     }
