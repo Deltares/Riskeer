@@ -86,6 +86,11 @@ namespace Riskeer.Common.Util.Test
                 calculationWithOutput2
             }, false);
 
+            yield return new TestCaseData(new[]
+            {
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()) 
+            }, false);
+
             yield return new TestCaseData(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), false);
         }
     }

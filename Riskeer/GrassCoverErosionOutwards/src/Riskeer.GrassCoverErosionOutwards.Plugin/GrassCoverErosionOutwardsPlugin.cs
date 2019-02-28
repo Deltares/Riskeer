@@ -185,10 +185,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                },
+                AfterCreate = (view, context) => view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService,
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
 
@@ -205,10 +202,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                },
+                AfterCreate = (view, context) => view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService,
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
 

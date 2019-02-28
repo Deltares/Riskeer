@@ -46,8 +46,7 @@ namespace Riskeer.Common.Util
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsWithOutput = calculations.Where(calc => calc.HasOutput);
-            return calculationsWithOutput.Any(calc => calc.Output.HasGeneralResult);
+            return calculations.Any(calc => calc.HasOutput && calc.Output.HasGeneralResult);
         }
     }
 }
