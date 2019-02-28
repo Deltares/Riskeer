@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.TreeNodeInfos
@@ -120,8 +120,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddValidateAllCalculationsInGroupItem<TCalculationContext>(TCalculationContext calculationGroupContext,
-                                                                                                      Action<TCalculationContext> validateAllAction,
-                                                                                                      Func<TCalculationContext, string> enableMenuItemFunction = null)
+                                                                                                    Action<TCalculationContext> validateAllAction,
+                                                                                                    Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, validateAllAction, enableMenuItemFunction));
@@ -323,16 +323,12 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// of clearing illustration points.
         /// </summary>
         /// <param name="isEnabledFunc">The function to determine whether this item should be enabled.</param>
-        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="itemDescription">The description for the items for which the illustration points are cleared.</param>
-        /// <param name="clearIllustrationPointsFunc">The function to clear the illustration points.</param>
+        /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddClearIllustrationPointResultsItem(Func<bool> isEnabledFunc,
-                                                                              IInquiryHelper inquiryHelper,
-                                                                              string itemDescription,
-                                                                              Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
+                                                                              IClearIllustrationPointsChangeHandler changeHandler)
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(isEnabledFunc, null));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(isEnabledFunc, changeHandler));
             return this;
         }
 

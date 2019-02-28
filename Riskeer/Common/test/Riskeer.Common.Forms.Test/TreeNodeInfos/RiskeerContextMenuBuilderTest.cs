@@ -36,6 +36,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -885,7 +886,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var changeHandler = mocks.StrictMock<IClearIllustrationPointsChangeHandler>();
             var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
                               .WhenCalled(arg =>
@@ -904,10 +905,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            riskeerContextMenuBuilder.AddClearIllustrationPointResultsItem(() => isEnabled,
-                                                                           inquiryHelper,
-                                                                           string.Empty,
-                                                                           () => Enumerable.Empty<IObservable>());
+            riskeerContextMenuBuilder.AddClearIllustrationPointResultsItem(() => isEnabled, changeHandler);
 
             // Assert
             mocks.VerifyAll();

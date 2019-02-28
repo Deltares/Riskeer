@@ -2211,15 +2211,16 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
+                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
             return builder.AddOpenItem()
                           .AddSeparator()
                           .AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
-                                                                inquiryHelper,
-                                                                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                                                                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -2251,15 +2252,16 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
+                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
             return builder.AddOpenItem()
                           .AddSeparator()
                           .AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
-                                                                inquiryHelper,
-                                                                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                                                                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -2308,6 +2310,10 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                Resources.HydraulicBoundaryDatabaseContextMenuStrip_ClearIllustrationPoints,
+                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;
             return builder.AddCustomImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
@@ -2317,10 +2323,7 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(assessmentSection),
-                                                                inquiryHelper,
-                                                                Resources.HydraulicBoundaryDatabaseContextMenuStrip_ClearIllustrationPoints,
-                                                                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(assessmentSection))
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2349,13 +2352,14 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
+                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(nodeData.AssessmentSection));
 
             return builder.AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection),
-                                                                inquiryHelper,
-                                                                RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
-                                                                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(assessmentSection))
+                          .AddClearIllustrationPointResultsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2382,13 +2386,14 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
+                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(nodeData.AssessmentSection));
 
             return builder.AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => WaveHeightCalculationsHaveIllustrationPoints(assessmentSection),
-                                                                inquiryHelper,
-                                                                RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
-                                                                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(assessmentSection))
+                          .AddClearIllustrationPointResultsItem(() => WaveHeightCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

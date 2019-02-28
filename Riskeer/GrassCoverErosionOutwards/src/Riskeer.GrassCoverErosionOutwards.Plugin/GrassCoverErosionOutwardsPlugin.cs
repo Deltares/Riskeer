@@ -632,15 +632,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
+                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
             return builder.AddOpenItem()
                           .AddSeparator()
                           .AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
-                                                                inquiryHelper,
-                                                                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                                                                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -680,15 +681,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
+                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
             return builder.AddOpenItem()
                           .AddSeparator()
                           .AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData),
-                                                                inquiryHelper,
-                                                                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                                                                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData))
+                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -1050,17 +1052,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                "Waterstanden en Golfhoogten",
+                () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(
+                    failureMechanism, assessmentSection));
 
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(
-                              () => HasIllustrationPoints(failureMechanism, assessmentSection),
-                              inquiryHelper,
-                              "Waterstanden en Golfhoogten",
-                              () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(
-                                  failureMechanism, assessmentSection))
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(failureMechanism, assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -1101,15 +1103,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
+                () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(
+                    failureMechanism, assessmentSection));
 
             return builder.AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(
-                              () => DesignWaterLevelCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
-                              inquiryHelper,
-                              RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
-                              () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(failureMechanism,
-                                                                                                                                                     assessmentSection))
+                          .AddClearIllustrationPointResultsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
+                                                                changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -1191,15 +1194,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
+            var changeHandler = new ClearIllustrationPointsChangeHandler(
+                inquiryHelper,
+                RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
+                () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(
+                    failureMechanism, assessmentSection));
 
             return builder.AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(
-                              () => WaveHeightCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
-                              inquiryHelper,
-                              RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
-                              () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(failureMechanism,
-                                                                                                                                               assessmentSection))
+                          .AddClearIllustrationPointResultsItem(() => WaveHeightCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
+                                                                changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
