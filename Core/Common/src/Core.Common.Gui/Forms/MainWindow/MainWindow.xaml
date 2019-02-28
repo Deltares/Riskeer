@@ -55,15 +55,7 @@ All rights reserved.
     </Window.InputBindings>
 
     <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="{x:Type fluent:RibbonGroupBox}">
-                <Setter Property="Margin" Value="0,8,0,0"/>
-            </Style>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
     </Window.Resources>
     
     <Grid>
