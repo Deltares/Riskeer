@@ -96,25 +96,14 @@ All rights reserved.
                                        Click="OnFileOpenClicked" x:FieldModifier="private" />
 
                         <fluent:SeparatorTabItem />
-                        
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_Show_Log}"
-                                       Icon="/Core.Common.Gui;component\Resources\application_view_list.png"
-                                       fluent:KeyTip.Keys="O"
-                                       Click="OnFileHelpShowLog_Clicked" />
 
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_Open_Manual}"
-                                       x:Name="FileManualButton"
-                                       Icon="/Core.Common.Gui;component\Resources\manual.png"
-                                       fluent:KeyTip.Keys="M"
-                                       Click="OnFileManual_Clicked" />
-
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_About}"
-                                       x:Name ="AboutButton" 
-                                       Icon="/Core.Common.Gui;component\Resources\information.png"
-                                       fluent:KeyTip.Keys="A"
-                                       Click="OnAboutDialog_Clicked"/>
-
-                        <fluent:SeparatorTabItem />
+                        <fluent:BackstageTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Help}" fluent:KeyTip.Keys="H">
+                            <fluent:BackstageTabControl>
+                                <fluent:Button Header="{x:Static properties:Resources.Ribbon_Show_Log}" Icon="/Core.Common.Gui;component\Resources\application_view_list.png" fluent:KeyTip.Keys="O" Click="OnFileHelpShowLog_Clicked" />
+                                <fluent:Button x:Name="FileManualButton" Header="{x:Static properties:Resources.Ribbon_Open_Manual}" Icon="/Core.Common.Gui;component\Resources\manual.png" fluent:KeyTip.Keys="M" Click="OnFileManual_Clicked" />
+                                <fluent:Button x:Name ="AboutButton" Header="{x:Static properties:Resources.Ribbon_About}" Icon="/Core.Common.Gui;component\Resources\information.png" fluent:KeyTip.Keys="A" Click="OnAboutDialog_Clicked"/>
+                            </fluent:BackstageTabControl>
+                        </fluent:BackstageTabItem>
                         
                         <fluent:Button Header="{x:Static properties:Resources.Ribbon_Exit}"
                                        Icon="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"
