@@ -128,6 +128,7 @@ namespace Riskeer.DuneErosion.Service.Test
                                                : string.Empty;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                preprocessorDirectory);
 
             var calculator = new TestDunesBoundaryConditionsCalculator
@@ -533,6 +534,7 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             string.Empty);
         }
 

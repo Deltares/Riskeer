@@ -15,7 +15,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil
         /// <returns>A <see cref="HydraRingCalculationSettings"/>.</returns>
         public static HydraRingCalculationSettings CreateSettings()
         {
-            return new HydraRingCalculationSettings(string.Empty, string.Empty);
+            return new HydraRingCalculationSettings(string.Empty, string.Empty, false);
         }
     }
 }

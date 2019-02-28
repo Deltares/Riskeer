@@ -121,16 +121,19 @@ namespace Riskeer.Revetment.Service.Test
             var isValid = false;
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydraulicBoundaryDatabaseFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = invalidPreprocessorDirectory
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
             // Call
             Action action = () => isValid = WaveConditionsCalculationServiceBase.Validate(new TestWaveConditionsInput(),
                                                                                           GetValidAssessmentLevel(),
-                                                                                          new HydraulicBoundaryDatabase
-                                                                                          {
-                                                                                              FilePath = validHydraulicBoundaryDatabaseFilePath,
-                                                                                              CanUsePreprocessor = true,
-                                                                                              UsePreprocessor = true,
-                                                                                              PreprocessorDirectory = invalidPreprocessorDirectory
-                                                                                          },
+                                                                                          hydraulicBoundaryDatabase,
                                                                                           validNorm);
 
             // Assert

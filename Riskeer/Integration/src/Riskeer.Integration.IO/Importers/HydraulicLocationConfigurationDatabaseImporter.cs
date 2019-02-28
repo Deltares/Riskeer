@@ -29,6 +29,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.HydraRing;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.Integration.IO.Handlers;
@@ -123,8 +124,16 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
+            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
+                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(FilePath)))
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
+                return false;
+            }
+
             AddHydraulicLocationConfigurationSettingsToDataModel(
-                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single());
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
+                readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
             return true;
         }
@@ -196,10 +205,11 @@ namespace Riskeer.Integration.IO.Importers
             }
         }
 
-        private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings)
+        private void AddHydraulicLocationConfigurationSettingsToDataModel(ReadHydraulicLocationConfigurationDatabaseSettings readHydraulicLocationConfigurationDatabaseSettings,
+                                                                          bool usePrepocessorClosure)
         {
             NotifyProgress(RiskeerCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 3, numberOfSteps);
-            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseSettings, FilePath));
+            changedObservables.AddRange(updateHandler.Update(hydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabaseSettings, usePrepocessorClosure, FilePath));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

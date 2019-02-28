@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -43,7 +44,7 @@ namespace Riskeer.Integration.IO.Test.Importers
     {
         private const int totalNumberOfSteps = 4;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
-        private readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
@@ -305,6 +306,30 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
+        public void Import_ExistingFileAndHlcdWithUsePreprocessorClosureTrueAndWithoutPreprocessorClosure_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Stub(h => h.IsConfirmationRequired(null, null)).IgnoreArguments().Return(false);
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "missingPreprocessorClosure", "complete.sqlite");
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(path), "hlcd.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{hlcdFilePath}': het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Import_WithValidFileAndConfirmationRequired_InquiresAndUpdatesHydraulicBoundaryDatabase(bool confirmationRequired)
@@ -349,10 +374,12 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        [TestCaseSource(nameof(GetValidFiles))]
+        public void Import_WithValidFileAndHlcdWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(
+            string filePath, bool usePreprocessorClosure)
         {
             // Setup
-            string hlcdFilePath = Path.Combine(testDataPath, "hlcd.sqlite");
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
@@ -365,7 +392,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull,
                                          Arg<IEnumerable<long>>.Is.NotNull,
-                                         Arg<string>.Is.Equal(validFilePath),
+                                         Arg<string>.Is.Equal(filePath),
                                          Arg<string>.Is.Equal(hlcdFilePath)))
                    .WhenCalled(invocation =>
                    {
@@ -374,6 +401,7 @@ namespace Riskeer.Integration.IO.Test.Importers
                        var readHydraulicLocationConfigurationDatabase = (ReadHydraulicLocationConfigurationDatabase) invocation.Arguments[2];
                        Assert.AreEqual(18, readHydraulicLocationConfigurationDatabase.LocationIdMappings.Count());
                        Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
+                       Assert.AreEqual(usePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
                        var excludedLocationIds = (IEnumerable<long>) invocation.Arguments[3];
                        Assert.AreEqual(1, excludedLocationIds.Count());
@@ -381,14 +409,14 @@ namespace Riskeer.Integration.IO.Test.Importers
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, validFilePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
 
             // Call
             var importResult = false;
             Action call = () => importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{validFilePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
@@ -638,6 +666,17 @@ namespace Riskeer.Integration.IO.Test.Importers
 
             // Assert
             mocks.VerifyAll(); // Expect no NotifyObserver calls
+        }
+
+        private static IEnumerable<TestCaseData> GetValidFiles()
+        {
+            return new[]
+            {
+                new TestCaseData(validFilePath, true)
+                    .SetName("validFilePath"),
+                new TestCaseData(Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite"), false)
+                    .SetName("withoutPreprocessorClosure")
+            };
         }
 
         private static void AssertImportFailed(Action call, string errorMessage, ref bool importSuccessful)

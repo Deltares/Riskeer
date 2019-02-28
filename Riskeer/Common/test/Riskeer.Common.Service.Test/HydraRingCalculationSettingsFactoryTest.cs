@@ -46,6 +46,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             var hydraulicBoundaryCalculationSettings = new HydraulicBoundaryCalculationSettings("HydraulicBoundaryDataBaseFilePath",
                                                                                                 "hlcdFilePath",
+                                                                                                false,
                                                                                                 "preprocessorDirectory");
 
             // Call
@@ -54,6 +55,7 @@ namespace Riskeer.Common.Service.Test
             // Assert
             Assert.AreEqual(hydraulicBoundaryCalculationSettings.HlcdFilePath, hydraRingCalculationSettings.HlcdFilePath);
             Assert.AreEqual(hydraulicBoundaryCalculationSettings.PreprocessorDirectory, hydraRingCalculationSettings.PreprocessorDirectory);
+            Assert.AreEqual(hydraulicBoundaryCalculationSettings.UsePreprocessorClosure, hydraRingCalculationSettings.UsePreprocessorClosure);
         }
     }
 }

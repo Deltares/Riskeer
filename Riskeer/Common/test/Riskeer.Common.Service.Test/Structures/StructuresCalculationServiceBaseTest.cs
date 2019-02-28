@@ -527,6 +527,7 @@ namespace Riskeer.Common.Service.Test.Structures
 
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                preprocessorDirectory);
 
             var mocks = new MockRepository();
@@ -991,6 +992,7 @@ namespace Riskeer.Common.Service.Test.Structures
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             string.Empty);
         }
 

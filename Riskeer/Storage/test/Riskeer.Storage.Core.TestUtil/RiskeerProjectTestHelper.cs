@@ -214,6 +214,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                        "ScenarioName",
                                                                                        1337,
                                                                                        "Scope",
+                                                                                       false,
                                                                                        "SeaLevel",
                                                                                        "RiverDischarge",
                                                                                        "LakeLevel",

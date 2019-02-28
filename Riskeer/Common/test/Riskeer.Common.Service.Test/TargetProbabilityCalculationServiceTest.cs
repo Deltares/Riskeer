@@ -77,6 +77,7 @@ namespace Riskeer.Common.Service.Test
             string invalidHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                string.Empty);
             var valid = true;
 
@@ -103,6 +104,7 @@ namespace Riskeer.Common.Service.Test
             var valid = false;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                string.Empty);
 
             // Call
@@ -128,6 +130,7 @@ namespace Riskeer.Common.Service.Test
             var valid = true;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                invalidPreprocessorDirectory);
 
             // Call
@@ -140,6 +143,31 @@ namespace Riskeer.Common.Service.Test
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void Validate_UsePreprocessorClosureTrueAndWithoutPreprocessorClosure_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var valid = true;
+            var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
+                                                                               validHlcdFilePath,
+                                                                               true,
+                                                                               string.Empty);
+
+            // Call
+            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);
@@ -212,6 +240,7 @@ namespace Riskeer.Common.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             validPreprocessorDirectory);
         }
 

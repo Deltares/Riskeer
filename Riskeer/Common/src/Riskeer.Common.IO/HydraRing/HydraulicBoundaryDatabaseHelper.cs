@@ -24,11 +24,13 @@ using System.Globalization;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Properties;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using HydraRingResources = Riskeer.HydraRing.IO.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.IO.HydraRing
 {
@@ -38,17 +40,19 @@ namespace Riskeer.Common.IO.HydraRing
     public static class HydraulicBoundaryDatabaseHelper
     {
         private const string hydraRingConfigurationDatabaseExtension = "config.sqlite";
-        private const string hlcdFileName = "HLCD.sqlite";
+        private const string preprocessorClosureFileName = "preprocClosure.sqlite";
 
         /// <summary>
         /// Attempts to connect to the <paramref name="filePath"/> as if it is a Hydraulic Boundary Locations 
         /// database with a Hydraulic Location Configurations database and settings next to it.
         /// </summary>
         /// <param name="filePath">The path of the Hydraulic Boundary Locations database file.</param>
+        /// <param name="hlcdFilePath">The path of the Hydraulic Location Configuration database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="usePreprocessorClosure">Indicator whether the preprocessor closure is used in a calculation.</param>
         /// <returns>A <see cref="string"/> describing the problem when trying to connect to the <paramref name="filePath"/> 
         /// or <c>null</c> if a connection could be correctly made.</returns>
-        public static string ValidateFilesForCalculation(string filePath, string preprocessorDirectory)
+        public static string ValidateFilesForCalculation(string filePath, string hlcdFilePath, string preprocessorDirectory, bool usePreprocessorClosure)
         {
             try
             {
@@ -59,10 +63,9 @@ namespace Riskeer.Common.IO.HydraRing
                 return e.Message;
             }
 
-            string directoryName;
             try
             {
-                directoryName = Path.GetDirectoryName(filePath);
+                Path.GetDirectoryName(filePath);
             }
             catch (PathTooLongException)
             {
@@ -75,7 +78,6 @@ namespace Riskeer.Common.IO.HydraRing
             {
                 using (new HydraulicBoundaryDatabaseReader(filePath)) {}
 
-                string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
                 using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath)) {}
 
                 using (var validator = new HydraRingSettingsDatabaseValidator(settingsDatabaseFileName, preprocessorDirectory))
@@ -89,6 +91,15 @@ namespace Riskeer.Common.IO.HydraRing
             catch (CriticalFileReadException e)
             {
                 return e.Message;
+            }
+
+            if (usePreprocessorClosure)
+            {
+                string preprocessorClosureFilePath = GetPreprocessorClosureFilePath(hlcdFilePath);
+                if (!File.Exists(preprocessorClosureFilePath))
+                {
+                    return new FileReaderErrorMessageBuilder(preprocessorClosureFilePath).Build(CoreCommonUtilResources.Error_File_does_not_exist);
+                }
             }
 
             return null;
@@ -160,6 +171,25 @@ namespace Riskeer.Common.IO.HydraRing
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets the file path of the preprocessor closure database.
+        /// </summary>
+        /// <param name="hlcdFilePath">The file path of the Hydraulic Location Configuration Database.</param>
+        /// <returns>The file path of the preprocessor closure database.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/>
+        /// is <c>null</c>.</exception>
+        public static string GetPreprocessorClosureFilePath(string hlcdFilePath)
+        {
+            if (hlcdFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(hlcdFilePath));
+            }
+
+            string directory = Path.GetDirectoryName(hlcdFilePath);
+            string hlcdFileName = Path.GetFileNameWithoutExtension(hlcdFilePath);
+            return Path.Combine(directory, $"{hlcdFileName}_{preprocessorClosureFileName}");
         }
 
         /// <summary>

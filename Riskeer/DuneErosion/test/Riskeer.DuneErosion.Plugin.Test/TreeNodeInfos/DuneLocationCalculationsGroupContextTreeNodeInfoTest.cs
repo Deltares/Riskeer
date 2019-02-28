@@ -363,6 +363,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     FilePath = validFilePath
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var groupContext = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
                                                                         failureMechanism,

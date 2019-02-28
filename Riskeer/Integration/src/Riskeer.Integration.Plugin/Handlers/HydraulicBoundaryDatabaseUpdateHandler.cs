@@ -162,9 +162,11 @@ namespace Riskeer.Integration.Plugin.Handlers
                 }
             }
 
-            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                                                                         readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
-                                                                                                         hlcdFilePath);
+            HydraulicLocationConfigurationSettingsUpdateHelper.SetHydraulicLocationConfigurationSettings(
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings?.Single(),
+                readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure,
+                hlcdFilePath);
 
             return changedObjects;
         }

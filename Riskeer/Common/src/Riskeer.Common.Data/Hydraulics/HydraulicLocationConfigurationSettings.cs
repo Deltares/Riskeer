@@ -80,12 +80,18 @@ namespace Riskeer.Common.Data.Hydraulics
         public string Comment { get; private set; }
 
         /// <summary>
+        /// Gets the indicator whether to use the preprocessor closure.
+        /// </summary>
+        public bool UsePreprocessorClosure { get; private set; }
+
+        /// <summary>
         /// Sets values to the <see cref="HydraulicLocationConfigurationSettings"/>.
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <param name="scenarioName">The name of the scenario.</param>
         /// <param name="year">The year.</param>
         /// <param name="scope">The scope.</param>
+        /// <param name="usePreprocessorClosure">The use preprocessor closure indicator.</param>
         /// <param name="seaLevel">The sea level.</param>
         /// <param name="riverDischarge">The river discharge.</param>
         /// <param name="lakeLevel">The lake level.</param>
@@ -97,8 +103,8 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/>
         /// is <c>null</c>, empty or consists of whitespace.</exception>
         public void SetValues(string filePath, string scenarioName, int year, string scope,
-                              string seaLevel, string riverDischarge, string lakeLevel,
-                              string windDirection, string windSpeed, string comment)
+                              bool usePreprocessorClosure, string seaLevel, string riverDischarge,
+                              string lakeLevel, string windDirection, string windSpeed, string comment)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -119,6 +125,7 @@ namespace Riskeer.Common.Data.Hydraulics
             ScenarioName = scenarioName;
             Year = year;
             Scope = scope;
+            UsePreprocessorClosure = usePreprocessorClosure;
             SeaLevel = seaLevel;
             RiverDischarge = riverDischarge;
             LakeLevel = lakeLevel;

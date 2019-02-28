@@ -115,6 +115,7 @@ namespace Riskeer.Common.Service.Test
 
             var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
                                                                     validHlcdFilePath,
+                                                                    false,
                                                                     string.Empty);
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              settings,
@@ -147,6 +148,7 @@ namespace Riskeer.Common.Service.Test
 
             var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                     validHlcdFilePath,
+                                                                    false,
                                                                     invalidPreprocessorDirectory);
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              settings,
@@ -214,6 +216,7 @@ namespace Riskeer.Common.Service.Test
             string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                preprocessorDirectory);
 
             var mockRepository = new MockRepository();
@@ -509,6 +512,7 @@ namespace Riskeer.Common.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             string.Empty);
         }
 

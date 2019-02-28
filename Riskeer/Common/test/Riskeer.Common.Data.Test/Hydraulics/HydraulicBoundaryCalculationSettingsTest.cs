@@ -38,6 +38,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Call
             TestDelegate call = () => new HydraulicBoundaryCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
                                                                                "D:\\hlcdFilePath",
+                                                                               false,
                                                                                null);
 
             // Assert
@@ -54,6 +55,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Call
             TestDelegate call = () => new HydraulicBoundaryCalculationSettings("D:\\HydraulicBoundaryDatabseFilePath",
                                                                                invalidHlcdFilePath,
+                                                                               false,
                                                                                null);
 
             // Assert
@@ -71,15 +73,18 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Setup
             const string hydraulicBoundaryDatabaseFilePath = "D:\\HydraulicBoundaryDatabaseFilePath";
             const string hlcdFilePath = "D:\\hlcdFilePath";
+            bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
             var settings = new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
                                                                     hlcdFilePath,
+                                                                    usePreprocessorClosure,
                                                                     preprocessorDirectory);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
             Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
         }
     }

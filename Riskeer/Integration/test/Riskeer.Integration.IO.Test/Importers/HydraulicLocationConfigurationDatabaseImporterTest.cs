@@ -285,13 +285,42 @@ namespace Riskeer.Integration.IO.Test.Importers
         }
 
         [Test]
+        public void Import_HlcdWithUsePreprocessorClosureTrueAndWithoutPreprocessorClosure_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var directory = Path.Combine(testDataPath, "missingPreprocessorClosure");
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, Path.Combine(directory, "completeHrd.sqlite"));
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            string filePath = Path.Combine(directory, "newHlcd.sqlite");
+
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            mocks.ReplayAll();
+
+            var importer = new HydraulicLocationConfigurationDatabaseImporter(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings, handler,
+                                                                              hydraulicBoundaryDatabase, filePath);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand.";
+            AssertImportFailed(call, expectedMessage, ref importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_ValidFiles_ExpectedProgressNotifications()
         {
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Stub(h => h.InquireConfirmation()).Return(true);
-            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, false, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
@@ -358,7 +387,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Stub(h => h.InquireConfirmation()).Return(true);
-            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
+            handler.Stub(h => h.Update(null, null, false, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(validHrdFilePath);
@@ -412,21 +441,25 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.VerifyAll();
         }
 
+
         [Test]
-        public void Import_ValidFileWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData()
+        [TestCase("hlcdWithoutScenarioInformation", false)]
+        [TestCase("hlcdWithoutScenarioInformationAndWithUsePreprocessorClosure", true)]
+        public void Import_ValidFileWithoutScenarioInformation_UpdatesHydraulicBoundaryDatabaseWithImportedData(string fileName, bool usePreprocessorClosure)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validHrdFilePath);
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            string filePath = Path.Combine(testDataPath, "hlcdWithoutScenarioInformation.sqlite");
+            string filePath = Path.Combine(testDataPath, $"{fileName}.sqlite");
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
+                                         Arg<bool>.Is.Equal(usePreprocessorClosure),
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
@@ -459,6 +492,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.NotNull,
+                                         Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.Equal(filePath)))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
@@ -492,6 +526,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicLocationConfigurationDatabaseSettings>.Is.Null,
+                                         Arg<bool>.Is.Equal(false),
                                          Arg<string>.Is.NotNull))
                    .Return(new[]
                    {

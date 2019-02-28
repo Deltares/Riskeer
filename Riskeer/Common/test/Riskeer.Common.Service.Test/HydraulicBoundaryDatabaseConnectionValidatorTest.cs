@@ -24,6 +24,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Common.Service.Test
 {
@@ -83,6 +84,7 @@ namespace Riskeer.Common.Service.Test
             {
                 FilePath = invalidFilePath
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             // Call
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
@@ -92,8 +94,31 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(expectedMessage, message);
         }
 
+
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseLinkedToValidDatabaseFile_ReturnsNull()
+        public void ValidateFileForCalculation_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase, true);
+
+            // Call
+            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+
+            // Assert
+            string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "hlcd_preprocClosure.sqlite");
+            string expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Validate_HydraulicBoundaryDatabaseLinkedToValidDatabaseFile_ReturnsNull(bool usePreprocessorClosure)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -101,6 +126,7 @@ namespace Riskeer.Common.Service.Test
             {
                 FilePath = validFilePath
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase, usePreprocessorClosure);
 
             // Call
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);

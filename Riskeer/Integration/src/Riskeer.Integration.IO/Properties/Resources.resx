@@ -194,4 +194,7 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds" xml:space="preserve">
     <value>1 of meerdere locaties komen niet voor in de HLCD.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found" xml:space="preserve">
+    <value>Het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand.</value>
+  </data>
 </root>

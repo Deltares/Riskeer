@@ -434,7 +434,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             const string newHydraulicBoundaryDatabaseFilePath = "some/file/path";
-            const string hlcdFilePath = "some/hlcd/FilePath";
+            const string newHlcdFilePath = "some/hlcd/FilePath";
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabaseTestFactory.Create();
@@ -449,6 +449,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                     new TestHydraulicBoundaryLocation("old location 3")
                 }
             };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
@@ -457,11 +458,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, readHydraulicBoundaryDatabase,
                                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(),
-                                                                     Enumerable.Empty<long>(), newHydraulicBoundaryDatabaseFilePath, hlcdFilePath);
+                                                                     Enumerable.Empty<long>(), newHydraulicBoundaryDatabaseFilePath, newHlcdFilePath);
 
             // Assert
             CollectionAssert.IsEmpty(changedObjects);
             Assert.AreEqual(newHydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(newHlcdFilePath, hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath);
             Assert.AreEqual("version", hydraulicBoundaryDatabase.Version);
             AssertHydraulicBoundaryLocationsAndCalculations(locations, assessmentSection);
             mocks.VerifyAll();
@@ -566,6 +568,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsTrue(hydraulicBoundaryDatabase.IsLinked());
             Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(readHydraulicBoundaryDatabase.Version, hydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure, readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure);
 
             AssertHydraulicBoundaryLocations(readHydraulicBoundaryDatabase.Locations, readHydraulicLocationConfigurationDatabase, hydraulicBoundaryDatabase.Locations);
             AssertHydraulicBoundaryLocationsAndCalculations(hydraulicBoundaryDatabase.Locations, assessmentSection);
@@ -698,6 +701,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(expectedSettings.ScenarioName, actualSettings.ScenarioName);
             Assert.AreEqual(expectedSettings.Year, actualSettings.Year);
             Assert.AreEqual(expectedSettings.Scope, actualSettings.Scope);
+            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
             Assert.AreEqual(expectedSettings.SeaLevel, actualSettings.SeaLevel);
             Assert.AreEqual(expectedSettings.RiverDischarge, actualSettings.RiverDischarge);
             Assert.AreEqual(expectedSettings.LakeLevel, actualSettings.LakeLevel);
@@ -745,6 +749,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual("WBI2017", actualSettings.ScenarioName);
             Assert.AreEqual(2023, actualSettings.Year);
             Assert.AreEqual("WBI2017", actualSettings.Scope);
+            Assert.AreEqual(readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure, actualSettings.UsePreprocessorClosure);
             Assert.AreEqual("Conform WBI2017", actualSettings.SeaLevel);
             Assert.AreEqual("Conform WBI2017", actualSettings.RiverDischarge);
             Assert.AreEqual("Conform WBI2017", actualSettings.LakeLevel);

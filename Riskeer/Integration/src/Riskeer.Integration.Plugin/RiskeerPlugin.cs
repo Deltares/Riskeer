@@ -1306,8 +1306,12 @@ namespace Riskeer.Integration.Plugin
             IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = riskeerProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
             foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
             {
-                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(section.HydraulicBoundaryDatabase.FilePath,
-                                                                                                       section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
+                    section.HydraulicBoundaryDatabase.FilePath,
+                    section.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                    section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                    section.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+
                 if (validationProblem != null)
                 {
                     log.WarnFormat(

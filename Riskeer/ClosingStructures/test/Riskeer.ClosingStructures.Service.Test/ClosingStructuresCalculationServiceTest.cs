@@ -830,6 +830,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                : string.Empty;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                preprocessorDirectory);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -1142,6 +1143,7 @@ namespace Riskeer.ClosingStructures.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             string.Empty);
         }
 

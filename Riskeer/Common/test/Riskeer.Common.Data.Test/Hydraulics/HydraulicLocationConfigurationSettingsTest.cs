@@ -46,6 +46,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsNull(settings.WindDirection);
             Assert.IsNull(settings.WindSpeed);
             Assert.IsNull(settings.Comment);
+            Assert.IsFalse(settings.UsePreprocessorClosure);
         }
 
         [Test]
@@ -69,7 +70,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Call
-            TestDelegate call = () => settings.SetValues(null, scenarioName, year, scope,
+            TestDelegate call = () => settings.SetValues(null, scenarioName, year, scope, false,
                                                          seaLevel, riverDischarge, lakeLevel,
                                                          windDirection, windSpeed, comment);
 
@@ -96,7 +97,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Call
-            TestDelegate call = () => settings.SetValues(filePath, null, year, scope,
+            TestDelegate call = () => settings.SetValues(filePath, null, year, scope, false,
                                                          seaLevel, riverDischarge, lakeLevel,
                                                          windDirection, windSpeed, comment);
 
@@ -123,7 +124,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Call
-            TestDelegate call = () => settings.SetValues(filePath, scenarioName, year, null,
+            TestDelegate call = () => settings.SetValues(filePath, scenarioName, year, null, false,
                                                          seaLevel, riverDischarge, lakeLevel,
                                                          windDirection, windSpeed, comment);
 
@@ -141,6 +142,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             const string scenarioName = "ScenarioName";
             int year = random.Next();
             const string scope = "Scope";
+            bool usePreprocessorClosure = random.NextBoolean();
             const string seaLevel = "SeaLevel";
             const string riverDischarge = "RiverDischarge";
             const string lakeLevel = "LakeLevel";
@@ -152,14 +154,15 @@ namespace Riskeer.Common.Data.Test.Hydraulics
 
             // Call
             settings.SetValues(filePath, scenarioName, year, scope,
-                               seaLevel, riverDischarge, lakeLevel,
-                               windDirection, windSpeed, comment);
+                               usePreprocessorClosure, seaLevel, riverDischarge,
+                               lakeLevel, windDirection, windSpeed, comment);
 
             // Assert
             Assert.AreEqual(filePath, settings.FilePath);
             Assert.AreEqual(scenarioName, settings.ScenarioName);
             Assert.AreEqual(year, settings.Year);
             Assert.AreEqual(scope, settings.Scope);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual(seaLevel, settings.SeaLevel);
             Assert.AreEqual(riverDischarge, settings.RiverDischarge);
             Assert.AreEqual(lakeLevel, settings.LakeLevel);
@@ -177,11 +180,13 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             const string scenarioName = "ScenarioName";
             int year = random.Next();
             const string scope = "Scope";
+            bool usePreprocessorClosure = random.NextBoolean();
 
             var settings = new HydraulicLocationConfigurationSettings();
 
             // Call
-            settings.SetValues(filePath, scenarioName, year, scope, 
+            settings.SetValues(filePath, scenarioName, year, scope,
+                               usePreprocessorClosure,
                                null, null, null, null, null, null);
 
             // Assert
@@ -189,6 +194,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.AreEqual(scenarioName, settings.ScenarioName);
             Assert.AreEqual(year, settings.Year);
             Assert.AreEqual(scope, settings.Scope);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
 
             Assert.IsNull(settings.SeaLevel);
             Assert.IsNull(settings.RiverDischarge);

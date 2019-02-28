@@ -107,6 +107,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
                                                                     validHlcdFilePath,
+                                                                    false,
                                                                     string.Empty);
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
@@ -138,6 +139,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                     validHlcdFilePath,
+                                                                    false,
                                                                     "NonExistingPreprocessorDirectory");
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
@@ -206,6 +208,7 @@ namespace Riskeer.DuneErosion.Service.Test
             string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                preprocessorDirectory);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -495,6 +498,7 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             string.Empty);
         }
 

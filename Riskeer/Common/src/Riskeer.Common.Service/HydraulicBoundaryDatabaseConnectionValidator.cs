@@ -49,8 +49,12 @@ namespace Riskeer.Common.Service
                 return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
             }
 
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabase.FilePath,
-                                                                                                   hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
+                hydraulicBoundaryDatabase.FilePath,
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_,

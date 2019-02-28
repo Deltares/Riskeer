@@ -264,6 +264,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                                                            nameof(HydraulicBoundaryDatabase)),
                                                                                 "complete.sqlite");
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var nodeData = new DesignWaterLevelCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                                         assessmentSection);

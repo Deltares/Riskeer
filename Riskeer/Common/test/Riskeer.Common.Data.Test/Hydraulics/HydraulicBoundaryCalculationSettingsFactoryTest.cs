@@ -55,7 +55,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
                 FilePath = hydraulicBoundaryDatabaseFilePath
             };
             database.HydraulicLocationConfigurationSettings.SetValues(hlcdFilePath, string.Empty, 10, string.Empty,
-                                                                      null, null, null, null, null, null);
+                                                                      false, null, null, null, null, null, null);
 
             // Call
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(database);

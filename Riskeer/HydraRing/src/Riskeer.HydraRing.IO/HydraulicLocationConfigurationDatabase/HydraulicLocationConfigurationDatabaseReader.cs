@@ -69,7 +69,8 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                                                                                                         : null;
 
             return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId),
-                                                                  configurationSettings);
+                                                                  configurationSettings,
+                                                                  GetUsePreprocessorClosureByTrackId(trackId));
         }
 
         /// <summary>
@@ -165,8 +166,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// </summary>
         /// <returns><c>true</c> if the table is present; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the information could not be read from the database file.</exception>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
         private bool IsScenarioInformationTablePresent()
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetIsScenarioInformationPresentQuery();
@@ -188,11 +187,6 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
-            }
-            catch (InvalidCastException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, exception);
             }
         }
 
@@ -247,6 +241,55 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
+            }
+        }
+
+        private bool GetUsePreprocessorClosureByTrackId(long trackId)
+        {
+            var trackParameter = new SQLiteParameter
+            {
+                DbType = DbType.String,
+                ParameterName = TracksTableDefinitions.TrackId,
+                Value = trackId
+            };
+
+            try
+            {
+                return GetUsePreprocessorClosureFromDatabase(trackParameter);
+            }
+            catch (SQLiteException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message, e);
+            }
+            catch (InvalidCastException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, e);
+            }
+        }
+
+        private bool GetUsePreprocessorClosureFromDatabase(SQLiteParameter trackParameter)
+        {
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
+
+            using (IDataReader dataReader = CreateDataReader(query, trackParameter))
+            {
+                DataTable schemaTable = dataReader.GetSchemaTable();
+                DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
+
+                if (schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessorClosure))
+                {
+                    return false;
+                }
+
+                if (MoveNext(dataReader))
+                {
+                    return Convert.ToBoolean(dataReader[RegionsTableDefinitions.UsePreprocessorClosure]);
+                }
+
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message);
             }
         }
     }

@@ -53,16 +53,18 @@ namespace Riskeer.Storage.Core.Read
             hydraulicBoundaryDatabase.FilePath = entity.FilePath;
             hydraulicBoundaryDatabase.Version = entity.Version;
 
-            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(entity.HydraulicLocationConfigurationSettingsFilePath,
-                                                                                       entity.HydraulicLocationConfigurationSettingsScenarioName,
-                                                                                       entity.HydraulicLocationConfigurationSettingsYear,
-                                                                                       entity.HydraulicLocationConfigurationSettingsScope,
-                                                                                       entity.HydraulicLocationConfigurationSettingsSeaLevel,
-                                                                                       entity.HydraulicLocationConfigurationSettingsRiverDischarge,
-                                                                                       entity.HydraulicLocationConfigurationSettingsLakeLevel,
-                                                                                       entity.HydraulicLocationConfigurationSettingsWindDirection,
-                                                                                       entity.HydraulicLocationConfigurationSettingsWindSpeed,
-                                                                                       entity.HydraulicLocationConfigurationSettingsComment);
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.SetValues(
+                entity.HydraulicLocationConfigurationSettingsFilePath,
+                entity.HydraulicLocationConfigurationSettingsScenarioName,
+                entity.HydraulicLocationConfigurationSettingsYear,
+                entity.HydraulicLocationConfigurationSettingsScope,
+                Convert.ToBoolean(entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure),
+                entity.HydraulicLocationConfigurationSettingsSeaLevel,
+                entity.HydraulicLocationConfigurationSettingsRiverDischarge,
+                entity.HydraulicLocationConfigurationSettingsLakeLevel,
+                entity.HydraulicLocationConfigurationSettingsWindDirection,
+                entity.HydraulicLocationConfigurationSettingsWindSpeed,
+                entity.HydraulicLocationConfigurationSettingsComment);
         }
     }
 }

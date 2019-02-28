@@ -116,6 +116,7 @@ namespace Riskeer.Migration.Integration.Test
                 "WHERE NEW.[Version] = OLD.[HydraulicDatabaseVersion] " +
                 "AND NEW.[FilePath] = OLD.[HydraulicDatabaseLocation] " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsFilePath] = rtrim(OLD.[HydraulicDatabaseLocation], replace(OLD.[HydraulicDatabaseLocation], '\\', '')) || 'hlcd.sqlite' " +
+                "AND NEW.[HydraulicLocationConfigurationSettingsUsePreprocessorClosure] = 0 " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsScenarioName] = 'Conform WBI2017' " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsYear] = 2023 " +
                 "AND NEW.[HydraulicLocationConfigurationSettingsSeaLevel] IS 'Conform WBI2017' " +

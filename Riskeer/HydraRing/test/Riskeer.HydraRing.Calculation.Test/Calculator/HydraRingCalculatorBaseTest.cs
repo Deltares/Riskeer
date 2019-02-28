@@ -54,7 +54,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
         {
             // Setup
             var parser = new TestParser();
-            var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlite", string.Empty);
+            var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlite", string.Empty, false);
             var calculator = new TestHydraRingCalculator(settings, parser);
             var hydraRingCalculationInput = new TestHydraRingCalculationInput();
 
@@ -135,7 +135,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Calculator
         public void Calculate_LastErrorFilePresent_LastErrorFileContentSet()
         {
             // Setup
-            var settings = new HydraRingCalculationSettings("D:\\HLCD.sqlite", string.Empty);
+            var settings = new HydraRingCalculationSettings("D:\\HLCD.sqlite", string.Empty, false);
             var calculator = new TestHydraRingCalculator(settings, new TestParser());
 
             // Call

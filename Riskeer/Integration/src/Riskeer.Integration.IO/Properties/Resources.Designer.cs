@@ -151,6 +151,15 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed {

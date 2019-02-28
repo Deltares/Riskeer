@@ -145,7 +145,7 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.IsNotNull(assessmentSection.ReferenceLine);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
-            Assert.AreEqual("some\\Path\\ToHlcd", settings.FilePath);
+            Assert.AreEqual("C:\\hlcd.sqlite", settings.FilePath);
             Assert.AreEqual("ScenarioName", settings.ScenarioName);
             Assert.AreEqual(1337, settings.Year);
             Assert.AreEqual("Scope", settings.Scope);

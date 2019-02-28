@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Call
-            TestDelegate call = () => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), "");
+            TestDelegate call = () => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -123,7 +123,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Call
-            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), null);
+            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(),
+                                                     false, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -137,9 +138,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             const string hlcdFilePath = "some/file/path";
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => handler.Update(hydraulicBoundaryDatabase, null, hlcdFilePath);
+            Action call = () => handler.Update(hydraulicBoundaryDatabase, null, usePreprocessorClosure, hlcdFilePath);
 
             // Assert
             const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden " +
@@ -151,6 +153,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual("WBI2017", settings.ScenarioName);
             Assert.AreEqual(2023, settings.Year);
             Assert.AreEqual("WBI2017", settings.Scope);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual("Conform WBI2017", settings.SeaLevel);
             Assert.AreEqual("Conform WBI2017", settings.RiverDischarge);
             Assert.AreEqual("Conform WBI2017", settings.LakeLevel);
@@ -167,9 +170,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             ReadHydraulicLocationConfigurationDatabaseSettings readSettings = ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create();
+            bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => handler.Update(hydraulicBoundaryDatabase, readSettings, hlcdFilePath);
+            Action call = () => handler.Update(hydraulicBoundaryDatabase, readSettings, usePreprocessorClosure, hlcdFilePath);
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -179,6 +183,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(readSettings.ScenarioName, settings.ScenarioName);
             Assert.AreEqual(readSettings.Year, settings.Year);
             Assert.AreEqual(readSettings.Scope, settings.Scope);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual(readSettings.SeaLevel, settings.SeaLevel);
             Assert.AreEqual(readSettings.RiverDischarge, settings.RiverDischarge);
             Assert.AreEqual(readSettings.LakeLevel, settings.LakeLevel);
@@ -195,7 +200,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, null, "some/file/path");
+            IEnumerable<IObservable> changedObjects = handler.Update(hydraulicBoundaryDatabase, null, false, "some/file/path");
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -223,7 +228,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsTrue(duneLocations.All(l => l.Output != null));
 
             // Call
-            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryDatabase, null, "some/file/path");
+            IEnumerable<IObservable> changedObjects = handler.Update(assessmentSection.HydraulicBoundaryDatabase, null, false, "some/file/path");
 
             // Assert
             Assert.IsTrue(locations.All(l => !l.HasOutput));

@@ -794,32 +794,34 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                                    Path.Combine(nameof(HydraulicBoundaryDatabase), "complete.sqlite"));
 
+            var group = new CalculationGroup();
+            group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydraulicBoundaryDatabasePath
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                              failureMechanism.WaveConditionsCalculationGroup,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
+            var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                    null,
+                                                                                                    failureMechanism,
+                                                                                                    assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
-                var group = new CalculationGroup();
-                group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
-
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    Contribution = 5
-                };
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validHydraulicBoundaryDatabasePath
-                });
-
-                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
-                                                                                                  failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-                var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
-
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);

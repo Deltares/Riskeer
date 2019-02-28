@@ -853,6 +853,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_UsePreprocessorClosure_Description {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_UsePreprocessorClosure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik preprocessor sluitregime database.
+        /// </summary>
+        public static string HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klimaatinformatie met betrekking tot de windrichting..
         /// </summary>
         public static string HydraulicLocationConfigurationSettings_WindDirection_Description {

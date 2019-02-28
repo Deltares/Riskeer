@@ -230,31 +230,32 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_InvalidNorm_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10
+            };
+
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            {
+                new DuneLocationCalculation(new TestDuneLocation())
+            };
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              failureMechanism,
+                                                              assessmentSection,
+                                                              () => 1.0,
+                                                              "A");
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath,
-                    Version = "1.0"
-                });
-
-                var failureMechanism = new DuneErosionFailureMechanism
-                {
-                    Contribution = 10
-                };
-
-                var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
-                {
-                    new DuneLocationCalculation(new TestDuneLocation())
-                };
-                var context = new DuneLocationCalculationsContext(duneLocationCalculations,
-                                                                  failureMechanism,
-                                                                  assessmentSection,
-                                                                  () => 1.0,
-                                                                  "A");
-
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
@@ -286,31 +287,33 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10
+            };
+
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            {
+                new DuneLocationCalculation(new TestDuneLocation())
+            };
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              failureMechanism,
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "A");
+
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath,
-                    Version = "1.0"
-                });
-
-                var failureMechanism = new DuneErosionFailureMechanism
-                {
-                    Contribution = 10
-                };
-
-                var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
-                {
-                    new DuneLocationCalculation(new TestDuneLocation())
-                };
-                var context = new DuneLocationCalculationsContext(duneLocationCalculations,
-                                                                  failureMechanism,
-                                                                  assessmentSection,
-                                                                  () => 0.01,
-                                                                  "A");
-
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);

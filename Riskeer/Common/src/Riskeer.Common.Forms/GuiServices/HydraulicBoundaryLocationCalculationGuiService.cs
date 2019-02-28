@@ -70,13 +70,12 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                          norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(calculations,
-                                                                                                                          assessmentSection,
-                                                                                                                          norm,
-                                                                                                                          categoryBoundaryName));
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase, norm,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                              calculations,
+                              assessmentSection,
+                              norm,
+                              categoryBoundaryName));
         }
 
         public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
@@ -94,22 +93,22 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                          norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(calculations,
-                                                                                                                    assessmentSection,
-                                                                                                                    norm,
-                                                                                                                    categoryBoundaryName));
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase, norm,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                              calculations,
+                              assessmentSection,
+                              norm,
+                              categoryBoundaryName));
         }
 
-        private void RunActivities(string hydraulicBoundaryDatabaseFilePath,
-                                   string preprocessorDirectory,
-                                   double norm,
-                                   IEnumerable<CalculatableActivity> activities)
+        private void RunActivities(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, double norm, IEnumerable<CalculatableActivity> activities)
         {
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
-                                                                                                   preprocessorDirectory);
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
+                hydraulicBoundaryDatabase.FilePath,
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+
             if (string.IsNullOrEmpty(validationProblem))
             {
                 TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage => validationProblem = logMessage);

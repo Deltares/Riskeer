@@ -38,17 +38,18 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     {
         private const int hrdFilePathPropertyIndex = 0;
         private const int hlcdFilePathPropertyIndex = 1;
-        private const int scenarioNamePropertyIndex = 2;
-        private const int yearPropertyIndex = 3;
-        private const int scopePropertyIndex = 4;
-        private const int seaLevelPropertyIndex = 5;
-        private const int riverDischargePropertyIndex = 6;
-        private const int lakeLevelPropertyIndex = 7;
-        private const int windDirectionPropertyIndex = 8;
-        private const int windSpeedPropertyIndex = 9;
-        private const int commentPropertyIndex = 10;
-        private const int usePreprocessorPropertyIndex = 11;
-        private const int preprocessorDirectoryPropertyIndex = 12;
+        private const int usePreprocessorClosurePropertyIndex = 2;
+        private const int scenarioNamePropertyIndex = 3;
+        private const int yearPropertyIndex = 4;
+        private const int scopePropertyIndex = 5;
+        private const int seaLevelPropertyIndex = 6;
+        private const int riverDischargePropertyIndex = 7;
+        private const int lakeLevelPropertyIndex = 8;
+        private const int windDirectionPropertyIndex = 9;
+        private const int windSpeedPropertyIndex = 10;
+        private const int commentPropertyIndex = 11;
+        private const int usePreprocessorPropertyIndex = 12;
+        private const int preprocessorDirectoryPropertyIndex = 13;
 
         [Test]
         public void Constructor_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
@@ -148,6 +149,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsEmpty(properties.HrdFilePath);
             Assert.IsEmpty(properties.HlcdFilePath);
             Assert.IsEmpty(properties.HlcdFilePathReadOnly);
+            Assert.IsFalse(properties.UsePreprocessorClosure);
             Assert.IsEmpty(properties.ScenarioName);
             Assert.IsEmpty(properties.Year);
             Assert.IsEmpty(properties.Scope);
@@ -182,6 +184,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             HydraulicLocationConfigurationSettings configurationSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePath);
             Assert.AreEqual(configurationSettings.FilePath, properties.HlcdFilePathReadOnly);
+            Assert.AreEqual(configurationSettings.UsePreprocessorClosure, properties.UsePreprocessorClosure);
             Assert.AreEqual(configurationSettings.ScenarioName, properties.ScenarioName);
             Assert.AreEqual(configurationSettings.Year.ToString(), properties.Year);
             Assert.AreEqual(configurationSettings.Scope, properties.Scope);
@@ -216,7 +219,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(14, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
@@ -231,6 +234,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "HLCD database locatie",
                                                                             "Locatie van het HLCD bestand.",
+                                                                            true);
+
+            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
+                                                                            expectedCategory,
+                                                                            "Gebruik preprocessor sluitregime database",
+                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
                                                                             true);
 
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
@@ -326,7 +336,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(11, dynamicProperties.Count);
+            Assert.AreEqual(12, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
@@ -341,6 +351,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "HLCD database locatie",
                                                                             "Locatie van het HLCD bestand.",
+                                                                            true);
+
+            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
+                                                                            expectedCategory,
+                                                                            "Gebruik preprocessor sluitregime database",
+                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
                                                                             true);
 
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
@@ -427,7 +444,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(11, dynamicProperties.Count);
+            Assert.AreEqual(12, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
@@ -448,6 +465,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 object hlcdFilePathEditor = hlcdFilePathProperty.GetEditor(typeof(UITypeEditor));
                 Assert.IsInstanceOf<HlcdFileNameEditor>(hlcdFilePathEditor);
             }
+
+            PropertyDescriptor usePreprocessorClosureProperty = dynamicProperties[usePreprocessorClosurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorClosureProperty,
+                                                                            expectedCategory,
+                                                                            "Gebruik preprocessor sluitregime database",
+                                                                            "Gebruik de preprocessor sluitregime database bij het uitvoeren van een berekening.",
+                                                                            true);
 
             PropertyDescriptor scenarioNameProperty = dynamicProperties[scenarioNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(scenarioNameProperty,
@@ -685,6 +709,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                                        "ScenarioName",
                                                                                        10,
                                                                                        "Scope",
+                                                                                       false,
                                                                                        "SeaLevel",
                                                                                        "RiverDischarge",
                                                                                        "LakeLevel",

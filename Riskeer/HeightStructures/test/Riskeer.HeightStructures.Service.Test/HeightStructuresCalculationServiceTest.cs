@@ -836,6 +836,7 @@ namespace Riskeer.HeightStructures.Service.Test
                                                : string.Empty;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
+                                                                               false,
                                                                                preprocessorDirectory);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -885,6 +886,7 @@ namespace Riskeer.HeightStructures.Service.Test
         {
             return new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                             validHlcdFilePath,
+                                                            false,
                                                             string.Empty);
         }
 

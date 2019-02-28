@@ -33,9 +33,12 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// </summary>
         /// <param name="hlcdFilePath">The path which points to the HLCD file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to be used for the calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <param name="usePreprocessorClosure">Indicator whether to use the preprocessor closure.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdFilePath"/> or
+        /// <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
         public HydraRingCalculationSettings(string hlcdFilePath,
-                                            string preprocessorDirectory)
+                                            string preprocessorDirectory,
+                                            bool usePreprocessorClosure)
         {
             if (hlcdFilePath == null)
             {
@@ -49,6 +52,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
 
             HlcdFilePath = hlcdFilePath;
             PreprocessorDirectory = preprocessorDirectory;
+            UsePreprocessorClosure = usePreprocessorClosure;
         }
 
         /// <summary>
@@ -60,5 +64,10 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         /// Gets the preprocessor director.
         /// </summary>
         public string PreprocessorDirectory { get; }
+
+        /// <summary>
+        /// Gets whether to use the preprocessor closure.
+        /// </summary>
+        public bool UsePreprocessorClosure { get; }
     }
 }
