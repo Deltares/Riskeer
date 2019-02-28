@@ -75,14 +75,7 @@ namespace Riskeer.Common.Service
             {
                 if (calculation.HasOutput && calculation.Output.HasGeneralResult)
                 {
-                    HydraulicBoundaryLocationCalculationOutput originalOutput = calculation.Output;
-                    calculation.Output = new HydraulicBoundaryLocationCalculationOutput(originalOutput.Result,
-                                                                                        originalOutput.TargetProbability,
-                                                                                        originalOutput.TargetReliability,
-                                                                                        originalOutput.CalculatedProbability,
-                                                                                        originalOutput.CalculatedReliability,
-                                                                                        originalOutput.CalculationConvergence,
-                                                                                        null);
+                    calculation.ClearIllustrationPoints();
                     affectedCalculations.Add(calculation);
                 }
             }

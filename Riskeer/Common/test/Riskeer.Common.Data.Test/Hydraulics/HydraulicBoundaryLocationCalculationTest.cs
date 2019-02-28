@@ -62,8 +62,9 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void HasOutput_WithOrWithoutOutput_ReturnsExpectedValue(
-            [Values(true, false)] bool setOutput)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void HasOutput_WithOrWithoutOutput_ReturnsExpectedValue(bool setOutput)
         {
             // Setup
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
@@ -89,6 +90,49 @@ namespace Riskeer.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.AreEqual(expectedShouldCalculate, shouldCalculate);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ClearIllustrationPoints_CalculationWithOutput_ClearsIllustrationPointResult(bool hasIllustrationPoints)
+        {
+            // Setup
+            var random = new Random(21);
+            var originalOutput = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
+                                                                                    hasIllustrationPoints
+                                                                                        ? new TestGeneralResultSubMechanismIllustrationPoint()
+                                                                                        : null);
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = originalOutput
+            };
+
+            // Call
+            calculation.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreEqual(originalOutput.Result, calculation.Output.Result);
+            Assert.AreEqual(originalOutput.CalculatedProbability, calculation.Output.CalculatedProbability);
+            Assert.AreEqual(originalOutput.CalculatedReliability, calculation.Output.CalculatedReliability);
+            Assert.AreEqual(originalOutput.TargetProbability, calculation.Output.TargetProbability);
+            Assert.AreEqual(originalOutput.TargetReliability, calculation.Output.TargetReliability);
+            Assert.AreEqual(originalOutput.CalculationConvergence, calculation.Output.CalculationConvergence);
+
+            Assert.IsNull(calculation.Output.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_CalculationWithoutOutput_NothingHappens()
+        {
+            // Setup
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Call
+            TestDelegate call = () => calculation.ClearIllustrationPoints();
+
+            // Assert
+            Assert.DoesNotThrow(call);
         }
 
         private static IEnumerable<TestCaseData> GetCalculations()
