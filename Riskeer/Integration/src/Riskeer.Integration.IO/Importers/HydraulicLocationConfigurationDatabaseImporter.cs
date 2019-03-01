@@ -114,6 +114,13 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
+            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
+                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(FilePath)))
+            {
+                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
+                return false;
+            }
+
             IEnumerable<long> locationIds = hydraulicBoundaryDatabase.Locations.Select(l => l.Id);
             long[] intersect = locationIds.Intersect(readHydraulicLocationConfigurationDatabase.LocationIdMappings.Select(l => l.HlcdLocationId))
                                           .ToArray();
@@ -121,13 +128,6 @@ namespace Riskeer.Integration.IO.Importers
             if (intersect.Length != locationIds.Count())
             {
                 Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds));
-                return false;
-            }
-
-            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
-                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(FilePath)))
-            {
-                Log.Error(BuildErrorMessage(FilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
             }
 

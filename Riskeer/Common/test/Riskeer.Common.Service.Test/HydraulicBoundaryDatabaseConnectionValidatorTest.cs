@@ -96,7 +96,7 @@ namespace Riskeer.Common.Service.Test
 
 
         [Test]
-        public void ValidateFileForCalculation_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
+        public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");

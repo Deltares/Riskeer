@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;

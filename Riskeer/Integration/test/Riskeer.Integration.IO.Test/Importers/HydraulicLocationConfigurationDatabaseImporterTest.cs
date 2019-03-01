@@ -288,12 +288,9 @@ namespace Riskeer.Integration.IO.Test.Importers
         public void Import_HlcdWithUsePreprocessorClosureTrueAndWithoutPreprocessorClosure_CancelImportWithErrorMessage()
         {
             // Setup
-            var directory = Path.Combine(testDataPath, "missingPreprocessorClosure");
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, Path.Combine(directory, "completeHrd.sqlite"));
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-
+            string directory = Path.Combine(testDataPath, "missingPreprocessorClosure");
             string filePath = Path.Combine(directory, "newHlcd.sqlite");
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(Path.Combine(directory, "completeHrd.sqlite"));
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicLocationConfigurationDatabaseUpdateHandler>();

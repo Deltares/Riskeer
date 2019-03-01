@@ -244,6 +244,15 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
         }
 
+        /// <summary>
+        /// Gets the preprocessor closure indicator from the database.
+        /// </summary>
+        /// <param name="trackId">The track id to get the preprocessor closure for.</param>
+        /// <returns>The read indicator whether to use the preprocessor closure.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read
+        /// from the database file.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         private bool GetUsePreprocessorClosureByTrackId(long trackId)
         {
             var trackParameter = new SQLiteParameter
@@ -255,7 +264,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
 
             try
             {
-                return GetUsePreprocessorClosureFromDatabase(trackParameter);
+                return ReadUsePreprocessorClosure(trackParameter);
             }
             catch (SQLiteException e)
             {
@@ -269,7 +278,17 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
         }
 
-        private bool GetUsePreprocessorClosureFromDatabase(SQLiteParameter trackParameter)
+        /// <summary>
+        /// Reads the use preprocessor closure from the database.
+        /// </summary>
+        /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
+        /// <returns>The read indicator whether to use the preprocessor closure.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the information could not be read
+        /// from the database file.</exception>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        private bool ReadUsePreprocessorClosure(SQLiteParameter trackParameter)
         {
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
 

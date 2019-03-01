@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
     public class HydraulicBoundaryDatabaseHelperTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
-        string hlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
+        private readonly string hlcdFilePath = Path.Combine(testDataPath, "HLCD.sqlite");
 
         [Test]
         [TestCase(true)]
@@ -154,12 +154,12 @@ namespace Riskeer.Common.IO.Test.HydraRing
             // Setup
             string validFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");
             string customHlcdFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD.sqlite");
-            string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD_preprocClosure.sqlite");
-
+            
             // Call
             string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, customHlcdFilePath, testDataPath, true);
 
             // Assert
+            string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD_preprocClosure.sqlite");
             Assert.AreEqual($"Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.", result);
         }
 

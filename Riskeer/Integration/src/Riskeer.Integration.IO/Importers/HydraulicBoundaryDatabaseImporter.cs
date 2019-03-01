@@ -102,17 +102,17 @@ namespace Riskeer.Integration.IO.Importers
                 return false;
             }
 
+            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure
+                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
+            {
+                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
+                return false;
+            }
+
             ReadResult<IEnumerable<long>> readExcludedLocationsResult = ReadExcludedLocations();
 
             if (readExcludedLocationsResult.CriticalErrorOccurred || Canceled)
             {
-                return false;
-            }
-
-            if (readHydraulicLocationConfigurationDatabase.UsePreprocessorClosure 
-                && !File.Exists(HydraulicBoundaryDatabaseHelper.GetPreprocessorClosureFilePath(hlcdFilePath)))
-            {
-                Log.Error(BuildErrorMessage(hlcdFilePath, Resources.HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found));
                 return false;
             }
 
