@@ -61,12 +61,13 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(21);
+            bool usePreprocessorClosure = random.NextBoolean();
             var entity = new HydraulicBoundaryDatabaseEntity
             {
                 FilePath = "hydraulicBoundaryDatabaseFilePath",
                 Version = "hydraulicBoundaryDatabaseVersion",
                 HydraulicLocationConfigurationSettingsFilePath = "hlcdFilePath",
-                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(random.NextBoolean()),
+                HydraulicLocationConfigurationSettingsUsePreprocessorClosure = Convert.ToByte(usePreprocessorClosure),
                 HydraulicLocationConfigurationSettingsScenarioName = "ScenarioName",
                 HydraulicLocationConfigurationSettingsYear = random.Next(),
                 HydraulicLocationConfigurationSettingsScope = "Scope",
@@ -92,7 +93,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScenarioName, settings.ScenarioName);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsYear, settings.Year);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsScope, settings.Scope);
-            Assert.AreEqual(Convert.ToBoolean(entity.HydraulicLocationConfigurationSettingsUsePreprocessorClosure), settings.UsePreprocessorClosure);
+            Assert.AreEqual(usePreprocessorClosure, settings.UsePreprocessorClosure);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsSeaLevel, settings.SeaLevel);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsRiverDischarge, settings.RiverDischarge);
             Assert.AreEqual(entity.HydraulicLocationConfigurationSettingsLakeLevel, settings.LakeLevel);

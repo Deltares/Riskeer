@@ -41,6 +41,7 @@ namespace Riskeer.Common.Service.TestUtil
         /// <list type="bullet">
         /// <item>The HLCD file paths do not match.</item>
         /// <item>The preprocessor directories do not match.</item>
+        /// <item>The use preprocessor closure indicators do not match.</item>
         /// </list>
         /// </exception>
         public static void AssertHydraRingCalculationSettings(HydraulicBoundaryCalculationSettings expectedSettings,
