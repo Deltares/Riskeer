@@ -167,6 +167,84 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
+        public void ClearStructuresCalculationIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints<TestStructuresInput, TestStructure>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearStructuresCalculationIllustrationPoints_CalculationsWithAndWithoutIllustrationPoints_ClearsIllustrationPointAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var originalOutputWithIllustrationPoints1 = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            var calculationWithIllustrationPoints1 = new TestStructuresCalculation
+            {
+                Output = originalOutputWithIllustrationPoints1
+            };
+
+            var originalOutputWithIllustrationPoints2 = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            var calculationWithIllustrationPoints2 = new TestStructuresCalculation
+            {
+                Output = originalOutputWithIllustrationPoints2
+            };
+
+            var originalOutput1 = new TestStructuresOutput();
+            var calculationWithOutput1 = new TestStructuresCalculation
+            {
+                Output = originalOutput1
+            };
+
+            var originalOutput2 = new TestStructuresOutput();
+            var calculationWithOutput2 = new TestStructuresCalculation
+            {
+                Output = originalOutput2
+            };
+
+            TestStructuresCalculation[] calculations =
+            {
+                new TestStructuresCalculation(),
+                calculationWithOutput1,
+                calculationWithIllustrationPoints1,
+                new TestStructuresCalculation(),
+                calculationWithOutput2,
+                calculationWithIllustrationPoints2,
+                new TestStructuresCalculation()
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints<TestStructuresInput, TestStructure>(calculations);
+
+            // Assert
+            CollectionAssert.AreEquivalent(new[]
+            {
+                calculationWithIllustrationPoints1,
+                calculationWithIllustrationPoints2
+            }, affectedObjects);
+
+            TestStructuresCalculation[] calculationsWithOutput =
+            {
+                calculationWithOutput1,
+                calculationWithIllustrationPoints1,
+                calculationWithOutput2,
+                calculationWithIllustrationPoints2
+            };
+
+            Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
+            Assert.IsTrue(calculationsWithOutput.All(calc => !calc.Output.HasGeneralResult));
+
+            AssertStructuresOutput(originalOutput1, calculationWithOutput1.Output);
+            AssertStructuresOutput(originalOutput2, calculationWithOutput2.Output);
+
+            AssertStructuresOutput(originalOutputWithIllustrationPoints1, calculationWithIllustrationPoints1.Output);
+            AssertStructuresOutput(originalOutputWithIllustrationPoints2, calculationWithIllustrationPoints2.Output);
+        }
+
+        [Test]
         public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
@@ -226,21 +304,21 @@ namespace Riskeer.Common.Service.Test
             var foreshoreProfileToBeRemoved = new TestForeshoreProfile(new Point2D(0, 0));
             var foreshoreProfile = new TestForeshoreProfile(new Point2D(1, 1));
 
-            var calculation1 = new StructuresCalculation<TestStructureInput>
+            var calculation1 = new StructuresCalculation<TestStructuresInput>
             {
                 InputParameters =
                 {
                     ForeshoreProfile = foreshoreProfile
                 }
             };
-            var calculation2 = new StructuresCalculation<TestStructureInput>
+            var calculation2 = new StructuresCalculation<TestStructuresInput>
             {
                 InputParameters =
                 {
                     ForeshoreProfile = foreshoreProfileToBeRemoved
                 }
             };
-            var calculation3 = new StructuresCalculation<TestStructureInput>
+            var calculation3 = new StructuresCalculation<TestStructuresInput>
             {
                 InputParameters =
                 {
@@ -248,7 +326,7 @@ namespace Riskeer.Common.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            StructuresCalculation<TestStructureInput>[] calculations =
+            StructuresCalculation<TestStructuresInput>[] calculations =
             {
                 calculation1,
                 calculation2,
@@ -256,7 +334,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearForeshoreProfile<TestStructureInput, TestStructure>(
+            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearForeshoreProfile<TestStructuresInput, TestStructure>(
                 calculations, foreshoreProfileToBeRemoved);
 
             // Assert
@@ -284,17 +362,9 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(expectedOutput.CalculationConvergence, actualOutput.CalculationConvergence);
         }
 
-        private class TestStructureInput : StructuresInputBase<TestStructure>
+        private static void AssertStructuresOutput(StructuresOutput expectedOutput, StructuresOutput actualOutput)
         {
-            public override bool IsStructureInputSynchronized
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public override void SynchronizeStructureInput() {}
+            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
         }
     }
 }

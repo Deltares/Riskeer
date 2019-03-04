@@ -70,8 +70,38 @@ namespace Riskeer.Common.Service
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            var affectedCalculations = new List<HydraulicBoundaryLocationCalculation>();
+            var affectedCalculations = new List<IObservable>();
             foreach (HydraulicBoundaryLocationCalculation calculation in calculations)
+            {
+                if (calculation.HasOutput && calculation.Output.HasGeneralResult)
+                {
+                    calculation.ClearIllustrationPoints();
+                    affectedCalculations.Add(calculation);
+                }
+            }
+
+            return affectedCalculations;
+        }
+
+        /// <summary>
+        /// Clears the illustration points of the provided structure calculations.
+        /// </summary>
+        /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
+        /// <typeparam name="TStructure">Object type of the structure property of <typeparamref name="TStructureInput"/>.</typeparam>
+        /// <param name="calculations">The calculations for which the illustration points need to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearStructuresCalculationIllustrationPoints<TStructureInput, TStructure>(IEnumerable<StructuresCalculation<TStructureInput>> calculations)
+            where TStructureInput : StructuresInputBase<TStructure>, new()
+            where TStructure : StructureBase
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            var affectedCalculations = new List<IObservable>();
+            foreach (StructuresCalculation<TStructureInput> calculation in calculations)
             {
                 if (calculation.HasOutput && calculation.Output.HasGeneralResult)
                 {
