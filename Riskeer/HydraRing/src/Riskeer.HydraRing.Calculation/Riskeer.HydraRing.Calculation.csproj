@@ -213,9 +213,6 @@
     <None Include="HydraRing\DllLinearizedBetaAlpha.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\dllStructuresClosure2017.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="HydraRing\dllStructuresClosure2018.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -352,9 +349,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="HydraRing\ProtoBufRemote.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="HydraRing\structuresClosure2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="HydraRing\structuresClosure2018.dll">
