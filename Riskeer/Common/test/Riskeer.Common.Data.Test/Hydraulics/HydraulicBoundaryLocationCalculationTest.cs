@@ -112,13 +112,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             calculation.ClearIllustrationPoints();
 
             // Assert
-            Assert.AreEqual(originalOutput.Result, calculation.Output.Result);
-            Assert.AreEqual(originalOutput.CalculatedProbability, calculation.Output.CalculatedProbability);
-            Assert.AreEqual(originalOutput.CalculatedReliability, calculation.Output.CalculatedReliability);
-            Assert.AreEqual(originalOutput.TargetProbability, calculation.Output.TargetProbability);
-            Assert.AreEqual(originalOutput.TargetReliability, calculation.Output.TargetReliability);
-            Assert.AreEqual(originalOutput.CalculationConvergence, calculation.Output.CalculationConvergence);
-
+            Assert.AreSame(originalOutput, calculation.Output);
             Assert.IsNull(calculation.Output.GeneralResult);
         }
 

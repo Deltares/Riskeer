@@ -72,6 +72,14 @@ namespace Riskeer.Common.Data.Structures
 
         public Comment Comments { get; private set; }
 
+        /// <summary>
+        /// Clears the calculated illustration points.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            Output?.ClearIllustrationPoints();
+        }
+
         public override string ToString()
         {
             return Name;

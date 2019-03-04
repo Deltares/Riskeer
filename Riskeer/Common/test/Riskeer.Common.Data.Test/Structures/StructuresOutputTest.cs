@@ -35,8 +35,7 @@ namespace Riskeer.Common.Data.Test.Structures
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_ExpectedValues(
-            bool withIllustrationPoints)
+        public void Constructor_ExpectedValues(bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(39);
@@ -79,6 +78,43 @@ namespace Riskeer.Common.Data.Test.Structures
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResult()
+        {
+            // Setup
+            var random = new Random(39);
+            double reliability = random.NextDouble();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            var structuresOutput = new StructuresOutput(reliability, generalResult);
+
+            // Call
+            structuresOutput.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreEqual(reliability, structuresOutput.Reliability);
+            Assert.IsFalse(structuresOutput.HasGeneralResult);
+            Assert.IsNull(structuresOutput.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_OutputWithoutGeneralResult_NothingHappens()
+        {
+            // Setup
+            var random = new Random(39);
+            double reliability = random.NextDouble();
+
+            var structuresOutput = new StructuresOutput(reliability, null);
+
+            // Call
+            structuresOutput.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreEqual(reliability, structuresOutput.Reliability);
+            Assert.IsFalse(structuresOutput.HasGeneralResult);
+            Assert.IsNull(structuresOutput.GeneralResult);
         }
     }
 }

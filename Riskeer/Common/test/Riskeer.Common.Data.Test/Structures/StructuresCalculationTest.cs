@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
@@ -124,6 +125,42 @@ namespace Riskeer.Common.Data.Test.Structures
 
             // Assert
             Assert.AreEqual(expectedName, result);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ClearIllustrationPoints_CalculationWithOutput_ClearsIllustrationPointResult(bool hasIllustrationPoints)
+        {
+            // Setup
+            var originalOutput = new TestStructuresOutput(hasIllustrationPoints
+                                                          ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                          : null);
+
+            var calculation = new TestStructuresCalculation
+            {
+                Output = originalOutput
+            };
+
+            // Call
+            calculation.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreSame(originalOutput, calculation.Output);
+            Assert.IsNull(calculation.Output.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_CalculationWithoutOutput_NothingHappens()
+        {
+            // Setup
+            var calculation = new TestStructuresCalculation();
+
+            // Call
+            TestDelegate call = () => calculation.ClearIllustrationPoints();
+
+            // Assert
+            Assert.DoesNotThrow(call);
         }
 
         [Test]

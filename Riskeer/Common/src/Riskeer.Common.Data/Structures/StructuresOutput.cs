@@ -63,6 +63,14 @@ namespace Riskeer.Common.Data.Structures
         /// </summary>
         public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
 
+        /// <summary>
+        /// Clears the illustration points of the output.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            GeneralResult = null;
+        }
+
         public object Clone()
         {
             var clone = (StructuresOutput) MemberwiseClone();
