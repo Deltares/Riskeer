@@ -102,7 +102,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <summary>
         /// Gets the general results with the sub mechanism illustration points.
         /// </summary>
-        public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult { get; }
+        public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult { get; private set; }
 
         /// <summary>
         /// Gets the value indicating whether the output contains a general result with illustration points.
@@ -113,6 +113,14 @@ namespace Riskeer.Common.Data.Hydraulics
             {
                 return GeneralResult != null;
             }
+        }
+
+        /// <summary>
+        /// Clears the illustration points of the output.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            GeneralResult = null;
         }
     }
 }

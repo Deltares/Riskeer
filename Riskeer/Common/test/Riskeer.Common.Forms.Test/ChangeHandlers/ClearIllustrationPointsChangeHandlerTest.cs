@@ -103,10 +103,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             const string collectionDescription = "Verzameling";
+            string inquiry = $"Weet u zeker dat u alle berekende illustratiepunten bij '{collectionDescription}' wilt wissen?";
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation($"Weet u zeker dat u alle berekende illustratiepunten bij '{collectionDescription}' wilt wissen?"))
+            inquiryHelper.Expect(h => h.InquireContinuation(inquiry))
                          .Return(expectedConfirmation);
             mocks.ReplayAll();
 

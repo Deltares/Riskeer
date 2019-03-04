@@ -85,17 +85,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// </summary>
         public void ClearIllustrationPoints()
         {
-            if (HasOutput)
-            {
-                HydraulicBoundaryLocationCalculationOutput originalOutput = Output;
-                Output = new HydraulicBoundaryLocationCalculationOutput(originalOutput.Result,
-                                                                        originalOutput.TargetProbability,
-                                                                        originalOutput.TargetReliability,
-                                                                        originalOutput.CalculatedProbability,
-                                                                        originalOutput.CalculatedReliability,
-                                                                        originalOutput.CalculationConvergence,
-                                                                        null);
-            }
+            Output?.ClearIllustrationPoints();
         }
     }
 }
