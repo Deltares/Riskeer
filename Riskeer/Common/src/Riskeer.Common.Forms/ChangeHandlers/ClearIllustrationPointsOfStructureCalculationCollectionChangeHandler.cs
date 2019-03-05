@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Gui;
-using Riskeer.Common.Data;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Service;
@@ -34,16 +33,14 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// Class for handling a collection of structure calculations when its illustration points need to be cleared.
     /// </summary>
     /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
-    /// <typeparam name="TStructure">Object type of the structure property of <typeparamref name="TStructureInput"/>.</typeparam>
-    public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TStructureInput, TStructure>
+    public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TStructureInput>
         : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
-        where TStructureInput : StructuresInputBase<TStructure>, new()
-        where TStructure : StructureBase
+        where TStructureInput : IStructuresCalculationInput, new()
     {
         private readonly IEnumerable<StructuresCalculation<TStructureInput>> calculations;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler{TStructureInput,TStructure}"/>.
+        /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler{TStructureInput}"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared for.</param>
@@ -62,7 +59,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
 
         public override IEnumerable<IObservable> ClearIllustrationPoints()
         {
-            return RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints<TStructureInput, TStructure>(calculations);
+            return RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints(calculations);
         }
     }
 }

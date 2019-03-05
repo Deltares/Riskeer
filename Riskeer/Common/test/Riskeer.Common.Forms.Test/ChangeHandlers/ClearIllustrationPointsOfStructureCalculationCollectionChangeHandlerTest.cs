@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
+            TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(
                 inquiryHelper, null);
 
             // Assert
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(
                 inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
             // Assert
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(
                 inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
             // Call
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculationWithOutput.Attach(calculationWithoutIllustrationPointsObserver);
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(inquiryHelper, calculations);
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(inquiryHelper, calculations);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();

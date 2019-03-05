@@ -170,7 +170,7 @@ namespace Riskeer.Common.Service.Test
         public void ClearStructuresCalculationIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints<TestStructuresInput, TestStructure>(null);
+            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints<TestStructuresInput>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -217,7 +217,7 @@ namespace Riskeer.Common.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints<TestStructuresInput, TestStructure>(calculations);
+            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints(calculations);
 
             // Assert
             CollectionAssert.AreEquivalent(new[]
