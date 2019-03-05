@@ -30,7 +30,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// <summary>
     /// Class for handling hydraulic boundary location calculations when its illustration point results need to be cleared.
     /// </summary>
-    public class ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler : ClearIllustrationPointsChangeHandlerBase
+    public class ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
     {
         private readonly Func<IEnumerable<IObservable>> clearIllustrationPointsFunc;
 

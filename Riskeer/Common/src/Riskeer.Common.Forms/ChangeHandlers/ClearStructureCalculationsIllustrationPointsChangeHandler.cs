@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// </summary>
     /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
     /// <typeparam name="TStructure">Object type of the structure property of <typeparamref name="TStructureInput"/>.</typeparam>
-    public class ClearStructureCalculationsIllustrationPointsChangeHandler<TStructureInput, TStructure> : ClearIllustrationPointsChangeHandlerBase
+    public class ClearStructureCalculationsIllustrationPointsChangeHandler<TStructureInput, TStructure> : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
         where TStructureInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
     {

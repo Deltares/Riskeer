@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var handler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(inquiryHelper, string.Empty, Enumerable.Empty<IObservable>);
 
             // Assert
-            Assert.IsInstanceOf<ClearIllustrationPointsChangeHandlerBase>(handler);
+            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
             mocks.VerifyAll();
         }
 

@@ -27,22 +27,23 @@ using Core.Common.Gui;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Base class for handling objects when clearing illustration points.
+    /// Base class for handling objects when clearing illustration points from collections of calculations.
     /// </summary>
-    public abstract class ClearIllustrationPointsChangeHandlerBase : IClearIllustrationPointsChangeHandler
+    public abstract class ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase 
+        : IClearIllustrationPointsOfCalculationCollectionChangeHandler
     {
         private readonly IInquiryHelper inquiryHelper;
         private readonly string inquiry;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClearIllustrationPointsChangeHandlerBase"/>.
+        /// Creates a new instance of <see cref="ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="inquiry">The inquiry that should be displayed when inquiring whether the illustration points
         /// should be cleared.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected ClearIllustrationPointsChangeHandlerBase(IInquiryHelper inquiryHelper,
-                                                           string inquiry)
+        protected ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase(IInquiryHelper inquiryHelper,
+                                                                                  string inquiry)
         {
             if (inquiryHelper == null)
             {

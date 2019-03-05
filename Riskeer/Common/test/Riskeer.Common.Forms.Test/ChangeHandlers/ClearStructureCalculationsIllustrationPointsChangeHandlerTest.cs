@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 inquiryHelper, string.Empty, Enumerable.Empty<TestStructuresCalculation>());
 
             // Assert
-            Assert.IsInstanceOf<ClearIllustrationPointsChangeHandlerBase>(handler);
+            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
         }
 
         [Test]

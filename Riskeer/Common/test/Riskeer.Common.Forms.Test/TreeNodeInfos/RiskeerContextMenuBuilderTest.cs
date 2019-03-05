@@ -886,7 +886,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var changeHandler = mocks.StrictMock<IClearIllustrationPointsChangeHandler>();
+            var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
                               .WhenCalled(arg =>

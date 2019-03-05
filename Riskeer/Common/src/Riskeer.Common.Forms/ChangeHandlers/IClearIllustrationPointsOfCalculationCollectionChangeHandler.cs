@@ -25,9 +25,9 @@ using Core.Common.Base;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Interface for an object that can properly clear a illustration points.
+    /// Interface for an object that can properly clear a illustration points from a collection of calculations.
     /// </summary>
-    public interface IClearIllustrationPointsChangeHandler
+    public interface IClearIllustrationPointsOfCalculationCollectionChangeHandler
     {
         /// <summary>
         /// Gets confirmation for clearing the illustration points.

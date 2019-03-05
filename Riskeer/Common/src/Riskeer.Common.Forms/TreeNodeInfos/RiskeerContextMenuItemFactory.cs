@@ -515,7 +515,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItem(Func<bool> isContextItemEnabledFunc,
-                                                                                            IClearIllustrationPointsChangeHandler changeHandler)
+                                                                                            IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
         {
             bool isEnabled = isContextItemEnabledFunc();
             string toolTip = isEnabled
@@ -648,7 +648,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             calculation.NotifyObservers();
         }
 
-        private static void ClearIllustrationPointResults(IClearIllustrationPointsChangeHandler changeHandler)
+        private static void ClearIllustrationPointResults(IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
         {
             IEnumerable<IObservable> affectedObjects = changeHandler.ClearIllustrationPoints();
             affectedObjects.ForEachElementDo(o => o.NotifyObservers());

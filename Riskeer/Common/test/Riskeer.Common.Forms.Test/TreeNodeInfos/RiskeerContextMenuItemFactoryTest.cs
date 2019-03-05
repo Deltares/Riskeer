@@ -1711,7 +1711,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             bool isEnabled = new Random(21).NextBoolean();
 
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsChangeHandler>();
+            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -1731,7 +1731,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IClearIllustrationPointsChangeHandler>();
+            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -1753,7 +1753,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Given
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IClearIllustrationPointsChangeHandler>();
+            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
@@ -1774,7 +1774,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
-            var handler = mocks.StrictMock<IClearIllustrationPointsChangeHandler>();
+            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             handler.Expect(h => h.InquireConfirmation()).Return(true);
             handler.Expect(h => h.ClearIllustrationPoints()).Return(new[]
             {
