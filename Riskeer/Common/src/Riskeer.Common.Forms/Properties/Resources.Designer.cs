@@ -979,22 +979,22 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u alle berekende illustratiepunten bij &apos;{0}&apos; wilt wissen?.
+        /// </summary>
+        public static string ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_ {
+            get {
+                return ResourceManager.GetString("ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIl" +
+                        "lustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ClearIcon {
             get {
                 object obj = ResourceManager.GetObject("ClearIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u alle berekende illustratiepunten bij &apos;{0}&apos; wilt wissen?.
-        /// </summary>
-        public static string ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_ {
-            get {
-                return ResourceManager.GetString("ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_Il" +
-                        "lustrationPoints_for_collection_0_", resourceCulture);
             }
         }
         

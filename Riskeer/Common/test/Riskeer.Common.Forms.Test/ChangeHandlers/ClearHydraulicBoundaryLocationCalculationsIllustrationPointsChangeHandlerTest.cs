@@ -31,7 +31,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
-    public class ClearIllustrationPointsChangeHandlerTest
+    public class ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandlerTest
     {
         [Test]
         public void Constructor_CollectionDescriptionNull_ThrowsArgumentNullException()
@@ -42,8 +42,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClearIllustrationPointsChangeHandler(inquiryHelper, null,
-                                                                               Enumerable.Empty<IObservable>);
+            TestDelegate call = () => new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(inquiryHelper, null,
+                                                                                                                    Enumerable.Empty<IObservable>);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClearIllustrationPointsChangeHandler(inquiryHelper, string.Empty, null);
+            TestDelegate call = () => new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(inquiryHelper, string.Empty, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -77,7 +77,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Cal
-            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, string.Empty, Enumerable.Empty<IObservable>);
+            var handler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(inquiryHelper, string.Empty, Enumerable.Empty<IObservable>);
 
             // Assert
             Assert.IsInstanceOf<IClearIllustrationPointsChangeHandler>(handler);
@@ -99,7 +99,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                          .Return(expectedConfirmation);
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, collectionDescription, Enumerable.Empty<IObservable>);
+            var handler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(inquiryHelper, collectionDescription, Enumerable.Empty<IObservable>);
 
             // Call
             bool confirmation = handler.InquireConfirmation();
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 observable
             };
 
-            var handler = new ClearIllustrationPointsChangeHandler(inquiryHelper, string.Empty, () => observables);
+            var handler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(inquiryHelper, string.Empty, () => observables);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();

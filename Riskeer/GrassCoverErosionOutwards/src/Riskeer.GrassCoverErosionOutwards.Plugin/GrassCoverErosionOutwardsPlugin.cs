@@ -626,7 +626,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-            var changeHandler = new ClearIllustrationPointsChangeHandler(
+            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
                 inquiryHelper,
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
@@ -675,7 +675,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-            var changeHandler = new ClearIllustrationPointsChangeHandler(
+            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
                 inquiryHelper,
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
@@ -1046,7 +1046,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
-            var changeHandler = new ClearIllustrationPointsChangeHandler(
+            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
                 inquiryHelper,
                 RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
                 () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(
@@ -1097,7 +1097,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
-            var changeHandler = new ClearIllustrationPointsChangeHandler(
+            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
                 inquiryHelper,
                 RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
                 () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(
@@ -1188,7 +1188,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
-            var changeHandler = new ClearIllustrationPointsChangeHandler(
+            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
                 inquiryHelper,
                 RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
                 () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(

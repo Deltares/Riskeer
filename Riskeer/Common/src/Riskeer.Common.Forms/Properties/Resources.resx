@@ -1512,7 +1512,7 @@ berekende kans
   <data name="CreateClearIllustrationPointsItem_Clear_IllustrationPoints" xml:space="preserve">
     <value>Wis alle berekende illustratiepunten.</value>
   </data>
-  <data name="ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_" xml:space="preserve">
+  <data name="ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_" xml:space="preserve">
     <value>Weet u zeker dat u alle berekende illustratiepunten bij '{0}' wilt wissen?</value>
   </data>
   <data name="CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear" xml:space="preserve">

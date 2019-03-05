@@ -22,7 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\FailureMechanismSectionResultViewColumnBuilder.cs" />
-    <Compile Include="ChangeHandlers\ClearIllustrationPointsChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsChangeHandlerBase.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandler.cs" />
     <Compile Include="ChangeHandlers\IClearIllustrationPointsChangeHandler.cs" />
