@@ -30,26 +30,27 @@ using Riskeer.Common.Service;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling structure calculations when its illustration points need to be cleared.
+    /// Class for handling a collection of structure calculations when its illustration points need to be cleared.
     /// </summary>
     /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
     /// <typeparam name="TStructure">Object type of the structure property of <typeparamref name="TStructureInput"/>.</typeparam>
-    public class ClearStructureCalculationsIllustrationPointsChangeHandler<TStructureInput, TStructure> : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
+    public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TStructureInput, TStructure>
+        : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
         where TStructureInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
     {
         private readonly IEnumerable<StructuresCalculation<TStructureInput>> calculations;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClearStructureCalculationsIllustrationPointsChangeHandler{TStructuresInput,TStructure}"/>.
+        /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler{TStructureInput,TStructure}"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="inquiry">The description of the collection in which the illustration point results belong to.</param>
+        /// <param name="inquiry">The inquiry that is displayed when asking for confirmation to clear the illustration point results.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearStructureCalculationsIllustrationPointsChangeHandler(IInquiryHelper inquiryHelper,
-                                                                         string inquiry,
-                                                                         IEnumerable<StructuresCalculation<TStructureInput>> calculations)
+        public ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
+                                                                                    string inquiry,
+                                                                                    IEnumerable<StructuresCalculation<TStructureInput>> calculations)
             : base(inquiryHelper, inquiry)
         {
             if (calculations == null)

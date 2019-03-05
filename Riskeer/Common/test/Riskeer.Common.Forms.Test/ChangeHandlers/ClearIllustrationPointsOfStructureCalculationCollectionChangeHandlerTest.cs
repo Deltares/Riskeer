@@ -34,7 +34,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
-    public class ClearStructureCalculationsIllustrationPointsChangeHandlerTest
+    public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandlerTest
     {
         [Test]
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClearStructureCalculationsIllustrationPointsChangeHandler<TestStructuresInput, TestStructure>(
+            TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
                 inquiryHelper, string.Empty, null);
 
             // Assert
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            var handler = new ClearStructureCalculationsIllustrationPointsChangeHandler<TestStructuresInput, TestStructure>(
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
                 inquiryHelper, string.Empty, Enumerable.Empty<TestStructuresCalculation>());
 
             // Assert
@@ -83,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             inquiryHelper.Expect(h => h.InquireContinuation(inquiry)).Return(expectedConfirmation);
             mocks.ReplayAll();
 
-            var handler = new ClearStructureCalculationsIllustrationPointsChangeHandler<TestStructuresInput, TestStructure>(
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
                 inquiryHelper, inquiry, Enumerable.Empty<TestStructuresCalculation>());
 
             // Call
@@ -125,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculationWithOutput.Attach(calculationWithoutIllustrationPointsObserver);
             mocks.ReplayAll();
 
-            var handler = new ClearStructureCalculationsIllustrationPointsChangeHandler<TestStructuresInput, TestStructure>(inquiryHelper, string.Empty, calculations);
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(inquiryHelper, string.Empty, calculations);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();
