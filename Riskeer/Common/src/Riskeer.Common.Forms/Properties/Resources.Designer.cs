@@ -1037,6 +1037,34 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wis de berekende illustratiepunten..
+        /// </summary>
+        public static string CreateClearIllustrationPointsOfCalculationItem_Clear_IllustrationPoints {
+            get {
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationItem_Clear_IllustrationPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wis illustratiepunten....
+        /// </summary>
+        public static string CreateClearIllustrationPointsOfCalculationItem_ClearIllustrationPoints_DisplayName {
+            get {
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationItem_ClearIllustrationPoints_DisplayNam" +
+                        "e", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deze berekening heeft geen illustratiepunten om te wissen..
+        /// </summary>
+        public static string CreateClearIllustrationPointsOfCalculationItem_No_IllustrationPoints_to_clear {
+            get {
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationItem_No_IllustrationPoints_to_clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wis alle berekende illustratiepunten..
         /// </summary>
         public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints {

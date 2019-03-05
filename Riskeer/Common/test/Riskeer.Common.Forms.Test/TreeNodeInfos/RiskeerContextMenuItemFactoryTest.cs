@@ -1794,6 +1794,114 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
+        #region CreateClearIllustrationPointsOfCalculationItem
+
+        [Test]
+        public void CreateClearIllustrationPointsOfCalculationItem_Always_CreatesExpectedItem()
+        {
+            // Setup
+            bool isEnabled = new Random(21).NextBoolean();
+
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => isEnabled,
+                                                                                                                               handler);
+
+            // Assert
+            Assert.AreEqual("Wis illustratiepunten...", toolStripItem.Text);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateClearIllustrationPointsOfCalculationItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => isEnabled,
+                                                                                                                               handler);
+
+            // Assert
+            Assert.AreEqual(isEnabled, toolStripItem.Enabled);
+
+            string expectedToolTipMessage = isEnabled
+                                                ? "Wis de berekende illustratiepunten."
+                                                : "Deze berekening heeft geen illustratiepunten om te wissen.";
+            Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(false);
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => true,
+                                                                                                                               handler);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationItem_WhenClickPerformedAndActionContinuedAndCalculationAffected_ThenIllustrationPointsClearedAndPostUpdates()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.ClearIllustrationPoints()).Return(true);
+            handler.Expect(h => h.DoPostUpdateActions());
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => true,
+                                                                                                                               handler);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationItem_WhenClickPerformedAndActionContinuedAndCalculationUnaffected_ThenIllustrationPointsClearedAndNoPostUpdates()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.ClearIllustrationPoints()).Return(false);
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(() => true,
+                                                                                                                               handler);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
         #region Nested types
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>

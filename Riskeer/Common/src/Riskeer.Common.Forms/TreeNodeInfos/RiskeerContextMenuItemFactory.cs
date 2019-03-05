@@ -538,6 +538,37 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             };
         }
 
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration points for a
+        /// single calculation.
+        /// </summary>
+        /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
+        /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationItem(Func<bool> isContextItemEnabledFunc,
+                                                                                           IClearIllustrationPointsOfCalculationChangeHandler changeHandler)
+        {
+            bool isEnabled = isContextItemEnabledFunc();
+            string toolTip = isEnabled
+                                 ? Resources.CreateClearIllustrationPointsOfCalculationItem_Clear_IllustrationPoints
+                                 : Resources.CreateClearIllustrationPointsOfCalculationItem_No_IllustrationPoints_to_clear;
+
+            return new StrictContextMenuItem(
+                Resources.CreateClearIllustrationPointsOfCalculationItem_ClearIllustrationPoints_DisplayName,
+                toolTip,
+                Resources.ClearIllustrationPointsIcon,
+                (o, args) =>
+                {
+                    if (changeHandler.InquireConfirmation() && changeHandler.ClearIllustrationPoints())
+                    {
+                        changeHandler.DoPostUpdateActions();
+                    }
+                })
+            {
+                Enabled = isEnabled
+            };
+        }
+
         private static void UpdateForeshoreProfileDependentDataOfCalculation<TCalculationInput>(
             ICalculation<TCalculationInput>[] calculations,
             IInquiryHelper inquiryHelper,
