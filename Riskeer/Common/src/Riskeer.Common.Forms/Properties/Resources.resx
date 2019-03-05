@@ -1536,4 +1536,7 @@ berekende kans
   <data name="ClearIllustrationPointsCalculationCollection_Inquiry" xml:space="preserve">
     <value>Weet u zeker dat u alle illustratiepunten wilt wissen?</value>
   </data>
+  <data name="ClearIllustrationPointsOfCalculation_InquireConfirmation" xml:space="preserve">
+    <value>Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?</value>
+  </data>
 </root>

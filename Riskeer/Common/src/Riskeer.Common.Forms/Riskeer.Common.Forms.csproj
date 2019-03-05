@@ -25,6 +25,7 @@
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfStructuresCalculationHandler.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandler.cs" />
     <Compile Include="ChangeHandlers\IClearIllustrationPointsOfCalculationCollectionChangeHandler.cs" />
     <Compile Include="ChangeHandlers\IClearIllustrationPointsOfCalculationChangeHandler.cs" />

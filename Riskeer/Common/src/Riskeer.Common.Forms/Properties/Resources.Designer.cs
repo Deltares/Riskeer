@@ -1018,6 +1018,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?.
+        /// </summary>
+        public static string ClearIllustrationPointsOfCalculation_InquireConfirmation {
+            get {
+                return ResourceManager.GetString("ClearIllustrationPointsOfCalculation_InquireConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deze berekening heeft geen uitvoer om te wissen..
         /// </summary>
         public static string ClearOutput_No_output_to_clear {
