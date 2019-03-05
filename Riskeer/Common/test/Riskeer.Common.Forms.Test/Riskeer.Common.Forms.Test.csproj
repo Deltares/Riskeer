@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\FailureMechanismSectionResultViewColumnBuilderTest.cs" />
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsChangeHandlerBaseTest.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandlerTest.cs" />

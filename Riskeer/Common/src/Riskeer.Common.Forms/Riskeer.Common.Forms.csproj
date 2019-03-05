@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="Builders\FailureMechanismSectionResultViewColumnBuilder.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsChangeHandler.cs" />
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsChangeHandlerBase.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandler.cs" />
     <Compile Include="ChangeHandlers\IClearIllustrationPointsChangeHandler.cs" />
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandler.cs" />

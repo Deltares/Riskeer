@@ -34,18 +34,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
     public class ClearIllustrationPointsChangeHandlerTest
     {
         [Test]
-        public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ClearIllustrationPointsChangeHandler(null, string.Empty,
-                                                                               Enumerable.Empty<IObservable>);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("inquiryHelper", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_CollectionDescriptionNull_ThrowsArgumentNullException()
         {
             // Setup

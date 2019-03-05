@@ -28,12 +28,10 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling objects when illustration point results need to be cleared.
+    /// Class for handling hydraulic boundary location calculations when its illustration point results need to be cleared.
     /// </summary>
-    public class ClearIllustrationPointsChangeHandler : IClearIllustrationPointsChangeHandler
+    public class ClearIllustrationPointsChangeHandler : ClearIllustrationPointsChangeHandlerBase
     {
-        private readonly IInquiryHelper inquiryHelper;
-        private readonly string collectionDescription;
         private readonly Func<IEnumerable<IObservable>> clearIllustrationPointsFunc;
 
         /// <summary>
@@ -46,12 +44,9 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         public ClearIllustrationPointsChangeHandler(IInquiryHelper inquiryHelper,
                                                     string collectionDescription,
                                                     Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
+            : base(inquiryHelper,
+                   string.Format(Resources.ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_, collectionDescription))
         {
-            if (inquiryHelper == null)
-            {
-                throw new ArgumentNullException(nameof(inquiryHelper));
-            }
-
             if (collectionDescription == null)
             {
                 throw new ArgumentNullException(nameof(collectionDescription));
@@ -62,19 +57,10 @@ namespace Riskeer.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(clearIllustrationPointsFunc));
             }
 
-            this.inquiryHelper = inquiryHelper;
-            this.collectionDescription = collectionDescription;
             this.clearIllustrationPointsFunc = clearIllustrationPointsFunc;
         }
 
-        public bool InquireConfirmation()
-        {
-            string query = string.Format(Resources.ClearIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_,
-                                         collectionDescription);
-            return inquiryHelper.InquireContinuation(query);
-        }
-
-        public IEnumerable<IObservable> ClearIllustrationPoints()
+        public override IEnumerable<IObservable> ClearIllustrationPoints()
         {
             return clearIllustrationPointsFunc();
         }
