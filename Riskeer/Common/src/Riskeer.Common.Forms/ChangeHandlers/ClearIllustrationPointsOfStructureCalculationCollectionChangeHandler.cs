@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Core.Common.Gui;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Service;
 
 namespace Riskeer.Common.Forms.ChangeHandlers
@@ -45,13 +46,11 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler{TStructureInput,TStructure}"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="inquiry">The inquiry that is displayed when asking for confirmation to clear the illustration point results.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                    string inquiry,
                                                                                     IEnumerable<StructuresCalculation<TStructureInput>> calculations)
-            : base(inquiryHelper, inquiry)
+            : base(inquiryHelper, Resources.ClearIllustrationPointsCalculationCollection_Inquiry)
         {
             if (calculations == null)
             {

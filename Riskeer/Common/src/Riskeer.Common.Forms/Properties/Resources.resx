@@ -1533,4 +1533,7 @@ berekende kans
   <data name="CreateClearIllustrationPointsOfCalculationItem_No_IllustrationPoints_to_clear" xml:space="preserve">
     <value>Deze berekening heeft geen illustratiepunten om te wissen.</value>
   </data>
+  <data name="ClearIllustrationPointsCalculationCollection_Inquiry" xml:space="preserve">
+    <value>Weet u zeker dat u alle illustratiepunten wilt wissen?</value>
+  </data>
 </root>

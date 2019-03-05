@@ -999,6 +999,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u alle illustratiepunten wilt wissen?.
+        /// </summary>
+        public static string ClearIllustrationPointsCalculationCollection_Inquiry {
+            get {
+                return ResourceManager.GetString("ClearIllustrationPointsCalculationCollection_Inquiry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ClearIllustrationPointsIcon {

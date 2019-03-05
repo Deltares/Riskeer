@@ -413,9 +413,7 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper,
-                                                                                            "Weet u zeker dat u alle illustratiepunten wilt wissen?",
-                                                                                            calculations))
+                                                                        CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -561,9 +559,7 @@ namespace Riskeer.ClosingStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(calculations),
-                                                                 CreateChangeHandler(inquiryHelper,
-                                                                                     "Weet u zeker dat u alle illustratiepunten wilt wissen?",
-                                                                                     calculations));
+                                                                 CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
@@ -867,10 +863,9 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<ClosingStructuresInput, ClosingStructure> CreateChangeHandler(
             IInquiryHelper inquiryHelper,
-            string inquiry,
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
-            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<ClosingStructuresInput, ClosingStructure>(inquiryHelper, inquiry, calculations);
+            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<ClosingStructuresInput, ClosingStructure>(inquiryHelper, calculations);
         }
 
         private static bool HasIllustrationPoints(IEnumerable<ICalculation> calculations)

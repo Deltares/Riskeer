@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Call
             TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
-                inquiryHelper, string.Empty, null);
+                inquiryHelper, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Call
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
-                inquiryHelper, string.Empty, Enumerable.Empty<TestStructuresCalculation>());
+                inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
@@ -73,18 +73,16 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void InquireConfirmation_Always_ReturnsInquiry()
         {
             // Setup
-            const string inquiry = "An inquiry";
-
             var random = new Random(21);
             bool expectedConfirmation = random.NextBoolean();
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation(inquiry)).Return(expectedConfirmation);
+            inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
             mocks.ReplayAll();
 
             var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(
-                inquiryHelper, inquiry, Enumerable.Empty<TestStructuresCalculation>());
+                inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
             // Call
             bool confirmation = handler.InquireConfirmation();
@@ -125,7 +123,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculationWithOutput.Attach(calculationWithoutIllustrationPointsObserver);
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(inquiryHelper, string.Empty, calculations);
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput, TestStructure>(inquiryHelper, calculations);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();
