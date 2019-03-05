@@ -2224,7 +2224,7 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -2265,7 +2265,7 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -2327,7 +2327,7 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(assessmentSection), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2363,7 +2363,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2397,7 +2397,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => WaveHeightCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => WaveHeightCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

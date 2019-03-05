@@ -412,10 +412,10 @@ namespace Riskeer.ClosingStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(calculations),
-                                                                CreateChangeHandler(inquiryHelper,
-                                                                                    "Weet u zeker dat u alle illustratiepunten wilt wissen?",
-                                                                                    calculations))
+                          .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(calculations),
+                                                                        CreateChangeHandler(inquiryHelper,
+                                                                                            "Weet u zeker dat u alle illustratiepunten wilt wissen?",
+                                                                                            calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -560,10 +560,10 @@ namespace Riskeer.ClosingStructures.Plugin
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(calculations),
-                                                         CreateChangeHandler(inquiryHelper,
-                                                                             "Weet u zeker dat u alle illustratiepunten wilt wissen?",
-                                                                             calculations));
+                   .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(calculations),
+                                                                 CreateChangeHandler(inquiryHelper,
+                                                                                     "Weet u zeker dat u alle illustratiepunten wilt wissen?",
+                                                                                     calculations));
 
             if (isNestedGroup)
             {

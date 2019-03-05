@@ -1506,16 +1506,16 @@ berekende kans
   <data name="CombinedAssembly_DisplayName" xml:space="preserve">
     <value>Gecombineerd toetsoordeel</value>
   </data>
-  <data name="CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName" xml:space="preserve">
+  <data name="CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName" xml:space="preserve">
     <value>Wis alle illustratiepunten...</value>
   </data>
-  <data name="CreateClearIllustrationPointsItem_Clear_IllustrationPoints" xml:space="preserve">
+  <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints" xml:space="preserve">
     <value>Wis alle berekende illustratiepunten.</value>
   </data>
   <data name="ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_" xml:space="preserve">
     <value>Weet u zeker dat u alle berekende illustratiepunten bij '{0}' wilt wissen?</value>
   </data>
-  <data name="CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear" xml:space="preserve">
+  <data name="CreateClearIllustrationPointsOfCalculationsItem_No_IllustrationPoints_to_clear" xml:space="preserve">
     <value>Er zijn geen berekeningen met illustratiepunten om te wissen.</value>
   </data>
   <data name="ClearIllustrationPointsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">

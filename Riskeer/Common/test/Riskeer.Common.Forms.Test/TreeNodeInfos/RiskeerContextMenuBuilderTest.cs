@@ -877,12 +877,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        #region AddClearIllustrationPointResultsItem
+        #region AddClearIllustrationPointsOfCalculationsItem
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddClearIllustrationPointResultsItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
+        public void AddClearIllustrationPointsOfCalculationsItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
         {
             // Setup
             var mocks = new MockRepository();
@@ -905,7 +905,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            riskeerContextMenuBuilder.AddClearIllustrationPointResultsItem(() => isEnabled, changeHandler);
+            riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationsItem(() => isEnabled, changeHandler);
 
             // Assert
             mocks.VerifyAll();

@@ -635,7 +635,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -684,7 +684,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -1056,7 +1056,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(failureMechanism, assessmentSection), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(failureMechanism, assessmentSection), changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -1105,8 +1105,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return builder.AddCustomItem(designWaterLevelItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
-                                                                changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
+                                                                        changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -1196,8 +1196,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return builder.AddCustomItem(waveHeightItem)
                           .AddSeparator()
-                          .AddClearIllustrationPointResultsItem(() => WaveHeightCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
-                                                                changeHandler)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => WaveHeightCalculationsHaveIllustrationPoints(failureMechanism, assessmentSection),
+                                                                        changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

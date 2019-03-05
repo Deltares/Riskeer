@@ -1039,27 +1039,28 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Wis alle berekende illustratiepunten..
         /// </summary>
-        public static string CreateClearIllustrationPointsItem_Clear_IllustrationPoints {
+        public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints {
             get {
-                return ResourceManager.GetString("CreateClearIllustrationPointsItem_Clear_IllustrationPoints", resourceCulture);
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Wis alle illustratiepunten....
         /// </summary>
-        public static string CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName {
+        public static string CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName {
             get {
-                return ResourceManager.GetString("CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName", resourceCulture);
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayNa" +
+                        "me", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen met illustratiepunten om te wissen..
         /// </summary>
-        public static string CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear {
+        public static string CreateClearIllustrationPointsOfCalculationsItem_No_IllustrationPoints_to_clear {
             get {
-                return ResourceManager.GetString("CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear", resourceCulture);
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationsItem_No_IllustrationPoints_to_clear", resourceCulture);
             }
         }
         

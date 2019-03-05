@@ -508,21 +508,22 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration point results.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration points for a
+        /// collection of calculations.
         /// </summary>
         /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
         /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateClearIllustrationPointsItem(Func<bool> isContextItemEnabledFunc,
-                                                                              IClearIllustrationPointsChangeHandler changeHandler)
+        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItem(Func<bool> isContextItemEnabledFunc,
+                                                                                            IClearIllustrationPointsChangeHandler changeHandler)
         {
             bool isEnabled = isContextItemEnabledFunc();
             string toolTip = isEnabled
-                                 ? Resources.CreateClearIllustrationPointsItem_Clear_IllustrationPoints
-                                 : Resources.CreateClearIllustrationPointsItem_No_IllustrationPoints_to_clear;
+                                 ? Resources.CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints
+                                 : Resources.CreateClearIllustrationPointsOfCalculationsItem_No_IllustrationPoints_to_clear;
 
             return new StrictContextMenuItem(
-                Resources.CreateClearIllustrationPointsItem_ClearIllustrationPoints_DisplayName,
+                Resources.CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName,
                 toolTip,
                 Resources.ClearIllustrationPointsIcon,
                 (o, args) =>

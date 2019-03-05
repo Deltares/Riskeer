@@ -1702,10 +1702,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        #region CreateClearIllustrationPointsItem
+        #region CreateClearIllustrationPointsOfCalculationsItem
 
         [Test]
-        public void CreateClearIllustrationPointsItem_Always_CreatesExpectedItem()
+        public void CreateClearIllustrationPointsOfCalculationsItem_Always_CreatesExpectedItem()
         {
             // Setup
             bool isEnabled = new Random(21).NextBoolean();
@@ -1715,8 +1715,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
-                                                                                                                  handler);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => isEnabled,
+                                                                                                                                handler);
 
             // Assert
             Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
@@ -1727,7 +1727,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateClearIllustrationPointsItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
+        public void CreateClearIllustrationPointsOfCalculationsItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1735,8 +1735,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => isEnabled,
-                                                                                                                  handler);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => isEnabled,
+                                                                                                                                handler);
 
             // Assert
             Assert.AreEqual(isEnabled, toolStripItem.Enabled);
@@ -1749,7 +1749,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenEnabledCreateClearIllustrationPointsItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationsItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
             // Given
             var mocks = new MockRepository();
@@ -1757,8 +1757,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             handler.Expect(h => h.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
 
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => true,
-                                                                                                                  handler);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => true,
+                                                                                                                                handler);
 
             // When
             toolStripItem.PerformClick();
@@ -1768,7 +1768,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenEnabledCreateClearIllustrationPointsItem_WhenClickPerformedAndActionContinued_ThenIllustrationPointsClearedAndObserversUpdated()
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationsItem_WhenClickPerformedAndActionContinued_ThenIllustrationPointsClearedAndObserversUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -1782,8 +1782,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             });
             mocks.ReplayAll();
 
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsItem(() => true,
-                                                                                                                  handler);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(() => true,
+                                                                                                                                handler);
 
             // When
             toolStripItem.PerformClick();
