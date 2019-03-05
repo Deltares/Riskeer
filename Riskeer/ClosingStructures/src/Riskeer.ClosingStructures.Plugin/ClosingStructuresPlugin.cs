@@ -392,12 +392,9 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-            var changeHandler = new ClearStructureCalculationsIllustrationPointsChangeHandler<ClosingStructuresInput, ClosingStructure>(
-                inquiryHelper, 
-                "Weet u zeker dat u alle illustratiepunten wilt wissen?",
-                closingStructuresFailureMechanismContext.WrappedData
-                                                        .Calculations
-                                                        .Cast<StructuresCalculation<ClosingStructuresInput>>());
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = closingStructuresFailureMechanismContext.WrappedData
+                                                                                                                              .Calculations
+                                                                                                                              .Cast<StructuresCalculation<ClosingStructuresInput>>();
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
 
@@ -415,21 +412,16 @@ namespace Riskeer.ClosingStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
-                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(closingStructuresFailureMechanismContext.WrappedData),
-                                                                changeHandler)
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(calculations),
+                                                                CreateChangeHandler(inquiryHelper,
+                                                                                    "Weet u zeker dat u alle illustratiepunten wilt wissen?",
+                                                                                    calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static bool HasIllustrationPoints(ClosingStructuresFailureMechanism failureMechanism)
-        {
-            return failureMechanism.Calculations
-                                   .Cast<StructuresCalculation<ClosingStructuresInput>>()
-                                   .Any(calc => calc.HasOutput && calc.Output.HasGeneralResult);
         }
 
         private void RemoveAllViewsForItem(ClosingStructuresFailureMechanismContext failureMechanismContext)
@@ -526,7 +518,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
             StructuresCalculation<ClosingStructuresInput>[] calculations = group
                                                                            .GetCalculations()
-                                                                           .OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+                                                                           .Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -567,7 +559,11 @@ namespace Riskeer.ClosingStructures.Plugin
                        CalculateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(calculations),
+                                                         CreateChangeHandler(inquiryHelper,
+                                                                             "Weet u zeker dat u alle illustratiepunten wilt wissen?",
+                                                                             calculations));
 
             if (isNestedGroup)
             {
@@ -863,6 +859,24 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 affectedObject.NotifyObservers();
             }
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private ClearStructureCalculationsIllustrationPointsChangeHandler<ClosingStructuresInput, ClosingStructure> CreateChangeHandler(
+            IInquiryHelper inquiryHelper,
+            string inquiry,
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
+        {
+            return new ClearStructureCalculationsIllustrationPointsChangeHandler<ClosingStructuresInput, ClosingStructure>(inquiryHelper, inquiry, calculations);
+        }
+
+        private static bool HasIllustrationPoints(IEnumerable<ICalculation> calculations)
+        {
+            return calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
+                               .Any(calc => calc.HasOutput && calc.Output.HasGeneralResult);
         }
 
         #endregion
