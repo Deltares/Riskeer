@@ -2215,7 +2215,7 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper,
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
@@ -2256,7 +2256,7 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper,
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
@@ -2314,7 +2314,7 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper,
                 RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
@@ -2356,7 +2356,7 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
-            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper,
                 RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(nodeData.AssessmentSection));
@@ -2390,7 +2390,7 @@ namespace Riskeer.Integration.Plugin
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
-            var changeHandler = new ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 inquiryHelper,
                 RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(nodeData.AssessmentSection));

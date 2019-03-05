@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Builders\FailureMechanismSectionResultViewColumnBuilderTest.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfCalculationCollectionChangeHandlerBaseTest.cs" />
-    <Compile Include="ChangeHandlers\ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandlerTest.cs" />
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\ClearStructureCalculationsIllustrationPointsChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandlerTest.cs" />

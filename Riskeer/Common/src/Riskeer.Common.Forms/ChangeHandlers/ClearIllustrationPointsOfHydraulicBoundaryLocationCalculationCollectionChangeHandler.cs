@@ -28,20 +28,21 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling hydraulic boundary location calculations when its illustration point results need to be cleared.
+    /// Class for handling collections of hydraulic boundary location calculations when its illustration point results need to be cleared.
     /// </summary>
-    public class ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
+    public class ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler 
+        : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
     {
         private readonly Func<IEnumerable<IObservable>> clearIllustrationPointsFunc;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler"/>.
+        /// Creates a new instance of <see cref="ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="collectionDescription">The description of the collection in which the illustration points results belong to.</param>
         /// <param name="clearIllustrationPointsFunc">The function to clear the illustration point results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler(IInquiryHelper inquiryHelper,
+        public ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
                                                                                          string collectionDescription,
                                                                                          Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
             : base(inquiryHelper,
