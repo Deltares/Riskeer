@@ -391,6 +391,14 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var changeHandler = new ClearStructureCalculationsIllustrationPointsChangeHandler<ClosingStructuresInput, ClosingStructure>(
+                inquiryHelper, 
+                "Weet u zeker dat u alle illustratiepunten wilt wissen?",
+                closingStructuresFailureMechanismContext.WrappedData
+                                                        .Calculations
+                                                        .Cast<StructuresCalculation<ClosingStructuresInput>>());
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
 
             return builder.AddOpenItem()
@@ -407,12 +415,21 @@ namespace Riskeer.ClosingStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
+                          .AddClearIllustrationPointResultsItem(() => HasIllustrationPoints(closingStructuresFailureMechanismContext.WrappedData),
+                                                                changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static bool HasIllustrationPoints(ClosingStructuresFailureMechanism failureMechanism)
+        {
+            return failureMechanism.Calculations
+                                   .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                   .Any(calc => calc.HasOutput && calc.Output.HasGeneralResult);
         }
 
         private void RemoveAllViewsForItem(ClosingStructuresFailureMechanismContext failureMechanismContext)
@@ -425,7 +442,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                           TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext,
-                                                                  treeViewControl));
+                                                                treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext,
                                                                     RemoveAllViewsForItem)
