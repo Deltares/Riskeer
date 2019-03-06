@@ -33,7 +33,7 @@ namespace Riskeer.Common.Util.Test
     public class IllustrationPointsHelperTest
     {
         [Test]
-        public void HasIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
+        public void HasIllustrationPoints_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints(null);
@@ -54,6 +54,54 @@ namespace Riskeer.Common.Util.Test
             // Assert
             Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
         }
+
+        [Test]
+        public void HasIllustrationPoints_StructureCalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints((IEnumerable<TestStructuresCalculation>) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetStructureCalculationCollections))]
+        public void HasIllustrationPoints_WithStructuresCalculations_ReturnsExpectedResult(IEnumerable<TestStructuresCalculation> calculations,
+                                                                                           bool expectedHasIllustrationPoints)
+        {
+            // Call
+            bool hasIllustrationPoints = IllustrationPointsHelper.HasIllustrationPoints(calculations);
+
+            // Assert
+            Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
+        }
+
+        [Test]
+        public void HasIllustrationPoints_StructureCalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints((TestStructuresCalculation) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetStructureCalculations))]
+        public void HasIllustrationPoints_WithStructuresCalculation_ReturnsExpectedResult(TestStructuresCalculation calculation,
+                                                                                          bool expectedHasIllustrationPoints)
+        {
+            // Call
+            bool hasIllustrationPoints = IllustrationPointsHelper.HasIllustrationPoints(calculation);
+
+            // Assert
+            Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
+        }
+
+        #region Test data
 
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
         {
@@ -88,10 +136,64 @@ namespace Riskeer.Common.Util.Test
 
             yield return new TestCaseData(new[]
             {
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()) 
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             }, false);
 
             yield return new TestCaseData(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), false);
         }
+
+        private static IEnumerable<TestCaseData> GetStructureCalculationCollections()
+        {
+            var calculationWithIllustrationPoints = new TestStructuresCalculation
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput1 = new TestStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithOutput2 = new TestStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            yield return new TestCaseData(new[]
+            {
+                calculationWithOutput1,
+                calculationWithIllustrationPoints,
+                calculationWithOutput2
+            }, true);
+
+            yield return new TestCaseData(new[]
+            {
+                calculationWithOutput1,
+                calculationWithOutput2
+            }, false);
+
+            yield return new TestCaseData(new[]
+            {
+                new TestStructuresCalculation()
+            }, false);
+
+            yield return new TestCaseData(Enumerable.Empty<TestStructuresCalculation>(), false);
+        }
+
+        private static IEnumerable<TestCaseData> GetStructureCalculations()
+        {
+            yield return new TestCaseData(new TestStructuresCalculation
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            }, true);
+
+            yield return new TestCaseData(new TestStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            }, false);
+
+            yield return new TestCaseData(new TestStructuresCalculation(), false);
+        }
+
+        #endregion
     }
 }

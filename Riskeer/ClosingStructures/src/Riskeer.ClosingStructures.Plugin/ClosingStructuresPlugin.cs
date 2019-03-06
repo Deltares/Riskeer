@@ -56,6 +56,7 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Service;
+using Riskeer.Common.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -412,7 +413,7 @@ namespace Riskeer.ClosingStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
-                          .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(calculations),
+                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
                                                                         CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -558,7 +559,7 @@ namespace Riskeer.ClosingStructures.Plugin
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsItem(() => HasIllustrationPoints(calculations),
+                   .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
                                                                  CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
@@ -760,7 +761,7 @@ namespace Riskeer.ClosingStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
-                          .AddClearIllustrationPointsOfCalculationItem(() => HasIllustrationPoints(calculation), changeHandler)
+                          .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -871,17 +872,6 @@ namespace Riskeer.ClosingStructures.Plugin
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<ClosingStructuresInput>(inquiryHelper, calculations);
-        }
-
-        private static bool HasIllustrationPoints(IEnumerable<ICalculation> calculations)
-        {
-            return calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
-                               .Any(HasIllustrationPoints);
-        }
-
-        private static bool HasIllustrationPoints(StructuresCalculation<ClosingStructuresInput> calculation)
-        {
-            return calculation.HasOutput && calculation.Output.HasGeneralResult;
         }
 
         #endregion

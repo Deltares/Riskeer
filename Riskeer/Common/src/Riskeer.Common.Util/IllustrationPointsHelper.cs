@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.Common.Util
 {
@@ -47,6 +48,44 @@ namespace Riskeer.Common.Util
             }
 
             return calculations.Any(calc => calc.HasOutput && calc.Output.HasGeneralResult);
+        }
+
+        /// <summary>
+        /// Determines whether a collection of <see cref="StructuresCalculation{T}"/> contain
+        /// calculations with illustration point results.
+        /// </summary>
+        /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
+        /// <param name="calculations">The calculations to check.</param>
+        /// <returns><c>true</c> if <paramref name="calculations"/> contain calculations with
+        /// illustration point results, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static bool HasIllustrationPoints<TStructureInput>(IEnumerable<StructuresCalculation<TStructureInput>> calculations)
+            where TStructureInput : IStructuresCalculationInput, new()
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            return calculations.Any(HasIllustrationPoints);
+        }
+
+        /// <summary>
+        /// Determines whether a <see cref="StructuresCalculation{T}"/> has illustration point results.
+        /// </summary>
+        /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
+        /// <param name="calculation">The calculation to check.</param>
+        /// <returns><c>true</c> if <paramref name="calculation"/> has illustration point results, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        public static bool HasIllustrationPoints<TStructureInput>(StructuresCalculation<TStructureInput> calculation)
+            where TStructureInput : IStructuresCalculationInput, new()
+        {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
+            return calculation.HasOutput && calculation.Output.HasGeneralResult;
         }
     }
 }
