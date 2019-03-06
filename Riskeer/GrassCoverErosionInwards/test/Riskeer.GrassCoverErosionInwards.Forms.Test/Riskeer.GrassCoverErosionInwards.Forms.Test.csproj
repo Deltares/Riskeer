@@ -24,6 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandlerTest.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsOutputContextTest.cs" />
@@ -111,10 +112,6 @@
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Riskeer.AssemblyTool.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
-      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
-      <Name>Riskeer.AssemblyTool.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
       <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
@@ -150,6 +147,10 @@
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Forms\Riskeer.GrassCoverErosionInwards.Forms.csproj">
       <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
       <Name>Riskeer.GrassCoverErosionInwards.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Service\Riskeer.GrassCoverErosionInwards.Service.csproj">
+      <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
+      <Name>Riskeer.GrassCoverErosionInwards.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>

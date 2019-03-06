@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialog.cs">
       <SubType>Form</SubType>
@@ -157,6 +158,11 @@
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
       <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Service\Riskeer.GrassCoverErosionInwards.Service.csproj">
+      <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
+      <Name>Riskeer.GrassCoverErosionInwards.Service</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Util\Riskeer.GrassCoverErosionInwards.Util.csproj">
