@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.Common.Data.IllustrationPoints;
+
 namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
@@ -31,7 +33,16 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
         /// Creates a new instance of <see cref="TestOvertoppingOutput"/>.
         /// </summary>
         /// <param name="reliability">The reliability to set to the output.</param>
-        public TestOvertoppingOutput(double reliability)
-            : base(1, true, reliability, null) {}
+        public TestOvertoppingOutput(double reliability) : this(reliability, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestOvertoppingOutput"/>.
+        /// </summary>
+        /// <param name="generalResult">The general result with the fault tree 
+        /// illustration points to set to this output.</param>
+        public TestOvertoppingOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult) : this(1, generalResult) {}
+
+        private TestOvertoppingOutput(double reliability, GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+            : base(1, true, reliability, generalResult) {}
     }
 }

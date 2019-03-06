@@ -93,5 +93,45 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
+
+        [Test]
+        public void ClearIllustrationPoints_AllPropertiesSet_IllustrationPointsCleared()
+        {
+            // Setup
+            var overtoppingOutput = new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            var dikeHeightOutput = new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            var overtoppingRateOutput = new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
+
+            // Call
+            output.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
+            Assert.IsNull(overtoppingOutput.GeneralResult);
+
+            Assert.AreSame(dikeHeightOutput, output.DikeHeightOutput);
+            Assert.IsNull(dikeHeightOutput.GeneralResult);
+
+            Assert.AreSame(overtoppingRateOutput, output.OvertoppingRateOutput);
+            Assert.IsNull(overtoppingRateOutput.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_NotAllPropertiesSet_IllustrationPointsCleared()
+        {
+            // Setup
+            var overtoppingOutput = new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
+
+            // Call
+            output.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
+            Assert.IsNull(overtoppingOutput.GeneralResult);
+        }
     }
 }

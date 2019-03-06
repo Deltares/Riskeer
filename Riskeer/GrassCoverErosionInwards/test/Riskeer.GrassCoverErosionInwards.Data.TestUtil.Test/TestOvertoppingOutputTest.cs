@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test
 {
@@ -27,7 +29,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test
     public class TestOvertoppingOutputTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithReliability_ExpectedValues()
         {
             // Setup
             const double reliability = 0.3;
@@ -38,11 +40,30 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<OvertoppingOutput>(output);
 
-            Assert.AreEqual(1.0, output.WaveHeight.Value);
+            Assert.AreEqual(1.0, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.AreEqual(reliability, output.Reliability);
 
             Assert.IsNull(output.GeneralResult);
+        }
+
+        [Test]
+        public void Constructor_WithGeneralResult_ExpectedValues()
+        {
+            // Setup
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            // Call
+            var output = new TestOvertoppingOutput(generalResult);
+
+            // Assert
+            Assert.IsInstanceOf<OvertoppingOutput>(output);
+
+            Assert.AreEqual(1.0, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.IsTrue(output.IsOvertoppingDominant);
+            Assert.AreEqual(1.0, output.Reliability);
+
+            Assert.AreSame(generalResult, output.GeneralResult);
         }
     }
 }

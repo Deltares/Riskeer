@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
@@ -98,6 +99,52 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResult()
+        {
+            // Setup
+            var random = new Random(21);
+            bool isOvertoppingDominant = random.NextBoolean();
+            double waveHeight = random.NextDouble();
+            double reliability = random.NextDouble();
+
+            var output = new OvertoppingOutput(waveHeight, isOvertoppingDominant, reliability, new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            output.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
+            Assert.AreEqual(reliability, output.Reliability);
+            Assert.IsTrue(output.HasWaveHeight);
+            Assert.IsNull(output.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_OutputWithoutGeneralResult_NothingHappens()
+        {
+            // Setup
+            var random = new Random(21);
+            bool isOvertoppingDominant = random.NextBoolean();
+            double waveHeight = random.NextDouble();
+            double reliability = random.NextDouble();
+
+            var output = new OvertoppingOutput(waveHeight, isOvertoppingDominant, reliability, null);
+
+            // Call
+            output.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
+            Assert.AreEqual(reliability, output.Reliability);
+            Assert.IsTrue(output.HasWaveHeight);
+            Assert.IsNull(output.GeneralResult);
         }
     }
 }

@@ -99,5 +99,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data
 
             return clone;
         }
+
+        /// <summary>
+        /// Clears the illustration points of the output.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            GeneralResult = null;
+        }
     }
 }

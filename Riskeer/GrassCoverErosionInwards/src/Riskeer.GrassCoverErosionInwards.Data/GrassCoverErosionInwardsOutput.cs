@@ -67,6 +67,16 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         public OvertoppingRateOutput OvertoppingRateOutput { get; private set; }
 
+        /// <summary>
+        /// Clears the illustration points the output.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            OvertoppingOutput.ClearIllustrationPoints();
+            DikeHeightOutput?.ClearIllustrationPoints();
+            OvertoppingRateOutput?.ClearIllustrationPoints();
+        }
+
         public override object Clone()
         {
             var clone = (GrassCoverErosionInwardsOutput) base.Clone();
