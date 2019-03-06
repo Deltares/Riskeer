@@ -262,6 +262,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
                                                                   "Wis illustratiepunten...",
                                                                   "Deze berekening heeft geen illustratiepunten om te wissen.",
@@ -391,7 +392,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -423,7 +424,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Output = new TestStructuresOutput()
             };
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1218,7 +1219,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1263,7 +1264,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
