@@ -127,33 +127,33 @@
     <value>Gras</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>h gr.Vv</value>
+    <value>h_Vv</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForLowerLimitNorm" xml:space="preserve">
-    <value>h gr.IVv</value>
+    <value>h_IVv</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>h gr.Iv</value>
+    <value>h_Iv</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>h gr.IIIv</value>
+    <value>h_IIIv</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>h gr.IIv</value>
+    <value>h_IIv</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>Hs gr.Vv</value>
+    <value>Hs_Vv</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForLowerLimitNorm" xml:space="preserve">
-    <value>Hs gr.IVv</value>
+    <value>Hs_IVv</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>Hs gr.Iv</value>
+    <value>Hs_Iv</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>Hs gr.IIIv</value>
+    <value>Hs_IIIv</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>Hs gr.IIv</value>
+    <value>Hs_IIv</value>
   </data>
 </root>
