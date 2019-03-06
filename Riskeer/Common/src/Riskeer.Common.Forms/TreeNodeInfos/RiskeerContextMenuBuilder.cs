@@ -332,6 +332,20 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/> which is bound to the action
+        /// of clearing illustration points from collections of calculations.
+        /// </summary>
+        /// <param name="isEnabledFunc">The function to determine whether this item should be enabled.</param>
+        /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
+        /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
+        public RiskeerContextMenuBuilder AddClearIllustrationPointsOfCalculationItem(Func<bool> isEnabledFunc, 
+                                                                                     IClearIllustrationPointsOfCalculationChangeHandler changeHandler)
+        {
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(isEnabledFunc, changeHandler));
+            return this;
+        }
+
         #region Decorated members
 
         /// <summary>

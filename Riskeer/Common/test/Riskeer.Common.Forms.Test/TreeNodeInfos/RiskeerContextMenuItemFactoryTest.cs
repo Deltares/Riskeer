@@ -1834,7 +1834,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(isEnabled, toolStripItem.Enabled);
 
             string expectedToolTipMessage = isEnabled
-                                                ? "Wis de berekende illustratiepunten."
+                                                ? "Wis de berekende illustratiepunten van deze berekening."
                                                 : "Deze berekening heeft geen illustratiepunten om te wissen.";
             Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
             mocks.VerifyAll();

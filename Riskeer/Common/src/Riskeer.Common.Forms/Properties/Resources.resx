@@ -1528,7 +1528,7 @@ berekende kans
     <value>Wis illustratiepunten...</value>
   </data>
   <data name="CreateClearIllustrationPointsOfCalculationItem_Clear_IllustrationPoints" xml:space="preserve">
-    <value>Wis de berekende illustratiepunten.</value>
+    <value>Wis de berekende illustratiepunten van deze berekening.</value>
   </data>
   <data name="CreateClearIllustrationPointsOfCalculationItem_No_IllustrationPoints_to_clear" xml:space="preserve">
     <value>Deze berekening heeft geen illustratiepunten om te wissen.</value>

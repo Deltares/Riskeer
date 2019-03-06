@@ -913,6 +913,42 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
+        #region AddClearIllustrationPointsOfCalculationsItem
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddClearIllustrationPointsOfCalculationItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
+            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
+                              .WhenCalled(arg =>
+                              {
+                                  string expectedToolTipMessage = isEnabled
+                                                                      ? "Wis de berekende illustratiepunten van deze berekening."
+                                                                      : "Deze berekening heeft geen illustratiepunten om te wissen.";
+
+                                  var contextMenuItem = (StrictContextMenuItem)arg.Arguments[0];
+                                  Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
+                                  Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
+                                  Assert.AreEqual(isEnabled, contextMenuItem.Enabled);
+                              });
+            mocks.ReplayAll();
+
+            var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            riskeerContextMenuBuilder.AddClearIllustrationPointsOfCalculationItem(() => isEnabled, changeHandler);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
         #region AddPerformCalculationItem
 
         [Test]
