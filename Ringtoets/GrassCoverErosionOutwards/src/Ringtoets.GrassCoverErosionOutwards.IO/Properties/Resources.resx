@@ -122,33 +122,33 @@
     <value>..\Resources\GEBUConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>h gr.V</value>
+    <value>h_V</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForLowerLimitNorm" xml:space="preserve">
-    <value>h gr.IV</value>
+    <value>h_IV</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>h gr.I</value>
+    <value>h_I</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>h gr.III</value>
+    <value>h_III</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>h gr.II</value>
+    <value>h_II</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>Hs gr.V</value>
+    <value>Hs_V</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForLowerLimitNorm" xml:space="preserve">
-    <value>Hs gr.IV</value>
+    <value>Hs_IV</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>Hs gr.I</value>
+    <value>Hs_I</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>Hs gr.III</value>
+    <value>Hs_III</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>Hs gr.II</value>
+    <value>Hs_II</value>
   </data>
 </root>
