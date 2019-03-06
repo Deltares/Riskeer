@@ -735,6 +735,10 @@ namespace Riskeer.ClosingStructures.Plugin
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
+
+            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler<ClosingStructuresInput>(inquiryHelper,
+                                                                                                                  calculation);
+
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, context)
@@ -756,6 +760,7 @@ namespace Riskeer.ClosingStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
+                          .AddClearIllustrationPointsOfCalculationItem(() => HasIllustrationPoints(calculation), changeHandler)
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -871,7 +876,12 @@ namespace Riskeer.ClosingStructures.Plugin
         private static bool HasIllustrationPoints(IEnumerable<ICalculation> calculations)
         {
             return calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
-                               .Any(calc => calc.HasOutput && calc.Output.HasGeneralResult);
+                               .Any(HasIllustrationPoints);
+        }
+
+        private static bool HasIllustrationPoints(StructuresCalculation<ClosingStructuresInput> calculation)
+        {
+            return calculation.HasOutput && calculation.Output.HasGeneralResult;
         }
 
         #endregion
