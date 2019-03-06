@@ -48,6 +48,7 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Service;
+using Riskeer.Common.Util;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PropertyClasses;
@@ -413,6 +414,11 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = context.WrappedData
+                                                                                            .Calculations
+                                                                                            .Cast<StructuresCalculation<HeightStructuresInput>>();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
@@ -429,6 +435,8 @@ namespace Riskeer.HeightStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
+                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                                                                        CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -859,6 +867,17 @@ namespace Riskeer.HeightStructures.Plugin
                 affectedObject.NotifyObservers();
             }
         }
+
+        #region Helpers
+
+        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<HeightStructuresInput> CreateChangeHandler(
+            IInquiryHelper inquiryHelper,
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
+        {
+            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<HeightStructuresInput>(inquiryHelper, calculations);
+        }
+
+        #endregion
 
         #endregion
 
