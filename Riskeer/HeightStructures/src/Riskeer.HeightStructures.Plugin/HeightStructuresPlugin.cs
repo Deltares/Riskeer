@@ -572,7 +572,9 @@ namespace Riskeer.HeightStructures.Plugin
                        CalculateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                                                                 CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
