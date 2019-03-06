@@ -74,6 +74,14 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public Comment Comments { get; private set; }
 
         /// <summary>
+        /// Clears the calculated illustration points.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            Output?.ClearIllustrationPoints();
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>The name of this calculation.</returns>

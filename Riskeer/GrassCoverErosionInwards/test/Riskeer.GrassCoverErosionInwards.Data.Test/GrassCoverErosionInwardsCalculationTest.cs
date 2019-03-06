@@ -169,6 +169,42 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
 
+        [Test]
+        public void ClearIllustrationPoints_CalculationWithOutput_ClearsIllustrationPointResult()
+        {
+            // Setup
+            var originalOutput = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()), 
+                new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()), 
+                new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = originalOutput
+            };
+
+            // Call
+            calculation.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreSame(originalOutput, calculation.Output);
+            Assert.IsNull(originalOutput.OvertoppingOutput.GeneralResult);
+            Assert.IsNull(originalOutput.DikeHeightOutput.GeneralResult);
+            Assert.IsNull(originalOutput.OvertoppingRateOutput.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_CalculationWithoutOutput_NothingHappens()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            TestDelegate call = () => calculation.ClearIllustrationPoints();
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
         private static GrassCoverErosionInwardsCalculation CreateRandomCalculationWithoutOutput()
         {
             var calculation = new GrassCoverErosionInwardsCalculation
