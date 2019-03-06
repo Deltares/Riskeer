@@ -93,7 +93,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GEBUConfiguratieSchema {
             get {
@@ -102,7 +103,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h gr.V.
+        ///   Looks up a localized string similar to h_V.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {
             get {
@@ -111,7 +112,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h gr.IV.
+        ///   Looks up a localized string similar to h_IV.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForLowerLimitNorm {
             get {
@@ -120,7 +121,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h gr.I.
+        ///   Looks up a localized string similar to h_I.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -129,7 +130,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h gr.III.
+        ///   Looks up a localized string similar to h_III.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm {
             get {
@@ -138,7 +139,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h gr.II.
+        ///   Looks up a localized string similar to h_II.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm {
             get {
@@ -147,7 +148,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs gr.V.
+        ///   Looks up a localized string similar to Hs_V.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm {
             get {
@@ -156,7 +157,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs gr.IV.
+        ///   Looks up a localized string similar to Hs_IV.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForLowerLimitNorm {
             get {
@@ -165,7 +166,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs gr.I.
+        ///   Looks up a localized string similar to Hs_I.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -174,7 +175,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs gr.III.
+        ///   Looks up a localized string similar to Hs_III.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm {
             get {
@@ -183,7 +184,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs gr.II.
+        ///   Looks up a localized string similar to Hs_II.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm {
             get {
