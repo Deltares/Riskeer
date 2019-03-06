@@ -113,6 +113,32 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
+        /// Clears the illustration points of the provided grass cover erosion inwards calculations.
+        /// </summary>
+        /// <param name="calculations">The calculations for which the illustration points need to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearIllustrationPoints(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            var affectedObjects = new List<IObservable>();
+            foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
+            {
+                if (calculation.HasOutput && HasIllustrationPoints(calculation.Output))
+                {
+                    affectedObjects.Add(calculation);
+                    calculation.ClearIllustrationPoints();
+                }
+            }
+
+            return affectedObjects;
+        }
+
+        /// <summary>
         /// Clears all data dependent, either directly or indirectly, on the parent reference line.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to be cleared.</param>
@@ -288,6 +314,23 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
 
             return Enumerable.Empty<IObservable>();
+        }
+
+        private static bool HasIllustrationPoints(GrassCoverErosionInwardsOutput output)
+        {
+            return output.OvertoppingOutput.HasGeneralResult
+                   || HasDikeHeightOutputWithIllustrationPoints(output)
+                   || HasOverToppingRateOutputWithIllustrationPoints(output);
+        }
+
+        private static bool HasOverToppingRateOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
+        {
+            return output.OvertoppingRateOutput != null && output.OvertoppingRateOutput.HasGeneralResult;
+        }
+
+        private static bool HasDikeHeightOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
+        {
+            return output.DikeHeightOutput != null && output.DikeHeightOutput.HasGeneralResult;
         }
     }
 }

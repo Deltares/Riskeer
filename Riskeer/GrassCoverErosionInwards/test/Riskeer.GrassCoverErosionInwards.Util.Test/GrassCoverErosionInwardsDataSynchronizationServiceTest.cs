@@ -30,6 +30,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
@@ -162,6 +163,94 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
                                            affectedItems);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsDataSynchronizationService.ClearIllustrationPoints(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_CalculationsWithAndWithoutIllustrationPoints_ReturnsAffectedObjects()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var overtoppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                                                             null,
+                                                                                             null);
+            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = overtoppingOutputWithIllustrationPoints
+            };
+
+            var dikeHeightOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+                                                                                            new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                                                            null);
+            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = dikeHeightOutputWithIllustrationPoints
+            };
+
+            var overtoppingRateOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+                                                                                                 null,
+                                                                                                 new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = overtoppingRateOutputWithIllustrationPoints
+            };
+
+            var outputWithNoIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+                                                                                    null,
+                                                                                    null);
+            var calculationWitNoIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = outputWithNoIllustrationPoints
+            };
+
+            GrassCoverErosionInwardsCalculation[] calculations =
+            {
+                calculationWitNoIllustrationPoints,
+                calculationWithOverToppingOutputWithIllustrationPoints,
+                calculationWithOvertoppingRateWithIllustrationPoints,
+                calculationWithDikeHeightRateWithIllustrationPoints,
+                new GrassCoverErosionInwardsCalculation()
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = GrassCoverErosionInwardsDataSynchronizationService.ClearIllustrationPoints(calculations);
+
+            // Assert
+            CollectionAssert.AreEquivalent(new[]
+            {
+                calculationWithOverToppingOutputWithIllustrationPoints,
+                calculationWithOvertoppingRateWithIllustrationPoints,
+                calculationWithDikeHeightRateWithIllustrationPoints
+            }, affectedObjects);
+
+            GrassCoverErosionInwardsCalculation[] calculationsWithOutput =
+            {
+                calculationWitNoIllustrationPoints,
+                calculationWithOverToppingOutputWithIllustrationPoints,
+                calculationWithOvertoppingRateWithIllustrationPoints,
+                calculationWithDikeHeightRateWithIllustrationPoints
+            };
+            Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(calculationsWithOutput.All(calc =>
+            {
+                GrassCoverErosionInwardsOutput output = calc.Output;
+
+                return !output.OvertoppingOutput.HasGeneralResult
+                       && output.DikeHeightOutput?.GeneralResult == null
+                       && output.OvertoppingRateOutput?.GeneralResult == null;
+            }));
         }
 
         [Test]
