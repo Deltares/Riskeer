@@ -262,7 +262,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                   "Deze berekening heeft geen uitvoer om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
                                                                   "Wis illustratiepunten...",
                                                                   "Deze berekening heeft geen illustratiepunten om te wissen.",

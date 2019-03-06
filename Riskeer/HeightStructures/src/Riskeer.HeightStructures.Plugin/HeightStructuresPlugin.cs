@@ -745,10 +745,13 @@ namespace Riskeer.HeightStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
+            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler<HeightStructuresInput>(inquiryHelper,
+                                                                                                                 calculation);
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, context)
@@ -770,6 +773,7 @@ namespace Riskeer.HeightStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
+                          .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
