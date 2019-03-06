@@ -812,7 +812,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             var calculationWithIllustrationPoints = new TestHeightStructuresCalculation
             {
@@ -862,7 +862,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             var calculationWithOutput = new TestHeightStructuresCalculation
             {
@@ -984,7 +984,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             calculationWithIllustrationPoints.Attach(calculationObserver);
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             var nodeData = new HeightStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
@@ -1049,7 +1049,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             calculationWithOutput.Attach(unaffectedCalculationObserver);
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             var nodeData = new HeightStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 

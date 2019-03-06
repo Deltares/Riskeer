@@ -686,7 +686,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var calculationWithIllustrationPoints = new TestClosingStructuresCalculation
             {
@@ -713,7 +713,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
@@ -736,7 +735,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var calculationWithOutput = new TestClosingStructuresCalculation
             {
@@ -757,7 +756,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
@@ -858,7 +856,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculationWithIllustrationPoints.Attach(calculationObserver);
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var nodeData = new ClosingStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
@@ -923,7 +921,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculationWithOutput.Attach(unaffectedCalculationObserver);
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var nodeData = new ClosingStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
