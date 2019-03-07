@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{886FDBE5-7065-4AB9-A894-869DBFD4E440}</ProjectGuid>
@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\FailureMechanismSectionResultViewColumnBuilderTest.cs" />
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfCalculationChangeHandlerBaseTest.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfCalculationCollectionChangeHandlerBaseTest.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfStructuresCalculationHandlerTest.cs" />

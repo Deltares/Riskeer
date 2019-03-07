@@ -193,7 +193,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
             var dikeHeightOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                                                             new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                                                             null);
-            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithDikeHeightWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
             {
                 Output = dikeHeightOutputWithIllustrationPoints
             };
@@ -219,7 +219,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
                 calculationWitNoIllustrationPoints,
                 calculationWithOverToppingOutputWithIllustrationPoints,
                 calculationWithOvertoppingRateWithIllustrationPoints,
-                calculationWithDikeHeightRateWithIllustrationPoints,
+                calculationWithDikeHeightWithIllustrationPoints,
                 new GrassCoverErosionInwardsCalculation()
             };
 
@@ -231,7 +231,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
             {
                 calculationWithOverToppingOutputWithIllustrationPoints,
                 calculationWithOvertoppingRateWithIllustrationPoints,
-                calculationWithDikeHeightRateWithIllustrationPoints
+                calculationWithDikeHeightWithIllustrationPoints
             }, affectedObjects);
 
             GrassCoverErosionInwardsCalculation[] calculationsWithOutput =
@@ -239,7 +239,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
                 calculationWitNoIllustrationPoints,
                 calculationWithOverToppingOutputWithIllustrationPoints,
                 calculationWithOvertoppingRateWithIllustrationPoints,
-                calculationWithDikeHeightRateWithIllustrationPoints
+                calculationWithDikeHeightWithIllustrationPoints
             };
             Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
 

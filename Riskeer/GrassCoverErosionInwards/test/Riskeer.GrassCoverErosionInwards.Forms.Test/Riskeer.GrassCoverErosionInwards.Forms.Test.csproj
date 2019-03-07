@@ -24,6 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandlerTest.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialogTest.cs" />
