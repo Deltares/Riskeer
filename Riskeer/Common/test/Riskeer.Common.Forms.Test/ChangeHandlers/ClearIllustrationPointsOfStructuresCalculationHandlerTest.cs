@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -34,36 +35,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
     [TestFixture]
     public class ClearIllustrationPointsOfStructuresCalculationHandlerTest
     {
-        [Test]
-        public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ClearIllustrationPointsOfStructuresCalculationHandler<TestStructuresInput>(null,
-                                                                                                                     new TestStructuresCalculation());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("inquiryHelper", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new ClearIllustrationPointsOfStructuresCalculationHandler<TestStructuresInput>(inquiryHelper,
-                                                                                                                     null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
         {
@@ -78,33 +49,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var handler = new ClearIllustrationPointsOfStructuresCalculationHandler<TestStructuresInput>(inquiryHelper, calculation);
 
             // Assert
-            Assert.IsInstanceOf<IClearIllustrationPointsOfCalculationChangeHandler>(handler);
+            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<StructuresCalculation<TestStructuresInput>>>(handler);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void InquireConfirmation_Always_DisplaysInquiryAndReturnsConfirmation(bool expectedConfirmation)
-        {
-            // Setup
-            const string expectedInquiry = "Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?";
-
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation(expectedInquiry)).Return(expectedConfirmation);
-            mocks.ReplayAll();
-
-            var calculation = new TestStructuresCalculation();
-
-            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler<TestStructuresInput>(inquiryHelper, calculation);
-
-            // Call
-            bool confirmation = handler.InquireConfirmation();
-
-            // Assert
-            Assert.AreEqual(expectedConfirmation, confirmation);
-            mocks.ReplayAll();
         }
 
         [Test]
@@ -133,28 +79,6 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             {
                 Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
-        }
-
-        [Test]
-        public void DoPostUpdateActions_Always_NotifiesCalculationObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var calculation = new TestStructuresCalculation();
-            calculation.Attach(observer);
-
-            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler<TestStructuresInput>(inquiryHelper, calculation);
-
-            // Call
-            handler.DoPostUpdateActions();
-
-            // Assert
-            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()

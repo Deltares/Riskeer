@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Gui;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
@@ -30,12 +29,10 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// Class for handling clearing illustration point results of a single structures calculation.
     /// </summary>
     /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
-    public class ClearIllustrationPointsOfStructuresCalculationHandler<TStructureInput> : IClearIllustrationPointsOfCalculationChangeHandler
+    public class ClearIllustrationPointsOfStructuresCalculationHandler<TStructureInput>
+        : ClearIllustrationPointsOfCalculationChangeHandlerBase<StructuresCalculation<TStructureInput>>
         where TStructureInput : IStructuresCalculationInput, new()
     {
-        private readonly IInquiryHelper inquiryHelper;
-        private readonly StructuresCalculation<TStructureInput> calculation;
-
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructuresCalculationHandler{TStructureInput}"/>.
         /// </summary>
@@ -44,40 +41,17 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfStructuresCalculationHandler(IInquiryHelper inquiryHelper,
                                                                      StructuresCalculation<TStructureInput> calculation)
+            : base(inquiryHelper, calculation) {}
+
+        public override bool ClearIllustrationPoints()
         {
-            if (inquiryHelper == null)
+            if (Calculation.HasOutput && Calculation.Output.HasGeneralResult)
             {
-                throw new ArgumentNullException(nameof(inquiryHelper));
-            }
-
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            this.inquiryHelper = inquiryHelper;
-            this.calculation = calculation;
-        }
-
-        public bool InquireConfirmation()
-        {
-            return inquiryHelper.InquireContinuation(Resources.ClearIllustrationPointsOfCalculation_InquireConfirmation);
-        }
-
-        public bool ClearIllustrationPoints()
-        {
-            if (calculation.HasOutput && calculation.Output.HasGeneralResult)
-            {
-                calculation.ClearIllustrationPoints();
+                Calculation.ClearIllustrationPoints();
                 return true;
             }
 
             return false;
-        }
-
-        public void DoPostUpdateActions()
-        {
-            calculation.NotifyObservers();
         }
     }
 }
