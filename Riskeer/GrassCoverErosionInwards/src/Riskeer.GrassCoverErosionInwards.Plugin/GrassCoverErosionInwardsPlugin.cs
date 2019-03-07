@@ -665,7 +665,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
@@ -676,6 +675,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                         .ToArray();
             StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(calculations);
 
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             builder.AddImportItem()
                    .AddExportItem()
                    .AddSeparator();
@@ -712,7 +715,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        CalculateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
-                   .AddClearAllCalculationOutputInGroupItem(group);
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddClearIllustrationPointsOfCalculationsItem(() => calculations.Any(GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints),
+                                                                 changeHandler);
 
             if (isNestedGroup)
             {
