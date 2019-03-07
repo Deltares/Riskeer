@@ -808,6 +808,61 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfilesClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
+        {
+            // Given
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
+            calculationInputObserver.Expect(o => o.UpdateObserver());
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            var failureMechanism = new TestHeightStructuresFailureMechanism();
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                }
+            };
+
+            var nodeData = new HeightStructuresCalculationGroupContext(
+                new CalculationGroup
+                {
+                    Children =
+                    {
+                        calculation
+                    }
+                },
+                null,
+                failureMechanism,
+                assessmentSection);
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                calculation.InputParameters.UseBreakWater = false;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_CalculationGroupWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
         {
             // Setup
@@ -902,61 +957,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateForeshoreProfilesClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
-        {
-            // Given
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-            calculationInputObserver.Expect(o => o.UpdateObserver());
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new TestHeightStructuresFailureMechanism();
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile(true)
-                }
-            };
-
-            var nodeData = new HeightStructuresCalculationGroupContext(
-                new CalculationGroup
-                {
-                    Children =
-                    {
-                        calculation
-                    }
-                },
-                null,
-                failureMechanism,
-                assessmentSection);
-
-            calculation.Attach(calculationObserver);
-            calculation.InputParameters.Attach(calculationInputObserver);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                calculation.InputParameters.UseBreakWater = false;
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // When
-                    contextMenuStrip.Items[contextMenuUpdateForeshoreProfileIndexRootGroup].PerformClick();
-
-                    // Then
-                    Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
-                }
-            }
-        }
-
-        [Test]
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
@@ -1012,6 +1012,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
                     Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
@@ -1077,6 +1079,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
                     Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }

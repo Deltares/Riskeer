@@ -778,100 +778,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationGroupWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
-            {
-                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
-            };
-
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationWithIllustrationPoints,
-                    calculationWithOutput,
-                    new TestStabilityPointStructuresCalculation()
-                }
-            };
-
-            var nodeData = new StabilityPointStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndexRootGroup];
-
-                    // Assert
-                    Assert.IsTrue(toolStripItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_CalculationGroupWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationWithOutput,
-                    new TestStabilityPointStructuresCalculation()
-                }
-            };
-
-            var nodeData = new StabilityPointStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndexRootGroup];
-
-                    // Assert
-                    Assert.IsFalse(toolStripItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructuresClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
@@ -1239,6 +1145,100 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_CalculationGroupWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithIllustrationPoints,
+                    calculationWithOutput,
+                    new TestStabilityPointStructuresCalculation()
+                }
+            };
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndexRootGroup];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_CalculationGroupWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculationWithOutput,
+                    new TestStabilityPointStructuresCalculation()
+                }
+            };
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndexRootGroup];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
@@ -1294,6 +1294,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
                     Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
@@ -1359,6 +1361,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
                     Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
