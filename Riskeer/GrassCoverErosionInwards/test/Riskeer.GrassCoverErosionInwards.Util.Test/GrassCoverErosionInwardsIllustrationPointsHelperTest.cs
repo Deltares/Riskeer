@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -32,10 +33,34 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
     public class GrassCoverErosionInwardsIllustrationPointsHelperTest
     {
         [Test]
+        public void HasIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints((IEnumerable<GrassCoverErosionInwardsCalculation>) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculationCollectionConfigurations))]
+        public void HasIllustrationPoints_WithVariousCalculationCollectionConfigurations_ReturnsExpectedResults(
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
+            bool expectedHasIllustrationPoints)
+        {
+            // Call
+            bool hasIllustrationPoints = GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations);
+
+            // Assert
+            Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
+        }
+
+        [Test]
         public void HasIllustrationPoints_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(null);
+            TestDelegate call = () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints((GrassCoverErosionInwardsCalculation) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,6 +78,24 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
 
             // Assert
             Assert.AreEqual(expectedHasIllustrationPoints, hasIllustrationPoints);
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculationCollectionConfigurations()
+        {
+            foreach (TestCaseData configuration in GetCalculationConfigurations())
+            {
+                yield return new TestCaseData(new[]
+                {
+                    new GrassCoverErosionInwardsCalculation(),
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Output = new TestGrassCoverErosionInwardsOutput()
+                    },
+                    (GrassCoverErosionInwardsCalculation) configuration.Arguments[0]
+                }, configuration.Arguments[1]);
+            }
+
+            yield return new TestCaseData(Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), false);
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()

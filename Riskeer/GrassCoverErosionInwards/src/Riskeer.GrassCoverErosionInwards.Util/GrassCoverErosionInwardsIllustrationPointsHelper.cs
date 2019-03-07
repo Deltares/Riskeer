@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Util
@@ -43,6 +45,24 @@ namespace Riskeer.GrassCoverErosionInwards.Util
             }
 
             return calculation.HasOutput && HasIllustrationPoints(calculation.Output);
+        }
+
+        /// <summary>
+        /// Determines whether a collection of <see cref="GrassCoverErosionInwardsCalculation"/> contain
+        /// calculations with illustration point results.
+        /// </summary>
+        /// <param name="calculations">The calculations to check.</param>
+        /// <returns><c>true</c> if <paramref name="calculations"/> contain calculations with
+        /// illustration point results, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static bool HasIllustrationPoints(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            return calculations.Any(HasIllustrationPoints);
         }
 
         private static bool HasIllustrationPoints(GrassCoverErosionInwardsOutput output)
