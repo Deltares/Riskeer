@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.Common.Data.IllustrationPoints;
+
 namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
@@ -33,5 +35,15 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
         public TestGrassCoverErosionInwardsOutput() : base(new TestOvertoppingOutput(0),
                                                            new TestDikeHeightOutput(0),
                                                            new TestOvertoppingRateOutput(0)) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestGrassCoverErosionInwardsOutput"/> with illustration
+        /// point results provided by the <param name="generalResult">.</param>
+        /// </summary>
+        /// <param name="generalResult">The illustration points to set.</param>
+        public TestGrassCoverErosionInwardsOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+            : base(new TestOvertoppingOutput(generalResult),
+                   new TestDikeHeightOutput(generalResult),
+                   new TestOvertoppingRateOutput(generalResult)) {}
     }
 }

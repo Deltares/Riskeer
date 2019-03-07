@@ -46,6 +46,7 @@ using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms;
+using Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
@@ -883,12 +884,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
+            var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(inquiryHelper,
+                                                                                                              calculation);
 
             StrictContextMenuItem updateDikeProfile = CreateUpdateDikeProfileItem(context);
 
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddDuplicateCalculationItem(calculation, context)
@@ -907,6 +910,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
+                          .AddClearIllustrationPointsOfCalculationItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation),
+                                                                       changeHandler)
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()

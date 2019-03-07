@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test
 {
@@ -40,6 +41,29 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil.Test
             Assert.AreEqual((RoundedDouble) 0, output.DikeHeightOutput.DikeHeight);
             Assert.IsInstanceOf<TestOvertoppingRateOutput>(output.OvertoppingRateOutput);
             Assert.AreEqual((RoundedDouble) 0, output.OvertoppingRateOutput.OvertoppingRate);
+        }
+
+        [Test]
+        public void Constructor_WithArgument_ExpectedValues()
+        {
+            // Setup
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            // Call
+            var output = new TestGrassCoverErosionInwardsOutput(generalResult);
+
+            // Assert
+            Assert.IsInstanceOf<GrassCoverErosionInwardsOutput>(output);
+            Assert.IsInstanceOf<TestOvertoppingOutput>(output.OvertoppingOutput);
+            Assert.AreSame(generalResult, output.OvertoppingOutput.GeneralResult);
+
+            Assert.IsInstanceOf<TestDikeHeightOutput>(output.DikeHeightOutput);
+            Assert.IsNaN(output.DikeHeightOutput.DikeHeight);
+            Assert.AreSame(generalResult, output.DikeHeightOutput.GeneralResult);
+
+            Assert.IsInstanceOf<TestOvertoppingRateOutput>(output.OvertoppingRateOutput);
+            Assert.IsNaN(output.OvertoppingRateOutput.OvertoppingRate);
+            Assert.AreSame(generalResult, output.OvertoppingRateOutput.GeneralResult);
         }
     }
 }
