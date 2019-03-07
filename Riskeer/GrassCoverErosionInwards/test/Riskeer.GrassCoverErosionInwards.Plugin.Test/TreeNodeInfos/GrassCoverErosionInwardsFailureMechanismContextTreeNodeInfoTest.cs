@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -33,18 +35,19 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
@@ -61,6 +64,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuValidateAllIndex = 4;
         private const int contextMenuCalculateAllIndex = 5;
         private const int contextMenuClearAllIndex = 7;
+        private const int contextMenuClearIllustrationPointsIndex = 8;
+
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
 
         private MockRepository mocksRepository;
@@ -202,6 +207,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
@@ -214,6 +220,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -253,6 +260,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -280,6 +288,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -288,7 +297,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(13, menu.Items.Count);
+                    Assert.AreEqual(14, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   "I&s relevant",
@@ -312,6 +321,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIcon,
                                                                   false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
+                                                                  "Wis alle illustratiepunten...",
+                                                                  "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                                  RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                  false);
                 }
             }
         }
@@ -334,6 +349,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -369,6 +385,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -404,6 +421,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -434,6 +452,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -467,6 +486,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -511,6 +531,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -543,6 +564,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -576,6 +598,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -620,6 +643,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -682,6 +706,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
@@ -777,6 +802,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -799,6 +825,244 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             }
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetCalculationConfigurationsWithIllustrationPoints))]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled(
+            GrassCoverErosionInwardsCalculation calculation)
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
+
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculation,
+                        calculationWithOutput,
+                        new GrassCoverErosionInwardsCalculation()
+                    }
+                }
+            };
+
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
+
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        new GrassCoverErosionInwardsCalculation()
+                    }
+                }
+            };
+
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
+        {
+            // Given
+            var calculationWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+
+            var calculationObserver = mocksRepository.StrictMock<IObserver>();
+            calculationWithIllustrationPoints.Attach(calculationObserver);
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new GrassCoverErosionInwardsCalculation()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
+
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+
+                    GrassCoverErosionInwardsOutput output = calculationWithIllustrationPoints.Output;
+                    Assert.IsTrue(output.OvertoppingOutput.HasGeneralResult);
+                    Assert.IsTrue(output.DikeHeightOutput.HasGeneralResult);
+                    Assert.IsTrue(output.OvertoppingRateOutput.HasGeneralResult);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
+        {
+            // Given
+            var calculationWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+
+            var affectedCalculationObserver = mocksRepository.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationWithIllustrationPoints.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocksRepository.StrictMock<IObserver>();
+            calculationWithOutput.Attach(unaffectedCalculationObserver);
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new GrassCoverErosionInwardsCalculation()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenuStrip.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+
+                    GrassCoverErosionInwardsOutput output = calculationWithIllustrationPoints.Output;
+                    Assert.IsFalse(output.OvertoppingOutput.HasGeneralResult);
+                    Assert.IsFalse(output.DikeHeightOutput.HasGeneralResult);
+                    Assert.IsFalse(output.OvertoppingRateOutput.HasGeneralResult);
+                }
+            }
+        }
+
         public override void Setup()
         {
             mocksRepository = new MockRepository();
@@ -812,6 +1076,35 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocksRepository.VerifyAll();
 
             base.TearDown();
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculationConfigurationsWithIllustrationPoints()
+        {
+            var random = new Random(21);
+            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                            null,
+                                                            null)
+            };
+
+            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+                                                            new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                            null)
+            };
+
+            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+                                                            null,
+                                                            new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()))
+            };
+
+            yield return new TestCaseData(calculationWithOverToppingOutputWithIllustrationPoints);
+            yield return new TestCaseData(calculationWithDikeHeightRateWithIllustrationPoints);
+            yield return new TestCaseData(calculationWithOvertoppingRateWithIllustrationPoints);
         }
     }
 }

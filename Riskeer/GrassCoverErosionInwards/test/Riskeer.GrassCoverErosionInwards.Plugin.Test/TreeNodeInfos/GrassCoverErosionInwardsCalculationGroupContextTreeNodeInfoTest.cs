@@ -1410,7 +1410,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
 
                     Assert.IsTrue(calculationWithOutput.HasOutput);
-                    
+
                     GrassCoverErosionInwardsOutput output = calculationWithIllustrationPoints.Output;
                     Assert.IsTrue(output.OvertoppingOutput.HasGeneralResult);
                     Assert.IsTrue(output.DikeHeightOutput.HasGeneralResult);

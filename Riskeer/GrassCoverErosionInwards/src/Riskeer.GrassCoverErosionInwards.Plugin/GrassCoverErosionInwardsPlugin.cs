@@ -514,6 +514,17 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #endregion
 
+        #region Helpers
+
+        private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateChangeHandler(
+            DialogBasedInquiryHelper inquiryHelper,
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        {
+            return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
+        }
+
+        #endregion
+
         #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
         private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -563,8 +574,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
+            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations = grassCoverErosionInwardsFailureMechanismContext.WrappedData
+                                                                                                                           .Calculations
+                                                                                                                           .Cast<GrassCoverErosionInwardsCalculation>();
 
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
             return builder
                    .AddOpenItem()
                    .AddSeparator()
@@ -580,6 +595,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                   .AddClearIllustrationPointsOfCalculationsItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
+                                                                 CreateChangeHandler(inquiryHelper, calculations))
                    .AddSeparator()
                    .AddCollapseAllItem()
                    .AddExpandAllItem()
@@ -676,7 +693,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(calculations);
 
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-            var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             builder.AddImportItem()
@@ -717,7 +733,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                 changeHandler);
+                                                                 CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
