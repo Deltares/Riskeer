@@ -23,6 +23,7 @@ using System;
 using Core.Common.Gui;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Util;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
 {
@@ -44,30 +45,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
 
         public override bool ClearIllustrationPoints()
         {
-            if (Calculation.HasOutput && HasIllustrationPoints(Calculation.Output))
+            if (GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(Calculation))
             {
                 Calculation.ClearIllustrationPoints();
                 return true;
             }
 
             return false;
-        }
-
-        private static bool HasIllustrationPoints(GrassCoverErosionInwardsOutput output)
-        {
-            return output.OvertoppingOutput.HasGeneralResult
-                   || HasDikeHeightOutputWithIllustrationPoints(output)
-                   || HasOverToppingRateOutputWithIllustrationPoints(output);
-        }
-
-        private static bool HasOverToppingRateOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
-        {
-            return output.OvertoppingRateOutput != null && output.OvertoppingRateOutput.HasGeneralResult;
-        }
-
-        private static bool HasDikeHeightOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
-        {
-            return output.DikeHeightOutput != null && output.DikeHeightOutput.HasGeneralResult;
         }
     }
 }

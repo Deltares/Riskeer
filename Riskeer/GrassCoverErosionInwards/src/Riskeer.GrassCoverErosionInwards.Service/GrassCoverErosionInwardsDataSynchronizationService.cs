@@ -128,7 +128,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             var affectedObjects = new List<IObservable>();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
             {
-                if (calculation.HasOutput && HasIllustrationPoints(calculation.Output))
+                if (GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation))
                 {
                     affectedObjects.Add(calculation);
                     calculation.ClearIllustrationPoints();
@@ -314,23 +314,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             }
 
             return Enumerable.Empty<IObservable>();
-        }
-
-        private static bool HasIllustrationPoints(GrassCoverErosionInwardsOutput output)
-        {
-            return output.OvertoppingOutput.HasGeneralResult
-                   || HasDikeHeightOutputWithIllustrationPoints(output)
-                   || HasOverToppingRateOutputWithIllustrationPoints(output);
-        }
-
-        private static bool HasOverToppingRateOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
-        {
-            return output.OvertoppingRateOutput != null && output.OvertoppingRateOutput.HasGeneralResult;
-        }
-
-        private static bool HasDikeHeightOutputWithIllustrationPoints(GrassCoverErosionInwardsOutput output)
-        {
-            return output.DikeHeightOutput != null && output.DikeHeightOutput.HasGeneralResult;
         }
     }
 }
