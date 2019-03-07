@@ -624,104 +624,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
-        {
-            // Setup
-            var calculationWithIllustrationPoints = new TestHeightStructuresCalculation
-            {
-                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
-            };
-
-            var calculationWithOutput = new TestHeightStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculationWithIllustrationPoints,
-                        calculationWithOutput,
-                        new TestHeightStructuresCalculation()
-                    }
-                }
-            };
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsTrue(toolStripItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
-        {
-            // Setup
-            var calculationWithOutput = new TestHeightStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculationWithOutput,
-                        new TestHeightStructuresCalculation()
-                    }
-                }
-            };
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsFalse(toolStripItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemValidateAllEnabled()
         {
             // Setup
@@ -926,6 +828,104 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
+        {
+            // Setup
+            var calculationWithIllustrationPoints = new TestHeightStructuresCalculation
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new TestHeightStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new TestHeightStructuresCalculation()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
+        {
+            // Setup
+            var calculationWithOutput = new TestHeightStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        new TestHeightStructuresCalculation()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
@@ -985,6 +985,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
                     Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
@@ -1054,6 +1056,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
                     Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }

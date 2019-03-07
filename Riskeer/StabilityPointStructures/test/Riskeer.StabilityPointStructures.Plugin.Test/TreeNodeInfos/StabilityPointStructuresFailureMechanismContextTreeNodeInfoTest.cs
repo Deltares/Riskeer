@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -568,110 +569,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
-        {
-            // Setup
-            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
-            {
-                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
-            };
-
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculationWithIllustrationPoints,
-                        calculationWithOutput,
-                        new TestStabilityPointStructuresCalculation()
-                    }
-                }
-            };
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                TreeNodeInfo info = GetInfo(plugin);
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsTrue(toolStripItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
-        {
-            // Setup
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            };
-
-            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculationWithOutput,
-                        new TestStabilityPointStructuresCalculation()
-                    }
-                }
-            };
-
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
-
-            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                TreeNodeInfo info = GetInfo(plugin);
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsFalse(toolStripItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
@@ -890,6 +787,252 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertValidationStartMessage(messageList[2]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(messageList[3]);
                     });
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsContainingIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
+        {
+            // Setup
+            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new TestStabilityPointStructuresCalculation()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                TreeNodeInfo info = GetInfo(plugin);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsTrue(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithCalculationsWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
+        {
+            // Setup
+            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithOutput,
+                        new TestStabilityPointStructuresCalculation()
+                    }
+                }
+            };
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                TreeNodeInfo info = GetInfo(plugin);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem toolStripItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsFalse(toolStripItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
+        {
+            // Given
+            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new TestStabilityPointStructuresCalculation()
+                    }
+                }
+            };
+
+            var calculationObserver = mocksRepository.StrictMock<IObserver>();
+            calculationWithIllustrationPoints.Attach(calculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickCancel();
+            };
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+                TreeNodeInfo info = GetInfo(plugin);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                    Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
+        {
+            // Given
+            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+
+            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationWithIllustrationPoints,
+                        calculationWithOutput,
+                        new TestStabilityPointStructuresCalculation()
+                    }
+                }
+            };
+
+            var affectedCalculationObserver = mocksRepository.StrictMock<IObserver>();
+            affectedCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationWithIllustrationPoints.Attach(affectedCalculationObserver);
+
+            var unaffectedCalculationObserver = mocksRepository.StrictMock<IObserver>();
+            calculationWithOutput.Attach(unaffectedCalculationObserver);
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
+
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+
+                helper.ClickOk();
+            };
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+                TreeNodeInfo info = GetInfo(plugin);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
+
+                    Assert.IsTrue(calculationWithOutput.HasOutput);
+                    Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
         }

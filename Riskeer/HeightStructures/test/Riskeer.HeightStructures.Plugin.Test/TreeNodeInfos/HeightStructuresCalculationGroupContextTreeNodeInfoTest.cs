@@ -1080,7 +1080,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.AreEqual("Weet u zeker dat u alle illustratiepunten wilt wissen?", messageBoxText);
 
-                    Assert.IsTrue(calculationWithIllustrationPoints.Output.HasGeneralResult);
+                    Assert.IsTrue(calculationWithIllustrationPoints.HasOutput);
                     Assert.IsFalse(calculationWithIllustrationPoints.Output.HasGeneralResult);
                 }
             }
