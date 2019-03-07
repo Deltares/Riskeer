@@ -397,76 +397,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
-            };
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var nodeData = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsTrue(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_CalculationWithOutputWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput()
-            };
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var nodeData = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
@@ -1271,77 +1201,73 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
+        public void ContextMenuStrip_CalculationWithIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
         {
             // Setup
-            var group = new CalculationGroup();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+
+            var parent = new CalculationGroup();
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var elementToBeRemoved = new StructuresCalculation<HeightStructuresInput>();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
-                                                                            group,
-                                                                            failureMechanism,
-                                                                            assessmentSection);
-            var groupContext = new HeightStructuresCalculationGroupContext(group,
-                                                                           null,
-                                                                           failureMechanism,
-                                                                           assessmentSection);
+            var nodeData = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            observer.Expect(o => o.UpdateObserver());
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
 
-            mocks.ReplayAll();
+                plugin.Gui = gui;
 
-            group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new StructuresCalculation<HeightStructuresInput>());
-            group.Attach(observer);
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
 
-            // Precondition
-            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
-            Assert.AreEqual(2, group.Children.Count);
-
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
-
-            // Assert
-            Assert.AreEqual(1, group.Children.Count);
-            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+                    // Assert
+                    Assert.IsTrue(contextMenuItem.Enabled);
+                }
+            }
         }
 
         [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        public void ContextMenuStrip_CalculationWithOutputWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
         {
             // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var elementToBeRemoved = new StructuresCalculation<HeightStructuresInput>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
-                                                                            group,
-                                                                            failureMechanism,
-                                                                            assessmentSection);
-            var groupContext = new HeightStructuresCalculationGroupContext(group,
-                                                                           null,
-                                                                           failureMechanism,
-                                                                           assessmentSection);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
-            mocks.ReplayAll();
-
-            group.Children.Add(elementToBeRemoved);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            var parent = new CalculationGroup();
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
+                Output = new TestStructuresOutput()
+            };
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var nodeData = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = elementToBeRemoved;
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
 
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
+                plugin.Gui = gui;
 
-            // Assert
-            Assert.IsNull(result.Calculation);
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsFalse(contextMenuItem.Enabled);
+                }
+            }
         }
 
         [Test]
@@ -1439,6 +1365,80 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(calculation.Output.HasGeneralResult);
                 }
             }
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var elementToBeRemoved = new StructuresCalculation<HeightStructuresInput>();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
+                                                                            group,
+                                                                            failureMechanism,
+                                                                            assessmentSection);
+            var groupContext = new HeightStructuresCalculationGroupContext(group,
+                                                                           null,
+                                                                           failureMechanism,
+                                                                           assessmentSection);
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new StructuresCalculation<HeightStructuresInput>());
+            group.Attach(observer);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+        }
+
+        [Test]
+        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var elementToBeRemoved = new StructuresCalculation<HeightStructuresInput>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
+                                                                            group,
+                                                                            failureMechanism,
+                                                                            assessmentSection);
+            var groupContext = new HeightStructuresCalculationGroupContext(group,
+                                                                           null,
+                                                                           failureMechanism,
+                                                                           assessmentSection);
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = elementToBeRemoved;
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.IsNull(result.Calculation);
         }
 
         public override void Setup()

@@ -395,76 +395,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_CalculationWithIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
-            };
-            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsTrue(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_CalculationWithOutputWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-
-            var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new TestStructuresOutput()
-            };
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
-                {
-                    // Call
-                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    // Assert
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructureClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
@@ -1136,77 +1066,73 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
+        public void ContextMenuStrip_CalculationWithIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled()
         {
             // Setup
-            var group = new CalculationGroup();
-            var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
-                                                                                    group,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
-            var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
-                                                                                   null,
-                                                                                   failureMechanism,
-                                                                                   assessmentSection);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
-            observer.Expect(o => o.UpdateObserver());
+            var parent = new CalculationGroup();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+            };
+            var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            mocks.ReplayAll();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
 
-            group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
-            group.Attach(observer);
+                plugin.Gui = gui;
 
-            // Precondition
-            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
-            Assert.AreEqual(2, group.Children.Count);
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
 
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
-
-            // Assert
-            Assert.AreEqual(1, group.Children.Count);
-            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+                    // Assert
+                    Assert.IsTrue(contextMenuItem.Enabled);
+                }
+            }
         }
 
         [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        public void ContextMenuStrip_CalculationWithOutputWithoutIllustrationPoints_ContextMenuItemClearIllustrationPointsDisabled()
         {
             // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
-                                                                                    group,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
-            var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
-                                                                                   null,
-                                                                                   failureMechanism,
-                                                                                   assessmentSection);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
-            mocks.ReplayAll();
-
-            group.Children.Add(elementToBeRemoved);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            var parent = new CalculationGroup();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
+                Output = new TestStructuresOutput()
+            };
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = elementToBeRemoved;
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
 
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
+                plugin.Gui = gui;
 
-            // Assert
-            Assert.IsNull(result.Calculation);
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Call
+                    ToolStripItem contextMenuItem = menu.Items[contextMenuClearIllustrationPointsIndex];
+
+                    // Assert
+                    Assert.IsFalse(contextMenuItem.Enabled);
+                }
+            }
         }
 
         [Test]
@@ -1304,6 +1230,80 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(calculation.Output.HasGeneralResult);
                 }
             }
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
+                                                                                    group,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
+            var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+            group.Attach(observer);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+        }
+
+        [Test]
+        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
+                                                                                    group,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
+            var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = elementToBeRemoved;
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.IsNull(result.Calculation);
         }
 
         public override void Setup()
