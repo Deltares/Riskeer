@@ -682,7 +682,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HRD database locatie.
+        ///   Looks up a localized string similar to HRD bestandslocatie.
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
             get {
@@ -754,7 +754,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HLCD database locatie.
+        ///   Looks up a localized string similar to HLCD bestandslocatie.
         /// </summary>
         public static string HydraulicLocationConfigurationSettings_FilePath_DisplayName {
             get {

@@ -225,14 +225,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "HRD database locatie",
+                                                                            "HRD bestandslocatie",
                                                                             "Locatie van het HRD bestand.",
                                                                             true);
 
             PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "HLCD database locatie",
+                                                                            "HLCD bestandslocatie",
                                                                             "Locatie van het HLCD bestand.",
                                                                             true);
 
@@ -342,14 +342,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "HRD database locatie",
+                                                                            "HRD bestandslocatie",
                                                                             "Locatie van het HRD bestand.",
                                                                             true);
 
             PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "HLCD database locatie",
+                                                                            "HLCD bestandslocatie",
                                                                             "Locatie van het HLCD bestand.",
                                                                             true);
 
@@ -450,14 +450,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor hrdFilePathProperty = dynamicProperties[hrdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hrdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "HRD database locatie",
+                                                                            "HRD bestandslocatie",
                                                                             "Locatie van het HRD bestand.",
                                                                             true);
 
             PropertyDescriptor hlcdFilePathProperty = dynamicProperties[hlcdFilePathPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hlcdFilePathProperty,
                                                                             expectedCategory,
-                                                                            "HLCD database locatie",
+                                                                            "HLCD bestandslocatie",
                                                                             "Locatie van het HLCD bestand.",
                                                                             !isLinked);
             if (isLinked)
