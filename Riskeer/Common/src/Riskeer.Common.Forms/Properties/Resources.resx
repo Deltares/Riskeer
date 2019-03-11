@@ -1539,4 +1539,19 @@ berekende kans
   <data name="ClearIllustrationPointsOfCalculation_InquireConfirmation" xml:space="preserve">
     <value>Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?</value>
   </data>
+  <data name="Categories_GeneralData" xml:space="preserve">
+    <value>Basisgegevens</value>
+  </data>
+  <data name="Categories_Schematization_Foreshore" xml:space="preserve">
+    <value>Voorland en (haven)dam</value>
+  </data>
+  <data name="Categories_Schematization_Ground_erosion" xml:space="preserve">
+    <value>Schematisering bodembescherming</value>
+  </data>
+  <data name="Categories_Schematization_Incoming_flow" xml:space="preserve">
+    <value>Schematisering instromend debiet/volume</value>
+  </data>
+  <data name="Categories_Schematization_Storage_structure" xml:space="preserve">
+    <value>Schematisering komberging</value>
+  </data>
 </root>

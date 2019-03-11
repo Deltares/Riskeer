@@ -689,6 +689,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basisgegevens.
+        /// </summary>
+        public static string Categories_GeneralData {
+            get {
+                return ResourceManager.GetString("Categories_GeneralData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische gegevens.
         /// </summary>
         public static string Categories_HydraulicData {
@@ -748,6 +757,42 @@ namespace Riskeer.Common.Forms.Properties {
         public static string Categories_Schematization {
             get {
                 return ResourceManager.GetString("Categories_Schematization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorland en (haven)dam.
+        /// </summary>
+        public static string Categories_Schematization_Foreshore {
+            get {
+                return ResourceManager.GetString("Categories_Schematization_Foreshore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisering bodembescherming.
+        /// </summary>
+        public static string Categories_Schematization_Ground_erosion {
+            get {
+                return ResourceManager.GetString("Categories_Schematization_Ground_erosion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisering instromend debiet/volume.
+        /// </summary>
+        public static string Categories_Schematization_Incoming_flow {
+            get {
+                return ResourceManager.GetString("Categories_Schematization_Incoming_flow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisering komberging.
+        /// </summary>
+        public static string Categories_Schematization_Storage_structure {
+            get {
+                return ResourceManager.GetString("Categories_Schematization_Storage_structure", resourceCulture);
             }
         }
         

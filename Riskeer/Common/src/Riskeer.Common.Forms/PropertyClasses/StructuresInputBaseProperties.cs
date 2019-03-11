@@ -137,26 +137,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
             };
         }
 
-        #region Output Settings
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OutputSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
-                data.NotifyObservers();
-            }
-        }
-
-        #endregion
-
         [DynamicPropertyOrderEvaluationMethod]
         public int DynamicPropertyOrderEvaluationMethod(string propertyName)
         {
@@ -221,15 +201,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             #region Schematization
 
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.Structure"/>.
-            /// </summary>
-            public int StructurePropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for the location of <see cref="StructuresInputBase{TStructure}.Structure"/>.
-            /// </summary>
-            public int StructureLocationPropertyIndex { get; set; }
+            #region Incoming flow
 
             /// <summary>
             /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StructureNormalOrientation"/>.
@@ -237,14 +209,37 @@ namespace Riskeer.Common.Forms.PropertyClasses
             public int StructureNormalOrientationPropertyIndex { get; set; }
 
             /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.WidthFlowApertures"/>.
+            /// </summary>
+            public int WidthFlowAperturesPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StormDuration"/>.
+            /// </summary>
+            public int StormDurationPropertyIndex { get; set; }
+
+            #endregion
+
+            #region Ground erosion
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.CriticalOvertoppingDischarge"/>.
+            /// </summary>
+            public int CriticalOvertoppingDischargePropertyIndex { get; set; }
+
+            /// <summary>
             /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.FlowWidthAtBottomProtection"/>.
             /// </summary>
             public int FlowWidthAtBottomProtectionPropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.WidthFlowApertures"/>.
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.FailureProbabilityStructureWithErosion"/>.
             /// </summary>
-            public int WidthFlowAperturesPropertyIndex { get; set; }
+            public int FailureProbabilityStructureWithErosionPropertyIndex { get; set; }
+
+            #endregion
+
+            #region Storage structure
 
             /// <summary>
             /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StorageStructureArea"/>.
@@ -256,15 +251,9 @@ namespace Riskeer.Common.Forms.PropertyClasses
             /// </summary>
             public int AllowedLevelIncreaseStoragePropertyIndex { get; set; }
 
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.CriticalOvertoppingDischarge"/>.
-            /// </summary>
-            public int CriticalOvertoppingDischargePropertyIndex { get; set; }
+            #endregion
 
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.FailureProbabilityStructureWithErosion"/>.
-            /// </summary>
-            public int FailureProbabilityStructureWithErosionPropertyIndex { get; set; }
+            #region Foreshore profile
 
             /// <summary>
             /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.ForeshoreProfile"/>.
@@ -283,7 +272,9 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
             #endregion
 
-            #region Hydraulic data
+            #endregion
+
+            #region General data
 
             /// <summary>
             /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.HydraulicBoundaryLocation"/>.
@@ -291,18 +282,43 @@ namespace Riskeer.Common.Forms.PropertyClasses
             public int HydraulicBoundaryLocationPropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StormDuration"/>.
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.Structure"/>.
             /// </summary>
-            public int StormDurationPropertyIndex { get; set; }
+            public int StructurePropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for the location of <see cref="StructuresInputBase{TStructure}.Structure"/>.
+            /// </summary>
+            public int StructureLocationPropertyIndex { get; set; }
 
             #endregion
         }
 
-        #region Schematization
+        #region General data
+
+        [DynamicPropertyOrder]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_Description))]
+        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        {
+            get
+            {
+                Point2D referenceLocation = data.WrappedData.Structure?.Location;
+                return data.WrappedData.HydraulicBoundaryLocation != null
+                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, referenceLocation)
+                           : null;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, PropertyChangeHandler);
+            }
+        }
 
         [DynamicPropertyOrder]
         [Editor(typeof(StructureEditor<StructureBase>), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Description))]
         public TStructure Structure
@@ -322,7 +338,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         }
 
         [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_Location_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Location_Description))]
         public Point2D StructureLocation
@@ -337,9 +353,15 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
+        #endregion
+
+        #region Schematization
+
+        #region  Incoming flow
+
         [DynamicReadOnly]
         [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Incoming_flow))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StructureNormalOrientation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StructureNormalOrientation_Description))]
         public virtual RoundedDouble StructureNormalOrientation
@@ -356,25 +378,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_Description))]
-        public LogNormalDistributionProperties FlowWidthAtBottomProtection
-        {
-            get
-            {
-                return new LogNormalDistributionProperties(
-                    HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.FlowWidthAtBottomProtection,
-                    PropertyChangeHandler);
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Incoming_flow))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_WidthFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_WidthFlowApertures_Description))]
         public virtual NormalDistributionProperties WidthFlowApertures
@@ -392,7 +396,85 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StormDuration_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StormDuration_Description))]
+        public VariationCoefficientLogNormalDistributionProperties StormDuration
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
+                    data.WrappedData.StormDuration,
+                    PropertyChangeHandler);
+            }
+        }
+
+        #endregion
+
+        #region Ground erosion
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Ground_erosion))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_Description))]
+        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(
+                    HasStructure()
+                        ? VariationCoefficientDistributionPropertiesReadOnly.None
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                    data.WrappedData.CriticalOvertoppingDischarge,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Ground_erosion))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_Description))]
+        public LogNormalDistributionProperties FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return new LogNormalDistributionProperties(
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
+                    data.WrappedData.FlowWidthAtBottomProtection,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [DynamicReadOnly]
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Ground_erosion))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_Description))]
+        public double FailureProbabilityStructureWithErosion
+        {
+            get
+            {
+                return data.WrappedData.FailureProbabilityStructureWithErosion;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityStructureWithErosion = value, PropertyChangeHandler);
+            }
+        }
+
+        #endregion
+
+        #region Storage structure
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Storage_structure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_Description))]
         public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
@@ -410,7 +492,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Storage_structure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_Description))]
         public LogNormalDistributionProperties AllowedLevelIncreaseStorage
@@ -426,45 +508,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_Description))]
-        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
-        {
-            get
-            {
-                return new VariationCoefficientLogNormalDistributionProperties(
-                    HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
-                    data.WrappedData.CriticalOvertoppingDischarge,
-                    PropertyChangeHandler);
-            }
-        }
+        #endregion
 
-        [DynamicReadOnly]
-        [DynamicPropertyOrder]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_Description))]
-        public double FailureProbabilityStructureWithErosion
-        {
-            get
-            {
-                return data.WrappedData.FailureProbabilityStructureWithErosion;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityStructureWithErosion = value, PropertyChangeHandler);
-            }
-        }
+        #region Foreshore profile
 
         [DynamicPropertyOrder]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_Description))]
         public ForeshoreProfile ForeshoreProfile
@@ -481,7 +531,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterProperties_Description))]
         public UseBreakWaterProperties UseBreakWater
@@ -496,7 +546,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProperties_Description))]
         public UseForeshoreProperties UseForeshore
@@ -509,41 +559,23 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         #endregion
 
-        #region Hydraulic data
+        #endregion
 
-        [DynamicPropertyOrder]
-        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_Description))]
-        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        #region Output Settings
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OutputSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldIllustrationPointsBeCalculated
         {
             get
             {
-                Point2D referenceLocation = data.WrappedData.Structure?.Location;
-                return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, referenceLocation)
-                           : null;
+                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, PropertyChangeHandler);
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StormDuration_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StormDuration_Description))]
-        public VariationCoefficientLogNormalDistributionProperties StormDuration
-        {
-            get
-            {
-                return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
-                    data.WrappedData.StormDuration,
-                    PropertyChangeHandler);
+                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
