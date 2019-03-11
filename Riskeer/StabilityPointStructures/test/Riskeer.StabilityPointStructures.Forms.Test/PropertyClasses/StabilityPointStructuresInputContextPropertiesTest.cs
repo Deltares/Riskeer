@@ -188,9 +188,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string schematizationHydraulicLoadsCategory = "Schematisering hydraulische belastingen op constructie";
+            const string schematizationConstructiveFailureCategory = "Schematisering bezwijken waterkerende constructie-onderdelen";
+            const string schematizationConstructiveInstabilityCategory = "Schematisering instabiliteit constructie en grondlichaam";
+            const string schematizationCollisionSecondaryStructureCategory = "Schematisering aanvaring tweede keermiddel";
+            const string schematizationInflowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(35, dynamicProperties.Count);
@@ -198,129 +200,129 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearLowSillVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 volumicWeightWaterProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Volumiek gewicht van water [kN/m³]",
                 "Volumiek gewicht van water.");
-
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[linearLowSillInsideWaterLevelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                insideWaterLevelProperty,
-                hydraulicDataCategory,
-                "Binnenwaterstand [m+NAP]",
-                "Binnenwaterstand.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[linearLowSillInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 insideWaterLevelFailureConstructionProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
-            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearLowSillFlowVelocityStructureClosablePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                flowVelocityStructureClosableProperty,
-                schematizationCategory,
-                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
-                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[linearLowSillFactorStormDurationOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                factorStormDurationOpenStructureProperty,
-                modelSettingsCategory,
-                "Factor voor stormduur hoogwater [-]",
-                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[linearLowSillInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                inflowModelTypeProperty,
-                schematizationCategory,
-                "Instroommodel",
-                "Instroommodel van het kunstwerk.");
-
-            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[linearLowSillLoadSchematizationTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                loadSchematizationTypeProperty,
-                schematizationCategory,
-                "Belastingschematisering",
-                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
-
-            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[linearLowSillLevelCrestStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                levelCrestStructureProperty,
-                schematizationCategory,
-                "Kerende hoogte [m+NAP]",
-                "Kerende hoogte van het kunstwerk.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
-
-            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[linearLowSillThresholdHeightOpenWeirPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thresholdHeightOpenWeirProperty,
-                schematizationCategory,
-                "Drempelhoogte [m+NAP]",
-                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
-
-            PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                constructiveStrengthLinearLoadModelProperty,
-                schematizationCategory,
-                "Lineaire belastingschematisering constructieve sterkte [kN/m²]",
-                "Kritieke sterkte constructie volgens de lineaire belastingschematisatie.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
-
             PropertyDescriptor bankWidthProperty = dynamicProperties[linearLowSillBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 bankWidthProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
-            PropertyDescriptor evaluationLevelProperty = dynamicProperties[linearLowSillEvaluationLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                evaluationLevelProperty,
-                schematizationCategory,
-                "Analysehoogte [m+NAP]",
-                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
-
             PropertyDescriptor verticalDistanceProperty = dynamicProperties[linearLowSillVerticalDistancePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 verticalDistanceProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Afstand onderkant wand en teen van de dijk/berm [m]",
                 "Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm.");
+
+            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[linearLowSillLoadSchematizationTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                loadSchematizationTypeProperty,
+                schematizationConstructiveFailureCategory,
+                "Belastingschematisering",
+                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
+
+            PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                constructiveStrengthLinearLoadModelProperty,
+                schematizationConstructiveFailureCategory,
+                "Lineaire belastingschematisering constructieve sterkte [kN/m²]",
+                "Kritieke sterkte constructie volgens de lineaire belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
+
+            PropertyDescriptor evaluationLevelProperty = dynamicProperties[linearLowSillEvaluationLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                evaluationLevelProperty,
+                schematizationConstructiveFailureCategory,
+                "Analysehoogte [m+NAP]",
+                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
 
             PropertyDescriptor failureProbabilityRepairClosureProperty = dynamicProperties[linearLowSillFailureProbabilityRepairClosurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
-                schematizationCategory,
+                schematizationConstructiveFailureCategory,
                 "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[linearLowSillInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                inflowModelTypeProperty,
+                schematizationInflowCategory,
+                "Instroommodel",
+                "Instroommodel van het kunstwerk.");
+
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[linearLowSillLevelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                levelCrestStructureProperty,
+                schematizationInflowCategory,
+                "Kerende hoogte [m+NAP]",
+                "Kerende hoogte van het kunstwerk.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[linearLowSillInsideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                insideWaterLevelProperty,
+                schematizationInflowCategory,
+                "Binnenwaterstand [m+NAP]",
+                "Binnenwaterstand.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
+
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[linearLowSillThresholdHeightOpenWeirPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                thresholdHeightOpenWeirProperty,
+                schematizationInflowCategory,
+                "Drempelhoogte [m+NAP]",
+                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[linearLowSillFactorStormDurationOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                factorStormDurationOpenStructureProperty,
+                schematizationInflowCategory,
+                "Factor voor stormduur hoogwater [-]",
+                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
+
+            PropertyDescriptor stabilityLinearLoadModel = dynamicProperties[linearLowSillStabilityLinearLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearLoadModel.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                stabilityLinearLoadModel,
+                schematizationConstructiveInstabilityCategory,
+                "Lineaire belastingschematisering stabiliteit [kN/m²]",
+                "Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[linearLowSillFailureCollisionEnergyPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(failureCollisionEnergyProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureCollisionEnergyProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
@@ -330,7 +332,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipMassProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
@@ -340,7 +342,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipVelocityProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
@@ -349,26 +351,26 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levellingCountProperty = dynamicProperties[linearLowSillLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 levellingCountProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aantal nivelleringen per jaar [1/jaar]",
                 "Aantal nivelleringen per jaar.");
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[linearLowSillProbabilityCollisionSecondaryStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
-            PropertyDescriptor stabilityLinearLoadModel = dynamicProperties[linearLowSillStabilityLinearLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearLoadModel.Converter);
+            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearLowSillFlowVelocityStructureClosablePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                stabilityLinearLoadModel,
-                schematizationCategory,
-                "Lineaire belastingschematisering stabiliteit [kN/m²]",
-                "Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.",
+                flowVelocityStructureClosableProperty,
+                schematizationCollisionSecondaryStructureCategory,
+                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
+                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[linearLowSillStructurePropertyIndex].DisplayName);
@@ -416,9 +418,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string schematizationHydraulicLoadsCategory = "Schematisering hydraulische belastingen op constructie";
+            const string schematizationConstructiveFailureCategory = "Schematisering bezwijken waterkerende constructie-onderdelen";
+            const string schematizationConstructiveInstabilityCategory = "Schematisering instabiliteit constructie en grondlichaam";
+            const string schematizationCollisionSecondaryStructureCategory = "Schematisering aanvaring tweede keermiddel";
+            const string schematizationInflowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(35, dynamicProperties.Count);
@@ -426,129 +430,129 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticLowSillVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 volumicWeightWaterProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Volumiek gewicht van water [kN/m³]",
                 "Volumiek gewicht van water.");
-
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[quadraticLowSillInsideWaterLevelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                insideWaterLevelProperty,
-                hydraulicDataCategory,
-                "Binnenwaterstand [m+NAP]",
-                "Binnenwaterstand.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[quadraticLowSillInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 insideWaterLevelFailureConstructionProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
-            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticLowSillFlowVelocityStructureClosablePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                flowVelocityStructureClosableProperty,
-                schematizationCategory,
-                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
-                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[quadraticLowSillFactorStormDurationOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                factorStormDurationOpenStructureProperty,
-                modelSettingsCategory,
-                "Factor voor stormduur hoogwater [-]",
-                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[quadraticLowSillInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                inflowModelTypeProperty,
-                schematizationCategory,
-                "Instroommodel",
-                "Instroommodel van het kunstwerk.");
-
-            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[quadraticLowSillLoadSchematizationTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                loadSchematizationTypeProperty,
-                schematizationCategory,
-                "Belastingschematisering",
-                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
-
-            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[quadraticLowSillLevelCrestStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                levelCrestStructureProperty,
-                schematizationCategory,
-                "Kerende hoogte [m+NAP]",
-                "Kerende hoogte van het kunstwerk.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
-
-            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[quadraticLowSillThresholdHeightOpenWeirPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thresholdHeightOpenWeirProperty,
-                schematizationCategory,
-                "Drempelhoogte [m+NAP]",
-                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
-
-            PropertyDescriptor constructiveStrengthQuadraticLoadModelProperty = dynamicProperties[quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthQuadraticLoadModelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                constructiveStrengthQuadraticLoadModelProperty,
-                schematizationCategory,
-                "Kwadratische belastingschematisering constructieve sterkte [kN/m]",
-                "Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthQuadraticLoadModel, false, false);
-
             PropertyDescriptor bankWidthProperty = dynamicProperties[quadraticLowSillBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 bankWidthProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
-            PropertyDescriptor evaluationLevelProperty = dynamicProperties[quadraticLowSillEvaluationLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                evaluationLevelProperty,
-                schematizationCategory,
-                "Analysehoogte [m+NAP]",
-                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
-
             PropertyDescriptor verticalDistanceProperty = dynamicProperties[quadraticLowSillVerticalDistancePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 verticalDistanceProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Afstand onderkant wand en teen van de dijk/berm [m]",
                 "Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm.");
+
+            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[quadraticLowSillLoadSchematizationTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                loadSchematizationTypeProperty,
+                schematizationConstructiveFailureCategory,
+                "Belastingschematisering",
+                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
+
+            PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                constructiveStrengthLinearLoadModelProperty,
+                schematizationConstructiveFailureCategory,
+                "Kwadratische belastingschematisering constructieve sterkte [kN/m]",
+                "Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
+
+            PropertyDescriptor evaluationLevelProperty = dynamicProperties[quadraticLowSillEvaluationLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                evaluationLevelProperty,
+                schematizationConstructiveFailureCategory,
+                "Analysehoogte [m+NAP]",
+                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
 
             PropertyDescriptor failureProbabilityRepairClosureProperty = dynamicProperties[quadraticLowSillFailureProbabilityRepairClosurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
-                schematizationCategory,
+                schematizationConstructiveFailureCategory,
                 "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[quadraticLowSillInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                inflowModelTypeProperty,
+                schematizationInflowCategory,
+                "Instroommodel",
+                "Instroommodel van het kunstwerk.");
+
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[quadraticLowSillLevelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                levelCrestStructureProperty,
+                schematizationInflowCategory,
+                "Kerende hoogte [m+NAP]",
+                "Kerende hoogte van het kunstwerk.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[quadraticLowSillInsideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                insideWaterLevelProperty,
+                schematizationInflowCategory,
+                "Binnenwaterstand [m+NAP]",
+                "Binnenwaterstand.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
+
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[quadraticLowSillThresholdHeightOpenWeirPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                thresholdHeightOpenWeirProperty,
+                schematizationInflowCategory,
+                "Drempelhoogte [m+NAP]",
+                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[quadraticLowSillFactorStormDurationOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                factorStormDurationOpenStructureProperty,
+                schematizationInflowCategory,
+                "Factor voor stormduur hoogwater [-]",
+                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
+
+            PropertyDescriptor stabilityQuadraticLoadModel = dynamicProperties[quadraticLowSillStabilityQuadraticLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityQuadraticLoadModel.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                stabilityQuadraticLoadModel,
+                schematizationConstructiveInstabilityCategory,
+                "Kwadratische belastingschematisering stabiliteit [kN/m]",
+                "Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[quadraticLowSillFailureCollisionEnergyPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(failureCollisionEnergyProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureCollisionEnergyProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
@@ -558,7 +562,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipMassProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
@@ -568,7 +572,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipVelocityProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
@@ -577,26 +581,26 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levellingCountProperty = dynamicProperties[quadraticLowSillLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 levellingCountProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aantal nivelleringen per jaar [1/jaar]",
                 "Aantal nivelleringen per jaar.");
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[quadraticLowSillProbabilityCollisionSecondaryStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
-            PropertyDescriptor stabilityQuadraticLoadModelProperty = dynamicProperties[quadraticLowSillStabilityQuadraticLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityQuadraticLoadModelProperty.Converter);
+            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticLowSillFlowVelocityStructureClosablePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                stabilityQuadraticLoadModelProperty,
-                schematizationCategory,
-                "Kwadratische belastingschematisering stabiliteit [kN/m]",
-                "Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.",
+                flowVelocityStructureClosableProperty,
+                schematizationCollisionSecondaryStructureCategory,
+                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
+                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityQuadraticLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[quadraticLowSillStructurePropertyIndex].DisplayName);
@@ -644,9 +648,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string schematizationHydraulicLoadsCategory = "Schematisering hydraulische belastingen op constructie";
+            const string schematizationConstructiveFailureCategory = "Schematisering bezwijken waterkerende constructie-onderdelen";
+            const string schematizationConstructiveInstabilityCategory = "Schematisering instabiliteit constructie en grondlichaam";
+            const string schematizationCollisionSecondaryStructureCategory = "Schematisering aanvaring tweede keermiddel";
+            const string schematizationInflowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(36, dynamicProperties.Count);
@@ -654,149 +660,149 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearFloodedCulvertVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 volumicWeightWaterProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Volumiek gewicht van water [kN/m³]",
                 "Volumiek gewicht van water.");
-
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[linearFloodedCulvertInsideWaterLevelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                insideWaterLevelProperty,
-                hydraulicDataCategory,
-                "Binnenwaterstand [m+NAP]",
-                "Binnenwaterstand.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[linearFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 insideWaterLevelFailureConstructionProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
-            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                flowVelocityStructureClosableProperty,
-                schematizationCategory,
-                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
-                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            PropertyDescriptor drainCoefficientProperty = dynamicProperties[linearFloodedCulvertDrainCoefficientPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                drainCoefficientProperty,
-                modelSettingsCategory,
-                "Afvoercoëfficiënt [-]",
-                "Afvoercoëfficiënt.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
-
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                factorStormDurationOpenStructureProperty,
-                modelSettingsCategory,
-                "Factor voor stormduur hoogwater [-]",
-                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[linearFloodedCulvertInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                inflowModelTypeProperty,
-                schematizationCategory,
-                "Instroommodel",
-                "Instroommodel van het kunstwerk.");
-
-            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[linearFloodedCulvertLoadSchematizationTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                loadSchematizationTypeProperty,
-                schematizationCategory,
-                "Belastingschematisering",
-                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
-
-            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[linearFloodedCulvertAreaFlowAperturesPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                areaFlowAperturesProperty,
-                schematizationCategory,
-                "Doorstroomoppervlak [m²]",
-                "Doorstroomoppervlak van doorstroomopeningen.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
-
-            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[linearFloodedCulvertLevelCrestStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                levelCrestStructureProperty,
-                schematizationCategory,
-                "Kerende hoogte [m+NAP]",
-                "Kerende hoogte van het kunstwerk.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
-
-            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thresholdHeightOpenWeirProperty,
-                schematizationCategory,
-                "Drempelhoogte [m+NAP]",
-                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
-
-            PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[linearFloodedCulvertConstructiveStrengthLinearLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                constructiveStrengthLinearLoadModelProperty,
-                schematizationCategory,
-                "Lineaire belastingschematisering constructieve sterkte [kN/m²]",
-                "Kritieke sterkte constructie volgens de lineaire belastingschematisatie.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
-
             PropertyDescriptor bankWidthProperty = dynamicProperties[linearFloodedCulvertBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 bankWidthProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
-            PropertyDescriptor evaluationLevelProperty = dynamicProperties[linearFloodedCulvertEvaluationLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                evaluationLevelProperty,
-                schematizationCategory,
-                "Analysehoogte [m+NAP]",
-                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
-
             PropertyDescriptor verticalDistanceProperty = dynamicProperties[linearFloodedCulvertVerticalDistancePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 verticalDistanceProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Afstand onderkant wand en teen van de dijk/berm [m]",
                 "Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm.");
+
+            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[linearFloodedCulvertLoadSchematizationTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                loadSchematizationTypeProperty,
+                schematizationConstructiveFailureCategory,
+                "Belastingschematisering",
+                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
+
+            PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[linearFloodedCulvertConstructiveStrengthLinearLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                constructiveStrengthLinearLoadModelProperty,
+                schematizationConstructiveFailureCategory,
+                "Lineaire belastingschematisering constructieve sterkte [kN/m²]",
+                "Kritieke sterkte constructie volgens de lineaire belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
+
+            PropertyDescriptor evaluationLevelProperty = dynamicProperties[linearFloodedCulvertEvaluationLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                evaluationLevelProperty,
+                schematizationConstructiveFailureCategory,
+                "Analysehoogte [m+NAP]",
+                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
 
             PropertyDescriptor failureProbabilityRepairClosureProperty = dynamicProperties[linearFloodedCulvertFailureProbabilityRepairClosurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
-                schematizationCategory,
+                schematizationConstructiveFailureCategory,
                 "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[linearFloodedCulvertInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                inflowModelTypeProperty,
+                schematizationInflowCategory,
+                "Instroommodel",
+                "Instroommodel van het kunstwerk.");
+
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[linearFloodedCulvertLevelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                levelCrestStructureProperty,
+                schematizationInflowCategory,
+                "Kerende hoogte [m+NAP]",
+                "Kerende hoogte van het kunstwerk.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[linearFloodedCulvertInsideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                insideWaterLevelProperty,
+                schematizationInflowCategory,
+                "Binnenwaterstand [m+NAP]",
+                "Binnenwaterstand.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
+
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                thresholdHeightOpenWeirProperty,
+                schematizationInflowCategory,
+                "Drempelhoogte [m+NAP]",
+                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
+
+            PropertyDescriptor drainCoefficientProperty = dynamicProperties[linearFloodedCulvertDrainCoefficientPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                drainCoefficientProperty,
+                schematizationInflowCategory,
+                "Afvoercoëfficiënt [-]",
+                "Afvoercoëfficiënt.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
+
+            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[linearFloodedCulvertAreaFlowAperturesPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                areaFlowAperturesProperty,
+                schematizationInflowCategory,
+                "Doorstroomoppervlak [m²]",
+                "Doorstroomoppervlak van doorstroomopeningen.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                factorStormDurationOpenStructureProperty,
+                schematizationInflowCategory,
+                "Factor voor stormduur hoogwater [-]",
+                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
+
+            PropertyDescriptor stabilityLinearLoadModel = dynamicProperties[linearFloodedCulvertStabilityLinearLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearLoadModel.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                stabilityLinearLoadModel,
+                schematizationConstructiveInstabilityCategory,
+                "Lineaire belastingschematisering stabiliteit [kN/m²]",
+                "Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[linearFloodedCulvertFailureCollisionEnergyPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(failureCollisionEnergyProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureCollisionEnergyProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
@@ -806,7 +812,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipMassProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
@@ -816,7 +822,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipVelocityProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
@@ -825,26 +831,26 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levellingCountProperty = dynamicProperties[linearFloodedCulvertLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 levellingCountProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aantal nivelleringen per jaar [1/jaar]",
                 "Aantal nivelleringen per jaar.");
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[linearFloodedCulvertProbabilityCollisionSecondaryStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
-            PropertyDescriptor stabilityLinearLoadModel = dynamicProperties[linearFloodedCulvertStabilityLinearLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearLoadModel.Converter);
+            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                stabilityLinearLoadModel,
-                schematizationCategory,
-                "Lineaire belastingschematisering stabiliteit [kN/m²]",
-                "Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.",
+                flowVelocityStructureClosableProperty,
+                schematizationCollisionSecondaryStructureCategory,
+                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
+                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[linearFloodedCulvertStructurePropertyIndex].DisplayName);
@@ -891,9 +897,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string schematizationHydraulicLoadsCategory = "Schematisering hydraulische belastingen op constructie";
+            const string schematizationConstructiveFailureCategory = "Schematisering bezwijken waterkerende constructie-onderdelen";
+            const string schematizationConstructiveInstabilityCategory = "Schematisering instabiliteit constructie en grondlichaam";
+            const string schematizationCollisionSecondaryStructureCategory = "Schematisering aanvaring tweede keermiddel";
+            const string schematizationInflowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(36, dynamicProperties.Count);
@@ -901,149 +909,149 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticFloodedCulvertVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 volumicWeightWaterProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Volumiek gewicht van water [kN/m³]",
                 "Volumiek gewicht van water.");
-
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[quadraticFloodedCulvertInsideWaterLevelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                insideWaterLevelProperty,
-                hydraulicDataCategory,
-                "Binnenwaterstand [m+NAP]",
-                "Binnenwaterstand.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[quadraticFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 insideWaterLevelFailureConstructionProperty,
-                hydraulicDataCategory,
+                schematizationHydraulicLoadsCategory,
                 "Binnenwaterstand bij constructief falen [m+NAP]",
                 "Binnenwaterstand bij constructief falen.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevelFailureConstruction, false, false);
 
-            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                flowVelocityStructureClosableProperty,
-                schematizationCategory,
-                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
-                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
-
-            PropertyDescriptor drainCoefficientProperty = dynamicProperties[quadraticFloodedCulvertDrainCoefficientPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                drainCoefficientProperty,
-                modelSettingsCategory,
-                "Afvoercoëfficiënt [-]",
-                "Afvoercoëfficiënt.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
-
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                factorStormDurationOpenStructureProperty,
-                modelSettingsCategory,
-                "Factor voor stormduur hoogwater [-]",
-                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[quadraticFloodedCulvertInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                inflowModelTypeProperty,
-                schematizationCategory,
-                "Instroommodel",
-                "Instroommodel van het kunstwerk.");
-
-            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[quadraticFloodedCulvertLoadSchematizationTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                loadSchematizationTypeProperty,
-                schematizationCategory,
-                "Belastingschematisering",
-                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
-
-            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[quadraticFloodedCulvertAreaFlowAperturesPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                areaFlowAperturesProperty,
-                schematizationCategory,
-                "Doorstroomoppervlak [m²]",
-                "Doorstroomoppervlak van doorstroomopeningen.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
-
-            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[quadraticFloodedCulvertLevelCrestStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                levelCrestStructureProperty,
-                schematizationCategory,
-                "Kerende hoogte [m+NAP]",
-                "Kerende hoogte van het kunstwerk.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
-
-            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                thresholdHeightOpenWeirProperty,
-                schematizationCategory,
-                "Drempelhoogte [m+NAP]",
-                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
-
-            PropertyDescriptor constructiveStrengthQuadraticLoadModelProperty = dynamicProperties[quadraticFloodedCulvertConstructiveStrengthQuadraticLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthQuadraticLoadModelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                constructiveStrengthQuadraticLoadModelProperty,
-                schematizationCategory,
-                "Kwadratische belastingschematisering constructieve sterkte [kN/m]",
-                "Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.",
-                true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthQuadraticLoadModel, false, false);
-
             PropertyDescriptor bankWidthProperty = dynamicProperties[quadraticFloodedCulvertBankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 bankWidthProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Bermbreedte [m]",
                 "Bermbreedte.",
                 true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.BankWidth, false, false);
 
-            PropertyDescriptor evaluationLevelProperty = dynamicProperties[quadraticFloodedCulvertEvaluationLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                evaluationLevelProperty,
-                schematizationCategory,
-                "Analysehoogte [m+NAP]",
-                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
-
             PropertyDescriptor verticalDistanceProperty = dynamicProperties[quadraticFloodedCulvertVerticalDistancePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 verticalDistanceProperty,
-                schematizationCategory,
+                schematizationHydraulicLoadsCategory,
                 "Afstand onderkant wand en teen van de dijk/berm [m]",
                 "Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm.");
+
+            PropertyDescriptor loadSchematizationTypeProperty = dynamicProperties[quadraticFloodedCulvertLoadSchematizationTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(loadSchematizationTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                loadSchematizationTypeProperty,
+                schematizationConstructiveFailureCategory,
+                "Belastingschematisering",
+                "Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.");
+
+            PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[quadraticFloodedCulvertConstructiveStrengthQuadraticLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                constructiveStrengthLinearLoadModelProperty,
+                schematizationConstructiveFailureCategory,
+                "Kwadratische belastingschematisering constructieve sterkte [kN/m]",
+                "Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ConstructiveStrengthLinearLoadModel, false, false);
+
+            PropertyDescriptor evaluationLevelProperty = dynamicProperties[quadraticFloodedCulvertEvaluationLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                evaluationLevelProperty,
+                schematizationConstructiveFailureCategory,
+                "Analysehoogte [m+NAP]",
+                "Hoogte waarop de constructieve sterkte wordt beoordeeld.");
 
             PropertyDescriptor failureProbabilityRepairClosureProperty = dynamicProperties[quadraticFloodedCulvertFailureProbabilityRepairClosurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
-                schematizationCategory,
+                schematizationConstructiveFailureCategory,
                 "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[quadraticFloodedCulvertInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                inflowModelTypeProperty,
+                schematizationInflowCategory,
+                "Instroommodel",
+                "Instroommodel van het kunstwerk.");
+
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[quadraticFloodedCulvertLevelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                levelCrestStructureProperty,
+                schematizationInflowCategory,
+                "Kerende hoogte [m+NAP]",
+                "Kerende hoogte van het kunstwerk.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructure, false, false);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[quadraticFloodedCulvertInsideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                insideWaterLevelProperty,
+                schematizationInflowCategory,
+                "Binnenwaterstand [m+NAP]",
+                "Binnenwaterstand.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
+
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                thresholdHeightOpenWeirProperty,
+                schematizationInflowCategory,
+                "Drempelhoogte [m+NAP]",
+                "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
+
+            PropertyDescriptor drainCoefficientProperty = dynamicProperties[quadraticFloodedCulvertDrainCoefficientPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                drainCoefficientProperty,
+                schematizationInflowCategory,
+                "Afvoercoëfficiënt [-]",
+                "Afvoercoëfficiënt.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
+
+            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[quadraticFloodedCulvertAreaFlowAperturesPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                areaFlowAperturesProperty,
+                schematizationInflowCategory,
+                "Doorstroomoppervlak [m²]",
+                "Doorstroomoppervlak van doorstroomopeningen.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                factorStormDurationOpenStructureProperty,
+                schematizationInflowCategory,
+                "Factor voor stormduur hoogwater [-]",
+                "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
+
+            PropertyDescriptor stabilityLinearLoadModel = dynamicProperties[quadraticFloodedCulvertStabilityQuadraticLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearLoadModel.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                stabilityLinearLoadModel,
+                schematizationConstructiveInstabilityCategory,
+                "Kwadratische belastingschematisering stabiliteit [kN/m]",
+                "Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.",
+                true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityLinearLoadModel, false, false);
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[quadraticFloodedCulvertFailureCollisionEnergyPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(failureCollisionEnergyProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureCollisionEnergyProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Bezwijkwaarde aanvaarenergie [kN m]",
                 "Bezwijkwaarde aanvaarenergie.",
                 true);
@@ -1053,7 +1061,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipMassProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Massa van het schip [ton]",
                 "Massa van het schip.",
                 true);
@@ -1063,7 +1071,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 shipVelocityProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aanvaarsnelheid [m/s]",
                 "Aanvaarsnelheid.",
                 true);
@@ -1072,26 +1080,26 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levellingCountProperty = dynamicProperties[quadraticFloodedCulvertLevellingCountPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 levellingCountProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Aantal nivelleringen per jaar [1/jaar]",
                 "Aantal nivelleringen per jaar.");
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[quadraticFloodedCulvertProbabilityCollisionSecondaryStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
-                schematizationCategory,
+                schematizationCollisionSecondaryStructureCategory,
                 "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
-            PropertyDescriptor stabilityQuadraticLoadModelProperty = dynamicProperties[quadraticFloodedCulvertStabilityQuadraticLoadModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityQuadraticLoadModelProperty.Converter);
+            PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                stabilityQuadraticLoadModelProperty,
-                schematizationCategory,
-                "Kwadratische belastingschematisering stabiliteit [kN/m]",
-                "Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.",
+                flowVelocityStructureClosableProperty,
+                schematizationCollisionSecondaryStructureCategory,
+                "Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]",
+                "Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.",
                 true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.StabilityQuadraticLoadModel, false, false);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.FlowVelocityStructureClosable, false, true);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[quadraticFloodedCulvertStructurePropertyIndex].DisplayName);
@@ -1651,174 +1659,210 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
         #region LowSill + Linear Model property Indices
 
-        private const int linearLowSillHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int linearLowSillVolumicWeightWaterPropertyIndex = 1;
-        private const int linearLowSillStormDurationPropertyIndex = 2;
-        private const int linearLowSillInsideWaterLevelPropertyIndex = 3;
+        private const int linearLowSillStructurePropertyIndex = 0;
+        private const int linearLowSillStructureLocationPropertyIndex = 1;
+        private const int linearLowSillHydraulicBoundaryLocationPropertyIndex = 2;
+
+        private const int linearLowSillVolumicWeightWaterPropertyIndex = 3;
         private const int linearLowSillInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int linearLowSillFactorStormDurationOpenStructurePropertyIndex = 5;
-        private const int linearLowSillStructurePropertyIndex = 6;
-        private const int linearLowSillStructureLocationPropertyIndex = 7;
-        private const int linearLowSillStructureNormalOrientationPropertyIndex = 8;
-        private const int linearLowSillInflowModelTypePropertyIndex = 9;
-        private const int linearLowSillLoadSchematizationTypePropertyIndex = 10;
-        private const int linearLowSillWidthFlowAperturesPropertyIndex = 11;
-        private const int linearLowSillFlowWidthAtBottomProtectionPropertyIndex = 12;
-        private const int linearLowSillStorageStructureAreaPropertyIndex = 13;
-        private const int linearLowSillAllowedLevelIncreaseStoragePropertyIndex = 14;
-        private const int linearLowSillLevelCrestStructurePropertyIndex = 15;
-        private const int linearLowSillThresholdHeightOpenWeirPropertyIndex = 16;
-        private const int linearLowSillCriticalOvertoppingDischargePropertyIndex = 17;
-        private const int linearLowSillFlowVelocityStructureClosablePropertyIndex = 18;
-        private const int linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex = 19;
-        private const int linearLowSillBankWidthPropertyIndex = 20;
-        private const int linearLowSillEvaluationLevelPropertyIndex = 21;
-        private const int linearLowSillVerticalDistancePropertyIndex = 22;
-        private const int linearLowSillFailureProbabilityRepairClosurePropertyIndex = 23;
-        private const int linearLowSillFailureCollisionEnergyPropertyIndex = 24;
-        private const int linearLowSillShipMassPropertyIndex = 25;
-        private const int linearLowSillShipVelocityPropertyIndex = 26;
-        private const int linearLowSillLevellingCountPropertyIndex = 27;
-        private const int linearLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 28;
-        private const int linearLowSillStabilityLinearLoadModelPropertyIndex = 29;
-        private const int linearLowSillFailureProbabilityStructureWithErosionPropertyIndex = 30;
+        private const int linearLowSillBankWidthPropertyIndex = 5;
+        private const int linearLowSillVerticalDistancePropertyIndex = 6;
+
+        private const int linearLowSillLoadSchematizationTypePropertyIndex = 7;
+        private const int linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex = 8;
+        private const int linearLowSillEvaluationLevelPropertyIndex = 9;
+        private const int linearLowSillFailureProbabilityRepairClosurePropertyIndex = 10;
+
+        private const int linearLowSillInflowModelTypePropertyIndex = 11;
+        private const int linearLowSillStructureNormalOrientationPropertyIndex = 12;
+        private const int linearLowSillLevelCrestStructurePropertyIndex = 13;
+        private const int linearLowSillInsideWaterLevelPropertyIndex = 14;
+        private const int linearLowSillThresholdHeightOpenWeirPropertyIndex = 15;
+        private const int linearLowSillWidthFlowAperturesPropertyIndex = 16;
+        private const int linearLowSillStormDurationPropertyIndex = 17;
+        private const int linearLowSillFactorStormDurationOpenStructurePropertyIndex = 18;
+
+        private const int linearLowSillCriticalOvertoppingDischargePropertyIndex = 19;
+        private const int linearLowSillFlowWidthAtBottomProtectionPropertyIndex = 20;
+        private const int linearLowSillFailureProbabilityStructureWithErosionPropertyIndex = 21;
+
+        private const int linearLowSillStorageStructureAreaPropertyIndex = 22;
+        private const int linearLowSillAllowedLevelIncreaseStoragePropertyIndex = 23;
+
+        private const int linearLowSillStabilityLinearLoadModelPropertyIndex = 24;
+
+        private const int linearLowSillFailureCollisionEnergyPropertyIndex = 25;
+        private const int linearLowSillShipMassPropertyIndex = 26;
+        private const int linearLowSillShipVelocityPropertyIndex = 27;
+        private const int linearLowSillLevellingCountPropertyIndex = 28;
+        private const int linearLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 29;
+        private const int linearLowSillFlowVelocityStructureClosablePropertyIndex = 30;
+
         private const int linearLowSillForeshoreProfilePropertyIndex = 31;
         private const int linearLowSillUseBreakWaterPropertyIndex = 32;
         private const int linearLowSillUseForeshorePropertyIndex = 33;
+
         private const int linearLowSillCalculateIllustrationPointsPropertyIndex = 34;
 
         #endregion
 
         #region FloodedCulvert + Linear Model property Indices
 
-        private const int linearFloodedCulvertHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int linearFloodedCulvertVolumicWeightWaterPropertyIndex = 1;
-        private const int linearFloodedCulvertStormDurationPropertyIndex = 2;
-        private const int linearFloodedCulvertInsideWaterLevelPropertyIndex = 3;
+        private const int linearFloodedCulvertStructurePropertyIndex = 0;
+        private const int linearFloodedCulvertStructureLocationPropertyIndex = 1;
+        private const int linearFloodedCulvertHydraulicBoundaryLocationPropertyIndex = 2;
+
+        private const int linearFloodedCulvertVolumicWeightWaterPropertyIndex = 3;
         private const int linearFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int linearFloodedCulvertDrainCoefficientPropertyIndex = 5;
-        private const int linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 6;
-        private const int linearFloodedCulvertStructurePropertyIndex = 7;
-        private const int linearFloodedCulvertStructureLocationPropertyIndex = 8;
-        private const int linearFloodedCulvertStructureNormalOrientationPropertyIndex = 9;
-        private const int linearFloodedCulvertInflowModelTypePropertyIndex = 10;
-        private const int linearFloodedCulvertLoadSchematizationTypePropertyIndex = 11;
-        private const int linearFloodedCulvertAreaFlowAperturesPropertyIndex = 12;
-        private const int linearFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 13;
-        private const int linearFloodedCulvertStorageStructureAreaPropertyIndex = 14;
-        private const int linearFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 15;
-        private const int linearFloodedCulvertLevelCrestStructurePropertyIndex = 16;
-        private const int linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 17;
-        private const int linearFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 18;
-        private const int linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 19;
-        private const int linearFloodedCulvertConstructiveStrengthLinearLoadModelPropertyIndex = 20;
-        private const int linearFloodedCulvertBankWidthPropertyIndex = 21;
-        private const int linearFloodedCulvertEvaluationLevelPropertyIndex = 22;
-        private const int linearFloodedCulvertVerticalDistancePropertyIndex = 23;
-        private const int linearFloodedCulvertFailureProbabilityRepairClosurePropertyIndex = 24;
-        private const int linearFloodedCulvertFailureCollisionEnergyPropertyIndex = 25;
-        private const int linearFloodedCulvertShipMassPropertyIndex = 26;
-        private const int linearFloodedCulvertShipVelocityPropertyIndex = 27;
-        private const int linearFloodedCulvertLevellingCountPropertyIndex = 28;
-        private const int linearFloodedCulvertProbabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int linearFloodedCulvertStabilityLinearLoadModelPropertyIndex = 30;
-        private const int linearFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex = 31;
+        private const int linearFloodedCulvertBankWidthPropertyIndex = 5;
+        private const int linearFloodedCulvertVerticalDistancePropertyIndex = 6;
+
+        private const int linearFloodedCulvertLoadSchematizationTypePropertyIndex = 7;
+        private const int linearFloodedCulvertConstructiveStrengthLinearLoadModelPropertyIndex = 8;
+        private const int linearFloodedCulvertEvaluationLevelPropertyIndex = 9;
+        private const int linearFloodedCulvertFailureProbabilityRepairClosurePropertyIndex = 10;
+
+        private const int linearFloodedCulvertInflowModelTypePropertyIndex = 11;
+        private const int linearFloodedCulvertStructureNormalOrientationPropertyIndex = 12;
+        private const int linearFloodedCulvertLevelCrestStructurePropertyIndex = 13;
+        private const int linearFloodedCulvertInsideWaterLevelPropertyIndex = 14;
+        private const int linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 15;
+        private const int linearFloodedCulvertDrainCoefficientPropertyIndex = 16;
+        private const int linearFloodedCulvertAreaFlowAperturesPropertyIndex = 17;
+        private const int linearFloodedCulvertStormDurationPropertyIndex = 18;
+        private const int linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 19;
+
+        private const int linearFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 20;
+        private const int linearFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 21;
+        private const int linearFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex = 22;
+
+        private const int linearFloodedCulvertStorageStructureAreaPropertyIndex = 23;
+        private const int linearFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 24;
+
+        private const int linearFloodedCulvertStabilityLinearLoadModelPropertyIndex = 25;
+
+        private const int linearFloodedCulvertFailureCollisionEnergyPropertyIndex = 26;
+        private const int linearFloodedCulvertShipMassPropertyIndex = 27;
+        private const int linearFloodedCulvertShipVelocityPropertyIndex = 28;
+        private const int linearFloodedCulvertLevellingCountPropertyIndex = 29;
+        private const int linearFloodedCulvertProbabilityCollisionSecondaryStructurePropertyIndex = 30;
+        private const int linearFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 31;
+
         private const int linearFloodedCulvertForeshoreProfilePropertyIndex = 32;
         private const int linearFloodedCulvertUseBreakWaterPropertyIndex = 33;
         private const int linearFloodedCulvertUseForeshorePropertyIndex = 34;
+
         private const int linearFloodedCulvertCalculateIllustrationPointsPropertyIndex = 35;
 
         #endregion
 
         #region LowSill + Quadratic Model property Indices
 
-        private const int quadraticLowSillHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int quadraticLowSillVolumicWeightWaterPropertyIndex = 1;
-        private const int quadraticLowSillStormDurationPropertyIndex = 2;
-        private const int quadraticLowSillInsideWaterLevelPropertyIndex = 3;
+        private const int quadraticLowSillStructurePropertyIndex = 0;
+        private const int quadraticLowSillStructureLocationPropertyIndex = 1;
+        private const int quadraticLowSillHydraulicBoundaryLocationPropertyIndex = 2;
+
+        private const int quadraticLowSillVolumicWeightWaterPropertyIndex = 3;
         private const int quadraticLowSillInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int quadraticLowSillFactorStormDurationOpenStructurePropertyIndex = 5;
-        private const int quadraticLowSillStructurePropertyIndex = 6;
-        private const int quadraticLowSillStructureLocationPropertyIndex = 7;
-        private const int quadraticLowSillStructureNormalOrientationPropertyIndex = 8;
-        private const int quadraticLowSillInflowModelTypePropertyIndex = 9;
-        private const int quadraticLowSillLoadSchematizationTypePropertyIndex = 10;
-        private const int quadraticLowSillWidthFlowAperturesPropertyIndex = 11;
-        private const int quadraticLowSillFlowWidthAtBottomProtectionPropertyIndex = 12;
-        private const int quadraticLowSillStorageStructureAreaPropertyIndex = 13;
-        private const int quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex = 14;
-        private const int quadraticLowSillLevelCrestStructurePropertyIndex = 15;
-        private const int quadraticLowSillThresholdHeightOpenWeirPropertyIndex = 16;
-        private const int quadraticLowSillCriticalOvertoppingDischargePropertyIndex = 17;
-        private const int quadraticLowSillFlowVelocityStructureClosablePropertyIndex = 18;
-        private const int quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex = 19;
-        private const int quadraticLowSillBankWidthPropertyIndex = 20;
-        private const int quadraticLowSillEvaluationLevelPropertyIndex = 21;
-        private const int quadraticLowSillVerticalDistancePropertyIndex = 22;
-        private const int quadraticLowSillFailureProbabilityRepairClosurePropertyIndex = 23;
-        private const int quadraticLowSillFailureCollisionEnergyPropertyIndex = 24;
-        private const int quadraticLowSillShipMassPropertyIndex = 25;
-        private const int quadraticLowSillShipVelocityPropertyIndex = 26;
-        private const int quadraticLowSillLevellingCountPropertyIndex = 27;
-        private const int quadraticLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 28;
-        private const int quadraticLowSillStabilityQuadraticLoadModelPropertyIndex = 29;
-        private const int quadraticLowSillFailureProbabilityStructureWithErosionPropertyIndex = 30;
+        private const int quadraticLowSillBankWidthPropertyIndex = 5;
+        private const int quadraticLowSillVerticalDistancePropertyIndex = 6;
+
+        private const int quadraticLowSillLoadSchematizationTypePropertyIndex = 7;
+        private const int quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex = 8;
+        private const int quadraticLowSillEvaluationLevelPropertyIndex = 9;
+        private const int quadraticLowSillFailureProbabilityRepairClosurePropertyIndex = 10;
+
+        private const int quadraticLowSillInflowModelTypePropertyIndex = 11;
+        private const int quadraticLowSillStructureNormalOrientationPropertyIndex = 12;
+        private const int quadraticLowSillLevelCrestStructurePropertyIndex = 13;
+        private const int quadraticLowSillInsideWaterLevelPropertyIndex = 14;
+        private const int quadraticLowSillThresholdHeightOpenWeirPropertyIndex = 15;
+        private const int quadraticLowSillWidthFlowAperturesPropertyIndex = 16;
+        private const int quadraticLowSillStormDurationPropertyIndex = 17;
+        private const int quadraticLowSillFactorStormDurationOpenStructurePropertyIndex = 18;
+
+        private const int quadraticLowSillCriticalOvertoppingDischargePropertyIndex = 19;
+        private const int quadraticLowSillFlowWidthAtBottomProtectionPropertyIndex = 20;
+        private const int quadraticLowSillFailureProbabilityStructureWithErosionPropertyIndex = 21;
+
+        private const int quadraticLowSillStorageStructureAreaPropertyIndex = 22;
+        private const int quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex = 23;
+
+        private const int quadraticLowSillStabilityQuadraticLoadModelPropertyIndex = 24;
+
+        private const int quadraticLowSillFailureCollisionEnergyPropertyIndex = 25;
+        private const int quadraticLowSillShipMassPropertyIndex = 26;
+        private const int quadraticLowSillShipVelocityPropertyIndex = 27;
+        private const int quadraticLowSillLevellingCountPropertyIndex = 28;
+        private const int quadraticLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 29;
+        private const int quadraticLowSillFlowVelocityStructureClosablePropertyIndex = 30;
+
         private const int quadraticLowSillForeshoreProfilePropertyIndex = 31;
         private const int quadraticLowSillUseBreakWaterPropertyIndex = 32;
         private const int quadraticLowSillUseForeshorePropertyIndex = 33;
+
         private const int quadraticLowSillCalculateIllustrationPointsPropertyIndex = 34;
 
         #endregion
 
         #region FloodedCulvert + Quadratic Model property Indices
 
-        private const int quadraticFloodedCulvertHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int quadraticFloodedCulvertVolumicWeightWaterPropertyIndex = 1;
-        private const int quadraticFloodedCulvertStormDurationPropertyIndex = 2;
-        private const int quadraticFloodedCulvertInsideWaterLevelPropertyIndex = 3;
+        private const int quadraticFloodedCulvertStructurePropertyIndex = 0;
+        private const int quadraticFloodedCulvertStructureLocationPropertyIndex = 1;
+        private const int quadraticFloodedCulvertHydraulicBoundaryLocationPropertyIndex = 2;
+
+        private const int quadraticFloodedCulvertVolumicWeightWaterPropertyIndex = 3;
         private const int quadraticFloodedCulvertInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int quadraticFloodedCulvertDrainCoefficientPropertyIndex = 5;
-        private const int quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 6;
-        private const int quadraticFloodedCulvertStructurePropertyIndex = 7;
-        private const int quadraticFloodedCulvertStructureLocationPropertyIndex = 8;
-        private const int quadraticFloodedCulvertStructureNormalOrientationPropertyIndex = 9;
-        private const int quadraticFloodedCulvertInflowModelTypePropertyIndex = 10;
-        private const int quadraticFloodedCulvertLoadSchematizationTypePropertyIndex = 11;
-        private const int quadraticFloodedCulvertAreaFlowAperturesPropertyIndex = 12;
-        private const int quadraticFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 13;
-        private const int quadraticFloodedCulvertStorageStructureAreaPropertyIndex = 14;
-        private const int quadraticFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 15;
-        private const int quadraticFloodedCulvertLevelCrestStructurePropertyIndex = 16;
-        private const int quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 17;
-        private const int quadraticFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 18;
-        private const int quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 19;
-        private const int quadraticFloodedCulvertConstructiveStrengthQuadraticLoadModelPropertyIndex = 20;
-        private const int quadraticFloodedCulvertBankWidthPropertyIndex = 21;
-        private const int quadraticFloodedCulvertEvaluationLevelPropertyIndex = 22;
-        private const int quadraticFloodedCulvertVerticalDistancePropertyIndex = 23;
-        private const int quadraticFloodedCulvertFailureProbabilityRepairClosurePropertyIndex = 24;
-        private const int quadraticFloodedCulvertFailureCollisionEnergyPropertyIndex = 25;
-        private const int quadraticFloodedCulvertShipMassPropertyIndex = 26;
-        private const int quadraticFloodedCulvertShipVelocityPropertyIndex = 27;
-        private const int quadraticFloodedCulvertLevellingCountPropertyIndex = 28;
-        private const int quadraticFloodedCulvertProbabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int quadraticFloodedCulvertStabilityQuadraticLoadModelPropertyIndex = 30;
-        private const int quadraticFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex = 31;
+        private const int quadraticFloodedCulvertBankWidthPropertyIndex = 5;
+        private const int quadraticFloodedCulvertVerticalDistancePropertyIndex = 6;
+
+        private const int quadraticFloodedCulvertLoadSchematizationTypePropertyIndex = 7;
+        private const int quadraticFloodedCulvertConstructiveStrengthQuadraticLoadModelPropertyIndex = 8;
+        private const int quadraticFloodedCulvertEvaluationLevelPropertyIndex = 9;
+        private const int quadraticFloodedCulvertFailureProbabilityRepairClosurePropertyIndex = 10;
+
+        private const int quadraticFloodedCulvertInflowModelTypePropertyIndex = 11;
+        private const int quadraticFloodedCulvertStructureNormalOrientationPropertyIndex = 12;
+        private const int quadraticFloodedCulvertLevelCrestStructurePropertyIndex = 13;
+        private const int quadraticFloodedCulvertInsideWaterLevelPropertyIndex = 14;
+        private const int quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 15;
+        private const int quadraticFloodedCulvertDrainCoefficientPropertyIndex = 16;
+        private const int quadraticFloodedCulvertAreaFlowAperturesPropertyIndex = 17;
+        private const int quadraticFloodedCulvertStormDurationPropertyIndex = 18;
+        private const int quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 19;
+
+        private const int quadraticFloodedCulvertCriticalOvertoppingDischargePropertyIndex = 20;
+        private const int quadraticFloodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 21;
+        private const int quadraticFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex = 22;
+
+        private const int quadraticFloodedCulvertStorageStructureAreaPropertyIndex = 23;
+        private const int quadraticFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 24;
+
+        private const int quadraticFloodedCulvertStabilityQuadraticLoadModelPropertyIndex = 25;
+
+        private const int quadraticFloodedCulvertFailureCollisionEnergyPropertyIndex = 26;
+        private const int quadraticFloodedCulvertShipMassPropertyIndex = 27;
+        private const int quadraticFloodedCulvertShipVelocityPropertyIndex = 28;
+        private const int quadraticFloodedCulvertLevellingCountPropertyIndex = 29;
+        private const int quadraticFloodedCulvertProbabilityCollisionSecondaryStructurePropertyIndex = 30;
+        private const int quadraticFloodedCulvertFlowVelocityStructureClosablePropertyIndex = 31;
+
         private const int quadraticFloodedCulvertForeshoreProfilePropertyIndex = 32;
         private const int quadraticFloodedCulvertUseBreakWaterPropertyIndex = 33;
         private const int quadraticFloodedCulvertUseForeshorePropertyIndex = 34;
+
         private const int quadraticFloodedCulvertCalculateIllustrationPointsPropertyIndex = 35;
 
         #endregion
 
         #region No structure property Indices
 
-        private const int inflowModelTypePropertyIndex = 11;
-        private const int loadSchematizationTypePropertyIndex = 12;
-        private const int levellingCountPropertyIndex = 18;
-        private const int evaluationLevelPropertyIndex = 25;
-        private const int verticalDistancePropertyIndex = 26;
-        private const int failureProbabilityRepairClosurePropertyIndex = 27;
+        private const int verticalDistancePropertyIndex = 6;
+        private const int loadSchematizationTypePropertyIndex = 7;
+        private const int evaluationLevelPropertyIndex = 10;
+        private const int failureProbabilityRepairClosurePropertyIndex = 11;
+        private const int inflowModelTypePropertyIndex = 12;
+        private const int levellingCountPropertyIndex = 32;
         private const int probabilityCollisionSecondaryStructurePropertyIndex = 31;
 
         #endregion

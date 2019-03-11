@@ -48,44 +48,52 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         StructuresCalculation<StabilityPointStructuresInput>,
         StabilityPointStructuresFailureMechanism>
     {
-        private const int hydraulicBoundaryLocationPropertyIndex = 1;
-        private const int volumicWeightWaterPropertyIndex = 2;
-        private const int stormDurationPropertyIndex = 3;
-        private const int insideWaterLevelPropertyIndex = 4;
-        private const int insideWaterLevelFailureConstructionPropertyIndex = 5;
-        private const int drainCoefficientPropertyIndex = 6;
-        private const int factorStormDurationOpenStructurePropertyIndex = 7;
-        private const int structurePropertyIndex = 8;
-        private const int structureLocationPropertyIndex = 9;
-        private const int structureNormalOrientationPropertyIndex = 10;
-        private const int inflowModelTypePropertyIndex = 11;
-        private const int loadSchematizationTypePropertyIndex = 12;
-        private const int widthFlowAperturesPropertyIndex = 13;
-        private const int areaFlowAperturesPropertyIndex = 14;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 15;
-        private const int storageStructureAreaPropertyIndex = 16;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 17;
-        private const int levelCrestStructurePropertyIndex = 18;
-        private const int thresholdHeightOpenWeirPropertyIndex = 19;
-        private const int criticalOvertoppingDischargePropertyIndex = 20;
-        private const int flowVelocityStructureClosablePropertyIndex = 21;
-        private const int constructiveStrengthLinearLoadModelPropertyIndex = 22;
-        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 23;
-        private const int bankWidthPropertyIndex = 24;
-        private const int evaluationLevelPropertyIndex = 25;
-        private const int verticalDistancePropertyIndex = 26;
-        private const int failureProbabilityRepairClosurePropertyIndex = 27;
-        private const int failureCollisionEnergyPropertyIndex = 28;
-        private const int shipMassPropertyIndex = 29;
-        private const int shipVelocityPropertyIndex = 30;
-        private const int levellingCountPropertyIndex = 31;
-        private const int probabilityCollisionSecondaryStructurePropertyIndex = 32;
-        private const int stabilityLinearLoadModelPropertyIndex = 33;
-        private const int stabilityQuadraticLoadModelPropertyIndex = 34;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 35;
-        private const int foreshoreProfilePropertyIndex = 36;
-        private const int useBreakWaterPropertyIndex = 37;
-        private const int useForeshorePropertyIndex = 38;
+        private const int structurePropertyIndex = 0;
+        private const int structureLocationPropertyIndex = 1;
+        private const int hydraulicBoundaryLocationPropertyIndex = 2;
+
+        private const int volumicWeightWaterPropertyIndex = 3;
+        private const int insideWaterLevelFailureConstructionPropertyIndex = 4;
+        private const int bankWidthPropertyIndex = 5;
+        private const int verticalDistancePropertyIndex = 6;
+
+        private const int loadSchematizationTypePropertyIndex = 7;
+        private const int constructiveStrengthLinearLoadModelPropertyIndex = 8;
+        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 9;
+        private const int evaluationLevelPropertyIndex = 10;
+        private const int failureProbabilityRepairClosurePropertyIndex = 11;
+
+        private const int inflowModelTypePropertyIndex = 12;
+        private const int structureNormalOrientationPropertyIndex = 13;
+        private const int levelCrestStructurePropertyIndex = 14;
+        private const int insideWaterLevelPropertyIndex = 15;
+        private const int thresholdHeightOpenWeirPropertyIndex = 16;
+        private const int widthFlowAperturesPropertyIndex = 17;
+        private const int drainCoefficientPropertyIndex = 18;
+        private const int areaFlowAperturesPropertyIndex = 19;
+        private const int stormDurationPropertyIndex = 20;
+        private const int factorStormDurationOpenStructurePropertyIndex = 21;
+
+        private const int criticalOvertoppingDischargePropertyIndex = 22;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 23;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 24;
+
+        private const int storageStructureAreaPropertyIndex = 25;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 26;
+
+        private const int stabilityLinearLoadModelPropertyIndex = 27;
+        private const int stabilityQuadraticLoadModelPropertyIndex = 28;
+
+        private const int failureCollisionEnergyPropertyIndex = 29;
+        private const int shipMassPropertyIndex = 30;
+        private const int shipVelocityPropertyIndex = 31;
+        private const int levellingCountPropertyIndex = 32;
+        private const int probabilityCollisionSecondaryStructurePropertyIndex = 33;
+        private const int flowVelocityStructureClosablePropertyIndex = 34;
+
+        private const int foreshoreProfilePropertyIndex = 35;
+        private const int useBreakWaterPropertyIndex = 36;
+        private const int useForeshorePropertyIndex = 37;
 
         /// <summary>
         /// Creates a new instance of the <see cref="StabilityPointStructuresInputContextProperties"/> class.
@@ -190,10 +198,12 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
                    || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
         }
 
-        #region Hydraulic data
+        #region Schematization
+
+        #region Hydraulic loads
 
         [PropertyOrder(volumicWeightWaterPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_Description))]
         public RoundedDouble VolumicWeightWater
@@ -210,7 +220,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(insideWaterLevelFailureConstructionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_Description))]
         public NormalDistributionProperties InsideWaterLevelFailureConstruction
@@ -226,12 +236,12 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [PropertyOrder(bankWidthPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public NormalDistributionProperties InsideWaterLevel
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_BankWidth_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_BankWidth_Description))]
+        public NormalDistributionProperties BankWidth
         {
             get
             {
@@ -239,83 +249,36 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
                     HasStructure()
                         ? DistributionPropertiesReadOnly.None
                         : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.InsideWaterLevel,
+                    data.WrappedData.BankWidth,
                     PropertyChangeHandler);
-            }
-        }
-
-        #endregion
-
-        #region Model factors and critical values
-
-        [DynamicVisible]
-        [PropertyOrder(drainCoefficientPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_Description))]
-        public NormalDistributionProperties DrainCoefficient
-        {
-            get
-            {
-                return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
-                    data.WrappedData.DrainCoefficient,
-                    PropertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_Description))]
-        public RoundedDouble FactorStormDurationOpenStructure
-        {
-            get
-            {
-                return data.WrappedData.FactorStormDurationOpenStructure;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FactorStormDurationOpenStructure = value, PropertyChangeHandler);
-            }
-        }
-
-        #endregion
-
-        #region Schematization
-
-        [DynamicVisible]
-        public override NormalDistributionProperties WidthFlowApertures
-        {
-            get
-            {
-                return base.WidthFlowApertures;
             }
         }
 
         [DynamicReadOnly]
-        [PropertyOrder(inflowModelTypePropertyIndex)]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_Description))]
-        public StabilityPointStructureInflowModelType InflowModelType
+        [PropertyOrder(verticalDistancePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VerticalDistance_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VerticalDistance_Description))]
+        public RoundedDouble VerticalDistance
         {
             get
             {
-                return data.WrappedData.InflowModelType;
+                return data.WrappedData.VerticalDistance;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.InflowModelType = value, PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.VerticalDistance = value, PropertyChangeHandler);
             }
         }
+
+        #endregion
+
+        #region Constructive failure
 
         [DynamicReadOnly]
         [PropertyOrder(loadSchematizationTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_LoadSchematizationType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_LoadSchematizationType_Description))]
         public LoadSchematizationType LoadSchematizationType
@@ -330,83 +293,10 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(levelCrestStructurePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
-        public NormalDistributionProperties LevelCrestStructure
-        {
-            get
-            {
-                return new NormalDistributionProperties(
-                    HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.LevelCrestStructure,
-                    PropertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
-        public NormalDistributionProperties ThresholdHeightOpenWeir
-        {
-            get
-            {
-                return new NormalDistributionProperties(
-                    HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.ThresholdHeightOpenWeir,
-                    PropertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_Description))]
-        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
-        {
-            get
-            {
-                return new VariationCoefficientNormalDistributionProperties(
-                    HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
-                    data.WrappedData.FlowVelocityStructureClosable,
-                    PropertyChangeHandler);
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(areaFlowAperturesPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_Description))]
-        public LogNormalDistributionProperties AreaFlowApertures
-        {
-            get
-            {
-                return new LogNormalDistributionProperties(
-                    HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.AreaFlowApertures,
-                    PropertyChangeHandler);
-            }
-        }
-
         [DynamicVisible]
         [PropertyOrder(constructiveStrengthLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthLinearLoadModel
@@ -425,7 +315,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(constructiveStrengthQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthQuadraticLoadModel
@@ -441,10 +331,186 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
+        [PropertyOrder(evaluationLevelPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_Description))]
+        public RoundedDouble EvaluationLevel
+        {
+            get
+            {
+                return data.WrappedData.EvaluationLevel;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.EvaluationLevel = value, PropertyChangeHandler);
+            }
+        }
+
+        [DynamicReadOnly]
+        [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_Description))]
+        public double FailureProbabilityRepairClosure
+        {
+            get
+            {
+                return data.WrappedData.FailureProbabilityRepairClosure;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityRepairClosure = value, PropertyChangeHandler);
+            }
+        }
+
+        #endregion
+
+        #region Incoming flow
+
+        [DynamicReadOnly]
+        [PropertyOrder(inflowModelTypePropertyIndex)]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_Description))]
+        public StabilityPointStructureInflowModelType InflowModelType
+        {
+            get
+            {
+                return data.WrappedData.InflowModelType;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.InflowModelType = value, PropertyChangeHandler);
+            }
+        }
+
+        [DynamicVisible]
+        public override NormalDistributionProperties WidthFlowApertures
+        {
+            get
+            {
+                return base.WidthFlowApertures;
+            }
+        }
+
+        [PropertyOrder(levelCrestStructurePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
+        public NormalDistributionProperties LevelCrestStructure
+        {
+            get
+            {
+                return new NormalDistributionProperties(
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
+                    data.WrappedData.LevelCrestStructure,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
+        public NormalDistributionProperties InsideWaterLevel
+        {
+            get
+            {
+                return new NormalDistributionProperties(
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
+                    data.WrappedData.InsideWaterLevel,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
+        public NormalDistributionProperties ThresholdHeightOpenWeir
+        {
+            get
+            {
+                return new NormalDistributionProperties(
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
+                    data.WrappedData.ThresholdHeightOpenWeir,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(areaFlowAperturesPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_Description))]
+        public LogNormalDistributionProperties AreaFlowApertures
+        {
+            get
+            {
+                return new LogNormalDistributionProperties(
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
+                    data.WrappedData.AreaFlowApertures,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(drainCoefficientPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_Description))]
+        public NormalDistributionProperties DrainCoefficient
+        {
+            get
+            {
+                return new NormalDistributionProperties(
+                    DistributionPropertiesReadOnly.StandardDeviation,
+                    data.WrappedData.DrainCoefficient,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_Description))]
+        public RoundedDouble FactorStormDurationOpenStructure
+        {
+            get
+            {
+                return data.WrappedData.FactorStormDurationOpenStructure;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FactorStormDurationOpenStructure = value, PropertyChangeHandler);
+            }
+        }
+
+        #endregion
+
+        #region Constructive Instability
+
         [DynamicVisible]
         [PropertyOrder(stabilityLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematizatization_ConstructionInstability))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties StabilityLinearLoadModel
@@ -463,7 +529,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(stabilityQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematizatization_ConstructionInstability))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_Description))]
         public VariationCoefficientLogNormalDistributionProperties StabilityQuadraticLoadModel
@@ -479,27 +545,13 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicReadOnly]
-        [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_Description))]
-        public double FailureProbabilityRepairClosure
-        {
-            get
-            {
-                return data.WrappedData.FailureProbabilityRepairClosure;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityRepairClosure = value, PropertyChangeHandler);
-            }
-        }
+        #endregion
+
+        #region Collision secondary structure
 
         [PropertyOrder(failureCollisionEnergyPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_Description))]
         public VariationCoefficientLogNormalDistributionProperties FailureCollisionEnergy
@@ -517,7 +569,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(shipMassPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipMass_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipMass_Description))]
         public VariationCoefficientNormalDistributionProperties ShipMass
@@ -535,7 +587,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(shipVelocityPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipVelocity_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipVelocity_Description))]
         public VariationCoefficientNormalDistributionProperties ShipVelocity
@@ -553,7 +605,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(levellingCountPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_LevellingCount_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_LevellingCount_Description))]
         public int LevellingCount
@@ -571,7 +623,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(probabilityCollisionSecondaryStructurePropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_Description))]
         public double ProbabilityCollisionSecondaryStructure
@@ -586,57 +638,25 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(bankWidthPropertyIndex)]
+        [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_BankWidth_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_BankWidth_Description))]
-        public NormalDistributionProperties BankWidth
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_Description))]
+        public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
         {
             get
             {
-                return new NormalDistributionProperties(
+                return new VariationCoefficientNormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.BankWidth,
+                        ? VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation
+                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                    data.WrappedData.FlowVelocityStructureClosable,
                     PropertyChangeHandler);
             }
         }
 
-        [DynamicReadOnly]
-        [PropertyOrder(evaluationLevelPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_Description))]
-        public RoundedDouble EvaluationLevel
-        {
-            get
-            {
-                return data.WrappedData.EvaluationLevel;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.EvaluationLevel = value, PropertyChangeHandler);
-            }
-        }
-
-        [DynamicReadOnly]
-        [PropertyOrder(verticalDistancePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VerticalDistance_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VerticalDistance_Description))]
-        public RoundedDouble VerticalDistance
-        {
-            get
-            {
-                return data.WrappedData.VerticalDistance;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.VerticalDistance = value, PropertyChangeHandler);
-            }
-        }
+        #endregion
 
         #endregion
     }

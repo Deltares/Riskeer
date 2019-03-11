@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Categories_Schematization_ConstructiveFailure" xml:space="preserve">
+    <value>Schematisering bezwijken waterkerende constructie-onderdelen</value>
+  </data>
+  <data name="Categories_Schematization_HydraulicLoads" xml:space="preserve">
+    <value>Schematisering hydraulische belastingen op constructie</value>
+  </data>
+  <data name="Categories_Schematizatization_ConstructionInstability" xml:space="preserve">
+    <value>Schematisering instabiliteit constructie en grondlichaam</value>
+  </data>
+  <data name="Categoties_Schematization_CollisionSecondaryStructure" xml:space="preserve">
+    <value>Schematisering aanvaring tweede keermiddel</value>
+  </data>
   <data name="StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_Description" xml:space="preserve">
     <value>Modelfactor voor aanvaarbelasting.</value>
   </data>

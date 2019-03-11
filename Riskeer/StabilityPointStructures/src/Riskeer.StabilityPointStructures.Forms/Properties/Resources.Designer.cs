@@ -82,6 +82,42 @@ namespace Riskeer.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schematisering bezwijken waterkerende constructie-onderdelen.
+        /// </summary>
+        public static string Categories_Schematization_ConstructiveFailure {
+            get {
+                return ResourceManager.GetString("Categories_Schematization_ConstructiveFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisering hydraulische belastingen op constructie.
+        /// </summary>
+        public static string Categories_Schematization_HydraulicLoads {
+            get {
+                return ResourceManager.GetString("Categories_Schematization_HydraulicLoads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisering instabiliteit constructie en grondlichaam.
+        /// </summary>
+        public static string Categories_Schematizatization_ConstructionInstability {
+            get {
+                return ResourceManager.GetString("Categories_Schematizatization_ConstructionInstability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisering aanvaring tweede keermiddel.
+        /// </summary>
+        public static string Categoties_Schematization_CollisionSecondaryStructure {
+            get {
+                return ResourceManager.GetString("Categoties_Schematization_CollisionSecondaryStructure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modelfactor voor aanvaarbelasting..
         /// </summary>
         public static string StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_Description {
