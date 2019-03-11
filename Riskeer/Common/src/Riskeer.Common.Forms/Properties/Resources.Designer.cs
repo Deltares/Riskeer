@@ -725,6 +725,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modelfactoren.
+        /// </summary>
+        public static string Categories_ModelFactors {
+            get {
+                return ResourceManager.GetString("Categories_ModelFactors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modelinstellingen.
         /// </summary>
         public static string Categories_ModelSettings {

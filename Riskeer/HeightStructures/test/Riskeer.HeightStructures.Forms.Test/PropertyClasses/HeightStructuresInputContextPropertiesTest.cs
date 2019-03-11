@@ -49,20 +49,26 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
     {
         private const int structurePropertyIndex = 0;
         private const int structureLocationPropertyIndex = 1;
-        private const int structureNormalOrientationPropertyIndex = 2;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 3;
-        private const int widthFlowAperturesPropertyIndex = 4;
-        private const int storageStructureAreaPropertyIndex = 5;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 6;
-        private const int levelCrestStructurePropertyIndex = 7;
+        private const int hydraulicBoundaryLocationPropertyIndex = 2;
+
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 3;
+        
+        private const int structureNormalOrientationPropertyIndex = 4;
+        private const int levelCrestStructurePropertyIndex = 5;
+        private const int widthFlowAperturesPropertyIndex = 6;
+        private const int stormDurationPropertyIndex = 7;
+
         private const int criticalOvertoppingDischargePropertyIndex = 8;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 9;
-        private const int foreshoreProfilePropertyIndex = 10;
-        private const int useBreakWaterPropertyIndex = 11;
-        private const int useForeshorePropertyIndex = 12;
-        private const int modelFactorSuperCriticalFlowPropertyIndex = 13;
-        private const int hydraulicBoundaryLocationPropertyIndex = 14;
-        private const int stormDurationPropertyIndex = 15;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
+
+        private const int storageStructureAreaPropertyIndex = 11;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 12;
+        
+        private const int foreshoreProfilePropertyIndex = 13;
+        private const int useBreakWaterPropertyIndex = 14;
+        private const int useForeshorePropertyIndex = 15;
+        
         private const int calculateIllustrationPointsPropertyIndex = 16;
 
         private MockRepository mockRepository;
@@ -165,8 +171,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string modelSettingsCategory = "Modelinstellingen";
-            const string schematizationCategory = "Schematisatie";
+            const string modelSettingsCategory = "Modelfactoren";
+            const string schematizationIncomingFlowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(17, dynamicProperties.Count);
@@ -182,7 +188,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(levelCrestStructureProperty,
-                                                                            schematizationCategory,
+                                                                            schematizationIncomingFlowCategory,
                                                                             "Kerende hoogte [m+NAP]",
                                                                             "Kerende hoogte van het kunstwerk.",
                                                                             true);

@@ -43,22 +43,27 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         StructuresCalculation<HeightStructuresInput>,
         HeightStructuresFailureMechanism>
     {
-        private const int structurePropertyIndex = 1;
-        private const int structureLocationPropertyIndex = 2;
-        private const int structureNormalOrientationPropertyIndex = 3;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 4;
-        private const int widthFlowAperturesPropertyIndex = 5;
-        private const int storageStructureAreaPropertyIndex = 6;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 7;
-        private const int levelCrestStructurePropertyIndex = 8;
-        private const int criticalOvertoppingDischargePropertyIndex = 9;
+        private const int structurePropertyIndex = 0;
+        private const int structureLocationPropertyIndex = 1;
+        private const int hydraulicBoundaryLocationPropertyIndex = 2;
+
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 3;
+
+        private const int structureNormalOrientationPropertyIndex = 4;
+        private const int levelCrestStructurePropertyIndex = 5;
+        private const int widthFlowAperturesPropertyIndex = 6;
+        private const int stormDurationPropertyIndex = 7;
+
+        private const int criticalOvertoppingDischargePropertyIndex = 8;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
-        private const int foreshoreProfilePropertyIndex = 11;
-        private const int useBreakWaterPropertyIndex = 12;
-        private const int useForeshorePropertyIndex = 13;
-        private const int modelFactorSuperCriticalFlowPropertyIndex = 14;
-        private const int hydraulicBoundaryLocationPropertyIndex = 15;
-        private const int stormDurationPropertyIndex = 16;
+
+        private const int storageStructureAreaPropertyIndex = 11;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 12;
+
+        private const int foreshoreProfilePropertyIndex = 13;
+        private const int useBreakWaterPropertyIndex = 14;
+        private const int useForeshorePropertyIndex = 15;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
@@ -89,7 +94,7 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
         public NormalDistributionProperties ModelFactorSuperCriticalFlow
@@ -109,7 +114,7 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
         public NormalDistributionProperties LevelCrestStructure
