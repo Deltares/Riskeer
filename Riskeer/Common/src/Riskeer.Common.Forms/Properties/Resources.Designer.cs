@@ -3532,7 +3532,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans gegeven erosie bodem [1/jaar].
+        ///   Looks up a localized string similar to Faalkans gegeven erosie bodem [-].
         /// </summary>
         public static string Structure_FailureProbabilityStructureWithErosion_DisplayName {
             get {

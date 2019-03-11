@@ -196,7 +196,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[storageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[allowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[criticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[foreshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[useBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);

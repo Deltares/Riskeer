@@ -313,7 +313,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
                 schematizationCategory,
-                "Faalkans herstel van gefaalde situatie [1/jaar]",
+                "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[linearLowSillFailureCollisionEnergyPropertyIndex];
@@ -357,7 +357,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
                 schematizationCategory,
-                "Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]",
+                "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
             PropertyDescriptor stabilityLinearLoadModel = dynamicProperties[linearLowSillStabilityLinearLoadModelPropertyIndex];
@@ -379,7 +379,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[linearLowSillStorageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[linearLowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[linearLowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[linearLowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[linearLowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[linearLowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[linearLowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearLowSillUseForeshorePropertyIndex].DisplayName);
@@ -541,7 +541,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
                 schematizationCategory,
-                "Faalkans herstel van gefaalde situatie [1/jaar]",
+                "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[quadraticLowSillFailureCollisionEnergyPropertyIndex];
@@ -585,7 +585,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
                 schematizationCategory,
-                "Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]",
+                "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
             PropertyDescriptor stabilityQuadraticLoadModelProperty = dynamicProperties[quadraticLowSillStabilityQuadraticLoadModelPropertyIndex];
@@ -607,7 +607,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[quadraticLowSillStorageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[quadraticLowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[quadraticLowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[quadraticLowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[quadraticLowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[quadraticLowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticLowSillUseForeshorePropertyIndex].DisplayName);
@@ -789,7 +789,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
                 schematizationCategory,
-                "Faalkans herstel van gefaalde situatie [1/jaar]",
+                "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[linearFloodedCulvertFailureCollisionEnergyPropertyIndex];
@@ -833,7 +833,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
                 schematizationCategory,
-                "Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]",
+                "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
             PropertyDescriptor stabilityLinearLoadModel = dynamicProperties[linearFloodedCulvertStabilityLinearLoadModelPropertyIndex];
@@ -854,7 +854,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[linearFloodedCulvertStorageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[linearFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[linearFloodedCulvertCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[linearFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[linearFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[linearFloodedCulvertForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[linearFloodedCulvertUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearFloodedCulvertUseForeshorePropertyIndex].DisplayName);
@@ -1036,7 +1036,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 failureProbabilityRepairClosureProperty,
                 schematizationCategory,
-                "Faalkans herstel van gefaalde situatie [1/jaar]",
+                "Faalkans herstel van gefaalde situatie [-]",
                 "Faalkans herstel van gefaalde situatie.");
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[quadraticFloodedCulvertFailureCollisionEnergyPropertyIndex];
@@ -1080,7 +1080,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 probabilityCollisionSecondaryStructureProperty,
                 schematizationCategory,
-                "Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]",
+                "Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]",
                 "Kans op aanvaring tweede keermiddel per nivellering.");
 
             PropertyDescriptor stabilityQuadraticLoadModelProperty = dynamicProperties[quadraticFloodedCulvertStabilityQuadraticLoadModelPropertyIndex];
@@ -1101,7 +1101,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[quadraticFloodedCulvertStorageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[quadraticFloodedCulvertAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[quadraticFloodedCulvertCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[quadraticFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[quadraticFloodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[quadraticFloodedCulvertForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[quadraticFloodedCulvertUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticFloodedCulvertUseForeshorePropertyIndex].DisplayName);

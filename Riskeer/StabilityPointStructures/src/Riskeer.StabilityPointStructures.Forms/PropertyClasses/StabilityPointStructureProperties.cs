@@ -273,9 +273,9 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_Description))]
         public VariationCoefficientNormalDistributionProperties FlowVelocityStructureClosable
         {
             get

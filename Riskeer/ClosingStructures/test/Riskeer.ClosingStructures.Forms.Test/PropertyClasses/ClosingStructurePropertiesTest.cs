@@ -272,21 +272,21 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[probabilityOpenStructureBeforeFloodingPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [1/jaar]",
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
                                                                             "Kans op open staan bij naderend hoogwater.",
                                                                             true);
 
             PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[failureProbabilityOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
                                                                             schematizationCategory,
-                                                                            "Kans mislukken sluiting [1/jaar]",
+                                                                            "Kans mislukken sluiting [-]",
                                                                             "Kans op mislukken sluiting van geopend kunstwerk.",
                                                                             true);
 
             PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[failureProbabilityReparationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
                                                                             schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [1/jaar]",
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
                                                                             "Faalkans herstel van gefaalde situatie.",
                                                                             true);
         }

@@ -813,7 +813,7 @@ handmatig</value>
     <value>Faalkans kunstwerk gegeven erosie bodem.</value>
   </data>
   <data name="Structure_FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
-    <value>Faalkans gegeven erosie bodem [1/jaar]</value>
+    <value>Faalkans gegeven erosie bodem [-]</value>
   </data>
   <data name="Structure_ForeshoreProfile_Description" xml:space="preserve">
     <value>De schematisatie van het voorlandprofiel.</value>

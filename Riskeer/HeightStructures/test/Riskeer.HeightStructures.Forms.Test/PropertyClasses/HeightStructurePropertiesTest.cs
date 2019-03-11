@@ -187,7 +187,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex];
             Assert.IsTrue(failureProbabilityStructureWithErosionProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", failureProbabilityStructureWithErosionProperty.DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", failureProbabilityStructureWithErosionProperty.DisplayName);
             Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem.", failureProbabilityStructureWithErosionProperty.Description);
         }
     }

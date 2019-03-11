@@ -233,7 +233,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[constructionProperties.FailureProbabilityStructureWithErosionPropertyIndex];
             Assert.IsFalse(failureProbabilityStructureWithErosionProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", failureProbabilityStructureWithErosionProperty.DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", failureProbabilityStructureWithErosionProperty.DisplayName);
             Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem.", failureProbabilityStructureWithErosionProperty.Description);
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[constructionProperties.ForeshoreProfilePropertyIndex];

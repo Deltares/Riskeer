@@ -163,7 +163,7 @@
     <value>Faalkans herstel van gefaalde situatie.</value>
   </data>
   <data name="Structure_FailureProbabilityRepairClosure_DisplayName" xml:space="preserve">
-    <value>Faalkans herstel van gefaalde situatie [1/jaar]</value>
+    <value>Faalkans herstel van gefaalde situatie [-]</value>
   </data>
   <data name="Structure_FlowVelocityStructureClosable_Description" xml:space="preserve">
     <value>Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.</value>
@@ -193,7 +193,7 @@
     <value>Kans op aanvaring tweede keermiddel per nivellering.</value>
   </data>
   <data name="Structure_ProbabilityCollisionSecondaryStructure_DisplayName" xml:space="preserve">
-    <value>Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]</value>
+    <value>Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]</value>
   </data>
   <data name="Structure_ShipMass_Description" xml:space="preserve">
     <value>Massa van het schip.</value>

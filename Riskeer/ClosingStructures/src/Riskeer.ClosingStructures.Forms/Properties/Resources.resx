@@ -133,19 +133,19 @@
     <value>Kans op open staan bij naderend hoogwater.</value>
   </data>
   <data name="ProbabilityOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
-    <value>Kans op open staan bij naderend hoogwater [1/jaar]</value>
+    <value>Kans op open staan bij naderend hoogwater [-]</value>
   </data>
   <data name="FailureProbabilityOpenStructure_Description" xml:space="preserve">
     <value>Kans op mislukken sluiting van geopend kunstwerk.</value>
   </data>
   <data name="FailureProbabilityOpenStructure_DisplayName" xml:space="preserve">
-    <value>Kans mislukken sluiting [1/jaar]</value>
+    <value>Kans mislukken sluiting [-]</value>
   </data>
   <data name="FailureProbabilityReparation_Description" xml:space="preserve">
     <value>Faalkans herstel van gefaalde situatie.</value>
   </data>
   <data name="FailureProbabilityReparation_DisplayName" xml:space="preserve">
-    <value>Faalkans herstel van gefaalde situatie [1/jaar]</value>
+    <value>Faalkans herstel van gefaalde situatie [-]</value>
   </data>
   <data name="ClosingStructuresFailureMechanismProperties_C_Description" xml:space="preserve">
     <value>De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.</value>

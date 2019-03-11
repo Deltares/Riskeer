@@ -218,19 +218,19 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [1/jaar]",
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
                                                                             "Kans op open staan bij naderend hoogwater.");
 
             PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[verticalWallFailureProbabilityOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
                                                                             schematizationCategory,
-                                                                            "Kans mislukken sluiting [1/jaar]",
+                                                                            "Kans mislukken sluiting [-]",
                                                                             "Kans op mislukken sluiting van geopend kunstwerk.");
 
             PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[verticalWallFailureProbabilityReparationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
                                                                             schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [1/jaar]",
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
                                                                             "Faalkans herstel van gefaalde situatie.");
 
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex];
@@ -256,7 +256,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[verticalWallStorageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[verticalWallAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[verticalWallCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[verticalWallFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[verticalWallFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[verticalWallForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[verticalWallUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[verticalWallUseForeshorePropertyIndex].DisplayName);
@@ -332,19 +332,19 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [1/jaar]",
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
                                                                             "Kans op open staan bij naderend hoogwater.");
 
             PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[floodedCulvertFailureProbabilityOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
                                                                             schematizationCategory,
-                                                                            "Kans mislukken sluiting [1/jaar]",
+                                                                            "Kans mislukken sluiting [-]",
                                                                             "Kans op mislukken sluiting van geopend kunstwerk.");
 
             PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[floodedCulvertFailureProbabilityReparationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
                                                                             schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [1/jaar]",
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
                                                                             "Faalkans herstel van gefaalde situatie.");
 
             PropertyDescriptor drainCoefficientProperty = dynamicProperties[floodedCulvertDrainCoefficientPropertyIndex];
@@ -368,7 +368,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[floodedCulvertStorageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[floodedCulvertAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[floodedCulvertCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[floodedCulvertForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[floodedCulvertUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[floodedCulvertUseForeshorePropertyIndex].DisplayName);
@@ -444,19 +444,19 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [1/jaar]",
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
                                                                             "Kans op open staan bij naderend hoogwater.");
 
             PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[lowSillFailureProbabilityOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
                                                                             schematizationCategory,
-                                                                            "Kans mislukken sluiting [1/jaar]",
+                                                                            "Kans mislukken sluiting [-]",
                                                                             "Kans op mislukken sluiting van geopend kunstwerk.");
 
             PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[lowSillFailureProbabilityReparationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
                                                                             schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [1/jaar]",
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
                                                                             "Faalkans herstel van gefaalde situatie.");
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
@@ -473,7 +473,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[lowSillStorageStructureAreaPropertyIndex].DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[lowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[lowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[lowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [-]", dynamicProperties[lowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[lowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[lowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[lowSillUseForeshorePropertyIndex].DisplayName);

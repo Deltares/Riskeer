@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -127,7 +127,7 @@ namespace Riskeer.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans mislukken sluiting [1/jaar].
+        ///   Looks up a localized string similar to Kans mislukken sluiting [-].
         /// </summary>
         public static string FailureProbabilityOpenStructure_DisplayName {
             get {
@@ -145,7 +145,7 @@ namespace Riskeer.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans herstel van gefaalde situatie [1/jaar].
+        ///   Looks up a localized string similar to Faalkans herstel van gefaalde situatie [-].
         /// </summary>
         public static string FailureProbabilityReparation_DisplayName {
             get {
@@ -199,7 +199,7 @@ namespace Riskeer.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op open staan bij naderend hoogwater [1/jaar].
+        ///   Looks up a localized string similar to Kans op open staan bij naderend hoogwater [-].
         /// </summary>
         public static string ProbabilityOpenStructureBeforeFlooding_DisplayName {
             get {

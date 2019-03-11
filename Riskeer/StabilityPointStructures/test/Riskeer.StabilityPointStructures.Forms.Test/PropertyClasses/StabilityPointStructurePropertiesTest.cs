@@ -349,7 +349,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor failureProbabilityRepairClosureProperty = dynamicProperties[failureProbabilityRepairClosurePropertyIndex];
             Assert.AreEqual(schematizationCategory, failureProbabilityRepairClosureProperty.Category);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityRepairClosureProperty.DisplayName);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie [-]", failureProbabilityRepairClosureProperty.DisplayName);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityRepairClosureProperty.Description);
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[failureCollisionEnergyPropertyIndex];
@@ -377,7 +377,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[probabilityCollisionSecondaryStructurePropertyIndex];
             Assert.AreEqual(schematizationCategory, probabilityCollisionSecondaryStructureProperty.Category);
-            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]", probabilityCollisionSecondaryStructureProperty.DisplayName);
+            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering [1/nivellering]", probabilityCollisionSecondaryStructureProperty.DisplayName);
             Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering.", probabilityCollisionSecondaryStructureProperty.Description);
 
             PropertyDescriptor stabilityLinearLoadModelProperty = dynamicProperties[stabilityLinearLoadModelPropertyIndex];
