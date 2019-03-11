@@ -171,7 +171,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string modelSettingsCategory = "Modelfactoren";
+            const string modelFactorsCategory = "Modelfactoren";
             const string schematizationIncomingFlowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -180,7 +180,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
-                                                                            modelSettingsCategory,
+                                                                            modelFactorsCategory,
                                                                             "Modelfactor overloopdebiet volkomen overlaat [-]",
                                                                             "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
                                                                             true);
