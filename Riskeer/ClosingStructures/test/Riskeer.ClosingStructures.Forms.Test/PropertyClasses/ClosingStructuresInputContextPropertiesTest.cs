@@ -187,63 +187,65 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string modelFactorsCategory = "Modelfactoren";
+
+            const string schematizationClosureCategory = "Schematisering sluitproces";
+            const string schematizationInflowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(23, dynamicProperties.Count);
 
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inflowModelTypeProperty,
-                                                                            schematizationCategory,
-                                                                            "Instroommodel",
-                                                                            "Instroommodel van het kunstwerk.");
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
+                                                                            modelFactorsCategory,
+                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
+                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                                                                            true);
 
             PropertyDescriptor identicalAperturesProperty = dynamicProperties[verticalWallIdenticalAperturesPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
-                                                                            schematizationCategory,
+                                                                            schematizationClosureCategory,
                                                                             "Aantal identieke doorstroomopeningen [-]",
                                                                             "Aantal identieke doorstroomopeningen.");
+
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[verticalWallFailureProbabilityOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Kans mislukken sluiting [-]",
+                                                                            "Kans op mislukken sluiting van geopend kunstwerk.");
+
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
+                                                                            "Kans op open staan bij naderend hoogwater.");
+
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[verticalWallFailureProbabilityReparationPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
+                                                                            "Faalkans herstel van gefaalde situatie.");
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inflowModelTypeProperty,
+                                                                            schematizationInflowCategory,
+                                                                            "Instroommodel",
+                                                                            "Instroommodel van het kunstwerk.");
 
             PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[verticalWallLevelCrestStructureNotClosingPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(levelCrestStructureNotClosingProperty,
-                                                                            schematizationCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Kruinhoogte niet gesloten kering [m+NAP]",
                                                                             "Niveau kruin bij niet gesloten maximaal kerende keermiddelen.",
                                                                             true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructureNotClosing, false, false);
 
-            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [-]",
-                                                                            "Kans op open staan bij naderend hoogwater.");
-
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[verticalWallFailureProbabilityOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans mislukken sluiting [-]",
-                                                                            "Kans op mislukken sluiting van geopend kunstwerk.");
-
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[verticalWallFailureProbabilityReparationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
-                                                                            schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [-]",
-                                                                            "Faalkans herstel van gefaalde situatie.");
-
-            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
-                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
-                                                                            true);
-
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[verticalWallFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
-                                                                            modelSettingsCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
 
@@ -291,73 +293,72 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string schematizationClosureCategory = "Schematisering sluitproces";
+            const string schematizationInflowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(22, dynamicProperties.Count);
 
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[floodedCulvertIdenticalAperturesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Aantal identieke doorstroomopeningen [-]",
+                                                                            "Aantal identieke doorstroomopeningen.");
+
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[floodedCulvertFailureProbabilityOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Kans mislukken sluiting [-]",
+                                                                            "Kans op mislukken sluiting van geopend kunstwerk.");
+
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
+                                                                            "Kans op open staan bij naderend hoogwater.");
+
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[floodedCulvertFailureProbabilityReparationPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
+                                                                            "Faalkans herstel van gefaalde situatie.");
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[floodedCulvertInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inflowModelTypeProperty,
+                                                                            schematizationInflowCategory,
+                                                                            "Instroommodel",
+                                                                            "Instroommodel van het kunstwerk.");
+
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[floodedCulvertInsideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(insideWaterLevelProperty,
-                                                                            hydraulicDataCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Binnenwaterstand [m+NAP]",
                                                                             "Binnenwaterstand.",
                                                                             true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[floodedCulvertInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inflowModelTypeProperty,
-                                                                            schematizationCategory,
-                                                                            "Instroommodel",
-                                                                            "Instroommodel van het kunstwerk.");
-
             PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[floodedCulvertAreaFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(areaFlowAperturesProperty,
-                                                                            schematizationCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Doorstroomoppervlak [m²]",
                                                                             "Doorstroomoppervlak van doorstroomopeningen.",
                                                                             true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.AreaFlowApertures, false, false);
 
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[floodedCulvertIdenticalAperturesPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
-                                                                            schematizationCategory,
-                                                                            "Aantal identieke doorstroomopeningen [-]",
-                                                                            "Aantal identieke doorstroomopeningen.");
-
-            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [-]",
-                                                                            "Kans op open staan bij naderend hoogwater.");
-
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[floodedCulvertFailureProbabilityOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans mislukken sluiting [-]",
-                                                                            "Kans op mislukken sluiting van geopend kunstwerk.");
-
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[floodedCulvertFailureProbabilityReparationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
-                                                                            schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [-]",
-                                                                            "Faalkans herstel van gefaalde situatie.");
-
             PropertyDescriptor drainCoefficientProperty = dynamicProperties[floodedCulvertDrainCoefficientPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(drainCoefficientProperty,
-                                                                            modelSettingsCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Afvoercoëfficiënt [-]",
                                                                             "Afvoercoëfficiënt.",
                                                                             true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
-                                                                            modelSettingsCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
 
@@ -403,65 +404,64 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string schematizationClosureCategory = "Schematisering sluitproces";
+            const string schematizationInflowCategory = "Schematisering instromend debiet/volume";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(22, dynamicProperties.Count);
 
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[lowSillIdenticalAperturesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Aantal identieke doorstroomopeningen [-]",
+                                                                            "Aantal identieke doorstroomopeningen.");
+
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[lowSillFailureProbabilityOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Kans mislukken sluiting [-]",
+                                                                            "Kans op mislukken sluiting van geopend kunstwerk.");
+
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
+                                                                            "Kans op open staan bij naderend hoogwater.");
+
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[lowSillFailureProbabilityReparationPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
+                                                                            schematizationClosureCategory,
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
+                                                                            "Faalkans herstel van gefaalde situatie.");
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inflowModelTypeProperty,
+                                                                            schematizationInflowCategory,
+                                                                            "Instroommodel",
+                                                                            "Instroommodel van het kunstwerk.");
+
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[lowSillInsideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(insideWaterLevelProperty,
-                                                                            hydraulicDataCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Binnenwaterstand [m+NAP]",
                                                                             "Binnenwaterstand.",
                                                                             true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.InsideWaterLevel, false, false);
 
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inflowModelTypeProperty,
-                                                                            schematizationCategory,
-                                                                            "Instroommodel",
-                                                                            "Instroommodel van het kunstwerk.");
-
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[lowSillidenticalAperturesPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
-                                                                            schematizationCategory,
-                                                                            "Aantal identieke doorstroomopeningen [-]",
-                                                                            "Aantal identieke doorstroomopeningen.");
-
             PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[lowSillThresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(thresholdHeightOpenWeirProperty,
-                                                                            schematizationCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Drempelhoogte [m+NAP]",
                                                                             "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
                                                                             true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
 
-            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [-]",
-                                                                            "Kans op open staan bij naderend hoogwater.");
-
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[lowSillFailureProbabilityOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans mislukken sluiting [-]",
-                                                                            "Kans op mislukken sluiting van geopend kunstwerk.");
-
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[lowSillFailureProbabilityReparationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
-                                                                            schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [-]",
-                                                                            "Faalkans herstel van gefaalde situatie.");
-
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
-                                                                            modelSettingsCategory,
+                                                                            schematizationInflowCategory,
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
 
@@ -888,27 +888,34 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         #region VerticalWall structures indices
 
         private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int verticalWallStormDurationPropertyIndex = 1;
-        private const int verticalWallStructurePropertyIndex = 2;
-        private const int verticalWallStructureLocationPropertyIndex = 3;
-        private const int verticalWallStructureNormalOrientationPropertyIndex = 4;
-        private const int verticalWallInflowModelTypePropertyIndex = 5;
-        private const int verticalWallWidthFlowAperturesPropertyIndex = 6;
-        private const int verticalWallIdenticalAperturesPropertyIndex = 7;
-        private const int verticalWallFlowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int verticalWallStorageStructureAreaPropertyIndex = 9;
-        private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 11;
-        private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 12;
-        private const int verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex = 13;
-        private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 14;
-        private const int verticalWallFailureProbabilityReparationPropertyIndex = 15;
+        private const int verticalWallStructurePropertyIndex = 1;
+        private const int verticalWallStructureLocationPropertyIndex = 2;
+
+        private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 3;
+
+        private const int verticalWallIdenticalAperturesPropertyIndex = 4;
+        private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 5;
+        private const int verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex = 6;
+        private const int verticalWallFailureProbabilityReparationPropertyIndex = 7;
+
+        private const int verticalWallInflowModelTypePropertyIndex = 8;
+        private const int verticalWallStructureNormalOrientationPropertyIndex = 9;
+        private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 10;
+        private const int verticalWallWidthFlowAperturesPropertyIndex = 11;
+        private const int verticalWallStormDurationPropertyIndex = 12;
+        private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 13;
+
+        private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 14;
+        private const int verticalWallFlowWidthAtBottomProtectionPropertyIndex = 15;
         private const int verticalWallFailureProbabilityStructureWithErosionPropertyIndex = 16;
-        private const int verticalWallForeshoreProfilePropertyIndex = 17;
-        private const int verticalWallUseBreakWaterPropertyIndex = 18;
-        private const int verticalWallUseForeshorePropertyIndex = 19;
-        private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 20;
-        private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 21;
+
+        private const int verticalWallStorageStructureAreaPropertyIndex = 17;
+        private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 18;
+
+        private const int verticalWallForeshoreProfilePropertyIndex = 19;
+        private const int verticalWallUseBreakWaterPropertyIndex = 20;
+        private const int verticalWallUseForeshorePropertyIndex = 21;
+
         private const int verticalWallCalculateIllustrationPointsPropertyIndex = 22;
 
         #endregion
@@ -916,26 +923,32 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         #region LowSill structures indices
 
         private const int lowSillHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int lowSillStormDurationPropertyIndex = 1;
-        private const int lowSillInsideWaterLevelPropertyIndex = 2;
-        private const int lowSillStructurePropertyIndex = 3;
-        private const int lowSillStructureLocationPropertyIndex = 4;
-        private const int lowSillInflowModelTypePropertyIndex = 5;
-        private const int lowSillWidthFlowAperturesPropertyIndex = 6;
-        private const int lowSillidenticalAperturesPropertyIndex = 7;
-        private const int lowSillFlowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int lowSillStorageStructureAreaPropertyIndex = 9;
-        private const int lowSillAllowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int lowSillThresholdHeightOpenWeirPropertyIndex = 11;
-        private const int lowSillCriticalOvertoppingDischargePropertyIndex = 12;
-        private const int lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex = 13;
-        private const int lowSillFailureProbabilityOpenStructurePropertyIndex = 14;
-        private const int lowSillFailureProbabilityReparationPropertyIndex = 15;
-        private const int lowSillFailureProbabilityStructureWithErosionPropertyIndex = 16;
-        private const int lowSillForeshoreProfilePropertyIndex = 17;
-        private const int lowSillUseBreakWaterPropertyIndex = 18;
-        private const int lowSillUseForeshorePropertyIndex = 19;
-        private const int lowSillFactorStormDurationOpenStructurePropertyIndex = 20;
+        private const int lowSillStructurePropertyIndex = 1;
+        private const int lowSillStructureLocationPropertyIndex = 2;
+
+        private const int lowSillIdenticalAperturesPropertyIndex = 3;
+        private const int lowSillFailureProbabilityOpenStructurePropertyIndex = 4;
+        private const int lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex = 5;
+        private const int lowSillFailureProbabilityReparationPropertyIndex = 6;
+
+        private const int lowSillInflowModelTypePropertyIndex = 7;
+        private const int lowSillInsideWaterLevelPropertyIndex = 8;
+        private const int lowSillThresholdHeightOpenWeirPropertyIndex = 9;
+        private const int lowSillWidthFlowAperturesPropertyIndex = 10;
+        private const int lowSillStormDurationPropertyIndex = 11;
+        private const int lowSillFactorStormDurationOpenStructurePropertyIndex = 12;
+
+        private const int lowSillCriticalOvertoppingDischargePropertyIndex = 13;
+        private const int lowSillFlowWidthAtBottomProtectionPropertyIndex = 14;
+        private const int lowSillFailureProbabilityStructureWithErosionPropertyIndex = 15;
+
+        private const int lowSillStorageStructureAreaPropertyIndex = 16;
+        private const int lowSillAllowedLevelIncreaseStoragePropertyIndex = 17;
+
+        private const int lowSillForeshoreProfilePropertyIndex = 18;
+        private const int lowSillUseBreakWaterPropertyIndex = 19;
+        private const int lowSillUseForeshorePropertyIndex = 20;
+
         private const int lowSillCalculateIllustrationPointsPropertyIndex = 21;
 
         #endregion
@@ -943,38 +956,44 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         #region FloodedCulvert structures indices
 
         private const int floodedCulvertHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int floodedCulvertStormDurationPropertyIndex = 1;
-        private const int floodedCulvertInsideWaterLevelPropertyIndex = 2;
-        private const int floodedCulvertStructurePropertyIndex = 3;
-        private const int floodedCulvertStructureLocationPropertyIndex = 4;
-        private const int floodedCulvertInflowModelTypePropertyIndex = 5;
-        private const int floodedCulvertAreaFlowAperturesPropertyIndex = 6;
-        private const int floodedCulvertIdenticalAperturesPropertyIndex = 7;
-        private const int floodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int floodedCulvertStorageStructureAreaPropertyIndex = 9;
-        private const int floodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int floodedCulvertCriticalOvertoppingDischargePropertyIndex = 11;
-        private const int floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex = 12;
-        private const int floodedCulvertFailureProbabilityOpenStructurePropertyIndex = 13;
-        private const int floodedCulvertFailureProbabilityReparationPropertyIndex = 14;
+        private const int floodedCulvertStructurePropertyIndex = 1;
+        private const int floodedCulvertStructureLocationPropertyIndex = 2;
+
+        private const int floodedCulvertIdenticalAperturesPropertyIndex = 3;
+        private const int floodedCulvertFailureProbabilityOpenStructurePropertyIndex = 4;
+        private const int floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex = 5;
+        private const int floodedCulvertFailureProbabilityReparationPropertyIndex = 6;
+
+        private const int floodedCulvertInflowModelTypePropertyIndex = 7;
+        private const int floodedCulvertInsideWaterLevelPropertyIndex = 8;
+        private const int floodedCulvertAreaFlowAperturesPropertyIndex = 9;
+        private const int floodedCulvertDrainCoefficientPropertyIndex = 10;
+        private const int floodedCulvertStormDurationPropertyIndex = 11;
+        private const int floodedCulvertFactorStormDurationOpenStructurePropertyIndex = 12;
+
+        private const int floodedCulvertCriticalOvertoppingDischargePropertyIndex = 13;
+        private const int floodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 14;
         private const int floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex = 15;
-        private const int floodedCulvertForeshoreProfilePropertyIndex = 16;
-        private const int floodedCulvertUseBreakWaterPropertyIndex = 17;
-        private const int floodedCulvertUseForeshorePropertyIndex = 18;
-        private const int floodedCulvertDrainCoefficientPropertyIndex = 19;
-        private const int floodedCulvertFactorStormDurationOpenStructurePropertyIndex = 20;
+
+        private const int floodedCulvertStorageStructureAreaPropertyIndex = 16;
+        private const int floodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 17;
+
+        private const int floodedCulvertForeshoreProfilePropertyIndex = 18;
+        private const int floodedCulvertUseBreakWaterPropertyIndex = 19;
+        private const int floodedCulvertUseForeshorePropertyIndex = 20;
+
         private const int floodedCulvertCalculateIllustrationPointsPropertyIndex = 21;
 
         #endregion
 
         #region No structure property indices
 
-        private const int inflowModelTypePropertyIndex = 6;
-        private const int identicalAperturesPropertyIndex = 9;
-        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 16;
-        private const int failureProbabilityOpenStructurePropertyIndex = 17;
-        private const int failureProbabilityReparationPropertyIndex = 18;
-
+        private const int identicalAperturesPropertyIndex = 4;
+        private const int failureProbabilityOpenStructurePropertyIndex = 5;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 6;
+        private const int failureProbabilityReparationPropertyIndex = 7;
+        private const int inflowModelTypePropertyIndex = 8;
+        
         #endregion
 
         #endregion

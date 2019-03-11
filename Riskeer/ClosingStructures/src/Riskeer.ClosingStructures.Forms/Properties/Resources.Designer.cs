@@ -82,6 +82,15 @@ namespace Riskeer.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schematisering sluitproces.
+        /// </summary>
+        public static string Categories_Schematization_Closure {
+            get {
+                return ResourceManager.GetString("Categories_Schematization_Closure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;C&apos; die gebruikt wordt om het lengte-effect te berekenen..
         /// </summary>
         public static string ClosingStructuresFailureMechanismProperties_C_Description {

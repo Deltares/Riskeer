@@ -159,4 +159,7 @@
   <data name="ClosingStructuresFailureMechanismProperties_N2A_DisplayName" xml:space="preserve">
     <value>2NA [-]</value>
   </data>
+  <data name="Categories_Schematization_Closure" xml:space="preserve">
+    <value>Schematisering sluitproces</value>
+  </data>
 </root>
