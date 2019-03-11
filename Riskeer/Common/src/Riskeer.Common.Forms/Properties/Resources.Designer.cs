@@ -770,7 +770,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorland en (haven)dam.
+        ///   Looks up a localized string similar to Schematisering voorland en (haven)dam.
         /// </summary>
         public static string Categories_Schematization_Foreshore {
             get {

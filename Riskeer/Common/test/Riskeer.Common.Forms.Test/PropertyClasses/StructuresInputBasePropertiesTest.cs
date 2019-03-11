@@ -179,7 +179,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             const string schematizationIncomingFlowCategory = "Schematisering instromend debiet/volume";
             const string schematizationGroundErosionCategory = "Schematisering bodembescherming";
             const string schematizationStorageStructureCategory = "Schematisering komberging";
-            const string foreshoreCategory = "Voorland en (haven)dam";
+            const string schematizationForeshoreCategory = "Schematisering voorland en (haven)dam";
             const string outputSettingsCategory = "Uitvoer";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -253,21 +253,21 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[constructionProperties.ForeshoreProfilePropertyIndex];
             Assert.IsFalse(foreshoreProfileProperty.IsReadOnly);
-            Assert.AreEqual(foreshoreCategory, foreshoreProfileProperty.Category);
+            Assert.AreEqual(schematizationForeshoreCategory, foreshoreProfileProperty.Category);
             Assert.AreEqual("Voorlandprofiel", foreshoreProfileProperty.DisplayName);
             Assert.AreEqual("De schematisatie van het voorlandprofiel.", foreshoreProfileProperty.Description);
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[constructionProperties.UseBreakWaterPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(useBreakWaterProperty.Converter);
             Assert.IsTrue(useBreakWaterProperty.IsReadOnly);
-            Assert.AreEqual(foreshoreCategory, useBreakWaterProperty.Category);
+            Assert.AreEqual(schematizationForeshoreCategory, useBreakWaterProperty.Category);
             Assert.AreEqual("Dam", useBreakWaterProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de dam.", useBreakWaterProperty.Description);
 
             PropertyDescriptor useForeshoreProperty = dynamicProperties[constructionProperties.UseForeshorePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(useForeshoreProperty.Converter);
             Assert.IsTrue(useForeshoreProperty.IsReadOnly);
-            Assert.AreEqual(foreshoreCategory, useForeshoreProperty.Category);
+            Assert.AreEqual(schematizationForeshoreCategory, useForeshoreProperty.Category);
             Assert.AreEqual("Voorlandgeometrie", useForeshoreProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", useForeshoreProperty.Description);
 
