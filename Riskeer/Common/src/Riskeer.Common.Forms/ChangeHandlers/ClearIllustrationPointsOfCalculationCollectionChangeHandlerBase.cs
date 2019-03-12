@@ -29,7 +29,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// <summary>
     /// Base class for handling clearing illustration points from collections of calculations.
     /// </summary>
-    public abstract class ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase 
+    public abstract class ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
         : IClearIllustrationPointsOfCalculationCollectionChangeHandler
     {
         private readonly IInquiryHelper inquiryHelper;
@@ -49,17 +49,17 @@ namespace Riskeer.Common.Forms.ChangeHandlers
             this.inquiryHelper = inquiryHelper;
         }
 
-        /// <summary>
-        /// Gets the message that should be displayed when inquiring the confirmation.
-        /// </summary>
-        /// <returns>The message that should be displayed when inquiring the confirmation.</returns>
-        protected abstract string GetConfirmationMessage();
-
         public bool InquireConfirmation()
         {
             return inquiryHelper.InquireContinuation(GetConfirmationMessage());
         }
 
         public abstract IEnumerable<IObservable> ClearIllustrationPoints();
+
+        /// <summary>
+        /// Gets the message that should be displayed when inquiring the confirmation.
+        /// </summary>
+        /// <returns>The message that should be displayed when inquiring the confirmation.</returns>
+        protected abstract string GetConfirmationMessage();
     }
 }
