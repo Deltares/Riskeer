@@ -33,35 +33,31 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         : IClearIllustrationPointsOfCalculationCollectionChangeHandler
     {
         private readonly IInquiryHelper inquiryHelper;
-        private readonly string inquiry;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
-        /// <param name="inquiry">The inquiry that should be displayed when inquiring whether the illustration points
-        /// should be cleared.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase(IInquiryHelper inquiryHelper,
-                                                                                  string inquiry)
+        protected ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase(IInquiryHelper inquiryHelper)
         {
             if (inquiryHelper == null)
             {
                 throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
-            if (inquiry == null)
-            {
-                throw new ArgumentNullException(nameof(inquiry));
-            }
-
             this.inquiryHelper = inquiryHelper;
-            this.inquiry = inquiry;
         }
+
+        /// <summary>
+        /// Gets the message that should be displayed when inquiring the confirmation.
+        /// </summary>
+        /// <returns>The message that should be displayed when inquiring the confirmation.</returns>
+        protected abstract string GetConfirmationMessage();
 
         public bool InquireConfirmation()
         {
-            return inquiryHelper.InquireContinuation(inquiry);
+            return inquiryHelper.InquireContinuation(GetConfirmationMessage());
         }
 
         public abstract IEnumerable<IObservable> ClearIllustrationPoints();

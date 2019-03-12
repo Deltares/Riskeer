@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
                                                                                     IEnumerable<IStructuresCalculation> calculations)
-            : base(inquiryHelper, Resources.ClearIllustrationPointsCalculationCollection_Inquiry)
+            : base(inquiryHelper)
         {
             if (calculations == null)
             {
@@ -58,6 +58,11 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         public override IEnumerable<IObservable> ClearIllustrationPoints()
         {
             return RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints(calculations);
+        }
+
+        protected override string GetConfirmationMessage()
+        {
+            return Resources.ClearIllustrationPointsCalculationCollection_ConfirmationMessage;
         }
     }
 }

@@ -1055,9 +1055,9 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u alle illustratiepunten wilt wissen?.
         /// </summary>
-        public static string ClearIllustrationPointsCalculationCollection_Inquiry {
+        public static string ClearIllustrationPointsCalculationCollection_ConfirmationMessage {
             get {
-                return ResourceManager.GetString("ClearIllustrationPointsCalculationCollection_Inquiry", resourceCulture);
+                return ResourceManager.GetString("ClearIllustrationPointsCalculationCollection_ConfirmationMessage", resourceCulture);
             }
         }
         

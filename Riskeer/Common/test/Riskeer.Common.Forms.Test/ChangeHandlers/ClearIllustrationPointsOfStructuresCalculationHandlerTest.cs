@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
 
             // Assert
-            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<StructuresCalculation<TestStructuresInput>>>(handler);
+            Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<IStructuresCalculation>>(handler);
             mocks.VerifyAll();
         }
 

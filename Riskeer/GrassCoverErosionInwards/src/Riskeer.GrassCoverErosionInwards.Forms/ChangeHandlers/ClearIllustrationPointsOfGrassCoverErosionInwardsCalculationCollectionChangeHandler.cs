@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
         /// <exception cref="System.ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
                                                                                                    IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
-            : base(inquiryHelper, RiskeerCommonFormsResources.ClearIllustrationPointsCalculationCollection_Inquiry)
+            : base(inquiryHelper)
         {
             if (calculations == null)
             {
@@ -59,6 +59,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
         public override IEnumerable<IObservable> ClearIllustrationPoints()
         {
             return GrassCoverErosionInwardsDataSynchronizationService.ClearIllustrationPoints(calculations);
+        }
+
+        protected override string GetConfirmationMessage()
+        {
+            return RiskeerCommonFormsResources.ClearIllustrationPointsCalculationCollection_ConfirmationMessage;
         }
     }
 }

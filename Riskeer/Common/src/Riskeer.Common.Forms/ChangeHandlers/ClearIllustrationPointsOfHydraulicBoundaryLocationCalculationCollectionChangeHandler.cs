@@ -30,9 +30,10 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// <summary>
     /// Class for handling clearing the illustration points results from a collection of hydraulic boundary location calculations.
     /// </summary>
-    public class ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler 
+    public class ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler
         : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
     {
+        private readonly string collectionDescription;
         private readonly Func<IEnumerable<IObservable>> clearIllustrationPointsFunc;
 
         /// <summary>
@@ -43,10 +44,9 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <param name="clearIllustrationPointsFunc">The function to clear the illustration point results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                         string collectionDescription,
-                                                                                         Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
-            : base(inquiryHelper,
-                   string.Format(Resources.ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_, collectionDescription))
+                                                                                                    string collectionDescription,
+                                                                                                    Func<IEnumerable<IObservable>> clearIllustrationPointsFunc)
+            : base(inquiryHelper)
         {
             if (collectionDescription == null)
             {
@@ -58,12 +58,18 @@ namespace Riskeer.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(clearIllustrationPointsFunc));
             }
 
+            this.collectionDescription = collectionDescription;
             this.clearIllustrationPointsFunc = clearIllustrationPointsFunc;
         }
 
         public override IEnumerable<IObservable> ClearIllustrationPoints()
         {
             return clearIllustrationPointsFunc();
+        }
+
+        protected override string GetConfirmationMessage()
+        {
+            return string.Format(Resources.ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_, collectionDescription);
         }
     }
 }

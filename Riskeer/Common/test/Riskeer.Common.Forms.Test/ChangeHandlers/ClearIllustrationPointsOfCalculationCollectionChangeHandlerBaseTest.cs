@@ -36,29 +36,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(null, string.Empty);
+            TestDelegate call = () => new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("inquiryHelper", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_InquiryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("inquiry", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -70,7 +52,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            var handler = new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper, string.Empty);
+            var handler = new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<IClearIllustrationPointsOfCalculationCollectionChangeHandler>(handler);
@@ -83,19 +65,23 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void InquireConfirmation_Always_UsesExpectedInquiryAndReturnsExpectedConfirmation(bool expectedConfirmation)
         {
             // Setup
-            const string inquiry = "Inquiry";
+            const string confirmationMessage = "Inquiry";
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(h => h.InquireContinuation(inquiry)).Return(expectedConfirmation);
+            inquiryHelper.Expect(h => h.InquireContinuation(confirmationMessage)).Return(expectedConfirmation);
             mocks.ReplayAll();
 
-            var handler = new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper, inquiry);
+            var handler = new TestClearIllustrationPointsOfCalculationCollectionChangeHandler(inquiryHelper)
+            {
+                ConfirmationMessage = confirmationMessage
+            };
 
             // Call
             bool confirmation = handler.InquireConfirmation();
 
             // Assert
+            Assert.IsTrue(handler.GetConfirmationMessageCalled);
             Assert.AreEqual(expectedConfirmation, confirmation);
             mocks.VerifyAll();
         }
@@ -103,11 +89,20 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         private class TestClearIllustrationPointsOfCalculationCollectionChangeHandler
             : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
         {
-            public TestClearIllustrationPointsOfCalculationCollectionChangeHandler(IInquiryHelper helper, string inquiry) : base(helper, inquiry) {}
+            public TestClearIllustrationPointsOfCalculationCollectionChangeHandler(IInquiryHelper helper) : base(helper) {}
+            public string ConfirmationMessage { private get; set; }
+
+            public bool GetConfirmationMessageCalled { get; private set; }
 
             public override IEnumerable<IObservable> ClearIllustrationPoints()
             {
                 throw new NotImplementedException();
+            }
+
+            protected override string GetConfirmationMessage()
+            {
+                GetConfirmationMessageCalled = true;
+                return ConfirmationMessage;
             }
         }
     }
