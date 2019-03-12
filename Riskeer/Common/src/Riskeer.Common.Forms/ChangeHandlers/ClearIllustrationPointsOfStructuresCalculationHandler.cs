@@ -28,13 +28,11 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// <summary>
     /// Class for handling clearing illustration point results from a structures calculation.
     /// </summary>
-    /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
-    public class ClearIllustrationPointsOfStructuresCalculationHandler<TStructureInput>
+    public class ClearIllustrationPointsOfStructuresCalculationHandler
         : ClearIllustrationPointsOfCalculationChangeHandlerBase<IStructuresCalculation>
-        where TStructureInput : IStructuresCalculationInput, new()
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructuresCalculationHandler{TStructureInput}"/>.
+        /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructuresCalculationHandler"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="calculation">The calculation to clear the illustration points for.</param>

@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var calculation = new TestStructuresCalculation();
 
             // Call
-            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler<TestStructuresInput>(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<StructuresCalculation<TestStructuresInput>>>(handler);
@@ -61,7 +61,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler<TestStructuresInput>(inquiryHelper, calculation);
+            var handler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
 
             bool hasOutput = calculation.HasOutput;
 

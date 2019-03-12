@@ -748,8 +748,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
 
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler<StabilityPointStructuresInput>(inquiryHelper,
-                                                                                                                         calculation);
+            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
