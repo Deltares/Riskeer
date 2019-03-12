@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Gemaal Helbergen">
+    <hblocatie>050-01_0050_1_IJ_km0926</hblocatie>
+    <kunstwerk>KW_1</kunstwerk>
+    <orientatie>280</orientatie>
+    <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
+    <instroommodel>verdronkenkoker</instroommodel>
+    <factorstormduur>1</factorstormduur>
+    <nrdoorstroomopeningen>2</nrdoorstroomopeningen>
+    <kansopopenstaan>0.022727</kansopopenstaan>
+    <kansmislukkensluiting>1E-05</kansmislukkensluiting>
+    <faalkansherstel>1</faalkansherstel>
+    <stochasten>
+      <stochast naam="breedtebodembescherming">
+        <verwachtingswaarde>4.3</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="breedtedoorstroomopening">
+        <verwachtingswaarde>3.4</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="kombergendoppervlak">
+        <verwachtingswaarde>1000000000</verwachtingswaarde>
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="kritiekinstromenddebiet">
+        <verwachtingswaarde>0.66</verwachtingswaarde>
+        <variatiecoefficient>0.15</variatiecoefficient>
+      </stochast>
+      <stochast naam="peilverhogingkomberging">
+        <verwachtingswaarde>2</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="stormduur">
+        <verwachtingswaarde>6</verwachtingswaarde>
+      </stochast>
+      <stochast naam="modelfactoroverloopdebiet">
+        <verwachtingswaarde>1.1</verwachtingswaarde>
+      </stochast>
+      <stochast naam="afvoercoefficient">
+        <verwachtingswaarde>1</verwachtingswaarde>
+      </stochast>
+      <stochast naam="binnenwaterstand">
+        <verwachtingswaarde>5.5</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>0.68</verwachtingswaarde>
+        <standaardafwijking>0.01</standaardafwijking>
+      </stochast>
+      <stochast naam="drempelhoogte">
+        <verwachtingswaarde>5.2</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="kruinhoogte">
+        <verwachtingswaarde>5</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
+  </berekening>
+</configuratie>
