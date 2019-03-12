@@ -885,16 +885,16 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddClearIllustrationPointsOfCalculationsItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
         {
             // Setup
+            string expectedToolTipMessage = isEnabled
+                                                ? "Wis alle berekende illustratiepunten."
+                                                : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
+
             var mocks = new MockRepository();
             var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
             var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
                               .WhenCalled(arg =>
                               {
-                                  string expectedToolTipMessage = isEnabled
-                                                                      ? "Wis alle berekende illustratiepunten."
-                                                                      : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
-
                                   var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
                                   Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
@@ -921,17 +921,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void AddClearIllustrationPointsOfCalculationItem_EnabledSituation_ItemAddedToContextMenuAsExpected(bool isEnabled)
         {
             // Setup
+            string expectedToolTipMessage = isEnabled
+                                                ? "Wis de berekende illustratiepunten van deze berekening."
+                                                : "Deze berekening heeft geen illustratiepunten om te wissen.";
+
             var mocks = new MockRepository();
             var changeHandler = mocks.StrictMock<IClearIllustrationPointsOfCalculationChangeHandler>();
             var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull))
                               .WhenCalled(arg =>
                               {
-                                  string expectedToolTipMessage = isEnabled
-                                                                      ? "Wis de berekende illustratiepunten van deze berekening."
-                                                                      : "Deze berekening heeft geen illustratiepunten om te wissen.";
-
-                                  var contextMenuItem = (StrictContextMenuItem)arg.Arguments[0];
+                                  var contextMenuItem = (StrictContextMenuItem) arg.Arguments[0];
                                   Assert.AreEqual("Wis illustratiepunten...", contextMenuItem.Text);
                                   Assert.AreEqual(expectedToolTipMessage, contextMenuItem.ToolTipText);
                                   Assert.AreEqual(isEnabled, contextMenuItem.Enabled);

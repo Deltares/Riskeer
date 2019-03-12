@@ -31,7 +31,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling a collection of grass cover erosion inwards calculations when its illustration points need to be cleared.
+    /// Class for handling clearing the illustration points of a collection of grass cover erosion inwards calculations.
     /// </summary>
     public class ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler
         : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase

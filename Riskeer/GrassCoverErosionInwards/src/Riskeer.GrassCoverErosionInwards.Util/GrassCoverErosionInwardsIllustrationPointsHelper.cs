@@ -35,7 +35,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util
         /// Determines whether a <see cref="GrassCoverErosionInwardsCalculation"/> has illustration point results.
         /// </summary>
         /// <param name="calculation">The calculation to check.</param>
-        /// <returns><c>true</c> if <paramref name="calculation"/> has illustration point results, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> when <paramref name="calculation"/> has illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool HasIllustrationPoints(GrassCoverErosionInwardsCalculation calculation)
         {
@@ -52,7 +52,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util
         /// calculations with illustration point results.
         /// </summary>
         /// <param name="calculations">The calculations to check.</param>
-        /// <returns><c>true</c> if <paramref name="calculations"/> contain calculations with
+        /// <returns><c>true</c> when <paramref name="calculations"/> contain calculations with
         /// illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         public static bool HasIllustrationPoints(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)

@@ -517,8 +517,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         #region Helpers
 
         private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateChangeHandler(
-            DialogBasedInquiryHelper inquiryHelper,
-            IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+            DialogBasedInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
         }

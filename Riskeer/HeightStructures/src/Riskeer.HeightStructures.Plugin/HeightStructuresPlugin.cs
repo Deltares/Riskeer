@@ -877,8 +877,7 @@ namespace Riskeer.HeightStructures.Plugin
         #region Helpers
 
         private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<HeightStructuresInput> CreateChangeHandler(
-            IInquiryHelper inquiryHelper,
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
+            IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<HeightStructuresInput>(inquiryHelper, calculations);
         }

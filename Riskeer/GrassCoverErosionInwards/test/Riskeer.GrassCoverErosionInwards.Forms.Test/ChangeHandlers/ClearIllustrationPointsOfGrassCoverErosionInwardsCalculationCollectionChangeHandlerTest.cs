@@ -177,6 +177,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
                        && output.DikeHeightOutput?.GeneralResult == null
                        && output.OvertoppingRateOutput?.GeneralResult == null;
             }));
+            mocks.VerifyAll();
         }
     }
 }

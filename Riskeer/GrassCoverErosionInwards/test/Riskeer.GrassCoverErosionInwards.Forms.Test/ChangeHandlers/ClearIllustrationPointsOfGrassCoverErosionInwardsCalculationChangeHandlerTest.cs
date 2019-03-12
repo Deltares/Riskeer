@@ -50,6 +50,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationChangeHandlerBase<GrassCoverErosionInwardsCalculation>>(handler);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -71,12 +72,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.ChangeHandlers
             // Assert
             Assert.AreEqual(expectedResult, result);
 
-            if (calculation.HasOutput)
-            {
-                Assert.IsFalse(calculation.Output.OvertoppingOutput.HasGeneralResult);
-                Assert.IsNull(calculation.Output.OvertoppingRateOutput?.GeneralResult);
-                Assert.IsNull(calculation.Output.DikeHeightOutput?.GeneralResult);
-            }
+            Assert.IsNull(calculation.Output?.OvertoppingOutput.GeneralResult);
+            Assert.IsNull(calculation.Output?.OvertoppingRateOutput?.GeneralResult);
+            Assert.IsNull(calculation.Output?.DikeHeightOutput?.GeneralResult);
+            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()
