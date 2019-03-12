@@ -30,7 +30,7 @@ using Riskeer.Common.Service;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling a collection of structure calculations when its illustration points need to be cleared.
+    /// Class for handling clearing illustration points from a collection of structure calculations.
     /// </summary>
     public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler
         : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,

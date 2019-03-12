@@ -26,21 +26,21 @@ using Riskeer.Common.Data.Structures;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling clearing illustration point results of a single structures calculation.
+    /// Class for handling clearing illustration point results from a structures calculation.
     /// </summary>
     /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
     public class ClearIllustrationPointsOfStructuresCalculationHandler<TStructureInput>
-        : ClearIllustrationPointsOfCalculationChangeHandlerBase<StructuresCalculation<TStructureInput>>
+        : ClearIllustrationPointsOfCalculationChangeHandlerBase<IStructuresCalculation>
         where TStructureInput : IStructuresCalculationInput, new()
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructuresCalculationHandler{TStructureInput}"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="calculation">The calculation for which the illustration points should be cleared for.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfStructuresCalculationHandler(IInquiryHelper inquiryHelper,
-                                                                     StructuresCalculation<TStructureInput> calculation)
+                                                                     IStructuresCalculation calculation)
             : base(inquiryHelper, calculation) {}
 
         public override bool ClearIllustrationPoints()

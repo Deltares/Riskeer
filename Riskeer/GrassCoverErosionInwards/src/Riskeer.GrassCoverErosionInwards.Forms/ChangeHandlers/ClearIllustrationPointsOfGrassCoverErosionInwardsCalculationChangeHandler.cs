@@ -28,7 +28,7 @@ using Riskeer.GrassCoverErosionInwards.Util;
 namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Class for handling clearing illustration point results of a single grass cover erosion inwards calculation.
+    /// Class for handling clearing illustration point results from a grass cover erosion inwards calculation.
     /// </summary>
     public class ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler
         : ClearIllustrationPointsOfCalculationChangeHandlerBase<GrassCoverErosionInwardsCalculation>
@@ -36,8 +36,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.ChangeHandlers
         /// <summary>
         /// Creates a new instance of <see cref="ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="calculation">The calculation for which the illustration points should be cleared for.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(IInquiryHelper inquiryHelper,
                                                                                          GrassCoverErosionInwardsCalculation calculation)

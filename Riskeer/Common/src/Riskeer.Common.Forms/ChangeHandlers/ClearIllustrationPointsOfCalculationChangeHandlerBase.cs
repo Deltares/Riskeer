@@ -27,7 +27,7 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Base class for handling objects when clearing illustration points from a calculation.
+    /// Base class for handling clearing illustration points from a calculation.
     /// </summary>
     /// <typeparam name="TCalculation">The type of calculation.</typeparam>
     public abstract class ClearIllustrationPointsOfCalculationChangeHandlerBase<TCalculation> : IClearIllustrationPointsOfCalculationChangeHandler
@@ -37,10 +37,10 @@ namespace Riskeer.Common.Forms.ChangeHandlers
         protected TCalculation Calculation;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClearIllustrationPointsOfCalculationChangeHandlerBase{T}"/>.
+        /// Creates a new instance of <see cref="ClearIllustrationPointsOfCalculationChangeHandlerBase{TCalculation}"/>.
         /// </summary>
-        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <param name="calculation">The calculation for which the illustration points should be cleared for.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring confirmation.</param>
+        /// <param name="calculation">The calculation to clear the illustration points for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         protected ClearIllustrationPointsOfCalculationChangeHandlerBase(IInquiryHelper inquiryHelper,
                                                                         TCalculation calculation)

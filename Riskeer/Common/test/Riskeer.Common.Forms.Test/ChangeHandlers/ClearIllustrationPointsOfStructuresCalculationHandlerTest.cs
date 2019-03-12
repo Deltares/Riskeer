@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -56,8 +54,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         [Test]
         [TestCaseSource(nameof(GetCalculationConfigurations))]
         public void ClearIllustrationPoints_WithVariousCalculationConfigurations_ClearsIllustrationPointsAndReturnsExpectedResult(
-            TestStructuresCalculation calculation,
-            bool expectedResult)
+            TestStructuresCalculation calculation, bool expectedResult)
         {
             // Setup
             var mocks = new MockRepository();
@@ -75,10 +72,8 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             Assert.AreEqual(expectedResult, isCalculationAffected);
             Assert.AreEqual(hasOutput, calculation.HasOutput);
 
-            if (hasOutput)
-            {
-                Assert.IsFalse(calculation.Output.HasGeneralResult);
-            }
+            Assert.IsNull(calculation.Output?.GeneralResult);
+            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()
