@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-
 namespace Riskeer.Common.Forms.ChangeHandlers
 {
     /// <summary>
-    /// Interface for an object that can properly clear a illustration points of a single calculation.
+    /// Interface for handling clearing illustration point results from a calculation.
     /// </summary>
     public interface IClearIllustrationPointsOfCalculationChangeHandler
     {

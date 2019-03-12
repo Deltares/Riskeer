@@ -33,12 +33,11 @@ namespace Riskeer.Common.Util
     public static class IllustrationPointsHelper
     {
         /// <summary>
-        /// Determines whether a collection of <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// contain calculations with illustration point results.
+        /// Determines whether a  <see cref="HydraulicBoundaryLocationCalculation"/> in <paramref name="calculations"/>
+        /// has illustration point results.
         /// </summary>
         /// <param name="calculations">The calculations to check.</param>
-        /// <returns><c>true</c> if <paramref name="calculations"/> contain calculations with
-        /// illustration point results, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> when one or more calculations have illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         public static bool HasIllustrationPoints(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
@@ -51,12 +50,11 @@ namespace Riskeer.Common.Util
         }
 
         /// <summary>
-        /// Determines whether a collection of <see cref="IStructuresCalculation"/> contain
-        /// calculations with illustration point results.
+        /// Determines whether an <see cref="IStructuresCalculation"/> in <paramref name="calculations"/>
+        /// has illustration point results.
         /// </summary>
         /// <param name="calculations">The calculations to check.</param>
-        /// <returns><c>true</c> if <paramref name="calculations"/> contain calculations with
-        /// illustration point results, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> when one or more calculations have illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         public static bool HasIllustrationPoints(IEnumerable<IStructuresCalculation> calculations)
         {
@@ -72,7 +70,7 @@ namespace Riskeer.Common.Util
         /// Determines whether a <see cref="IStructuresCalculation"/> has illustration point results.
         /// </summary>
         /// <param name="calculation">The calculation to check.</param>
-        /// <returns><c>true</c> if <paramref name="calculation"/> has illustration point results, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> when <paramref name="calculation"/> has illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool HasIllustrationPoints(IStructuresCalculation calculation)
         {
