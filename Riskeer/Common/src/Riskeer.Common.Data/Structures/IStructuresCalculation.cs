@@ -32,5 +32,10 @@ namespace Riskeer.Common.Data.Structures
         /// Gets the output of the structures calculation.
         /// </summary>
         StructuresOutput Output { get; }
+
+        /// <summary>
+        /// Clears the calculated illustration points.
+        /// </summary>
+        void ClearIllustrationPoints();
     }
 }
