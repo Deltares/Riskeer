@@ -86,12 +86,10 @@ namespace Riskeer.Common.Service
         /// <summary>
         /// Clears the illustration points of the provided structure calculations.
         /// </summary>
-        /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
         /// <param name="calculations">The calculations for which the illustration points need to be cleared.</param>
         /// <returns>All objects changed during the clear.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearStructuresCalculationIllustrationPoints<TStructureInput>(IEnumerable<StructuresCalculation<TStructureInput>> calculations)
-            where TStructureInput : IStructuresCalculationInput, new()
+        public static IEnumerable<IObservable> ClearStructuresCalculationIllustrationPoints(IEnumerable<IStructuresCalculation> calculations)
         {
             if (calculations == null)
             {
@@ -99,7 +97,7 @@ namespace Riskeer.Common.Service
             }
 
             var affectedCalculations = new List<IObservable>();
-            foreach (StructuresCalculation<TStructureInput> calculation in calculations)
+            foreach (IStructuresCalculation calculation in calculations)
             {
                 if (calculation.HasOutput && calculation.Output.HasGeneralResult)
                 {

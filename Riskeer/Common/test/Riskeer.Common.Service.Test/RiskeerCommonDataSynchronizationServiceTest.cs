@@ -170,7 +170,7 @@ namespace Riskeer.Common.Service.Test
         public void ClearStructuresCalculationIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints<TestStructuresInput>(null);
+            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

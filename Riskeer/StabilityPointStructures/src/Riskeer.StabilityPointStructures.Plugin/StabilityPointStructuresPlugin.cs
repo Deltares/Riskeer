@@ -879,10 +879,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #region Helpers
 
-        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<StabilityPointStructuresInput> CreateChangeHandler(
+        private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
         {
-            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<StabilityPointStructuresInput>(inquiryHelper, calculations);
+            return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
         }
 
         #endregion

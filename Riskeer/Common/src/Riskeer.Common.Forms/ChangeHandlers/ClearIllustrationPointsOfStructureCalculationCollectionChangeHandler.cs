@@ -32,21 +32,19 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     /// <summary>
     /// Class for handling a collection of structure calculations when its illustration points need to be cleared.
     /// </summary>
-    /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
-    public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TStructureInput>
+    public class ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler
         : ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase
-        where TStructureInput : IStructuresCalculationInput, new()
     {
-        private readonly IEnumerable<StructuresCalculation<TStructureInput>> calculations;
+        private readonly IEnumerable<IStructuresCalculation> calculations;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler{TStructureInput}"/>.
+        /// Creates a new instance of <see cref="ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler"/>.
         /// </summary>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <param name="calculations">The calculations for which the illustration points should be cleared for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(IInquiryHelper inquiryHelper,
-                                                                                    IEnumerable<StructuresCalculation<TStructureInput>> calculations)
+                                                                                    IEnumerable<IStructuresCalculation> calculations)
             : base(inquiryHelper, Resources.ClearIllustrationPointsCalculationCollection_Inquiry)
         {
             if (calculations == null)

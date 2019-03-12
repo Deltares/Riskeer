@@ -51,16 +51,14 @@ namespace Riskeer.Common.Util
         }
 
         /// <summary>
-        /// Determines whether a collection of <see cref="StructuresCalculation{T}"/> contain
+        /// Determines whether a collection of <see cref="IStructuresCalculation"/> contain
         /// calculations with illustration point results.
         /// </summary>
-        /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
         /// <param name="calculations">The calculations to check.</param>
         /// <returns><c>true</c> if <paramref name="calculations"/> contain calculations with
         /// illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        public static bool HasIllustrationPoints<TStructureInput>(IEnumerable<StructuresCalculation<TStructureInput>> calculations)
-            where TStructureInput : IStructuresCalculationInput, new()
+        public static bool HasIllustrationPoints(IEnumerable<IStructuresCalculation> calculations)
         {
             if (calculations == null)
             {
@@ -71,14 +69,12 @@ namespace Riskeer.Common.Util
         }
 
         /// <summary>
-        /// Determines whether a <see cref="StructuresCalculation{T}"/> has illustration point results.
+        /// Determines whether a <see cref="IStructuresCalculation"/> has illustration point results.
         /// </summary>
-        /// <typeparam name="TStructureInput">Object type of the structure calculation input.</typeparam>
         /// <param name="calculation">The calculation to check.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has illustration point results, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool HasIllustrationPoints<TStructureInput>(StructuresCalculation<TStructureInput> calculation)
-            where TStructureInput : IStructuresCalculationInput, new()
+        public static bool HasIllustrationPoints(IStructuresCalculation calculation)
         {
             if (calculation == null)
             {

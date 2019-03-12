@@ -45,12 +45,13 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(
+            TestDelegate call = () => new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculations", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -62,11 +63,12 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             mocks.ReplayAll();
 
             // Call
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
             // Assert
             Assert.IsInstanceOf<ClearIllustrationPointsOfCalculationCollectionChangeHandlerBase>(handler);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -81,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             inquiryHelper.Expect(h => h.InquireContinuation("Weet u zeker dat u alle illustratiepunten wilt wissen?")).Return(expectedConfirmation);
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(
                 inquiryHelper, Enumerable.Empty<TestStructuresCalculation>());
 
             // Call
@@ -89,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             Assert.AreEqual(expectedConfirmation, confirmation);
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculationWithOutput.Attach(calculationWithoutIllustrationPointsObserver);
             mocks.ReplayAll();
 
-            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler<TestStructuresInput>(inquiryHelper, calculations);
+            var handler = new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ClearIllustrationPoints();

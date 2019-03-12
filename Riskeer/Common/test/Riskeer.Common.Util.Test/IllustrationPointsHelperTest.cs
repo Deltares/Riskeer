@@ -36,7 +36,7 @@ namespace Riskeer.Common.Util.Test
         public void HasIllustrationPoints_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints(null);
+            TestDelegate call = () => IllustrationPointsHelper.HasIllustrationPoints((IEnumerable<HydraulicBoundaryLocationCalculation>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
