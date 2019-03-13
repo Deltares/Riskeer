@@ -308,7 +308,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             if (propertyName == nameof(AdjustPhreaticLine3And4ForUplift)
                 || propertyName == nameof(LeakageLengthInwardsPhreaticLine3)
-                || propertyName == nameof(LeakageLengthOutwardsPhreaticLine3) 
+                || propertyName == nameof(LeakageLengthOutwardsPhreaticLine3)
                 || propertyName == nameof(PiezometricHeadPhreaticLine2Inwards)
                 || propertyName == nameof(PiezometricHeadPhreaticLine2Outwards))
             {

@@ -171,7 +171,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsDikeSoilScenario dikeSoilScenario, bool expectedReadOnly)
         {
             // Setup
-            var calculationItem = new MacroStabilityInwardsCalculationScenario()
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {

@@ -37,7 +37,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsLocationInputExtremeProperties : MacroStabilityInwardsLocationInputBaseProperties<MacroStabilityInwardsLocationInputExtreme>
     {
         private const int penetrationLengthPropertyIndex = 3;
-        private MacroStabilityInwardsInput macroStabilityInwardsInput;
+        private readonly MacroStabilityInwardsInput macroStabilityInwardsInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsLocationInputExtremeProperties"/>.
@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return propertyName == nameof(PenetrationLength) 
+            return propertyName == nameof(PenetrationLength)
                    && macroStabilityInwardsInput.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand;
         }
     }

@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedDrainagePropertyIndex = 1;
         private const int expectedMinimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 2;
         private const int expectedMinimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 3;
-        private const int expecteAdjustPhreaticLine3And4ForUpliftPropertyIndex = 4;
+        private const int expectedAdjustPhreaticLine3And4ForUpliftPropertyIndex = 4;
         private const int expectedLeakageLengthOutwardsPhreaticLine3PropertyIndex = 5;
         private const int expectedLeakageLengthInwardsPhreaticLine3PropertyIndex = 6;
         private const int expectedLeakageLengthOutwardsPhreaticLine4PropertyIndex = 7;
@@ -177,7 +177,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "PL 1 initiële hoogte onder binnenkruin [m+NAP]",
                 "Minimale hoogte van de freatische lijn onder kruin binnentalud.");
 
-            PropertyDescriptor adjustPhreaticLine3And4ForUpliftProperty = dynamicProperties[expecteAdjustPhreaticLine3And4ForUpliftPropertyIndex];
+            PropertyDescriptor adjustPhreaticLine3And4ForUpliftProperty = dynamicProperties[expectedAdjustPhreaticLine3And4ForUpliftPropertyIndex];
             Assert.NotNull(adjustPhreaticLine3And4ForUpliftProperty.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 adjustPhreaticLine3And4ForUpliftProperty,
