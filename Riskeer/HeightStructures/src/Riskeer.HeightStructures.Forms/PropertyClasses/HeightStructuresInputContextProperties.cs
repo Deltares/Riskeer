@@ -22,10 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
@@ -65,6 +68,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         private const int useBreakWaterPropertyIndex = 14;
         private const int useForeshorePropertyIndex = 15;
 
+        private const int totalNrOfCategories = 7;
+
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
         /// </summary>
@@ -90,11 +95,28 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
                 StormDurationPropertyIndex = stormDurationPropertyIndex
             }, propertyChangeHandler) {}
 
+        #region Output Settings
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 7, totalNrOfCategories)]
+        public override bool ShouldIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return base.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                base.ShouldIllustrationPointsBeCalculated = value;
+            }
+        }
+
+        #endregion
+
         #region Model factors
 
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors), 2, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
         public NormalDistributionProperties ModelFactorSuperCriticalFlow
@@ -104,28 +126,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
                 return new NormalDistributionProperties(
                     DistributionPropertiesReadOnly.StandardDeviation,
                     data.WrappedData.ModelFactorSuperCriticalFlow,
-                    PropertyChangeHandler);
-            }
-        }
-
-        #endregion
-
-        #region Schematization
-
-        [PropertyOrder(levelCrestStructurePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
-        public NormalDistributionProperties LevelCrestStructure
-        {
-            get
-            {
-                return new NormalDistributionProperties(
-                    HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
-                    data.WrappedData.LevelCrestStructure,
                     PropertyChangeHandler);
             }
         }
@@ -152,5 +152,193 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         {
             HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(data.FailureMechanism);
         }
+
+        #region General data
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        {
+            get
+            {
+                return base.SelectedHydraulicBoundaryLocation;
+            }
+            set
+            {
+                base.SelectedHydraulicBoundaryLocation = value;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        public override HeightStructure Structure
+        {
+            get
+            {
+                return base.Structure;
+            }
+            set
+            {
+                base.Structure = value;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        public override Point2D StructureLocation
+        {
+            get
+            {
+                return base.StructureLocation;
+            }
+        }
+
+        #endregion
+
+        #region Incoming flow
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        public override RoundedDouble StructureNormalOrientation
+        {
+            get
+            {
+                return base.StructureNormalOrientation;
+            }
+            set
+            {
+                base.StructureNormalOrientation = value;
+            }
+        }
+
+        [PropertyOrder(levelCrestStructurePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
+        public NormalDistributionProperties LevelCrestStructure
+        {
+            get
+            {
+                return new NormalDistributionProperties(
+                    HasStructure()
+                        ? DistributionPropertiesReadOnly.None
+                        : DistributionPropertiesReadOnly.All,
+                    data.WrappedData.LevelCrestStructure,
+                    PropertyChangeHandler);
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        public override NormalDistributionProperties WidthFlowApertures
+        {
+            get
+            {
+                return base.WidthFlowApertures;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        public override VariationCoefficientLogNormalDistributionProperties StormDuration
+        {
+            get
+            {
+                return base.StormDuration;
+            }
+        }
+
+        #endregion
+
+        #region Ground erosion
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 4, totalNrOfCategories)]
+        public override VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
+        {
+            get
+            {
+                return base.CriticalOvertoppingDischarge;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 4, totalNrOfCategories)]
+        public override LogNormalDistributionProperties FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return base.FlowWidthAtBottomProtection;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 4, totalNrOfCategories)]
+        public override double FailureProbabilityStructureWithErosion
+        {
+            get
+            {
+                return base.FailureProbabilityStructureWithErosion;
+            }
+            set
+            {
+                base.FailureProbabilityStructureWithErosion = value;
+            }
+        }
+
+        #endregion
+
+        #region Storage structure
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 5, totalNrOfCategories)]
+        public override VariationCoefficientLogNormalDistributionProperties StorageStructureArea
+        {
+            get
+            {
+                return base.StorageStructureArea;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 5, totalNrOfCategories)]
+        public override LogNormalDistributionProperties AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return base.AllowedLevelIncreaseStorage;
+            }
+        }
+
+        #endregion
+
+        #region Foreshore profile
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Foreshore), 6, totalNrOfCategories)]
+        public override ForeshoreProfile ForeshoreProfile
+        {
+            get
+            {
+                return base.ForeshoreProfile;
+            }
+            set
+            {
+                base.ForeshoreProfile = value;
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Foreshore), 6, totalNrOfCategories)]
+        public override UseBreakWaterProperties UseBreakWater
+        {
+            get
+            {
+                return base.UseBreakWater;
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Foreshore), 6, totalNrOfCategories)]
+        public override UseForeshoreProperties UseForeshore
+        {
+            get
+            {
+                return base.UseForeshore;
+            }
+        }
+
+        #endregion
     }
 }
