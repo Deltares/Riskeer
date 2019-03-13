@@ -33,6 +33,7 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
@@ -157,6 +158,30 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsForCalculation(properties => properties.PenetrationLength = random.NextRoundedDouble(), calculation);
+        }
+
+        [Test]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, false)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand, false)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, true)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, false)]
+        public void DynamicReadOnlyValidationMethod_GivenDikeSoilScenario_ReturnsExpectedReadOnly(
+            MacroStabilityInwardsDikeSoilScenario dikeSoilScenario, bool expectedReadOnly)
+        {
+            // Setup
+            var calculationItem = new MacroStabilityInwardsCalculationScenario()
+            {
+                InputParameters =
+                {
+                    DikeSoilScenario = dikeSoilScenario
+                }
+            };
+
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(calculationItem.InputParameters, handler);
+
+            // Call & Assert
+            Assert.AreEqual(expectedReadOnly, properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsLocationInputExtremeProperties.PenetrationLength)));
         }
 
         private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsLocationInputExtremeProperties> setProperty,

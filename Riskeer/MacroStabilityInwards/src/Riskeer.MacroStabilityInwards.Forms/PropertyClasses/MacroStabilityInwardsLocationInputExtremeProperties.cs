@@ -27,6 +27,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
@@ -64,6 +65,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.PenetrationLength = value, PropertyChangeHandler);
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return propertyName == nameof(PenetrationLength) 
+                   && macroStabilityInwardsInput.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand;
         }
     }
 }
