@@ -208,7 +208,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             const string schematizationIncomingFlowCategory = "\t\t\t\tSchematisering instromend debiet/volume";
             const string schematizationGroundErosionCategory = "\t\t\tSchematisering bodembescherming";
             const string schematizationStorageStructureCategory = "\t\tSchematisering komberging";
-            const string foreshoreCategory = "\tSchematisering voorland en (haven)dam";
+            const string foreshoreCategory = "\tVoorland en (haven)dam";
             const string outputSettingsCategory = "Uitvoer";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

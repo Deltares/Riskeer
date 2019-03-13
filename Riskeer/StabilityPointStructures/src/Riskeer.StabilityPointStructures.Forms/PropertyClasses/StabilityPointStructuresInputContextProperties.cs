@@ -846,7 +846,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         #region Foreshore profile
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Foreshore),
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
             foreshoreCategoryIndex, totalNrOfCategories)]
         public override ForeshoreProfile ForeshoreProfile
         {
@@ -862,7 +862,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Foreshore),
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
             foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseBreakWaterProperties UseBreakWater
         {
@@ -874,7 +874,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Foreshore),
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
             foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseForeshoreProperties UseForeshore
         {

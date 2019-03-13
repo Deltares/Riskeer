@@ -1542,8 +1542,8 @@ berekende kans
   <data name="Categories_GeneralData" xml:space="preserve">
     <value>Basisgegevens</value>
   </data>
-  <data name="Categories_Schematization_Foreshore" xml:space="preserve">
-    <value>Schematisering voorland en (haven)dam</value>
+  <data name="Categories_Foreshore" xml:space="preserve">
+    <value>Voorland en (haven)dam</value>
   </data>
   <data name="Categories_Schematization_Ground_erosion" xml:space="preserve">
     <value>Schematisering bodembescherming</value>

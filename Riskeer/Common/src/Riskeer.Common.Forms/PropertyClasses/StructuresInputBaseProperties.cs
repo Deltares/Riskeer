@@ -514,7 +514,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_Description))]
         public virtual ForeshoreProfile ForeshoreProfile
@@ -531,7 +531,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterProperties_Description))]
         public virtual UseBreakWaterProperties UseBreakWater
@@ -546,7 +546,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProperties_Description))]
         public virtual UseForeshoreProperties UseForeshore

@@ -680,6 +680,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voorland en (haven)dam.
+        /// </summary>
+        public static string Categories_Foreshore {
+            get {
+                return ResourceManager.GetString("Categories_Foreshore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
@@ -766,15 +775,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string Categories_Schematization {
             get {
                 return ResourceManager.GetString("Categories_Schematization", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schematisering voorland en (haven)dam.
-        /// </summary>
-        public static string Categories_Schematization_Foreshore {
-            get {
-                return ResourceManager.GetString("Categories_Schematization_Foreshore", resourceCulture);
             }
         }
         
