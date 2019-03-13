@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -177,6 +178,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Minimale hoogte van de freatische lijn onder kruin binnentalud.");
 
             PropertyDescriptor adjustPhreaticLine3And4ForUpliftProperty = dynamicProperties[expecteAdjustPhreaticLine3And4ForUpliftPropertyIndex];
+            Assert.NotNull(adjustPhreaticLine3And4ForUpliftProperty.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 adjustPhreaticLine3And4ForUpliftProperty,
                 waterStressesCategory,
@@ -184,6 +186,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Corrigeer de stijghoogte in watervoerende zandlaag en tussenzandlaag voor opbarsten?");
 
             PropertyDescriptor leakageLengthOutwardsPhreaticLine3Property = dynamicProperties[expectedLeakageLengthOutwardsPhreaticLine3PropertyIndex];
+            Assert.NotNull(leakageLengthOutwardsPhreaticLine3Property.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leakageLengthOutwardsPhreaticLine3Property,
                 waterStressesCategory,
@@ -191,6 +194,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het voorland.");
 
             PropertyDescriptor leakageLengthInwardsPhreaticLine3Property = dynamicProperties[expectedLeakageLengthInwardsPhreaticLine3PropertyIndex];
+            Assert.NotNull(leakageLengthInwardsPhreaticLine3Property.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leakageLengthInwardsPhreaticLine3Property,
                 waterStressesCategory,
@@ -198,6 +202,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het achterland.");
 
             PropertyDescriptor leakageLengthOutwardsPhreaticLine4Property = dynamicProperties[expectedLeakageLengthOutwardsPhreaticLine4PropertyIndex];
+            Assert.NotNull(leakageLengthOutwardsPhreaticLine4Property.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leakageLengthOutwardsPhreaticLine4Property,
                 waterStressesCategory,
@@ -205,6 +210,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het voorland.");
 
             PropertyDescriptor leakageLengthInwardsPhreaticLine4Property = dynamicProperties[expectedLeakageLengthInwardsPhreaticLine4PropertyIndex];
+            Assert.NotNull(leakageLengthInwardsPhreaticLine4Property.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leakageLengthInwardsPhreaticLine4Property,
                 waterStressesCategory,
@@ -212,6 +218,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het achterland.");
 
             PropertyDescriptor piezometricHeadPhreaticLine2OutwardsProperty = dynamicProperties[expectedPiezometricHeadPhreaticLine2OutwardsPropertyIndex];
+            Assert.NotNull(piezometricHeadPhreaticLine2OutwardsProperty.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 piezometricHeadPhreaticLine2OutwardsProperty,
                 waterStressesCategory,
@@ -219,6 +226,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Stijghoogte in de indringingslaag buitenwaarts.");
 
             PropertyDescriptor piezometricHeadPhreaticLine2InwardsProperty = dynamicProperties[expectedPiezometricHeadPhreaticLine2InwardsPropertyIndex];
+            Assert.NotNull(piezometricHeadPhreaticLine2InwardsProperty.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 piezometricHeadPhreaticLine2InwardsProperty,
                 waterStressesCategory,

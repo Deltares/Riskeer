@@ -146,6 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(adjustPhreaticLine3And4ForUpliftPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AdjustPhreaticLine3And4ForUplift_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AdjustPhreaticLine3And4ForUplift_Description))]
@@ -162,6 +163,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(leakageLengthOutwardsPhreaticLine3PropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine3_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine3_Description))]
@@ -178,6 +180,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(leakageLengthInwardsPhreaticLine3PropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine3_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine3_Description))]
@@ -194,6 +197,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(leakageLengthOutwardsPhreaticLine4PropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine4_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine4_Description))]
@@ -210,6 +214,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(leakageLengthInwardsPhreaticLine4PropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine4_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine4_Description))]
@@ -226,6 +231,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(piezometricHeadPhreaticLine2OutwardsPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Outwards_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Outwards_Description))]
@@ -242,6 +248,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(piezometricHeadPhreaticLine2InwardsPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Inwards_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Inwards_Description))]
