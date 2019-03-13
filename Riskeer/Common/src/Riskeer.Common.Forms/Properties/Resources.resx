@@ -1509,6 +1509,9 @@ berekende kans
   <data name="CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName" xml:space="preserve">
     <value>Wis alle illustratiepunten...</value>
   </data>
+  <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints" xml:space="preserve">
+    <value>Wis alle berekende illustratiepunten.</value>
+  </data>
   <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_Group" xml:space="preserve">
     <value>Wis alle berekende illustratiepunten binnen deze map met berekeningen.</value>
   </data>
