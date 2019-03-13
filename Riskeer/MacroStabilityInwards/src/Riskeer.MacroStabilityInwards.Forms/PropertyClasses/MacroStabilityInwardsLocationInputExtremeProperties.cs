@@ -36,6 +36,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsLocationInputExtremeProperties : MacroStabilityInwardsLocationInputBaseProperties<MacroStabilityInwardsLocationInputExtreme>
     {
         private const int penetrationLengthPropertyIndex = 3;
+        private MacroStabilityInwardsInput macroStabilityInwardsInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsLocationInputExtremeProperties"/>.
@@ -43,8 +44,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsLocationInputExtremeProperties(MacroStabilityInwardsLocationInputExtreme data, IObservablePropertyChangeHandler handler)
-            : base(data, handler) {}
+        public MacroStabilityInwardsLocationInputExtremeProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
+            : base((MacroStabilityInwardsLocationInputExtreme) data?.LocationInputExtreme, handler)
+        {
+            macroStabilityInwardsInput = data;
+        }
 
         [PropertyOrder(penetrationLengthPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]

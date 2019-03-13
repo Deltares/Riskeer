@@ -39,8 +39,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class MacroStabilityInwardsLocationInputExtremePropertiesTest
     {
-        private const int expectedwaterLevelPolderPropertyIndex = 0;
-        private const int expecteOffsetPropertyIndex = 1;
+        private const int expectedWaterLevelPolderPropertyIndex = 0;
+        private const int expectedOffsetPropertyIndex = 1;
         private const int expectedPenetrationLengthPropertyIndex = 2;
 
         [Test]
@@ -51,14 +51,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsLocationInputExtreme();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, changeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsLocationInputExtreme>>(properties);
-            Assert.AreSame(input, properties.Data);
+            Assert.AreSame(input.LocationInputExtreme, properties.Data);
 
             mocks.VerifyAll();
         }
@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsLocationInputExtreme();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, changeHandler);
@@ -83,14 +83,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             const string waterStressesCategory = "Waterspanningen";
 
-            PropertyDescriptor waterLevelPolderProperty = dynamicProperties[expectedwaterLevelPolderPropertyIndex];
+            PropertyDescriptor waterLevelPolderProperty = dynamicProperties[expectedWaterLevelPolderPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 waterLevelPolderProperty,
                 waterStressesCategory,
                 "Polderpeil [m+NAP]",
                 "Het niveau van het oppervlaktewater binnen een beheersgebied.");
 
-            PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
+            PropertyDescriptor offsetProperty = dynamicProperties[expectedOffsetPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 offsetProperty,
                 waterStressesCategory,
@@ -116,13 +116,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsLocationInputExtreme();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, changeHandler);
 
             // Assert
-            Assert.AreEqual(input.PenetrationLength, properties.PenetrationLength);
+            Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, properties.PenetrationLength);
 
             mocks.VerifyAll();
         }
@@ -132,7 +132,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Given
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            var input = (MacroStabilityInwardsLocationInputExtreme) calculationItem.InputParameters.LocationInputExtreme;
+            MacroStabilityInwardsInput input = calculationItem.InputParameters;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, handler);
@@ -144,8 +144,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.PenetrationLength = (RoundedDouble) penetrationLength;
 
             // Then
-            Assert.AreEqual(penetrationLength, input.PenetrationLength,
-                            input.PenetrationLength.GetAccuracy());
+            Assert.AreEqual(penetrationLength, input.LocationInputExtreme.PenetrationLength,
+                            input.LocationInputExtreme.PenetrationLength.GetAccuracy());
         }
 
         [Test]
@@ -175,7 +175,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new MacroStabilityInwardsLocationInputExtremeProperties((MacroStabilityInwardsLocationInputExtreme) input.LocationInputExtreme, handler);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, handler);
 
             // Call
             setProperty(properties);

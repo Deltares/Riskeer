@@ -273,7 +273,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsLocationInputExtremeProperties((MacroStabilityInwardsLocationInputExtreme) data.LocationInputExtreme, propertyChangeHandler);
+                return new MacroStabilityInwardsLocationInputExtremeProperties(data, propertyChangeHandler);
             }
         }
 
