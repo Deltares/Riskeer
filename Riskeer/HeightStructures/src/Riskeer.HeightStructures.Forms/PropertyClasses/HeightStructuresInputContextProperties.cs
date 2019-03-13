@@ -46,6 +46,15 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         StructuresCalculation<HeightStructuresInput>,
         HeightStructuresFailureMechanism>
     {
+        private const int generalDataCategoryIndex = 1;
+        private const int modelFactorsCategoryIndex = 2;
+        private const int schematizationIncomingFlowCategoryIndex = 3;
+        private const int schematizationGroundErosionCategoryIndex = 4;
+        private const int schematizationStorageStructureCategoryIndex = 5;
+        private const int foreshoreCategoryIndex = 6;
+        private const int outputSettingsCategoryIndex = 7;
+        private const int totalNrOfCategories = 7;
+
         private const int structurePropertyIndex = 0;
         private const int structureLocationPropertyIndex = 1;
         private const int hydraulicBoundaryLocationPropertyIndex = 2;
@@ -67,8 +76,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         private const int foreshoreProfilePropertyIndex = 13;
         private const int useBreakWaterPropertyIndex = 14;
         private const int useForeshorePropertyIndex = 15;
-
-        private const int totalNrOfCategories = 7;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
@@ -97,7 +104,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region Output Settings
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 7, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings),
+            outputSettingsCategoryIndex, totalNrOfCategories)]
         public override bool ShouldIllustrationPointsBeCalculated
         {
             get
@@ -116,7 +124,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors), 2, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors),
+            modelFactorsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
         public NormalDistributionProperties ModelFactorSuperCriticalFlow
@@ -155,7 +164,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region General data
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 
+            generalDataCategoryIndex, totalNrOfCategories)]
         public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -168,7 +178,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 
+            generalDataCategoryIndex, totalNrOfCategories)]
         public override HeightStructure Structure
         {
             get
@@ -181,7 +192,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 
+            generalDataCategoryIndex, totalNrOfCategories)]
         public override Point2D StructureLocation
         {
             get
@@ -194,7 +206,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region Incoming flow
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override RoundedDouble StructureNormalOrientation
         {
             get
@@ -209,7 +222,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
         public NormalDistributionProperties LevelCrestStructure
@@ -225,7 +239,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override NormalDistributionProperties WidthFlowApertures
         {
             get
@@ -234,7 +249,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get
@@ -247,7 +263,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region Ground erosion
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 
+            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
@@ -256,7 +273,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 
+            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
@@ -265,7 +283,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 
+            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override double FailureProbabilityStructureWithErosion
         {
             get
@@ -282,7 +301,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region Storage structure
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 5, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 
+            schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
@@ -291,7 +311,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 5, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 
+            schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
         public override LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
@@ -304,7 +325,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region Foreshore profile
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 6, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 
+            foreshoreCategoryIndex, totalNrOfCategories)]
         public override ForeshoreProfile ForeshoreProfile
         {
             get
@@ -319,7 +341,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 6, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 
+            foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseBreakWaterProperties UseBreakWater
         {
             get
@@ -330,7 +353,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 6, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 
+            foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseForeshoreProperties UseForeshore
         {
             get
