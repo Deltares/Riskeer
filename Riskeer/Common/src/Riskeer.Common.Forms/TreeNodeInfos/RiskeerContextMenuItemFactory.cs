@@ -514,7 +514,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
         /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItemInGroup(
+        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsInGroupItem(
             Func<bool> isContextItemEnabledFunc, IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
         {
             return CreateClearIllustrationPointsOfCalculationsItem(
