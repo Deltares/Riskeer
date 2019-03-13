@@ -50,6 +50,14 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         StructuresCalculation<ClosingStructuresInput>,
         ClosingStructuresFailureMechanism>
     {
+        private const int generalDataCategoryIndex = 1;
+        private const int modelFactorsCategoryIndex = 2;
+        private const int schematizationClosureCategoryIndex = 3;
+        private const int schematizationIncomingFlowCategoryIndex = 4;
+        private const int schematizationGroundErosionCategoryIndex = 5;
+        private const int schematizationStorageStructureCategoryIndex = 6;
+        private const int foreshoreCategoryIndex = 7;
+        private const int outputSettingsCategoryIndex = 8;
         private const int totalNrOfCategories = 8;
 
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
@@ -110,12 +118,31 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
                 StormDurationPropertyIndex = stormDurationPropertyIndex
             }, propertyChangeHandler) {}
 
+        #region Output Settings
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings),
+            outputSettingsCategoryIndex, totalNrOfCategories)]
+        public override bool ShouldIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return base.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                base.ShouldIllustrationPointsBeCalculated = value;
+            }
+        }
+
+        #endregion
+
         #region Model factors
 
         [DynamicVisible]
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors), 2, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors),
+            modelFactorsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
         public NormalDistributionProperties ModelFactorSuperCriticalFlow
@@ -211,7 +238,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         #region General data
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
+            generalDataCategoryIndex, totalNrOfCategories)]
         public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -224,7 +252,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
+            generalDataCategoryIndex, totalNrOfCategories)]
         public override ClosingStructure Structure
         {
             get
@@ -237,7 +266,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData), 1, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
+            generalDataCategoryIndex, totalNrOfCategories)]
         public override Point2D StructureLocation
         {
             get
@@ -254,7 +284,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(identicalAperturesPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure),
+            schematizationClosureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IdenticalApertures_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IdenticalApertures_Description))]
         public int IdenticalApertures
@@ -272,7 +303,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(failureProbabilityOpenStructurePropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure),
+            schematizationClosureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_Description))]
         public double FailureProbabilityOpenStructure
@@ -290,7 +322,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(probabilityOpenStructureBeforeFloodingPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure),
+            schematizationClosureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_Description))]
         public double ProbabilityOpenStructureBeforeFlooding
@@ -308,7 +341,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(failureProbabilityReparationPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure), 3, totalNrOfCategories)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Closure),
+            schematizationClosureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityReparation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityReparation_Description))]
         public double FailureProbabilityReparation
@@ -330,7 +364,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InflowModelType_Description))]
         public ClosingStructureInflowModelType InflowModelType
@@ -346,7 +381,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override RoundedDouble StructureNormalOrientation
         {
             get
@@ -362,7 +398,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(levelCrestStructureNotClosingPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_Description))]
         public NormalDistributionProperties LevelCrestStructureNotClosing
@@ -381,7 +418,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
         public NormalDistributionProperties InsideWaterLevel
@@ -400,7 +438,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
         public NormalDistributionProperties ThresholdHeightOpenWeir
@@ -419,7 +458,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(areaFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AreaFlowApertures_Description))]
         public LogNormalDistributionProperties AreaFlowApertures
@@ -438,7 +478,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_DrainCoefficient_Description))]
         public NormalDistributionProperties DrainCoefficient
@@ -453,7 +494,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override NormalDistributionProperties WidthFlowApertures
         {
             get
@@ -463,7 +505,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FactorStormDurationOpenStructure_Description))]
         public RoundedDouble FactorStormDurationOpenStructure
@@ -478,7 +521,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow), 4, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Incoming_flow),
+            schematizationIncomingFlowCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get
@@ -489,10 +533,10 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         #endregion
 
-
         #region Ground erosion
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 5, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion),
+            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
@@ -501,7 +545,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 5, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion),
+            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
@@ -510,7 +555,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion), 5, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Ground_erosion),
+            schematizationGroundErosionCategoryIndex, totalNrOfCategories)]
         public override double FailureProbabilityStructureWithErosion
         {
             get
@@ -527,7 +573,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         #region Storage structure
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 6, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure),
+            schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
         public override VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
@@ -536,7 +583,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure), 6, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization_Storage_structure),
+            schematizationStorageStructureCategoryIndex, totalNrOfCategories)]
         public override LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
@@ -551,7 +599,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         #region Foreshore profile
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 7, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
+            foreshoreCategoryIndex, totalNrOfCategories)]
         public override ForeshoreProfile ForeshoreProfile
         {
             get
@@ -566,7 +615,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 7, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
+            foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseBreakWaterProperties UseBreakWater
         {
             get
@@ -577,29 +627,13 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore), 7, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Foreshore),
+            foreshoreCategoryIndex, totalNrOfCategories)]
         public override UseForeshoreProperties UseForeshore
         {
             get
             {
                 return base.UseForeshore;
-            }
-        }
-
-        #endregion
-
-        #region Output Settings
-
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 8, totalNrOfCategories)]
-        public override bool ShouldIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return base.ShouldIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                base.ShouldIllustrationPointsBeCalculated = value;
             }
         }
 
