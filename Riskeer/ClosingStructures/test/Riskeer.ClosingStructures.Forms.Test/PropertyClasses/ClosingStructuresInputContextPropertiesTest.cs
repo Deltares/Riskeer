@@ -115,7 +115,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                 InputParameters =
                 {
                     Structure = new TestClosingStructure(ClosingStructureInflowModelType.VerticalWall),
-                    ForeshoreProfile = new TestForeshoreProfile()
+                    ForeshoreProfile = new TestForeshoreProfile(),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
@@ -148,7 +149,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
 
             Assert.AreSame(input.Structure, properties.Structure);
-            Assert.AreEqual(input.Structure.Location, properties.StructureLocation);
+            Assert.AreEqual(input.Structure.Location.X, properties.StructureLocation.X, 1);
+            Assert.AreEqual(input.Structure.Location.Y, properties.StructureLocation.Y, 1);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);

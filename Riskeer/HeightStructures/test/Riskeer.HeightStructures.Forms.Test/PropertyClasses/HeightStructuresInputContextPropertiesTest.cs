@@ -153,7 +153,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             HeightStructuresInput input = calculation.InputParameters;
 
             Assert.AreSame(input.Structure, properties.Structure);
-            Assert.AreEqual(input.Structure.Location, properties.StructureLocation);
+            Assert.AreEqual(input.Structure.Location.X, properties.StructureLocation.X, 1);
+            Assert.AreEqual(input.Structure.Location.Y, properties.StructureLocation.Y, 1);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
