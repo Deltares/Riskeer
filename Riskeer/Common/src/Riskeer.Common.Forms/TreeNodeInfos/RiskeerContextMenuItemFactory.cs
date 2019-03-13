@@ -517,25 +517,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItem(Func<bool> isContextItemEnabledFunc,
                                                                                             IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
         {
-            bool isEnabled = isContextItemEnabledFunc();
-            string toolTip = isEnabled
-                                 ? Resources.CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints
-                                 : Resources.CreateClearIllustrationPointsOfCalculationsItem_No_IllustrationPoints_to_clear;
-
-            return new StrictContextMenuItem(
-                Resources.CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName,
-                toolTip,
-                Resources.ClearIllustrationPointsIcon,
-                (o, args) =>
-                {
-                    if (changeHandler.InquireConfirmation())
-                    {
-                        ClearIllustrationPointResults(changeHandler);
-                    }
-                })
-            {
-                Enabled = isEnabled
-            };
+            return CreateClearIllustrationPointsOfCalculationsItem(
+                isContextItemEnabledFunc, changeHandler,
+                Resources.CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints);
         }
 
         /// <summary>
@@ -562,6 +546,31 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                     if (changeHandler.InquireConfirmation() && changeHandler.ClearIllustrationPoints())
                     {
                         changeHandler.DoPostUpdateActions();
+                    }
+                })
+            {
+                Enabled = isEnabled
+            };
+        }
+
+        private static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItem(Func<bool> isContextItemEnabledFunc,
+                                                                                             IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler,
+                                                                                             string toolTipEnabledText)
+        {
+            bool isEnabled = isContextItemEnabledFunc();
+            string toolTip = isEnabled
+                                 ? toolTipEnabledText
+                                 : Resources.CreateClearIllustrationPointsOfCalculationsItem_No_IllustrationPoints_to_clear;
+
+            return new StrictContextMenuItem(
+                Resources.CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName,
+                toolTip,
+                Resources.ClearIllustrationPointsIcon,
+                (o, args) =>
+                {
+                    if (changeHandler.InquireConfirmation())
+                    {
+                        ClearIllustrationPointResults(changeHandler);
                     }
                 })
             {
