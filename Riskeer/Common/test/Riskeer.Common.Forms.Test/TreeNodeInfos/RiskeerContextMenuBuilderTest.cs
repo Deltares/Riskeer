@@ -886,7 +886,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             string expectedToolTipMessage = isEnabled
-                                                ? "Wis alle berekende illustratiepunten."
+                                                ? "Wis alle berekende illustratiepunten binnen deze map met berekeningen."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
 
             var mocks = new MockRepository();

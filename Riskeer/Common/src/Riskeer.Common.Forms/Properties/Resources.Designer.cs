@@ -1119,11 +1119,12 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten..
+        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten binnen deze map met berekeningen..
         /// </summary>
-        public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints {
+        public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_Group {
             get {
-                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints", resourceCulture);
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_Group" +
+                        "", resourceCulture);
             }
         }
         

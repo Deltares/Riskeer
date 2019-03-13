@@ -509,17 +509,17 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration points for a
-        /// collection of calculations.
+        /// collection of calculations in a group.
         /// </summary>
         /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
         /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItem(Func<bool> isContextItemEnabledFunc,
-                                                                                            IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
+        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItemInGroup(
+            Func<bool> isContextItemEnabledFunc, IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
         {
             return CreateClearIllustrationPointsOfCalculationsItem(
                 isContextItemEnabledFunc, changeHandler,
-                Resources.CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints);
+                Resources.CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_Group);
         }
 
         /// <summary>
@@ -529,8 +529,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
         /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationItem(Func<bool> isContextItemEnabledFunc,
-                                                                                           IClearIllustrationPointsOfCalculationChangeHandler changeHandler)
+        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationItem(
+            Func<bool> isContextItemEnabledFunc, IClearIllustrationPointsOfCalculationChangeHandler changeHandler)
         {
             bool isEnabled = isContextItemEnabledFunc();
             string toolTip = isEnabled
@@ -553,9 +553,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             };
         }
 
-        private static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItem(Func<bool> isContextItemEnabledFunc,
-                                                                                             IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler,
-                                                                                             string toolTipEnabledText)
+        private static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsItem(
+            Func<bool> isContextItemEnabledFunc, IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler,
+            string toolTipEnabledText)
         {
             bool isEnabled = isContextItemEnabledFunc();
             string toolTip = isEnabled

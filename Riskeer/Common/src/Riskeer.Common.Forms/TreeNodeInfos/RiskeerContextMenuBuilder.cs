@@ -325,10 +325,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="isEnabledFunc">The function to determine whether this item should be enabled.</param>
         /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddClearIllustrationPointsOfCalculationsItem(Func<bool> isEnabledFunc,
-                                                                                      IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
+        public RiskeerContextMenuBuilder AddClearIllustrationPointsOfCalculationsItem(
+            Func<bool> isEnabledFunc, IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItem(isEnabledFunc, changeHandler));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsItemInGroup(isEnabledFunc, changeHandler));
             return this;
         }
 
@@ -339,8 +339,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="isEnabledFunc">The function to determine whether this item should be enabled.</param>
         /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddClearIllustrationPointsOfCalculationItem(Func<bool> isEnabledFunc, 
-                                                                                     IClearIllustrationPointsOfCalculationChangeHandler changeHandler)
+        public RiskeerContextMenuBuilder AddClearIllustrationPointsOfCalculationItem(
+            Func<bool> isEnabledFunc,  IClearIllustrationPointsOfCalculationChangeHandler changeHandler)
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationItem(isEnabledFunc, changeHandler));
             return this;
