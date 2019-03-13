@@ -1539,9 +1539,6 @@ berekende kans
   <data name="ClearIllustrationPointsOfCalculation_InquireConfirmation" xml:space="preserve">
     <value>Weet u zeker dat u de illustratiepunten van deze berekening wilt wissen?</value>
   </data>
-  <data name="Categories_GeneralData" xml:space="preserve">
-    <value>Basisgegevens</value>
-  </data>
   <data name="Categories_Foreshore" xml:space="preserve">
     <value>Voorland en (haven)dam</value>
   </data>
@@ -1553,8 +1550,5 @@ berekende kans
   </data>
   <data name="Categories_Schematization_Storage_structure" xml:space="preserve">
     <value>Schematisering komberging</value>
-  </data>
-  <data name="Categories_ModelFactors" xml:space="preserve">
-    <value>Modelfactoren</value>
   </data>
 </root>

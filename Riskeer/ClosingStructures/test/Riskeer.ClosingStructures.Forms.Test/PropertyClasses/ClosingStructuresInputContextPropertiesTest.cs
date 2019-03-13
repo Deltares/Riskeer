@@ -216,7 +216,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string generalDataCategory = "\t\t\t\t\t\t\tBasisgegevens";
+            const string generalCategory = "\t\t\t\t\t\t\tAlgemeen";
             const string schematizationIncomingFlowCategory = "\t\t\t\tSchematisering instromend debiet/volume";
             const string schematizationGroundErosionCategory = "\t\t\tSchematisering bodembescherming";
             const string schematizationStorageStructureCategory = "\t\tSchematisering komberging";
@@ -227,20 +227,20 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor structureProperty = dynamicProperties[generalPropertyIndices.StructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(structureProperty,
-                                                                            generalDataCategory,
+                                                                            generalCategory,
                                                                             "Kunstwerk",
                                                                             "Het kunstwerk dat gebruikt wordt in de berekening.");
 
             PropertyDescriptor structureLocationProperty = dynamicProperties[generalPropertyIndices.StructureLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(structureLocationProperty,
-                                                                            generalDataCategory,
+                                                                            generalCategory,
                                                                             "Locatie (RD) [m]",
                                                                             "De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.",
                                                                             true);
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[generalPropertyIndices.HydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
-                                                                            generalDataCategory,
+                                                                            generalCategory,
                                                                             "Hydraulische belastingenlocatie",
                                                                             "De hydraulische belastingenlocatie.");
 
@@ -355,7 +355,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string modelFactorsCategory = "\t\t\t\t\t\tModelfactoren";
+            const string modelSettingsCategory = "\t\t\t\t\t\tModelinstellingen";
 
             const string schematizationClosureCategory = "\t\t\t\t\tSchematisering sluitproces";
             const string schematizationIncomingFlowCategory = "\t\t\t\tSchematisering instromend debiet/volume";
@@ -366,7 +366,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
-                                                                            modelFactorsCategory,
+                                                                            modelSettingsCategory,
                                                                             "Modelfactor overloopdebiet volkomen overlaat [-]",
                                                                             "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
                                                                             true);

@@ -50,7 +50,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         StructuresCalculation<StabilityPointStructuresInput>,
         StabilityPointStructuresFailureMechanism>
     {
-        private const int generalDataCategoryIndex = 1;
+        private const int generalCategoryIndex = 1;
         private const int hydraulicLoadsCategoryIndex = 2;
         private const int constructiveFailureCategoryIndex = 3;
         private const int schematizationIncomingFlowCategoryIndex = 4;
@@ -232,8 +232,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         #region General data
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
-            generalDataCategoryIndex, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
+            generalCategoryIndex, totalNrOfCategories)]
         public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -246,8 +246,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
-            generalDataCategoryIndex, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
+            generalCategoryIndex, totalNrOfCategories)]
         public override StabilityPointStructure Structure
         {
             get
@@ -260,8 +260,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
-            generalDataCategoryIndex, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
+            generalCategoryIndex, totalNrOfCategories)]
         public override Point2D StructureLocation
         {
             get

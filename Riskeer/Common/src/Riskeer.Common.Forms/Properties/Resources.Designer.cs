@@ -698,15 +698,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Basisgegevens.
-        /// </summary>
-        public static string Categories_GeneralData {
-            get {
-                return ResourceManager.GetString("Categories_GeneralData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hydraulische gegevens.
         /// </summary>
         public static string Categories_HydraulicData {
@@ -730,15 +721,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string Categories_LengthEffect {
             get {
                 return ResourceManager.GetString("Categories_LengthEffect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modelfactoren.
-        /// </summary>
-        public static string Categories_ModelFactors {
-            get {
-                return ResourceManager.GetString("Categories_ModelFactors", resourceCulture);
             }
         }
         

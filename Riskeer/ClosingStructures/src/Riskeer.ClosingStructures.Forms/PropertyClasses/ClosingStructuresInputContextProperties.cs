@@ -50,8 +50,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         StructuresCalculation<ClosingStructuresInput>,
         ClosingStructuresFailureMechanism>
     {
-        private const int generalDataCategoryIndex = 1;
-        private const int modelFactorsCategoryIndex = 2;
+        private const int generalCategoryIndex = 1;
+        private const int modelSettingsCategoryIndex = 2;
         private const int schematizationClosureCategoryIndex = 3;
         private const int schematizationIncomingFlowCategoryIndex = 4;
         private const int schematizationGroundErosionCategoryIndex = 5;
@@ -141,8 +141,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelFactors),
-            modelFactorsCategoryIndex, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings),
+            modelSettingsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
         public NormalDistributionProperties ModelFactorSuperCriticalFlow
@@ -238,8 +238,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         #region General data
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
-            generalDataCategoryIndex, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
+            generalCategoryIndex, totalNrOfCategories)]
         public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -252,8 +252,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
-            generalDataCategoryIndex, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
+            generalCategoryIndex, totalNrOfCategories)]
         public override ClosingStructure Structure
         {
             get
@@ -266,8 +266,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_GeneralData),
-            generalDataCategoryIndex, totalNrOfCategories)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
+            generalCategoryIndex, totalNrOfCategories)]
         public override Point2D StructureLocation
         {
             get

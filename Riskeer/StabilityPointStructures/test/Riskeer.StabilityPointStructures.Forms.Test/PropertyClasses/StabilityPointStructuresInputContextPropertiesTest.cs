@@ -194,7 +194,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            const string generalDataCategory = "\t\t\t\t\t\t\t\t\tBasisgegevens";
+            const string generalCategory = "\t\t\t\t\t\t\t\t\tAlgemeen";
             const string schematizationIncomingFlowCategory = "\t\t\t\t\t\tSchematisering instromend debiet/volume";
             const string schematizationGroundErosionCategory = "\t\t\t\t\tSchematisering bodembescherming";
             const string schematizationStorageStructureCategory = "\t\t\t\tSchematisering komberging";
@@ -205,20 +205,20 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor structureProperty = dynamicProperties[generalPropertyIndices.StructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(structureProperty,
-                                                                            generalDataCategory,
+                                                                            generalCategory,
                                                                             "Kunstwerk",
                                                                             "Het kunstwerk dat gebruikt wordt in de berekening.");
 
             PropertyDescriptor structureLocationProperty = dynamicProperties[generalPropertyIndices.StructureLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(structureLocationProperty,
-                                                                            generalDataCategory,
+                                                                            generalCategory,
                                                                             "Locatie (RD) [m]",
                                                                             "De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.",
                                                                             true);
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[generalPropertyIndices.HydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
-                                                                            generalDataCategory,
+                                                                            generalCategory,
                                                                             "Hydraulische belastingenlocatie",
                                                                             "De hydraulische belastingenlocatie.");
 

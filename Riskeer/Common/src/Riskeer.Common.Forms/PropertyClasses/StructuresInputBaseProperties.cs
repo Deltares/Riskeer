@@ -298,7 +298,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_Description))]
         public virtual SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
@@ -318,7 +318,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [Editor(typeof(StructureEditor<StructureBase>), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Description))]
         public virtual TStructure Structure
@@ -338,7 +338,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         }
 
         [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_Location_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Location_Description))]
         public virtual Point2D StructureLocation

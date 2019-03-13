@@ -176,7 +176,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
             Assert.AreEqual(input.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
 
-            const string generalDataCategory = "Basisgegevens";
+            const string generalCategory = "Algemeen";
             const string schematizationIncomingFlowCategory = "Schematisering instromend debiet/volume";
             const string schematizationGroundErosionCategory = "Schematisering bodembescherming";
             const string schematizationStorageStructureCategory = "Schematisering komberging";
@@ -188,19 +188,19 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             PropertyDescriptor structureProperty = dynamicProperties[constructionProperties.StructurePropertyIndex];
             Assert.IsFalse(structureProperty.IsReadOnly);
-            Assert.AreEqual(generalDataCategory, structureProperty.Category);
+            Assert.AreEqual(generalCategory, structureProperty.Category);
             Assert.AreEqual("Kunstwerk", structureProperty.DisplayName);
             Assert.AreEqual("Het kunstwerk dat gebruikt wordt in de berekening.", structureProperty.Description);
 
             PropertyDescriptor structureLocationProperty = dynamicProperties[constructionProperties.StructureLocationPropertyIndex];
             Assert.IsTrue(structureLocationProperty.IsReadOnly);
-            Assert.AreEqual(generalDataCategory, structureLocationProperty.Category);
+            Assert.AreEqual(generalCategory, structureLocationProperty.Category);
             Assert.AreEqual("Locatie (RD) [m]", structureLocationProperty.DisplayName);
             Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", structureLocationProperty.Description);
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[constructionProperties.HydraulicBoundaryLocationPropertyIndex];
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
-            Assert.AreEqual(generalDataCategory, hydraulicBoundaryLocationProperty.Category);
+            Assert.AreEqual(generalCategory, hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Hydraulische belastingenlocatie", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De hydraulische belastingenlocatie.", hydraulicBoundaryLocationProperty.Description);
 
