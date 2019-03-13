@@ -82,38 +82,38 @@ namespace Riskeer.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schematisering bezwijken waterkerende constructie-onderdelen.
+        ///   Looks up a localized string similar to Instabiliteit constructie en grondlichaam.
         /// </summary>
-        public static string Categories_Schematization_ConstructiveFailure {
+        public static string Categories_ConstructionInstability {
             get {
-                return ResourceManager.GetString("Categories_Schematization_ConstructiveFailure", resourceCulture);
+                return ResourceManager.GetString("Categories_ConstructionInstability", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schematisering hydraulische belastingen op constructie.
+        ///   Looks up a localized string similar to Bezwijken waterkerende constructie-onderdelen.
         /// </summary>
-        public static string Categories_Schematization_HydraulicLoads {
+        public static string Categories_ConstructiveFailure {
             get {
-                return ResourceManager.GetString("Categories_Schematization_HydraulicLoads", resourceCulture);
+                return ResourceManager.GetString("Categories_ConstructiveFailure", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schematisering instabiliteit constructie en grondlichaam.
+        ///   Looks up a localized string similar to Hydraulische belastingen op constructie.
         /// </summary>
-        public static string Categories_Schematizatization_ConstructionInstability {
+        public static string Categories_HydraulicLoads {
             get {
-                return ResourceManager.GetString("Categories_Schematizatization_ConstructionInstability", resourceCulture);
+                return ResourceManager.GetString("Categories_HydraulicLoads", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schematisering aanvaring tweede keermiddel.
+        ///   Looks up a localized string similar to Aanvaring tweede keermiddel.
         /// </summary>
-        public static string Categoties_Schematization_CollisionSecondaryStructure {
+        public static string Categoties_CollisionSecondaryStructure {
             get {
-                return ResourceManager.GetString("Categoties_Schematization_CollisionSecondaryStructure", resourceCulture);
+                return ResourceManager.GetString("Categoties_CollisionSecondaryStructure", resourceCulture);
             }
         }
         

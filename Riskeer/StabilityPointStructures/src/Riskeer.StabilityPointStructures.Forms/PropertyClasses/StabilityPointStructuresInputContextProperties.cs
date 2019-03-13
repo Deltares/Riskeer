@@ -277,7 +277,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         #region Hydraulic loads
 
         [PropertyOrder(volumicWeightWaterPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
             hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VolumicWeightWater_Description))]
@@ -295,7 +295,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(insideWaterLevelFailureConstructionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
             hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_Description))]
@@ -314,7 +314,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(bankWidthPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
             hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_BankWidth_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_BankWidth_Description))]
@@ -333,7 +333,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(verticalDistancePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_HydraulicLoads),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicLoads),
             hydraulicLoadsCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_VerticalDistance_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_VerticalDistance_Description))]
@@ -356,7 +356,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(loadSchematizationTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
             constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_LoadSchematizationType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_LoadSchematizationType_Description))]
@@ -375,7 +375,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(constructiveStrengthLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
             constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthLinearLoadModel_Description))]
@@ -395,7 +395,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(constructiveStrengthQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
             constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ConstructiveStrengthQuadraticLoadModel_Description))]
@@ -414,7 +414,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(evaluationLevelPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
             constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_Description))]
@@ -433,7 +433,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_ConstructiveFailure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
             constructiveFailureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_Description))]
@@ -626,7 +626,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(stabilityLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematizatization_ConstructionInstability),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructionInstability),
             constructiveInstabilityCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityLinearLoadModel_Description))]
@@ -646,7 +646,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(stabilityQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematizatization_ConstructionInstability),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructionInstability),
             constructiveInstabilityCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StabilityQuadraticLoadModel_Description))]
@@ -669,7 +669,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(failureCollisionEnergyPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
             collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureCollisionEnergy_Description))]
@@ -688,7 +688,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(shipMassPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
             collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipMass_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipMass_Description))]
@@ -707,7 +707,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(shipVelocityPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
             collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ShipVelocity_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ShipVelocity_Description))]
@@ -726,7 +726,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(levellingCountPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
             collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_LevellingCount_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_LevellingCount_Description))]
@@ -745,7 +745,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(probabilityCollisionSecondaryStructurePropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
             collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_Description))]
@@ -763,7 +763,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_Schematization_CollisionSecondaryStructure),
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categoties_CollisionSecondaryStructure),
             collisionSecondaryStructureCategoryIndex, totalNrOfCategories)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowVelocityStructureClosable_Description))]
