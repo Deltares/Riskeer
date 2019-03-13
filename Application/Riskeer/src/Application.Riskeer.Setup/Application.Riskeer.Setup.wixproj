@@ -19,7 +19,7 @@
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-    <Name>RingtoetsSetup</Name>
+    <Name>RiskeerSetup</Name>
     <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
@@ -150,7 +150,6 @@
     <Content Include="Examples\Voorbeeld Traject 41-1 - Dijken en dammen - Macrostabiliteit binnenwaarts\sufraceline traject 41-1.krp.csv" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 41-1 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.dbf~" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.prj" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 41-1 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STBI traject 41-1.shp" />
@@ -163,7 +162,6 @@
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\surfacelines traject 50-1.krp.csv" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\vakindeling STPH traject 50-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\vakindeling STPH traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\vakindeling STPH traject 50-1.dbf~" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\vakindeling STPH traject 50-1.prj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\vakindeling STPH traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\vakindeling STPH traject 50-1.shp" />
@@ -174,13 +172,12 @@
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\dijkprofielen_GEKB.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\dijkprofielen_GEKB.shp" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\dijkprofielen_GEKB.shx" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile1 - Ringtoets.prfl" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile2 - Ringtoets.prfl" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile3 - Ringtoets.prfl" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile4 - Ringtoets.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile1.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile2.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile3.prfl" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\profile4.prfl" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\vakindeling GEKB traject 50-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\vakindeling GEKB traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\vakindeling GEKB traject 50-1.dbf~" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\vakindeling GEKB traject 50-1.prj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\vakindeling GEKB traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\vakindeling GEKB traject 50-1.shp" />
@@ -189,28 +186,24 @@
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.csv" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.dbf~" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.prj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.shp" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\kunstwerk BSKW traject 50-1.shx" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.dbf~" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.prj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.shp" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.shx" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.dbf~" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.prj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shp" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shx" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.dbf~" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.prj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.shp" />
