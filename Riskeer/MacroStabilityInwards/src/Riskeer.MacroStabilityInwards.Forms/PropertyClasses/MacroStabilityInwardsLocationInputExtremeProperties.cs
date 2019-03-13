@@ -52,6 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(penetrationLengthPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PenetrationLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PenetrationLength_Description))]

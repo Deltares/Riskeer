@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -100,6 +101,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 true);
 
             PropertyDescriptor penetrationLengthProperty = dynamicProperties[expectedPenetrationLengthPropertyIndex];
+            Assert.IsNotNull(penetrationLengthProperty.Attributes[typeof(DynamicReadOnlyAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 penetrationLengthProperty,
                 waterStressesCategory,
