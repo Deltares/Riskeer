@@ -174,12 +174,13 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(input.FailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
+            Assert.AreEqual(input.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
 
             const string generalDataCategory = "Basisgegevens";
             const string schematizationIncomingFlowCategory = "Schematisering instromend debiet/volume";
             const string schematizationGroundErosionCategory = "Schematisering bodembescherming";
             const string schematizationStorageStructureCategory = "Schematisering komberging";
-            const string schematizationForeshoreCategory = "Schematisering voorland en (haven)dam";
+            const string schematizationForeshoreCategory = "Voorland en (haven)dam";
             const string outputSettingsCategory = "Uitvoer";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -1081,8 +1082,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             setProperty(properties);
 
             // Assert
-            Assert.IsFalse(calculation.HasOutput);
-
             mockRepository.VerifyAll();
         }
 

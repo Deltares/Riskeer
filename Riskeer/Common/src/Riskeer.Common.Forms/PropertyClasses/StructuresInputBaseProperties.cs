@@ -301,7 +301,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_Description))]
-        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        public virtual SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
             {
@@ -321,7 +321,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Description))]
-        public TStructure Structure
+        public virtual TStructure Structure
         {
             get
             {
@@ -341,7 +341,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_GeneralData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_Location_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_Location_Description))]
-        public Point2D StructureLocation
+        public virtual Point2D StructureLocation
         {
             get
             {
@@ -399,7 +399,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Incoming_flow))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StormDuration_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StormDuration_Description))]
-        public VariationCoefficientLogNormalDistributionProperties StormDuration
+        public virtual VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get
             {
@@ -419,7 +419,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Ground_erosion))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_CriticalOvertoppingDischarge_Description))]
-        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
+        public virtual VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
             {
@@ -437,7 +437,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Ground_erosion))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FlowWidthAtBottomProtection_Description))]
-        public LogNormalDistributionProperties FlowWidthAtBottomProtection
+        public virtual LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
             {
@@ -456,7 +456,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Ground_erosion))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_Description))]
-        public double FailureProbabilityStructureWithErosion
+        public virtual double FailureProbabilityStructureWithErosion
         {
             get
             {
@@ -477,7 +477,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Storage_structure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_StorageStructureArea_Description))]
-        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
+        public virtual VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
             {
@@ -495,7 +495,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Storage_structure))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_AllowedLevelIncreaseStorage_Description))]
-        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
+        public virtual LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
             {
@@ -514,10 +514,10 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ForeshoreProfile_Description))]
-        public ForeshoreProfile ForeshoreProfile
+        public virtual ForeshoreProfile ForeshoreProfile
         {
             get
             {
@@ -531,10 +531,10 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.BreakWaterProperties_Description))]
-        public UseBreakWaterProperties UseBreakWater
+        public virtual UseBreakWaterProperties UseBreakWater
         {
             get
             {
@@ -546,10 +546,10 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization_Foreshore))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Foreshore))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ForeshoreProperties_Description))]
-        public UseForeshoreProperties UseForeshore
+        public virtual UseForeshoreProperties UseForeshore
         {
             get
             {
@@ -566,7 +566,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OutputSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldIllustrationPointsBeCalculated
+        public virtual bool ShouldIllustrationPointsBeCalculated
         {
             get
             {
