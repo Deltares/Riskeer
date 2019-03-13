@@ -30,6 +30,7 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
@@ -293,6 +294,33 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return new MacroStabilityInwardsWaterStressLinesProperties(data, assessmentLevel);
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(AdjustPhreaticLine3And4ForUplift)
+                || propertyName == nameof(LeakageLengthInwardsPhreaticLine3)
+                || propertyName == nameof(LeakageLengthOutwardsPhreaticLine3) 
+                || propertyName == nameof(PiezometricHeadPhreaticLine2Inwards)
+                || propertyName == nameof(PiezometricHeadPhreaticLine2Outwards))
+            {
+                if (data.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)
+                {
+                    return true;
+                }
+            }
+
+            if (propertyName == nameof(LeakageLengthInwardsPhreaticLine4) || propertyName == nameof(LeakageLengthOutwardsPhreaticLine4))
+            {
+                if (data.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand
+                    || data.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public override string ToString()

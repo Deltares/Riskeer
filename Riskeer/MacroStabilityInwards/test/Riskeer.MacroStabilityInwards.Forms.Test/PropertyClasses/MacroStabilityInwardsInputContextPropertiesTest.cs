@@ -1360,10 +1360,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                              handler);
 
             // Call
-            bool result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
+            bool result = properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsInputContextProperties.AssessmentLevel));
 
             // Assert
-            Assert.AreNotEqual(useAssessmentLevelManualInput, result);
+            Assert.AreEqual(!useAssessmentLevelManualInput, result);
         }
 
         [Test]

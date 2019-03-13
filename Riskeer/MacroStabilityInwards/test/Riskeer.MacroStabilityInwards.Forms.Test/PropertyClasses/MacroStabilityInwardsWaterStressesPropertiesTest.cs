@@ -456,6 +456,95 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void DynamicReadOnlyValidationMethod_DikeSoilScenarioSandDikeOnSand_ReturnsExpectedReadOnly()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
+            {
+                DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand
+            };
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
+                                                                              propertyChangeHandler);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.AdjustPhreaticLine3And4ForUplift)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthInwardsPhreaticLine3)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthOutwardsPhreaticLine3)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthInwardsPhreaticLine4)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthOutwardsPhreaticLine4)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.PiezometricHeadPhreaticLine2Inwards)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.PiezometricHeadPhreaticLine2Outwards)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.WaterLevelRiverAverage)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.MinimumLevelPhreaticLineAtDikeTopPolder)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.MinimumLevelPhreaticLineAtDikeTopRiver)));
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidationMethod_DikeSoilScenarioClayDikeOnSand_ReturnsExpectedReadOnly()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
+            {
+                DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+            };
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
+                                                                              propertyChangeHandler);
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.AdjustPhreaticLine3And4ForUplift)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthInwardsPhreaticLine3)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthOutwardsPhreaticLine3)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthInwardsPhreaticLine4)));
+            Assert.IsTrue(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthOutwardsPhreaticLine4)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.PiezometricHeadPhreaticLine2Inwards)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.PiezometricHeadPhreaticLine2Outwards)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.WaterLevelRiverAverage)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.MinimumLevelPhreaticLineAtDikeTopPolder)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.MinimumLevelPhreaticLineAtDikeTopRiver)));
+        }
+
+        [Test]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+        public void DynamicReadOnlyValidationMethod_OtherDikeSoilScenario_ReturnsExpectedReadOnly(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var propertyChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
+            {
+                DikeSoilScenario = dikeSoilScenario
+            };
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
+                                                                              propertyChangeHandler);
+
+            // Call & Assert
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.AdjustPhreaticLine3And4ForUplift)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthInwardsPhreaticLine3)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthOutwardsPhreaticLine3)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthInwardsPhreaticLine4)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.LeakageLengthOutwardsPhreaticLine4)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.PiezometricHeadPhreaticLine2Inwards)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.PiezometricHeadPhreaticLine2Outwards)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.WaterLevelRiverAverage)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.MinimumLevelPhreaticLineAtDikeTopPolder)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(MacroStabilityInwardsWaterStressesProperties.MinimumLevelPhreaticLineAtDikeTopRiver)));
+        }
+
+        [Test]
         public void ToString_Always_ReturnEmptyString()
         {
             // Setup
