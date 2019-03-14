@@ -693,9 +693,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabaseFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = validPreprocessorDirectory
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = validPreprocessorDirectory
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -760,9 +763,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabaseFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = false,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = false,
+                    PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
