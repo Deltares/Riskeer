@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -29,6 +30,19 @@ namespace Riskeer.Common.Data.Hydraulics
     /// </summary>
     public class HydraulicLocationConfigurationSettings
     {
+        private bool canUsePreprocessor;
+        private bool usePreprocessor;
+        private string preprocessorDirectory;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationSettings"/>.
+        /// </summary>
+        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>false</c>.</remarks>
+        public HydraulicLocationConfigurationSettings()
+        {
+            CanUsePreprocessor = false;
+        }
+
         /// <summary>
         /// Gets the file path.
         /// </summary>
@@ -83,6 +97,78 @@ namespace Riskeer.Common.Data.Hydraulics
         /// Gets the indicator whether to use the preprocessor closure.
         /// </summary>
         public bool UsePreprocessorClosure { get; private set; }
+
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the Hydra-Ring preprocessor can be used.
+        /// </summary>
+        /// <remarks>When setting this property to <c>false</c>, both <see cref="UsePreprocessor"/>
+        /// and <see cref="PreprocessorDirectory"/> are reset.</remarks>
+        public bool CanUsePreprocessor
+        {
+            get
+            {
+                return canUsePreprocessor;
+            }
+            set
+            {
+                canUsePreprocessor = value;
+
+                if (!canUsePreprocessor)
+                {
+                    usePreprocessor = false;
+                    preprocessorDirectory = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the Hydra-Ring preprocessor must be used.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when set while <see cref="CanUsePreprocessor"/> is <c>false</c>.</exception>
+        public bool UsePreprocessor
+        {
+            get
+            {
+                return usePreprocessor;
+            }
+            set
+            {
+                if (!CanUsePreprocessor)
+                {
+                    throw new InvalidOperationException($"{nameof(CanUsePreprocessor)} is false.");
+                }
+
+                usePreprocessor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Hydra-Ring preprocessor directory.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when set while <see cref="CanUsePreprocessor"/> is <c>false</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when setting a value that matches <see cref="string.IsNullOrWhiteSpace"/>.</exception>
+        public string PreprocessorDirectory
+        {
+            get
+            {
+                return preprocessorDirectory;
+            }
+            set
+            {
+                if (!CanUsePreprocessor)
+                {
+                    throw new InvalidOperationException($"{nameof(CanUsePreprocessor)} is false.");
+                }
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_Path_must_have_a_value);
+                }
+
+                preprocessorDirectory = value;
+            }
+        }
 
         /// <summary>
         /// Sets values to the <see cref="HydraulicLocationConfigurationSettings"/>.
