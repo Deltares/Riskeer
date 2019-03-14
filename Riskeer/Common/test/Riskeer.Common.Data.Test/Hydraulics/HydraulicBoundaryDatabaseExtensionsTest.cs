@@ -90,9 +90,12 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                CanUsePreprocessor = true,
-                UsePreprocessor = usePreprocessor,
-                PreprocessorDirectory = preprocessorDirectory
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = usePreprocessor,
+                    PreprocessorDirectory = preprocessorDirectory
+                }
             };
 
             // Call
