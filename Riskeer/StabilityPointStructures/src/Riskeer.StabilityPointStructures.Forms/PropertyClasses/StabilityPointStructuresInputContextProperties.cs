@@ -83,8 +83,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         private const int insideWaterLevelPropertyIndex = 15;
         private const int thresholdHeightOpenWeirPropertyIndex = 16;
         private const int widthFlowAperturesPropertyIndex = 17;
-        private const int drainCoefficientPropertyIndex = 18;
-        private const int areaFlowAperturesPropertyIndex = 19;
+        private const int areaFlowAperturesPropertyIndex = 18;
+        private const int drainCoefficientPropertyIndex = 19;
         private const int stormDurationPropertyIndex = 20;
         private const int factorStormDurationOpenStructurePropertyIndex = 21;
 

@@ -2015,8 +2015,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int linearFloodedCulvertLevelCrestStructurePropertyIndex = 13;
         private const int linearFloodedCulvertInsideWaterLevelPropertyIndex = 14;
         private const int linearFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 15;
-        private const int linearFloodedCulvertDrainCoefficientPropertyIndex = 16;
-        private const int linearFloodedCulvertAreaFlowAperturesPropertyIndex = 17;
+        private const int linearFloodedCulvertAreaFlowAperturesPropertyIndex = 16;
+        private const int linearFloodedCulvertDrainCoefficientPropertyIndex = 17;
         private const int linearFloodedCulvertStormDurationPropertyIndex = 18;
         private const int linearFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 19;
 
@@ -2114,8 +2114,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticFloodedCulvertLevelCrestStructurePropertyIndex = 13;
         private const int quadraticFloodedCulvertInsideWaterLevelPropertyIndex = 14;
         private const int quadraticFloodedCulvertThresholdHeightOpenWeirPropertyIndex = 15;
-        private const int quadraticFloodedCulvertDrainCoefficientPropertyIndex = 16;
-        private const int quadraticFloodedCulvertAreaFlowAperturesPropertyIndex = 17;
+        private const int quadraticFloodedCulvertAreaFlowAperturesPropertyIndex = 16;
+        private const int quadraticFloodedCulvertDrainCoefficientPropertyIndex = 17;
         private const int quadraticFloodedCulvertStormDurationPropertyIndex = 18;
         private const int quadraticFloodedCulvertFactorStormDurationOpenStructurePropertyIndex = 19;
 
