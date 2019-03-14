@@ -347,9 +347,12 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        CanUsePreprocessor = true,
+                        UsePreprocessor = true,
+                        PreprocessorDirectory = validPreprocessorDirectory
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -392,9 +395,12 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = false,
-                    PreprocessorDirectory = "NonExistingPreprocessorDirectory"
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        CanUsePreprocessor = true,
+                        UsePreprocessor = false,
+                        PreprocessorDirectory = "NonExistingPreprocessorDirectory"
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);

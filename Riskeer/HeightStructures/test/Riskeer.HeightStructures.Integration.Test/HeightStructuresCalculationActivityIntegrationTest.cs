@@ -354,9 +354,12 @@ namespace Riskeer.HeightStructures.Integration.Test
                     {
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                     },
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = validPreprocessorDirectory
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        CanUsePreprocessor = true,
+                        UsePreprocessor = true,
+                        PreprocessorDirectory = validPreprocessorDirectory
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -410,9 +413,12 @@ namespace Riskeer.HeightStructures.Integration.Test
                     {
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                     },
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = false,
-                    PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        CanUsePreprocessor = true,
+                        UsePreprocessor = false,
+                        PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
