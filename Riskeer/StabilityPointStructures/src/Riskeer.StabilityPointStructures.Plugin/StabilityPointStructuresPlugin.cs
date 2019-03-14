@@ -569,8 +569,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                 CreateChangeHandler(inquiryHelper, calculations));
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                                                                        CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {

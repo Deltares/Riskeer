@@ -731,8 +731,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
-                   .AddClearIllustrationPointsOfCalculationsItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                 CreateChangeHandler(inquiryHelper, calculations));
+                   .AddClearIllustrationPointsOfCalculationsInGroupItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
+                                                                        CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {
