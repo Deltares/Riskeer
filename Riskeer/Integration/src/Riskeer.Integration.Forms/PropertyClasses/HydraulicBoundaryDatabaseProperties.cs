@@ -257,11 +257,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.UsePreprocessor;
+                return data.HydraulicLocationConfigurationSettings.UsePreprocessor;
             }
             set
             {
-                data.UsePreprocessor = value;
+                data.HydraulicLocationConfigurationSettings.UsePreprocessor = value;
                 data.NotifyObservers();
             }
         }
@@ -276,11 +276,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.PreprocessorDirectory;
+                return data.HydraulicLocationConfigurationSettings.PreprocessorDirectory;
             }
             set
             {
-                data.PreprocessorDirectory = value;
+                data.HydraulicLocationConfigurationSettings.PreprocessorDirectory = value;
             }
         }
 
@@ -293,14 +293,14 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.PreprocessorDirectory;
+                return data.HydraulicLocationConfigurationSettings.PreprocessorDirectory;
             }
         }
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            bool canUsePreprocessor = data.CanUsePreprocessor;
+            bool canUsePreprocessor = data.HydraulicLocationConfigurationSettings.CanUsePreprocessor;
 
             if (propertyName.Equals(nameof(UsePreprocessor)) && !canUsePreprocessor)
             {

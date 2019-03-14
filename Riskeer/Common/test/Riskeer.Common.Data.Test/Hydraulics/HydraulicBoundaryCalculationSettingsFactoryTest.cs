@@ -97,8 +97,11 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var hydraulicBoundaryDatabaseUsePreprocessorFalse = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                PreprocessorDirectory = "Directory"
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    PreprocessorDirectory = "Directory"
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorFalse);
             yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorFalse, string.Empty)
@@ -108,9 +111,12 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             var hydraulicBoundaryDatabaseUsePreprocessorTrue = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = preprocessorDirectory
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = preprocessorDirectory
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabaseUsePreprocessorTrue);
             yield return new TestCaseData(hydraulicBoundaryDatabaseUsePreprocessorTrue, preprocessorDirectory)

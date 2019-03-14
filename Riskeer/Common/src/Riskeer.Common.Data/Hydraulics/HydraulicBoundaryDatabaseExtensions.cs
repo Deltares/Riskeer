@@ -53,8 +53,8 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to get the
         /// effective preprocessor directory from.</param>
         /// <returns>A preprocessor directory, which is <see cref="string.Empty"/> when
-        /// <see cref="HydraulicBoundaryDatabase.CanUsePreprocessor"/> or
-        /// <see cref="HydraulicBoundaryDatabase.UsePreprocessor"/> is <c>false</c>.</returns>
+        /// <see cref="HydraulicLocationConfigurationSettings.CanUsePreprocessor"/> or
+        /// <see cref="HydraulicLocationConfigurationSettings.UsePreprocessor"/> is <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         public static string EffectivePreprocessorDirectory(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
@@ -64,8 +64,9 @@ namespace Riskeer.Common.Data.Hydraulics
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            return hydraulicBoundaryDatabase.CanUsePreprocessor && hydraulicBoundaryDatabase.UsePreprocessor
-                       ? hydraulicBoundaryDatabase.PreprocessorDirectory
+            return hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor
+                   && hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor
+                       ? hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory
                        : string.Empty;
         }
     }

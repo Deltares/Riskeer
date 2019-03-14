@@ -52,9 +52,9 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor);
+            Assert.IsNull(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory);
             Assert.IsNotNull(assessmentSection.ReferenceLine);
 
             mocks.VerifyAll();
@@ -84,9 +84,9 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
             Assert.IsEmpty(hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor);
+            Assert.IsNull(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory);
             Assert.IsNotNull(assessmentSection.ReferenceLine);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
@@ -139,9 +139,9 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
             Assert.IsEmpty(hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor);
+            Assert.IsNull(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory);
             Assert.IsNotNull(assessmentSection.ReferenceLine);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;

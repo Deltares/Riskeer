@@ -551,9 +551,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = preprocessorDirectory
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = preprocessorDirectory
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -634,9 +637,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = false,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = false,
+                    PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 

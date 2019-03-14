@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
 
             FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
 
             FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);

@@ -47,6 +47,127 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsNull(settings.WindSpeed);
             Assert.IsNull(settings.Comment);
             Assert.IsFalse(settings.UsePreprocessorClosure);
+            Assert.IsFalse(settings.CanUsePreprocessor);
+            Assert.IsFalse(settings.UsePreprocessor);
+            Assert.IsNull(settings.PreprocessorDirectory);
+        }
+
+        [Test]
+        public void UsePreprocessor_SetValueWithCanUsePreprocessorTrue_ExpectedValueSet()
+        {
+            // Setup
+            bool usePreprocessor = new Random(11).NextBoolean();
+            var settings = new HydraulicLocationConfigurationSettings
+            {
+                CanUsePreprocessor = true
+            };
+
+            // Call
+            settings.UsePreprocessor = usePreprocessor;
+
+            // Assert
+            Assert.AreEqual(usePreprocessor, settings.UsePreprocessor);
+        }
+
+        [Test]
+        public void UsePreprocessor_SetValueWithCanUsePreprocessorFalse_ThrowsInvalidOperationException()
+        {
+            // Setup
+            bool usePreprocessor = new Random(11).NextBoolean();
+            var settings = new HydraulicLocationConfigurationSettings();
+
+            // Call
+            TestDelegate test = () => settings.UsePreprocessor = usePreprocessor;
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual($"{nameof(HydraulicLocationConfigurationSettings.CanUsePreprocessor)} is false.", message);
+        }
+
+        [Test]
+        public void PreprocessorDirectory_SetValidValueWithCanUsePreprocessorTrue_ExpectedValueSet()
+        {
+            // Setup
+            const string preprocessorDirectory = "OtherPreprocessor";
+            var settings = new HydraulicLocationConfigurationSettings
+            {
+                CanUsePreprocessor = true
+            };
+
+            // Call
+            settings.PreprocessorDirectory = preprocessorDirectory;
+
+            // Assert
+            Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
+        }
+
+        [Test]
+        public void PreprocessorDirectory_SetValidValueWithCanUsePreprocessorFalse_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var settings = new HydraulicLocationConfigurationSettings();
+
+            // Call
+            TestDelegate test = () => settings.PreprocessorDirectory = "Preprocessor";
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual($"{nameof(HydraulicLocationConfigurationSettings.CanUsePreprocessor)} is false.", message);
+        }
+
+        [Test]
+        public void GivenSettingsWithPreprocessorSettings_WhenSettingCanUsePreprocessorFalse_ThenPreprocessorSettingsReset()
+        {
+            // Given
+            var settings = new HydraulicLocationConfigurationSettings
+            {
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = "PreprocessorDirectory"
+            };
+
+            // When
+            settings.CanUsePreprocessor = false;
+
+            // Then
+            Assert.IsFalse(settings.CanUsePreprocessor);
+            Assert.IsFalse(settings.UsePreprocessor);
+            Assert.IsNull(settings.PreprocessorDirectory);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CanUsePreprocessor_Always_ExpectedValuesSet(bool canUsePreprocessor)
+        {
+            // Setup
+            var settings = new HydraulicLocationConfigurationSettings();
+
+            // Call
+            settings.CanUsePreprocessor = canUsePreprocessor;
+
+            // Assert
+            Assert.AreEqual(canUsePreprocessor, settings.CanUsePreprocessor);
+            Assert.IsFalse(settings.UsePreprocessor);
+            Assert.IsNull(settings.PreprocessorDirectory);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void PreprocessorDirectory_SetInvalidValueWithCanUsePreprocessorTrue_ThrowsArgumentException(string preprocessorDirectory)
+        {
+            // Setup
+            var settings = new HydraulicLocationConfigurationSettings
+            {
+                CanUsePreprocessor = true
+            };
+
+            // Call
+            TestDelegate test = () => settings.PreprocessorDirectory = preprocessorDirectory;
+
+            // Assert
+            string message = Assert.Throws<ArgumentException>(test).Message;
+            Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat moet een waarde hebben.", message);
         }
 
         [Test]
