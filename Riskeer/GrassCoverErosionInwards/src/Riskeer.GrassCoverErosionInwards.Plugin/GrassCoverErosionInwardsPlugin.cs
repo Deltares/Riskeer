@@ -594,8 +594,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
-                   .AddClearIllustrationPointsOfCalculationsItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                 CreateChangeHandler(inquiryHelper, calculations))
+                   .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                       () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
+                       CreateChangeHandler(inquiryHelper, calculations))
                    .AddSeparator()
                    .AddCollapseAllItem()
                    .AddExpandAllItem()

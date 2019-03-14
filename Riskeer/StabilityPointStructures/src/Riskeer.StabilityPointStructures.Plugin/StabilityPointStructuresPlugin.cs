@@ -432,8 +432,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
                               ValidateAllDataAvailableAndGetErrorMessage)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
-                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations))
+                          .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
+                                                                                          CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
