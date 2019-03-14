@@ -60,9 +60,9 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         private const int outputSettingsCategoryIndex = 8;
         private const int totalNrOfCategories = 8;
 
-        private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int structurePropertyIndex = 1;
-        private const int structureLocationPropertyIndex = 2;
+        private const int structurePropertyIndex = 0;
+        private const int structureLocationPropertyIndex = 1;
+        private const int hydraulicBoundaryLocationPropertyIndex = 2;
 
         private const int modelFactorSuperCriticalFlowPropertyIndex = 3;
 
@@ -240,20 +240,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
             generalCategoryIndex, totalNrOfCategories)]
-        public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
-        {
-            get
-            {
-                return base.SelectedHydraulicBoundaryLocation;
-            }
-            set
-            {
-                base.SelectedHydraulicBoundaryLocation = value;
-            }
-        }
-
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
-            generalCategoryIndex, totalNrOfCategories)]
         public override ClosingStructure Structure
         {
             get
@@ -273,6 +259,20 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return base.StructureLocation;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),
+            generalCategoryIndex, totalNrOfCategories)]
+        public override SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        {
+            get
+            {
+                return base.SelectedHydraulicBoundaryLocation;
+            }
+            set
+            {
+                base.SelectedHydraulicBoundaryLocation = value;
             }
         }
 

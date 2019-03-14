@@ -1169,9 +1169,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
         #region VerticalWall structures indices
 
-        private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int verticalWallStructurePropertyIndex = 1;
-        private const int verticalWallStructureLocationPropertyIndex = 2;
+        private const int verticalWallStructurePropertyIndex = 0;
+        private const int verticalWallStructureLocationPropertyIndex = 1;
+        private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 2;
 
         private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 3;
 
@@ -1204,9 +1204,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
         #region LowSill structures indices
 
-        private const int lowSillHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int lowSillStructurePropertyIndex = 1;
-        private const int lowSillStructureLocationPropertyIndex = 2;
+        private const int lowSillStructurePropertyIndex = 0;
+        private const int lowSillStructureLocationPropertyIndex = 1;
+        private const int lowSillHydraulicBoundaryLocationPropertyIndex = 2;
 
         private const int lowSillIdenticalAperturesPropertyIndex = 3;
         private const int lowSillFailureProbabilityOpenStructurePropertyIndex = 4;
@@ -1237,9 +1237,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
         #region FloodedCulvert structures indices
 
-        private const int floodedCulvertHydraulicBoundaryLocationPropertyIndex = 0;
-        private const int floodedCulvertStructurePropertyIndex = 1;
-        private const int floodedCulvertStructureLocationPropertyIndex = 2;
+        private const int floodedCulvertStructurePropertyIndex = 0;
+        private const int floodedCulvertStructureLocationPropertyIndex = 1;
+        private const int floodedCulvertHydraulicBoundaryLocationPropertyIndex = 2;
 
         private const int floodedCulvertIdenticalAperturesPropertyIndex = 3;
         private const int floodedCulvertFailureProbabilityOpenStructurePropertyIndex = 4;
