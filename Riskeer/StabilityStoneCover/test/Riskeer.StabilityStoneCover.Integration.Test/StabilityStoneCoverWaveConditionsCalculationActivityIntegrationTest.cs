@@ -109,9 +109,9 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
                 calculation,
@@ -635,9 +635,9 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = validPreprocessorDirectory;
 
             CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
                 calculation,
@@ -675,9 +675,9 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
-            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
                 calculation,
