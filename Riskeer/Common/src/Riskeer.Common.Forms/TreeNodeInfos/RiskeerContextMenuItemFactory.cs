@@ -539,6 +539,21 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration points for a
+        /// collection of calculations in a failure mechanism.
+        /// </summary>
+        /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>
+        /// <param name="changeHandler">Object responsible for clearing the illustration point results.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+            Func<bool> isContextItemEnabledFunc, IClearIllustrationPointsOfCalculationCollectionChangeHandler changeHandler)
+        {
+            return CreateClearIllustrationPointsOfCalculationsItem(
+                isContextItemEnabledFunc, changeHandler,
+                Resources.CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_FailureMechanism);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing illustration points for a
         /// single calculation.
         /// </summary>
         /// <param name="isContextItemEnabledFunc">The function to determine whether the context menu item should be enabled.</param>

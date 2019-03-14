@@ -1128,6 +1128,16 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten binnen dit toetsspoor..
+        /// </summary>
+        public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_FailureMechanism {
+            get {
+                return ResourceManager.GetString("CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_Failu" +
+                        "reMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wis alle berekende illustratiepunten binnen deze map met berekeningen..
         /// </summary>
         public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_Group {

@@ -1515,6 +1515,9 @@ berekende kans
   <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_Group" xml:space="preserve">
     <value>Wis alle berekende illustratiepunten binnen deze map met berekeningen.</value>
   </data>
+  <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_FailureMechanism" xml:space="preserve">
+    <value>Wis alle berekende illustratiepunten binnen dit toetsspoor.</value>
+  </data>
   <data name="ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_" xml:space="preserve">
     <value>Weet u zeker dat u alle berekende illustratiepunten bij '{0}' wilt wissen?</value>
   </data>

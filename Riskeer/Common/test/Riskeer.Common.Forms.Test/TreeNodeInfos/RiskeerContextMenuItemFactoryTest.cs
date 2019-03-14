@@ -1886,6 +1886,98 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
+        #region CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem
+
+        [Test]
+        public void CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem_Always_CreatesExpectedItem()
+        {
+            // Setup
+            bool isEnabled = new Random(21).NextBoolean();
+
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                () => isEnabled, handler);
+
+            // Assert
+            Assert.AreEqual("Wis alle illustratiepunten...", toolStripItem.Text);
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIllustrationPointsIcon, toolStripItem.Image);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem_EnabledSituation_ReturnsExpectedEnabledStateAndToolTipMessage(bool isEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                () => isEnabled, handler);
+
+            // Assert
+            Assert.AreEqual(isEnabled, toolStripItem.Enabled);
+
+            string expectedToolTipMessage = isEnabled
+                                                ? "Wis alle berekende illustratiepunten binnen dit toetsspoor."
+                                                : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
+            Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationsInFailureMechanismItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(false);
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                () => true, handler);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationsInFailureMechanismItem_WhenClickPerformedAndActionContinued_ThenIllustrationPointsClearedAndObserversUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            var handler = mocks.StrictMock<IClearIllustrationPointsOfCalculationCollectionChangeHandler>();
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.ClearIllustrationPoints()).Return(new[]
+            {
+                observable
+            });
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateClearIllustrationPointsOfCalculationsInFailureMechanismItem(
+                () => true, handler);
+
+            // When
+            toolStripItem.PerformClick();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
         #region CreateClearIllustrationPointsOfCalculationItem
 
         [Test]
