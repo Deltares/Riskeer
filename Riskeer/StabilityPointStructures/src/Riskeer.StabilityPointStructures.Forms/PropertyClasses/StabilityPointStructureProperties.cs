@@ -42,10 +42,10 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         private const int idPropertyIndex = 1;
         private const int namePropertyIndex = 2;
         private const int locationPropertyIndex = 3;
-        private const int insideWaterLevelPropertyIndex = 4;
-        private const int insideWaterLevelFailureConstructionPropertyIndex = 5;
-        private const int structureNormalOrientationPropertyIndex = 6;
-        private const int stabilityPointStructureInflowModelTypePropertyIndex = 7;
+        private const int structureNormalOrientationPropertyIndex = 4;
+        private const int stabilityPointStructureInflowModelTypePropertyIndex = 5;
+        private const int insideWaterLevelPropertyIndex = 6;
+        private const int insideWaterLevelFailureConstructionPropertyIndex = 7;
         private const int widthFlowAperturesPropertyIndex = 8;
         private const int areaFlowAperturesPropertyIndex = 9;
         private const int flowWidthAtBottomProtectionPropertyIndex = 10;
@@ -110,36 +110,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         #endregion
 
-        #region HydraulicData
-
-        [PropertyOrder(insideWaterLevelPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public NormalDistributionProperties InsideWaterLevel
-        {
-            get
-            {
-                return new NormalDistributionProperties(data.InsideWaterLevel);
-            }
-        }
-
-        [PropertyOrder(insideWaterLevelFailureConstructionPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_Description))]
-        public NormalDistributionProperties InsideWaterLevelFailureConstruction
-        {
-            get
-            {
-                return new NormalDistributionProperties(data.InsideWaterLevelFailureConstruction);
-            }
-        }
-
-        #endregion
-
         #region Schematization
 
         [PropertyOrder(structureNormalOrientationPropertyIndex)]
@@ -164,6 +134,32 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return data.InflowModelType;
+            }
+        }
+
+        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
+        public NormalDistributionProperties InsideWaterLevel
+        {
+            get
+            {
+                return new NormalDistributionProperties(data.InsideWaterLevel);
+            }
+        }
+
+        [PropertyOrder(insideWaterLevelFailureConstructionPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_InsideWaterLevelFailureConstruction_Description))]
+        public NormalDistributionProperties InsideWaterLevelFailureConstruction
+        {
+            get
+            {
+                return new NormalDistributionProperties(data.InsideWaterLevelFailureConstruction);
             }
         }
 
