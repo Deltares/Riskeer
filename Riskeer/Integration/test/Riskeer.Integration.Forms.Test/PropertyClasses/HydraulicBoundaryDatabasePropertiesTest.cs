@@ -114,9 +114,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                CanUsePreprocessor = true,
-                UsePreprocessor = usePreprocessor,
-                PreprocessorDirectory = preprocessorDirectory
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = usePreprocessor,
+                    PreprocessorDirectory = preprocessorDirectory
+                }
             };
 
             // Call
@@ -209,9 +212,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                CanUsePreprocessor = true,
-                UsePreprocessor = usePreprocessor,
-                PreprocessorDirectory = "Preprocessor"
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = usePreprocessor,
+                    PreprocessorDirectory = "Preprocessor"
+                }
             };
 
             // Call
@@ -551,9 +557,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                CanUsePreprocessor = true,
-                UsePreprocessor = !usePreprocessor,
-                PreprocessorDirectory = "Preprocessor"
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = !usePreprocessor,
+                    PreprocessorDirectory = "Preprocessor"
+                }
             };
 
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
@@ -564,7 +573,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.UsePreprocessor = usePreprocessor;
 
             // Assert
-            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor);
             mocks.VerifyAll();
         }
 
@@ -579,9 +588,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             const string newPreprocessorDirectory = @"C:/path";
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = "Preprocessor"
+                HydraulicLocationConfigurationSettings =
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = "Preprocessor"
+                }
             };
 
             var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase, importHandler);
@@ -590,7 +602,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.PreprocessorDirectory = newPreprocessorDirectory;
 
             // Assert
-            Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory);
             mocks.VerifyAll();
         }
 
@@ -631,9 +643,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             if (canUsePreprocessor)
             {
-                hydraulicBoundaryDatabase.CanUsePreprocessor = true;
-                hydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
-                hydraulicBoundaryDatabase.PreprocessorDirectory = "Preprocessor";
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
+                hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "Preprocessor";
             }
 
             // Call
