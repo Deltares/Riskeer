@@ -568,9 +568,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = preprocessorDirectory
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        CanUsePreprocessor = true,
+                        UsePreprocessor = true,
+                        PreprocessorDirectory = preprocessorDirectory
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -649,9 +652,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = false,
-                    PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        CanUsePreprocessor = true,
+                        UsePreprocessor = false,
+                        PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);

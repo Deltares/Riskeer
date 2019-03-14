@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Data.Test
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
 
             CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
