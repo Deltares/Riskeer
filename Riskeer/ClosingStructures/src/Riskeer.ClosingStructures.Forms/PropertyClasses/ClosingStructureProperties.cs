@@ -44,15 +44,15 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         private const int locationPropertyIndex = 3;
         private const int structureNormalOrientationPropertyIndex = 4;
         private const int inflowModelTypePropertyIndex = 5;
-        private const int widthFlowAperturesPropertyIndex = 6;
-        private const int areaFlowAperturesPropertyIndex = 7;
-        private const int identicalAperturesPropertyIndex = 8;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
-        private const int storageStructureAreaPropertyIndex = 10;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
-        private const int levelCrestStructureNotClosingPropertyIndex = 12;
-        private const int thresholdHeightOpenWeirPropertyIndex = 13;
-        private const int insideWaterLevelPropertyIndex = 14;
+        private const int insideWaterLevelPropertyIndex = 6;
+        private const int widthFlowAperturesPropertyIndex = 7;
+        private const int areaFlowAperturesPropertyIndex = 8;
+        private const int identicalAperturesPropertyIndex = 9;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 10;
+        private const int storageStructureAreaPropertyIndex = 11;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 12;
+        private const int levelCrestStructureNotClosingPropertyIndex = 13;
+        private const int thresholdHeightOpenWeirPropertyIndex = 14;
         private const int criticalOvertoppingDischargePropertyIndex = 15;
         private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 16;
         private const int failureProbabilityOpenStructurePropertyIndex = 17;
@@ -117,6 +117,19 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return data.InflowModelType;
+            }
+        }
+
+        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
+        public NormalDistributionProperties InsideWaterLevel
+        {
+            get
+            {
+                return new NormalDistributionProperties(data.InsideWaterLevel);
             }
         }
 
@@ -221,20 +234,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(data.ThresholdHeightOpenWeir);
             }
-        }
-
-        [PropertyOrder(insideWaterLevelPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_InsideWaterLevel_Description))]
-        public NormalDistributionProperties InsideWaterLevel
-        {
-            get
-            {
-                return new NormalDistributionProperties(data.InsideWaterLevel);
-            }
-        }
+        }        
 
         [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]

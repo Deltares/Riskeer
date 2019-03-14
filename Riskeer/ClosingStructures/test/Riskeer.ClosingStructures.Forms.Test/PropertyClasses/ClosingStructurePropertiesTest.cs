@@ -39,15 +39,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private const int locationPropertyIndex = 2;
         private const int structureNormalOrientationPropertyIndex = 3;
         private const int inflowModelTypePropertyIndex = 4;
-        private const int widthFlowAperturesPropertyIndex = 5;
-        private const int areaFlowAperturesPropertyIndex = 6;
-        private const int identicalAperturesPropertyIndex = 7;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int storageStructureAreaPropertyIndex = 9;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int levelCrestStructureNotClosingPropertyIndex = 11;
-        private const int thresholdHeightOpenWeirPropertyIndex = 12;
-        private const int insideWaterLevelPropertyIndex = 13;
+        private const int insideWaterLevelPropertyIndex = 5;
+        private const int widthFlowAperturesPropertyIndex = 6;
+        private const int areaFlowAperturesPropertyIndex = 7;
+        private const int identicalAperturesPropertyIndex = 8;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
+        private const int storageStructureAreaPropertyIndex = 10;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
+        private const int levelCrestStructureNotClosingPropertyIndex = 12;
+        private const int thresholdHeightOpenWeirPropertyIndex = 13;
         private const int criticalOvertoppingDischargePropertyIndex = 14;
         private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 15;
         private const int failureProbabilityOpenStructurePropertyIndex = 16;
@@ -151,7 +151,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(18, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";
-            const string hydraulicDataCategory = "Hydraulische gegevens";
             const string generalCategory = "Algemeen";
 
             PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
@@ -188,6 +187,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             schematizationCategory,
                                                                             "Instroommodel",
                                                                             "Instroommodel van het kunstwerk.",
+                                                                            true);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[insideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(insideWaterLevelProperty,
+                                                                            schematizationCategory,
+                                                                            "Binnenwaterstand [m+NAP]",
+                                                                            "Binnenwaterstand.",
                                                                             true);
 
             PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
@@ -251,14 +258,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             schematizationCategory,
                                                                             "Drempelhoogte [m+NAP]",
                                                                             "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
-                                                                            true);
-
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[insideWaterLevelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(insideWaterLevelProperty,
-                                                                            hydraulicDataCategory,
-                                                                            "Binnenwaterstand [m+NAP]",
-                                                                            "Binnenwaterstand.",
                                                                             true);
 
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
