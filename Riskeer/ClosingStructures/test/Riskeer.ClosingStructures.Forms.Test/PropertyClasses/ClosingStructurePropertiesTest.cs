@@ -37,21 +37,25 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private const int idPropertyIndex = 0;
         private const int namePropertyIndex = 1;
         private const int locationPropertyIndex = 2;
-        private const int structureNormalOrientationPropertyIndex = 3;
-        private const int inflowModelTypePropertyIndex = 4;
-        private const int insideWaterLevelPropertyIndex = 5;
-        private const int widthFlowAperturesPropertyIndex = 6;
-        private const int areaFlowAperturesPropertyIndex = 7;
-        private const int identicalAperturesPropertyIndex = 8;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 9;
-        private const int storageStructureAreaPropertyIndex = 10;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
+
+        private const int identicalAperturesPropertyIndex = 3;
+        private const int failureProbabilityOpenStructurePropertyIndex = 4;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 5;
+        private const int failureProbabilityReparationPropertyIndex = 6;
+
+        private const int inflowModelTypePropertyIndex = 7;
+        private const int insideWaterLevelPropertyIndex = 8;
+        private const int structureNormalOrientationPropertyIndex = 9;
+        private const int areaFlowAperturesPropertyIndex = 10;
+        private const int thresholdHeightOpenWeirPropertyIndex = 11;
         private const int levelCrestStructureNotClosingPropertyIndex = 12;
-        private const int thresholdHeightOpenWeirPropertyIndex = 13;
+        private const int widthFlowAperturesPropertyIndex = 13;
+
         private const int criticalOvertoppingDischargePropertyIndex = 14;
-        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 15;
-        private const int failureProbabilityOpenStructurePropertyIndex = 16;
-        private const int failureProbabilityReparationPropertyIndex = 17;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 15;
+
+        private const int storageStructureAreaPropertyIndex = 16;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 17;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -174,11 +178,32 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.",
                                                                             true);
 
-            PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(structureNormalOrientationProperty,
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[identicalAperturesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
                                                                             schematizationCategory,
-                                                                            "Oriëntatie [°]",
-                                                                            "Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.",
+                                                                            "Aantal identieke doorstroomopeningen [-]",
+                                                                            "Aantal identieke doorstroomopeningen.",
+                                                                            true);
+
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[failureProbabilityOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
+                                                                            schematizationCategory,
+                                                                            "Kans mislukken sluiting [-]",
+                                                                            "Kans op mislukken sluiting van geopend kunstwerk.",
+                                                                            true);
+
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[probabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
+                                                                            schematizationCategory,
+                                                                            "Kans op open staan bij naderend hoogwater [-]",
+                                                                            "Kans op open staan bij naderend hoogwater.",
+                                                                            true);
+
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[failureProbabilityReparationPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
+                                                                            schematizationCategory,
+                                                                            "Faalkans herstel van gefaalde situatie [-]",
+                                                                            "Faalkans herstel van gefaalde situatie.",
                                                                             true);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[inflowModelTypePropertyIndex];
@@ -197,12 +222,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Binnenwaterstand.",
                                                                             true);
 
-            PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(widthFlowAperturesProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthFlowAperturesProperty,
+            PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(structureNormalOrientationProperty,
                                                                             schematizationCategory,
-                                                                            "Breedte van doorstroomopening [m]",
-                                                                            "Breedte van de doorstroomopening.",
+                                                                            "Oriëntatie [°]",
+                                                                            "Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.",
                                                                             true);
 
             PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[areaFlowAperturesPropertyIndex];
@@ -213,11 +237,36 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Doorstroomoppervlak van doorstroomopeningen.",
                                                                             true);
 
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[identicalAperturesPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[thresholdHeightOpenWeirPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(thresholdHeightOpenWeirProperty,
                                                                             schematizationCategory,
-                                                                            "Aantal identieke doorstroomopeningen [-]",
-                                                                            "Aantal identieke doorstroomopeningen.",
+                                                                            "Drempelhoogte [m+NAP]",
+                                                                            "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
+                                                                            true);
+
+            PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[levelCrestStructureNotClosingPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(levelCrestStructureNotClosingProperty,
+                                                                            schematizationCategory,
+                                                                            "Kruinhoogte niet gesloten kering [m+NAP]",
+                                                                            "Niveau kruin bij niet gesloten maximaal kerende keermiddelen.",
+                                                                            true);
+
+            PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(widthFlowAperturesProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthFlowAperturesProperty,
+                                                                            schematizationCategory,
+                                                                            "Breedte van doorstroomopening [m]",
+                                                                            "Breedte van de doorstroomopening.",
+                                                                            true);
+
+            PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalOvertoppingDischargeProperty,
+                                                                            schematizationCategory,
+                                                                            "Kritiek instromend debiet [m³/s/m]",
+                                                                            "Kritiek instromend debiet directe invoer per strekkende meter.",
                                                                             true);
 
             PropertyDescriptor flowWidthAtBottomProtectionProperty = dynamicProperties[flowWidthAtBottomProtectionPropertyIndex];
@@ -242,51 +291,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             schematizationCategory,
                                                                             "Toegestane peilverhoging komberging [m]",
                                                                             "Toegestane peilverhoging komberging.",
-                                                                            true);
-
-            PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[levelCrestStructureNotClosingPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(levelCrestStructureNotClosingProperty,
-                                                                            schematizationCategory,
-                                                                            "Kruinhoogte niet gesloten kering [m+NAP]",
-                                                                            "Niveau kruin bij niet gesloten maximaal kerende keermiddelen.",
-                                                                            true);
-
-            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[thresholdHeightOpenWeirPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(thresholdHeightOpenWeirProperty,
-                                                                            schematizationCategory,
-                                                                            "Drempelhoogte [m+NAP]",
-                                                                            "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
-                                                                            true);
-
-            PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalOvertoppingDischargeProperty,
-                                                                            schematizationCategory,
-                                                                            "Kritiek instromend debiet [m³/s/m]",
-                                                                            "Kritiek instromend debiet directe invoer per strekkende meter.",
-                                                                            true);
-
-            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[probabilityOpenStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans op open staan bij naderend hoogwater [-]",
-                                                                            "Kans op open staan bij naderend hoogwater.",
-                                                                            true);
-
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[failureProbabilityOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
-                                                                            schematizationCategory,
-                                                                            "Kans mislukken sluiting [-]",
-                                                                            "Kans op mislukken sluiting van geopend kunstwerk.",
-                                                                            true);
-
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[failureProbabilityReparationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
-                                                                            schematizationCategory,
-                                                                            "Faalkans herstel van gefaalde situatie [-]",
-                                                                            "Faalkans herstel van gefaalde situatie.",
                                                                             true);
         }
     }

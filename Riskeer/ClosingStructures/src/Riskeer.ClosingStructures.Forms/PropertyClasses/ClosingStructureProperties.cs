@@ -42,21 +42,25 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         private const int idPropertyIndex = 1;
         private const int namePropertyIndex = 2;
         private const int locationPropertyIndex = 3;
-        private const int structureNormalOrientationPropertyIndex = 4;
-        private const int inflowModelTypePropertyIndex = 5;
-        private const int insideWaterLevelPropertyIndex = 6;
-        private const int widthFlowAperturesPropertyIndex = 7;
-        private const int areaFlowAperturesPropertyIndex = 8;
-        private const int identicalAperturesPropertyIndex = 9;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 10;
-        private const int storageStructureAreaPropertyIndex = 11;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 12;
+
+        private const int identicalAperturesPropertyIndex = 4;
+        private const int failureProbabilityOpenStructurePropertyIndex = 5;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 6;
+        private const int failureProbabilityReparationPropertyIndex = 7;
+
+        private const int inflowModelTypePropertyIndex = 8;
+        private const int insideWaterLevelPropertyIndex = 9;
+        private const int structureNormalOrientationPropertyIndex = 10;
+        private const int areaFlowAperturesPropertyIndex = 11;
+        private const int thresholdHeightOpenWeirPropertyIndex = 12;
         private const int levelCrestStructureNotClosingPropertyIndex = 13;
-        private const int thresholdHeightOpenWeirPropertyIndex = 14;
+        private const int widthFlowAperturesPropertyIndex = 14;
+
         private const int criticalOvertoppingDischargePropertyIndex = 15;
-        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 16;
-        private const int failureProbabilityOpenStructurePropertyIndex = 17;
-        private const int failureProbabilityReparationPropertyIndex = 18;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 16;
+
+        private const int storageStructureAreaPropertyIndex = 17;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 18;
 
         [PropertyOrder(idPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -95,15 +99,51 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(structureNormalOrientationPropertyIndex)]
+        [PropertyOrder(identicalAperturesPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StructureNormalOrientation_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StructureNormalOrientation_Description))]
-        public RoundedDouble StructureNormalOrientation
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IdenticalApertures_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IdenticalApertures_Description))]
+        public int IdenticalApertures
         {
             get
             {
-                return data.StructureNormalOrientation;
+                return data.IdenticalApertures;
+            }
+        }
+
+        [PropertyOrder(failureProbabilityOpenStructurePropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_Description))]
+        public string FailureProbabilityOpenStructure
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.FailureProbabilityOpenStructure);
+            }
+        }
+
+        [PropertyOrder(probabilityOpenStructureBeforeFloodingPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_Description))]
+        public string ProbabilityOpenStructureBeforeFlooding
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.ProbabilityOpenStructureBeforeFlooding);
+            }
+        }
+
+        [PropertyOrder(failureProbabilityReparationPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityReparation_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityReparation_Description))]
+        public string FailureProbabilityReparation
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.FailureProbabilityReparation);
             }
         }
 
@@ -133,16 +173,15 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(widthFlowAperturesPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [PropertyOrder(structureNormalOrientationPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_WidthFlowApertures_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_WidthFlowApertures_Description))]
-        public NormalDistributionProperties WidthFlowApertures
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StructureNormalOrientation_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StructureNormalOrientation_Description))]
+        public RoundedDouble StructureNormalOrientation
         {
             get
             {
-                return new NormalDistributionProperties(data.WidthFlowApertures);
+                return data.StructureNormalOrientation;
             }
         }
 
@@ -159,15 +198,55 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(identicalAperturesPropertyIndex)]
+        [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IdenticalApertures_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IdenticalApertures_Description))]
-        public int IdenticalApertures
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
+        public NormalDistributionProperties ThresholdHeightOpenWeir
         {
             get
             {
-                return data.IdenticalApertures;
+                return new NormalDistributionProperties(data.ThresholdHeightOpenWeir);
+            }
+        }
+
+        [PropertyOrder(levelCrestStructureNotClosingPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_Description))]
+        public NormalDistributionProperties LevelCrestStructureNotClosing
+        {
+            get
+            {
+                return new NormalDistributionProperties(data.LevelCrestStructureNotClosing);
+            }
+        }
+
+        [PropertyOrder(widthFlowAperturesPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_WidthFlowApertures_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_WidthFlowApertures_Description))]
+        public NormalDistributionProperties WidthFlowApertures
+        {
+            get
+            {
+                return new NormalDistributionProperties(data.WidthFlowApertures);
+            }
+        }
+
+        [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_Description))]
+        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(data.CriticalOvertoppingDischarge);
             }
         }
 
@@ -207,81 +286,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(data.AllowedLevelIncreaseStorage);
-            }
-        }
-
-        [PropertyOrder(levelCrestStructureNotClosingPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LevelCrestStructureNotClosing_Description))]
-        public NormalDistributionProperties LevelCrestStructureNotClosing
-        {
-            get
-            {
-                return new NormalDistributionProperties(data.LevelCrestStructureNotClosing);
-            }
-        }
-
-        [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_ThresholdHeightOpenWeir_Description))]
-        public NormalDistributionProperties ThresholdHeightOpenWeir
-        {
-            get
-            {
-                return new NormalDistributionProperties(data.ThresholdHeightOpenWeir);
-            }
-        }        
-
-        [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_Description))]
-        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
-        {
-            get
-            {
-                return new VariationCoefficientLogNormalDistributionProperties(data.CriticalOvertoppingDischarge);
-            }
-        }
-
-        [PropertyOrder(probabilityOpenStructureBeforeFloodingPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_Description))]
-        public string ProbabilityOpenStructureBeforeFlooding
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityOpenStructureBeforeFlooding);
-            }
-        }
-
-        [PropertyOrder(failureProbabilityOpenStructurePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_Description))]
-        public string FailureProbabilityOpenStructure
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(data.FailureProbabilityOpenStructure);
-            }
-        }
-
-        [PropertyOrder(failureProbabilityReparationPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityReparation_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityReparation_Description))]
-        public string FailureProbabilityReparation
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(data.FailureProbabilityReparation);
             }
         }
     }
