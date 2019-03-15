@@ -40,15 +40,18 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         private const int idPropertyIndex = 1;
         private const int namePropertyIndex = 2;
         private const int locationPropertyIndex = 3;
+        
         private const int structureNormalOrientationPropertyIndex = 4;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 5;
+        private const int levelCrestStructurePropertyIndex = 5;
         private const int widthFlowAperturesPropertyIndex = 6;
-        private const int storageStructureAreaPropertyIndex = 7;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 8;
-        private const int levelCrestStructurePropertyIndex = 9;
-        private const int criticalOvertoppingDischargePropertyIndex = 10;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 11;
 
+        private const int criticalOvertoppingDischargePropertyIndex = 7;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 8;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 9;
+
+        private const int storageStructureAreaPropertyIndex = 10;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 11;
+        
         [PropertyOrder(idPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Id_DisplayName))]
@@ -98,16 +101,16 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
+        [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FlowWidthAtBottomProtection_Description))]
-        public LogNormalDistributionProperties FlowWidthAtBottomProtection
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
+        public NormalDistributionProperties LevelCrestStructure
         {
             get
             {
-                return new LogNormalDistributionProperties(data.FlowWidthAtBottomProtection);
+                return new NormalDistributionProperties(data.LevelCrestStructure);
             }
         }
 
@@ -124,45 +127,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(storageStructureAreaPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StorageStructureArea_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StorageStructureArea_Description))]
-        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
-        {
-            get
-            {
-                return new VariationCoefficientLogNormalDistributionProperties(data.StorageStructureArea);
-            }
-        }
-
-        [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_Description))]
-        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
-        {
-            get
-            {
-                return new LogNormalDistributionProperties(data.AllowedLevelIncreaseStorage);
-            }
-        }
-
-        [PropertyOrder(levelCrestStructurePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_LevelCrestStructure_Description))]
-        public NormalDistributionProperties LevelCrestStructure
-        {
-            get
-            {
-                return new NormalDistributionProperties(data.LevelCrestStructure);
-            }
-        }
-
         [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
@@ -176,6 +140,32 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FlowWidthAtBottomProtection_Description))]
+        public LogNormalDistributionProperties FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return new LogNormalDistributionProperties(data.FlowWidthAtBottomProtection);
+            }
+        }
+
+        [PropertyOrder(storageStructureAreaPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StorageStructureArea_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_StorageStructureArea_Description))]
+        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(data.StorageStructureArea);
+            }
+        }
+
         [PropertyOrder(failureProbabilityStructureWithErosionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]
@@ -185,6 +175,19 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             get
             {
                 return ProbabilityFormattingHelper.Format(data.FailureProbabilityStructureWithErosion);
+            }
+        }
+
+        [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_Description))]
+        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return new LogNormalDistributionProperties(data.AllowedLevelIncreaseStorage);
             }
         }
     }
