@@ -1749,7 +1749,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenEnabledCreateClearIllustrationPointsOfCalculationsItemm_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
+        public void GivenEnabledCreateClearIllustrationPointsOfCalculationsItem_WhenClickPerformedAndActionCancelled_ThenNothingHappens()
         {
             // Given
             var mocks = new MockRepository();
