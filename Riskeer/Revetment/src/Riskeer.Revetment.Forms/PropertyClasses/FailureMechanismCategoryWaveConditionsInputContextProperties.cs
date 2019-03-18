@@ -46,7 +46,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsInputContextProperties{TContext, TCalculationType}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsInputContextProperties{TContext, TWaveConditionsInput, TCalculationType}"/>.
         /// </summary>
         protected FailureMechanismCategoryWaveConditionsInputContextProperties(TContext context,
                                                                                Func<RoundedDouble> getAssessmentLevelFunc,

@@ -135,9 +135,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Assert
                 var expectedSelection = tableControl.Selection as IllustrationPointControlItem;
-                var controlSelection = control.Selection as IllustrationPointControlItem;
+                var controlSelection = (IllustrationPointControlItem) control.Selection;
                 Assert.IsNotNull(expectedSelection);
-                Assert.IsNotNull(controlSelection);
                 Assert.AreSame(expectedSelection, controlSelection);
 
                 Assert.AreNotSame(initialControlSelection, controlSelection);

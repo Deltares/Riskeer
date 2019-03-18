@@ -114,14 +114,11 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
         {
             const string profileName = "newProfile";
             var stochasticSoilProfileA = new PipingStochasticSoilProfile(
-                1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName,
-                                                                          SoilProfileType.SoilProfile1D));
+                1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName));
             var stochasticSoilProfileB = new PipingStochasticSoilProfile(
-                0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName,
-                                                                          SoilProfileType.SoilProfile1D));
+                0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName));
             var stochasticSoilProfileC = new PipingStochasticSoilProfile(
-                1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName,
-                                                                          SoilProfileType.SoilProfile2D));
+                1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName, SoilProfileType.SoilProfile2D));
 
             return new[]
             {
