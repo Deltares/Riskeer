@@ -326,7 +326,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var calculationInput = new GrassCoverErosionInwardsInput();

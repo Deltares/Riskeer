@@ -260,7 +260,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                          failureMechanism,
                                                                                          assessmentSection);
 
-            var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();

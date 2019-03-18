@@ -51,22 +51,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         private const int calculateColumnIndex = 0;
         private const int designWaterLevelColumnIndex = 5;
 
-        private RiskeerPlugin plugin;
-        private ViewInfo info;
-
-        [SetUp]
-        public void SetUp()
-        {
-            plugin = new RiskeerPlugin();
-            info = GetViewInfo(plugin);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void GetViewName_WithDesignWaterLevelCalculationsContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
@@ -77,42 +61,64 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                   new AssessmentSectionStub(),
                                                                   () => 0.01,
                                                                   categoryBoundaryName);
+            using (var plugin = new RiskeerPlugin())
+            {
+                ViewInfo info = GetViewInfo(plugin);
 
-            // Call
-            string viewName = info.GetViewName(null, context);
+                // Call
+                string viewName = info.GetViewName(null, context);
 
-            // Assert
-            Assert.AreEqual($"Waterstanden - Categoriegrens {categoryBoundaryName}", viewName);
+                // Assert
+                Assert.AreEqual($"Waterstanden - Categoriegrens {categoryBoundaryName}", viewName);
+            }
         }
 
         [Test]
         public void ViewDataType_Always_ReturnsViewDataType()
         {
-            // Call
-            Type viewDataType = info.ViewDataType;
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                ViewInfo info = GetViewInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>), viewDataType);
+                // Call
+                Type viewDataType = info.ViewDataType;
+
+                // Assert
+                Assert.AreEqual(typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>), viewDataType);
+            }
         }
 
         [Test]
         public void DataType_Always_ReturnsDataType()
         {
-            // Call
-            Type dataType = info.DataType;
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                ViewInfo info = GetViewInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(typeof(DesignWaterLevelCalculationsContext), dataType);
+                // Call
+                Type dataType = info.DataType;
+
+                // Assert
+                Assert.AreEqual(typeof(DesignWaterLevelCalculationsContext), dataType);
+            }
         }
 
         [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
-            // Call
-            Image image = info.Image;
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                ViewInfo info = GetViewInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
+                // Call
+                Image image = info.Image;
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
+            }
         }
 
         [Test]
@@ -127,11 +133,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                   () => 0.01,
                                                                   "A");
 
-            // Call
-            object viewData = info.GetViewData(context);
+            using (var plugin = new RiskeerPlugin())
+            {
+                ViewInfo info = GetViewInfo(plugin);
 
-            // Assert
-            Assert.AreSame(calculations, viewData);
+                // Call
+                object viewData = info.GetViewData(context);
+
+                // Assert
+                Assert.AreSame(calculations, viewData);
+            }
         }
 
         [Test]
@@ -144,11 +155,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                   () => 0.01,
                                                                   "A");
 
-            // Call
-            var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
+            using (var plugin = new RiskeerPlugin())
+            {
+                ViewInfo info = GetViewInfo(plugin);
 
-            // Assert
-            Assert.AreSame(assessmentSection, view.AssessmentSection);
+                // Call
+                var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
+
+                // Assert
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
+            }
         }
 
         [Test]
@@ -174,20 +190,25 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                   () => 0.01,
                                                                   "A");
 
-            // Call
-            var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
-
-            // Assert
-            using (var testForm = new Form())
+            using (var plugin = new RiskeerPlugin())
             {
-                testForm.Controls.Add(view);
-                testForm.Show();
+                ViewInfo info = GetViewInfo(plugin);
 
-                DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
-                DataGridViewRowCollection rows = calculationsDataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
-                Assert.AreEqual(hydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[designWaterLevelColumnIndex].FormattedValue);
-                Assert.AreEqual(hydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[designWaterLevelColumnIndex].FormattedValue);
+                // Call
+                var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
+
+                using (var testForm = new Form())
+                {
+                    testForm.Controls.Add(view);
+                    testForm.Show();
+
+                    // Assert
+                    DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                    DataGridViewRowCollection rows = calculationsDataGridView.Rows;
+                    Assert.AreEqual(2, rows.Count);
+                    Assert.AreEqual(hydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[designWaterLevelColumnIndex].FormattedValue);
+                    Assert.AreEqual(hydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[designWaterLevelColumnIndex].FormattedValue);
+                }
             }
         }
 
@@ -222,27 +243,32 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mockRepository.ReplayAll();
 
-            // Call
-            var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
-
-            // Assert
-            using (var testForm = new Form())
+            using (var plugin = new RiskeerPlugin())
             {
-                view.CalculationGuiService = guiService;
-                testForm.Controls.Add(view);
-                testForm.Show();
+                ViewInfo info = GetViewInfo(plugin);
 
-                DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
-                DataGridViewRowCollection rows = calculationsDataGridView.Rows;
-                rows[0].Cells[calculateColumnIndex].Value = true;
+                // Call
+                var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
 
-                view.CalculationGuiService = guiService;
-                var button = new ButtonTester("CalculateForSelectedButton", testForm);
+                using (var testForm = new Form())
+                {
+                    view.CalculationGuiService = guiService;
+                    testForm.Controls.Add(view);
+                    testForm.Show();
 
-                button.Click();
+                    // Assert
+                    DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                    DataGridViewRowCollection rows = calculationsDataGridView.Rows;
+                    rows[0].Cells[calculateColumnIndex].Value = true;
 
-                Assert.AreEqual(getNormFunc(), actualNormValue);
-                Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.Single());
+                    view.CalculationGuiService = guiService;
+                    var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+                    button.Click();
+
+                    Assert.AreEqual(getNormFunc(), actualNormValue);
+                    Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.Single());
+                }
             }
 
             mockRepository.VerifyAll();
@@ -280,12 +306,12 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             using (var plugin = new RiskeerPlugin())
             {
-                ViewInfo viewInfo = GetViewInfo(plugin);
+                ViewInfo info = GetViewInfo(plugin);
                 plugin.Gui = gui;
                 plugin.Activate();
 
                 // Call
-                viewInfo.AfterCreate(view, context);
+                info.AfterCreate(view, context);
 
                 // Assert
                 Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
@@ -304,7 +330,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                    assessmentSection,
                                                                    () => 0.01,
                                                                    "A"))
+            using (var plugin = new RiskeerPlugin())
             {
+                ViewInfo info = GetViewInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
@@ -324,7 +353,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                    assessmentSectionA,
                                                                    () => 0.01,
                                                                    "A"))
+            using (var plugin = new RiskeerPlugin())
             {
+                ViewInfo info = GetViewInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
 
@@ -343,7 +375,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                    assessmentSectionA,
                                                                    () => 0.01,
                                                                    "A"))
+            using (var plugin = new RiskeerPlugin())
             {
+                ViewInfo info = GetViewInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
 

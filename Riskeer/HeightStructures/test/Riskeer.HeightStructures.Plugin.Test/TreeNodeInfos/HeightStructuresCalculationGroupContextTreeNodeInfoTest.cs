@@ -894,7 +894,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
@@ -938,7 +937,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();

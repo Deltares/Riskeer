@@ -83,6 +83,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
+            mocks.VerifyAll();
         }
 
         [Test]
