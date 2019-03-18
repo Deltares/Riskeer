@@ -37,7 +37,7 @@ namespace Core.Common.IO.Test.Readers
         public void Read_NullDataReader_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IDataReader) null).Read<Int32>("column");
+            TestDelegate test = () => ((IDataReader) null).Read<int>("column");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -53,7 +53,7 @@ namespace Core.Common.IO.Test.Readers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => dataReader.Read<Int32>(null);
+            TestDelegate test = () => dataReader.Read<int>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -73,7 +73,7 @@ namespace Core.Common.IO.Test.Readers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => dataReader.Read<Int32>(columnName);
+            TestDelegate test = () => dataReader.Read<int>(columnName);
 
             // Assert
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(

@@ -172,7 +172,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IMigrateProject projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
