@@ -131,12 +131,9 @@ namespace Core.Common.Base.Data
         /// <returns>The converted <see cref="RoundedDouble"/>.</returns>
         public RoundedDouble ToPrecision(int newNumberOfDecimalPlaces)
         {
-            if (newNumberOfDecimalPlaces == NumberOfDecimalPlaces)
-            {
-                return this;
-            }
-
-            return new RoundedDouble(newNumberOfDecimalPlaces, Value);
+            return newNumberOfDecimalPlaces != NumberOfDecimalPlaces
+                       ? new RoundedDouble(newNumberOfDecimalPlaces, Value)
+                       : this;
         }
 
         public static bool operator <(RoundedDouble left, RoundedDouble right)
