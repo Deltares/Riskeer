@@ -37,6 +37,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Service.Test
 {
@@ -438,6 +439,70 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
+        public void Calculate_DifferentDikeSoilScenarios_SetsInputOnCalculator(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
+            inputParameters.DikeSoilScenario = dikeSoilScenario;
+
+            inputParameters.LeakageLengthInwardsPhreaticLine4 = random.NextRoundedDouble();
+            inputParameters.LeakageLengthOutwardsPhreaticLine4 = random.NextRoundedDouble();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+                // Assert
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance)
+                                                       .LastCreatedUpliftVanCalculator.Input;
+
+                RoundedDouble expectedLeakageLengthInwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                    ? inputParameters.LeakageLengthInwardsPhreaticLine4
+                                                                    : new RoundedDouble(0, 1);
+                RoundedDouble expectedLeakageLengthOutwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                              ? inputParameters.LeakageLengthOutwardsPhreaticLine4
+                                                                              : new RoundedDouble(0, 1);
+
+                Assert.AreEqual(inputParameters.DikeSoilScenario, actualInput.DikeSoilScenario);
+                Assert.AreEqual(expectedLeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
+                Assert.AreEqual(expectedLeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
+
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+
+            input.AssessmentLevel = (RoundedDouble)2.2;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+
+                // Assert
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? testCalculation.InputParameters.AssessmentLevel
+                                                            : normativeAssessmentLevel;
+
+                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance, expectedAssessmentLevel);
+            }
+        }
+
+        [Test]
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
@@ -650,31 +715,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(testCalculation.Output);
-            }
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Calculate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
-        {
-            // Setup
-            RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
-            MacroStabilityInwardsInput input = testCalculation.InputParameters;
-
-            input.AssessmentLevel = (RoundedDouble) 2.2;
-
-            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
-            using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            {
-                // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
-
-                // Assert
-                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
-                                                            ? testCalculation.InputParameters.AssessmentLevel
-                                                            : normativeAssessmentLevel;
-
-                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance, expectedAssessmentLevel);
             }
         }
 

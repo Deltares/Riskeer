@@ -31,6 +31,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
+using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service.Converters;
 using Riskeer.MacroStabilityInwards.Service.Properties;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
@@ -194,8 +195,10 @@ namespace Riskeer.MacroStabilityInwards.Service
                     MinimumLevelPhreaticLineAtDikeTopPolder = inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder,
                     LeakageLengthOutwardsPhreaticLine3 = inputParameters.LeakageLengthOutwardsPhreaticLine3,
                     LeakageLengthInwardsPhreaticLine3 = inputParameters.LeakageLengthInwardsPhreaticLine3,
-                    LeakageLengthOutwardsPhreaticLine4 = inputParameters.LeakageLengthOutwardsPhreaticLine4,
-                    LeakageLengthInwardsPhreaticLine4 = inputParameters.LeakageLengthInwardsPhreaticLine4,
+                    LeakageLengthOutwardsPhreaticLine4 = inputParameters.DikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                             ? inputParameters.LeakageLengthOutwardsPhreaticLine4 : new RoundedDouble(0, 1),
+                    LeakageLengthInwardsPhreaticLine4 = inputParameters.DikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                            ? inputParameters.LeakageLengthInwardsPhreaticLine4 : new RoundedDouble(0, 1),
                     PiezometricHeadPhreaticLine2Outwards = inputParameters.PiezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = inputParameters.PiezometricHeadPhreaticLine2Inwards,
                     PenetrationLengthExtreme = inputParameters.LocationInputExtreme.PenetrationLength,
