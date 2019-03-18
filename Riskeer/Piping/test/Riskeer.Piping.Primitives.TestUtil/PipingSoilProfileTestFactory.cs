@@ -27,39 +27,6 @@ namespace Riskeer.Piping.Primitives.TestUtil
     public static class PipingSoilProfileTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingSoilProfile"/>, which has:
-        /// <list type="bullet">
-        /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
-        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
-        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
-        /// </list>
-        /// </summary>
-        /// <param name="name">The name to set for the <see cref="PipingSoilProfile"/>.</param>
-        /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
-        public static PipingSoilProfile CreatePipingSoilProfile(string name)
-        {
-            return CreatePipingSoilProfile(name, SoilProfileType.SoilProfile1D);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PipingSoilProfile"/>, which has:
-        /// <list type="bullet">
-        /// <item><see cref="PipingSoilProfile.Name"/> set to "name";</item>
-        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
-        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
-        /// </list>
-        /// </summary>
-        /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
-        public static PipingSoilProfile CreatePipingSoilProfile()
-        {
-            return CreatePipingSoilProfile("name");
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="PipingSoilProfile"/> that has:
         /// <list type="bullet">
         /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
@@ -72,7 +39,7 @@ namespace Riskeer.Piping.Primitives.TestUtil
         /// <param name="name">The name for the profile.</param>
         /// <param name="soilProfileType">The type of the profile.</param>
         /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
-        public static PipingSoilProfile CreatePipingSoilProfile(string name, SoilProfileType soilProfileType)
+        public static PipingSoilProfile CreatePipingSoilProfile(string name = "name", SoilProfileType soilProfileType = SoilProfileType.SoilProfile1D)
         {
             return new PipingSoilProfile(name, 0.0, new[]
             {

@@ -312,7 +312,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Call
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), null, "", "");
-            ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -333,7 +332,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(),
                                                      null, "");
-            ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -354,7 +352,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicBoundaryDatabaseTestFactory.Create(),
                                                      ReadHydraulicLocationConfigurationDatabaseTestFactory.Create(), Enumerable.Empty<long>(),
                                                      "", null);
-            ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

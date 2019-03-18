@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                     },
                     {
                         ConfigurationGrassCoverErosionOutwardsCalculationType.Both,3
-                    },
+                    }
                 };
             }
         }

@@ -144,7 +144,7 @@ namespace Riskeer.Common.IO.Test.Structures
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand heeft geen attribuut '{"KWKIDENT"}'. Dit attribuut is vereist.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand heeft geen attribuut 'KWKIDENT'. Dit attribuut is vereist.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }

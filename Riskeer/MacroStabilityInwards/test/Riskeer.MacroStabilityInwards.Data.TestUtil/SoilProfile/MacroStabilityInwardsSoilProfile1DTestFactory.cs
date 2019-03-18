@@ -32,21 +32,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile1D"/> which has:
         /// <list type="bullet">
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to "Profile".</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>.
-        /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
-        /// </list>
-        /// </summary>
-        /// <returns>A configured <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
-        public static MacroStabilityInwardsSoilProfile1D CreateMacroStabilityInwardsSoilProfile1D()
-        {
-            return CreateMacroStabilityInwardsSoilProfile1D("Profile");
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile1D"/> which has:
-        /// <list type="bullet">
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <paramref name="name"/>.</item>
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c>.</item>
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>.
@@ -55,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
         /// </summary>
         /// <param name="name">The name for the profile.</param>
         /// <returns>A configured <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
-        public static MacroStabilityInwardsSoilProfile1D CreateMacroStabilityInwardsSoilProfile1D(string name)
+        public static MacroStabilityInwardsSoilProfile1D CreateMacroStabilityInwardsSoilProfile1D(string name = "Profile")
         {
             return new MacroStabilityInwardsSoilProfile1D(name, 0.0, new[]
             {
