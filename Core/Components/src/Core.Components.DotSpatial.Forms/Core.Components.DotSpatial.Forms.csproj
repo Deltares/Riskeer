@@ -7,7 +7,6 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Riskeer.targets" />
   <ItemGroup>
-    <Reference Include="BruTile, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="DotSpatial.Controls, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Controls.dll</HintPath>
