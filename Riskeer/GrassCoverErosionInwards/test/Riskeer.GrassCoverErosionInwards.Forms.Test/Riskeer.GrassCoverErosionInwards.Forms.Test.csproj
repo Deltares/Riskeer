@@ -149,10 +149,6 @@
       <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
       <Name>Riskeer.GrassCoverErosionInwards.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Service\Riskeer.GrassCoverErosionInwards.Service.csproj">
-      <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj">
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
       <Name>Riskeer.GrassCoverErosionInwards.Data.TestUtil</Name>

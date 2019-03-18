@@ -31,7 +31,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 

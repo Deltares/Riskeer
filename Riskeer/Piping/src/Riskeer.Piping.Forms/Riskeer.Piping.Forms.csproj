@@ -147,11 +147,6 @@
       <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
-      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
-      <Name>Riskeer.AssemblyTool.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Riskeer.Common.Data</Name>

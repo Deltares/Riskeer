@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{594C5C6D-5833-4E1C-9F30-13A202628EEF}</ProjectGuid>
@@ -360,10 +360,6 @@
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
       <Name>Riskeer.HeightStructures.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\test\Riskeer.GrassCoverErosionOutwards.Data.TestUtil\Riskeer.GrassCoverErosionOutwards.Data.TestUtil.csproj">
-      <Project>{D1234D03-76BC-437D-B941-DFF14A2A108D}</Project>
-      <Name>Riskeer.GrassCoverErosionOutwards.Data.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Riskeer.Integration.Data</Name>
@@ -383,10 +379,6 @@
     <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Riskeer.StabilityStoneCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\test\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj">
-      <Project>{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}</Project>
-      <Name>Riskeer.StabilityStoneCover.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>

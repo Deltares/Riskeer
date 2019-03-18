@@ -41,10 +41,6 @@
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Riskeer.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
-      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Riskeer.Common.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Riskeer.Common.Service</Name>
