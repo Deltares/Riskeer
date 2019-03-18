@@ -26,7 +26,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using System.Windows.Forms.VisualStyles;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -115,21 +114,6 @@ namespace Core.Common.Gui.Test
                 Assert.AreEqual(mainWindow, gui.MainWindow);
 
                 Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
-
-                // Check for OS settings that allow visual styles to be rendered in the first place:
-                if (VisualStyleInformation.IsSupportedByOS && VisualStyleInformation.IsEnabledByUser &&
-                    (Application.VisualStyleState == VisualStyleState.ClientAreaEnabled ||
-                     Application.VisualStyleState == VisualStyleState.ClientAndNonClientAreasEnabled))
-                {
-                    Assert.IsTrue(Application.RenderWithVisualStyles,
-                                  "OS configured to support visual styles, therefore GUI should enable this rendering style.");
-                }
-                else
-                {
-                    // 
-                    Assert.IsFalse(Application.RenderWithVisualStyles,
-                                   "OS not supporting visual styles, therefore application shouldn't be render with visual styles.");
-                }
             }
 
             mocks.VerifyAll();
@@ -137,32 +121,120 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        public void ParameteredConstructor_SomeArgumentIsNull_ThrowsArgumentNullException(int nullArgumentIndex)
+        public void Constructor_MainWindowNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
-            IStoreProject projectStore = nullArgumentIndex == 1 ? null : mocks.Stub<IStoreProject>();
-            IMigrateProject projectMigrator = nullArgumentIndex == 2 ? null : mocks.Stub<IMigrateProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
             IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
-            GuiCoreSettings guiCoreSettings = nullArgumentIndex == 3 ? null : new GuiCoreSettings();
+            var guiCoreSettings = new GuiCoreSettings();
 
             // Call
-            using (var mainWindow = new MainWindow())
+            TestDelegate call = () => new GuiCore(null, projectStore, projectMigrator, projectFactory, guiCoreSettings);
 
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("mainWindow", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Constructor_ProjectMigratorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
             {
                 // Call
-                TestDelegate call = () => new GuiCore(nullArgumentIndex == 0 ? null : mainWindow,
-                                                      projectStore, projectMigrator, projectFactory, guiCoreSettings);
+                TestDelegate call = () => new GuiCore(mainWindow, projectStore, null, projectFactory, guiCoreSettings);
 
                 // Assert
-                const string expectedMessage = "Value cannot be null.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+                var exception = Assert.Throws<ArgumentNullException>(call);
+                Assert.AreEqual("projectMigrator", exception.ParamName);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Constructor_ProjectStoreNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IMigrateProject projectMigrator = mocks.Stub<IMigrateProject>();
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
+            {
+                // Call
+                TestDelegate call = () => new GuiCore(mainWindow, null, projectMigrator, projectFactory, guiCoreSettings);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(call);
+                Assert.AreEqual("projectStore", exception.ParamName);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Constructor_ProjectFactoryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
+            {
+                // Call
+                TestDelegate call = () => new GuiCore(mainWindow, projectStore, projectMigrator, null, guiCoreSettings);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(call);
+                Assert.AreEqual("projectFactory", exception.ParamName);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Constructor_FixedSettingsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new MainWindow())
+            {
+                // Call
+                TestDelegate call = () => new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, null);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(call);
+                Assert.AreEqual("fixedSettings", exception.ParamName);
             }
 
             mocks.VerifyAll();
