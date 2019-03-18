@@ -92,7 +92,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var logData = new LoggingEventData
             {
                 Level = level,
-                TimeStamp = dataTime,
+                TimeStampUtc = dataTime,
                 Message = message
             };
             var logEvent = new LoggingEvent(logData);
@@ -267,7 +267,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var logData = new LoggingEventData
             {
                 Level = level,
-                TimeStamp = dataTime,
+                TimeStampUtc = dataTime,
                 Message = message
             };
             var logEvent = new LoggingEvent(logData);
@@ -307,7 +307,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var logData = new LoggingEventData
             {
                 Level = level,
-                TimeStamp = dataTime,
+                TimeStampUtc = dataTime,
                 Message = message
             };
             var logEvent = new LoggingEvent(logData);
@@ -347,7 +347,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var logData = new LoggingEventData
             {
                 Level = level,
-                TimeStamp = dataTime,
+                TimeStampUtc = dataTime,
                 Message = message
             };
             var logEvent = new LoggingEvent(logData);
