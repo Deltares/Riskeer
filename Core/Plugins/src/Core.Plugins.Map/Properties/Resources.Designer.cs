@@ -356,24 +356,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd..
-        /// </summary>
-        public static string Mapdata_MapThemeAttributeName_Description {
-            get {
-                return ResourceManager.GetString("Mapdata_MapThemeAttributeName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Op basis van.
-        /// </summary>
-        public static string Mapdata_MapThemeAttributeName_DisplayName {
-            get {
-                return ResourceManager.GetString("Mapdata_MapThemeAttributeName_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De naam van deze kaartlaag..
         /// </summary>
         public static string MapData_Name_Description {

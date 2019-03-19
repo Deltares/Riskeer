@@ -451,15 +451,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De uitvoer van alle afhankelijke berekeningen is verwijderd..
-        /// </summary>
-        public static string Calculations_Cleared {
-            get {
-                return ResourceManager.GetString("Calculations_Cleared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De categoriegrenzen voor de gecombineerde toetssporen in groep 1 en 2..
         /// </summary>
         public static string CategoryBoundariesGroupOneAndTwo_Description {
@@ -474,17 +465,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string CategoryBoundariesGroupOneAndTwo_DisplayName {
             get {
                 return ResourceManager.GetString("CategoryBoundariesGroupOneAndTwo_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
-        ///    
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string Delete_Calculations_Text {
-            get {
-                return ResourceManager.GetString("Delete_Calculations_Text", resourceCulture);
             }
         }
         
@@ -1021,15 +1001,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string RefreshAssemblyResultsButton_Text {
             get {
                 return ResourceManager.GetString("RefreshAssemblyResultsButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Database op pad &apos;{0}&apos; gekoppeld..
-        /// </summary>
-        public static string RiskeerPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked {
-            get {
-                return ResourceManager.GetString("RiskeerPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked", resourceCulture);
             }
         }
         

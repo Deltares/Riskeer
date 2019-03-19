@@ -133,14 +133,6 @@
   <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Calculations_Cleared" xml:space="preserve">
-    <value>De uitvoer van alle afhankelijke berekeningen is verwijderd.</value>
-  </data>
-  <data name="Delete_Calculations_Text" xml:space="preserve">
-    <value>U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
-    
-Weet u zeker dat u wilt doorgaan?</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Connect" xml:space="preserve">
     <value>&amp;Koppel aan database...</value>
   </data>
@@ -152,9 +144,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
     <value>HRD bestandslocatie</value>
-  </data>
-  <data name="RiskeerPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
-    <value>Database op pad '{0}' gekoppeld.</value>
   </data>
   <data name="FailureMechanismContributionView_ProbabilityPerYear_Not_applicable" xml:space="preserve">
     <value>n.v.t</value>
