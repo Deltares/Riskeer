@@ -459,20 +459,19 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
-                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance)
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                                                        .LastCreatedUpliftVanCalculator.Input;
 
-                RoundedDouble expectedLeakageLengthInwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
-                                                                    ? inputParameters.LeakageLengthInwardsPhreaticLine4
-                                                                    : new RoundedDouble(0, 1);
-                RoundedDouble expectedLeakageLengthOutwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
-                                                                              ? inputParameters.LeakageLengthOutwardsPhreaticLine4
-                                                                              : new RoundedDouble(0, 1);
+                double expectedLeakageLengthInwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                       ? inputParameters.LeakageLengthInwardsPhreaticLine4
+                                                                       : 1.0;
+                double expectedLeakageLengthOutwardsPhreaticLine4 = dikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
+                                                                        ? inputParameters.LeakageLengthOutwardsPhreaticLine4
+                                                                        : 1.0;
 
                 Assert.AreEqual(inputParameters.DikeSoilScenario, actualInput.DikeSoilScenario);
                 Assert.AreEqual(expectedLeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
                 Assert.AreEqual(expectedLeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
-
             }
         }
 
@@ -485,7 +484,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
             MacroStabilityInwardsInput input = testCalculation.InputParameters;
 
-            input.AssessmentLevel = (RoundedDouble)2.2;
+            input.AssessmentLevel = (RoundedDouble) 2.2;
 
             input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -498,7 +497,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                                                             ? testCalculation.InputParameters.AssessmentLevel
                                                             : normativeAssessmentLevel;
 
-                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance, expectedAssessmentLevel);
+                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance, expectedAssessmentLevel);
             }
         }
 
