@@ -186,7 +186,7 @@
     <ProjectReference Include="..\..\..\..\Riskeer\Integration\test\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj">
       <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
       <Name>Riskeer.Integration.TestUtil</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
