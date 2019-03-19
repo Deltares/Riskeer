@@ -142,12 +142,13 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void Export_WithManualAssemblyResult_LogsWarning()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_WithManualAssemblyResult_LogsWarning));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
             assessmentSection.Piping.SectionResults.First().UseManualAssembly = true;
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
+            using (new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
@@ -163,7 +164,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void Export_AssemblyCreatorExceptionThrown_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_AssemblyCreatorExceptionThrown_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
@@ -189,11 +190,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
+            using (new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
