@@ -33,7 +33,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         public static readonly CoverType Asphalt = new CoverType(Resources.CoverType_Asphalt);
         public static readonly CoverType GrassWaveRunUp = new CoverType(Resources.CoverType_GrassWaveRunUp);
         public static readonly CoverType GrassWaveImpact = new CoverType(Resources.CoverType_GrassWaveImpact);
-        
+
         private CoverType(string name)
         {
             Name = name;

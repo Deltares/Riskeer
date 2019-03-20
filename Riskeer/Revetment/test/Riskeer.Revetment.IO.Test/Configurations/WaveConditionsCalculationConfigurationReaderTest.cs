@@ -165,12 +165,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             }
         }
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -357,7 +351,13 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
         }
 
-        private class TestWaveConditionsCalculationConfigurationReader 
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
+        }
+
+        private class TestWaveConditionsCalculationConfigurationReader
             : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
         {
             public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath, string configurationSchema)

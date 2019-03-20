@@ -30,13 +30,13 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.ValidationRules;
-using Riskeer.Revetment.Data;
-using Riskeer.Revetment.Service.Properties;
 using Riskeer.HydraRing.Calculation.Calculator;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.Exceptions;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Service.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
@@ -48,11 +48,11 @@ namespace Riskeer.Revetment.Service
     public abstract class WaveConditionsCalculationServiceBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsCalculationServiceBase));
-        private int currentStep = 1;
-        private IWaveConditionsCosineCalculator calculator;
 
         protected int TotalWaterLevelCalculations;
         protected string CurrentCalculationType;
+        private int currentStep = 1;
+        private IWaveConditionsCosineCalculator calculator;
 
         /// <summary>
         /// Fired when the calculation progress changed.

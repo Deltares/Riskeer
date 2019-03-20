@@ -351,6 +351,17 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnlyValidationMethod]
+        public virtual bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(RevetmentType))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public virtual IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.ForeshoreProfiles;
@@ -384,17 +395,6 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         protected void HandleChangeProperty(SetObservablePropertyValueDelegate setPropertyDelegate)
         {
             PropertyChangeHelper.ChangePropertyAndNotify(setPropertyDelegate, propertyChangeHandler);
-        }
-
-        [DynamicReadOnlyValidationMethod]
-        public virtual bool DynamicReadOnlyValidationMethod(string propertyName)
-        {
-            if (propertyName == nameof(RevetmentType))
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }
