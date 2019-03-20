@@ -30,7 +30,7 @@ namespace Riskeer.Common.Util
     public static class ProjectVersionHelper
     {
         private const string validDatabaseVersion = "5";
-        private const string currentDatabaseVersion = "19.1";
+        private const string currentDatabaseVersion = "19.2";
 
         /// <summary>
         /// Gets the current database version.
