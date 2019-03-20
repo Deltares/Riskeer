@@ -26,10 +26,10 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
+using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Service;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.HydraRing.Calculation.Exceptions;
 using Riskeer.WaveImpactAsphaltCover.Service.Properties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Service

@@ -34,12 +34,12 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
-using Riskeer.Revetment.Data;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Revetment.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 {
@@ -185,7 +185,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationActivity>(activity);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activity,
                                                                           calculation,
-                                                                          assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result, 
+                                                                          assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result,
                                                                           assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -333,7 +333,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(Activity activity,
                                                                                           WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                                                                                          RoundedDouble assessmentLevel, 
+                                                                                          RoundedDouble assessmentLevel,
                                                                                           HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
@@ -346,7 +346,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
-                                     (HydraRingCalculationSettings)invocation.Arguments[0]);
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator)
                              .Repeat

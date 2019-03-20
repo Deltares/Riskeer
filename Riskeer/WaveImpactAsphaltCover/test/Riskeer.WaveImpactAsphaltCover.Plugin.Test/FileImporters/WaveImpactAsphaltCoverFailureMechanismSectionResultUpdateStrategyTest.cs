@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil.FileImporters;
 using Riskeer.Common.Primitives;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.FileImporters
 {

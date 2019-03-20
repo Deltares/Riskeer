@@ -24,14 +24,14 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.TestUtil;
-using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.Factories;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.Factories;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Factories
 {

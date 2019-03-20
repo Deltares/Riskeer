@@ -35,15 +35,15 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
-using Riskeer.Revetment.Data;
-using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Service;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Revetment.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Service;
 
 namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
 {
