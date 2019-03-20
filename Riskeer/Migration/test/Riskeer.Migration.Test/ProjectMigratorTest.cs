@@ -524,6 +524,8 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("* Traject: 'Demo traject'");
                 migrationLog.AppendLine("  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt.");
                 migrationLog.AppendLine("  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 19.1 naar versie 19.2:");
+                migrationLog.AppendLine("* Geen aanpassingen.");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {
