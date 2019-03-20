@@ -40,7 +40,7 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         private const int idPropertyIndex = 1;
         private const int namePropertyIndex = 2;
         private const int locationPropertyIndex = 3;
-        
+
         private const int structureNormalOrientationPropertyIndex = 4;
         private const int levelCrestStructurePropertyIndex = 5;
         private const int widthFlowAperturesPropertyIndex = 6;
@@ -51,7 +51,7 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         private const int storageStructureAreaPropertyIndex = 10;
         private const int allowedLevelIncreaseStoragePropertyIndex = 11;
-        
+
         [PropertyOrder(idPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Id_DisplayName))]

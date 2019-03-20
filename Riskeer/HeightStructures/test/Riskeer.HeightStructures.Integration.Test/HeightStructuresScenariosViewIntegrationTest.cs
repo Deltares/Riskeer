@@ -37,8 +37,8 @@ using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.Views;
 using Riskeer.HeightStructures.IO;
 using Riskeer.HeightStructures.Plugin.FileImporters;
-using Riskeer.Integration.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.HeightStructures.Integration.Test
 {

@@ -47,17 +47,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private HeightStructuresPlugin plugin;
 
-        public override void Setup()
-        {
-            plugin = new HeightStructuresPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(HeightStructuresContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
@@ -263,6 +252,17 @@ namespace Riskeer.HeightStructures.Plugin.Test.UpdateInfos
             // Assert
             Assert.IsInstanceOf<HeightStructuresImporter>(importer);
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            plugin = new HeightStructuresPlugin();
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(HeightStructuresContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
     }
 }
