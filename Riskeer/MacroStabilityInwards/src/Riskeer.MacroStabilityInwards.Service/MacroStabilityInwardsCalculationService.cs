@@ -196,9 +196,11 @@ namespace Riskeer.MacroStabilityInwards.Service
                     LeakageLengthOutwardsPhreaticLine3 = inputParameters.LeakageLengthOutwardsPhreaticLine3,
                     LeakageLengthInwardsPhreaticLine3 = inputParameters.LeakageLengthInwardsPhreaticLine3,
                     LeakageLengthOutwardsPhreaticLine4 = inputParameters.DikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
-                                                             ? inputParameters.LeakageLengthOutwardsPhreaticLine4 : 1.0,
+                                                             ? inputParameters.LeakageLengthOutwardsPhreaticLine4
+                                                             : 1.0,
                     LeakageLengthInwardsPhreaticLine4 = inputParameters.DikeSoilScenario != MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand
-                                                            ? inputParameters.LeakageLengthInwardsPhreaticLine4 : 1.0,
+                                                            ? inputParameters.LeakageLengthInwardsPhreaticLine4
+                                                            : 1.0,
                     PiezometricHeadPhreaticLine2Outwards = inputParameters.PiezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = inputParameters.PiezometricHeadPhreaticLine2Inwards,
                     PenetrationLengthExtreme = inputParameters.LocationInputExtreme.PenetrationLength,

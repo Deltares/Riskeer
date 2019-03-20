@@ -27,12 +27,12 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.Service;
-using Riskeer.Integration.Data;
 
 namespace Riskeer.MacroStabilityInwards.Integration.Test
 {

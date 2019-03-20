@@ -27,11 +27,11 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Views;
-using Riskeer.Integration.Data;
 
 namespace Riskeer.MacroStabilityInwards.Integration.Test
 {

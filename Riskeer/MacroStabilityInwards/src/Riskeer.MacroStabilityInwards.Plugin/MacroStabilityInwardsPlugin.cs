@@ -264,7 +264,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = CloseScenariosViewForData,
-                AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.FailureMechanism; },
+                AfterCreate = (view, context) => view.MacroStabilityInwardsFailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new MacroStabilityInwardsScenariosView(context.AssessmentSection)
             };
 
