@@ -28,7 +28,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test

@@ -32,6 +32,10 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -40,10 +44,6 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.Views;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 {

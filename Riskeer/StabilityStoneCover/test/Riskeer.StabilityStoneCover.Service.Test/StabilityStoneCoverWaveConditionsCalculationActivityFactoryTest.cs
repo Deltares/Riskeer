@@ -34,12 +34,12 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
-using Riskeer.Revetment.Data;
-using Riskeer.StabilityStoneCover.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Revetment.Data;
+using Riskeer.StabilityStoneCover.Data;
 
 namespace Riskeer.StabilityStoneCover.Service.Test
 {
@@ -333,7 +333,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculationActivity(Activity activity,
                                                                                        StabilityStoneCoverWaveConditionsCalculation calculation,
-                                                                                       RoundedDouble assessmentLevel, 
+                                                                                       RoundedDouble assessmentLevel,
                                                                                        HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
@@ -345,7 +345,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
-                                     (HydraRingCalculationSettings)invocation.Arguments[0]);
+                                     (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator)
                              .Repeat

@@ -98,7 +98,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (StabilityStoneCoverWaveConditionsCalculationConfiguration)readItems.Single();
+            var calculation = (StabilityStoneCoverWaveConditionsCalculationConfiguration) readItems.Single();
 
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);

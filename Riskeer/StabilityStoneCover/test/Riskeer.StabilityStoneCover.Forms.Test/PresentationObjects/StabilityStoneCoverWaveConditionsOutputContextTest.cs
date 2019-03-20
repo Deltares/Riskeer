@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;

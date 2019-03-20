@@ -124,16 +124,18 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations.Converters
                 {
                     return ConfigurationStabilityStoneCoverCalculationType.Columns;
                 }
+
                 if (stringValue == RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName)
                 {
                     return ConfigurationStabilityStoneCoverCalculationType.Blocks;
                 }
+
                 if (stringValue == RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Both_DisplayName)
                 {
                     return ConfigurationStabilityStoneCoverCalculationType.Both;
                 }
             }
-            
+
             return base.ConvertFrom(context, culture, value);
         }
     }

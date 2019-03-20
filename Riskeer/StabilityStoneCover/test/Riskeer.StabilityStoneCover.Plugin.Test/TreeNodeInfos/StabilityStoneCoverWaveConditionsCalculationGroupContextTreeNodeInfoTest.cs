@@ -44,13 +44,13 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Service.TestUtil;
-using Riskeer.Revetment.Data;
-using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Revetment.Data;
+using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Data.TestUtil;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -1885,7 +1885,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-            
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation

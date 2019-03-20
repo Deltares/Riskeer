@@ -35,7 +35,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         /// </summary>
         /// <param name="name">The name of the <see cref="StabilityStoneCoverWaveConditionsCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsCalculationConfiguration(string name) 
+        public StabilityStoneCoverWaveConditionsCalculationConfiguration(string name)
             : base(name) {}
 
         /// <summary>

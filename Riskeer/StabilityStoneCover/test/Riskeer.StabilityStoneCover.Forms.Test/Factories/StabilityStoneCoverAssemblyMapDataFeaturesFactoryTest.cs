@@ -24,14 +24,14 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.TestUtil;
-using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Forms.Factories;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.Factories;
 
 namespace Riskeer.StabilityStoneCover.Forms.Test.Factories
 {

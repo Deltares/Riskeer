@@ -62,7 +62,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             this.input = input;
             Data = output;
         }
-        
+
         [DynamicVisible]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
