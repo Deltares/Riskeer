@@ -271,7 +271,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.AreEqual(2, outputEntities.Count);
             CollectionAssert.AreEqual(new[]
             {
-                0, 
+                0,
                 1
             }, outputEntities.Select(oe => oe.Order));
 

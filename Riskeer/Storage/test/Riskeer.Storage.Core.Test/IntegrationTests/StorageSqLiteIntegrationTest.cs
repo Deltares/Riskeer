@@ -1924,7 +1924,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             }
         }
 
-        private static void AssertGrassCoverErosionOutwardsCalculationInput(GrassCoverErosionOutwardsWaveConditionsInput expectedInput, 
+        private static void AssertGrassCoverErosionOutwardsCalculationInput(GrassCoverErosionOutwardsWaveConditionsInput expectedInput,
                                                                             GrassCoverErosionOutwardsWaveConditionsInput actualInput)
         {
             AssertWaveConditionsInput(expectedInput, actualInput);
@@ -1982,7 +1982,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             }
         }
 
-        private static void AssertStabilityStoneCoverWaveConditionsInput(StabilityStoneCoverWaveConditionsInput expectedInput, 
+        private static void AssertStabilityStoneCoverWaveConditionsInput(StabilityStoneCoverWaveConditionsInput expectedInput,
                                                                          StabilityStoneCoverWaveConditionsInput actualInput)
         {
             AssertWaveConditionsInput(expectedInput, actualInput);
