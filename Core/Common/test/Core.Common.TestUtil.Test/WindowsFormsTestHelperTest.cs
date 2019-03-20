@@ -35,7 +35,10 @@ namespace Core.Common.TestUtil.Test
             var form = new Form();
             var callCount = 0;
 
-            WindowsFormsTestHelper.Show(form, delegate { callCount++; });
+            WindowsFormsTestHelper.Show(form, delegate
+            {
+                callCount++;
+            });
 
             Assert.AreEqual(1, callCount);
 
@@ -48,7 +51,10 @@ namespace Core.Common.TestUtil.Test
             var uc = new UserControl();
             var callCount = 0;
 
-            WindowsFormsTestHelper.Show(uc, delegate { callCount++; });
+            WindowsFormsTestHelper.Show(uc, delegate
+            {
+                callCount++;
+            });
 
             Assert.AreEqual(1, callCount);
 
@@ -61,7 +67,10 @@ namespace Core.Common.TestUtil.Test
             var form = new Form();
             var callCount = 0;
 
-            WindowsFormsTestHelper.Show(form, delegate { callCount++; });
+            WindowsFormsTestHelper.Show(form, delegate
+            {
+                callCount++;
+            });
 
             Assert.AreEqual(1, callCount);
 
@@ -105,7 +114,10 @@ namespace Core.Common.TestUtil.Test
         {
             var callCount = 0;
 
-            WindowsFormsTestHelper.ShowModal(new Form(), delegate { callCount++; });
+            WindowsFormsTestHelper.ShowModal(new Form(), delegate
+            {
+                callCount++;
+            });
 
             Assert.AreEqual(1, callCount);
         }
@@ -116,7 +128,10 @@ namespace Core.Common.TestUtil.Test
             var callCount = 0;
             var form = new Form();
 
-            form.Shown += delegate { callCount++; };
+            form.Shown += delegate
+            {
+                callCount++;
+            };
 
             WindowsFormsTestHelper.ShowModal(form);
 
@@ -128,7 +143,10 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             var form = new Form();
-            form.Shown += delegate { Assert.Fail(); };
+            form.Shown += delegate
+            {
+                Assert.Fail();
+            };
 
             // Call
             TestDelegate call = () => WindowsFormsTestHelper.ShowModal(form);

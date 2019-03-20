@@ -36,17 +36,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
     {
         private GuiFormsMessageWindow.MessageWindowLogAppender originalValue;
 
-        public override void Setup()
-        {
-            originalValue = GuiFormsMessageWindow.MessageWindowLogAppender.Instance;
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-            GuiFormsMessageWindow.MessageWindowLogAppender.Instance = originalValue;
-        }
-
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
@@ -556,6 +545,17 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                     Assert.AreNotEqual(filteredLevel, row.Cells[0].Value.ToString());
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            originalValue = GuiFormsMessageWindow.MessageWindowLogAppender.Instance;
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+            GuiFormsMessageWindow.MessageWindowLogAppender.Instance = originalValue;
         }
 
         private static void AddMessages(GuiFormsMessageWindow.MessageWindow messageWindow)

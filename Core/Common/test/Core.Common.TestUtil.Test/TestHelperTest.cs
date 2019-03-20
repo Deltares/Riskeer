@@ -208,7 +208,7 @@ namespace Core.Common.TestUtil.Test
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO);
             Assert.IsTrue(Directory.Exists(path));
-            
+
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO);
             Assert.IsTrue(Directory.Exists(path));
 
@@ -632,7 +632,10 @@ namespace Core.Common.TestUtil.Test
             // Setup
             const string someMessage = "Exception";
             const string differentMessage = "Different";
-            TestDelegate t = () => { throw new ArgumentException(someMessage); };
+            TestDelegate t = () =>
+            {
+                throw new ArgumentException(someMessage);
+            };
 
             // Call
             TestDelegate call = () => TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, differentMessage);
@@ -648,7 +651,10 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             const string someMessage = "Exception";
-            TestDelegate t = () => { throw new ArgumentException(someMessage, argument); };
+            TestDelegate t = () =>
+            {
+                throw new ArgumentException(someMessage, argument);
+            };
 
             // Call & Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
@@ -661,7 +667,10 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             string someMessage = string.Join(Environment.NewLine, "Exception", "second line");
-            TestDelegate t = () => { throw new ArgumentException(someMessage, argument); };
+            TestDelegate t = () =>
+            {
+                throw new ArgumentException(someMessage, argument);
+            };
 
             // Call & Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
@@ -674,7 +683,10 @@ namespace Core.Common.TestUtil.Test
             const string someMessage = "Exception";
             var argumentException = new ArgumentException(someMessage);
 
-            TestDelegate t = () => { throw argumentException; };
+            TestDelegate t = () =>
+            {
+                throw argumentException;
+            };
 
             // Call
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);

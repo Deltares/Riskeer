@@ -40,11 +40,6 @@ namespace Core.Common.Gui.Test.Commands
     {
         private MockRepository mocks;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void CreateNewProject_SavedProjectThenNewProject_NewProjectAndPathAreSet()
         {
@@ -1028,6 +1023,11 @@ namespace Core.Common.Gui.Test.Commands
             Assert.IsTrue(changesHandled);
 
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
         }
 
         private static IEnumerable<TestCaseData> GetExceptions()

@@ -1583,7 +1583,10 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    OnNodeChecked = (o, p) => { hit++; }
+                    OnNodeChecked = (o, p) =>
+                    {
+                        hit++;
+                    }
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.Data = new object();
@@ -1627,7 +1630,7 @@ namespace Core.Common.Controls.TreeView.Test
                     CheckedState = o => checkedState
                 };
 
-                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+                var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 treeView.Name = identifier;
 
                 WindowsFormsTestHelper.Show(treeViewControl);

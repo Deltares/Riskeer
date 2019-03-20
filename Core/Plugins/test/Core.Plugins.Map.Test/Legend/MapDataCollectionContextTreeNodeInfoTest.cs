@@ -57,27 +57,6 @@ namespace Core.Plugins.Map.Test.Legend
         private TreeNodeInfo info;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
-
-            mapLegendView = new MapLegendView(contextMenuBuilderProvider);
-
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
-            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-
-            info = treeNodeInfoLookup[typeof(MapDataCollectionContext)];
-        }
-
-        public override void TearDown()
-        {
-            mapLegendView.Dispose();
-
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -149,7 +128,7 @@ namespace Core.Plugins.Map.Test.Legend
             CollectionAssert.AreEqual(new MapDataContext[]
             {
                 new MapPolygonDataContext(mapPolygonData, parentCollectionContext),
-                GetContext(nestedCollection, parentCollectionContext), 
+                GetContext(nestedCollection, parentCollectionContext),
                 new MapLineDataContext(mapLineData, parentCollectionContext),
                 new MapPointDataContext(mapPointData, parentCollectionContext)
             }, objects);
@@ -459,7 +438,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             MapDataCollectionContext parentContext = GetContext(parentMapDataCollection);
             MapDataCollectionContext context = GetContext(mapDataCollection1);
-            
+
             parentMapDataCollection.Attach(observer);
 
             using (var treeViewControl = new TreeViewControl())
@@ -653,7 +632,7 @@ namespace Core.Plugins.Map.Test.Legend
             };
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(featureBasedMapData);
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var builder = new CustomItemsOnlyContextMenuBuilder();
@@ -728,6 +707,27 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 Assert.DoesNotThrow(call);
             }
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            mapLegendView = new MapLegendView(contextMenuBuilderProvider);
+
+            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
+            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+
+            info = treeNodeInfoLookup[typeof(MapDataCollectionContext)];
+        }
+
+        public override void TearDown()
+        {
+            mapLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
 
         private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollectionContext parentMapDataCollectionContext = null)

@@ -36,7 +36,7 @@ namespace Core.Plugins.Map.PresentationObjects
         /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
         /// the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MapPointDataContext(MapPointData wrappedData, MapDataCollectionContext parentMapData) 
+        public MapPointDataContext(MapPointData wrappedData, MapDataCollectionContext parentMapData)
             : base(wrappedData, parentMapData) {}
     }
 }

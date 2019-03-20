@@ -128,7 +128,7 @@ namespace Core.Components.Gis.Test.Data
 
             // Precondition
             Assert.IsFalse(nestedCollection.IsVisible);
-            
+
             // Call
             bool isVisible = collection.IsVisible;
 
@@ -268,7 +268,7 @@ namespace Core.Components.Gis.Test.Data
         {
             var nestedCollection = new MapDataCollection("test");
             nestedCollection.Add(new TestMapData());
-            nestedCollection .Add(new TestMapData
+            nestedCollection.Add(new TestMapData
             {
                 IsVisible = false
             });

@@ -1024,7 +1024,7 @@ namespace Core.Common.Controls.TreeView
             bool isOnCheckBox = IsOnCheckBox(point);
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(clickedNode.Tag) && isOnCheckBox)
             {
-               clickedNode.Checked = !clickedNode.Checked;
+                clickedNode.Checked = !clickedNode.Checked;
             }
         }
 

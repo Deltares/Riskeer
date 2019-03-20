@@ -227,7 +227,7 @@ namespace Core.Plugins.Map.Test.Legend
             mocks.VerifyAll();
         }
 
-       [Test]
+        [Test]
         public void CanRemove_WithRemovableDataAndCollection_ReturnTrue()
         {
             // Setup

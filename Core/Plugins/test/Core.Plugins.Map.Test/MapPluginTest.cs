@@ -35,7 +35,6 @@ using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PresentationObjects;

@@ -352,8 +352,8 @@ namespace Core.Common.Controls.TreeView
                                ? tag => treeNodeInfo.CanCheck((TData) tag)
                                : (Func<object, bool>) null,
                 CheckedState = treeNodeInfo.CheckedState != null
-                                ? tag => treeNodeInfo.CheckedState((TData) tag)
-                                : (Func<object, TreeNodeCheckedState>) null,
+                                   ? tag => treeNodeInfo.CheckedState((TData) tag)
+                                   : (Func<object, TreeNodeCheckedState>) null,
                 OnNodeChecked = treeNodeInfo.OnNodeChecked != null
                                     ? (tag, parentTag) => treeNodeInfo.OnNodeChecked((TData) tag, parentTag)
                                     : (Action<object, object>) null,
