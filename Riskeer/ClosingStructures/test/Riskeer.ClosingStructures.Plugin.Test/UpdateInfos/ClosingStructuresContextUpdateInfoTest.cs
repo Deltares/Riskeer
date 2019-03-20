@@ -47,17 +47,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private ClosingStructuresPlugin plugin;
 
-        public override void Setup()
-        {
-            plugin = new ClosingStructuresPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(ClosingStructuresContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
@@ -173,7 +162,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-            
+
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var structures = new StructureCollection<ClosingStructure>();
 
@@ -264,6 +253,17 @@ namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            plugin = new ClosingStructuresPlugin();
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(ClosingStructuresContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
     }
 }
