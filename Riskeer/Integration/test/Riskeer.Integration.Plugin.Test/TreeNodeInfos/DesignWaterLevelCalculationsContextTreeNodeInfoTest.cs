@@ -281,7 +281,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-            
+
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 

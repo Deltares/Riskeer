@@ -438,7 +438,6 @@ namespace Riskeer.Integration.IO.Test.Importers
             mocks.VerifyAll();
         }
 
-
         [Test]
         [TestCase("hlcdWithoutScenarioInformation", false)]
         [TestCase("hlcdWithoutScenarioInformationAndWithUsePreprocessorClosure", true)]

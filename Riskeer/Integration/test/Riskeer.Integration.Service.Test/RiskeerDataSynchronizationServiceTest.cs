@@ -661,10 +661,10 @@ namespace Riskeer.Integration.Service.Test
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
             HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection)
-                                                                                      .Concat(GetAllWaveHeightCalculationsWithOutput(assessmentSection))
-                                                                                      .ToArray();
+                                                                            .Concat(GetAllWaveHeightCalculationsWithOutput(assessmentSection))
+                                                                            .ToArray();
             HydraulicBoundaryLocationCalculation[] calculationsWithIllustrationPoints = calculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
-                                                                                                                                  .ToArray();
+                                                                                                              .ToArray();
 
             // Call 
             IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(assessmentSection);
