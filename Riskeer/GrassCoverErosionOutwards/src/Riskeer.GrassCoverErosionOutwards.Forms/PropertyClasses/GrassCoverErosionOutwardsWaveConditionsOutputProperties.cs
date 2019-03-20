@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// <param name="output">The data to show.</param>
         /// <param name="input">The input belonging to the output.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsOutputProperties(GrassCoverErosionOutwardsWaveConditionsOutput output, 
+        public GrassCoverErosionOutwardsWaveConditionsOutputProperties(GrassCoverErosionOutwardsWaveConditionsOutput output,
                                                                        GrassCoverErosionOutwardsWaveConditionsInput input)
         {
             if (output == null)

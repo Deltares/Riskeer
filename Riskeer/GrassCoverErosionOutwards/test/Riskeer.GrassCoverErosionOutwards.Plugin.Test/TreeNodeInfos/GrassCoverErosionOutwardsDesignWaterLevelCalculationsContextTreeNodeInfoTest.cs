@@ -270,7 +270,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
 
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -452,7 +452,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
 
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())

@@ -42,7 +42,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                         ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, 2
                     },
                     {
-                        ConfigurationGrassCoverErosionOutwardsCalculationType.Both,3
+                        ConfigurationGrassCoverErosionOutwardsCalculationType.Both, 3
                     }
                 };
             }

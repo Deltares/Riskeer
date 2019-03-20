@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {

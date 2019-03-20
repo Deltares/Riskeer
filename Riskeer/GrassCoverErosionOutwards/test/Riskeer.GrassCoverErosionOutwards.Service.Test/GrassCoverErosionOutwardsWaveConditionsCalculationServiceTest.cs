@@ -146,7 +146,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                                                 assessmentSection);
 
             // Assert
-            string expectedMessage = $"The value of argument 'calculationType' ({(int)calculation.InputParameters.CalculationType}) " +
+            string expectedMessage = $"The value of argument 'calculationType' ({(int) calculation.InputParameters.CalculationType}) " +
                                      $"is invalid for Enum type '{nameof(GrassCoverErosionOutwardsWaveConditionsCalculationType)}'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage)
                                          .ParamName;

@@ -49,7 +49,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         /// <param name="waveRunUpOutput">The wave run up output.</param>
         /// <param name="waveImpactOutput">The wave impact output.</param>
         /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
-        public static GrassCoverErosionOutwardsWaveConditionsOutput Create(IEnumerable<WaveConditionsOutput> waveRunUpOutput, 
+        public static GrassCoverErosionOutwardsWaveConditionsOutput Create(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
                                                                            IEnumerable<WaveConditionsOutput> waveImpactOutput)
         {
             return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput);

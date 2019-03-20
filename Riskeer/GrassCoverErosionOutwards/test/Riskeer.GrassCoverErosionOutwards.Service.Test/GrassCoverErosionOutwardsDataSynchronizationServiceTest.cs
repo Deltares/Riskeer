@@ -409,7 +409,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
-
         [Test]
         public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_WithArguments_IllustrationPointsClearedAndAffectedItemsReturned()
         {

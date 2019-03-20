@@ -26,7 +26,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PresentationObjects;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects

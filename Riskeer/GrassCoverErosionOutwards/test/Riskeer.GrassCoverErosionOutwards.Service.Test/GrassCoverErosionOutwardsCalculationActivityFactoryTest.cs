@@ -38,12 +38,12 @@ using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
-using Riskeer.Revetment.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 {
@@ -177,12 +177,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var hydraulicBoundaryLocationCalculationOutput = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = hydraulicBoundaryLocationCalculationOutput;
 
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(10), 
-                                                                             calculation1, 
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(10),
+                                                                             calculation1,
                                                                              hydraulicBoundaryLocationCalculationOutput.Result,
                                                                              hydraulicBoundaryDatabase);
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(11), 
-                                                                             calculation2, 
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(11),
+                                                                             calculation2,
                                                                              hydraulicBoundaryLocationCalculationOutput.Result,
                                                                              hydraulicBoundaryDatabase);
         }
@@ -289,11 +289,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = hydraulicBoundaryLocationCalculationOutput;
 
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(6),
-                                                                             calculation1, 
-                                                                             hydraulicBoundaryLocationCalculationOutput.Result, 
+                                                                             calculation1,
+                                                                             hydraulicBoundaryLocationCalculationOutput.Result,
                                                                              hydraulicBoundaryDatabase);
-            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(7), 
-                                                                             calculation2, 
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(7),
+                                                                             calculation2,
                                                                              hydraulicBoundaryLocationCalculationOutput.Result,
                                                                              hydraulicBoundaryDatabase);
         }
@@ -461,7 +461,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(
                 activity,
                 calculation,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result, 
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result,
                 hydraulicBoundaryDatabase);
         }
 

@@ -262,7 +262,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var updateCommandHandler = mockRepository.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -796,11 +796,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             const string categoryBoundaryName = "A";
             var nodeData = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-                                                                                            {
-                                                                                                calculation
-                                                                                            }, failureMechanism, assessmentSection,
-                                                                                            () => 0.01,
-                                                                                            categoryBoundaryName);
+                                                                                      {
+                                                                                          calculation
+                                                                                      }, failureMechanism, assessmentSection,
+                                                                                      () => 0.01,
+                                                                                      categoryBoundaryName);
 
             var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
