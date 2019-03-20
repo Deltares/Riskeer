@@ -36,7 +36,6 @@ using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Service;
 using Riskeer.GrassCoverErosionInwards.Service.TestUtil;
-using Riskeer.Integration.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -45,6 +44,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Overtopping;
 using Riskeer.HydraRing.Calculation.TestUtil;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 {

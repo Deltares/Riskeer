@@ -37,8 +37,8 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Plugin.FileImporters;
-using Riskeer.Integration.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 {

@@ -173,9 +173,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void ClearIllustrationPoints_CalculationWithOutput_ClearsIllustrationPointResult()
         {
             // Setup
-            var originalOutput = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()), 
-                new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()), 
-                new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+            var originalOutput = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                                    new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                                    new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
