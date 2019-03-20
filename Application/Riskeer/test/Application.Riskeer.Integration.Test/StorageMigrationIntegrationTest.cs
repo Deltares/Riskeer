@@ -44,7 +44,7 @@ namespace Application.Riskeer.Integration.Test
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
-        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
+        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileNames))]
         [Apartment(ApartmentState.STA)]
         public void GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string version)
         {
@@ -78,7 +78,7 @@ namespace Application.Riskeer.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
+        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileNames))]
         [Apartment(ApartmentState.STA)]
         public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string version)
         {
@@ -116,7 +116,7 @@ namespace Application.Riskeer.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
+        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileNames))]
         [Apartment(ApartmentState.STA)]
         public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string version)
         {
@@ -169,9 +169,9 @@ namespace Application.Riskeer.Integration.Test
             migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
         }
 
-        private static string GetTestProjectFilePath(string versionNumber)
+        private static string GetTestProjectFilePath(string fileName)
         {
-            return TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core, $"MigrationTestProject{versionNumber}.rtd");
+            return TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core, fileName);
         }
     }
 }

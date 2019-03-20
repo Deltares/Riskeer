@@ -60,18 +60,19 @@ namespace Riskeer.Migration.Core.TestUtil
         }
 
         /// <summary>
-        /// Retrieves the version numbers of all projects with an older database version,
+        /// Retrieves the project file names with an older database version,
         /// which are supported for the migration.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of all the version numbers of supported
         /// outdated projects.</returns>
-        public static IEnumerable<string> GetAllOutdatedSupportedProjectFileVersions()
+        public static IEnumerable<string> GetAllOutdatedSupportedProjectFileNames()
         {
-            yield return "164";
-            yield return "171";
-            yield return "172";
-            yield return "173";
-            yield return "181";
+            yield return "MigrationTestProject164.rtd";
+            yield return "MigrationTestProject171.rtd";
+            yield return "MigrationTestProject172.rtd";
+            yield return "MigrationTestProject173.rtd";
+            yield return "MigrationTestProject181.rtd";
+            yield return "MigrationTestProject191.risk";
         }
 
         /// <summary>

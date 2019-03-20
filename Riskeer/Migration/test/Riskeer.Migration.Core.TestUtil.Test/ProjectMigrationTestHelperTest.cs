@@ -80,14 +80,14 @@ namespace Riskeer.Migration.Core.TestUtil.Test
         }
 
         [Test]
-        public void GetAllOutdatedSupportedProjectFileVersions_Always_ReturnsAllProjectFilePathsToSupportedProjectVersions()
+        public void GetAllOutdatedSupportedProjectFileNames_Always_ReturnsAllProjectFilePathsToSupportedProjectVersions()
         {
             // Setup
-            string[] versions = ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
+            string[] fileNames = ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileNames().ToArray();
 
             // Call
-            List<string> returnedProjectVersions = versions.Select(v => new ProjectVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
-                                                                                                                            $"MigrationTestProject{v}.rtd")).GetVersion()).ToList();
+            string[] returnedProjectVersions = fileNames.Select(fileName => new ProjectVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
+                                                                                                                                fileName)).GetVersion()).ToArray();
 
             // Assert
             IEnumerable<string> expectedProjectVersions = new[]
@@ -96,7 +96,8 @@ namespace Riskeer.Migration.Core.TestUtil.Test
                 "17.1",
                 "17.2",
                 "17.3",
-                "18.1"
+                "18.1",
+                "19.1"
             };
             CollectionAssert.AreEqual(expectedProjectVersions, returnedProjectVersions);
         }
