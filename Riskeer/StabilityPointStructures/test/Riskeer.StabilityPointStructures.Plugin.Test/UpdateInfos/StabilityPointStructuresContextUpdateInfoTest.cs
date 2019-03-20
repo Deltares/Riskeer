@@ -47,17 +47,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private StabilityPointStructuresPlugin plugin;
 
-        public override void Setup()
-        {
-            plugin = new StabilityPointStructuresPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StabilityPointStructuresContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
@@ -266,6 +255,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            plugin = new StabilityPointStructuresPlugin();
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StabilityPointStructuresContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
     }
 }

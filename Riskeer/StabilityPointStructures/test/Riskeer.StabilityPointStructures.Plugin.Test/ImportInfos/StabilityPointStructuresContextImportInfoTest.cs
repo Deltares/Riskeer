@@ -53,7 +53,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-            
+
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var importTarget = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,

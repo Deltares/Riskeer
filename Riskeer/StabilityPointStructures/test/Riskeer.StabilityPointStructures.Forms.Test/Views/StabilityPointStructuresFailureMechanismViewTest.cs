@@ -32,6 +32,10 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -42,10 +46,6 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Forms.Views;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
 namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 {
@@ -360,7 +360,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            
+
             using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -399,7 +399,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            
+
             using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;

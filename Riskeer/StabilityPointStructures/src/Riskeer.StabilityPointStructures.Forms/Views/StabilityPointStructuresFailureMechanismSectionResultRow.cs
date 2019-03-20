@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
@@ -29,7 +30,6 @@ using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
 {

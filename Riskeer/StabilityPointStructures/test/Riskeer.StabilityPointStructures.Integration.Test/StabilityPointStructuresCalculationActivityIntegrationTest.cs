@@ -33,15 +33,15 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
-using Riskeer.Integration.TestUtil;
-using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityPointStructures.Data.TestUtil;
-using Riskeer.StabilityPointStructures.Service;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.TestUtil;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Service;
 
 namespace Riskeer.StabilityPointStructures.Integration.Test
 {

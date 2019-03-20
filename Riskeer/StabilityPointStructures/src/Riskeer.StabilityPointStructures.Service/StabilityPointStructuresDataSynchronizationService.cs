@@ -149,7 +149,7 @@ namespace Riskeer.StabilityPointStructures.Service
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>())
             {
                 affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
-                                                                                .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;

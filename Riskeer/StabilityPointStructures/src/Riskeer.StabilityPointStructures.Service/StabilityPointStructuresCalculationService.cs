@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.Structures;
-using Riskeer.StabilityPointStructures.Data;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
+using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Service
 {
