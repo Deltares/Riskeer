@@ -26,12 +26,12 @@ using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Primitives;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Test.Helpers
 {

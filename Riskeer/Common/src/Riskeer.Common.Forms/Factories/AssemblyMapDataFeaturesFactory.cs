@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util;
 using Core.Components.Gis.Features;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.TypeConverters;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using RiskeerCommonPrimitivesResources = Riskeer.Common.Primitives.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories

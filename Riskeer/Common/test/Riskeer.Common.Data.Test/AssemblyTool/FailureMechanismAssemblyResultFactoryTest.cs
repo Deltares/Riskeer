@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssemblyTool;
 
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {

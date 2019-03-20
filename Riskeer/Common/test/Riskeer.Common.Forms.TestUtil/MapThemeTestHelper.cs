@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Style;
@@ -30,7 +29,7 @@ using Riskeer.AssemblyTool.Forms;
 namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to assert properties of a <see cref="MapTheme{T}"/>
+    /// Class that can be used to assert properties of a <see cref="MapTheme{TCategoryTheme}"/>
     /// </summary>
     public static class MapThemeTestHelper
     {

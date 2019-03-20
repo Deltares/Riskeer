@@ -86,7 +86,10 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 calculation
             };
 
-            using (ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, () => { count++; }))
+            using (ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, () =>
+            {
+                count++;
+            }))
             {
                 // When
                 calculation.NotifyObservers();

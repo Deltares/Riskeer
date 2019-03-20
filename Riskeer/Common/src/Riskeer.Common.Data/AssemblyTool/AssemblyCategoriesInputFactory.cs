@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {

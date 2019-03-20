@@ -33,10 +33,9 @@ namespace Riskeer.Common.Forms.Test.Controls
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup
-            using (var form = new Form())
             // Call
             using (var resultControl = new TestAssemblyResultWithProbabilityControl())
+            using (var form = new Form())
             {
                 form.Controls.Add(resultControl);
                 form.Show();

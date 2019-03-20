@@ -94,7 +94,6 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(expectedMessage, message);
         }
 
-
         [Test]
         public void Validate_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
         {

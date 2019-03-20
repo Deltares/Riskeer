@@ -26,10 +26,10 @@ using Core.Common.Controls;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Test.Controls
 {

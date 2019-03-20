@@ -75,7 +75,10 @@ namespace Riskeer.Common.Forms.TestUtil.Test
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
+            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(() =>
+            {
+                throw expectedException;
+            });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);

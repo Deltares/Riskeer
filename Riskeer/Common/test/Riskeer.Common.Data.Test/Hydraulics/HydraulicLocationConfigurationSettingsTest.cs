@@ -135,6 +135,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsNull(settings.PreprocessorDirectory);
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CanUsePreprocessor_Always_ExpectedValuesSet(bool canUsePreprocessor)
@@ -151,6 +152,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsNull(settings.PreprocessorDirectory);
         }
 
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]

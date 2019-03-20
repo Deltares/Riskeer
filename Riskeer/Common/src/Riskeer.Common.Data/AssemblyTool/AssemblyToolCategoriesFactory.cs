@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Riskeer.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using Riskeer.Common.Data.Exceptions;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {

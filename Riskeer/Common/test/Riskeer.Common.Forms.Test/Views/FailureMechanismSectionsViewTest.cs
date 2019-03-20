@@ -203,7 +203,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 var invalidated = false;
 
-                sectionsDataGridView.Invalidated += (s, e) => { invalidated = true; };
+                sectionsDataGridView.Invalidated += (s, e) =>
+                {
+                    invalidated = true;
+                };
 
                 // When
                 failureMechanism.NotifyObservers();

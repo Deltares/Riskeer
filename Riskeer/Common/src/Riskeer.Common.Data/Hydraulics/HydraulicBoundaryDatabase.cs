@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
-using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.Hydraulics
 {

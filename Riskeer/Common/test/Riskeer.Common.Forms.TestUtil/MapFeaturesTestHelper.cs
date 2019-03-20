@@ -25,13 +25,13 @@ using Core.Common.Base.Data;
 using Core.Common.Util;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Util.TestUtil;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 
 namespace Riskeer.Common.Forms.TestUtil
 {

@@ -38,7 +38,6 @@ using HydraRingIllustrationPointResult = Riskeer.HydraRing.Calculation.Data.Outp
 using TestHydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints.TestSubMechanismIllustrationPoint;
 using TestHydraRingFaultTreeIllustrationPoint = Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints.TestFaultTreeIllustrationPoint;
 using HydraRingCombinationType = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
-using HydraRingIIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
 using IllustrationPointResult = Riskeer.Common.Data.IllustrationPoints.IllustrationPointResult;
 using Stochast = Riskeer.Common.Data.IllustrationPoints.Stochast;
 using SubMechanismIllustrationPoint = Riskeer.Common.Data.IllustrationPoints.SubMechanismIllustrationPoint;

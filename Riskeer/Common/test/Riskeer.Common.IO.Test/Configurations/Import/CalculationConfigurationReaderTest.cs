@@ -78,12 +78,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             }
         }
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
-        }
-
         [Test]
         [TestCase("")]
         [TestCase("      ")]
@@ -341,6 +335,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             var calculation5 = group4Items[0] as ReadCalculation;
             Assert.IsNotNull(calculation5);
             Assert.AreEqual("Calculation 5", calculation5.Name);
+        }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
         }
 
         private class CalculationConfigurationReader : CalculationConfigurationReader<ReadCalculation>

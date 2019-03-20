@@ -57,6 +57,7 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.AreEqual("WindSpeed", settings.WindSpeed);
             Assert.AreEqual("Comment", settings.Comment);
         }
+
         [Test]
         public void SetHydraulicBoundaryLocationConfigurationSettings_DatabaseWithFilePathAndWithUsePreprocessorClosure_SetsExpectedValues()
         {

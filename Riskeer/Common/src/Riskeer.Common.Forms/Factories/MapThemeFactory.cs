@@ -23,13 +23,13 @@ using System.Drawing;
 using Core.Common.Util;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.AssemblyTool.Forms;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating <see cref="MapTheme{T}"/> instances.
+    /// Factory for creating <see cref="MapTheme{TCategoryTheme}"/> instances.
     /// </summary>
     public static class MapThemeFactory
     {

@@ -27,13 +27,13 @@ using Core.Common.Util;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.TypeConverters;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {

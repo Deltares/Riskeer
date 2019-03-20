@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             // Call
             GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
-                                                                            Enumerable.Empty<GraphNode>());
+                                                                          Enumerable.Empty<GraphNode>());
 
             // Assert
             Assert.AreEqual(CreateExpectedGraphNodeContent(illustrationPoint.Name, illustrationPoint.Beta), graphNode.Content);
@@ -138,7 +138,7 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             // Call
             GraphNode graphNode = RiskeerGraphNodeFactory.CreateGraphNode(illustrationPoint,
-                                                                            childGraphNodes);
+                                                                          childGraphNodes);
 
             // Assert
             Assert.AreEqual(CreateExpectedGraphNodeContent(illustrationPoint.Name, illustrationPoint.Beta), graphNode.Content);

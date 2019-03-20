@@ -21,8 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Riskeer.Common.Primitives;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {

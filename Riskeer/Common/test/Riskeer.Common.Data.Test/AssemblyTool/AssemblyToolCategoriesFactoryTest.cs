@@ -22,13 +22,13 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssemblyTool;
-using Riskeer.Common.Data.Exceptions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Exceptions;
 
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {

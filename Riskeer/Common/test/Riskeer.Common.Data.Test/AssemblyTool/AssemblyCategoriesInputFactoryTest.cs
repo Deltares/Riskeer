@@ -22,11 +22,11 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {

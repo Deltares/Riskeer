@@ -98,7 +98,6 @@ namespace Riskeer.Common.Data.Hydraulics
         /// </summary>
         public bool UsePreprocessorClosure { get; private set; }
 
-
         /// <summary>
         /// Gets or sets a value indicating whether the Hydra-Ring preprocessor can be used.
         /// </summary>

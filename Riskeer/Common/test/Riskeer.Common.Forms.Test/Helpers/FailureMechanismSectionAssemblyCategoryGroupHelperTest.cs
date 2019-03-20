@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Helpers
 {

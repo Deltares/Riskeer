@@ -178,7 +178,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() =>
+            {
+                throw expectedException;
+            });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
@@ -195,7 +198,10 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
+            TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(() =>
+            {
+                throw expectedException;
+            });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);

@@ -280,7 +280,7 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Call
             importer.Import();
             Action call = () => importResult = importer.Import();
-    
+
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 2);
             Assert.IsTrue(importResult);

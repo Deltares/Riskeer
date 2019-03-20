@@ -25,15 +25,15 @@ using Core.Common.Controls;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 
 namespace Riskeer.Common.Forms.TestUtil
 {

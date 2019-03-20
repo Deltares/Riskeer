@@ -331,7 +331,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray(); });
+                invocation =>
+                {
+                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray();
+                });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;

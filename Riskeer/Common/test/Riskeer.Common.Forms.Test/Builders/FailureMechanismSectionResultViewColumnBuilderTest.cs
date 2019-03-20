@@ -27,9 +27,9 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Primitives;
-using Riskeer.AssemblyTool.Forms;
 
 namespace Riskeer.Common.Forms.Test.Builders
 {

@@ -22,8 +22,8 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Util;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Controls
 {

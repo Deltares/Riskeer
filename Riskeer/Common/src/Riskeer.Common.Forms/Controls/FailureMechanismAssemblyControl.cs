@@ -22,9 +22,9 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Util;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Controls
 {

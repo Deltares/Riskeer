@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Primitives;
-using Riskeer.AssemblyTool.Forms;
 
 namespace Riskeer.Common.Forms.Builders
 {

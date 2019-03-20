@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Forms.Views
 {

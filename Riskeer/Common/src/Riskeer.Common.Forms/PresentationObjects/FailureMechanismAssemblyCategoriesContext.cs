@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {

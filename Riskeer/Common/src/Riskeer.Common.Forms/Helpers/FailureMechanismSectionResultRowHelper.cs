@@ -23,11 +23,11 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Forms.Helpers
 {

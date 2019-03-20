@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Common.Data.AssessmentSection
 {

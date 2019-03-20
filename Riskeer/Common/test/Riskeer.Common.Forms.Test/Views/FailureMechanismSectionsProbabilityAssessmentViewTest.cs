@@ -230,7 +230,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 var dataSourceChanged = false;
 
-                sectionsDataGridView.DataSourceChanged += (s, e) => { dataSourceChanged = true; };
+                sectionsDataGridView.DataSourceChanged += (s, e) =>
+                {
+                    dataSourceChanged = true;
+                };
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
@@ -267,7 +270,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 var invalidated = false;
 
-                sectionsDataGridView.Invalidated += (s, e) => { invalidated = true; };
+                sectionsDataGridView.Invalidated += (s, e) =>
+                {
+                    invalidated = true;
+                };
 
                 // When
                 failureMechanism.NotifyObservers();

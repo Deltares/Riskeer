@@ -43,7 +43,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            
+
             // Call
             string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, hlcdFilePath, "", usePreprocessorClosure);
 
@@ -154,7 +154,7 @@ namespace Riskeer.Common.IO.Test.HydraRing
             // Setup
             string validFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "complete.sqlite");
             string customHlcdFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "HLCD.sqlite");
-            
+
             // Call
             string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, customHlcdFilePath, testDataPath, true);
 

@@ -23,14 +23,14 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
