@@ -165,6 +165,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             }
         }
 
+        [Test]
         [TestCase(3000, true)]
         [TestCase(11, false)]
         public void Read_ValidFileWithUsePreprocessClosureColumn_ExpectedValues(int trackId, bool expectedUsePreprocessorClosure)
