@@ -262,7 +262,10 @@ namespace Riskeer.Piping.Plugin
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = ClosePipingScenariosViewForData,
                 CreateInstance = context => new PipingScenariosView(context.AssessmentSection),
-                AfterCreate = (view, context) => { view.PipingFailureMechanism = context.FailureMechanism; }
+                AfterCreate = (view, context) =>
+                {
+                    view.PipingFailureMechanism = context.FailureMechanism;
+                }
             };
 
             yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>

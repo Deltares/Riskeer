@@ -28,12 +28,12 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Service;
-using Riskeer.Integration.Data;
 
 namespace Riskeer.Piping.Integration.Test
 {
