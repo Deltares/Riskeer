@@ -21,13 +21,13 @@
 
 using System;
 using Core.Common.Controls.DataGrid;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.DuneErosion.Data;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 
 namespace Riskeer.DuneErosion.Forms.Views
 {

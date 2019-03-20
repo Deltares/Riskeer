@@ -153,7 +153,10 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.AssessmentSection,
                                                                              context.GetNormFunc,
                                                                              context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = duneLocationCalculationGuiService;
+                },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }
@@ -300,7 +303,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                           TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext,
-                                                                  treeViewControl));
+                                                                treeViewControl));
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext,
                                                                     RemoveAllViewsForItem)

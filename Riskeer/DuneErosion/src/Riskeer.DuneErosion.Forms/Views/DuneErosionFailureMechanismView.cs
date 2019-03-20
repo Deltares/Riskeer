@@ -232,8 +232,8 @@ namespace Riskeer.DuneErosion.Forms.Views
         private void SetReferenceLineMapData()
         {
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
-                                                                                                        AssessmentSection.Id,
-                                                                                                        AssessmentSection.Name);
+                                                                                                      AssessmentSection.Id,
+                                                                                                      AssessmentSection.Name);
         }
 
         #endregion
