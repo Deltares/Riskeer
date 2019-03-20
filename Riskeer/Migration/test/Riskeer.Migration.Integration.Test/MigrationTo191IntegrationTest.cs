@@ -64,7 +64,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertBackgroundData(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
-                    
+
                     AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
                     AssertGrassCoverErosionOutwardsWaveConditionsOutput(reader, sourceFilePath);
 
