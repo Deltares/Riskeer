@@ -8,7 +8,7 @@
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
   <String Id="StartApplicationDescription">Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName).</String>
 
-  <String Id="UserManualName">Gebruikershandleiding Ringtoets 18.1.1</String>
+  <String Id="UserManualName">Gebruikershandleiding Riskeer 19.1.1</String>
   <String Id="UserManualDescription">Open de gebruikershandleiding van Riskeer.</String>
 
   <String Id="Examples">Voorbeelden</String>
