@@ -151,7 +151,7 @@ namespace Application.Riskeer
                 SupportEmailAddress = "www.helpdeskwater.nl",
                 SupportPhoneNumber = "+31 (0)88-797 7102",
                 MainWindowTitle = "Riskeer",
-                ManualFilePath = "..\\Gebruikershandleiding Ringtoets 18.1.1.pdf"
+                ManualFilePath = "..\\Gebruikershandleiding Riskeer 19.1.1.pdf"
             };
             var mainWindow = new MainWindow();
             var projectMigrator = new ProjectMigrator(new DialogBasedInquiryHelper(mainWindow));
