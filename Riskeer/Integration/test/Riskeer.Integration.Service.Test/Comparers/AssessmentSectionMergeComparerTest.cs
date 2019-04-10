@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service.Comparers;
 
@@ -98,14 +99,58 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetUnequivalentAssessmentSectionTestCases))]
-        public void Compare_AssessmentSectionsNotEquivalent_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        [TestCaseSource(nameof(GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationSettingsTestCases))]
+        public void Compare_AssessmentSectionsNotEquivalentAndWithoutHydraulicLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
             // Setup
             var comparer = new AssessmentSectionMergeComparer();
 
             // Call
             bool result = comparer.Compare(CreateAssessmentSection(), otherAssessmentSection);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Compare_AssessmentSectionWithEquivalentHydraulicBoundaryLocationConfigurationSettings_ReturnsTrue(bool hydraulicLocationConfigurationSettingsSet)
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection otherAssessmentSection = CreateAssessmentSection();
+
+            if (hydraulicLocationConfigurationSettingsSet)
+            {
+                SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                        "FilePath1");
+
+                SetHydraulicLocationConfigurationValues(otherAssessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                        "FilePath2");
+            }
+
+            var comparer = new AssessmentSectionMergeComparer();
+
+            // Call
+            bool result = comparer.Compare(assessmentSection, otherAssessmentSection);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnequivalentAssessmentSectionWithHydraulicLocationConfigurationSettingsTestCases))]
+        public void Compare_AssessmentSectionNotEquivalentWitHydraulicBoundaryLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+
+            var comparer = new AssessmentSectionMergeComparer();
+
+            // Call
+            bool result = comparer.Compare(assessmentSection, otherAssessmentSection);
 
             // Assert
             Assert.IsFalse(result);
@@ -123,9 +168,28 @@ namespace Riskeer.Integration.Service.Test.Comparers
             return assessmentSection;
         }
 
-        private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionTestCases()
+        private static void SetHydraulicLocationConfigurationValues(HydraulicLocationConfigurationSettings settings,
+                                                                    string hlcdFilePath = "filePath")
         {
-            foreach (ChangePropertyData<AssessmentSection> changeSingleDataProperty in ChangeSingleDataProperties())
+            const string scenarioName = "ScenarioName";
+            const int year = 2017;
+            const string scope = "Scope";
+            const bool usePreprocessorClosure = false;
+            const string seaLevel = "SeaLevel";
+            const string riverDischarge = "RiverDischarge";
+            const string lakeLevel = "LakeLevel";
+            const string windDirection = "WindDirection";
+            const string windSpeed = "WindSpeed";
+            const string comment = "Comment";
+
+            settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                               usePreprocessorClosure, seaLevel, riverDischarge,
+                               lakeLevel, windDirection, windSpeed, comment);
+        }
+
+        private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithoutHydraulicLocationConfigurationSettingsTestCases()
+        {
+            foreach (ChangePropertyData<AssessmentSection> changeSingleDataProperty in ChangeSingleDataPropertiesOfAssessmentSection())
             {
                 AssessmentSection assessmentSection = CreateAssessmentSection();
                 changeSingleDataProperty.ActionToChangeProperty(assessmentSection);
@@ -133,7 +197,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             }
         }
 
-        private static IEnumerable<ChangePropertyData<AssessmentSection>> ChangeSingleDataProperties()
+        private static IEnumerable<ChangePropertyData<AssessmentSection>> ChangeSingleDataPropertiesOfAssessmentSection()
         {
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine.SetGeometry(new[]
                                                                    {
@@ -162,6 +226,72 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    "NormType");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
                                                                    "Composition");
+        }
+
+        private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithHydraulicLocationConfigurationSettingsTestCases()
+        {
+            foreach (ChangePropertyData<HydraulicLocationConfigurationSettings> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationSettings())
+            {
+                AssessmentSection assessmentSection = CreateAssessmentSection();
+                changeSingleDataProperty.ActionToChangeProperty(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+                yield return new TestCaseData(assessmentSection).SetName(changeSingleDataProperty.PropertyName);
+            }
+        }
+
+        private static IEnumerable<ChangePropertyData<HydraulicLocationConfigurationSettings>> ChangeSingleDataOfHydraulicLocationConfigurationSettings()
+        {
+            const string hlcdFilePath = "path";
+            const string scenarioName = "ScenarioName";
+            const int year = 2017;
+            const string scope = "Scope";
+            const bool usePreprocessorClosure = false;
+            const string seaLevel = "SeaLevel";
+            const string riverDischarge = "RiverDischarge";
+            const string lakeLevel = "LakeLevel";
+            const string windDirection = "WindDirection";
+            const string windSpeed = "WindSpeed";
+            const string comment = "Comment";
+
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, "Other ScenarionName", year, scope,
+                                                                                                                       usePreprocessorClosure, seaLevel, riverDischarge,
+                                                                                                                       lakeLevel, windDirection, windSpeed, comment),
+                                                                                        "Different ScenarioName");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, 2023, scope,
+                                                                                                                       usePreprocessorClosure, seaLevel, riverDischarge,
+                                                                                                                       lakeLevel, windDirection, windSpeed, comment),
+                                                                                        "Different Year");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, "Other Scope",
+                                                                                                                       usePreprocessorClosure, seaLevel, riverDischarge,
+                                                                                                                       lakeLevel, windDirection, windSpeed, comment),
+                                                                                        "Different Scope");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                                                                                                                       true, seaLevel, riverDischarge,
+                                                                                                                       lakeLevel, windDirection, windSpeed, comment),
+                                                                                        "Different UsePreprocessorClosure");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                                                                                                                       usePreprocessorClosure, "Other SeaLevel", riverDischarge,
+                                                                                                                       lakeLevel, windDirection, windSpeed, comment),
+                                                                                        "Different SeaLevel");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                                                                                                                       usePreprocessorClosure, seaLevel, "Other RiverDischarge",
+                                                                                                                       lakeLevel, windDirection, windSpeed, comment),
+                                                                                        "Different RiverDischarge");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                                                                                                                       usePreprocessorClosure, seaLevel, riverDischarge,
+                                                                                                                       "Other LakeLevel", windDirection, windSpeed, comment),
+                                                                                        "Different LakeLevel");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                                                                                                                       usePreprocessorClosure, seaLevel, riverDischarge,
+                                                                                                                       lakeLevel, "Other WindDirection", windSpeed, comment),
+                                                                                        "Different WindDirection");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                                                                                                                       usePreprocessorClosure, seaLevel, riverDischarge,
+                                                                                                                       lakeLevel, windDirection, "Other Windspeed", comment),
+                                                                                        "Different WindSpeed");
+            yield return new ChangePropertyData<HydraulicLocationConfigurationSettings>(settings => settings.SetValues(hlcdFilePath, scenarioName, year, scope,
+                                                                                                                       usePreprocessorClosure, seaLevel, riverDischarge,
+                                                                                                                       lakeLevel, windDirection, windSpeed, "Other Comment"),
+                                                                                        "Different Comment");
         }
     }
 }

@@ -80,7 +80,24 @@ namespace Riskeer.Integration.Service.Comparers
         private static bool AreHydraulicBoundaryDatabasesEquivalent(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                     HydraulicBoundaryDatabase otherHydraulicBoundaryDatabase)
         {
-            return hydraulicBoundaryDatabase.Version == otherHydraulicBoundaryDatabase.Version;
+            return hydraulicBoundaryDatabase.Version == otherHydraulicBoundaryDatabase.Version
+                   && AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                                                  otherHydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings);
+        }
+
+        private static bool AreHydraulicBoundaryLocationConfigurationSettingsEquivalent(HydraulicLocationConfigurationSettings hydraulicLocationConfigurationSettings,
+                                                                                        HydraulicLocationConfigurationSettings otherHydraulicLocationConfigurationSettings)
+        {
+            return hydraulicLocationConfigurationSettings.ScenarioName == otherHydraulicLocationConfigurationSettings.ScenarioName
+                   && hydraulicLocationConfigurationSettings.Year == otherHydraulicLocationConfigurationSettings.Year
+                   && hydraulicLocationConfigurationSettings.Scope == otherHydraulicLocationConfigurationSettings.Scope
+                   && hydraulicLocationConfigurationSettings.UsePreprocessorClosure == otherHydraulicLocationConfigurationSettings.UsePreprocessorClosure
+                   && hydraulicLocationConfigurationSettings.SeaLevel == otherHydraulicLocationConfigurationSettings.SeaLevel
+                   && hydraulicLocationConfigurationSettings.RiverDischarge == otherHydraulicLocationConfigurationSettings.RiverDischarge
+                   && hydraulicLocationConfigurationSettings.LakeLevel == otherHydraulicLocationConfigurationSettings.LakeLevel
+                   && hydraulicLocationConfigurationSettings.WindDirection == otherHydraulicLocationConfigurationSettings.WindDirection
+                   && hydraulicLocationConfigurationSettings.WindSpeed == otherHydraulicLocationConfigurationSettings.WindSpeed
+                   && hydraulicLocationConfigurationSettings.Comment == otherHydraulicLocationConfigurationSettings.Comment;
         }
 
         private static bool AreFailureMechanismContributionsEquivalent(FailureMechanismContribution failureMechanismContribution,
