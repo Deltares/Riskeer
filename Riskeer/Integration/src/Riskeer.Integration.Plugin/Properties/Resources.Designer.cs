@@ -362,7 +362,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van al de berekeningen verwijderd worden.
+        ///   Looks up a localized string similar to Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle berekeningen verwijderd worden.
         ///
         ///Wilt u doorgaan?.
         /// </summary>
@@ -374,7 +374,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand is niet aanwezig, er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt..
+        ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand is niet aanwezig. Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie..
         /// </summary>
         public static string HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present {
             get {

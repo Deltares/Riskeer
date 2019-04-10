@@ -95,7 +95,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(clickOk, result);
 
             Assert.AreEqual("Bevestigen", dialogTitle);
-            Assert.AreEqual("Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van al de berekeningen verwijderd worden." +
+            Assert.AreEqual("Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle berekeningen verwijderd worden." +
                             Environment.NewLine +
                             Environment.NewLine +
                             "Wilt u doorgaan?",
@@ -144,8 +144,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Action call = () => handler.Update(hydraulicBoundaryDatabase, null, usePreprocessorClosure, hlcdFilePath);
 
             // Assert
-            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden " +
-                                           "conform WBI2017 voor de HLCD bestand informatie gebruikt.";
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
+                                           "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
