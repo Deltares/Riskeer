@@ -186,7 +186,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_TwoForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarning()
+        public void Import_ThreeInvalidForeshoreProfileDefinitions_TrueAndLogWarning()
         {
             // Setup
             string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
@@ -223,10 +223,13 @@ namespace Riskeer.Common.IO.Test.FileImporters
                     $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoForeshoreNoDam.prfl")}' wordt overgeslagen.",
                     LogLevelConstant.Warn),
                 Tuple.Create(
-                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoForeshoreNoDam.prfl")}' wordt overgeslagen.",
+                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002ForeshoreOnePointNoDam.prfl")}' wordt overgeslagen.",
+                    LogLevelConstant.Warn),
+                Tuple.Create(
+                    $"Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel003ForeshoreOnePointWithDam.prfl")}' wordt overgeslagen.",
                     LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 4);
             Assert.IsTrue(importResult);
         }
 
