@@ -87,7 +87,8 @@ namespace Riskeer.Common.IO.FileImporters
 
         protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
         {
-            if (data.DikeGeometry.Any())
+            if (data.DikeGeometry.Length >= 2
+                && data.ForeshoreGeometry.Length != 1)
             {
                 return true;
             }

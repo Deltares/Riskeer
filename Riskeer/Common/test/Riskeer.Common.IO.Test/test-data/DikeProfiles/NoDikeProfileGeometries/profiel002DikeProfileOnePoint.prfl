@@ -10,7 +10,8 @@ VOORLAND	0
 
 DAMWAND	0
 KRUINHOOGTE	6
-DIJK	0
+DIJK	1
+-18.000	-6.000	1.000
 
 MEMO
 Verkenning prfl format:
