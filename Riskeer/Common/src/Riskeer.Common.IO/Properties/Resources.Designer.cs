@@ -704,6 +704,15 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profielgegevens definiëren geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Bestand &apos;{0}&apos; wordt overgeslagen..
+        /// </summary>
+        public static string DikeProfilesImporter_Invalid_dike_geometry_file_0_skipped {
+            get {
+                return ResourceManager.GetString("DikeProfilesImporter_Invalid_dike_geometry_file_0_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profielgegevens definiëren geen dijkgeometrie. Bestand &apos;{0}&apos; wordt overgeslagen..
         /// </summary>
         public static string DikeProfilesImporter_No_dike_geometry_file_0_skipped {
@@ -1301,6 +1310,15 @@ namespace Riskeer.Common.IO.Properties {
         public static string ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation {
             get {
                 return ResourceManager.GetString("ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielgegevens definiëren geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Bestand &apos;{0}&apos; wordt overgeslagen..
+        /// </summary>
+        public static string ProfilesImporter_Invalid_foreshore_geometry_file_0_skipped {
+            get {
+                return ResourceManager.GetString("ProfilesImporter_Invalid_foreshore_geometry_file_0_skipped", resourceCulture);
             }
         }
         

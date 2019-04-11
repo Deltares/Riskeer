@@ -96,18 +96,20 @@ namespace Riskeer.Common.IO.FileImporters
 
         protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
         {
-            if (data.DamType != DamType.None && data.ForeshoreGeometry.Length != 1)
+            int numberOfForeshoreGeometryPoints = data.ForeshoreGeometry.Length;
+            if (data.DamType == DamType.None && numberOfForeshoreGeometryPoints == 0)
             {
-                return true;
+                Log.WarnFormat(Resources.ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped, prflFilePath);
+                return false;
             }
 
-            if (data.DamType == DamType.None && data.ForeshoreGeometry.Length >= 2)
+            if (numberOfForeshoreGeometryPoints == 1)
             {
-                return true;
+                Log.WarnFormat(Resources.ProfilesImporter_Invalid_foreshore_geometry_file_0_skipped, prflFilePath);
+                return false;
             }
 
-            Log.WarnFormat(Resources.ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped, prflFilePath);
-            return false;
+            return true;
         }
 
         private static IEnumerable<ForeshoreProfile> CreateForeshoreProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,

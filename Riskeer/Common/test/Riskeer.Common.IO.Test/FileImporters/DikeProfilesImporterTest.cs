@@ -194,10 +194,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             {
                 Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001DikeProfileNoGeometry.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002DikeProfileOnePoint.prfl")}' wordt overgeslagen.",
+                Tuple.Create($"Profielgegevens definiëren geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Bestand '{Path.Combine(fileDirectory, "profiel002DikeProfileOnePoint.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel003DikeProfileValidForeshoreProfileInvalid.prfl")}' wordt overgeslagen.",
-                LogLevelConstant.Warn)
+                Tuple.Create("Profielgegevens definiëren geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten." +
+                             $" Bestand '{Path.Combine(fileDirectory, "profiel003DikeProfileValidForeshoreProfileInvalid.prfl")}' wordt overgeslagen.",
+                             LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 4);
             Assert.IsTrue(importResult);
