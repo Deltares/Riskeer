@@ -71,7 +71,132 @@ FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
 INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
-INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
+INSERT INTO ClosingStructuresCalculationEntity(
+	[ClosingStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[ClosingStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater], 
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[UseForeshore], 
+	[Orientation],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType], 
+	[FailureProbabilityStructureWithErosion],
+	[DeviationWaveDirection],
+	[DrainCoefficientMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[ShouldIllustrationPointsBeCalculated])
+SELECT 
+	[ClosingStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[ForeshoreProfileEntityId]
+	END,
+	[HydraulicLocationEntityId],
+	[ClosingStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseBreakWater]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 3
+		ELSE 
+			[BreakWaterType]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[BreakWaterHeight]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseForeshore]
+	END,
+	[Orientation],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType], 
+	[FailureProbabilityStructureWithErosion],
+	[DeviationWaveDirection],
+	[DrainCoefficientMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[ShouldIllustrationPointsBeCalculated]
+FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity
+LEFT JOIN (
+    SELECT 
+        ForeshoreProfileEntityId,
+        CASE 
+			WHEN (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+				THEN 0
+			ELSE 1
+        END AS ValidForeshoreProfile
+    FROM [SOURCEPROJECT].ForeshoreProfileEntity
+) USING(ForeshoreProfileEntityId);
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
 INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
@@ -87,7 +212,34 @@ INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureM
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
 INSERT INTO FaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
 INSERT INTO FaultTreeSubmechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeSubmechanismIllustrationPointEntity;
-INSERT INTO ForeshoreProfileEntity SELECT * FROM [SOURCEPROJECT].ForeshoreProfileEntity;
+INSERT INTO ForeshoreProfileEntity(
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[GeometryXml],
+	[X],
+	[Y],
+	[X0],
+	[Order])
+SELECT
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[GeometryXml],
+	[X],
+	[Y],
+	[X0],
+	[Order]
+FROM [SOURCEPROJECT].ForeshoreProfileEntity
+WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
 INSERT INTO GeneralResultFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointEntity;
 INSERT INTO GeneralResultFaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
@@ -123,15 +275,40 @@ INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
 SELECT 
 	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
 	[CalculationGroupEntityId],
-	[ForeshoreProfileEntityId],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[ForeshoreProfileEntityId]
+	END,
 	[HydraulicLocationEntityId],
 	[Order],
 	[Name],
 	[Comments],
-	[UseBreakWater],
-	[BreakWaterType],
-	[BreakWaterHeight],
-	[UseForeshore],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseBreakWater]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 3
+		ELSE 
+			[BreakWaterType]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[BreakWaterHeight]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseForeshore]
+	END,
 	[Orientation],
 	[UpperBoundaryRevetment],
 	[LowerBoundaryRevetment],
@@ -156,7 +333,17 @@ JOIN (
 	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity
 	LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
 	GROUP BY GrassCoverErosionOutwardsWaveConditionsCalculationEntityId
-) USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId);
+) USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
+LEFT JOIN (
+    SELECT 
+        ForeshoreProfileEntityId,
+        CASE 
+			WHEN (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+				THEN 0
+			ELSE 1
+        END AS ValidForeshoreProfile
+    FROM [SOURCEPROJECT].ForeshoreProfileEntity
+) USING(ForeshoreProfileEntityId);
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity (
 	[GrassCoverErosionOutwardsWaveConditionsOutputEntityId],
 	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
@@ -191,7 +378,104 @@ FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
-INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
+INSERT INTO HeightStructuresCalculationEntity (
+	[HeightStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[HeightStructureEntityId],
+	[ForeshoreProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[ModelFactorSuperCriticalFlowMean],
+	[StructureNormalOrientation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FailureProbabilityStructureWithErosion],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[StormDurationMean],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[DeviationWaveDirection],
+	[UseBreakWater], 
+	[UseForeshore],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ShouldIllustrationPointsBeCalculated]) 
+SELECT 
+	[HeightStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[HeightStructureEntityId],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[ForeshoreProfileEntityId]
+	END,
+	[Order],
+	[Name],
+	[Comments],
+	[ModelFactorSuperCriticalFlowMean],
+	[StructureNormalOrientation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FailureProbabilityStructureWithErosion],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[StormDurationMean],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[DeviationWaveDirection],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseBreakWater]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseForeshore]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 3
+		ELSE 
+			[BreakWaterType]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[BreakWaterHeight]
+	END,
+	[ShouldIllustrationPointsBeCalculated]
+FROM [SOURCEPROJECT].HeightStructuresCalculationEntity
+LEFT JOIN (
+    SELECT 
+        ForeshoreProfileEntityId,
+        CASE 
+			WHEN (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+				THEN 0
+			ELSE 1
+        END AS ValidForeshoreProfile
+    FROM [SOURCEPROJECT].ForeshoreProfileEntity
+) USING(ForeshoreProfileEntityId);
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
@@ -272,7 +556,170 @@ INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
-INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
+INSERT INTO StabilityPointStructuresCalculationEntity(
+	[StabilityPointStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[StabilityPointStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater], 
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[UseForeshore], 
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ConstructiveStrengthLinearLoadModelMean],
+	[ConstructiveStrengthLinearLoadModelCoefficientOfVariation],
+	[ConstructiveStrengthQuadraticLoadModelMean],
+	[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation],
+	[BankWidthMean],
+	[BankWidthStandardDeviation],
+	[InsideWaterLevelFailureConstructionMean],
+	[InsideWaterLevelFailureConstructionStandardDeviation],
+	[EvaluationLevel],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[VerticalDistance],
+	[FailureProbabilityRepairClosure],
+	[FailureCollisionEnergyMean],
+	[FailureCollisionEnergyCoefficientOfVariation],
+	[ShipMassMean],
+	[ShipMassCoefficientOfVariation],
+	[ShipVelocityMean],
+	[ShipVelocityCoefficientOfVariation],
+	[LevellingCount],
+	[ProbabilityCollisionSecondaryStructure],
+	[FlowVelocityStructureClosableMean],
+	[StabilityLinearLoadModelMean],
+	[StabilityLinearLoadModelCoefficientOfVariation],
+	[StabilityQuadraticLoadModelMean],
+	[StabilityQuadraticLoadModelCoefficientOfVariation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[InflowModelType], 
+	[LoadSchematizationType], 
+	[VolumicWeightWater],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[DrainCoefficientMean],
+	[FailureProbabilityStructureWithErosion],
+	[ShouldIllustrationPointsBeCalculated])
+SELECT 
+	[StabilityPointStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[ForeshoreProfileEntityId]
+	END,
+	[HydraulicLocationEntityId],
+	[StabilityPointStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseBreakWater]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 3
+		ELSE 
+			[BreakWaterType]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[BreakWaterHeight]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseForeshore]
+	END,
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ConstructiveStrengthLinearLoadModelMean],
+	[ConstructiveStrengthLinearLoadModelCoefficientOfVariation],
+	[ConstructiveStrengthQuadraticLoadModelMean],
+	[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation],
+	[BankWidthMean],
+	[BankWidthStandardDeviation],
+	[InsideWaterLevelFailureConstructionMean],
+	[InsideWaterLevelFailureConstructionStandardDeviation],
+	[EvaluationLevel],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[VerticalDistance],
+	[FailureProbabilityRepairClosure],
+	[FailureCollisionEnergyMean],
+	[FailureCollisionEnergyCoefficientOfVariation],
+	[ShipMassMean],
+	[ShipMassCoefficientOfVariation],
+	[ShipVelocityMean],
+	[ShipVelocityCoefficientOfVariation],
+	[LevellingCount],
+	[ProbabilityCollisionSecondaryStructure],
+	[FlowVelocityStructureClosableMean],
+	[StabilityLinearLoadModelMean],
+	[StabilityLinearLoadModelCoefficientOfVariation],
+	[StabilityQuadraticLoadModelMean],
+	[StabilityQuadraticLoadModelCoefficientOfVariation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[InflowModelType], 
+	[LoadSchematizationType], 
+	[VolumicWeightWater],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[DrainCoefficientMean],
+	[FailureProbabilityStructureWithErosion],
+	[ShouldIllustrationPointsBeCalculated]
+FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity
+LEFT JOIN (
+    SELECT 
+        ForeshoreProfileEntityId,
+        CASE 
+			WHEN (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+				THEN 0
+			ELSE 1
+        END AS ValidForeshoreProfile
+    FROM [SOURCEPROJECT].ForeshoreProfileEntity
+) USING(ForeshoreProfileEntityId);
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
@@ -300,15 +747,40 @@ INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity (
 	[CalculationType])
 SELECT [StabilityStoneCoverWaveConditionsCalculationEntityId],
 	[CalculationGroupEntityId],
-	[ForeshoreProfileEntityId],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[ForeshoreProfileEntityId]
+	END,
 	[HydraulicLocationEntityId],
 	[Order],
 	[Name],
 	[Comments],
-	[UseBreakWater],
-	[BreakWaterType],
-	[BreakWaterHeight],
-	[UseForeshore],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseBreakWater]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 3
+		ELSE 
+			[BreakWaterType]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[BreakWaterHeight]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseForeshore]
+	END,
 	[Orientation],
 	[UpperBoundaryRevetment],
 	[LowerBoundaryRevetment],
@@ -317,7 +789,17 @@ SELECT [StabilityStoneCoverWaveConditionsCalculationEntityId],
 	[StepSize],
 	[CategoryType],
 	3 
-FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
+FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity
+LEFT JOIN (
+    SELECT 
+        ForeshoreProfileEntityId,
+        CASE 
+			WHEN (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+				THEN 0
+			ELSE 1
+        END AS ValidForeshoreProfile
+    FROM [SOURCEPROJECT].ForeshoreProfileEntity
+) USING(ForeshoreProfileEntityId);
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
@@ -341,7 +823,80 @@ SELECT [VersionId],
 FROM [SOURCEPROJECT].VersionEntity;
 INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
-INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
+INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity(
+	[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater], 
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[UseForeshore], 
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize], 
+	[CategoryType])
+SELECT 
+	[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[ForeshoreProfileEntityId]
+	END,
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseBreakWater]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 3
+		ELSE 
+			[BreakWaterType]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[BreakWaterHeight]
+	END,
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN 0
+		ELSE 
+			[UseForeshore]
+	END,
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize], 
+	[CategoryType] 
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+LEFT JOIN (
+    SELECT 
+        ForeshoreProfileEntityId,
+        CASE 
+			WHEN (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+				THEN 0
+			ELSE 1
+        END AS ValidForeshoreProfile
+    FROM [SOURCEPROJECT].ForeshoreProfileEntity
+) USING(ForeshoreProfileEntityId);
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
 /*

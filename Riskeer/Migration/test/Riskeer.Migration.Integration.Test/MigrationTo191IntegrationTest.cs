@@ -63,12 +63,19 @@ namespace Riskeer.Migration.Integration.Test
                     AssertAssessmentSection(reader, sourceFilePath);
                     AssertBackgroundData(reader, sourceFilePath);
 
+                    AssertForeshoreProfile(reader, sourceFilePath);
+
                     AssertPipingSoilLayers(reader);
 
-                    AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
+//                    AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
                     AssertGrassCoverErosionOutwardsWaveConditionsOutput(reader, sourceFilePath);
 
                     AssertStabilityStoneCoverWaveConditionsCalculations(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverWaveConditionsCalculations(reader, sourceFilePath);
+
+                    AssertHeightStructuresCalculation(reader, sourceFilePath);
+                    AssertClosingStructuresCalculation(reader, sourceFilePath);
+                    AssertStabilityPointStructuresCalculations(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -162,35 +169,6 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateBackgroundData);
         }
 
-        private static void AssertStabilityStoneCoverWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateCalculations =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity) " +
-                "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW " +
-                "JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
-                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
-                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
-                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
-                "AND NEW.\"Order\" = OLD.\"Order\" " +
-                "AND NEW.[Name] IS OLD.[Name] " +
-                "AND NEW.[Comments] IS OLD.[Comments] " +
-                "AND NEW.[UseBreakWater] =  OLD.[UseBreakWater] " +
-                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
-                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
-                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
-                "AND NEW.[Orientation] IS OLD.[Orientation] " +
-                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
-                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
-                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
-                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
-                "AND NEW.[StepSize] = OLD.[StepSize] " +
-                "AND NEW.[CategoryType] =  OLD.[CategoryType] " +
-                "AND NEW.[CalculationType] = 3;" +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateCalculations);
-        }
-
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateCalculations =
@@ -271,6 +249,461 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateOutputs);
         }
 
+        private static void AssertForeshoreProfile(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateForeshoreProfile =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.ForeshoreProfileEntity " +
+                "WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / " +
+                "(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 " +
+                ") " +
+                "FROM ForeshoreProfileEntity NEW " +
+                "JOIN SOURCEPROJECT.ForeshoreProfileEntity OLD USING(ForeshoreProfileEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[Id] = OLD.[Id] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[GeometryXml] = OLD.[GeometryXml] " +
+                "AND NEW.[X] IS OLD.[X] " +
+                "AND NEW.[Y] IS OLD.[Y] " +
+                "AND NEW.[X0] IS OLD.[X0] " +
+                "AND NEW.\"Order\" = OLD.\"Order\";" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfile);
+        }
+
+        private static void AssertStabilityStoneCoverWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string calculationEntityName = "StabilityStoneCoverWaveConditionsCalculationEntity";
+            const string validForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CategoryType] =  OLD.[CategoryType] " +
+                "AND NEW.[CalculationType] = 3; ";
+
+            AssertCalculationsWithValidForeshoreProfile(reader, sourceFilePath, calculationEntityName, validForeshoreProfileCriteria);
+
+            const string invalidForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CategoryType] =  OLD.[CategoryType] " +
+                "AND NEW.[CalculationType] = 3; ";
+
+            AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string calculationEntityName = "StabilityStoneCoverWaveConditionsCalculationEntity";
+            const string validForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] =  OLD.[UseBreakWater] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CategoryType] =  OLD.[CategoryType]; ";
+
+            AssertCalculationsWithValidForeshoreProfile(reader, sourceFilePath, calculationEntityName, validForeshoreProfileCriteria);
+
+            const string invalidForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CategoryType] =  OLD.[CategoryType]; ";
+
+            AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
+        }
+
+        private static void AssertHeightStructuresCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string calculationEntityName = "HeightStructuresCalculationEntity";
+            const string validForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HeightStructureEntityId] IS OLD.[HeightStructureEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[LevelCrestStructureMean] IS OLD.[LevelCrestStructureMean] " +
+                "AND NEW.[LevelCrestStructureStandardDeviation] IS OLD.[LevelCrestStructureStandardDeviation] " +
+                "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated]; ";
+
+            AssertCalculationsWithValidForeshoreProfile(reader, sourceFilePath, calculationEntityName, validForeshoreProfileCriteria);
+
+            const string invalidForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HeightStructureEntityId] IS OLD.[HeightStructureEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[LevelCrestStructureMean] IS OLD.[LevelCrestStructureMean] " +
+                "AND NEW.[LevelCrestStructureStandardDeviation] IS OLD.[LevelCrestStructureStandardDeviation] " +
+                "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated]; ";
+
+            AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
+        }
+
+        private static void AssertClosingStructuresCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string calculationEntityName = "ClosingStructuresCalculationEntity";
+            const string validForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[ClosingStructureEntityId] IS OLD.[ClosingStructureEntityId] " +
+                "AND NEW.\"Order\" IS OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation]" +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[LevelCrestStructureNotClosingMean] IS OLD.[LevelCrestStructureNotClosingMean] " +
+                "AND NEW.[LevelCrestStructureNotClosingStandardDeviation] IS OLD.[LevelCrestStructureNotClosingStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ProbabilityOpenStructureBeforeFlooding] = OLD.[ProbabilityOpenStructureBeforeFlooding] " +
+                "AND NEW.[FailureProbabilityOpenStructure] = OLD.[FailureProbabilityOpenStructure] " +
+                "AND NEW.[IdenticalApertures] = OLD.[IdenticalApertures] " +
+                "AND NEW.[FailureProbabilityReparation] = OLD.[FailureProbabilityReparation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] = OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated]; ";
+
+            AssertCalculationsWithValidForeshoreProfile(reader, sourceFilePath, calculationEntityName, validForeshoreProfileCriteria);
+
+            const string invalidForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[ClosingStructureEntityId] IS OLD.[ClosingStructureEntityId] " +
+                "AND NEW.\"Order\" IS OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation]" +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[LevelCrestStructureNotClosingMean] IS OLD.[LevelCrestStructureNotClosingMean] " +
+                "AND NEW.[LevelCrestStructureNotClosingStandardDeviation] IS OLD.[LevelCrestStructureNotClosingStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ProbabilityOpenStructureBeforeFlooding] = OLD.[ProbabilityOpenStructureBeforeFlooding] " +
+                "AND NEW.[FailureProbabilityOpenStructure] = OLD.[FailureProbabilityOpenStructure] " +
+                "AND NEW.[IdenticalApertures] = OLD.[IdenticalApertures] " +
+                "AND NEW.[FailureProbabilityReparation] = OLD.[FailureProbabilityReparation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] = OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated]; ";
+
+            AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
+        }
+
+        private static void AssertStabilityPointStructuresCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string calculationEntityName = "StabilityPointStructuresCalculationEntity";
+            const string validForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[StabilityPointStructureEntityId] IS OLD.[StabilityPointStructureEntityId] " +
+                "AND NEW.\"Order\" IS OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelFailureConstructionMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelFailureConstructionStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelMean] IS OLD.[ConstructiveStrengthLinearLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelMean] IS OLD.[ConstructiveStrengthQuadraticLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[BankWidthMean] IS OLD.[BankWidthMean] " +
+                "AND NEW.[BankWidthStandardDeviation] IS OLD.[BankWidthStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionMean] IS OLD.[InsideWaterLevelFailureConstructionMean] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionStandardDeviation] IS OLD.[InsideWaterLevelFailureConstructionStandardDeviation] " +
+                "AND NEW.[EvaluationLevel] IS OLD.[EvaluationLevel] " +
+                "AND NEW.[LevelCrestStructureMean] IS OLD.[LevelCrestStructureMean] " +
+                "AND NEW.[LevelCrestStructureStandardDeviation] IS OLD.[LevelCrestStructureStandardDeviation] " +
+                "AND NEW.[VerticalDistance] IS OLD.[VerticalDistance] " +
+                "AND NEW.[FailureProbabilityRepairClosure] = OLD.[FailureProbabilityRepairClosure] " +
+                "AND NEW.[FailureCollisionEnergyMean] IS OLD.[FailureCollisionEnergyMean] " +
+                "AND NEW.[FailureCollisionEnergyCoefficientOfVariation] IS OLD.[FailureCollisionEnergyCoefficientOfVariation] " +
+                "AND NEW.[ShipMassMean] IS OLD.[ShipMassMean] " +
+                "AND NEW.[ShipMassCoefficientOfVariation] IS OLD.[ShipMassCoefficientOfVariation] " +
+                "AND NEW.[ShipVelocityMean] IS OLD.[ShipVelocityMean] " +
+                "AND NEW.[ShipVelocityCoefficientOfVariation] IS OLD.[ShipVelocityCoefficientOfVariation] " +
+                "AND NEW.[LevellingCount] = OLD.[LevellingCount] " +
+                "AND NEW.[ProbabilityCollisionSecondaryStructure] = OLD.[ProbabilityCollisionSecondaryStructure] " +
+                "AND NEW.[FlowVelocityStructureClosableMean] IS OLD.[FlowVelocityStructureClosableMean] " +
+                "AND NEW.[StabilityLinearLoadModelMean] IS OLD.[StabilityLinearLoadModelMean] " +
+                "AND NEW.[StabilityLinearLoadModelCoefficientOfVariation] IS OLD.[StabilityLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[StabilityQuadraticLoadModelMean] IS OLD.[StabilityQuadraticLoadModelMean] " +
+                "AND NEW.[StabilityQuadraticLoadModelCoefficientOfVariation] IS OLD.[StabilityQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[LoadSchematizationType] = OLD.[LoadSchematizationType] " +
+                "AND NEW.[VolumicWeightWater] IS OLD.[VolumicWeightWater] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated]; ";
+
+            AssertCalculationsWithValidForeshoreProfile(reader, sourceFilePath, calculationEntityName, validForeshoreProfileCriteria);
+
+            const string invalidForeshoreProfileCriteria =
+                "NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[StabilityPointStructureEntityId] IS OLD.[StabilityPointStructureEntityId] " +
+                "AND NEW.\"Order\" IS OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelFailureConstructionMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelFailureConstructionStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelMean] IS OLD.[ConstructiveStrengthLinearLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelMean] IS OLD.[ConstructiveStrengthQuadraticLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[BankWidthMean] IS OLD.[BankWidthMean] " +
+                "AND NEW.[BankWidthStandardDeviation] IS OLD.[BankWidthStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionMean] IS OLD.[InsideWaterLevelFailureConstructionMean] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionStandardDeviation] IS OLD.[InsideWaterLevelFailureConstructionStandardDeviation] " +
+                "AND NEW.[EvaluationLevel] IS OLD.[EvaluationLevel] " +
+                "AND NEW.[LevelCrestStructureMean] IS OLD.[LevelCrestStructureMean] " +
+                "AND NEW.[LevelCrestStructureStandardDeviation] IS OLD.[LevelCrestStructureStandardDeviation] " +
+                "AND NEW.[VerticalDistance] IS OLD.[VerticalDistance] " +
+                "AND NEW.[FailureProbabilityRepairClosure] = OLD.[FailureProbabilityRepairClosure] " +
+                "AND NEW.[FailureCollisionEnergyMean] IS OLD.[FailureCollisionEnergyMean] " +
+                "AND NEW.[FailureCollisionEnergyCoefficientOfVariation] IS OLD.[FailureCollisionEnergyCoefficientOfVariation] " +
+                "AND NEW.[ShipMassMean] IS OLD.[ShipMassMean] " +
+                "AND NEW.[ShipMassCoefficientOfVariation] IS OLD.[ShipMassCoefficientOfVariation] " +
+                "AND NEW.[ShipVelocityMean] IS OLD.[ShipVelocityMean] " +
+                "AND NEW.[ShipVelocityCoefficientOfVariation] IS OLD.[ShipVelocityCoefficientOfVariation] " +
+                "AND NEW.[LevellingCount] = OLD.[LevellingCount] " +
+                "AND NEW.[ProbabilityCollisionSecondaryStructure] = OLD.[ProbabilityCollisionSecondaryStructure] " +
+                "AND NEW.[FlowVelocityStructureClosableMean] IS OLD.[FlowVelocityStructureClosableMean] " +
+                "AND NEW.[StabilityLinearLoadModelMean] IS OLD.[StabilityLinearLoadModelMean] " +
+                "AND NEW.[StabilityLinearLoadModelCoefficientOfVariation] IS OLD.[StabilityLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[StabilityQuadraticLoadModelMean] IS OLD.[StabilityQuadraticLoadModelMean] " +
+                "AND NEW.[StabilityQuadraticLoadModelCoefficientOfVariation] IS OLD.[StabilityQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[LoadSchematizationType] = OLD.[LoadSchematizationType] " +
+                "AND NEW.[VolumicWeightWater] IS OLD.[VolumicWeightWater] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated]; ";
+
+            AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
+        }
+
+        private static void AssertCalculationsWithValidForeshoreProfile(MigratedDatabaseReader reader,
+                                                                        string sourceFilePath,
+                                                                        string calculationEntityName,
+                                                                        string criteria)
+        {
+            string validateCalculationsWithoutForeshoreProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                $"FROM [SOURCEPROJECT].{calculationEntityName} " +
+                "WHERE ForeshoreProfileEntityId IS NULL " +
+                ")" +
+                $"FROM {calculationEntityName} NEW " +
+                $"JOIN [SOURCEPROJECT].{calculationEntityName} OLD USING({calculationEntityName}Id)" +
+                "WHERE OLD.ForeshoreProfileEntityId IS NULL " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                $"AND {criteria}" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationsWithoutForeshoreProfiles);
+
+            string validateCalculationsWithValidForeshoreProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                $"FROM [SOURCEPROJECT].{calculationEntityName} " +
+                "JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)" +
+                "WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / " +
+                "(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) > 1" +
+                ")" +
+                $"FROM {calculationEntityName} NEW " +
+                $"JOIN [SOURCEPROJECT].{calculationEntityName} OLD USING({calculationEntityName}Id)" +
+                "JOIN [SOURCEPROJECT].ForeshoreProfileEntity FP " +
+                "WHERE OLD.ForeshoreProfileEntityId = FP.ForeshoreProfileEntityId " +
+                "AND (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / " +
+                "(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) > 1 " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                $"AND {criteria}" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationsWithValidForeshoreProfiles);
+        }
+
+        private static void AssertCalculationsWithInvalidForeshoreProfile(MigratedDatabaseReader reader,
+                                                                          string sourceFilePath,
+                                                                          string calculationEntityName,
+                                                                          string criteria)
+        {
+            string validateCalculationsWithInvalidForeshoreProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                $"FROM [SOURCEPROJECT].{calculationEntityName} " +
+                "JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)" +
+                "WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / " +
+                "(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1" +
+                ")" +
+                $"FROM {calculationEntityName} NEW " +
+                $"JOIN [SOURCEPROJECT].{calculationEntityName} OLD USING({calculationEntityName}Id)" +
+                "JOIN [SOURCEPROJECT].ForeshoreProfileEntity FP " +
+                "WHERE OLD.ForeshoreProfileEntityId = FP.ForeshoreProfileEntityId " +
+                "AND (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / " +
+                "(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1 " +
+                "AND NEW.[UseBreakWater] = 0 " +
+                "AND NEW.[BreakWaterType] = 3 " +
+                "AND NEW.[BreakWaterHeight] IS NULL " +
+                "AND NEW.[UseForeshore] = 0 " +
+                $"AND {criteria}" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationsWithInvalidForeshoreProfiles);
+        }
+
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string[] tables =
@@ -296,7 +729,6 @@ namespace Riskeer.Migration.Integration.Test
                 "FaultTreeIllustrationPointEntity",
                 "FaultTreeIllustrationPointStochastEntity",
                 "FaultTreeSubmechanismIllustrationPointEntity",
-                "ForeshoreProfileEntity",
                 "GeneralResultFaultTreeIllustrationPointEntity",
                 "GeneralResultFaultTreeIllustrationPointStochastEntity",
                 "GeneralResultSubMechanismIllustrationPointEntity",
@@ -392,7 +824,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(14, messages.Count);
+                Assert.AreEqual(18, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
@@ -437,6 +869,20 @@ namespace Riskeer.Migration.Integration.Test
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'GrassCoverErosionOutwardsCalculations'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
+                    messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "* Traject: 'InvalidDikeProfiles'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
+                    messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "* Traject: 'InvalidForeshoreProfiles'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
