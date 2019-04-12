@@ -67,7 +67,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertPipingSoilLayers(reader);
 
-//                    AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
+                    AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
                     AssertGrassCoverErosionOutwardsWaveConditionsOutput(reader, sourceFilePath);
 
                     AssertStabilityStoneCoverWaveConditionsCalculations(reader, sourceFilePath);
@@ -171,9 +171,14 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateCalculations =
+            string validateCalculationsWithoutForeshoreProfile =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity) " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity " +
+                "WHERE ForeshoreProfileEntityId IS NULL " +
+                ") " +
                 "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
                 "JOIN ( " +
                 "SELECT " +
@@ -203,10 +208,10 @@ namespace Riskeer.Migration.Integration.Test
                 "LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
                 "GROUP BY GrassCoverErosionOutwardsWaveConditionsCalculationEntityId " +
                 ") AS OLD USING (GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
-                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
-                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "WHERE OLD.ForeshoreProfileEntityId IS NULL " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
                 "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
-                "AND NEW.\"Order\" =  OLD.\"Order\" " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
                 "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
@@ -222,7 +227,72 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[CategoryType] = OLD.[CategoryType] " +
                 "AND ((HasOutput = 1 AND NEW.[CalculationType] = 2) OR (HasOutput = 0 AND NEW.[CalculationType] = 3)); " +
                 "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateCalculations);
+            reader.AssertReturnedDataIsValid(validateCalculationsWithoutForeshoreProfile);
+
+            string validateCalculationsWithForeshoreProfile =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity " +
+                "WHERE ForeshoreProfileEntityId IS NOT NULL " +
+                ") " +
+                "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
+                "JOIN ( " +
+                "SELECT " +
+                "[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId], " +
+                "[CalculationGroupEntityId], " +
+                "[ForeshoreProfileEntityId], " +
+                "[HydraulicLocationEntityId], " +
+                "CALC.\"Order\", " +
+                "CALC.[Name], " +
+                "[Comments], " +
+                "CALC.[UseBreakWater], " +
+                "CALC.[BreakWaterType], " +
+                "CALC.[BreakWaterHeight], " +
+                "CALC.[UseForeshore], " +
+                "CALC.[Orientation], " +
+                "[UpperBoundaryRevetment], " +
+                "[LowerBoundaryRevetment], " +
+                "[UpperBoundaryWaterLevels], " +
+                "[LowerBoundaryWaterLevels], " +
+                "[StepSize], " +
+                "[CategoryType], " +
+                "CASE WHEN GrassCoverErosionOutwardsWaveConditionsOutputEntityId IS NOT NULL " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS HasOutput," +
+                "CASE WHEN " +
+                "(LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / " +
+                "(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS HasValidForeshore " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity CALC " +
+                "LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                "JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId) " +
+                "GROUP BY GrassCoverErosionOutwardsWaveConditionsCalculationEntityId " +
+                ") OLD USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                "WHERE OLD.ForeshoreProfileEntityId IS NOT NULL " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" =  OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND (HasValidForeshore = 1 AND NEW.[UseBreakWater] = OLD.[UseBreakWater]) OR (HasValidForeshore = 0 AND NEW.[UseBreakWater] = 0) " +
+                "AND (HasValidForeshore = 1 AND NEW.[BreakWaterType] = OLD.[BreakWaterType]) OR (HasValidForeshore = 0 AND NEW.[BreakWaterType] = 3) " +
+                "AND (HasValidForeshore = 1 AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight]) OR (HasValidForeshore = 0 AND NEW.[BreakWaterHeight] IS NULL) " +
+                "AND (HasValidForeshore = 1 AND NEW.[UseForeshore] = OLD.[UseForeshore]) OR (HasValidForeshore = 0 AND NEW.[UseForeshore] = 0) " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CategoryType] = OLD.[CategoryType] " +
+                "AND ((HasOutput = 1 AND NEW.[CalculationType] = 2) OR (HasOutput = 0 AND NEW.[CalculationType] = 3)); " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationsWithForeshoreProfile);
         }
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsOutput(MigratedDatabaseReader reader, string sourceFilePath)
