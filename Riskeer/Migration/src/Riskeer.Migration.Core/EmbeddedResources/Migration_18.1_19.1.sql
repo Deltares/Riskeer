@@ -367,7 +367,7 @@ LEFT JOIN (
         END AS ValidForeshoreProfile
     FROM [SOURCEPROJECT].ForeshoreProfileEntity
 ) USING(ForeshoreProfileEntityId);
-INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity (
+INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity(
 	[GrassCoverErosionOutwardsWaveConditionsOutputEntityId],
 	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
 	[Order],
@@ -385,7 +385,7 @@ INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity (
 SELECT 
 	[GrassCoverErosionOutwardsWaveConditionsOutputEntityId],
 	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
-	[Order],
+	output.[Order],
 	2,
 	[WaterLevel],
 	[WaveHeight],
@@ -397,7 +397,30 @@ SELECT
 	[CalculatedProbability],
 	[CalculatedReliability],
 	[CalculationConvergence]
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity output
+JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
+WHERE ForeshoreProfileEntityId IS NULL 
+UNION
+SELECT 
+	[GrassCoverErosionOutwardsWaveConditionsOutputEntityId],
+	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+	output.[Order],
+	2,
+	[WaterLevel],
+	[WaveHeight],
+	[WavePeakPeriod],
+	[WaveAngle],
+	[WaveDirection],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence]
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity output
+JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
+JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;

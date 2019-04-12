@@ -305,26 +305,22 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsOutput(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateOutputs =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity) " +
-                "FROM GrassCoverErosionOutwardsWaveConditionsOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity OLD USING(GrassCoverErosionOutwardsWaveConditionsOutputEntityId) " +
-                "WHERE NEW.[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId] = OLD.[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId] " +
-                "AND NEW.\"Order\" = OLD.\"Order\" " +
-                "AND NEW.[OutputType] = 2 " +
-                "AND NEW.[WaterLevel] IS OLD.[WaterLevel] " +
-                "AND NEW.[WaveHeight] IS OLD.[WaveHeight] " +
-                "AND NEW.[WavePeakPeriod] IS OLD.[WavePeakPeriod] " +
-                "AND NEW.[WaveAngle] IS OLD.[WaveAngle] " +
-                "AND NEW.[WaveDirection] IS OLD.[WaveDirection] " +
-                "AND NEW.[TargetProbability] IS OLD.[TargetProbability] " +
-                "AND NEW.[TargetReliability] IS OLD.[TargetReliability] " +
-                "AND NEW.[CalculatedProbability] IS OLD.[CalculatedProbability] " +
-                "AND NEW.[CalculatedReliability] IS OLD.[CalculatedReliability] " +
-                "AND NEW.[CalculationConvergence] = OLD.[CalculationConvergence]; " +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateOutputs);
+            const string outputCriteria = "NEW.\"Order\" = OLD.\"Order\" " +
+                                          "AND NEW.[OutputType] = 2 " +
+                                          "AND NEW.[WaterLevel] IS OLD.[WaterLevel] " +
+                                          "AND NEW.[WaveHeight] IS OLD.[WaveHeight] " +
+                                          "AND NEW.[WavePeakPeriod] IS OLD.[WavePeakPeriod] " +
+                                          "AND NEW.[WaveAngle] IS OLD.[WaveAngle] " +
+                                          "AND NEW.[WaveDirection] IS OLD.[WaveDirection] " +
+                                          "AND NEW.[TargetProbability] IS OLD.[TargetProbability] " +
+                                          "AND NEW.[TargetReliability] IS OLD.[TargetReliability] " +
+                                          "AND NEW.[CalculatedProbability] IS OLD.[CalculatedProbability] " +
+                                          "AND NEW.[CalculatedReliability] IS OLD.[CalculatedReliability] " +
+                                          "AND NEW.[CalculationConvergence] = OLD.[CalculationConvergence]";
+            AssertOutputsFromCalculationsWithForeshoreProfiles(reader, sourceFilePath,
+                                                               "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
+                                                               "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
+                                                               outputCriteria);
         }
 
         private static void AssertForeshoreProfile(MigratedDatabaseReader reader, string sourceFilePath)
@@ -924,7 +920,6 @@ namespace Riskeer.Migration.Integration.Test
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
-                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
                 "GrassCoverSlipOffInwardsSectionResultEntity",
                 "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
