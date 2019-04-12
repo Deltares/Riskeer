@@ -298,7 +298,9 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
                 "AND NEW.[StepSize] = OLD.[StepSize] " +
                 "AND NEW.[CategoryType] = OLD.[CategoryType] " +
-                "AND ((HasOutput = 1 AND NEW.[CalculationType] = 2) OR (HasOutput = 0 AND NEW.[CalculationType] = 3)); " +
+                "AND ((HasOutput = 1 AND HasValidForeshore = 1 AND NEW.[CalculationType] = 2)" +
+                "OR (HasOutput = 1 AND HasValidForeshore = 0 AND NEW.[CalculationType] = 3) " +
+                "OR (HasOutput = 0 AND NEW.[CalculationType] = 3)); " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculationsWithForeshoreProfile);
         }

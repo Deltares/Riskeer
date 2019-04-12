@@ -340,7 +340,7 @@ SELECT
 	[StepSize],
 	[CategoryType],
 	CASE
-		WHEN [HasOutput] = 1 
+		WHEN [HasOutput] = 1  AND (ValidForeshoreProfile = 1 OR ValidForeshoreProfile IS NULL)
 			THEN 2
 		ELSE 3
 	END
