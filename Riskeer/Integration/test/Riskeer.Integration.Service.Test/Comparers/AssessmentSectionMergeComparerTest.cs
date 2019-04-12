@@ -113,22 +113,16 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Compare_AssessmentSectionWithEquivalentHydraulicBoundaryLocationConfigurationSettings_ReturnsTrue(bool hydraulicLocationConfigurationSettingsSet)
+        public void Compare_AssessmentSectionWithEquivalentHydraulicBoundaryLocationConfigurationSettings_ReturnsTrue()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
+            SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                    "FilePath1");
+
             AssessmentSection otherAssessmentSection = CreateAssessmentSection();
-
-            if (hydraulicLocationConfigurationSettingsSet)
-            {
-                SetHydraulicLocationConfigurationValues(assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                        "FilePath1");
-
-                SetHydraulicLocationConfigurationValues(otherAssessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
-                                                        "FilePath2");
-            }
+            SetHydraulicLocationConfigurationValues(otherAssessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings,
+                                                    "FilePath2");
 
             var comparer = new AssessmentSectionMergeComparer();
 
@@ -140,8 +134,8 @@ namespace Riskeer.Integration.Service.Test.Comparers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetUnequivalentAssessmentSectionWithHydraulicLocationConfigurationSettingsTestCases))]
-        public void Compare_AssessmentSectionNotEquivalentWitHydraulicBoundaryLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        [TestCaseSource(nameof(GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettingsTestCases))]
+        public void Compare_AssessmentSectionWithNotEquivalentHydraulicBoundaryLocationConfigurationSettings_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -228,7 +222,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    "Composition");
         }
 
-        private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionWithHydraulicLocationConfigurationSettingsTestCases()
+        private static IEnumerable<TestCaseData> GetAssessmentSectionWithNotEquivalentHydraulicLocationConfigurationSettingsTestCases()
         {
             foreach (ChangePropertyData<HydraulicLocationConfigurationSettings> changeSingleDataProperty in ChangeSingleDataOfHydraulicLocationConfigurationSettings())
             {
