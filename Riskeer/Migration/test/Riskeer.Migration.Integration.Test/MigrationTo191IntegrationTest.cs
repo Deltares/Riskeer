@@ -71,7 +71,10 @@ namespace Riskeer.Migration.Integration.Test
                     AssertGrassCoverErosionOutwardsWaveConditionsOutput(reader, sourceFilePath);
 
                     AssertStabilityStoneCoverWaveConditionsCalculations(reader, sourceFilePath);
+                    AssertStabilityStoneCoverWaveConditionsOutput(reader, sourceFilePath);
+
                     AssertWaveImpactAsphaltCoverWaveConditionsCalculations(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverWaveConditionsOutput(reader, sourceFilePath);
 
                     AssertHeightStructuresCalculation(reader, sourceFilePath);
                     AssertHeightStructuresOutput(reader, sourceFilePath);
@@ -390,6 +393,26 @@ namespace Riskeer.Migration.Integration.Test
             AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
         }
 
+        private static void AssertStabilityStoneCoverWaveConditionsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string outputCriteria = "NEW.\"Order\" = OLD.\"Order\" " +
+                                          "AND NEW.[OutputType] = OLD.[OutputType] " +
+                                          "AND NEW.[WaterLevel] IS OLD.[WaterLevel] " +
+                                          "AND NEW.[WaveHeight] IS OLD.[WaveHeight] " +
+                                          "AND NEW.[WavePeakPeriod] IS OLD.[WavePeakPeriod] " +
+                                          "AND NEW.[WaveAngle] IS OLD.[WaveAngle] " +
+                                          "AND NEW.[WaveDirection] IS OLD.[WaveDirection] " +
+                                          "AND NEW.[TargetProbability] IS OLD.[TargetProbability] " +
+                                          "AND NEW.[TargetReliability] IS OLD.[TargetReliability] " +
+                                          "AND NEW.[CalculatedProbability] IS OLD.[CalculatedProbability] " +
+                                          "AND NEW.[CalculatedReliability] IS OLD.[CalculatedReliability] " +
+                                          "AND NEW.[CalculationConvergence] = OLD.[CalculationConvergence]";
+            AssertOutputsFromCalculationsWithForeshoreProfiles(reader, sourceFilePath,
+                                                               "StabilityStoneCoverWaveConditionsOutputEntity",
+                                                               "StabilityStoneCoverWaveConditionsCalculationEntity",
+                                                               outputCriteria);
+        }
+
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
         {
             const string calculationEntityName = "StabilityStoneCoverWaveConditionsCalculationEntity";
@@ -424,6 +447,25 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[CategoryType] =  OLD.[CategoryType]; ";
 
             AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverWaveConditionsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string outputCriteria = "NEW.\"Order\" = OLD.\"Order\" " +
+                                          "AND NEW.[WaterLevel] IS OLD.[WaterLevel] " +
+                                          "AND NEW.[WaveHeight] IS OLD.[WaveHeight] " +
+                                          "AND NEW.[WavePeakPeriod] IS OLD.[WavePeakPeriod] " +
+                                          "AND NEW.[WaveAngle] IS OLD.[WaveAngle] " +
+                                          "AND NEW.[WaveDirection] IS OLD.[WaveDirection] " +
+                                          "AND NEW.[TargetProbability] IS OLD.[TargetProbability] " +
+                                          "AND NEW.[TargetReliability] IS OLD.[TargetReliability] " +
+                                          "AND NEW.[CalculatedProbability] IS OLD.[CalculatedProbability] " +
+                                          "AND NEW.[CalculatedReliability] IS OLD.[CalculatedReliability] " +
+                                          "AND NEW.[CalculationConvergence] = OLD.[CalculationConvergence]";
+            AssertOutputsFromCalculationsWithForeshoreProfiles(reader, sourceFilePath,
+                                                               "WaveImpactAsphaltCoverWaveConditionsOutputEntity",
+                                                               "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
+                                                               outputCriteria);
         }
 
         private static void AssertHeightStructuresCalculation(MigratedDatabaseReader reader, string sourceFilePath)
@@ -927,7 +969,6 @@ namespace Riskeer.Migration.Integration.Test
                 "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
-                "StabilityStoneCoverWaveConditionsOutputEntity",
                 "StochastEntity",
                 "StochasticSoilModelEntity",
                 "StrengthStabilityLengthwiseConstructionSectionResultEntity",
@@ -942,7 +983,6 @@ namespace Riskeer.Migration.Integration.Test
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
                 "WaveImpactAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
-                "WaveImpactAsphaltCoverWaveConditionsOutputEntity"
             };
 
             foreach (string table in tables)
