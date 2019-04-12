@@ -451,7 +451,7 @@ SELECT
 	asfm.[AssessmentSectionId],
 	asfm.[AssessmentSectionName],
 	0,
-	"Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."
+	"Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."
 FROM HydraulicBoundaryDatabaseEntity
 JOIN AssessmentSectionEntity AS ase USING(AssessmentSectionEntityId)
 JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[AssessmentSectionId] = ase.AssessmentSectionEntityId;

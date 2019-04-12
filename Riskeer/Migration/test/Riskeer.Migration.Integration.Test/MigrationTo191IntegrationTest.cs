@@ -425,21 +425,21 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'WithHydraulicDatabase'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'StabilityStoneCoverCalculations'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "* Traject: 'GrassCoverErosionOutwardsCalculations'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt."),
+                    new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
                     messages[i]);
             }
         }
