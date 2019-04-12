@@ -74,8 +74,13 @@ namespace Riskeer.Migration.Integration.Test
                     AssertWaveImpactAsphaltCoverWaveConditionsCalculations(reader, sourceFilePath);
 
                     AssertHeightStructuresCalculation(reader, sourceFilePath);
+                    AssertHeightStructuresOutput(reader, sourceFilePath);
+
                     AssertClosingStructuresCalculation(reader, sourceFilePath);
+                    AssertClosingStructuresOutput(reader, sourceFilePath);
+
                     AssertStabilityPointStructuresCalculations(reader, sourceFilePath);
+                    AssertStabilityPointStructuresOutput(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -481,6 +486,17 @@ namespace Riskeer.Migration.Integration.Test
             AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
         }
 
+        private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string outputCriteria = "NEW.[HeightStructuresCalculationEntityId] = OLD.[HeightStructuresCalculationEntityId] " +
+                                          "AND NEW.[GeneralResultFaultTreeIllustrationPointEntityId] IS OLD.[GeneralResultFaultTreeIllustrationPointEntityId] " +
+                                          "AND NEW.[Reliability] IS OLD.[Reliability]";
+            AssertOutputsFromCalculationsWithForeshoreProfiles(reader, sourceFilePath,
+                                                               "HeightStructuresOutputEntity",
+                                                               "HeightStructuresCalculationEntity",
+                                                               outputCriteria);
+        }
+
         private static void AssertClosingStructuresCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             const string calculationEntityName = "ClosingStructuresCalculationEntity";
@@ -567,6 +583,17 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated]; ";
 
             AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
+        }
+
+        private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string outputCriteria = "NEW.[ClosingStructuresCalculationEntityId] = OLD.[ClosingStructuresCalculationEntityId] " +
+                                          "AND NEW.[GeneralResultFaultTreeIllustrationPointEntityId] IS OLD.[GeneralResultFaultTreeIllustrationPointEntityId] " +
+                                          "AND NEW.[Reliability] IS OLD.[Reliability]";
+            AssertOutputsFromCalculationsWithForeshoreProfiles(reader, sourceFilePath,
+                                                               "ClosingStructuresOutputEntity",
+                                                               "ClosingStructuresCalculationEntity",
+                                                               outputCriteria);
         }
 
         private static void AssertStabilityPointStructuresCalculations(MigratedDatabaseReader reader, string sourceFilePath)
@@ -695,6 +722,17 @@ namespace Riskeer.Migration.Integration.Test
             AssertCalculationsWithInvalidForeshoreProfile(reader, sourceFilePath, calculationEntityName, invalidForeshoreProfileCriteria);
         }
 
+        private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string outputCriteria = "NEW.[StabilityPointStructuresCalculationEntityId] = OLD.[StabilityPointStructuresCalculationEntityId] " +
+                                          "AND NEW.[GeneralResultFaultTreeIllustrationPointEntityId] IS OLD.[GeneralResultFaultTreeIllustrationPointEntityId] " +
+                                          "AND NEW.[Reliability] IS OLD.[Reliability]";
+            AssertOutputsFromCalculationsWithForeshoreProfiles(reader, sourceFilePath,
+                                                               "StabilityPointStructuresOutputEntity",
+                                                               "StabilityPointStructuresCalculationEntity",
+                                                               outputCriteria);
+        }
+
         private static void AssertCalculationsWithValidForeshoreProfile(MigratedDatabaseReader reader,
                                                                         string sourceFilePath,
                                                                         string calculationEntityName,
@@ -774,6 +812,39 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateCalculationsWithInvalidForeshoreProfiles);
         }
 
+        private static void AssertOutputsFromCalculationsWithForeshoreProfiles(MigratedDatabaseReader reader,
+                                                                               string sourceFilePath,
+                                                                               string outputEntityName,
+                                                                               string calculationEntityName,
+                                                                               string criteria)
+        {
+            string validateOutput =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT()" +
+                "FROM " +
+                "(" +
+                $"SELECT {outputEntityName}Id " +
+                $"FROM [SOURCEPROJECT].{outputEntityName} " +
+                $"JOIN [SOURCEPROJECT].{calculationEntityName} USING({calculationEntityName}Id) " +
+                "JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId) " +
+                "WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / " +
+                "(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 " +
+                "UNION " +
+                $"SELECT {outputEntityName}Id " +
+                $"FROM [SOURCEPROJECT].{outputEntityName} " +
+                $"JOIN [SOURCEPROJECT].{calculationEntityName} USING({calculationEntityName}Id) " +
+                "WHERE ForeshoreProfileEntityId IS NULL " +
+                ") " +
+                ") " +
+                $"FROM {outputEntityName} NEW " +
+                $"JOIN [SOURCEPROJECT].{outputEntityName} OLD USING({outputEntityName}Id) " +
+                $"WHERE {criteria};" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string[] tables =
@@ -785,7 +856,6 @@ namespace Riskeer.Migration.Integration.Test
                 "ClosingStructureEntity",
                 "ClosingStructuresCalculationEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
-                "ClosingStructuresOutputEntity",
                 "ClosingStructuresSectionResultEntity",
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
@@ -818,7 +888,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HeightStructureEntity",
                 "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
-                "HeightStructuresOutputEntity",
                 "HeightStructuresSectionResultEntity",
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationEntity",
@@ -854,7 +923,6 @@ namespace Riskeer.Migration.Integration.Test
                 "StabilityPointStructureEntity",
                 "StabilityPointStructuresCalculationEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
-                "StabilityPointStructuresOutputEntity",
                 "StabilityPointStructuresSectionResultEntity",
                 "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverSectionResultEntity",

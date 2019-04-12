@@ -198,7 +198,30 @@ LEFT JOIN (
     FROM [SOURCEPROJECT].ForeshoreProfileEntity
 ) USING(ForeshoreProfileEntityId);
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
-INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO ClosingStructuresOutputEntity(
+    [ClosingStructuresOutputEntityId],
+    [ClosingStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability])
+SELECT 
+	[ClosingStructuresOutputEntityId],
+    [ClosingStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability]
+FROM [SOURCEPROJECT].ClosingStructuresOutputEntity
+JOIN [SOURCEPROJECT].ClosingStructuresCalculationEntity USING(ClosingStructuresCalculationEntityId)
+WHERE ForeshoreProfileEntityId IS NULL 
+UNION
+SELECT 
+    [ClosingStructuresOutputEntityId],
+    [ClosingStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability]
+FROM [SOURCEPROJECT].ClosingStructuresOutputEntity
+JOIN [SOURCEPROJECT].ClosingStructuresCalculationEntity USING(ClosingStructuresCalculationEntityId)
+JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
 INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
@@ -477,7 +500,30 @@ LEFT JOIN (
     FROM [SOURCEPROJECT].ForeshoreProfileEntity
 ) USING(ForeshoreProfileEntityId);
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
-INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO HeightStructuresOutputEntity(
+    [HeightStructuresOutputEntityId],
+    [HeightStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability])
+SELECT 
+	[HeightStructuresOutputEntityId],
+    [HeightStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability]
+FROM [SOURCEPROJECT].HeightStructuresOutputEntity
+JOIN [SOURCEPROJECT].HeightStructuresCalculationEntity USING(HeightStructuresCalculationEntityId)
+WHERE ForeshoreProfileEntityId IS NULL 
+UNION
+SELECT 
+    [HeightStructuresOutputEntityId],
+    [HeightStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability]
+FROM [SOURCEPROJECT].HeightStructuresOutputEntity
+JOIN [SOURCEPROJECT].HeightStructuresCalculationEntity USING(HeightStructuresCalculationEntityId)
+JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity;
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
@@ -721,7 +767,30 @@ LEFT JOIN (
     FROM [SOURCEPROJECT].ForeshoreProfileEntity
 ) USING(ForeshoreProfileEntityId);
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
-INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO StabilityPointStructuresOutputEntity(
+    [StabilityPointStructuresOutputEntityId],
+    [StabilityPointStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability])
+SELECT 
+	[StabilityPointStructuresOutputEntityId],
+    [StabilityPointStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability]
+FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity
+JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity USING(StabilityPointStructuresCalculationEntityId)
+WHERE ForeshoreProfileEntityId IS NULL 
+UNION
+SELECT 
+    [StabilityPointStructuresOutputEntityId],
+    [StabilityPointStructuresCalculationEntityId],
+    [GeneralResultFaultTreeIllustrationPointEntityId],
+    [Reliability]
+FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity
+JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity USING(StabilityPointStructuresCalculationEntityId)
+JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
