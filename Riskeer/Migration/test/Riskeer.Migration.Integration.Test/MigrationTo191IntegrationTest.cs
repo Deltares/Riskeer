@@ -69,6 +69,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertPipingSoilLayers(reader);
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
+                    AssertGrassCoverErosionInwardsOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
                     AssertGrassCoverErosionOutwardsWaveConditionsOutput(reader, sourceFilePath);
@@ -324,6 +325,33 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculationsWithValidDikeProfile);
+        }
+
+        private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateOutputs =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                "JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId) " +
+                "WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / " +
+                "(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) > 1 " +
+                "AND (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) " +
+                "/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 " +
+                ") " +
+                "FROM GrassCoverErosionInwardsOutputEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity OLD USING(GrassCoverErosionInwardsOutputEntityId) " +
+                "WHERE NEW.[GrassCoverErosionInwardsCalculationEntityId] = OLD.[GrassCoverErosionInwardsCalculationEntityId] " +
+                "AND NEW.[GeneralResultFaultTreeIllustrationPointEntityId] IS OLD.[GeneralResultFaultTreeIllustrationPointEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[IsOvertoppingDominant] IS OLD.[IsOvertoppingDominant] " +
+                "AND NEW.[WaveHeight] IS OLD.[WaveHeight] " +
+                "AND NEW.[Reliability] IS OLD.[Reliability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputs);
         }
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1064,7 +1092,6 @@ namespace Riskeer.Migration.Integration.Test
                 "GrassCoverErosionInwardsCalculationEntity",
                 "GrassCoverErosionInwardsDikeHeightOutputEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionInwardsOutputEntity",
                 "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
                 "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",

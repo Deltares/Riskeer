@@ -1755,6 +1755,26 @@ SELECT "18.1",
 
 DETACH LOGDATABASE;
 
-DETACH SOURCEPROJECT;
-
 PRAGMA foreign_keys = ON;
+
+/*
+ Delete all output entries that were calculated with invalid dikeprofiles or foreshoreprofiles
+ Deletion is performed at this stage to prevent orphaned entries in the database after migration 
+*/ 
+DELETE
+FROM GrassCoverErosionInwardsOutputEntity
+WHERE GrassCoverErosionInwardsOutputEntityId IN 
+(
+	SELECT 
+		[GrassCoverErosionInwardsOutputEntityId]
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity USING(GrassCoverErosionInwardsCalculationEntityId)
+	JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId)
+	WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2
+	OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
+	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1
+);
+
+
+DETACH SOURCEPROJECT;
