@@ -999,7 +999,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(18, messages.Count);
+                Assert.AreEqual(42, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
@@ -1061,6 +1061,78 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel en de uitvoer zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel en de uitvoer zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel en de uitvoer zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie buitentalud'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel en de uitvoer zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel en de uitvoer zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore - No Output' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshore' maakt gebruik van ongeldig voorlandprofiel 'InvalidForeshoreProfile.' De schematisatie van het voorlandprofiel en de uitvoer zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Voorlandprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."),
                     messages[i]);
             }
         }

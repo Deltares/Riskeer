@@ -347,12 +347,12 @@ SELECT
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity
 JOIN (
 	SELECT 
-	    [GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
-	    CASE 
+		[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+		CASE 
 			WHEN GrassCoverErosionOutwardsWaveConditionsOutputEntityId IS NOT NULL
 				THEN 1
 			ELSE 0 
-	    END AS HasOutput
+		END AS HasOutput
 	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity
 	LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
 	GROUP BY GrassCoverErosionOutwardsWaveConditionsCalculationEntityId
@@ -1233,7 +1233,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde '" || source.[BelowPhreaticLevelMean] ||  "' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[BelowPhreaticLevelMean] ||	 "' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
@@ -1271,6 +1271,204 @@ SELECT
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[PermeabilityMean] IS NOT psl.[PermeabilityMean];
+
+/* 
+Write logs related to validation of foreshore and dike profiles
+*/
+-- List all deleted foreshore profile entities
+CREATE TEMP TABLE InvalidForeshoreProfileEntities
+(
+	'ForeshoreProfileEntityId' INTEGER NOT NULL PRIMARY KEY,
+	'ForeshoreProfileName' TEXT NOT NULL,
+	'FailureMechanismEntityId' INTEGER NOT NULL
+);
+
+INSERT INTO InvalidForeshoreProfileEntities (
+	[ForeshoreProfileEntityId],
+	[ForeshoreProfileName],
+	[FailureMechanismEntityId])
+SELECT 
+	[ForeshoreProfileEntityId],
+	[Name],
+	[FailureMechanismEntityId]
+FROM [SOURCEPROJECT].ForeshoreProfileEntity
+WHERE 
+(LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', '')))
+/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1;
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Voorlandprofiel '" || source.[ForeshoreProfileName] ||"' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het voorlandprofiel is verwijderd."
+FROM InvalidForeshoreProfileEntities AS source
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId];
+
+-- List all calculations that make use of invalid foreshore profiles
+CREATE TEMP TABLE InvalidCalculationEntities
+(
+	'HasOutput' INTEGER NOT NULL,
+	'CalculationName' TEXT NOT NULL,
+	'ForeshoreProfileName' TEXT NOT NULL,
+	'FailureMechanismEntityId' INTEGER NOT NULL
+);
+
+INSERT INTO InvalidCalculationEntities(
+	[HasOutput],
+	[CalculationName],
+	[ForeshoreProfileName],
+	[FailureMechanismEntityId])
+SELECT
+	CASE 
+		WHEN ClosingStructuresOutputEntityId IS NULL
+			THEN 0
+		ELSE 1
+	END, 
+	calculation.Name,
+	ForeshoreProfileName,
+	FailureMechanismEntityId
+FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity calculation
+JOIN InvalidForeshoreProfileEntities USING(ForeshoreProfileEntityId)
+LEFT JOIN [SOURCEPROJECT].ClosingStructuresOutputEntity USING(ClosingStructuresCalculationEntityId);
+
+INSERT INTO InvalidCalculationEntities(
+	[HasOutput],
+	[CalculationName],
+	[ForeshoreProfileName],
+	[FailureMechanismEntityId])
+SELECT
+	CASE 
+		WHEN HeightStructuresOutputEntityId IS NULL
+			THEN 0
+		ELSE 1
+	END, 
+	calculation.Name,
+	ForeshoreProfileName,
+	FailureMechanismEntityId
+FROM [SOURCEPROJECT].HeightStructuresCalculationEntity calculation
+JOIN InvalidForeshoreProfileEntities USING(ForeshoreProfileEntityId)
+LEFT JOIN [SOURCEPROJECT].HeightStructuresOutputEntity USING(HeightStructuresCalculationEntityId);
+
+INSERT INTO InvalidCalculationEntities(
+	[HasOutput],
+	[CalculationName],
+	[ForeshoreProfileName],
+	[FailureMechanismEntityId])
+SELECT
+	CASE 
+		WHEN StabilityPointStructuresOutputEntityId IS NULL
+			THEN 0
+		ELSE 1
+	END, 
+	calculation.Name,
+	ForeshoreProfileName,
+	FailureMechanismEntityId
+FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity calculation
+JOIN InvalidForeshoreProfileEntities USING(ForeshoreProfileEntityId)
+LEFT JOIN [SOURCEPROJECT].StabilityPointStructuresOutputEntity USING(StabilityPointStructuresCalculationEntityId);
+
+INSERT INTO InvalidCalculationEntities(
+	[HasOutput],
+	[CalculationName],
+	[ForeshoreProfileName],
+	[FailureMechanismEntityId])
+SELECT
+	CASE 
+		WHEN HasOutput = 1
+			THEN 1
+		ELSE 0
+	END, 
+	calculation.Name,
+	ForeshoreProfileName,
+	FailureMechanismEntityId
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity calculation
+JOIN InvalidForeshoreProfileEntities USING(ForeshoreProfileEntityId)
+JOIN (
+	SELECT 
+		[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
+		CASE 
+			WHEN GrassCoverErosionOutwardsWaveConditionsOutputEntityId IS NOT NULL
+				THEN 1
+			ELSE 0 
+		END AS HasOutput
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+	LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
+	GROUP BY GrassCoverErosionOutwardsWaveConditionsCalculationEntityId
+) USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId);
+
+INSERT INTO InvalidCalculationEntities(
+	[HasOutput],
+	[CalculationName],
+	[ForeshoreProfileName],
+	[FailureMechanismEntityId])
+SELECT
+	CASE 
+		WHEN HasOutput = 1
+			THEN 1
+		ELSE 0
+	END, 
+	calculation.Name,
+	ForeshoreProfileName,
+	FailureMechanismEntityId
+FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity calculation
+JOIN InvalidForeshoreProfileEntities USING(ForeshoreProfileEntityId)
+JOIN (
+	SELECT 
+		[StabilityStoneCoverWaveConditionsCalculationEntityId],
+		CASE 
+			WHEN StabilityStoneCoverWaveConditionsOutputEntityId IS NOT NULL
+				THEN 1
+			ELSE 0 
+		END AS HasOutput
+	FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity
+	LEFT JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity USING(StabilityStoneCoverWaveConditionsCalculationEntityId)
+	GROUP BY StabilityStoneCoverWaveConditionsCalculationEntityId
+) USING(StabilityStoneCoverWaveConditionsCalculationEntityId);
+
+INSERT INTO InvalidCalculationEntities(
+	[HasOutput],
+	[CalculationName],
+	[ForeshoreProfileName],
+	[FailureMechanismEntityId])
+SELECT
+	CASE 
+		WHEN HasOutput = 1
+			THEN 1
+		ELSE 0
+	END, 
+	calculation.Name,
+	ForeshoreProfileName,
+	FailureMechanismEntityId
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity calculation
+JOIN InvalidForeshoreProfileEntities USING(ForeshoreProfileEntityId)
+JOIN (
+	SELECT 
+		[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
+		CASE 
+			WHEN WaveImpactAsphaltCoverWaveConditionsOutputEntityId IS NOT NULL
+				THEN 1
+			ELSE 0 
+		END AS HasOutput
+	FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+	LEFT JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId)
+	GROUP BY WaveImpactAsphaltCoverWaveConditionsCalculationEntityId
+) USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId);
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	CASE WHEN source.[HasOutput] = 1
+		THEN "Berekening '" || source.[CalculationName] || "' maakt gebruik van ongeldig voorlandprofiel '" || source.[ForeshoreProfileName] || ".' De schematisatie van het voorlandprofiel en de uitvoer zijn verwijderd."
+	ELSE 
+		"Berekening '" || source.[CalculationName] || "' maakt gebruik van ongeldig voorlandprofiel '" || source.[ForeshoreProfileName] || ".' De schematisatie van het voorlandprofiel is verwijderd."
+	END
+FROM InvalidCalculationEntities AS source
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId];
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
@@ -1404,6 +1602,8 @@ DROP TABLE TempFailureMechanisms;
 DROP TABLE TempAssessmentSectionFailureMechanism;
 DROP TABLE TempAssessmentSectionChanges;
 DROP TABLE TempChanges;
+DROP TABLE InvalidForeshoreProfileEntities;
+DROP TABLE InvalidCalculationEntities;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
