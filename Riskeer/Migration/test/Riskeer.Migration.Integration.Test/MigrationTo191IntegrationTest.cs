@@ -64,8 +64,11 @@ namespace Riskeer.Migration.Integration.Test
                     AssertBackgroundData(reader, sourceFilePath);
 
                     AssertForeshoreProfile(reader, sourceFilePath);
+                    AssertDikeProfile(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
+
+                    AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsWaveConditionsCalculations(reader, sourceFilePath);
                     AssertGrassCoverErosionOutwardsWaveConditionsOutput(reader, sourceFilePath);
@@ -175,6 +178,152 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[BackgroundDataType] = OLD.[BackgroundDataType]; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateBackgroundData);
+        }
+
+        private static void AssertDikeProfile(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateDikeProfile =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].DikeProfileEntity " +
+                "WHERE (LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / (LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) > 1 " +
+                "AND (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 " +
+                ")" +
+                "FROM DikeProfileEntity NEW " +
+                "JOIN [SOURCEPROJECT].DikeProfileEntity OLD USING(DikeProfileEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[Id] = OLD.[Id] " +
+                "AND NEW.[Name] = OLD.[Name] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[ForeshoreXml] = OLD.[ForeshoreXml] " +
+                "AND NEW.[DikeGeometryXml] = OLD.[DikeGeometryXml] " +
+                "AND NEW.[DikeHeight] = OLD.[DikeHeight] " +
+                "AND NEW.[X] IS OLD.[X] " +
+                "AND NEW.[Y] IS OLD.[Y] " +
+                "AND NEW.[X0] IS OLD.[X0] " +
+                "AND NEW.\"Order\" = OLD.\"Order\"; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateDikeProfile);
+        }
+
+        private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculationsWithoutDikeProfile =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity " +
+                "WHERE DikeProfileEntityId IS NULL " +
+                ")" +
+                "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                "WHERE OLD.DikeProfileEntityId IS NULL " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
+                "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[DikeHeightCalculationType] = OLD.[DikeHeightCalculationType] " +
+                "AND NEW.[DikeHeight] IS OLD.[DikeHeight] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[OvertoppingRateCalculationType] = OLD.[OvertoppingRateCalculationType] " +
+                "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationsWithoutDikeProfile);
+
+            string validateCalculationsWithInvalidDikeProfile =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity " +
+                "JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId) " +
+                "WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / " +
+                "(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2 " +
+                "OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) " +
+                "/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1 " +
+                ") " +
+                "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                "JOIN [SOURCEPROJECT].DikeProfileEntity dp WHERE OLD.DikeProfileEntityId = dp.DikeProfileEntityId " +
+                "AND((LENGTH(dp.DikeGeometryXml) - LENGTH(REPLACE(REPLACE(dp.DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / " +
+                "(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2 " +
+                "OR (LENGTH(dp.ForeshoreXML) - LENGTH(REPLACE(REPLACE(dp.ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', '')))  " +
+                "/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1) " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
+                "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
+                "AND NEW.[UseForeshore] = 0 " +
+                "AND NEW.[DikeHeightCalculationType] = OLD.[DikeHeightCalculationType] " +
+                "AND NEW.[DikeHeight] IS NULL " +
+                "AND NEW.[UseBreakWater] = 0 " +
+                "AND NEW.[BreakWaterType] = 3 " +
+                "AND NEW.[BreakWaterHeight] IS NULL " +
+                "AND NEW.[OvertoppingRateCalculationType] = OLD.[OvertoppingRateCalculationType] " +
+                "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationsWithInvalidDikeProfile);
+
+            string validateCalculationsWithValidDikeProfile =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity " +
+                "JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId) " +
+                "WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / " +
+                "(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) > 1 " +
+                "AND (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) " +
+                "/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 " +
+                ") " +
+                "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                "JOIN [SOURCEPROJECT].DikeProfileEntity dp WHERE OLD.DikeProfileEntityId = dp.DikeProfileEntityId " +
+                "AND((LENGTH(dp.DikeGeometryXml) - LENGTH(REPLACE(REPLACE(dp.DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / " +
+                "(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) > 1 " +
+                "AND (LENGTH(dp.ForeshoreXML) - LENGTH(REPLACE(REPLACE(dp.ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', '')))  " +
+                "/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1) " +
+                "AND NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
+                "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[DikeHeightCalculationType] = OLD.[DikeHeightCalculationType] " +
+                "AND NEW.[DikeHeight] IS OLD.[DikeHeight] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[OvertoppingRateCalculationType] = OLD.[OvertoppingRateCalculationType] " +
+                "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationsWithValidDikeProfile);
         }
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
@@ -897,7 +1046,6 @@ namespace Riskeer.Migration.Integration.Test
                 "ClosingStructuresCalculationEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
                 "ClosingStructuresSectionResultEntity",
-                "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
                 "DuneErosionSectionResultEntity",
                 "DuneLocationCalculationCollectionEntity",
@@ -979,7 +1127,7 @@ namespace Riskeer.Migration.Integration.Test
                 "WaterPressureAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
                 "WaveImpactAsphaltCoverSectionResultEntity",
-                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
+                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
             };
 
             foreach (string table in tables)

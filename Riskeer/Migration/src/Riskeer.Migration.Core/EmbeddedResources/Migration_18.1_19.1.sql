@@ -223,7 +223,63 @@ JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
 WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
 (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
 INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
-INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
+INSERT INTO DikeProfileEntity(
+	[DikeProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ForeshoreXml],
+	[DikeGeometryXml],
+	[DikeHeight],
+	[X],
+	[Y],
+	[X0],
+	[Order])
+SELECT
+	[DikeProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ForeshoreXml],
+	[DikeGeometryXml],
+	[DikeHeight],
+	[X],
+	[Y],
+	[X0],
+	[Order]
+FROM 
+(
+	SELECT
+		[DikeProfileEntityId],
+		[FailureMechanismEntityId],
+		[Id],
+		[Name],
+		[Orientation],
+		[BreakWaterType],
+		[BreakWaterHeight],
+		[ForeshoreXml],
+		[DikeGeometryXml],
+		[DikeHeight],
+		[X],
+		[Y],
+		[X0],
+		[Order],
+		CASE 
+			WHEN (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
+			/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 
+			AND (LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+		(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) > 1
+				THEN 1
+			ELSE 0
+		END AS HasValidDikeProfile
+	FROM [SOURCEPROJECT].DikeProfileEntity
+) WHERE HasValidDikeProfile = 1;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
 INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].DuneLocationCalculationCollectionEntity;
@@ -267,7 +323,87 @@ INSERT INTO GeneralResultFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEP
 INSERT INTO GeneralResultFaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
-INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
+INSERT INTO GrassCoverErosionInwardsCalculationEntity(
+	[GrassCoverErosionInwardsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[DikeProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[Orientation],
+	[CriticalFlowRateMean],
+	[CriticalFlowRateStandardDeviation],
+	[UseForeshore],
+	[DikeHeightCalculationType],
+	[DikeHeight],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[OvertoppingRateCalculationType],
+	[ShouldDikeHeightIllustrationPointsBeCalculated],
+	[ShouldOvertoppingRateIllustrationPointsBeCalculated],
+	[ShouldOvertoppingOutputIllustrationPointsBeCalculated])
+SELECT
+	[GrassCoverErosionInwardsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	CASE 
+		WHEN HasValidDikeProfile = 0 
+			THEN NULL
+		ELSE [DikeProfileEntityId]
+	END,
+	[Order],
+	[Name],
+	[Comments],
+	[Orientation],
+	[CriticalFlowRateMean],
+	[CriticalFlowRateStandardDeviation],
+	CASE 
+		WHEN HasValidDikeProfile = 0 
+			THEN 0
+		ELSE [UseForeshore]
+	END,
+	[DikeHeightCalculationType],
+	CASE 
+		WHEN HasValidDikeProfile = 0 
+			THEN NULL
+		ELSE [DikeHeight]
+	END,
+		CASE 
+		WHEN HasValidDikeProfile = 0
+			THEN 0
+		ELSE [UseBreakWater]
+	END,
+	CASE 
+		WHEN HasValidDikeProfile = 0
+			THEN 3
+		ELSE [BreakWaterType]
+	END,
+	CASE 
+		WHEN HasValidDikeProfile = 0 
+			THEN NULL
+		ELSE [BreakWaterHeight]
+	END,
+	[OvertoppingRateCalculationType],
+	[ShouldDikeHeightIllustrationPointsBeCalculated],
+	[ShouldOvertoppingRateIllustrationPointsBeCalculated],
+	[ShouldOvertoppingOutputIllustrationPointsBeCalculated]
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity
+LEFT JOIN
+(
+	SELECT 
+		DikeProfileEntityId,
+		CASE 
+			WHEN (LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+			(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) > 1 
+			AND (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+			(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1 
+				THEN 1
+			ELSE 0
+		END AS HasValidDikeProfile
+	FROM [SOURCEPROJECT].DikeProfileEntity
+) USING(DikeProfileEntityId);
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
