@@ -510,30 +510,7 @@ SELECT
 	[CalculatedProbability],
 	[CalculatedReliability],
 	[CalculationConvergence]
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity output
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
-WHERE ForeshoreProfileEntityId IS NULL 
-UNION
-SELECT 
-	[GrassCoverErosionOutwardsWaveConditionsOutputEntityId],
-	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
-	output.[Order],
-	2,
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeakPeriod],
-	[WaveAngle],
-	[WaveDirection],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity output
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
-JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity output;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
@@ -959,60 +936,7 @@ LEFT JOIN (
 		END AS ValidForeshoreProfile
 	FROM [SOURCEPROJECT].ForeshoreProfileEntity
 ) USING(ForeshoreProfileEntityId);
-INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity(
-	[StabilityStoneCoverWaveConditionsOutputEntityId],
-	[StabilityStoneCoverWaveConditionsCalculationEntityId],
-	[Order],
-	[OutputType],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeakPeriod],
-	[WaveAngle],
-	[WaveDirection],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence])
-SELECT 
-	[StabilityStoneCoverWaveConditionsOutputEntityId],
-	[StabilityStoneCoverWaveConditionsCalculationEntityId],
-	output.[Order],
-	[OutputType],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeakPeriod],
-	[WaveAngle],
-	[WaveDirection],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity output
-JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity USING(StabilityStoneCoverWaveConditionsCalculationEntityId)
-WHERE ForeshoreProfileEntityId IS NULL 
-UNION
-SELECT 
-	[StabilityStoneCoverWaveConditionsOutputEntityId],
-	[StabilityStoneCoverWaveConditionsCalculationEntityId],
-	output.[Order],
-	[OutputType],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeakPeriod],
-	[WaveAngle],
-	[WaveDirection],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity output
-JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity USING(StabilityStoneCoverWaveConditionsCalculationEntityId)
-JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
+INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
@@ -1109,57 +1033,7 @@ LEFT JOIN (
 		END AS ValidForeshoreProfile
 	FROM [SOURCEPROJECT].ForeshoreProfileEntity
 ) USING(ForeshoreProfileEntityId);
-INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity(
-	[WaveImpactAsphaltCoverWaveConditionsOutputEntityId],
-	[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
-	[Order],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeakPeriod],
-	[WaveAngle],
-	[WaveDirection],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence])
-SELECT 
-	[WaveImpactAsphaltCoverWaveConditionsOutputEntityId],
-	[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
-	output.[Order],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeakPeriod],
-	[WaveAngle],
-	[WaveDirection],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity output
-JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId)
-WHERE ForeshoreProfileEntityId IS NULL 
-UNION
-SELECT 
-	[WaveImpactAsphaltCoverWaveConditionsOutputEntityId],
-	[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
-	output.[Order],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeakPeriod],
-	[WaveAngle],
-	[WaveDirection],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity output
-JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId)
-JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1;
+INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
 /*
 Insert new data
@@ -1741,6 +1615,45 @@ WHERE StabilityPointStructuresOutputEntityId IN
 		[StabilityPointStructuresOutputEntityId]
 	FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity
 	JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity USING(StabilityPointStructuresCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM GrassCoverErosionOutwardsWaveConditionsOutputEntity
+WHERE GrassCoverErosionOutwardsWaveConditionsOutputEntityId IN 
+(
+	SELECT
+		[GrassCoverErosionOutwardsWaveConditionsOutputEntityId]
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM StabilityStoneCoverWaveConditionsOutputEntity
+WHERE StabilityStoneCoverWaveConditionsOutputEntityId IN 
+(
+	SELECT
+		[StabilityStoneCoverWaveConditionsOutputEntityId]
+	FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity
+	JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity USING(StabilityStoneCoverWaveConditionsCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM WaveImpactAsphaltCoverWaveConditionsOutputEntity
+WHERE WaveImpactAsphaltCoverWaveConditionsOutputEntityId IN 
+(
+	SELECT
+		[WaveImpactAsphaltCoverWaveConditionsOutputEntityId]
+	FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId)
 	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
 	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
 	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
