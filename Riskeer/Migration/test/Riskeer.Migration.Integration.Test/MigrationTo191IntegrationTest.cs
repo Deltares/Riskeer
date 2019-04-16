@@ -1174,7 +1174,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(42, messages.Count);
+                Assert.AreEqual(45, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
@@ -1229,6 +1229,15 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "  + Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Dijkprofiel 'InvalidDikeProfile' definieert geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Het dijkprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Dijkprofiel 'InvalidForeshoreProfile' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het dijkprofiel is verwijderd."),
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(

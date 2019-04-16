@@ -1216,6 +1216,55 @@ SELECT
 /* 
 Write logs related to validation of foreshore and dike profiles
 */
+
+-- List all deleted dike profile entities
+CREATE TEMP TABLE InvalidDikeProfileEntities
+(
+	'DikeProfileEntityId' INTEGER NOT NULL PRIMARY KEY,
+	'DikeProfileName' TEXT NOT NULL,
+	'HasValidDikeGeometry' TINYINT(1) NOT NULL,
+	'HasValidForeshoreGeometry' TINYINT(1) NOT NULL,
+	'FailureMechanismEntityId' INTEGER NOT NULL
+);
+
+INSERT INTO InvalidDikeProfileEntities(
+	[DikeProfileEntityId],
+	[DikeProfileName],
+	[HasValidDikeGeometry],
+	[HasValidForeshoreGeometry],
+	[FailureMechanismEntityId])
+SELECT
+	[DikeProfileEntityId],
+	[Name],
+	CASE WHEN (LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) > 1
+		THEN 1
+		ELSE 0
+	END,
+	CASE WHEN (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
+	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1
+		THEN 1 
+		ELSE 0
+	END,
+	[FailureMechanismEntityId]
+FROM [SOURCEPROJECT].DikeProfileEntity
+WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2
+OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
+	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1;
+
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	CASE WHEN HasValidDikeGeometry = 0 THEN "Dijkprofiel '" || source.[DikeProfileName] ||"' definieert geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Het dijkprofiel is verwijderd."
+		 ELSE "Dijkprofiel '" || source.[DikeProfileName] ||"' definieert geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Het dijkprofiel is verwijderd."
+	END
+FROM InvalidDikeProfileEntities AS source
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId];
+
 -- List all deleted foreshore profile entities
 CREATE TEMP TABLE InvalidForeshoreProfileEntities
 (
@@ -1224,7 +1273,7 @@ CREATE TEMP TABLE InvalidForeshoreProfileEntities
 	'FailureMechanismEntityId' INTEGER NOT NULL
 );
 
-INSERT INTO InvalidForeshoreProfileEntities (
+INSERT INTO InvalidForeshoreProfileEntities(
 	[ForeshoreProfileEntityId],
 	[ForeshoreProfileName],
 	[FailureMechanismEntityId])
@@ -1578,7 +1627,7 @@ WHERE GrassCoverErosionInwardsOutputEntityId IN
 	WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
 	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2
 	OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
-	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) != 1
+	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
 );
 
 DELETE 
