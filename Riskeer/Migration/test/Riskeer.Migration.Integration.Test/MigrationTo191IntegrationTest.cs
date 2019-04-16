@@ -1174,7 +1174,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(45, messages.Count);
+                Assert.AreEqual(48, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 19.1:"),
@@ -1232,6 +1232,15 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidDikeProfile' maakt gebruik van ongeldig dijkprofiel 'InvalidDikeProfile.' De schematisatie van het dijkprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshoreProfile - No Output' maakt gebruik van ongeldig dijkprofiel 'InvalidForeshoreProfile.' De schematisatie van het dijkprofiel is verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, "    - Berekening 'InvalidForeshoreProfile' maakt gebruik van ongeldig dijkprofiel 'InvalidForeshoreProfile.' De schematisatie van het dijkprofiel en de uitvoer zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "    - Dijkprofiel 'InvalidDikeProfile' definieert geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Het dijkprofiel is verwijderd."),

@@ -1265,6 +1265,21 @@ SELECT
 FROM InvalidDikeProfileEntities AS source
 JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId];
 
+INSERT INTO TempChanges
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	CASE WHEN GrassCoverErosionInwardsOutputEntityId IS NULL 
+		THEN "Berekening '" || source.[Name] || "' maakt gebruik van ongeldig dijkprofiel '" || [DikeProfileName] || ".' De schematisatie van het dijkprofiel is verwijderd."
+		ELSE  "Berekening '" || source.[Name] || "' maakt gebruik van ongeldig dijkprofiel '" || [DikeProfileName] || ".' De schematisatie van het dijkprofiel en de uitvoer zijn verwijderd."
+	END
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity source
+JOIN InvalidDikeProfileEntities USING(DikeProfileEntityId)
+LEFT JOIN [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity USING(GrassCoverErosionInwardsCalculationEntityId)
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId];
+
 -- List all deleted foreshore profile entities
 CREATE TEMP TABLE InvalidForeshoreProfileEntities
 (
