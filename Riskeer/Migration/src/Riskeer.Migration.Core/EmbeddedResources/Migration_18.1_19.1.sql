@@ -1073,6 +1073,135 @@ SELECT
 FROM SOURCEPROJECT.AssessmentSectionEntity
 WHERE [HydraulicDatabaseLocation] IS NOT NULL;
 
+/*
+ Delete all output entries that were calculated with invalid dikeprofiles or foreshoreprofiles
+ Deletion is performed at this stage to prevent orphaned entries in the database after migration 
+*/ 
+DELETE
+FROM GrassCoverErosionInwardsOutputEntity
+WHERE GrassCoverErosionInwardsOutputEntityId IN 
+(
+	SELECT 
+		[GrassCoverErosionInwardsOutputEntityId]
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity USING(GrassCoverErosionInwardsCalculationEntityId)
+	JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId)
+	WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2
+	OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
+	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE
+FROM GrassCoverErosionInwardsDikeHeightOutputEntity
+WHERE GrassCoverErosionInwardsDikeHeightOutputEntityId IN 
+(
+	SELECT 
+		[GrassCoverErosionInwardsDikeHeightOutputEntityId]
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity USING(GrassCoverErosionInwardsOutputEntityId)
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity USING(GrassCoverErosionInwardsCalculationEntityId)
+	JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId)
+	WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2
+	OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
+	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE
+FROM GrassCoverErosionInwardsOvertoppingRateOutputEntity
+WHERE GrassCoverErosionInwardsOvertoppingRateOutputEntityId IN 
+(
+	SELECT 
+		[GrassCoverErosionInwardsOvertoppingRateOutputEntityId]
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity USING(GrassCoverErosionInwardsOutputEntityId)
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity USING(GrassCoverErosionInwardsCalculationEntityId)
+	JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId)
+	WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
+	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2
+	OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
+	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM ClosingStructuresOutputEntity
+WHERE ClosingStructuresOutputEntityId IN 
+(
+	SELECT
+		[ClosingStructuresOutputEntityId]
+	FROM [SOURCEPROJECT].ClosingStructuresOutputEntity
+	JOIN [SOURCEPROJECT].ClosingStructuresCalculationEntity USING(ClosingStructuresCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM HeightStructuresOutputEntity
+WHERE HeightStructuresOutputEntityId IN 
+(
+	SELECT
+		[HeightStructuresOutputEntityId]
+	FROM [SOURCEPROJECT].HeightStructuresOutputEntity
+	JOIN [SOURCEPROJECT].HeightStructuresCalculationEntity USING(HeightStructuresCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM StabilityPointStructuresOutputEntity
+WHERE StabilityPointStructuresOutputEntityId IN 
+(
+	SELECT
+		[StabilityPointStructuresOutputEntityId]
+	FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity
+	JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity USING(StabilityPointStructuresCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM GrassCoverErosionOutwardsWaveConditionsOutputEntity
+WHERE GrassCoverErosionOutwardsWaveConditionsOutputEntityId IN 
+(
+	SELECT
+		[GrassCoverErosionOutwardsWaveConditionsOutputEntityId]
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM StabilityStoneCoverWaveConditionsOutputEntity
+WHERE StabilityStoneCoverWaveConditionsOutputEntityId IN 
+(
+	SELECT
+		[StabilityStoneCoverWaveConditionsOutputEntityId]
+	FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity
+	JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity USING(StabilityStoneCoverWaveConditionsCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
+DELETE 
+FROM WaveImpactAsphaltCoverWaveConditionsOutputEntity
+WHERE WaveImpactAsphaltCoverWaveConditionsOutputEntityId IN 
+(
+	SELECT
+		[WaveImpactAsphaltCoverWaveConditionsOutputEntityId]
+	FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId)
+	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
+	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
+	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
+);
+
 /* 
 Write migration logging
 */
@@ -1625,102 +1754,5 @@ SELECT "18.1",
 DETACH LOGDATABASE;
 
 PRAGMA foreign_keys = ON;
-
-/*
- Delete all output entries that were calculated with invalid dikeprofiles or foreshoreprofiles
- Deletion is performed at this stage to prevent orphaned entries in the database after migration 
-*/ 
-DELETE
-FROM GrassCoverErosionInwardsOutputEntity
-WHERE GrassCoverErosionInwardsOutputEntityId IN 
-(
-	SELECT 
-		[GrassCoverErosionInwardsOutputEntityId]
-	FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity
-	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity USING(GrassCoverErosionInwardsCalculationEntityId)
-	JOIN [SOURCEPROJECT].DikeProfileEntity USING(DikeProfileEntityId)
-	WHERE(LENGTH(DikeGeometryXml) - LENGTH(REPLACE(REPLACE(DikeGeometryXml, '<SerializableRoughnessPoint>', ''), '</SerializableRoughnessPoint>', ''))) / 
-	(LENGTH('<SerializableRoughnessPoint>') + LENGTH('</SerializableRoughnessPoint>')) < 2
-	OR (LENGTH(ForeshoreXML) - LENGTH(REPLACE(REPLACE(ForeshoreXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) 
-	/ (LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
-);
-
-DELETE 
-FROM ClosingStructuresOutputEntity
-WHERE ClosingStructuresOutputEntityId IN 
-(
-	SELECT
-		[ClosingStructuresOutputEntityId]
-	FROM [SOURCEPROJECT].ClosingStructuresOutputEntity
-	JOIN [SOURCEPROJECT].ClosingStructuresCalculationEntity USING(ClosingStructuresCalculationEntityId)
-	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
-);
-
-DELETE 
-FROM HeightStructuresOutputEntity
-WHERE HeightStructuresOutputEntityId IN 
-(
-	SELECT
-		[HeightStructuresOutputEntityId]
-	FROM [SOURCEPROJECT].HeightStructuresOutputEntity
-	JOIN [SOURCEPROJECT].HeightStructuresCalculationEntity USING(HeightStructuresCalculationEntityId)
-	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
-);
-
-DELETE 
-FROM StabilityPointStructuresOutputEntity
-WHERE StabilityPointStructuresOutputEntityId IN 
-(
-	SELECT
-		[StabilityPointStructuresOutputEntityId]
-	FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity
-	JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity USING(StabilityPointStructuresCalculationEntityId)
-	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
-);
-
-DELETE 
-FROM GrassCoverErosionOutwardsWaveConditionsOutputEntity
-WHERE GrassCoverErosionOutwardsWaveConditionsOutputEntityId IN 
-(
-	SELECT
-		[GrassCoverErosionOutwardsWaveConditionsOutputEntityId]
-	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity
-	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId)
-	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
-);
-
-DELETE 
-FROM StabilityStoneCoverWaveConditionsOutputEntity
-WHERE StabilityStoneCoverWaveConditionsOutputEntityId IN 
-(
-	SELECT
-		[StabilityStoneCoverWaveConditionsOutputEntityId]
-	FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity
-	JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity USING(StabilityStoneCoverWaveConditionsCalculationEntityId)
-	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
-);
-
-DELETE 
-FROM WaveImpactAsphaltCoverWaveConditionsOutputEntity
-WHERE WaveImpactAsphaltCoverWaveConditionsOutputEntityId IN 
-(
-	SELECT
-		[WaveImpactAsphaltCoverWaveConditionsOutputEntityId]
-	FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity
-	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId)
-	JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(ForeshoreProfileEntityId)
-	WHERE (LENGTH(GeometryXML) - LENGTH(REPLACE(REPLACE(GeometryXML, '<SerializablePoint2D>', ''), '</SerializablePoint2D>', ''))) / 
-	(LENGTH('<SerializablePoint2D>') + LENGTH('</SerializablePoint2D>')) = 1
-);
 
 DETACH SOURCEPROJECT;
