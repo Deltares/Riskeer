@@ -333,7 +333,11 @@ SELECT
 	[Order],
 	[Name],
 	[Comments],
-	[Orientation],
+	CASE 
+		WHEN HasValidDikeProfile = 0
+			THEN NULL
+		ELSE [Orientation]
+	END,
 	[CriticalFlowRateMean],
 	[CriticalFlowRateStandardDeviation],
 	CASE 

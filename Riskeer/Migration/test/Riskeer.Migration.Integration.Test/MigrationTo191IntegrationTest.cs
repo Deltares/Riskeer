@@ -270,7 +270,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
-                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[Orientation] IS NULL " +
                 "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
                 "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
                 "AND NEW.[UseForeshore] = 0 " +
