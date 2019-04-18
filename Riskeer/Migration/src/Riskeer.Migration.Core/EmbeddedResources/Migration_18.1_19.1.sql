@@ -449,7 +449,12 @@ SELECT
 		ELSE 
 			[UseForeshore]
 	END,
-	[Orientation],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[Orientation]
+	END,
 	[UpperBoundaryRevetment],
 	[LowerBoundaryRevetment],
 	[UpperBoundaryWaterLevels],
@@ -921,7 +926,12 @@ SELECT [StabilityStoneCoverWaveConditionsCalculationEntityId],
 		ELSE 
 			[UseForeshore]
 	END,
-	[Orientation],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[Orientation]
+	END,
 	[UpperBoundaryRevetment],
 	[LowerBoundaryRevetment],
 	[UpperBoundaryWaterLevels],
@@ -1019,7 +1029,12 @@ SELECT
 		ELSE 
 			[UseForeshore]
 	END,
-	[Orientation],
+	CASE 
+		WHEN ValidForeshoreProfile = 0
+			THEN NULL
+		ELSE 
+			[Orientation]
+	END,
 	[UpperBoundaryRevetment],
 	[LowerBoundaryRevetment],
 	[UpperBoundaryWaterLevels],

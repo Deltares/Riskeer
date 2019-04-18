@@ -399,6 +399,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
                 "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
                 "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
                 "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
@@ -468,7 +469,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND (HasValidForeshore = 1 AND NEW.[BreakWaterType] = OLD.[BreakWaterType]) OR (HasValidForeshore = 0 AND NEW.[BreakWaterType] = 3) " +
                 "AND (HasValidForeshore = 1 AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight]) OR (HasValidForeshore = 0 AND NEW.[BreakWaterHeight] IS NULL) " +
                 "AND (HasValidForeshore = 1 AND NEW.[UseForeshore] = OLD.[UseForeshore]) OR (HasValidForeshore = 0 AND NEW.[UseForeshore] = 0) " +
-                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND (HasValidForeshore = 1 AND NEW.[Orientation] IS OLD.[Orientation]) OR (HasValidForeshore = 0 AND NEW.[Orientation] IS NULL) " +
                 "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
                 "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
                 "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
@@ -556,7 +557,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
-                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[Orientation] IS NULL " +
                 "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
                 "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
                 "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
@@ -597,6 +598,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
                 "AND NEW.[UseBreakWater] =  OLD.[UseBreakWater] " +
                 "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
                 "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
@@ -613,7 +615,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.\"Order\" = OLD.\"Order\" " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
-                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[Orientation] IS NULL " +
                 "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
                 "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
                 "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
