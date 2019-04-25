@@ -170,7 +170,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_TwoDikeProfilesWithoutGeometries_TrueAndLogWarning()
+        public void Import_ThreeDikeProfilesWithInvalidDefinitions_TrueAndLogWarning()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
@@ -192,12 +192,15 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
             {
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoGeometry.prfl")}' wordt overgeslagen.",
+                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001DikeProfileNoGeometry.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),
-                Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel002NoGeometry.prfl")}' wordt overgeslagen.",
+                Tuple.Create($"Profielgegevens definiëren geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Bestand '{Path.Combine(fileDirectory, "profiel002DikeProfileOnePoint.prfl")}' wordt overgeslagen.",
+                             LogLevelConstant.Warn),
+                Tuple.Create("Profielgegevens definiëren geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten." +
+                             $" Bestand '{Path.Combine(fileDirectory, "profiel003DikeProfileValidForeshoreProfileInvalid.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 4);
             Assert.IsTrue(importResult);
             Assert.IsTrue(updateStrategy.Updated);
             Assert.AreEqual(5, updateStrategy.ReadDikeProfiles.Length);

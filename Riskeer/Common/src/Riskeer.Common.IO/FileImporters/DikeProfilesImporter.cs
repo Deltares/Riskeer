@@ -87,13 +87,26 @@ namespace Riskeer.Common.IO.FileImporters
 
         protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
         {
-            if (data.DikeGeometry.Any())
+            int numberOfDikeGeometryPoints = data.DikeGeometry.Length;
+            if (numberOfDikeGeometryPoints == 0)
             {
-                return true;
+                Log.WarnFormat(Resources.DikeProfilesImporter_No_dike_geometry_file_0_skipped, prflFilePath);
+                return false;
             }
 
-            Log.WarnFormat(Resources.DikeProfilesImporter_No_dike_geometry_file_0_skipped, prflFilePath);
-            return false;
+            if (numberOfDikeGeometryPoints == 1)
+            {
+                Log.WarnFormat(Resources.DikeProfilesImporter_Invalid_dike_geometry_file_0_skipped, prflFilePath);
+                return false;
+            }
+
+            if (data.ForeshoreGeometry.Length == 1)
+            {
+                Log.WarnFormat(Resources.ProfilesImporter_Invalid_foreshore_geometry_file_0_skipped, prflFilePath);
+                return false;
+            }
+
+            return true;
         }
 
         protected override void DoPostImportUpdates()

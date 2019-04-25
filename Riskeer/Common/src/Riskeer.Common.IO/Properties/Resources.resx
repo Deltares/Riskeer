@@ -870,4 +870,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>
   </data>
+  <data name="ProfilesImporter_Invalid_foreshore_geometry_file_0_skipped" xml:space="preserve">
+    <value>Profielgegevens definiëren geen geldige voorlandgeometrie. De voorlandgeometrie moet bestaan uit 0 of tenminste 2 punten. Bestand '{0}' wordt overgeslagen.</value>
+  </data>
+  <data name="DikeProfilesImporter_Invalid_dike_geometry_file_0_skipped" xml:space="preserve">
+    <value>Profielgegevens definiëren geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Bestand '{0}' wordt overgeslagen.</value>
+  </data>
 </root>

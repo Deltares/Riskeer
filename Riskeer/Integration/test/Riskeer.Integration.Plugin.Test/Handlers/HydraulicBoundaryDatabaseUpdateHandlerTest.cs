@@ -737,8 +737,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                hlcdFilePath);
 
             // Assert
-            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden " +
-                                           "conform WBI2017 voor de HLCD bestand informatie gebruikt.";
+            const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
+                                           "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
             HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;

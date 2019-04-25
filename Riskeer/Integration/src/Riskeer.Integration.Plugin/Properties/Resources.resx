@@ -230,7 +230,7 @@ Wilt u doorgaan?</value>
     <value>Hydraulische belastingendatabase</value>
   </data>
   <data name="HydraulicLocationConfigurationDatabaseUpdateHandler_Confirm_clear_hydraulicLocationConfigurationDatabase_dependent_data" xml:space="preserve">
-    <value>Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van al de berekeningen verwijderd worden.
+    <value>Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle berekeningen verwijderd worden.
 
 Wilt u doorgaan?</value>
   </data>
@@ -238,6 +238,6 @@ Wilt u doorgaan?</value>
     <value>Importeren van het HLCD bestand</value>
   </data>
   <data name="HydraulicLocationConfigurationSettingsUpdateHelper_ReadHydraulicLocationConfigurationDatabaseSettings_No_ScenarioInformation_entries_present" xml:space="preserve">
-    <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig, er worden standaardwaarden conform WBI2017 voor de HLCD bestand informatie gebruikt.</value>
+    <value>De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden conform WBI2017 gebruikt voor de HLCD bestandsinformatie.</value>
   </data>
 </root>
