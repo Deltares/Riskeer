@@ -52,7 +52,7 @@ namespace Riskeer.AssemblyTool.IO
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            TextWriter writer = null;
+            StreamWriter writer = null;
             try
             {
                 var serializer = new XmlSerializer(typeof(SerializableAssembly));

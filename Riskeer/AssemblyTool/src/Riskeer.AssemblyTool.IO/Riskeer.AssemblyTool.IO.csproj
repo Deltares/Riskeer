@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SerializableAssemblyReader.cs" />
     <Compile Include="SerializableAssemblyWriter.cs" />
   </ItemGroup>
   <ItemGroup>
