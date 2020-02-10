@@ -12,47 +12,92 @@ namespace Riskeer.AssemblyTool.IO
     /// <summary>
     /// Reader for reading data from a .gml file.
     /// </summary>
-    public static class SerializableAssemblyReader
+    public class SerializableAssemblyReader : IDisposable
     {
+        private bool disposed;
+        private StreamReader reader;
+        private readonly string filePath;
+
         /// <summary>
-        /// Reads a <see cref="SerializableAssembly"/> from a .gml file.
+        /// Creates a new instance of <see cref="SerializableAssemblyReader"/>.
         /// </summary>
         /// <param name="filePath">The path to the file.</param>
-        /// <returns>The read <see cref="SerializableAssembly"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when either:
         /// <list type="bullet">
+        /// <item><paramref name="filePath"/> is invalid.</item>
         /// <item><paramref name="filePath"/> points to a file that does not exist.</item>
-        /// <item>An unexpected error occurred when reading the file.</item>
         /// </list>
         /// </exception>
-        public static SerializableAssembly Read(string filePath)
+        public SerializableAssemblyReader(string filePath)
         {
-            IOUtils.ValidateFilePath(filePath);
-            if (!File.Exists(filePath))
-            {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(CoreCommonUtilResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message);
-            }
-
-            StreamReader reader = null;
-            var serializer = new XmlSerializer(typeof(SerializableAssembly));
-            
             try
             {
+                IOUtils.ValidateFilePath(filePath);
+
+                if (!File.Exists(filePath))
+                {
+                    string message = new FileReaderErrorMessageBuilder(filePath)
+                        .Build(CoreCommonUtilResources.Error_File_does_not_exist);
+                    throw new CriticalFileReadException(message);
+                }
+
+                this.filePath = filePath;
+
                 reader = new StreamReader(filePath);
-                return (SerializableAssembly) serializer.Deserialize(reader);
             }
-            catch (Exception e) when(e is IOException || e is InvalidOperationException)
+            catch (ArgumentException e)
+            {
+                throw new CriticalFileReadException(e.Message, e);
+            }
+            catch (IOException e)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, e);
             }
-            finally
+        }
+
+        /// <summary>
+        /// Reads a <see cref="SerializableAssembly"/> from a .gml file.
+        /// </summary>
+        /// <returns>The read <see cref="SerializableAssembly"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when an unexpected error
+        /// occurred when reading the file.</exception>
+        public SerializableAssembly Read()
+        {
+            var serializer = new XmlSerializer(typeof(SerializableAssembly));
+
+            try
             {
-                reader?.Close();
+                return (SerializableAssembly) serializer.Deserialize(reader);
             }
+            catch (InvalidOperationException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilResources.Error_General_IO_Import_ErrorMessage);
+                throw new CriticalFileReadException(message, e);
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (reader != null)
+            {
+                reader.Close();
+                reader.Dispose();
+                reader = null;
+            }
+
+            disposed = true;
         }
     }
 }
