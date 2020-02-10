@@ -88,6 +88,7 @@
     <Compile Include="Handlers\IHydraulicLocationConfigurationDatabaseUpdateHandler.cs" />
     <Compile Include="Helpers\ExportableFailureMechanismSectionHelper.cs" />
     <Compile Include="Helpers\IdentifierGenerator.cs" />
+    <Compile Include="Importers\AssemblyImporter.cs" />
     <Compile Include="Importers\HydraulicBoundaryDatabaseImporter.cs" />
     <Compile Include="Importers\HydraulicLocationConfigurationDatabaseImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
