@@ -40,7 +40,7 @@ namespace Demo.Riskeer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -78,6 +78,16 @@ namespace Demo.Riskeer.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AssemblyResultTotal {
+            get {
+                object obj = ResourceManager.GetObject("AssemblyResultTotal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -168,6 +178,15 @@ namespace Demo.Riskeer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblage.
+        /// </summary>
+        public static string General_Assembly {
+            get {
+                return ResourceManager.GetString("General_Assembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grafiek.
         /// </summary>
         public static string General_Chart {
@@ -210,6 +229,15 @@ namespace Demo.Riskeer.Properties {
             get {
                 object obj = ResourceManager.GetObject("map", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open een documentvenster met een assemblage kaart..
+        /// </summary>
+        public static string OpenAssemblyView_ToolTip {
+            get {
+                return ResourceManager.GetString("OpenAssemblyView_ToolTip", resourceCulture);
             }
         }
         

@@ -89,5 +89,10 @@ namespace Demo.Riskeer.Ribbons
         {
             openPointedTreeGraphViewCommand.Execute();
         }
+
+        private void OpenAssemblyViewButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

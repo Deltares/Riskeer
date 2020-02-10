@@ -276,4 +276,7 @@
     <None Include="Resources\folder-horizontal.png" />
     <None Include="Resources\folder-horizontal_large.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\assemblyresulttotal.png" />
+  </ItemGroup>
 </Project>

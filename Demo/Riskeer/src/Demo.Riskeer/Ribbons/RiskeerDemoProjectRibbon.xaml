@@ -29,7 +29,7 @@ All rights reserved.
              xmlns:resx="clr-namespace:Demo.Riskeer.Properties"
              xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="350">
+             d:DesignHeight="150" d:DesignWidth="450">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -55,6 +55,9 @@ All rights reserved.
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_FaultTree}" fluent:KeyTip.Keys="F">
                 <fluent:Button x:Name="OpenPointedTreeGraphViewButton" Header="{x:Static resx:Resources.General_FaultTree}" ToolTip="{x:Static resx:Resources.OpenFaultTree_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.FaultTreeIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="OpenPointedTreeGraphViewButton_OnClick" fluent:KeyTip.Keys="B"/>
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_Assembly}" fluent:KeyTip.Keys="A">
+                <fluent:Button x:Name="OpenAssemblyViewButton" Header="{x:Static resx:Resources.General_Assembly}" ToolTip="{x:Static resx:Resources.OpenAssemblyView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.AssemblyResultTotal}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="OpenAssemblyViewButton_OnClick"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

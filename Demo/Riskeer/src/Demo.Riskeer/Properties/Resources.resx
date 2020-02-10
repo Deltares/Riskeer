@@ -265,4 +265,13 @@
   <data name="OpenMapViewCommand_Execute_Wadden_two" xml:space="preserve">
     <value>Wadden 2</value>
   </data>
+  <data name="General_Assembly" xml:space="preserve">
+    <value>Assemblage</value>
+  </data>
+  <data name="OpenAssemblyView_ToolTip" xml:space="preserve">
+    <value>Open een documentvenster met een assemblage kaart.</value>
+  </data>
+  <data name="AssemblyResultTotal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\assemblyresulttotal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
