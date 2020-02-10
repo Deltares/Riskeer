@@ -15,9 +15,11 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +38,12 @@
     </Compile>
     <Compile Include="Ribbons\RiskeerDemoProjectRibbon.xaml.cs">
       <DependentUpon>RiskeerDemoProjectRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssemblyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyView.Designer.cs">
+      <DependentUpon>AssemblyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ChartDataView.cs">
       <SubType>UserControl</SubType>
@@ -153,6 +161,11 @@
       <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
+      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
+      <Name>Riskeer.Common.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
       <Name>Riskeer.Common.IO</Name>
@@ -225,6 +238,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\AssemblyView.resx">
+      <DependentUpon>AssemblyView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MapDataView.resx">
       <DependentUpon>MapDataView.cs</DependentUpon>
     </EmbeddedResource>
