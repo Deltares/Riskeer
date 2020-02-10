@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AddNewDemoAssessmentSectionCommand.cs" />
+    <Compile Include="Commands\OpenAssemblyViewCommand.cs" />
     <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Commands\OpenMapViewCommand.cs" />
     <Compile Include="Commands\OpenPointedTreeGraphViewCommand.cs" />

@@ -51,32 +51,10 @@ namespace Demo.Riskeer.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.riskeerMapControl = new RiskeerMapControl();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
-            this.splitContainer.Panel1.SuspendLayout();
-            this.splitContainer.Panel2.SuspendLayout();
-            this.splitContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // splitContainer
-            // 
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Enabled = false;
-            this.splitContainer.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer.Name = "splitContainer";
-            this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer.Panel1
-            // 
-            this.splitContainer.Panel1.Controls.Add(this.riskeerMapControl);
-            // 
-            // splitContainer.Panel2
-            // 
-            this.splitContainer.Panel2.Controls.Add(this.dataGridViewControl);
-            this.splitContainer.Size = new System.Drawing.Size(150, 150);
-            this.splitContainer.TabIndex = 0;
+            
             // 
             // riskeerMapControl
             // 
@@ -100,19 +78,15 @@ namespace Demo.Riskeer.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.splitContainer);
             this.Name = "AssemblyView";
-            this.splitContainer.Panel1.ResumeLayout(false);
-            this.splitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
-            this.splitContainer.ResumeLayout(false);
+            this.Controls.Add(this.riskeerMapControl);
+            this.Controls.Add(this.dataGridViewControl);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer;
         private RiskeerMapControl riskeerMapControl;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
     }

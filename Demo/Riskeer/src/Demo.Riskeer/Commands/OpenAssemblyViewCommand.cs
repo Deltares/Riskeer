@@ -19,22 +19,38 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
-using Core.Common.Controls.Views;
-using Core.Components.Gis.Data;
+using Core.Common.Controls.Commands;
+using Core.Common.Gui.Commands;
 using Riskeer.Common.Data.AssessmentSection;
 
-namespace Demo.Riskeer.Views
+namespace Demo.Riskeer.Commands
 {
-    public partial class AssemblyView : UserControl, IView
+    public class OpenAssemblyViewCommand : ICommand
     {
-        public AssemblyView(BackgroundData backgroundData)
-        {
-            InitializeComponent();
+        private readonly IViewCommands viewCommands;
 
-            riskeerMapControl.SetAllData(new MapDataCollection("test"), backgroundData);
+        /// <summary>
+        /// Creates a new instance of <see cref="OpenChartViewCommand"/>.
+        /// </summary>
+        /// <param name="viewCommands">The <see cref="IViewCommands"/> to use internally.</param>
+        public OpenAssemblyViewCommand(IViewCommands viewCommands)
+        {
+            this.viewCommands = viewCommands;
         }
 
-        public object Data { get; set; }
+        public bool Checked
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public void Execute()
+        {
+            var backgroundData = new BackgroundData(new WellKnownBackgroundDataConfiguration(RiskeerWellKnownTileSource.BingAerial));
+
+            viewCommands.OpenView(backgroundData);
+        }
     }
 }

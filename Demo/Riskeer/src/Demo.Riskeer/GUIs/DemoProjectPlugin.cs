@@ -29,6 +29,7 @@ using Core.Components.Stack.Data;
 using Demo.Riskeer.Properties;
 using Demo.Riskeer.Ribbons;
 using Demo.Riskeer.Views;
+using Riskeer.Common.Data.AssessmentSection;
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -71,6 +72,13 @@ namespace Demo.Riskeer.GUIs
             {
                 Image = Resources.FaultTreeIcon,
                 GetViewName = (v, o) => Resources.General_FaultTree
+            };
+
+            yield return new ViewInfo<BackgroundData, AssemblyView>
+            {
+                Image = Resources.AssemblyResultTotal,
+                GetViewName = (v, o) => Resources.General_Assembly,
+                CreateInstance = data => new AssemblyView(data)
             };
         }
     }

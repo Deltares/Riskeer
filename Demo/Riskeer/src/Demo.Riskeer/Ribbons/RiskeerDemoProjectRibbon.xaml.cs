@@ -39,7 +39,8 @@ namespace Demo.Riskeer.Ribbons
                                   openThematicMapViewCommand,
                                   openChartViewCommand,
                                   openStackChartViewCommand,
-                                  openPointedTreeGraphViewCommand;
+                                  openPointedTreeGraphViewCommand,
+                                  openAssemblyViewCommand;
 
         public RiskeerDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
         {
@@ -51,6 +52,7 @@ namespace Demo.Riskeer.Ribbons
             openThematicMapViewCommand = new OpenThematicalMapViewCommand(viewCommands);
             openStackChartViewCommand = new OpenStackChartViewCommand(viewCommands);
             openPointedTreeGraphViewCommand = new OpenPointedTreeGraphViewCommand(viewCommands);
+            openAssemblyViewCommand = new OpenAssemblyViewCommand(viewCommands);
         }
 
         public Ribbon GetRibbonControl()
@@ -92,7 +94,7 @@ namespace Demo.Riskeer.Ribbons
 
         private void OpenAssemblyViewButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            openAssemblyViewCommand.Execute();
         }
     }
 }
