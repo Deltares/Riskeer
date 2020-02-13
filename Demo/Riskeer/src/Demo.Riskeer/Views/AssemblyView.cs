@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.Gis.Data;
@@ -36,5 +37,10 @@ namespace Demo.Riskeer.Views
         }
 
         public object Data { get; set; }
+
+        private void ReadAssembly_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("click!");
+        }
     }
 }

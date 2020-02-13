@@ -5831,7 +5831,4 @@ Global
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1
 	EndGlobalSection
-	GlobalSection(NDepend) = preSolution
-		Project = ".\build\Riskeer.ndproj"
-	EndGlobalSection
 EndGlobal
