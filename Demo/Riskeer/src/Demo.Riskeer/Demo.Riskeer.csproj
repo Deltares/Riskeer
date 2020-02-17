@@ -152,6 +152,11 @@
       <Name>Core.Plugins.Chart</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\AssemblyTool\src\Riskeer.AssemblyTool.IO\Riskeer.AssemblyTool.IO.csproj">
+      <Project>{b9838495-b090-4b84-a387-a8974f4f9cc4}</Project>
+      <Name>Riskeer.AssemblyTool.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Riskeer.ClosingStructures.Data</Name>

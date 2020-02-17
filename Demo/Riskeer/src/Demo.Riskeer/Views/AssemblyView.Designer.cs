@@ -54,12 +54,13 @@ namespace Demo.Riskeer.Views
             this.riskeerMapControl = new RiskeerMapControl();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.readAssemblyButton = new System.Windows.Forms.Button();
+            this.buttonGroupBox = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             //
             // readAssemblyButton
             //
             this.readAssemblyButton.AutoSize = true;
-            this.readAssemblyButton.Enabled = false;
+            this.readAssemblyButton.Enabled = true;
             this.readAssemblyButton.Location = new System.Drawing.Point(3, 14);
             this.readAssemblyButton.Name = "readAssemblyButton";
             this.readAssemblyButton.Size = new System.Drawing.Size(164, 23);
@@ -68,12 +69,23 @@ namespace Demo.Riskeer.Views
             this.readAssemblyButton.UseVisualStyleBackColor = true;
             this.readAssemblyButton.Click += new System.EventHandler(this.ReadAssembly_Click);
             // 
+            // buttonGroupBox
+            // 
+            this.buttonGroupBox.Controls.Add(this.readAssemblyButton);
+            this.buttonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.buttonGroupBox.MinimumSize = new System.Drawing.Size(180, 43);
+            this.buttonGroupBox.Name = "buttonGroupBox";
+            this.buttonGroupBox.Size = new System.Drawing.Size(789, 43);
+            this.buttonGroupBox.TabIndex = 2;
+            this.buttonGroupBox.TabStop = false;
+            // 
             // riskeerMapControl
             // 
-            this.riskeerMapControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.riskeerMapControl.Location = new System.Drawing.Point(0, 0);
+            this.riskeerMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.riskeerMapControl.Location = new System.Drawing.Point(0, 43);
             this.riskeerMapControl.Name = "riskeerMapControl";
-            this.riskeerMapControl.Size = new System.Drawing.Size(150, 150);
+            this.riskeerMapControl.Size = new System.Drawing.Size(150, 50);
             this.riskeerMapControl.TabIndex = 0;
             // 
             // dataGridViewControl
@@ -91,7 +103,7 @@ namespace Demo.Riskeer.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "AssemblyView";
-            this.Controls.Add(this.readAssemblyButton);
+            this.Controls.Add(this.buttonGroupBox);
             this.Controls.Add(this.riskeerMapControl);
             this.Controls.Add(this.dataGridViewControl);
             this.ResumeLayout(false);
@@ -103,5 +115,6 @@ namespace Demo.Riskeer.Views
         private RiskeerMapControl riskeerMapControl;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.Button readAssemblyButton;
+        private System.Windows.Forms.GroupBox buttonGroupBox;
     }
 }

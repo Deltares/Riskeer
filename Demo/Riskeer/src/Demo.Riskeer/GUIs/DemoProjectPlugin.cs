@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
@@ -78,7 +79,7 @@ namespace Demo.Riskeer.GUIs
             {
                 Image = Resources.AssemblyResultTotal,
                 GetViewName = (v, o) => Resources.General_Assembly,
-                CreateInstance = data => new AssemblyView(data)
+                CreateInstance = data => new AssemblyView(data, new DialogBasedInquiryHelper(Gui.MainWindow))
             };
         }
     }
