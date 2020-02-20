@@ -48,6 +48,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int nPropertyIndex = 6;
         private const int waveRunUpPropertyIndex = 7;
         private const int waveImpactPropertyIndex = 8;
+        private const int tailorMadeWaveImpactPropertyIndex = 9;
 
         private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> propertyChangeHandler;
 
@@ -125,6 +126,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             return nameof(Contribution).Equals(propertyName)
                    || nameof(WaveRunUp).Equals(propertyName)
                    || nameof(WaveImpact).Equals(propertyName)
+                   || nameof(TailorMadeWaveImpact).Equals(propertyName)
                    || nameof(N).Equals(propertyName);
         }
 
@@ -225,6 +227,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                 return new GeneralWaveConditionsInputProperties
                 {
                     Data = data.GeneralInput.GeneralWaveImpactWaveConditionsInput
+                };
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(tailorMadeWaveImpactPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Description))]
+        public GeneralWaveConditionsInputProperties TailorMadeWaveImpact
+        {
+            get
+            {
+                return new GeneralWaveConditionsInputProperties
+                {
+                    Data = data.GeneralInput.GeneralTailorMadeWaveImpactWaveConditionsInput
                 };
             }
         }

@@ -46,6 +46,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             n = new RoundedDouble(numberOfDecimalPlacesN, 2.0);
             GeneralWaveImpactWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.67, 0.0);
             GeneralWaveRunUpWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 1.7, 0.3);
+            GeneralTailorMadeWaveImpactWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.67, 0.67);
         }
 
         /// <summary>
@@ -57,6 +58,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// Gets the general input parameter used in wave conditions calculations for wave run up.
         /// </summary>
         public GeneralWaveConditionsInput GeneralWaveRunUpWaveConditionsInput { get; }
+
+        /// <summary>
+        /// Gets the general input parameter used in wave conditions calculations for tailor made wave impact.
+        /// </summary>
+        public GeneralWaveConditionsInput GeneralTailorMadeWaveImpactWaveConditionsInput { get; }
 
         #region Probability assessment
 
