@@ -50,6 +50,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(1.0, generalWaveRunUpWaveConditionsInput.A, generalWaveRunUpWaveConditionsInput.A.GetAccuracy());
             Assert.AreEqual(1.7, generalWaveRunUpWaveConditionsInput.B, generalWaveRunUpWaveConditionsInput.B.GetAccuracy());
             Assert.AreEqual(0.3, generalWaveRunUpWaveConditionsInput.C, generalWaveRunUpWaveConditionsInput.C.GetAccuracy());
+
+            GeneralWaveConditionsInput generalTailorMadeWaveImpactWaveConditionsInput = inputParameters.GeneralTailorMadeWaveImpactWaveConditionsInput;
+            Assert.AreEqual(1.0, generalTailorMadeWaveImpactWaveConditionsInput.A, generalTailorMadeWaveImpactWaveConditionsInput.A.GetAccuracy());
+            Assert.AreEqual(0.67, generalTailorMadeWaveImpactWaveConditionsInput.B, generalTailorMadeWaveImpactWaveConditionsInput.B.GetAccuracy());
+            Assert.AreEqual(0.67, generalTailorMadeWaveImpactWaveConditionsInput.C, generalTailorMadeWaveImpactWaveConditionsInput.C.GetAccuracy());
         }
 
         [Test]
