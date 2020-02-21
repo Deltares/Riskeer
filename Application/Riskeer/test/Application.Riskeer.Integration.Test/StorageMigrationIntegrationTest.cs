@@ -26,6 +26,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Util;
@@ -38,7 +39,7 @@ using Riskeer.Storage.Core;
 namespace Application.Riskeer.Integration.Test
 {
     [TestFixture]
-    public class StorageMigrationIntegrationTest
+    public class StorageMigrationIntegrationTest : NUnitFormTest
     {
         private readonly string workingDirectory = TestHelper.GetScratchPadPath(nameof(StorageMigrationIntegrationTest));
         private DirectoryDisposeHelper directoryDisposeHelper;
@@ -57,6 +58,11 @@ namespace Application.Riskeer.Integration.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
+
+            DialogBoxHandler = (s, hWnd) =>
+            {
+                // Expect progress dialog, which will close automatically.
+            };
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
@@ -96,6 +102,11 @@ namespace Application.Riskeer.Integration.Test
                          .IgnoreArguments()
                          .Return(targetFilePath);
             mocks.ReplayAll();
+
+            DialogBoxHandler = (s, hWnd) =>
+            {
+                // Expect progress dialog, which will close automatically.
+            };
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
