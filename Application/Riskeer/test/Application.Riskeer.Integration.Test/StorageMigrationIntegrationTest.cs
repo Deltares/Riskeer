@@ -26,6 +26,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Util;
@@ -38,8 +39,7 @@ using Riskeer.Storage.Core;
 namespace Application.Riskeer.Integration.Test
 {
     [TestFixture]
-    [Ignore("Make the build server hang")]
-    public class StorageMigrationIntegrationTest
+    public class StorageMigrationIntegrationTest : NUnitFormTest
     {
         private readonly string workingDirectory = TestHelper.GetScratchPadPath(nameof(StorageMigrationIntegrationTest));
         private DirectoryDisposeHelper directoryDisposeHelper;
@@ -98,6 +98,11 @@ namespace Application.Riskeer.Integration.Test
                          .Return(targetFilePath);
             mocks.ReplayAll();
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity closes itself
+            };
+
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
@@ -131,6 +136,11 @@ namespace Application.Riskeer.Integration.Test
                          .Return(false);
             mocks.ReplayAll();
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Activity closes itself
+            };
+
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
@@ -148,14 +158,18 @@ namespace Application.Riskeer.Integration.Test
         }
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void OneTimeSetUp()
         {
+            Environment.SetEnvironmentVariable("UseHiddenDesktop", "TRUE");
+
             directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(StorageMigrationIntegrationTest));
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public void OneTimeTearDown()
         {
+            Environment.SetEnvironmentVariable("UseHiddenDesktop", "FALSE");
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
             directoryDisposeHelper.Dispose();
