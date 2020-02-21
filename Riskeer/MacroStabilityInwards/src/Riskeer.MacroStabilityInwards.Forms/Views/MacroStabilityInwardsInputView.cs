@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
-        private readonly MacroStabilityInwardsCalculationScenario data;
+        private MacroStabilityInwardsCalculationScenario data;
 
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
@@ -191,7 +191,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 return data;
             }
-            set {}
+            set
+            {
+                data = value as MacroStabilityInwardsCalculationScenario;
+            }
         }
 
         public IChartControl Chart
