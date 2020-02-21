@@ -26,7 +26,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Util;
@@ -39,7 +38,7 @@ using Riskeer.Storage.Core;
 namespace Application.Riskeer.Integration.Test
 {
     [TestFixture]
-    public class StorageMigrationIntegrationTest : NUnitFormTest
+    public class StorageMigrationIntegrationTest
     {
         private readonly string workingDirectory = TestHelper.GetScratchPadPath(nameof(StorageMigrationIntegrationTest));
         private DirectoryDisposeHelper directoryDisposeHelper;
@@ -59,17 +58,13 @@ namespace Application.Riskeer.Integration.Test
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
 
-            DialogBoxHandler = (s, hWnd) =>
-            {
-                // Expect progress dialog, which will close automatically.
-            };
-
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
-                gui.Run(targetFilePath);
+                gui.Run();
+                gui.StorageCommands.OpenExistingProject(targetFilePath);
 
                 // Then
                 Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
@@ -103,17 +98,13 @@ namespace Application.Riskeer.Integration.Test
                          .Return(targetFilePath);
             mocks.ReplayAll();
 
-            DialogBoxHandler = (s, hWnd) =>
-            {
-                // Expect progress dialog, which will close automatically.
-            };
-
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
-                gui.Run(sourceFilePath);
+                gui.Run();
+                gui.StorageCommands.OpenExistingProject(sourceFilePath);
 
                 // Then
                 Assert.AreEqual(targetFilePath, gui.ProjectFilePath);
@@ -146,7 +137,8 @@ namespace Application.Riskeer.Integration.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
-                gui.Run(sourceFilePath);
+                gui.Run();
+                gui.StorageCommands.OpenExistingProject(sourceFilePath);
 
                 // Then
                 Assert.IsNull(gui.ProjectFilePath);
