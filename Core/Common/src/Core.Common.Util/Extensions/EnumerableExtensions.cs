@@ -20,14 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Common.Util.Extensions
 {
     /// <summary>
-    /// This class defines extension methods for <see cref="IEnumerable"/> and <see cref="IEnumerable{T}"/>.
+    /// This class defines extension methods for <see cref="IEnumerable{T}"/>.
     /// </summary>
     public static class EnumerableExtensions
     {

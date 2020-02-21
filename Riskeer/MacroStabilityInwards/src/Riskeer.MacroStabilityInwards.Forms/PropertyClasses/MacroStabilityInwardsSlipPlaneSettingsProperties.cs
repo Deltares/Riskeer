@@ -29,13 +29,12 @@ using Core.Common.Util.Attributes;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of slip plane settings properties in <see cref="MacroStabilityInwardsInputContext"/> for properties panel.
+    /// ViewModel of slip plane settings properties in <see cref="MacroStabilityInwardsInput"/> for properties panel.
     /// </summary>
     public class MacroStabilityInwardsSlipPlaneSettingsProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
