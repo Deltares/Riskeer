@@ -190,7 +190,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
                                                                             modelSettingsCategory,
                                                                             "Golfklap voor toets op maat",
-                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed golfinvalshoek, voor toets op maat.",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat.",
                                                                             true);
 
             mockRepository.VerifyAll();
