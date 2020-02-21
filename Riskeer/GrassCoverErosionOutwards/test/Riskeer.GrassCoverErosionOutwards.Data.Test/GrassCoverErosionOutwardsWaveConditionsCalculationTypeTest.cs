@@ -42,7 +42,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                     },
                     {
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, 3
-                    }
+                    },
+                    {
+                    GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, 4
+                },
+                {
+                    GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, 5
+                },
+                {
+                    GrassCoverErosionOutwardsWaveConditionsCalculationType.All, 6
+                }
                 };
             }
         }
@@ -61,6 +70,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                     },
                     {
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, "Gras (golfoploop en golfklap)"
+                    },
+                    {
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Gras (golfklap voor toets op maat)"
+                    },
+                    {
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap voor toets op maat)"
+                    },
+                    {
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.All, "Gras (golfoploop, golfklap en golfklap voor toets op maat)"
                     }
                 };
             }
