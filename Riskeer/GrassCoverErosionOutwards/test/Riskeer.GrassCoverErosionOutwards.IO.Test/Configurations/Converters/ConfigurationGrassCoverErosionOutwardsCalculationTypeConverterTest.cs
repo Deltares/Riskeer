@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.Both, GrassCoverErosionOutwardsWaveConditionsCalculationType.Both)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.Both, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact)]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)]
         public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCalculationType_ReturnGrassCoverErosionOutwardsWaveConditionsCalculationType(
@@ -205,7 +205,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, ConfigurationGrassCoverErosionOutwardsCalculationType.Both)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, ConfigurationGrassCoverErosionOutwardsCalculationType.Both)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
         public void ConvertFrom_ValidGrassCoverErosionOutwardsWaveConditionsCalculationType_ReturnConfigurationGrassCoverErosionOutwardsCalculationType(

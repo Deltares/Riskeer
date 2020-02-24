@@ -190,7 +190,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                         Type = BreakWaterType.Caisson
                     },
                     CategoryType = expectedCategory,
-                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                 }
             };
 

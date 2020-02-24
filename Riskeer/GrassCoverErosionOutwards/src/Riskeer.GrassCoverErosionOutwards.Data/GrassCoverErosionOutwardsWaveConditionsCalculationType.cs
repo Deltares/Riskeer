@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// Calculate both the wave run up and wave impact.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationType_Both_DisplayName))]
-        Both = 3,
+        WaveRunUpAndWaveImpact = 3,
 
         /// <summary>
         /// Calculate the tailor made wave impact.

@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact:
                         return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.Both:
-                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.Both;
+                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact;
                     default:
                         throw new NotSupportedException();
                 }
@@ -110,7 +110,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                         return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp;
                     case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact:
                         return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
-                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.Both:
+                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
                         return ConfigurationGrassCoverErosionOutwardsCalculationType.Both;
                     default:
                         throw new NotSupportedException();

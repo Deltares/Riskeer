@@ -114,14 +114,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             int waterLevelCount = calculationInput.GetWaterLevels(assessmentLevel).Count();
-            TotalWaterLevelCalculations = calculationInput.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+            TotalWaterLevelCalculations = calculationInput.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                                               ? waterLevelCount * 2
                                               : waterLevelCount;
 
             try
             {
                 IEnumerable<WaveConditionsOutput> waveRunUpOutput = null;
-                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp 
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact)
@@ -136,7 +136,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                 }
 
                 IEnumerable<WaveConditionsOutput> waveImpactOutput = null;
-                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
-                case GrassCoverErosionOutwardsWaveConditionsCalculationType.Both:
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(tailorMadeWaveImpactOutput);

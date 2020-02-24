@@ -119,11 +119,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                 case nameof(WaveRunUpOutput):
                     return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
-                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
                 case nameof(WaveImpactOutput):
                     return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
-                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
                 case nameof(TailorMadeWaveImpactOutput):
                     return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact

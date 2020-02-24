@@ -126,7 +126,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionOutwardsWaveConditionsInput();
 
             // Precondition
-            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, input.CalculationType);
+            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, input.CalculationType);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, input);
@@ -205,7 +205,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, true, true, false)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, true, true, false)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, true, false, false)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, false, true, false)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, false, false, true)]

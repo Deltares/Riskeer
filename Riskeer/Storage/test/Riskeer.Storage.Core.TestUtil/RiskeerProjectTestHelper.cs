@@ -1931,7 +1931,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
                         CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
-                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                     },
                     Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
                         new[]
