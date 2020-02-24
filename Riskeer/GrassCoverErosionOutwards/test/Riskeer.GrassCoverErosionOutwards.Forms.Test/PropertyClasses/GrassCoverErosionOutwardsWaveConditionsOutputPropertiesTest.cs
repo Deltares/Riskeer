@@ -119,7 +119,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_CalculationTypeBoth_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_CalculationTypeWaveRunUpAndWaveImpact_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
@@ -134,7 +134,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRunUpProperty,
@@ -148,13 +148,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Resultaat",
                                                                             "Hydraulische belastingen voor golfklap",
                                                                             "Berekende hydraulische belastingen voor golfklap.",
-                                                                            true);
-
-            PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
-                                                                            "Resultaat",
-                                                                            "Hydraulische belastingen voor golfklap toets op maat",
-                                                                            "Berekende hydraulische belastingen voor golfklap toets op maat.",
                                                                             true);
         }
 
