@@ -50,4 +50,18 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
   </ItemGroup>
+  <Target Name="BeforeBuild">
+    <GenerateResource 
+      Sources="@(EmbeddedResource->'%(identity)')"
+      UseSourcePath="true"
+      StronglyTypedNamespace="$(projectName).Properties"
+      StronglyTypedClassName="@(EmbeddedResource->'%(filename)')"
+      StronglyTypedFileName="@(EmbeddedResource->'%(relativeDir)%(filename).Designer.cs')"
+      StronglyTypedLanguage="C#"
+      OutputResources="@(EmbeddedResource->'%(relativeDir)$(projectName).Properties.%(filename).resources')"
+      SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)"
+      PublicClass="true">
+      <Output TaskParameter="OutputResources" ItemName="ResourceOutput" />
+    </GenerateResource>
+  </Target>
 </Project>
