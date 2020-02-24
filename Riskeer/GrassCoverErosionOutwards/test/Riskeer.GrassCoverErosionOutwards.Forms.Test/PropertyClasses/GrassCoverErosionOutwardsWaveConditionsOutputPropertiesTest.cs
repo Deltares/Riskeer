@@ -108,7 +108,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.WaveRunUpOutput, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(waveRunUpOutput.Length, properties.WaveRunUpOutput.Length);
-
             WaveConditionsOutputProperties waveRunUpProperty = properties.WaveRunUpOutput[0];
             Assert.AreSame(waveRunUpOutput[0], waveRunUpProperty.Data);
 
@@ -116,17 +115,25 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(waveImpactOutput.Length, properties.WaveImpactOutput.Length);
             WaveConditionsOutputProperties waveImpactProperties = properties.WaveImpactOutput[0];
             Assert.AreSame(waveImpactOutput[0], waveImpactProperties.Data);
+
+            CollectionAssert.AllItemsAreInstancesOfType(properties.TailorMadeWaveImpactOutput, typeof(WaveConditionsOutputProperties));
+            Assert.AreEqual(tailorMadeWaveImpactOutput.Length, properties.TailorMadeWaveImpactOutput.Length);
+            WaveConditionsOutputProperties tailorMadeWaveImpactProperties = properties.TailorMadeWaveImpactOutput[0];
+            Assert.AreSame(tailorMadeWaveImpactOutput[0], tailorMadeWaveImpactProperties.Data);
         }
 
         [Test]
-        public void Constructor_CalculationTypeWaveRunUpAndWaveImpact_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_CalculationTypeAll_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
-            var input = new GrassCoverErosionOutwardsWaveConditionsInput();
+            var input = new GrassCoverErosionOutwardsWaveConditionsInput
+            {
+                CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All
+            };
 
             // Precondition
-            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, input.CalculationType);
+            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, input.CalculationType);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, input);
@@ -134,7 +141,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRunUpProperty,
@@ -148,6 +155,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Resultaat",
                                                                             "Hydraulische belastingen voor golfklap",
                                                                             "Berekende hydraulische belastingen voor golfklap.",
+                                                                            true);
+
+            PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
+                                                                            "Resultaat",
+                                                                            "Hydraulische belastingen voor golfklap toets op maat",
+                                                                            "Berekende hydraulische belastingen voor golfklap toets op maat.",
                                                                             true);
         }
 
