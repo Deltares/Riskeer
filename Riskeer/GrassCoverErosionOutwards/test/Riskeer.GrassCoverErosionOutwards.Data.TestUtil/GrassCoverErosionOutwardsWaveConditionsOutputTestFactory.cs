@@ -39,6 +39,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         public static GrassCoverErosionOutwardsWaveConditionsOutput Create()
         {
             return new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>(),
                                                                      Enumerable.Empty<WaveConditionsOutput>());
         }
 
@@ -48,11 +49,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         /// </summary>
         /// <param name="waveRunUpOutput">The wave run up output.</param>
         /// <param name="waveImpactOutput">The wave impact output.</param>
+        /// <param name="tailorMadeWaveImpactOutput">The tailor made wave impact output.</param>
         /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
         public static GrassCoverErosionOutwardsWaveConditionsOutput Create(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
-                                                                           IEnumerable<WaveConditionsOutput> waveImpactOutput)
+                                                                           IEnumerable<WaveConditionsOutput> waveImpactOutput,
+                                                                           IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput)
         {
-            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput);
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
         }
     }
 }

@@ -40,15 +40,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Setup
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
             IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput);
+            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
             Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
+            Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
         }
 
         [Test]
@@ -62,7 +64,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                                                                              new[]
                                                                              {
                                                                                  WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
-                                                                             });
+                                                                             },
+                                                                             new[]
+                {
+                    WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                }
+                );
 
             // Call
             object clone = original.Clone();
@@ -75,7 +82,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void Clone_OutputNull_ReturnsNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new GrassCoverErosionOutwardsWaveConditionsOutput(null, null);
+            var original = new GrassCoverErosionOutwardsWaveConditionsOutput(null, null, null);
 
             // Call
             object clone = original.Clone();

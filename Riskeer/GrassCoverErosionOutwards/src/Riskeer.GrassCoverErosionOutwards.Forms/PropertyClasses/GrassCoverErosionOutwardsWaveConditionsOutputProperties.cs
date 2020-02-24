@@ -96,20 +96,42 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description))]
+        public WaveConditionsOutputProperties[] TailorMadeWaveImpactOutput
+        {
+            get
+            {
+                return data.TailorMadeWaveImpactOutput.Select(output => new WaveConditionsOutputProperties
+                {
+                    Data = output
+                }).ToArray();
+            }
+        }
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName == nameof(WaveRunUpOutput))
-            {
-                return input.CalculationType != GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact;
+            switch (propertyName) {
+                case nameof(WaveRunUpOutput):
+                    return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
+                case nameof(WaveImpactOutput):
+                    return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.Both
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
+                case nameof(TailorMadeWaveImpactOutput):
+                    return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
+                default:
+                    return false;
             }
-
-            if (propertyName == nameof(WaveImpactOutput))
-            {
-                return input.CalculationType != GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp;
-            }
-
-            return true;
         }
     }
 }

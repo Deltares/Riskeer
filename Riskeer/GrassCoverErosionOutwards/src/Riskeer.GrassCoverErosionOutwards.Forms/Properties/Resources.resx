@@ -177,4 +177,10 @@
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayName" xml:space="preserve">
     <value>Hydraulische belastingen voor golfklap</value>
   </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description" xml:space="preserve">
+    <value>Berekende hydraulische belastingen voor golfklap toets op maat.</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName" xml:space="preserve">
+    <value>Hydraulische belastingen voor golfklap toets op maat</value>
+  </data>
 </root>

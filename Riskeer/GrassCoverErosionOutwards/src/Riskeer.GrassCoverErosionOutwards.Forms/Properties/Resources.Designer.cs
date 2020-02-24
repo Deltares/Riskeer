@@ -117,6 +117,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap toets op maat..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutpu" +
+                        "t_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen voor golfklap toets op maat.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutpu" +
+                        "t_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description {
