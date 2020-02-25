@@ -152,6 +152,21 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                 {
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
                 }
+
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName)
+                {
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact;
+                }
+
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveImpact_DisplayName)
+                {
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
+                }
+
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_All_DisplayName)
+                {
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.All;
+                }
             }
 
             return base.ConvertFrom(context, culture, value);
