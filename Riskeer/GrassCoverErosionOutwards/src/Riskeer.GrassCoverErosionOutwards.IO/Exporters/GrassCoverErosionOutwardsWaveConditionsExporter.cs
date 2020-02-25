@@ -61,7 +61,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
                 GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculation.InputParameters.CalculationType;
 
                 if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp ||
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact ||
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
@@ -69,11 +71,21 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
                 }
 
                 if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact ||
-                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact ||
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
                             calculation.Name, calculation.InputParameters, calculation.Output.WaveImpactOutput, CoverType.GrassWaveImpact));
+                }
+
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact ||
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact ||
+                    calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
+                {
+                    exportableWaveConditions.AddRange(
+                        ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                            calculation.Name, calculation.InputParameters, calculation.Output.TailorMadeWaveImpactOutput, CoverType.GrassTailorMadeWaveImpact));
                 }
             }
 
