@@ -53,6 +53,7 @@
   <Target Name="BeforeBuild">
     <GenerateResource 
       Sources="@(EmbeddedResource->'%(identity)')"
+      Condition="'%(filename)' == 'Resources'"
       UseSourcePath="true"
       StronglyTypedNamespace="$(projectName).Properties"
       StronglyTypedClassName="@(EmbeddedResource->'%(filename)')"

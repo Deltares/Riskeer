@@ -24,7 +24,7 @@ Application/Riskeer/src/Application.Riskeer.Setup/ThirdPartyLicensesPayload.wxs
 Core/Common/src/Core.Common.Version/GlobalAssembly.cs
 *.ldb
 Resources.Designer.cs
-*.Resources.resources
+*Resources.resources
 
 # ReSharper is a .NET coding add-in
 _ReSharper*/
