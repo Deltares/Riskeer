@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, 2
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, 3
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, 3
                     },
                     {
                     GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, 4
@@ -69,16 +69,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, "Gras (golfklap)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, "Gras (golfoploop en golfklap)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, "Gras (golfoploop en golfklap)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Gras (golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Gras (golfklap toets op maat)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap toets op maat)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.All, "Gras (golfoploop, golfklap en golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.All, "Gras (golfoploop, golfklap en golfklap toets op maat)"
                     }
                 };
             }

@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException(nameof(waveRunUpOutput));
             }
 
-            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, null);
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, null, null);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException(nameof(waveImpactOutput));
             }
 
-            return new GrassCoverErosionOutwardsWaveConditionsOutput(null, waveImpactOutput);
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(null, waveImpactOutput, null);
         }
 
         /// <summary>
@@ -84,7 +84,77 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException(nameof(waveImpactOutput));
             }
 
-            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput);
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, null);
+        }
+
+        /// <summary>
+        /// Creates <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/> with tailor made wave impact output set.
+        /// </summary>
+        /// <param name="tailorMadeWaveImpactOutput">The tailor made wave impact output to set.</param>
+        /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="tailorMadeWaveImpactOutput"/>
+        /// is <c>null</c>.</exception>
+        public static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutputWithTailorMadeWaveImpact(IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput)
+        {
+            if (tailorMadeWaveImpactOutput == null)
+            {
+                throw new ArgumentNullException(nameof(tailorMadeWaveImpactOutput));
+            }
+
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(null, null, tailorMadeWaveImpactOutput);
+        }
+
+        /// <summary>
+        /// Creates <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/> with wave run up and tailor made wave impact output set.
+        /// </summary>
+        /// <param name="waveRunUpOutput">The wave run up output to set.</param>
+        /// <param name="tailorMadeWaveImpact">The tailor made wave impact output to set.</param>
+        /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
+                                                                                                                               IEnumerable<WaveConditionsOutput> tailorMadeWaveImpact)
+        {
+            if (waveRunUpOutput == null)
+            {
+                throw new ArgumentNullException(nameof(waveRunUpOutput));
+            }
+
+            if (tailorMadeWaveImpact == null)
+            {
+                throw new ArgumentNullException(nameof(tailorMadeWaveImpact));
+            }
+
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, null, tailorMadeWaveImpact);
+        }
+
+        /// <summary>
+        /// Creates <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/> with wave run up, wave impact and tailor made wave impact output set.
+        /// </summary>
+        /// <param name="waveRunUpOutput">The wave run up output to set.</param>
+        /// <param name="waveImpactOutput">The wave impact output to set.</param>
+        /// <param name="tailorMadeWaveImpact">The tailor made wave impact output to set.</param>
+        /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
+                                                                                                                               IEnumerable<WaveConditionsOutput> waveImpactOutput,
+                                                                                                                               IEnumerable<WaveConditionsOutput> tailorMadeWaveImpact)
+        {
+            if (waveRunUpOutput == null)
+            {
+                throw new ArgumentNullException(nameof(waveRunUpOutput));
+            }
+
+            if (waveImpactOutput == null)
+            {
+                throw new ArgumentNullException(nameof(waveImpactOutput));
+            }
+
+            if (tailorMadeWaveImpact == null)
+            {
+                throw new ArgumentNullException(nameof(tailorMadeWaveImpact));
+            }
+
+            return new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpact);
         }
     }
 }

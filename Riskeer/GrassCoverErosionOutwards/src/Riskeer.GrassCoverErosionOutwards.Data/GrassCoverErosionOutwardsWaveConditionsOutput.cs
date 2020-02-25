@@ -37,11 +37,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         /// <param name="waveRunUpOutput">The wave conditions output for wave run up.</param>
         /// <param name="waveImpactOutput">The wave conditions output for wave impact.</param>
+        /// <param name="tailorMadeWaveImpact">The wave conditions output for tailor made wave impact.</param>
         internal GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
-                                                               IEnumerable<WaveConditionsOutput> waveImpactOutput)
+                                                               IEnumerable<WaveConditionsOutput> waveImpactOutput,
+                                                               IEnumerable<WaveConditionsOutput> tailorMadeWaveImpact)
         {
             WaveRunUpOutput = waveRunUpOutput;
             WaveImpactOutput = waveImpactOutput;
+            TailorMadeWaveImpactOutput = tailorMadeWaveImpact;
         }
 
         /// <summary>
@@ -54,12 +57,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         public IEnumerable<WaveConditionsOutput> WaveImpactOutput { get; private set; }
 
+        /// <summary>
+        /// Gets the wave conditions output for tailor made wave impact.
+        /// </summary>
+        public IEnumerable<WaveConditionsOutput> TailorMadeWaveImpactOutput { get; private set; }
+
         public override object Clone()
         {
             var clone = (GrassCoverErosionOutwardsWaveConditionsOutput) base.Clone();
 
             clone.WaveRunUpOutput = WaveRunUpOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
             clone.WaveImpactOutput = WaveImpactOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+            clone.TailorMadeWaveImpactOutput = TailorMadeWaveImpactOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
 
             return clone;
         }

@@ -59,6 +59,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
         {
             CoreCloneAssert.AreEnumerationClones(original.WaveRunUpOutput, clone.WaveRunUpOutput, WaveConditionsCloneAssert.AreClones);
             CoreCloneAssert.AreEnumerationClones(original.WaveImpactOutput, clone.WaveImpactOutput, WaveConditionsCloneAssert.AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.TailorMadeWaveImpactOutput, clone.TailorMadeWaveImpactOutput, WaveConditionsCloneAssert.AreClones);
         }
 
         /// <summary>

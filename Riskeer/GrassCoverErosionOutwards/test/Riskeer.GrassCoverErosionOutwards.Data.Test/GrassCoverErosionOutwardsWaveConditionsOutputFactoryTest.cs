@@ -130,5 +130,144 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
             Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
         }
+
+        [Test]
+        public void CreateOutputWithTailorMadeWaveImpact_TailorMadeWaveImpactOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("tailorMadeWaveImpactOutput", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateOutputWithTailorMadeWaveImpact_WithOutput_ReturnsOutput()
+        {
+            // Setup
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsOutput output =
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(tailorMadeWaveImpactOutput);
+
+            // Assert
+            Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
+        }
+
+        [Test]
+        public void CreateOutputWithWaveRunUpAndTailorMadeWaveImpact_WaveRunUpOutputNull_ThrowsArgumentNullException()
+        {
+            //Setup
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(null, tailorMadeWaveImpactOutput);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("waveRunUpOutput", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateOutputWithWaveRunUpAndTailorMadeWaveImpact_TailorMadeWaveImpactNull_ThrowsArgumentNullException()
+        {
+            //Setup
+            IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("tailorMadeWaveImpact", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateOutputWithWaveRunUpAndTailorMadeWaveImpact_WithOutput_ReturnsOutput()
+        {
+            // Setup
+            IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsOutput output =
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput,
+                                                                                                                      tailorMadeWaveImpactOutput);
+
+            // Assert
+            Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
+            Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
+        }
+
+        [Test]
+        public void CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact_WaveRunUpOutputNull_ThrowsArgumentNullException()
+        {
+            //Setup
+            IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(null, waveImpactOutput, tailorMadeWaveImpactOutput);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("waveRunUpOutput", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact_WaveImpactOutputNull_ThrowsArgumentNullException()
+        {
+            //Setup
+            IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput ,null, tailorMadeWaveImpactOutput);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("waveImpactOutput", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact_TailorMadeWaveImpactOutputNull_ThrowsArgumentNullException()
+        {
+            //Setup
+            IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("tailorMadeWaveImpact", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact_WithOutput_ReturnsOutput()
+        {
+            // Setup
+            IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsOutput output =
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
+
+            // Assert
+            Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
+            Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
+            Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
+        }
     }
 }

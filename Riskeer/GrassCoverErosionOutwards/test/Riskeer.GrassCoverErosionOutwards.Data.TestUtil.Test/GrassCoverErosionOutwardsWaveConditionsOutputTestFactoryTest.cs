@@ -47,10 +47,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil.Test
             // Setup
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
             IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
             GrassCoverErosionOutwardsWaveConditionsOutput output =
-                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
 
             // Assert
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);

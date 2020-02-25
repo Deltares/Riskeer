@@ -123,4 +123,7 @@
   <data name="GrassCoverErosionOutwardsWaveConditions_WaveRunUp_DisplayName" xml:space="preserve">
     <value>golfoploop</value>
   </data>
+  <data name="GrassCoverErosionOutwardsWaveConditions_TailorMadeWaveImpact_DisplayName" xml:space="preserve">
+    <value>golfklap toets op maat</value>
+  </data>
 </root>

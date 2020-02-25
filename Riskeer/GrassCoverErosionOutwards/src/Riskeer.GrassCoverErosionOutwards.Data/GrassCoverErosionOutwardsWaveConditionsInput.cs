@@ -33,7 +33,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         public GrassCoverErosionOutwardsWaveConditionsInput()
         {
-            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.Both;
+            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact;
         }
 
         /// <summary>

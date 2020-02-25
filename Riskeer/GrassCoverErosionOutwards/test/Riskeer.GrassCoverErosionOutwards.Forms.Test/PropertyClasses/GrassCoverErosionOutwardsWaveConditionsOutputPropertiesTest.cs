@@ -37,6 +37,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     {
         private const int waveRunUpPropertyIndex = 0;
         private const int waveImpactPropertyIndex = 1;
+        private const int tailorMadeWaveImpactPropertyIndex = 2;
 
         [Test]
         public void Constructor_OutputNull_ThrowsArgumentNullException()
@@ -93,8 +94,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
+            var tailorMadeWaveImpactOutput = new[]
+            {
+                new TestWaveConditionsOutput()
+            };
+
             GrassCoverErosionOutwardsWaveConditionsOutput output =
-                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, new GrassCoverErosionOutwardsWaveConditionsInput());
@@ -102,7 +108,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.WaveRunUpOutput, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(waveRunUpOutput.Length, properties.WaveRunUpOutput.Length);
-
             WaveConditionsOutputProperties waveRunUpProperty = properties.WaveRunUpOutput[0];
             Assert.AreSame(waveRunUpOutput[0], waveRunUpProperty.Data);
 
@@ -110,17 +115,25 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(waveImpactOutput.Length, properties.WaveImpactOutput.Length);
             WaveConditionsOutputProperties waveImpactProperties = properties.WaveImpactOutput[0];
             Assert.AreSame(waveImpactOutput[0], waveImpactProperties.Data);
+
+            CollectionAssert.AllItemsAreInstancesOfType(properties.TailorMadeWaveImpactOutput, typeof(WaveConditionsOutputProperties));
+            Assert.AreEqual(tailorMadeWaveImpactOutput.Length, properties.TailorMadeWaveImpactOutput.Length);
+            WaveConditionsOutputProperties tailorMadeWaveImpactProperties = properties.TailorMadeWaveImpactOutput[0];
+            Assert.AreSame(tailorMadeWaveImpactOutput[0], tailorMadeWaveImpactProperties.Data);
         }
 
         [Test]
-        public void Constructor_CalculationTypeBoth_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_CalculationTypeAll_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
-            var input = new GrassCoverErosionOutwardsWaveConditionsInput();
+            var input = new GrassCoverErosionOutwardsWaveConditionsInput
+            {
+                CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All
+            };
 
             // Precondition
-            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, input.CalculationType);
+            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, input.CalculationType);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, input);
@@ -128,7 +141,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRunUpProperty,
@@ -143,11 +156,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Hydraulische belastingen voor golfklap",
                                                                             "Berekende hydraulische belastingen voor golfklap.",
                                                                             true);
+
+            PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
+                                                                            "Resultaat",
+                                                                            "Hydraulische belastingen voor golfklap toets op maat",
+                                                                            "Berekende hydraulische belastingen voor golfklap toets op maat.",
+                                                                            true);
         }
 
         [Test]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact)]
         public void Constructor_CalculationTypeWaveRunUpOrWaveImpact_PropertiesHaveExpectedAttributesValues(
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
         {
@@ -177,6 +198,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 revetmentType = "golfklap";
             }
 
+            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact)
+            {
+                revetmentType = "golfklap toets op maat";
+            }
+
             PropertyDescriptor outputProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(outputProperty,
                                                                             "Resultaat",
@@ -186,11 +212,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.Both, true, true)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, true, false)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, false, true)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, true, true, false)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, true, false, false)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, false, true, false)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, false, false, true)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, true, false, true)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, true, true, true)]
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(
-            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpVisible, bool waveImpactVisible)
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpVisible, bool waveImpactVisible, bool tailorMadeWaveImpactVisible)
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
@@ -204,7 +233,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreEqual(waveRunUpVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveRunUpOutput)));
             Assert.AreEqual(waveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpactOutput)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+            Assert.AreEqual(tailorMadeWaveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.TailorMadeWaveImpactOutput)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
