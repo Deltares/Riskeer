@@ -451,6 +451,24 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, testWaveConditionsInputs[i]);
                 }
+
+                waterLevelIndex = 0;
+                for (int i = nrOfReceivedInputs / 2; i < nrOfReceivedInputs; i++)
+                {
+                    WaveConditionsInput input = calculation.InputParameters;
+                    var expectedInput = new WaveConditionsCosineCalculationInput(1,
+                                                                                 input.Orientation,
+                                                                                 input.HydraulicBoundaryLocation.Id,
+                                                                                 expectedNorm,
+                                                                                 input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                                                                                 new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
+                                                                                 GetWaterLevels(calculation, failureMechanism, assessmentSection).ElementAt(waterLevelIndex++),
+                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.A,
+                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.B,
+                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.C);
+
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, testWaveConditionsInputs[i]);
+                }
             }
 
             mockRepository.VerifyAll();

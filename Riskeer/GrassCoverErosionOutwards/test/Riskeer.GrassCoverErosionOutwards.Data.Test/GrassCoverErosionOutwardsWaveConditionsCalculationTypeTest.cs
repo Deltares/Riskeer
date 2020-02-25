@@ -72,13 +72,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, "Gras (golfoploop en golfklap)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Gras (golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Gras (golfklap toets op maat)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap toets op maat)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.All, "Gras (golfoploop, golfklap en golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.All, "Gras (golfoploop, golfklap en golfklap toets op maat)"
                     }
                 };
             }

@@ -191,6 +191,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase("Gras (golfoploop en golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact)]
         [TestCase("Gras (golfoploop)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp)]
         [TestCase("Gras (golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
+        [TestCase("Gras (golfklap toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact)]
+        [TestCase("Gras (golfoploop en golfklap toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact)]
+        [TestCase("Gras (golfoploop, golfklap en golfklap op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.All)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationGrassCoverErosionOutwardsCalculationType(
             string originalValue, ConfigurationGrassCoverErosionOutwardsCalculationType expectedValue)
         {

@@ -71,7 +71,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfklap voor toets op maat.
+        ///   Looks up a localized string similar to golfklap toets op maat.
         /// </summary>
         public static string GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName {
             get {

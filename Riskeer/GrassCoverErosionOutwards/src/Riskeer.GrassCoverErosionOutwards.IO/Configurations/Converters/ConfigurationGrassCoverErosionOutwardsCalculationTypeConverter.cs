@@ -62,6 +62,12 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                         return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact:
                         return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact;
+                    case ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact:
+                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact;
+                    case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
+                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
+                    case ConfigurationGrassCoverErosionOutwardsCalculationType.All:
+                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
                     default:
                         throw new NotSupportedException();
                 }
@@ -77,6 +83,12 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_WaveImpact_DisplayName;
+                    case ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact:
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName;
+                    case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveImpact_DisplayName;
+                    case ConfigurationGrassCoverErosionOutwardsCalculationType.All:
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_All_DisplayName;
                     default:
                         throw new NotSupportedException();
                 }
@@ -112,6 +124,12 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                         return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
                     case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
                         return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
+                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact:
+                        return ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact;
+                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
+                        return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
+                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.All:
+                        return ConfigurationGrassCoverErosionOutwardsCalculationType.All;
                     default:
                         throw new NotSupportedException();
                 }

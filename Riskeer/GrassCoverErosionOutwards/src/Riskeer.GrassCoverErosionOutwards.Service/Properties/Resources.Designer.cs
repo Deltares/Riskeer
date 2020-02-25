@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to golfklap voor toets op maat.
+        ///   Looks up a localized string similar to golfklap toets op maat.
         /// </summary>
         internal static string GrassCoverErosionOutwardsWaveConditions_TailorMadeWaveImpact_DisplayName {
             get {
