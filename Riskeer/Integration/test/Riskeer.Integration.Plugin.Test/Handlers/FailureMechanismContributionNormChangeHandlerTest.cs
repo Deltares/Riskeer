@@ -41,7 +41,7 @@ using Riskeer.Integration.TestUtil;
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class FailureMechanismContributionNormChangeHandlerTest : NUnitFormTest
+    public class FailureMechanismContributionNormChangeHandlerTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void Constructor_ExpectedValues()

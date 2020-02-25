@@ -38,7 +38,6 @@ using Riskeer.Storage.Core;
 namespace Application.Riskeer.Integration.Test
 {
     [TestFixture]
-    [Ignore("Failing on Ansible agent")]
     public class StorageMigrationIntegrationTest
     {
         private readonly string workingDirectory = TestHelper.GetScratchPadPath(nameof(StorageMigrationIntegrationTest));

@@ -52,7 +52,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
+    public class PipingCalculationScenarioContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuDuplicateIndex = 2;
         private const int contextMenuUpdateEntryAndExitPointIndex = 5;

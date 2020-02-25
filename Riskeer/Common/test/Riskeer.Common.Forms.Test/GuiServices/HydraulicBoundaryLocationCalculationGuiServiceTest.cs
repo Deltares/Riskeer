@@ -39,7 +39,7 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 namespace Riskeer.Common.Forms.Test.GuiServices
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationCalculationGuiServiceTest : NUnitFormTest
+    public class HydraulicBoundaryLocationCalculationGuiServiceTest : NUnitFormTestWithHiddenDesktop
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");

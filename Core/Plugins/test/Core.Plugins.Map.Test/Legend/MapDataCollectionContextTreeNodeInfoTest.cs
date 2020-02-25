@@ -47,7 +47,7 @@ using GuiResources = Core.Common.Gui.Properties.Resources;
 namespace Core.Plugins.Map.Test.Legend
 {
     [TestFixture]
-    public class MapDataCollectionContextTreeNodeInfoTest : NUnitFormTest
+    public class MapDataCollectionContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuAddMapLayerIndex = 0;
         private const int contextMenuZoomToAllIndex = 2;

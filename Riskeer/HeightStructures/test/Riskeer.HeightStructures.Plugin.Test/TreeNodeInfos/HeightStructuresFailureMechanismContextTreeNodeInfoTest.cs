@@ -58,7 +58,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HeightStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
+    public class HeightStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;

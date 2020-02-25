@@ -43,7 +43,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.Test.Dialogs
 {
     [TestFixture]
-    public class BackgroundMapDataSelectionDialogTest : NUnitFormTest
+    public class BackgroundMapDataSelectionDialogTest : NUnitFormTestWithHiddenDesktop
     {
         private MockRepository mockRepository;
         private ITileSourceFactory tileFactory;

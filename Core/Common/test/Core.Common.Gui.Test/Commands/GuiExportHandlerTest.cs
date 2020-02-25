@@ -41,8 +41,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Commands
 {
     [TestFixture]
-    [Ignore("Makes Ansible agent hang")]
-    public class GuiExportHandlerTest : NUnitFormTest
+    public class GuiExportHandlerTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         [TestCase(1234)]

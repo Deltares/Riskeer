@@ -53,7 +53,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTreeNodeInfoTest : NUnitFormTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuRunDesignWaterLevelCalculationsIndex = 2;
         private const int contextMenuClearIllustrationPointsIndex = 4;

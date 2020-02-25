@@ -47,7 +47,7 @@ using Riskeer.MacroStabilityInwards.Primitives;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationsViewTest : NUnitFormTest
+    public class MacroStabilityInwardsCalculationsViewTest : NUnitFormTestWithHiddenDesktop
     {
         private const int nameColumnIndex = 0;
         private const int stochasticSoilModelsColumnIndex = 1;

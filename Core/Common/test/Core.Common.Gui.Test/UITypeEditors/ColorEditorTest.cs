@@ -21,13 +21,14 @@
 
 using System.Drawing.Design;
 using Core.Common.Gui.UITypeEditors;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.UITypeEditors
 {
     [TestFixture]
-    public class ColorEditorTest : NUnitFormTest
+    public class ColorEditorTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void DefaultConstructor_ReturnsNewInstance()

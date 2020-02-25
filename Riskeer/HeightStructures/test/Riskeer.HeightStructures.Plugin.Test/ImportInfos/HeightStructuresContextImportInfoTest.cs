@@ -43,7 +43,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.HeightStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class HeightStructuresContextImportInfoTest : NUnitFormTest
+    public class HeightStructuresContextImportInfoTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()

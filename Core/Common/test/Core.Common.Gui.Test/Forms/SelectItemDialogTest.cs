@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Test.Properties;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -31,7 +32,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Forms
 {
     [TestFixture]
-    public class SelectItemDialogTest : NUnitFormTest
+    public class SelectItemDialogTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()

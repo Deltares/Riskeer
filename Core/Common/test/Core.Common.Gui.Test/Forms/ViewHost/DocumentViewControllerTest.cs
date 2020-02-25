@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -32,7 +33,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Forms.ViewHost
 {
     [TestFixture]
-    public class DocumentViewControllerTest : NUnitFormTest
+    public class DocumentViewControllerTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()

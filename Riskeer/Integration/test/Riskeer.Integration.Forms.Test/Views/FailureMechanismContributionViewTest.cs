@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
+using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -41,7 +42,7 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismContributionViewTest : NUnitFormTest
+    public class FailureMechanismContributionViewTest : NUnitFormTestWithHiddenDesktop
     {
         private const string returnPeriodLabelName = "returnPeriodLabel";
         private const string dataGridViewControlName = "dataGridView";

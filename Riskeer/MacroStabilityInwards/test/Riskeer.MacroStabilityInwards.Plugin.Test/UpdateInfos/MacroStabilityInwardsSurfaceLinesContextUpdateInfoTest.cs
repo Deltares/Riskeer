@@ -41,7 +41,7 @@ using FormsResources = Riskeer.MacroStabilityInwards.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsSurfaceLinesContextUpdateInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsSurfaceLinesContextUpdateInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private UpdateInfo updateInfo;
         private MacroStabilityInwardsPlugin plugin;

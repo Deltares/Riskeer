@@ -31,7 +31,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test
 {
     [TestFixture]
-    public class DialogBasedInquiryHelperTest : NUnitFormTest
+    public class DialogBasedInquiryHelperTest : NUnitFormTestWithHiddenDesktop
     {
         private IWin32Window dialogParent;
         private MockRepository mocks;

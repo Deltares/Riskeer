@@ -67,7 +67,7 @@ using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resource
 namespace Riskeer.Integration.Plugin.Test
 {
     [TestFixture]
-    public class RiskeerPluginTest : NUnitFormTest
+    public class RiskeerPluginTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         [Apartment(ApartmentState.STA)]

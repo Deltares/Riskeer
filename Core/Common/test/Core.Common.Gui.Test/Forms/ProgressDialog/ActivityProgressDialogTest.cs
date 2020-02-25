@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms.ProgressDialog;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -31,7 +32,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Forms.ProgressDialog
 {
     [TestFixture]
-    public class ActivityProgressDialogTest : NUnitFormTest
+    public class ActivityProgressDialogTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void DefaultConstructor_ExpectedValue()

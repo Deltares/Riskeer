@@ -23,6 +23,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.Commands;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -30,7 +31,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test
 {
     [TestFixture]
-    public class ExceptionDialogTest : NUnitFormTest
+    public class ExceptionDialogTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void DefaultConstructor_ExpectedValue()

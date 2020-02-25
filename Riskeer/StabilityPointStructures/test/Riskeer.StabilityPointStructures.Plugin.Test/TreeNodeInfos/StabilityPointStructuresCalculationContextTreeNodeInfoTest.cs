@@ -54,7 +54,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
+    public class StabilityPointStructuresCalculationContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuDuplicateIndex = 2;
         private const int contextMenuUpdateForeshoreProfileIndex = 5;

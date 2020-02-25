@@ -39,7 +39,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsStochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsStochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;

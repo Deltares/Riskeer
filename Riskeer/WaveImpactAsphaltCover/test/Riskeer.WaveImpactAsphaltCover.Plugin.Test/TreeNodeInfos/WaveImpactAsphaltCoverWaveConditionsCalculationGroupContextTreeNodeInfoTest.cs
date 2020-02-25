@@ -56,7 +56,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuImportConfigurationIndex = 0;
         private const int contextMenuExportConfigurationIndex = 1;

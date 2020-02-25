@@ -34,7 +34,7 @@ using Riskeer.Integration.Plugin.Merge;
 namespace Riskeer.Integration.Plugin.Test.Merge
 {
     [TestFixture]
-    public class AssessmentSectionProviderTest : NUnitFormTest
+    public class AssessmentSectionProviderTest : NUnitFormTestWithHiddenDesktop
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Plugin, nameof(AssessmentSectionProvider));
 

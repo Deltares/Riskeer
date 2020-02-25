@@ -37,7 +37,7 @@ using Rhino.Mocks;
 namespace Core.Plugins.ProjectExplorer.Test
 {
     [TestFixture]
-    public class ProjectExplorerTest : NUnitFormTest
+    public class ProjectExplorerTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         [TestCase(0)]

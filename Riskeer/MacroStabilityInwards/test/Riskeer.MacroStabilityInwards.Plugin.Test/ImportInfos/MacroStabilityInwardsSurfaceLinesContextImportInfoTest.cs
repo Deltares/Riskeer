@@ -43,7 +43,7 @@ using FormsResources = Riskeer.MacroStabilityInwards.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsSurfaceLinesContextImportInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsSurfaceLinesContextImportInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private ImportInfo importInfo;
         private MacroStabilityInwardsPlugin plugin;

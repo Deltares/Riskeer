@@ -57,7 +57,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
+    public class StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuAddGenerateCalculationsIndex = 3;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 5;

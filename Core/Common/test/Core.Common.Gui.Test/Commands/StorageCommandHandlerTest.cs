@@ -36,7 +36,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Commands
 {
     [TestFixture]
-    public class StorageCommandHandlerTest : NUnitFormTest
+    public class StorageCommandHandlerTest : NUnitFormTestWithHiddenDesktop
     {
         private MockRepository mocks;
 

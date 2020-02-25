@@ -58,7 +58,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
+    public class StabilityPointStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;

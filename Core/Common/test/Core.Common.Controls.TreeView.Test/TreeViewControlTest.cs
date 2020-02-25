@@ -34,7 +34,7 @@ using NUnit.Framework;
 namespace Core.Common.Controls.TreeView.Test
 {
     [TestFixture]
-    public class TreeViewControlTest : NUnitFormTest
+    public class TreeViewControlTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void DefaultConstructor_InitializedTreeViewControl()

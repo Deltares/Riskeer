@@ -41,7 +41,7 @@ using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class PipingSurfaceLinesContextUpdateInfoTest : NUnitFormTest
+    public class PipingSurfaceLinesContextUpdateInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;

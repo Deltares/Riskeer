@@ -51,7 +51,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsCalculationScenarioContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuDuplicateIndex = 2;
         private const int contextMenuValidateIndex = 6;

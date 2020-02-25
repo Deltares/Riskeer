@@ -54,7 +54,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
+    public class ClosingStructuresCalculationContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private const int contextMenuDuplicateIndex = 2;
         private const int contextMenuUpdateForeshoreProfileIndex = 5;

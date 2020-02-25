@@ -35,7 +35,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Commands
 {
     [TestFixture]
-    public class GuiImportHandlerTest : NUnitFormTest
+    public class GuiImportHandlerTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()

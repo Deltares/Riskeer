@@ -42,7 +42,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.ClosingStructures.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class ClosingStructuresContextUpdateInfoTest : NUnitFormTest
+    public class ClosingStructuresContextUpdateInfoTest : NUnitFormTestWithHiddenDesktop
     {
         private UpdateInfo updateInfo;
         private ClosingStructuresPlugin plugin;

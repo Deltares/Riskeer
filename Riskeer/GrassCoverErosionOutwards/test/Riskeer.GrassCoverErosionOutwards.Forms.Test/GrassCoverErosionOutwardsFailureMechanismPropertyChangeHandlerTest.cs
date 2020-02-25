@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -33,7 +34,7 @@ using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandlerTest : NUnitFormTest
+    public class GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandlerTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void SetPropertyValueAfterConfirmation_WithoutFailureMechanism_ThrowsArgumentNullException()

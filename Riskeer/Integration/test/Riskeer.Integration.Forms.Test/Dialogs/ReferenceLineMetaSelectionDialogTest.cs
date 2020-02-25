@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
@@ -35,7 +36,7 @@ using Riskeer.Integration.Forms.Dialogs;
 namespace Riskeer.Integration.Forms.Test.Dialogs
 {
     [TestFixture]
-    public class ReferenceLineMetaSelectionDialogTest : NUnitFormTest
+    public class ReferenceLineMetaSelectionDialogTest : NUnitFormTestWithHiddenDesktop
     {
         private const int assessmentSectionIdColumn = 0;
         private const int signalingValueColumn = 1;

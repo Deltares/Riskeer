@@ -31,7 +31,7 @@ using Rhino.Mocks;
 namespace Core.Common.Controls.Test.Dialogs
 {
     [TestFixture]
-    public class DialogBaseTest : NUnitFormTest
+    public class DialogBaseTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void Constructor_OwnerEqualsNull_ArgumentNullExceptionIsThrown()

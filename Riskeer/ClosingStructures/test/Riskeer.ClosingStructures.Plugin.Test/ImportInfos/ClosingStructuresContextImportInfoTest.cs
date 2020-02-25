@@ -43,7 +43,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.ClosingStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class ClosingStructuresContextImportInfoTest : NUnitFormTest
+    public class ClosingStructuresContextImportInfoTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void Name_Always_ReturnExpectedName()

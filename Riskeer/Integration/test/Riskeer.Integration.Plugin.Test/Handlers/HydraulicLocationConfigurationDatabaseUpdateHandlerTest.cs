@@ -41,7 +41,7 @@ using Riskeer.Integration.TestUtil;
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationDatabaseUpdateHandlerTest : NUnitFormTest
+    public class HydraulicLocationConfigurationDatabaseUpdateHandlerTest : NUnitFormTestWithHiddenDesktop
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
