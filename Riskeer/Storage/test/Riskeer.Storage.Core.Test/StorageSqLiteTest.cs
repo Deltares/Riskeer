@@ -534,13 +534,13 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void OneTimeSetUp()
         {
             directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(StorageSqLiteTest));
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public void OneTimeTearDown()
         {
             CallGarbageCollector();
             directoryDisposeHelper.Dispose();

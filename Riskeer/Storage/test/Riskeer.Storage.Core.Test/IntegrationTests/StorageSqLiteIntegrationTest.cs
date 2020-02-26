@@ -239,13 +239,13 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void OneTimeSetUp()
         {
             directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(StorageSqLiteIntegrationTest));
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public void OneTimeTearDown()
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();

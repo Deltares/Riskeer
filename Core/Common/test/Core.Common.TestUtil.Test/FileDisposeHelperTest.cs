@@ -408,13 +408,13 @@ namespace Core.Common.TestUtil.Test
         }
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void OneTimeSetUp()
         {
             directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(FileDisposeHelperTest));
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public void OneTimeTearDown()
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();

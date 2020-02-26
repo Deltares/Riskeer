@@ -342,7 +342,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void OneTimeSetUp()
         {
             directoryDisposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(MapControlTest));
             testSettingsHelper = new TestSettingsHelper
@@ -353,7 +353,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public void OneTimeTearDown()
         {
             directoryDisposeHelper.Dispose();
         }

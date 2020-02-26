@@ -252,13 +252,13 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [OneTimeSetUp]
-        public void SetUpFixture()
+        public void OneTimeSetUp()
         {
             Directory.CreateDirectory(testWorkDir);
         }
 
         [OneTimeTearDown]
-        public void TearDownFixture()
+        public void OneTimeTearDown()
         {
             Directory.Delete(testWorkDir, true);
         }
