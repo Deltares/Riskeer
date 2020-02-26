@@ -38,7 +38,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
     public class FailureMechanismPropertyChangeHandlerTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_Expectedvalues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();

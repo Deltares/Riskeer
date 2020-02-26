@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
     public class ObservablePropertyChangeHandlerTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_WithCalculation_Expectedvalues()
+        public void Constructor_WithCalculation_ExpectedValues()
         {
             // Call
             var changeHandler = new ObservablePropertyChangeHandler(new TestCalculation(), new TestCalculationInput());

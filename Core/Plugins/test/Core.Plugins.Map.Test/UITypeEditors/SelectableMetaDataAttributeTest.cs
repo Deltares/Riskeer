@@ -42,7 +42,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         }
 
         [Test]
-        public void Constructor_Expectedvalues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             const string attribute = "Test";

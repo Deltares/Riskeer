@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
     public class DerivedMacroStabilityInwardsOutputTest
     {
         [Test]
-        public void Constructor_Expectedvalues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);

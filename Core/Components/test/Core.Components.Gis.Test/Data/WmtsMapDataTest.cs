@@ -132,7 +132,7 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void SingleParameteredConstructor_NameValid_Expectedvalues()
+        public void SingleParameteredConstructor_NameValid_ExpectedValues()
         {
             // Setup
             const string name = "A";
