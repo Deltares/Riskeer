@@ -1,0 +1,56 @@
+<Project>
+  <PropertyGroup>
+    <OutputPath Condition="$(OutputPath) == ''">$(SolutionDir)\bin\$(Configuration)\</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+    <Platforms>x86</Platforms>
+    <PlatformTarget>x86</PlatformTarget>
+    <TargetFramework>net45</TargetFramework>
+    <LangVersion>6.0</LangVersion>
+    <FileAlignment>512</FileAlignment>
+    <Company>Deltares</Company>
+    <Copyright>Copyright © Deltares 2020</Copyright>
+    <Version>20.1.1</Version>
+    <Configurations>Debug;Release;CreateInstaller;CreateInstallerWithDemoProject;ReleaseForCodeCoverage</Configurations>
+    <MSBuildGitHashCommand>git rev-parse --short HEAD</MSBuildGitHashCommand>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <ConfigurationGroup>Debug</ConfigurationGroup>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE;DEVELOPMENT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <ConfigurationGroup>Release</ConfigurationGroup>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
+    <ConfigurationGroup>Release</ConfigurationGroup>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
+    <ConfigurationGroup>Release</ConfigurationGroup>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+    <ConfigurationGroup>Release</ConfigurationGroup>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType Condition="$(DebugType) == ''">pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MSBuildGitHash" Version="0.5.0" />
+    <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
+  </ItemGroup>
+</Project>
