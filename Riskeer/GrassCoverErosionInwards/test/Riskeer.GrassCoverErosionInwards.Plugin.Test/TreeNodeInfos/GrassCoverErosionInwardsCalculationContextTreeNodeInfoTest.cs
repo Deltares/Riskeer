@@ -56,7 +56,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuDuplicateIndex = 2;
         private const int contextMenuUpdateDikeProfileIndex = 5;

@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -44,7 +43,7 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingScenariosViewTest : NUnitFormTestWithHiddenDesktop
+    public class PipingScenariosViewTest : NUnitFormTest
     {
         private const int isRelevantColumnIndex = 0;
         private const int contributionColumnIndex = 1;

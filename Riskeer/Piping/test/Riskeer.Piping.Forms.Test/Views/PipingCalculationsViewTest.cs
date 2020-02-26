@@ -49,7 +49,7 @@ using Riskeer.Piping.Primitives.TestUtil;
 namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingCalculationsViewTest : NUnitFormTestWithHiddenDesktop
+    public class PipingCalculationsViewTest : NUnitFormTest
     {
         private const int nameColumnIndex = 0;
         private const int stochasticSoilModelsColumnIndex = 1;

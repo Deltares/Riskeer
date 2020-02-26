@@ -55,7 +55,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
         private const int contextMenuCalculateAllIndex = 3;

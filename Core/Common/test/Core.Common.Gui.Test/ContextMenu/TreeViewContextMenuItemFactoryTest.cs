@@ -32,7 +32,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.ContextMenu
 {
     [TestFixture]
-    public class TreeViewContextMenuItemFactoryTest : NUnitFormTestWithHiddenDesktop
+    public class TreeViewContextMenuItemFactoryTest : NUnitFormTest
     {
         private MockRepository mocks;
 

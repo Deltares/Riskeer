@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -43,7 +42,7 @@ using Riskeer.MacroStabilityInwards.Primitives;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class MacroStabilityInwardsScenariosViewTest : NUnitFormTestWithHiddenDesktop
+    public class MacroStabilityInwardsScenariosViewTest : NUnitFormTest
     {
         private const int isRelevantColumnIndex = 0;
         private const int contributionColumnIndex = 1;

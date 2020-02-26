@@ -43,7 +43,7 @@ using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class RiskeerContextMenuItemFactoryTest : NUnitFormTestWithHiddenDesktop
+    public class RiskeerContextMenuItemFactoryTest : NUnitFormTest
     {
         [Test]
         public void CreateAddCalculationGroupItem_Always_CreatesDecoratedItem()

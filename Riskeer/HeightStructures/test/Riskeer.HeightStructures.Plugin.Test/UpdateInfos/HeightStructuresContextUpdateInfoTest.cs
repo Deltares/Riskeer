@@ -42,7 +42,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.HeightStructures.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class HeightStructuresContextUpdateInfoTest : NUnitFormTestWithHiddenDesktop
+    public class HeightStructuresContextUpdateInfoTest : NUnitFormTest
     {
         private UpdateInfo updateInfo;
         private HeightStructuresPlugin plugin;

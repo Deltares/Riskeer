@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -48,7 +47,7 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class ReferenceLineUpdateHandlerTest : NUnitFormTestWithHiddenDesktop
+    public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()

@@ -51,7 +51,7 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class AssessmentSectionCompositionChangeHandlerTest : NUnitFormTestWithHiddenDesktop
+    public class AssessmentSectionCompositionChangeHandlerTest : NUnitFormTest
     {
         [Test]
         public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()

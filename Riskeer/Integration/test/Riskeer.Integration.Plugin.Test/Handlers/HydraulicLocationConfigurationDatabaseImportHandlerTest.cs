@@ -37,7 +37,7 @@ using Riskeer.Integration.TestUtil;
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationDatabaseImportHandlerTest : NUnitFormTestWithHiddenDesktop
+    public class HydraulicLocationConfigurationDatabaseImportHandlerTest : NUnitFormTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Plugin);
         private static readonly string testDataDirectory = Path.Combine(testDataPath, nameof(HydraulicLocationConfigurationDatabaseImportHandler));

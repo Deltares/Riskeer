@@ -42,7 +42,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresContextUpdateInfoTest : NUnitFormTestWithHiddenDesktop
+    public class StabilityPointStructuresContextUpdateInfoTest : NUnitFormTest
     {
         private UpdateInfo updateInfo;
         private StabilityPointStructuresPlugin plugin;

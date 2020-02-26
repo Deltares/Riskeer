@@ -51,7 +51,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class BackgroundDataTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class BackgroundDataTreeNodeInfoTest : NUnitFormTest
     {
         private const int selectContextMenuIndex = 0;
 

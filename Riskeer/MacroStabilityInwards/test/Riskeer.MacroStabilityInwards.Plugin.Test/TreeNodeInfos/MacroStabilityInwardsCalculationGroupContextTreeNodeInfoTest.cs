@@ -53,7 +53,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationGroupContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class MacroStabilityInwardsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportCalculationGroupIndexRootGroup = 2;
         private const int contextMenuExportCalculationGroupIndexRootGroup = 3;

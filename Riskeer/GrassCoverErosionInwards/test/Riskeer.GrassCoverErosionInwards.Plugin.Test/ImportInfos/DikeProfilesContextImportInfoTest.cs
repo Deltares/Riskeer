@@ -43,7 +43,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class DikeProfilesContextImportInfoTest : NUnitFormTestWithHiddenDesktop
+    public class DikeProfilesContextImportInfoTest : NUnitFormTest
     {
         [Test]
         public void Name_Always_ReturnExpectedName()

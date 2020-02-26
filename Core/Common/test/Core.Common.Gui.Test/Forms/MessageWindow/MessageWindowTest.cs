@@ -23,7 +23,6 @@ using System;
 using System.Data;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -33,7 +32,7 @@ using GuiFormsMessageWindow = Core.Common.Gui.Forms.MessageWindow;
 namespace Core.Common.Gui.Test.Forms.MessageWindow
 {
     [TestFixture]
-    public class MessageWindowTest : NUnitFormTestWithHiddenDesktop
+    public class MessageWindowTest : NUnitFormTest
     {
         private GuiFormsMessageWindow.MessageWindowLogAppender originalValue;
 

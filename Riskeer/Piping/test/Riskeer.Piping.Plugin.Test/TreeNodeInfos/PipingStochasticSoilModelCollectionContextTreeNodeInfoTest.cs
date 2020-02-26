@@ -39,7 +39,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingStochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class PipingStochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;

@@ -54,7 +54,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DesignWaterLevelCalculationsGroupContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class DesignWaterLevelCalculationsGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRunDesignWaterLevelCalculationsIndex = 0;
         private const int contextMenuClearIllustrationPointsIndex = 2;

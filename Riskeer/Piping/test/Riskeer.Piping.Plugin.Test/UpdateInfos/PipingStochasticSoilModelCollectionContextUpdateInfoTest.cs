@@ -42,7 +42,7 @@ using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class PipingStochasticSoilModelCollectionContextUpdateInfoTest : NUnitFormTestWithHiddenDesktop
+    public class PipingStochasticSoilModelCollectionContextUpdateInfoTest : NUnitFormTest
     {
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;

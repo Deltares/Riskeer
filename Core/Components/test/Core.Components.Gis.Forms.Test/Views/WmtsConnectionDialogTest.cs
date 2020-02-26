@@ -23,7 +23,6 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Forms.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -32,7 +31,7 @@ using Rhino.Mocks;
 namespace Core.Components.Gis.Forms.Test.Views
 {
     [TestFixture]
-    public class WmtsConnectionDialogTest : NUnitFormTestWithHiddenDesktop
+    public class WmtsConnectionDialogTest : NUnitFormTest
     {
         [Test]
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()

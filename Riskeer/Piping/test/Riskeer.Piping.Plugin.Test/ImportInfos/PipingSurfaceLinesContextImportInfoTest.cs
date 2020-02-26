@@ -43,7 +43,7 @@ using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class PipingSurfaceLinesContextImportInfoTest : NUnitFormTestWithHiddenDesktop
+    public class PipingSurfaceLinesContextImportInfoTest : NUnitFormTest
     {
         private ImportInfo importInfo;
         private PipingPlugin plugin;

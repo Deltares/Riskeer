@@ -43,7 +43,7 @@ using Riskeer.Integration.Plugin.Properties;
 namespace Riskeer.Integration.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class ForeshoreProfileContextUpdateInfoTest : NUnitFormTestWithHiddenDesktop
+    public class ForeshoreProfileContextUpdateInfoTest : NUnitFormTest
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()

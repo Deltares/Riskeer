@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.DuneErosion.Data;
@@ -32,7 +31,7 @@ using Riskeer.DuneErosion.Data.TestUtil;
 namespace Riskeer.DuneErosion.Forms.Test
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismPropertyChangeHandlerTest : NUnitFormTestWithHiddenDesktop
+    public class DuneErosionFailureMechanismPropertyChangeHandlerTest : NUnitFormTest
     {
         [Test]
         public void SetPropertyValueAfterConfirmation_WithoutFailureMechanism_ThrowsArgumentNullException()

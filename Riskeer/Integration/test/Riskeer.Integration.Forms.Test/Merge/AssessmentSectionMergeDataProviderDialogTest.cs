@@ -42,7 +42,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.Integration.Forms.Test.Merge
 {
     [TestFixture]
-    public class AssessmentSectionMergeDataProviderDialogTest : NUnitFormTestWithHiddenDesktop
+    public class AssessmentSectionMergeDataProviderDialogTest : NUnitFormTest
     {
         private const int isSelectedIndex = 0;
         private const int failureMechanismNameIndex = 1;

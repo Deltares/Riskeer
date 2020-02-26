@@ -46,7 +46,7 @@ using Riskeer.Integration.Forms.Dialogs;
 namespace Riskeer.Integration.Forms.Test.Commands
 {
     [TestFixture]
-    public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTestWithHiddenDesktop
+    public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "ReferenceLineMetaImporter");
 

@@ -24,7 +24,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
@@ -36,7 +35,7 @@ using Riskeer.Common.Forms.PropertyClasses;
 namespace Riskeer.Common.Forms.Test.ChangeHandlers
 {
     [TestFixture]
-    public class FailureMechanismPropertyChangeHandlerTest : NUnitFormTestWithHiddenDesktop
+    public class FailureMechanismPropertyChangeHandlerTest : NUnitFormTest
     {
         [Test]
         public void Constructor_Expectedvalues()

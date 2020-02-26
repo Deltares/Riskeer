@@ -54,7 +54,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingCalculationGroupContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class PipingCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportCalculationGroupIndexRootGroup = 2;
         private const int contextMenuExportCalculationGroupIndexRootGroup = 3;

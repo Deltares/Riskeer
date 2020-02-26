@@ -38,7 +38,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class NormPropertiesTest : NUnitFormTestWithHiddenDesktop
+    public class NormPropertiesTest : NUnitFormTest
     {
         [Test]
         public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()

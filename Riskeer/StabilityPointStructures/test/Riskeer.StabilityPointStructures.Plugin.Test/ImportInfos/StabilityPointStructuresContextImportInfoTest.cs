@@ -43,7 +43,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresContextImportInfoTest : NUnitFormTestWithHiddenDesktop
+    public class StabilityPointStructuresContextImportInfoTest : NUnitFormTest
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()

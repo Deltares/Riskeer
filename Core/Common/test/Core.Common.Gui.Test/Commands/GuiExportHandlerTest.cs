@@ -41,7 +41,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Commands
 {
     [TestFixture]
-    public class GuiExportHandlerTest : NUnitFormTestWithHiddenDesktop
+    public class GuiExportHandlerTest : NUnitFormTest
     {
         [Test]
         [TestCase(1234)]

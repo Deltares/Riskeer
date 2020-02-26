@@ -37,7 +37,7 @@ using Riskeer.Integration.Plugin.Handlers;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class AssessmentSectionCompositionPropertiesTest : NUnitFormTestWithHiddenDesktop
+    public class AssessmentSectionCompositionPropertiesTest : NUnitFormTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()

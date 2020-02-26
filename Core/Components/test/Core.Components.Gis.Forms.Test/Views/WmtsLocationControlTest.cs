@@ -44,7 +44,7 @@ using Rhino.Mocks;
 namespace Core.Components.Gis.Forms.Test.Views
 {
     [TestFixture]
-    public class WmtsLocationControlTest : NUnitFormTestWithHiddenDesktop
+    public class WmtsLocationControlTest : NUnitFormTest
     {
         private const int mapLayerIdColumnIndex = 0;
         private const int mapLayerFormatColumnIndex = 1;

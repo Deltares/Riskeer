@@ -44,7 +44,7 @@ using Riskeer.Piping.Data.TestUtil;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class NormPropertiesIntegrationTest : NUnitFormTestWithHiddenDesktop
+    public class NormPropertiesIntegrationTest : NUnitFormTest
     {
         private const string messageAllHydraulicBoundaryOutputCleared = "Alle berekende hydraulische belastingen zijn verwijderd.";
         private const string messageCalculationsRemoved = "De resultaten van {0} berekeningen zijn verwijderd.";

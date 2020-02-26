@@ -54,7 +54,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaveHeightCalculationsContextTreeNodeInfoTest : NUnitFormTestWithHiddenDesktop
+    public class WaveHeightCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRunWaveHeightCalculationsIndex = 2;
         private const int contextMenuClearIllustrationPointsIndex = 4;
