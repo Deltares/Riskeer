@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{89F6BC2C-78E6-42F1-A056-704C877B5453}"
 EndProject
@@ -127,10 +127,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Util", "Core\Co
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Gui", "Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj", "{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Gui", "Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj", "{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Base", "Core\Common\src\Core.Common.Base\Core.Common.Base.csproj", "{3BBFD65B-B277-4E50-AE6D-BD24C3434609}"
 	ProjectSection(ProjectDependencies) = postProject
