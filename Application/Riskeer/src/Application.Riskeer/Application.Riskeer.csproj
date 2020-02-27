@@ -1,220 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <PropertyGroup>
-    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-    <Configuration Condition="$(Configuration) == ''">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>Library</OutputType>
-    <OutputPath>$(SolutionDir)\bin\$(Configuration)\</OutputPath>
-    <OutDir>$(OutputPath)</OutDir>
-    <PlatformTarget>x86</PlatformTarget>
-    <WarningLevel>4</WarningLevel>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectGuid>{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Application.Riskeer</RootNamespace>
     <AssemblyName>Riskeer</AssemblyName>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE;DEVELOPMENT</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
-    <DefineConstants>TRACE</DefineConstants>
-    <DebugType>none</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
-    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
-    <DebugType>none</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
-    <Optimize>true</Optimize>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup>
     <ApplicationIcon>Riskeer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net45\Fluent.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PresentationFramework">
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net45\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
-    </Reference>
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
-      <Name>Core.Common.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
-      <Name>Core.Common.Gui</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj">
-      <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
-      <Name>Core.Plugins.Chart</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</Project>
-      <Name>Core.Plugins.CommonTools</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj">
-      <Project>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</Project>
-      <Name>Core.Plugins.Map</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
-      <Project>{ED20DBA9-D577-423F-A68D-A0A8130FB10B}</Project>
-      <Name>Core.Plugins.ProjectExplorer</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Demo\Riskeer\src\Demo.Riskeer\Demo.Riskeer.csproj" Condition="$(DefineConstants.Contains('DEVELOPMENT'))">
-      <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
-      <Name>Demo.Riskeer</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj">
-      <Project>{7DA0AB85-828D-4B1D-B532-58B89E39BEF5}</Project>
-      <Name>Riskeer.ClosingStructures.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Plugin\Riskeer.DuneErosion.Plugin.csproj">
-      <Project>{83885FB9-A87B-4D43-AF27-43EA44A84E42}</Project>
-      <Name>Riskeer.DuneErosion.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj">
-      <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>
-      <Name>Riskeer.Integration.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Plugin\Riskeer.MacroStabilityInwards.Plugin.csproj">
-      <Project>{b6b27968-6b39-48df-b2e5-cbabf362808c}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj">
-      <Project>{ac4f7f48-f674-4e32-ab35-9c726605f684}</Project>
-      <Name>Riskeer.Migration</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj">
-      <Project>{E3DF5559-97D9-4038-BBE6-2E3DFB4F4C68}</Project>
-      <Name>Riskeer.StabilityPointStructures.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
-      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
-      <Name>Riskeer.Storage.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Plugin\Riskeer.WaveImpactAsphaltCover.Plugin.csproj">
-      <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Plugin\Riskeer.GrassCoverErosionInwards.Plugin.csproj">
-      <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Plugin\Riskeer.GrassCoverErosionOutwards.Plugin.csproj">
-      <Project>{9B3ED064-E29F-4D38-85E0-3A82B77BA702}</Project>
-      <Name>Riskeer.GrassCoverErosionOutwards.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj">
-      <Project>{9AF85B2B-8D78-43C5-9542-FBB3A14EAB36}</Project>
-      <Name>Riskeer.HeightStructures.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
-      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
-      <Name>Riskeer.Integration.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
-      <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
-      <Name>Riskeer.Integration.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj">
-      <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
-      <Name>Riskeer.Piping.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj">
-      <Project>{9ddc42cc-a2cc-4900-a711-aa1dd6d3a94a}</Project>
-      <Name>Riskeer.StabilityStoneCover.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\build\Copying.licenseheader">
-      <Link>Copying.licenseheader</Link>
-    </None>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -223,19 +25,104 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Demo\Riskeer\src\Demo.Riskeer\Demo.Riskeer.csproj" Condition="$(DefineConstants.Contains('DEVELOPMENT'))">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Plugin\Riskeer.DuneErosion.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Plugin\Riskeer.MacroStabilityInwards.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Plugin\Riskeer.WaveImpactAsphaltCover.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Plugin\Riskeer.GrassCoverErosionInwards.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Plugin\Riskeer.GrassCoverErosionOutwards.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Riskeer.ico" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="$(SolutionDir)\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
-      <Link>Properties\GlobalAssembly.cs</Link>
-    </Compile>
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>3.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.Core">
+      <Version>1.0.109.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.EF6">
+      <Version>1.0.109</Version>
+    </PackageReference>
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
