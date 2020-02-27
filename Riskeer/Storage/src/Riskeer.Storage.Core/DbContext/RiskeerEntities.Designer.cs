@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-// T4 code generation is enabled for model 'C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\DbContext\RiskeerEntities.edmx'. 
+// T4 code generation is enabled for model 'D:\Repositories\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\DbContext\RiskeerEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
