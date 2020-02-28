@@ -1345,9 +1345,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.TestUti
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile", "Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj", "{E02482C7-F12B-42F0-BB2B-C7EC17503A72}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.Forms", "Core\Components\src\Core.Components.BruTile.Forms\Core.Components.BruTile.Forms.csproj", "{1BA9EBD0-AA64-4BE3-9791-B2EE344EC938}"
 	ProjectSection(ProjectDependencies) = postProject
