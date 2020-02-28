@@ -1,16 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</ProjectGuid>
-    <RootNamespace>Core.Plugins.Map</RootNamespace>
-    <AssemblyName>Core.Plugins.Map</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
-    <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net45\Fluent.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -21,88 +11,31 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\ToggleMapLegendViewCommand.cs" />
-    <Compile Include="Helpers\MapDataContextHelper.cs" />
-    <Compile Include="MapPlugin.cs" />
-    <Compile Include="Legend\MapLegendController.cs" />
-    <Compile Include="Legend\MapLegendView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Legend\MapLegendView.Designer.cs">
-      <DependentUpon>MapLegendView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MapRibbon.xaml.cs">
-      <DependentUpon>MapRibbon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationObjects\FeatureBasedMapDataContext.cs" />
-    <Compile Include="PresentationObjects\MapDataCollectionContext.cs" />
-    <Compile Include="PresentationObjects\MapDataContext.cs" />
-    <Compile Include="PresentationObjects\MapLineDataContext.cs" />
-    <Compile Include="PresentationObjects\MapPointDataContext.cs" />
-    <Compile Include="PresentationObjects\MapPolygonDataContext.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyClasses\CategoryThemeProperties.cs" />
-    <Compile Include="PropertyClasses\FeatureBasedMapDataProperties.cs" />
-    <Compile Include="PropertyClasses\IHasMetaData.cs" />
-    <Compile Include="PropertyClasses\LineCategoryThemeProperties.cs" />
-    <Compile Include="PropertyClasses\MapDataCollectionProperties.cs" />
-    <Compile Include="PropertyClasses\MapLineDataProperties.cs" />
-    <Compile Include="PropertyClasses\MapPointDataProperties.cs" />
-    <Compile Include="PropertyClasses\MapPolygonDataProperties.cs" />
-    <Compile Include="PropertyClasses\PointCategoryThemeProperties.cs" />
-    <Compile Include="PropertyClasses\PolygonCategoryThemeProperties.cs" />
-    <Compile Include="UITypeEditors\MetaDataAttributeEditor.cs" />
-    <Compile Include="UITypeEditors\SelectableMetaDataAttribute.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
-      <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
-      <Name>Core.Components.DotSpatial.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj">
-      <Project>{fd264fad-e6f9-47cc-97cd-770199a8e629}</Project>
-      <Name>Core.Components.Gis.IO</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
-      <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
@@ -110,23 +43,12 @@
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MapRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Legend\MapLegendView.resx">
-      <DependentUpon>MapLegendView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\map.png" />
@@ -154,5 +76,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\map--plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>3.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

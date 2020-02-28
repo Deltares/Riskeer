@@ -63,7 +63,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 // Assert
                 string message = Assert.Throws<PluginActivationException>(test).Message;
-                string expected = string.Format(Resources.ProjectExplorerPlugin_Activation_of_0_failed, Resources.General_ProjectExplorer);
+                const string expected = "Het starten van de Projectverkenner is mislukt.";
                 Assert.AreEqual(expected, message);
             }
         }
@@ -133,7 +133,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 // Assert
                 string message = Assert.Throws<PluginActivationException>(test).Message;
-                string expected = string.Format(Resources.ProjectExplorerPlugin_Cannot_activate_0_twice, Resources.General_ProjectExplorer);
+                const string expected = "Kan Projectverkenner niet twee keer activeren.";
                 Assert.AreEqual(expected, message);
             }
 

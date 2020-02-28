@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,10 +40,10 @@ namespace Core.Plugins.ProjectExplorer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Plugins.ProjectExplorer.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Projectverkenner.
         /// </summary>
-        public static string General_ProjectExplorer {
+        internal static string General_ProjectExplorer {
             get {
                 return ResourceManager.GetString("General_ProjectExplorer", resourceCulture);
             }
@@ -93,7 +93,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap ProjectExplorerIcon {
+        internal static System.Drawing.Bitmap ProjectExplorerIcon {
             get {
                 object obj = ResourceManager.GetObject("ProjectExplorerIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het starten van de {0} is mislukt..
         /// </summary>
-        public static string ProjectExplorerPlugin_Activation_of_0_failed {
+        internal static string ProjectExplorerPlugin_Activation_of_0_failed {
             get {
                 return ResourceManager.GetString("ProjectExplorerPlugin_Activation_of_0_failed", resourceCulture);
             }
@@ -112,7 +112,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan {0} niet twee keer activeren..
         /// </summary>
-        public static string ProjectExplorerPlugin_Cannot_activate_0_twice {
+        internal static string ProjectExplorerPlugin_Cannot_activate_0_twice {
             get {
                 return ResourceManager.GetString("ProjectExplorerPlugin_Cannot_activate_0_twice", resourceCulture);
             }
@@ -121,7 +121,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weergeven/Verbergen.
         /// </summary>
-        public static string Ribbon_GroupBox_ShowHide {
+        internal static string Ribbon_GroupBox_ShowHide {
             get {
                 return ResourceManager.GetString("Ribbon_GroupBox_ShowHide", resourceCulture);
             }
@@ -130,7 +130,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Beeld.
         /// </summary>
-        public static string Ribbon_TabItem_View {
+        internal static string Ribbon_TabItem_View {
             get {
                 return ResourceManager.GetString("Ribbon_TabItem_View", resourceCulture);
             }
