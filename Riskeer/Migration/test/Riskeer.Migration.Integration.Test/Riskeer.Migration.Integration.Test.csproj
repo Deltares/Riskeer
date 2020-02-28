@@ -23,7 +23,7 @@
     <Compile Include="MigrationTo191IntegrationTest.cs" />
     <Compile Include="MigrationTo173IntegrationTest.cs" />
     <Compile Include="MigrationTo181IntegrationTest.cs" />
-    <Compile Include="MigrationTo192IntegrationTest.cs" />
+    <Compile Include="MigrationTo201IntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

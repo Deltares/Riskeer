@@ -141,7 +141,6 @@ namespace Riskeer.Common.Util.Test
                 new TestCaseData("17.3"),
                 new TestCaseData("18.1"),
                 new TestCaseData("19.1"),
-                new TestCaseData("19.2")
             };
         }
 

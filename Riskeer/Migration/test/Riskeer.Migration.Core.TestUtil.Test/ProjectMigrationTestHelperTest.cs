@@ -97,8 +97,7 @@ namespace Riskeer.Migration.Core.TestUtil.Test
                 "17.2",
                 "17.3",
                 "18.1",
-                "19.1",
-                "19.2"
+                "19.1"
             };
             CollectionAssert.AreEqual(expectedProjectVersions, returnedProjectVersions);
         }

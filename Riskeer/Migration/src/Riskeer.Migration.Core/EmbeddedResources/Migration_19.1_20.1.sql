@@ -1,6 +1,6 @@
 /*
 Migration script for migrating Ringtoets databases.
-SourceProject version: 19.2
+SourceProject version: 19.1
 TargetProject version: 20.1
 */
 
@@ -134,18 +134,18 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-VALUES ("19.2", "20.1", "Gevolgen van de migratie van versie 19.2 naar versie 20.1:");
+VALUES ("19.1", "20.1", "Gevolgen van de migratie van versie 19.1 naar versie 20.1:");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-SELECT "19.2",
+SELECT "19.1",
 	"20.1", 
 	"* Geen aanpassingen."
 	WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
-		WHERE [FromVersion] = "19.2"
+		WHERE [FromVersion] = "19.1"
 	) IS 1;
 
 DETACH LOGDATABASE;

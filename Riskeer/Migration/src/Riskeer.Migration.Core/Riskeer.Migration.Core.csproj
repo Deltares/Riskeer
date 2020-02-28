@@ -109,14 +109,10 @@
     <EmbeddedResource Include="EmbeddedResources\Migration_18.1_19.1.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EmbeddedResources\DatabaseStructure19.2.sql" />
-    <EmbeddedResource Include="EmbeddedResources\Migration_19.1_19.2.sql" />
+    <EmbeddedResource Include="EmbeddedResources\Migration_19.1_20.1.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\DatabaseStructure20.1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="EmbeddedResources\Migration_19.2_20.1.sql" />
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

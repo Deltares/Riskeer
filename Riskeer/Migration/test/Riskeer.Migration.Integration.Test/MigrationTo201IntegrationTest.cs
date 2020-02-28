@@ -28,9 +28,9 @@ using Riskeer.Migration.Core.TestUtil;
 namespace Riskeer.Migration.Integration.Test
 {
     [TestFixture]
-    public class MigrationTo192IntegrationTest
+    public class MigrationTo201IntegrationTest
     {
-        private const string newVersion = "19.2";
+        private const string newVersion = "20.1";
 
         [Test]
         public void Given181Project_WhenUpgradedTo191_ThenProjectAsExpected()
@@ -187,7 +187,7 @@ namespace Riskeer.Migration.Integration.Test
             const string validateVersion =
                 "SELECT COUNT() = 1 " +
                 "FROM [VersionEntity] " +
-                "WHERE [Version] = \"19.2\";";
+                "WHERE [Version] = \"20.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
         private static void AssertDatabase(MigratedDatabaseReader reader)
@@ -206,7 +206,7 @@ namespace Riskeer.Migration.Integration.Test
                 Assert.AreEqual(2, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 19.2:"),
+                    new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("19.1", newVersion, "* Geen aanpassingen."),
