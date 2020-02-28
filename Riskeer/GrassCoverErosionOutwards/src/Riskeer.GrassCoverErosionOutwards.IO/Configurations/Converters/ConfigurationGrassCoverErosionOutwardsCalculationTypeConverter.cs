@@ -82,11 +82,11 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact:
-                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_WaveImpact_DisplayName;
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
-                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveImpact_DisplayName;
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.All:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_All_DisplayName;
                     default:
@@ -124,7 +124,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
                 }
 
-                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_WaveImpact_DisplayName)
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
                 }
@@ -134,7 +134,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact;
                 }
 
-                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveImpact_DisplayName)
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
                 }
