@@ -1,18 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{72109E33-6518-4632-ACCF-6CBF2A312711}</ProjectGuid>
-    <RootNamespace>Core.Components.Stack.Forms</RootNamespace>
-    <AssemblyName>Core.Components.Stack.Forms</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IStackChartControl.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -21,8 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj">
-      <Project>{6A146889-A3C4-48BF-AF53-C0B0CD355BE4}</Project>
-      <Name>Core.Components.Stack</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
