@@ -1,64 +1,37 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</ProjectGuid>
-    <RootNamespace>Core.Components.OxyPlot</RootNamespace>
-    <AssemblyName>Core.Components.OxyPlot</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
-    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\Chart\ChartAreaDataConverter.cs" />
-    <Compile Include="Converter\ChartDataHelper.cs" />
-    <Compile Include="Converter\Chart\ChartMultipleAreaDataConverter.cs" />
-    <Compile Include="Converter\Chart\ChartLineDataConverter.cs" />
-    <Compile Include="Converter\Chart\ChartMultipleLineDataConverter.cs" />
-    <Compile Include="Converter\Chart\ChartPointDataConverter.cs" />
-    <Compile Include="Converter\Stack\RowChartDataConverter.cs" />
-    <Compile Include="CustomSeries\MultipleLineSeries.cs" />
-    <Compile Include="DataSeries\Chart\ChartAreaDataSeries.cs" />
-    <Compile Include="DataSeries\Chart\ChartLineDataSeries.cs" />
-    <Compile Include="DataSeries\Chart\ChartMultipleAreaDataSeries.cs" />
-    <Compile Include="DataSeries\Chart\ChartMultipleLineDataSeries.cs" />
-    <Compile Include="DataSeries\Chart\IChartDataSeries.cs" />
-    <Compile Include="CustomSeries\MultipleAreaSeries.cs" />
-    <Compile Include="DataSeries\Stack\RowChartDataSeries.cs" />
-    <Compile Include="DataSeries\Stack\RowChartDataSeriesFactory.cs" />
-    <Compile Include="DynamicPlotController.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Converter\Chart\ChartDataConverter.cs" />
-    <Compile Include="DataSeries\Chart\ChartDataSeriesFactory.cs" />
-    <Compile Include="DataSeries\Chart\ChartPointDataSeries.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
-      <Name>Core.Components.Chart</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj">
-      <Project>{6A146889-A3C4-48BF-AF53-C0B0CD355BE4}</Project>
-      <Name>Core.Components.Stack</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OxyPlot.Core">
+      <Version>1.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Core.Components.OxyPlot.Test</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Core.Components.OxyPlot.Forms</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
