@@ -134,7 +134,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-VALUES ("19.2", "20.1", "Gevolgen van de migratie van versie 19.1 naar versie 19.2:");
+VALUES ("19.2", "20.1", "Gevolgen van de migratie van versie 19.2 naar versie 20.1:");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],

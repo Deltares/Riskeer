@@ -73,6 +73,7 @@ namespace Riskeer.Migration.Core.TestUtil
             yield return "MigrationTestProject173.rtd";
             yield return "MigrationTestProject181.rtd";
             yield return "MigrationTestProject191.risk";
+            yield return "MigrationTestProject192.risk";
         }
 
         /// <summary>

@@ -102,7 +102,7 @@ namespace Riskeer.Migration.Integration.Test
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(12, messages.Count);
+                    Assert.AreEqual(14, messages.Count);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
                         messages[0]);
@@ -134,11 +134,17 @@ namespace Riskeer.Migration.Integration.Test
                         new MigrationLogMessage("18.1", "19.1", "* Geen aanpassingen."),
                         messages[9]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("19.1", latestVersion, $"Gevolgen van de migratie van versie 19.1 naar versie {latestVersion}:"),
+                        new MigrationLogMessage("19.1", "19.2", "Gevolgen van de migratie van versie 19.1 naar versie 19.2:"),
                         messages[10]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("19.1", latestVersion, "* Geen aanpassingen."),
+                        new MigrationLogMessage("19.1", "19.2", "* Geen aanpassingen."),
                         messages[11]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("19.2", latestVersion, $"Gevolgen van de migratie van versie 19.2 naar versie {latestVersion}:"),
+                        messages[12]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("19.2", latestVersion, "* Geen aanpassingen."),
+                        messages[13]);
                 }
             }
         }
