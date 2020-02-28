@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{C90B77DA-E421-43CC-B82E-529651BC21AC}</ProjectGuid>
+    <RootNamespace>Core.Common.Version</RootNamespace>
+    <AssemblyName>Core.Common.Version</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>cmd /c $(SolutionDir)\build\git_insert_hash.cmd $(SolutionDir)\Core\Common\src\Core.Common.Version GlobalAssembly.cs.template GlobalAssembly.cs</PreBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
+    <None Include="GlobalAssembly.cs.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+</Project>
