@@ -26,7 +26,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.IO.Properties;
 using Core.Components.Gis.IO.Writers;
 using DotSpatial.Data;
 using NUnit.Framework;
@@ -72,8 +71,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate test = () => writer.CopyToFeature(new MapLineData("test"));
 
                 // Assert
-                string expectedMessage = Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature;
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Mapdata mag maar één feature bevatten.");
             }
         }
 

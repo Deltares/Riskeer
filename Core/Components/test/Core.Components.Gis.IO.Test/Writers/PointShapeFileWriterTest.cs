@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-using Core.Components.Gis.IO.Properties;
 using Core.Components.Gis.IO.Writers;
 using NUnit.Framework;
 
@@ -68,8 +67,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.CopyToFeature(mapData);
 
                 // Assert
-                string expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Een feature mag maar één geometrie bevatten.");
             }
         }
 
@@ -103,8 +101,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.CopyToFeature(mapData);
 
                 // Assert
-                string expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Een feature mag maar één geometrie bevatten.");
             }
         }
 
