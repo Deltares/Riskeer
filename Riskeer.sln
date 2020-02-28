@@ -128,9 +128,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Util", "Core\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Gui", "Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj", "{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Base", "Core\Common\src\Core.Common.Base\Core.Common.Base.csproj", "{3BBFD65B-B277-4E50-AE6D-BD24C3434609}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Base", "Core\Common\src\Core.Common.Base\Core.Common.Base.csproj", "{3BBFD65B-B277-4E50-AE6D-BD24C3434609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls", "Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj", "{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Controls", "Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj", "{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0D9858E1-CF2D-4DE5-AC0E-64401900D531}"
 EndProject
@@ -348,7 +348,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Common.Data.Test", 
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.TreeView", "Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj", "{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Controls.TreeView", "Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj", "{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -677,9 +677,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Integration.Service
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Geometry", "Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj", "{88665510-CE20-4EF5-BE4A-39800720AA2C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Geometry.Test", "Core\Common\test\Core.Common.Geometry.Test\Core.Common.Geometry.Test.csproj", "{E23513DE-B7D0-4415-BCDF-5A33CD084388}"
 	ProjectSection(ProjectDependencies) = postProject
