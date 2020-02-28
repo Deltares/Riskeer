@@ -73,7 +73,7 @@ namespace Riskeer.Migration.Core.Test
 
         [Test]
         [TestCase("16.4")]
-        [TestCase("19.2")]
+        [TestCase("20.1")]
         public void IsVersionSupported_UnsupportedVersion_ReturnsFalse(string fromVersion)
         {
             // Setup
