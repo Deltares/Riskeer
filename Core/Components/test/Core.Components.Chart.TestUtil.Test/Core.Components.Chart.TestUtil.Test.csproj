@@ -1,41 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{1FD22BC2-B3D5-49D5-9E9B-694BE547DB6D}</ProjectGuid>
-    <RootNamespace>Core.Components.Chart.TestUtil.Test</RootNamespace>
-    <AssemblyName>Core.Components.Chart.TestUtil.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestChartDataTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
-      <Name>Core.Components.Chart</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj">
-      <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
-      <Name>Core.Components.Chart.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj"/>
+    <ProjectReference Include="..\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
