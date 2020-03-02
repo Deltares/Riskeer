@@ -133,10 +133,10 @@
     <value>Gras (golfoploop)</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName" xml:space="preserve">
-    <value>Gras (golfklap toets op maat)</value>
+    <value>Gras (golfklap voor toets op maat)</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName" xml:space="preserve">
-    <value>Gras (golfoploop en golfklap toets op maat)</value>
+    <value>Gras (golfoploop en golfklap voor toets op maat)</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationType_All_DisplayName" xml:space="preserve">
     <value>Gras (alle types)</value>

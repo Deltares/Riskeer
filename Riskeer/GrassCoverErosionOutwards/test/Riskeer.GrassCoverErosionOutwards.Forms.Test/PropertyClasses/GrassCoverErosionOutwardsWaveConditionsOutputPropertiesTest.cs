@@ -160,8 +160,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
                                                                             "Resultaat",
-                                                                            "Hydraulische belastingen voor golfklap toets op maat",
-                                                                            "Berekende hydraulische belastingen voor golfklap toets op maat.",
+                                                                            "Hydraulische belastingen voor golfklap voor toets op maat",
+                                                                            "Berekende hydraulische belastingen voor golfklap voor toets op maat.",
                                                                             true);
         }
 
@@ -200,7 +200,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact)
             {
-                revetmentType = "golfklap toets op maat";
+                revetmentType = "golfklap voor toets op maat";
             }
 
             PropertyDescriptor outputProperty = dynamicProperties[0];

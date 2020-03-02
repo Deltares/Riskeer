@@ -123,8 +123,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact, "Gras (golfoploop en golfklap)")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp, "Gras (golfoploop)")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, "Gras (golfklap)")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact, "Gras (golfklap toets op maat)")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap toets op maat)")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact, "Gras (golfklap voor toets op maat)")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap voor toets op maat)")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.All, "Gras (alle types)")]
         public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCalculationType_ReturnExpectedText(
             ConfigurationGrassCoverErosionOutwardsCalculationType originalValue, string expectedText)
@@ -197,8 +197,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase("Gras (golfoploop en golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact)]
         [TestCase("Gras (golfoploop)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp)]
         [TestCase("Gras (golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
-        [TestCase("Gras (golfklap toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact)]
-        [TestCase("Gras (golfoploop en golfklap toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact)]
+        [TestCase("Gras (golfklap voor toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact)]
+        [TestCase("Gras (golfoploop en golfklap voor toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact)]
         [TestCase("Gras (alle types)", ConfigurationGrassCoverErosionOutwardsCalculationType.All)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationGrassCoverErosionOutwardsCalculationType(
             string originalValue, ConfigurationGrassCoverErosionOutwardsCalculationType expectedValue)
