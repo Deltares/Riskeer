@@ -1356,17 +1356,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.IO"
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.Test", "Core\Components\test\Core.Components.BruTile.Test\Core.Components.BruTile.Test.csproj", "{0CE93555-A056-434C-9D91-B55DBA7C3877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Test", "Core\Components\test\Core.Components.BruTile.Test\Core.Components.BruTile.Test.csproj", "{0CE93555-A056-434C-9D91-B55DBA7C3877}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.Forms.Test", "Core\Components\test\Core.Components.BruTile.Forms.Test\Core.Components.BruTile.Forms.Test.csproj", "{05A2A229-B98A-43F5-8F86-B812F30CAF5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Forms.Test", "Core\Components\test\Core.Components.BruTile.Forms.Test\Core.Components.BruTile.Forms.Test.csproj", "{05A2A229-B98A-43F5-8F86-B812F30CAF5B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.IO.Test", "Core\Components\test\Core.Components.BruTile.IO.Test\Core.Components.BruTile.IO.Test.csproj", "{041095A1-5C95-482E-A063-9A4796E4DA38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.IO.Test", "Core\Components\test\Core.Components.BruTile.IO.Test\Core.Components.BruTile.IO.Test.csproj", "{041095A1-5C95-482E-A063-9A4796E4DA38}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1381,12 +1381,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Dat
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.TestUtil", "Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj", "{1081336C-D919-4249-AB33-9AF15F4D19EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.TestUtil", "Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj", "{1081336C-D919-4249-AB33-9AF15F4D19EC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.TestUtil.Test", "Core\Components\test\Core.Components.BruTile.TestUtil.Test\Core.Components.BruTile.TestUtil.Test.csproj", "{69B97F30-F52B-4A31-A250-7280123CFF3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.TestUtil.Test", "Core\Components\test\Core.Components.BruTile.TestUtil.Test\Core.Components.BruTile.TestUtil.Test.csproj", "{69B97F30-F52B-4A31-A250-7280123CFF3D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -4237,6 +4237,7 @@ Global
 		{1081336C-D919-4249-AB33-9AF15F4D19EC}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{1081336C-D919-4249-AB33-9AF15F4D19EC}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{69B97F30-F52B-4A31-A250-7280123CFF3D}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.Debug|x86.ActiveCfg = Debug|x86
