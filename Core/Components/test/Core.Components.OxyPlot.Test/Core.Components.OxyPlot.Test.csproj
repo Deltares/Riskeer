@@ -1,79 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{4BB4D2AA-332E-42D6-8D34-FFABBCE1F1D8}</ProjectGuid>
-    <RootNamespace>Core.Components.OxyPlot.Test</RootNamespace>
-    <AssemblyName>Core.Components.OxyPlot.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\Chart\ChartAreaDataConverterTest.cs" />
-    <Compile Include="Converter\Chart\ChartMultipleLineDataConverterTest.cs" />
-    <Compile Include="Converter\Chart\ChartDataConverterTest.cs" />
-    <Compile Include="Converter\ChartDataHelperTest.cs" />
-    <Compile Include="Converter\Chart\ChartLineDataConverterTest.cs" />
-    <Compile Include="Converter\Chart\ChartMultipleAreaDataConverterTest.cs" />
-    <Compile Include="Converter\Chart\ChartPointDataConverterTest.cs" />
-    <Compile Include="Converter\Stack\RowChartDataConverterTest.cs" />
-    <Compile Include="CustomSeries\MultipleAreaSeriesTest.cs" />
-    <Compile Include="CustomSeries\MultipleLineSeriesTest.cs" />
-    <Compile Include="DataSeries\Chart\ChartMultipleLineDataSeriesTest.cs" />
-    <Compile Include="DataSeries\Chart\ChartPointDataSeriesTest.cs" />
-    <Compile Include="DataSeries\Chart\ChartLineDataSeriesTest.cs" />
-    <Compile Include="DataSeries\Chart\ChartAreaDataSeriesTest.cs" />
-    <Compile Include="DataSeries\Chart\ChartMultipleAreaDataSeriesTest.cs" />
-    <Compile Include="DataSeries\Stack\RowChartDataSeriesFactoryTest.cs" />
-    <Compile Include="DataSeries\Stack\RowChartDataSeriesTest.cs" />
-    <Compile Include="DynamicPlotControllerTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataSeries\Chart\ChartDataSeriesFactoryTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
-      <Name>Core.Components.Chart</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
-      <Project>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</Project>
-      <Name>Core.Components.OxyPlot</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj">
-      <Project>{6a146889-a3c4-48bf-af53-c0b0cd355be4}</Project>
-      <Name>Core.Components.Stack</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj">
-      <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
-      <Name>Core.Components.Chart.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj"/>
+    <ProjectReference Include="..\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="OxyPlot.Core">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
