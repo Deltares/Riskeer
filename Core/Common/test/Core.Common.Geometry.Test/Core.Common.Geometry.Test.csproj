@@ -1,42 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{E23513DE-B7D0-4415-BCDF-5A33CD084388}</ProjectGuid>
-    <RootNamespace>Core.Common.Geometry.Test</RootNamespace>
-    <AssemblyName>Core.Common.Geometry.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AdvancedMath2DTest.cs" />
-    <Compile Include="InvalidPolygonExceptionTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Common.Geometry\Core.Common.Geometry.csproj">
-      <Project>{88665510-CE20-4EF5-BE4A-39800720AA2C}</Project>
-      <Name>Core.Common.Geometry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Common.Geometry\Core.Common.Geometry.csproj"/>
+    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

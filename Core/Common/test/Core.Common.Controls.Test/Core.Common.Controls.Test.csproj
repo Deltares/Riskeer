@@ -1,21 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{A8CE1456-1880-4FC8-84B3-D618EA88F384}</ProjectGuid>
-    <RootNamespace>Core.Common.Controls.Test</RootNamespace>
-    <AssemblyName>Core.Common.Controls.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -23,55 +10,35 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BorderedLabelTest.cs" />
-    <Compile Include="DataGrid\CellStyleTest.cs" />
-    <Compile Include="DataGrid\DataGridViewColorCellTest.cs" />
-    <Compile Include="DataGrid\DataGridViewColorColumnTest.cs" />
-    <Compile Include="DataGrid\DataGridViewColumnStateDefinitionFactoryTest.cs" />
-    <Compile Include="DataGrid\DataGridViewColumnStateDefinitionTest.cs" />
-    <Compile Include="DataGrid\DataGridViewComboBoxItemWrapperTest.cs" />
-    <Compile Include="DataGrid\DataGridViewControlCellFormatExtensionsTest.cs" />
-    <Compile Include="DataGrid\DataGridViewControlTest.cs" />
-    <Compile Include="DataGrid\EnhancedDataGridViewTest.cs" />
-    <Compile Include="Dialogs\DialogBaseTest.cs" />
-    <Compile Include="PresentationObjects\ObservableWrappedObjectContextBaseTest.cs" />
-    <Compile Include="PresentationObjects\WrappedObjectContextBaseTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="TextEditor\RichTextBoxControlTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
