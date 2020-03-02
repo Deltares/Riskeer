@@ -121,7 +121,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Version", "Core
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8261CCE1-98D7-465B-BC94-4ED239DE7F2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Util", "Core\Common\src\Core.Common.Util\Core.Common.Util.csproj", "{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Util", "Core\Common\src\Core.Common.Util\Core.Common.Util.csproj", "{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Gui", "Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj", "{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}"
 EndProject
@@ -157,12 +157,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3ED34ACD-41C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1F0D20C2-7F04-431D-AF22-95A31FD53733}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools", "Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj", "{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Plugins.CommonTools", "Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj", "{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer", "Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj", "{ED20DBA9-D577-423F-A68D-A0A8130FB10B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Plugins.ProjectExplorer", "Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj", "{ED20DBA9-D577-423F-A68D-A0A8130FB10B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -357,7 +357,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.TreeVi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{502CA963-E0E9-4F4A-A1D4-612C6A08386B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot", "Core\Components\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj", "{2344A7BD-7E25-4A1A-982E-6C674AF5167A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.OxyPlot", "Core\Components\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj", "{2344A7BD-7E25-4A1A-982E-6C674AF5167A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -377,7 +377,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{39EB5D07-C07
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EE8D5A6C-4871-452A-A69B-F04E374D715E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot.Forms", "Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj", "{DADAA0A5-288C-49CB-9F08-337F16832C86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.OxyPlot.Forms", "Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj", "{DADAA0A5-288C-49CB-9F08-337F16832C86}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -387,12 +387,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot.For
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart", "Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj", "{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Chart", "Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj", "{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial", "Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj", "{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.DotSpatial", "Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj", "{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -430,7 +430,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Riskeer.Test", "Demo\R
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis", "Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj", "{318BA582-88C9-4816-A54A-A7E431461DE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Gis", "Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj", "{318BA582-88C9-4816-A54A-A7E431461DE3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -456,7 +456,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Test", 
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.Forms", "Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj", "{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.DotSpatial.Forms", "Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj", "{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -466,14 +466,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.IO", "Core\Common\src\Core.Common.IO\Core.Common.IO.csproj", "{E344867E-9AC9-44C8-88A5-8185681679A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.IO", "Core\Common\src\Core.Common.IO\Core.Common.IO.csproj", "{E344867E-9AC9-44C8-88A5-8185681679A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.IO.Test", "Core\Common\test\Core.Common.IO.Test\Core.Common.IO.Test.csproj", "{06EAFA1E-707B-488A-B360-ECE0F870CACF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.IO", "Core\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj", "{FD264FAD-E6F9-47CC-97CD-770199A8E629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Gis.IO", "Core\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj", "{FD264FAD-E6F9-47CC-97CD-770199A8E629}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -503,12 +503,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.HydraRing.IO.Test",
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Forms", "Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj", "{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Gis.Forms", "Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj", "{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Chart.Forms", "Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj", "{2465CCA1-C505-4827-9454-4FD5FD9194CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Chart.Forms", "Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj", "{2465CCA1-C505-4827-9454-4FD5FD9194CD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -670,7 +670,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Integration.Service
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Geometry", "Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj", "{88665510-CE20-4EF5-BE4A-39800720AA2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Geometry", "Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj", "{88665510-CE20-4EF5-BE4A-39800720AA2C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Geometry.Test", "Core\Common\test\Core.Common.Geometry.Test\Core.Common.Geometry.Test.csproj", "{E23513DE-B7D0-4415-BCDF-5A33CD084388}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -697,12 +697,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.GrassCoverErosionIn
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Test", "Application\Riskeer\test\Application.Riskeer.Test\Application.Riskeer.Test.csproj", "{A2451981-99DA-4605-8396-F2222D25EBB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Riskeer.Test", "Application\Riskeer\test\Application.Riskeer.Test\Application.Riskeer.Test.csproj", "{A2451981-99DA-4605-8396-F2222D25EBB7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Chart", "Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj", "{4163B996-3455-4324-A38A-9F2F0E6FCB52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Plugins.Chart", "Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj", "{4163B996-3455-4324-A38A-9F2F0E6FCB52}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -712,7 +712,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Chart.Test", "
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Map", "Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj", "{610E0A9C-1997-4C43-A10E-39D4C66ADA93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Plugins.Map", "Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj", "{610E0A9C-1997-4C43-A10E-39D4C66ADA93}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -722,7 +722,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Map.Test", "Co
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Integration.Test", "Application\Riskeer\test\Application.Riskeer.Integration.Test\Application.Riskeer.Integration.Test.csproj", "{F3695FB7-4C1F-499D-B283-2CF159500117}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Riskeer.Integration.Test", "Application\Riskeer\test\Application.Riskeer.Integration.Test\Application.Riskeer.Integration.Test.csproj", "{F3695FB7-4C1F-499D-B283-2CF159500117}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1304,7 +1304,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Riskeer.Migrati
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Riskeer.Migration.Console.Test", "Application\Riskeer\test\Application.Riskeer.Migration.Console.Test\Application.Riskeer.Migration.Console.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Riskeer.Migration.Console.Test", "Application\Riskeer\test\Application.Riskeer.Migration.Console.Test\Application.Riskeer.Migration.Console.Test.csproj", "{1D3C098B-1EED-488C-900D-B71155C2D6AB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1344,14 +1344,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.TestUti
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile", "Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj", "{E02482C7-F12B-42F0-BB2B-C7EC17503A72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile", "Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj", "{E02482C7-F12B-42F0-BB2B-C7EC17503A72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.Forms", "Core\Components\src\Core.Components.BruTile.Forms\Core.Components.BruTile.Forms.csproj", "{1BA9EBD0-AA64-4BE3-9791-B2EE344EC938}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Forms", "Core\Components\src\Core.Components.BruTile.Forms\Core.Components.BruTile.Forms.csproj", "{1BA9EBD0-AA64-4BE3-9791-B2EE344EC938}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.IO", "Core\Components\src\Core.Components.BruTile.IO\Core.Components.BruTile.IO.csproj", "{6B280C25-DB18-4F80-86D3-1CBA65208F9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.IO", "Core\Components\src\Core.Components.BruTile.IO\Core.Components.BruTile.IO.csproj", "{6B280C25-DB18-4F80-86D3-1CBA65208F9D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1371,12 +1371,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.IO.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.Data", "Core\Components\src\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj", "{3DCEF8F6-CB6D-435C-9539-50143DACD86C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Data", "Core\Components\src\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj", "{3DCEF8F6-CB6D-435C-9539-50143DACD86C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.BruTile.Data.Test", "Core\Components\test\Core.Components.BruTile.Data.Test\Core.Components.BruTile.Data.Test.csproj", "{18DC8B68-59FB-4246-A9B0-2321D4627E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Data.Test", "Core\Components\test\Core.Components.BruTile.Data.Test\Core.Components.BruTile.Data.Test.csproj", "{18DC8B68-59FB-4246-A9B0-2321D4627E10}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1562,12 +1562,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.GrassCoverErosionIn
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Stack", "Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj", "{6A146889-A3C4-48BF-AF53-C0B0CD355BE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Stack", "Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj", "{6A146889-A3C4-48BF-AF53-C0B0CD355BE4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Stack.Forms", "Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj", "{72109E33-6518-4632-ACCF-6CBF2A312711}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Stack.Forms", "Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj", "{72109E33-6518-4632-ACCF-6CBF2A312711}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1592,22 +1592,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riskeer.Common.Plugin.TestU
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.GraphSharp", "Core\Components\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj", "{32358941-77C5-48A7-AD8B-DFB4F23B12A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp", "Core\Components\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj", "{32358941-77C5-48A7-AD8B-DFB4F23B12A5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.GraphSharp.Forms", "Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj", "{4E575459-AD64-4F5F-B313-9F8E0EC8C03F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.Forms", "Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj", "{4E575459-AD64-4F5F-B313-9F8E0EC8C03F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.PointedTree", "Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj", "{AD3B1634-C435-4618-9971-2EA0817F5DE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.PointedTree", "Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj", "{AD3B1634-C435-4618-9971-2EA0817F5DE2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.PointedTree.Forms", "Core\Components\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj", "{DBF5A590-2A11-4EB4-A8CC-F3036475E4D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.PointedTree.Forms", "Core\Components\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj", "{DBF5A590-2A11-4EB4-A8CC-F3036475E4D5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -4218,6 +4218,7 @@ Global
 		{3DCEF8F6-CB6D-435C-9539-50143DACD86C}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{3DCEF8F6-CB6D-435C-9539-50143DACD86C}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.Debug|x86.ActiveCfg = Debug|x86
