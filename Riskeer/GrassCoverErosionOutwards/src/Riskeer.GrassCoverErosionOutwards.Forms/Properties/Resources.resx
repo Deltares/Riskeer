@@ -154,7 +154,7 @@
     <value>Hs_IIv</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description" xml:space="preserve">
-    <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap.</value>
+    <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek.</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Description" xml:space="preserve">
     <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat.</value>

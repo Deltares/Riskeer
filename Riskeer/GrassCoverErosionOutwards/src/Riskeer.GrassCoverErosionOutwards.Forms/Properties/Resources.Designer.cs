@@ -102,7 +102,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap..
+        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek..
         /// </summary>
         public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description {
             get {
