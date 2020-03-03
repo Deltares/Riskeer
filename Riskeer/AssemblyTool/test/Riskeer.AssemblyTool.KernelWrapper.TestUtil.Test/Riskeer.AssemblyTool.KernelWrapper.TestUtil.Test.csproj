@@ -1,65 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{2482E455-076C-4FE4-83B3-3636395F164B}</ProjectGuid>
-    <RootNamespace>Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test</RootNamespace>
-    <AssemblyName>Riskeer.AssemblyTool.KernelWrapper.TestUtil.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
     <Reference Include="Assembly.Kernel">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssessmentGradeConversionTestHelperTest.cs" />
-    <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfigTest.cs" />
-    <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorStubTest.cs" />
-    <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorStubTest.cs" />
-    <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorStubTest.cs" />
-    <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorStubTest.cs" />
-    <Compile Include="Calculators\TestAssemblyToolCalculatorFactoryTest.cs" />
-    <Compile Include="CategoriesListTestFactoryTest.cs" />
-    <Compile Include="Kernels\Assembly\AssessmentSectionAssemblyKernelStubTest.cs" />
-    <Compile Include="Kernels\Assembly\CombinedFailureMechanismSectionAssemblyKernelStubTest.cs" />
-    <Compile Include="Kernels\Assembly\FailureMechanismAssemblyKernelStubTest.cs" />
-    <Compile Include="Kernels\Assembly\FailureMechanismSectionAssemblyKernelStubTest.cs" />
-    <Compile Include="Kernels\Categories\AssemblyCategoriesKernelStubTest.cs" />
-    <Compile Include="Kernels\AssemblyToolKernelFactoryConfigTest.cs" />
-    <Compile Include="Kernels\TestAssemblyToolKernelFactoryTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
