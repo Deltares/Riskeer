@@ -1016,6 +1016,36 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, 3)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, 3)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, 3)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, 6)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, 6)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, 9)]
+        public void DetermineTotalWaterLevelCalculations_Always_ReturnsCorrectNumberOfCalculations(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, int expectedWaterLevelCalculations)
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            calculation.InputParameters.CalculationType = calculationType;
+            calculation.InputParameters.UpperBoundaryWaterLevels = new RoundedDouble(1,8.0);
+
+            // Call
+            int totalWaterLevelCalculations = GrassCoverErosionOutwardsWaveConditionsCalculationService.DetermineTotalWaterLevelCalculations(calculation.InputParameters, new RoundedDouble(0, 10));
+
+            // Assert
+            Assert.AreEqual(expectedWaterLevelCalculations, totalWaterLevelCalculations);
+        }
+        
         private static void AssertCalculationLogs(string[] logMessages, IEnumerable<RoundedDouble> waterLevels, string calculationType, int index)
         {
             Assert.AreEqual($"Berekening voor {calculationType} is gestart.", logMessages[index++]);

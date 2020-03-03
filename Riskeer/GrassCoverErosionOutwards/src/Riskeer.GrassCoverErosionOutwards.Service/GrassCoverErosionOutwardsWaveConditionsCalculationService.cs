@@ -154,7 +154,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             }
         }
 
-        private static int DetermineTotalWaterLevelCalculations(GrassCoverErosionOutwardsWaveConditionsInput calculationInput, RoundedDouble assessmentLevel)
+        internal static int DetermineTotalWaterLevelCalculations(GrassCoverErosionOutwardsWaveConditionsInput calculationInput, RoundedDouble assessmentLevel)
         {
             int waterLevelCount = calculationInput.GetWaterLevels(assessmentLevel).Count();
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculationInput.CalculationType;
