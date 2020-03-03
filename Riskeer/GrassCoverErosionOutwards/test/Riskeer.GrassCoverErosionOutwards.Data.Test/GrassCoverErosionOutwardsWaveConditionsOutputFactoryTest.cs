@@ -53,8 +53,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
 
             // Assert
-            Assert.IsNull(output.WaveImpactOutput);
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
+            Assert.IsNull(output.WaveImpactOutput);
+            Assert.IsNull(output.TailorMadeWaveImpactOutput);
         }
 
         [Test]
@@ -80,8 +81,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
 
             // Assert
-            Assert.IsNull(output.WaveRunUpOutput);
             Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
+            Assert.IsNull(output.WaveRunUpOutput);
+            Assert.IsNull(output.TailorMadeWaveImpactOutput);
         }
 
         [Test]
@@ -92,7 +94,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(null, waveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(null,
+                                                                                                            waveImpactOutput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -107,7 +110,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, null);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput,
+                                                                                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -129,6 +133,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
             Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
+            Assert.IsNull(output.TailorMadeWaveImpactOutput);
         }
 
         [Test]
@@ -155,6 +160,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
+            Assert.IsNull(output.WaveRunUpOutput);
+            Assert.IsNull(output.WaveImpactOutput);
         }
 
         [Test]
@@ -165,7 +172,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(null, tailorMadeWaveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(null,
+                                                                                                                      tailorMadeWaveImpactOutput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -180,7 +188,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput, null);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput,
+                                                                                                                      null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -202,6 +211,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
             Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
+            Assert.IsNull(output.WaveImpactOutput);
         }
 
         [Test]
@@ -213,7 +223,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(null, waveImpactOutput, tailorMadeWaveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(null,
+                                                                                                                                waveImpactOutput,
+                                                                                                                                tailorMadeWaveImpactOutput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -229,7 +241,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput ,null, tailorMadeWaveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput,
+                                                                                                                                null,
+                                                                                                                                tailorMadeWaveImpactOutput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -245,7 +259,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, null);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput,
+                                                                                                                                waveImpactOutput,
+                                                                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -262,7 +278,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             GrassCoverErosionOutwardsWaveConditionsOutput output =
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput,
+                                                                                                                                waveImpactOutput,
+                                                                                                                                tailorMadeWaveImpactOutput);
 
             // Assert
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);

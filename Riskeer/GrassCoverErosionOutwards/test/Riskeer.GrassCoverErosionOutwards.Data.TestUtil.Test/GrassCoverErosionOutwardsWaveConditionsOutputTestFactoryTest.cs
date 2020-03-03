@@ -56,6 +56,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil.Test
             // Assert
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
             Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
+            Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
         }
     }
 }

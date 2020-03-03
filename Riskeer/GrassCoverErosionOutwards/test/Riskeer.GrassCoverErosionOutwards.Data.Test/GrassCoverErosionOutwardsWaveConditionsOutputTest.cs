@@ -66,10 +66,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                                                                                  WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
                                                                              },
                                                                              new[]
-                {
-                    WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
-                }
-                );
+                                                                             {
+                                                                                 WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+                                                                             }
+            );
 
             // Call
             object clone = original.Clone();
