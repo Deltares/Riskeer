@@ -1,26 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{C48E2C11-3FDA-4356-A10F-757469A108FD}</ProjectGuid>
-    <RootNamespace>Demo.Riskeer.Test</RootNamespace>
-    <AssemblyName>Demo.Riskeer.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net45\Fluent.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -28,152 +10,48 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\AddNewDemoAssessmentSectionCommandTest.cs" />
-    <Compile Include="Commands\OpenChartViewCommandTest.cs" />
-    <Compile Include="Commands\OpenMapViewCommandTest.cs" />
-    <Compile Include="Commands\OpenPointedTreeGraphViewCommandTest.cs" />
-    <Compile Include="Commands\OpenStackChartViewCommandTest.cs" />
-    <Compile Include="Commands\OpenThematicalMapViewCommandTest.cs" />
-    <Compile Include="GUIs\DemoProjectPluginTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ribbons\RiskeerDemoProjectRibbonTest.cs" />
-    <Compile Include="Views\ChartDataViewTest.cs" />
-    <Compile Include="Views\MapDataViewTest.cs" />
-    <Compile Include="Views\PointedTreeGraphViewTest.cs" />
-    <Compile Include="Views\StackChartDataViewTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
-      <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
-      <Name>Core.Components.Chart.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
-      <Name>Core.Components.Chart</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
-      <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
-      <Name>Core.Components.DotSpatial.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
-      <Name>Core.Components.Gis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj">
-      <Project>{4E575459-AD64-4F5F-B313-9F8E0EC8C03F}</Project>
-      <Name>Core.Components.GraphSharp.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
-      <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
-      <Name>Core.Components.OxyPlot.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj">
-      <Project>{dbf5a590-2a11-4eb4-a8cc-f3036475e4d5}</Project>
-      <Name>Core.Components.PointedTree.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
-      <Project>{AD3B1634-C435-4618-9971-2EA0817F5DE2}</Project>
-      <Name>Core.Components.PointedTree</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
-      <Project>{72109e33-6518-4632-accf-6cbf2a312711}</Project>
-      <Name>Core.Components.Stack.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj">
-      <Project>{6A146889-A3C4-48BF-AF53-C0B0CD355BE4}</Project>
-      <Name>Core.Components.Stack</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
-      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Riskeer.ClosingStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
-      <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
-      <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
-      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
-      <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
-      <Name>Riskeer.HeightStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
-      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
-      <Name>Riskeer.Integration.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
-      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Riskeer.Piping.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj">
-      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Riskeer.Piping.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
-      <Name>Riskeer.Revetment.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
-      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
-      <Name>Riskeer.StabilityPointStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
-      <Project>{B479E3AF-7C34-488C-BB73-D324100D36C9}</Project>
-      <Name>Riskeer.StabilityStoneCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Demo.Riskeer\Demo.Riskeer.csproj">
-      <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
-      <Name>Demo.Riskeer</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Demo.Riskeer\Demo.Riskeer.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>3.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
 </Project>
