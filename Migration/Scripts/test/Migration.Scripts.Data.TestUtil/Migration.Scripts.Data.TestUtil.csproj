@@ -1,19 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{E4B36055-A984-4D40-9A70-34354054FE46}</ProjectGuid>
-    <RootNamespace>Migration.Scripts.Data.TestUtil</RootNamespace>
-    <AssemblyName>Migration.Scripts.Data.TestUtil</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCreateScript.cs" />
-    <Compile Include="TestUpgradeScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -21,9 +10,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
-      <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
-      <Name>Migration.Scripts.Data</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj"/>
   </ItemGroup>
 </Project>
