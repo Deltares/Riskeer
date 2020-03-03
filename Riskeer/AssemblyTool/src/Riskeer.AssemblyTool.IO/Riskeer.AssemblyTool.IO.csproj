@@ -1,11 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{B9838495-B090-4B84-A387-A8974F4F9CC4}</ProjectGuid>
-    <RootNamespace>Riskeer.AssemblyTool.IO</RootNamespace>
-    <AssemblyName>Riskeer.AssemblyTool.IO</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -17,67 +11,27 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AssemblyXmlIdentifiers.cs" />
-    <Compile Include="Model\DataTypes\SerializableAssessmentSectionAssemblyResult.cs" />
-    <Compile Include="Model\DataTypes\SerializableCombinedFailureMechanismSectionAssemblyResult.cs" />
-    <Compile Include="Model\DataTypes\SerializableFailureMechanismSectionAssemblyResult.cs" />
-    <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiers.cs" />
-    <Compile Include="Model\Enums\SerializableFailureMechanismSectionType.cs" />
-    <Compile Include="Model\Enums\SerializableAssessmentType.cs" />
-    <Compile Include="Model\Enums\SerializableAssemblyMethod.cs" />
-    <Compile Include="Model\Enums\SerializableAssessmentSectionCategoryGroup.cs" />
-    <Compile Include="Model\Enums\SerializableFailureMechanismSectionCategoryGroup.cs" />
-    <Compile Include="Model\Enums\SerializableFailureMechanismType.cs" />
-    <Compile Include="Model\Enums\SerializableFailureMechanismGroup.cs" />
-    <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroup.cs" />
-    <Compile Include="Model\Gml\SerializableEnvelope.cs" />
-    <Compile Include="Model\Gml\SerializableBoundary.cs" />
-    <Compile Include="Model\Helpers\GeometrySerializationFormatter.cs" />
-    <Compile Include="Model\Helpers\SerializableIdValidator.cs" />
-    <Compile Include="Model\SerializableFailureMechanismSection.cs" />
-    <Compile Include="Model\SerializableCombinedFailureMechanismSectionAssembly.cs" />
-    <Compile Include="Model\SerializableFailureMechanismSectionCollection.cs" />
-    <Compile Include="Model\SerializableFailureMechanism.cs" />
-    <Compile Include="Model\SerializableFailureMechanismSectionAssembly.cs" />
-    <Compile Include="Model\SerializableTotalAssemblyResult.cs" />
-    <Compile Include="Model\SerializableAssessmentSection.cs" />
-    <Compile Include="Model\SerializableAssessmentProcess.cs" />
-    <Compile Include="Model\DataTypes\SerializableLine.cs" />
-    <Compile Include="Model\DataTypes\SerializableFailureMechanismAssemblyResult.cs" />
-    <Compile Include="Model\Gml\SerializableLineString.cs" />
-    <Compile Include="Model\DataTypes\SerializableMeasure.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\SerializableAssembly.cs" />
-    <Compile Include="Model\SerializableFeatureMember.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SerializableAssemblyWriter.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
-      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
-      <Name>Core.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
