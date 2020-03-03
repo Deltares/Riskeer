@@ -43,7 +43,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Plugins.ProjectExplorer.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Projectverkenner.
         /// </summary>
-        internal static string General_ProjectExplorer {
+        public static string General_ProjectExplorer {
             get {
                 return ResourceManager.GetString("General_ProjectExplorer", resourceCulture);
             }
@@ -93,7 +93,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ProjectExplorerIcon {
+        public static System.Drawing.Bitmap ProjectExplorerIcon {
             get {
                 object obj = ResourceManager.GetObject("ProjectExplorerIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het starten van de {0} is mislukt..
         /// </summary>
-        internal static string ProjectExplorerPlugin_Activation_of_0_failed {
+        public static string ProjectExplorerPlugin_Activation_of_0_failed {
             get {
                 return ResourceManager.GetString("ProjectExplorerPlugin_Activation_of_0_failed", resourceCulture);
             }
@@ -112,7 +112,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan {0} niet twee keer activeren..
         /// </summary>
-        internal static string ProjectExplorerPlugin_Cannot_activate_0_twice {
+        public static string ProjectExplorerPlugin_Cannot_activate_0_twice {
             get {
                 return ResourceManager.GetString("ProjectExplorerPlugin_Cannot_activate_0_twice", resourceCulture);
             }
@@ -121,7 +121,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weergeven/Verbergen.
         /// </summary>
-        internal static string Ribbon_GroupBox_ShowHide {
+        public static string Ribbon_GroupBox_ShowHide {
             get {
                 return ResourceManager.GetString("Ribbon_GroupBox_ShowHide", resourceCulture);
             }
@@ -130,7 +130,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Beeld.
         /// </summary>
-        internal static string Ribbon_TabItem_View {
+        public static string Ribbon_TabItem_View {
             get {
                 return ResourceManager.GetString("Ribbon_TabItem_View", resourceCulture);
             }
