@@ -1,21 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{B2EF69C0-C3E7-4F38-82F3-EA3C747AEC9D}</ProjectGuid>
-    <RootNamespace>Riskeer.WaveImpactAsphaltCover.Forms.Test</RootNamespace>
-    <AssemblyName>Riskeer.WaveImpactAsphaltCover.Forms.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -23,114 +10,39 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\WaveImpactAsphaltCoverAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverWaveConditionsInputContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismContextTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyClasses\WaveImpactAsphaltCoverWaveConditionsInputContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveImpactAsphaltCoverFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveImpactAsphaltCoverWaveConditionsOutputPropertiesTest.cs" />
-    <Compile Include="Factories\WaveImpactAsphaltCoverMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismViewTest.cs" />
-    <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultViewTest.cs" />
-    <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest.cs" />
-    <Compile Include="Views\WaveImpactAsphaltCoverWaveConditionsInputViewStyleTest.cs" />
-    <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelperTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
-      <Name>Core.Components.Gis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
-      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
-      <Name>Riskeer.AssemblyTool.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj">
-      <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
-      <Name>Riskeer.Common.Forms.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Riskeer.Revetment.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj">
-      <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
-      <Name>Riskeer.Revetment.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj">
-      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Riskeer.Revetment.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.WaveImpactAsphaltCover.Forms\Riskeer.WaveImpactAsphaltCover.Forms.csproj">
-      <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Forms</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.WaveImpactAsphaltCover.Forms\Riskeer.WaveImpactAsphaltCover.Forms.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
