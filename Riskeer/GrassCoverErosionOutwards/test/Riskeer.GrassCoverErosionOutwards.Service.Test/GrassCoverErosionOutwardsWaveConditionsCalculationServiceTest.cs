@@ -1034,10 +1034,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculation.InputParameters.CalculationType = calculationType;
-            calculation.InputParameters.UpperBoundaryWaterLevels = new RoundedDouble(1,8.0);
+            calculation.InputParameters.UpperBoundaryWaterLevels = new RoundedDouble(1, 8.0);
 
             // Call
             int totalWaterLevelCalculations = GrassCoverErosionOutwardsWaveConditionsCalculationService.DetermineTotalWaterLevelCalculations(calculation.InputParameters, new RoundedDouble(0, 10));
@@ -1045,7 +1045,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             // Assert
             Assert.AreEqual(expectedWaterLevelCalculations, totalWaterLevelCalculations);
         }
-        
+
         private static void AssertCalculationLogs(string[] logMessages, IEnumerable<RoundedDouble> waterLevels, string calculationType, int index)
         {
             Assert.AreEqual($"Berekening voor {calculationType} is gestart.", logMessages[index++]);
