@@ -1,22 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{FE4EDCE7-CB0E-4C82-9B57-FF06FB12D132}</ProjectGuid>
-    <RootNamespace>Riskeer.DuneErosion.Forms.Test</RootNamespace>
-    <AssemblyName>Riskeer.DuneErosion.Forms.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -24,132 +10,41 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DuneErosionFailureMechanismPropertyChangeHandlerTest.cs" />
-    <Compile Include="Factories\DuneErosionAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="GuiServices\DuneLocationCalculationGuiServiceTest.cs" />
-    <Compile Include="PresentationObjects\DuneErosionFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\DuneLocationCalculationsContextTest.cs" />
-    <Compile Include="PresentationObjects\DuneLocationCalculationsGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\DuneErosionFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyClasses\DuneErosionFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DuneLocationCalculationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DuneLocationCalculationsPropertiesTest.cs" />
-    <Compile Include="Views\AggregatedDuneLocationTest.cs" />
-    <Compile Include="Factories\AggregatedDuneLocationFactoryTest.cs" />
-    <Compile Include="Views\DuneErosionFailureMechanismResultViewTest.cs" />
-    <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
-    <Compile Include="Factories\DuneErosionMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Views\DuneErosionSectionResultRowTest.cs" />
-    <Compile Include="Views\DuneLocationCalculationRowTest.cs" />
-    <Compile Include="Views\DuneLocationCalculationsViewTest.cs" />
-    <Compile Include="Views\DuneLocationCalculationsViewBaseTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
-      <Name>Core.Components.Gis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
-      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
-      <Name>Riskeer.AssemblyTool.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj">
-      <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
-      <Name>Riskeer.Common.Forms.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj">
-      <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
-      <Name>Riskeer.Common.Service.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
-      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
-      <Name>Riskeer.HydraRing.Calculation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj">
-      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
-      <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
-      <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
-      <Name>Riskeer.DuneErosion.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.Forms\Riskeer.DuneErosion.Forms.csproj">
-      <Project>{EC2DEF03-71FE-48A0-AB85-31E13112E4A1}</Project>
-      <Name>Riskeer.DuneErosion.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj">
-      <Project>{7be6b522-02e3-4143-8508-c021a211de54}</Project>
-      <Name>Riskeer.DuneErosion.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.DuneErosion.Forms.TestUtil\Riskeer.DuneErosion.Forms.TestUtil.csproj">
-      <Project>{AB95EC86-28CF-47E6-ABB0-927EBBE61445}</Project>
-      <Name>Riskeer.DuneErosion.Forms.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj"/>
+    <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.DuneErosion.Forms\Riskeer.DuneErosion.Forms.csproj"/>
+    <ProjectReference Include="..\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\Riskeer.DuneErosion.Forms.TestUtil\Riskeer.DuneErosion.Forms.TestUtil.csproj"/>
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>
