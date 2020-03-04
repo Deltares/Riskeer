@@ -134,10 +134,10 @@ namespace Riskeer.Migration.Integration.Test
                         new MigrationLogMessage("18.1", "19.1", "* Geen aanpassingen."),
                         messages[9]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("19.1", "20.1", $"Gevolgen van de migratie van versie 19.1 naar versie {latestVersion}:"),
+                        new MigrationLogMessage("19.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 19.1 naar versie {latestVersion}:"),
                         messages[10]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("19.1", "20.1", "* Geen aanpassingen."),
+                        new MigrationLogMessage("19.1", $"{latestVersion}", "* Geen aanpassingen."),
                         messages[11]);
                 }
             }
@@ -159,6 +159,7 @@ namespace Riskeer.Migration.Integration.Test
             yield return new FileToMigrate("Empty valid Release 17.2.rtd", "17.3");
             yield return new FileToMigrate("Empty valid Release 17.3.rtd", "18.1");
             yield return new FileToMigrate("Empty valid Release 18.1.rtd", "19.1");
+            yield return new FileToMigrate("Empty valid Release 19.1.risk", "20.1");
         }
 
         private class FileToMigrate
