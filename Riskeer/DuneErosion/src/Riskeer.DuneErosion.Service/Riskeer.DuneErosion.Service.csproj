@@ -1,79 +1,58 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</ProjectGuid>
-    <RootNamespace>Riskeer.DuneErosion.Service</RootNamespace>
-    <AssemblyName>Riskeer.DuneErosion.Service</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DuneLocationCalculationActivity.cs" />
-    <Compile Include="DuneLocationCalculationActivityFactory.cs" />
-    <Compile Include="DuneLocationCalculationMessageProvider.cs" />
-    <Compile Include="DuneLocationCalculationService.cs" />
-    <Compile Include="DuneErosionDataSynchronizationService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
-      <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Riskeer.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
-      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
-      <Name>Riskeer.HydraRing.Calculation</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
-      <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
-      <Name>Riskeer.DuneErosion.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.DuneErosion.IO\Riskeer.DuneErosion.IO.csproj">
-      <Project>{EDDC30E9-D793-478A-AD37-9F257CE23A22}</Project>
-      <Name>Riskeer.DuneErosion.IO</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.DuneErosion.Service.Test</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
