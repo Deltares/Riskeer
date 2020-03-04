@@ -1,48 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{1EB0FA74-14AA-4863-95DD-B48CFE907BD9}</ProjectGuid>
-    <RootNamespace>Riskeer.Common.Primitives.Test</RootNamespace>
-    <AssemblyName>Riskeer.Common.Primitives.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ManualFailureMechanismSectionAssemblyCategoryGroupTest.cs" />
-    <Compile Include="TailorMadeAssessmentCategoryGroupResultTypeTest.cs" />
-    <Compile Include="TailorMadeAssessmentResultTypeTest.cs" />
-    <Compile Include="DetailedAssessmentResultTypeTest.cs" />
-    <Compile Include="TailorMadeAssessmentProbabilityAndDetailedCalculationResultTypeTest.cs" />
-    <Compile Include="TailorMadeAssessmentProbabilityCalculationResultTypeTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DetailedAssessmentProbabilityOnlyResultTypeTest.cs" />
-    <Compile Include="SimpleAssessmentResultTypeTest.cs" />
-    <Compile Include="SimpleAssessmentValidityOnlyResultTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

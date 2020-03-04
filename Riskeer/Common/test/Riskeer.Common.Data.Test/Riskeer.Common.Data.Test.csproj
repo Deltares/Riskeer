@@ -1,167 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}</ProjectGuid>
-    <RootNamespace>Riskeer.Common.Data.Test</RootNamespace>
-    <AssemblyName>Riskeer.Common.Data.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\FailureMechanismAssemblyResultFactoryTest.cs" />
-    <Compile Include="AssemblyTool\AssemblyCategoriesInputFactoryTest.cs" />
-    <Compile Include="AssemblyTool\AssemblyToolCategoriesFactoryTest.cs" />
-    <Compile Include="AssemblyTool\ManualFailureMechanismSectionAssemblyCategoryGroupConverterTest.cs" />
-    <Compile Include="AssessmentSection\AssessmentSectionCategoryTypeTest.cs" />
-    <Compile Include="AssessmentSection\AssessmentSectionCompositionTest.cs" />
-    <Compile Include="AssessmentSection\AssessmentSectionExtensionsTest.cs" />
-    <Compile Include="AssessmentSection\BackgroundDataTest.cs" />
-    <Compile Include="AssessmentSection\ReferenceLineMetaTest.cs" />
-    <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
-    <Compile Include="AssessmentSection\RiskeerWellKnownTileSourceExtensionTest.cs" />
-    <Compile Include="AssessmentSection\RiskeerWellKnownTileSourceTest.cs" />
-    <Compile Include="AssessmentSection\WellKnownBackgroundDataConfigurationTest.cs" />
-    <Compile Include="AssessmentSection\WMTSBackgroundDataConfigurationTest.cs" />
-    <Compile Include="CommentTest.cs" />
-    <Compile Include="Contribution\NormTypeTest.cs" />
-    <Compile Include="DikeProfiles\BreakWaterTest.cs" />
-    <Compile Include="Calculation\CalculationGroupTest.cs" />
-    <Compile Include="DikeProfiles\BreakWaterTypeTest.cs" />
-    <Compile Include="DikeProfiles\DikeProfileCollectionTest.cs" />
-    <Compile Include="DikeProfiles\DikeProfileTest.cs" />
-    <Compile Include="DikeProfiles\ForeshoreProfileCollectionTest.cs" />
-    <Compile Include="DikeProfiles\ForeshoreProfileTest.cs" />
-    <Compile Include="Exceptions\AssemblyExceptionTest.cs" />
-    <Compile Include="Exceptions\IllustrationPointConversionExceptionTest.cs" />
-    <Compile Include="Exceptions\MechanismSurfaceLineExceptionTest.cs" />
-    <Compile Include="FailureMechanism\FailureMechanismCategoryTypeTest.cs" />
-    <Compile Include="FailureMechanism\FailureMechanismSectionCollectionTest.cs" />
-    <Compile Include="HasSectionResultsHelperTest.cs" />
-    <Compile Include="Helpers\SoilLayerDataHelperTest.cs" />
-    <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettingsFactoryTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettingsTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensionsTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryDatabaseTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInputTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationOutputTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />
-    <Compile Include="Hydraulics\HydraulicLocationConfigurationSettingsTest.cs" />
-    <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointExtensionsTest.cs" />
-    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointExtensionsTest.cs" />
-    <Compile Include="IllustrationPoints\IllustrationPointNodeExtensionsTest.cs" />
-    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointExtensionsTest.cs" />
-    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointExtensionsTest.cs" />
-    <Compile Include="IllustrationPoints\IllustrationPointNodeTest.cs" />
-    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTest.cs" />
-    <Compile Include="IllustrationPoints\GeneralResultTest.cs" />
-    <Compile Include="IllustrationPoints\IllustrationPointBaseTest.cs" />
-    <Compile Include="IllustrationPoints\IllustrationPointResultTest.cs" />
-    <Compile Include="IllustrationPoints\StochastValidatorTest.cs" />
-    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointTest.cs" />
-    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointStochastTest.cs" />
-    <Compile Include="IllustrationPoints\StochastTest.cs" />
-    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointTest.cs" />
-    <Compile Include="IllustrationPoints\TopLevelIllustrationPointBaseTest.cs" />
-    <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointTest.cs" />
-    <Compile Include="IllustrationPoints\WindDirectionTest.cs" />
-    <Compile Include="MechanismSurfaceLineBaseTest.cs" />
-    <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculatorTest.cs" />
-    <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculatorTest.cs" />
-    <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculatorTest.cs" />
-    <Compile Include="Probabilistics\VariationCoefficientLogNormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\VariationCoefficientDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\DeterministicDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\DesignVariableTest.cs" />
-    <Compile Include="Probabilistics\TruncatedNormalDistributionTest.cs" />
-    <Compile Include="Probabilistics\VariationCoefficientLogNormalDistributionTest.cs" />
-    <Compile Include="Probabilistics\VariationCoefficientNormalDistributionTest.cs" />
-    <Compile Include="Probability\ProbabilityAssessmentInputTest.cs" />
-    <Compile Include="Probability\ProbabilityAssessmentInputExtensionsTest.cs" />
-    <Compile Include="Probability\ProbabilityAssessmentOutputFactoryTest.cs" />
-    <Compile Include="Probability\ProbabilityAssessmentOutputTest.cs" />
-    <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
-    <Compile Include="Contribution\OtherFailureMechanismTest.cs" />
-    <Compile Include="FailureMechanism\FailureMechanismBaseTest.cs" />
-    <Compile Include="FailureMechanism\FailureMechanismSectionResultTest.cs" />
-    <Compile Include="FailureMechanism\FailureMechanismSectionTest.cs" />
-    <Compile Include="Calculation\CalculationGroupExtensionsTest.cs" />
-    <Compile Include="Probabilistics\PercentileBasedDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\LogNormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\LogNormalDistributionTest.cs" />
-    <Compile Include="Probabilistics\NormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\NormalDistributionTest.cs" />
-    <Compile Include="Probability\ProbabilityHelperTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DikeProfiles\RoughnessPointTest.cs" />
-    <Compile Include="StructureBaseTest.cs" />
-    <Compile Include="StructureCollectionTest.cs" />
-    <Compile Include="Structures\StructuresCalculationTest.cs" />
-    <Compile Include="Structures\StructuresInputBaseTest.cs" />
-    <Compile Include="Exceptions\UpdateDataExceptionTest.cs" />
-    <Compile Include="Structures\StructuresOutputTest.cs" />
-    <Compile Include="UpdateDataStrategies\ReplaceDataStrategyBaseTest.cs" />
-    <Compile Include="UpdateDataStrategies\UpdateDataStrategyBaseTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj">
-      <Project>{0B0D2DFF-7E7E-4BB0-A007-61800C85809A}</Project>
-      <Name>Core.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

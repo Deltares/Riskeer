@@ -1,45 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</ProjectGuid>
-    <RootNamespace>Riskeer.Common.Util.TestUtil</RootNamespace>
-    <AssemblyName>Riskeer.Common.Util.TestUtil</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AggregatedHydraulicBoundaryLocationTestHelper.cs" />
-    <Compile Include="MapFeaturesMetaDataTestHelper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
-      <Name>Core.Components.Gis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Riskeer.Common.Util</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
