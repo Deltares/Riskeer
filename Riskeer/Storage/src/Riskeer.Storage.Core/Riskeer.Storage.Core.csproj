@@ -1,661 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</ProjectGuid>
-    <RootNamespace>Riskeer.Storage.Core</RootNamespace>
-    <AssemblyName>Riskeer.Storage.Core</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net45\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundDataIdentifiers.cs" />
-    <Compile Include="BackgroundDataType.cs" />
-    <Compile Include="ColorConversionExtensions.cs" />
-    <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensions.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCalculationCreateExtensions.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCreateExtensions.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCalculationOutputCreateExtensions.cs" />
-    <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\DikeHeightOutputCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
-    <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCalculationCollectionCreateExtensions.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensions.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCalculationOutputCreateExtensions.cs" />
-    <Compile Include="Create\HydraulicLocationConfigurationSettingsCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointStochastCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\StochastCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsCalculationScenarioCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsOutputCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile2DCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilModelCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSurfaceLineCreateExtensions.cs" />
-    <Compile Include="Create\StructuresCalculationCreateExtensions.cs" />
-    <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensions.cs" />
-    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
-    <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointCreateExtensions.cs" />
-    <Compile Include="Create\StructuresOutputCreateExtensions.cs" />
-    <Compile Include="Create\WaveConditionsOutputCreateExtensions.cs" />
-    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions.cs" />
-    <Compile Include="Create\BackgroundDataCreateExtensions.cs" />
-    <Compile Include="DbContext\AssessmentSectionEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\BackgroundDataEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\BackgroundDataMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\CalculationGroupEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\ClosingStructureEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\ClosingStructuresCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\ClosingStructuresFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\ClosingStructuresOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\ClosingStructuresSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DikeProfileEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DuneErosionFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DuneErosionSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DuneLocationCalculationCollectionEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DuneLocationCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DuneLocationCalculationOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DuneLocationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\FailureMechanismEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\FaultTreeIllustrationPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\ForeshoreProfileEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GeneralResultFaultTreeIllustrationPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GeneralResultSubMechanismIllustrationPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionInwardsCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionInwardsDikeHeightOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionInwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionInwardsOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionInwardsOvertoppingRateOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionInwardsSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsWaveConditionsCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsWaveConditionsOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverErosionOutwardsWaveConditionsOutputType.cs" />
-    <Compile Include="DbContext\GrassCoverSlipOffInwardsSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\GrassCoverSlipOffOutwardsSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HeightStructureEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HeightStructuresCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HeightStructuresFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HeightStructuresOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HeightStructuresSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicBoundaryDatabaseEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicLocationCalculationCollectionEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicLocationCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicLocationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\HydraulicLocationOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\IGeneralResultEntity.cs" />
-    <Compile Include="DbContext\IHasGeneralResultFaultTreeIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\IllustrationPointResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsCalculationOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsCharacteristicPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsCharacteristicPointType.cs" />
-    <Compile Include="DbContext\MacroStabilityInwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsPreconsolidationStressEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilLayerOneDEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilLayerTwoDEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilProfileOneDEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilProfileTwoDEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsStochasticSoilProfileEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityOutwardsFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MacroStabilityOutwardsSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PartialClosingStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\IStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
-    <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
-    <Compile Include="DbContext\PartialGeneralResultFaultTreeIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\PartialGeneralResultSubMechanismIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
-    <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
-    <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\PipingCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingCalculationOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingCharacteristicPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingSoilLayerEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingSoilProfileEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingStochasticSoilProfileEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingStructureFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingStructureSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\ProjectEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\RiskeerEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiskeerEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\RiskeerEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\RiskeerEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiskeerEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityPointStructureEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityPointStructuresCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityPointStructuresFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityPointStructuresOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityPointStructuresSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityStoneCoverFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityStoneCoverSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityStoneCoverWaveConditionsCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityStoneCoverWaveConditionsOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StabilityStoneCoverWaveConditionsOutputType.cs" />
-    <Compile Include="DbContext\StochastEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StochasticSoilModelEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\StrengthStabilityLengthwiseConstructionSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\SubMechanismIllustrationPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\SubMechanismIllustrationPointStochastEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\SurfaceLineEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\TopLevelFaultTreeIllustrationPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\TopLevelSubMechanismIllustrationPointEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\VersionEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\WaterPressureAsphaltCoverSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\WaveImpactAsphaltCoverFailureMechanismMetaEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\WaveImpactAsphaltCoverSectionResultEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsCalculationEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsOutputEntity.cs">
-      <DependentUpon>RiskeerEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Exceptions\CannotDetermineFingerprintException.cs" />
-    <Compile Include="Read\BackgroundDataMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensions.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\DuneErosion\DuneErosionFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCalculationCollectionCreateExtensions.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationCalculationCollectionEntityReadExtensions.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationCalculationOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationEntityReadExtensions.cs" />
-    <Compile Include="Read\ForeshoreProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOvertoppingRateOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensions.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\HydraulicBoundaryDatabaseEntityReadExtensions.cs" />
-    <Compile Include="Read\HydraulicLocationCalculationCollectionReadExtensions.cs" />
-    <Compile Include="Read\HydraulicLocationCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\HydraulicLocationOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\FaultTreeIllustrationPointEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\GeneralResultFaultTreeIllustrationPointEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\GeneralResultSubMechanismIllustrationPointEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\IllustrationPointResultEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointStochastEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensions.cs" />
-    <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerOneDEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileTwoDEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\StructureCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\BackgroundDataEntityReadExtensions.cs" />
-    <Compile Include="RoundedDoubleConversionExtensions.cs" />
-    <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializer.cs" />
-    <Compile Include="Serializers\Point2DCollectionXmlSerializer.cs" />
-    <Compile Include="Serializers\Point3DCollectionXmlSerializer.cs" />
-    <Compile Include="Serializers\RoughnessPointCollectionXmlSerializer.cs" />
-    <Compile Include="Serializers\DataCollectionSerializer.cs" />
-    <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
-    <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
-    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingCalculationScenarioCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingOutputCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingSoilLayerCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingSoilProfileCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingSurfaceLineCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingStochasticSoilModelCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingStochasticSoilProfileCreateExtensions.cs" />
-    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\StabilityPointStructures\StabilityPointStructuresFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\StabilityPointStructures\StabilityPointStructuresFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\FailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
-    <Compile Include="Create\PersistenceRegistry.cs" />
-    <Compile Include="Create\RiskeerProjectCreateExtensions.cs" />
-    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="DbContext\PipingCharacteristicPointType.cs" />
-    <Compile Include="DoubleConversionExtensions.cs" />
-    <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
-    <Compile Include="FingerprintHelper.cs" />
-    <Compile Include="Read\CalculationGroupEntityReadExtensions.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructuresSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingCalculationEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\PipingStructure\PipingStructureSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingSoilLayerEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingSoilProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\StochasticSoilModelEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingStochasticSoilProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\SurfaceLineEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\DuneErosion\DuneErosionSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
-    <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
-    <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
-    <Compile Include="Read\ReadConversionCollector.cs" />
-    <Compile Include="DbContext\FailureMechanismType.cs" />
-    <Compile Include="Read\AssessmentSectionEntityReadExtensions.cs" />
-    <Compile Include="Read\ProjectEntityReadExtensions.cs" />
-    <Compile Include="Serializers\TangentLineCollectionXmlSerializer.cs" />
-    <Compile Include="StorageSqliteCreator.cs" />
-    <Compile Include="DbContext\PartialRiskeerEntities.cs" />
-    <Compile Include="Exceptions\EntityNotFoundException.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SqLiteEntityConnectionStringBuilder.cs" />
-    <Compile Include="StorageSqLite.cs" />
-    <Compile Include="BackedUpFileWriter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
-      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
-      <Name>Core.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
-      <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
-      <Name>Riskeer.ClosingStructures.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Riskeer.Common.Util</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
-      <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
-      <Name>Riskeer.DuneErosion.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
-      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj">
-      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Primitives</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
-      <Name>Riskeer.Revetment.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
-      <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
-      <Name>Riskeer.StabilityPointStructures.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
-      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
-      <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
-      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
-      <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
-      <Name>Riskeer.HeightStructures.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
-      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
-      <Name>Riskeer.Integration.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
-      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
-      <Name>Riskeer.Piping.Primitives</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
-      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Riskeer.StabilityStoneCover.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -667,7 +42,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <EntityDeploy Include="DbContext\RiskeerEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RiskeerEntities.Designer.cs</LastGenOutput>
@@ -676,11 +50,17 @@
       <DependentUpon>RiskeerEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
+<ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -698,11 +78,26 @@
       <DependentUpon>RiskeerEntities.edmx</DependentUpon>
     </Content>
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.Core">
+      <Version>1.0.109.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.EF6">
+      <Version>1.0.109</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.Storage.Core.Test</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.Storage.Core.TestUtil</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.Storage.Core.TestUtil.Test</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>
