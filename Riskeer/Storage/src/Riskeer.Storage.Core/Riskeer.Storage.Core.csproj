@@ -64,21 +64,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DbContext\RiskeerEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RiskeerEntities.Context.cs</LastGenOutput>
-      <DependentUpon>RiskeerEntities.edmx</DependentUpon>
-    </Content>
-    <Content Include="DbContext\RiskeerEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RiskeerEntities.cs</LastGenOutput>
-      <DependentUpon>RiskeerEntities.edmx</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
     </PackageReference>
