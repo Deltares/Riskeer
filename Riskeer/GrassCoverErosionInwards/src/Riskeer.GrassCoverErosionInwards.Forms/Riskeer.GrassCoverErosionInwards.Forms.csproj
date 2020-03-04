@@ -1,89 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</ProjectGuid>
-    <RootNamespace>Riskeer.GrassCoverErosionInwards.Forms</RootNamespace>
-    <AssemblyName>Riskeer.GrassCoverErosionInwards.Forms</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler.cs" />
-    <Compile Include="ChangeHandlers\ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler.cs" />
-    <Compile Include="Factories\GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.cs" />
-    <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PresentationObjects\DikeHeightOutputContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsOutputContext.cs" />
-    <Compile Include="PresentationObjects\OvertoppingOutputContext.cs" />
-    <Compile Include="PresentationObjects\OvertoppingRateOutputContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsFailureMechanismSectionsContext.cs" />
-    <Compile Include="PropertyClasses\DikeHeightOutputProperties.cs" />
-    <Compile Include="PropertyClasses\DikeProfileCollectionProperties.cs" />
-    <Compile Include="Factories\GrassCoverErosionInwardsMapDataFeatureFactory.cs" />
-    <Compile Include="PresentationObjects\DikeProfilesContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationGroupContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsInputContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionInwardsScenariosContext.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyClasses\DikeGeometryHelper.cs" />
-    <Compile Include="PropertyClasses\DikeProfileProperties.cs" />
-    <Compile Include="PropertyClasses\DikeProfileDikeGeometryProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextDikeGeometryProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
-    <Compile Include="PropertyClasses\OvertoppingOutputProperties.cs" />
-    <Compile Include="PropertyClasses\OvertoppingRateOutputProperties.cs" />
-    <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditor.cs" />
-    <Compile Include="Factories\GrassCoverErosionInwardsChartDataFactory.cs" />
-    <Compile Include="Factories\GrassCoverErosionInwardsChartDataPointsFactory.cs" />
-    <Compile Include="Views\OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRow.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsInputView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsInputView.Designer.cs">
-      <DependentUpon>GrassCoverErosionInwardsInputView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsScenariosView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsScenariosView.Designer.cs">
-      <DependentUpon>GrassCoverErosionInwardsScenariosView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsScenarioRow.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismView.Designer.cs">
-      <DependentUpon>GrassCoverErosionInwardsFailureMechanismView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DikeHeightOutputGeneralResultFaultTreeIllustrationPointView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\OvertoppingOutputGeneralResultFaultTreeIllustrationPointView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -92,97 +13,70 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
-      <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
-      <Name>Core.Components.Chart.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
-      <Name>Core.Components.Chart</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
-      <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
-      <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
-      <Name>Core.Components.OxyPlot.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
-      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Service\Riskeer.GrassCoverErosionInwards.Service.csproj">
-      <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Service</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Util\Riskeer.GrassCoverErosionInwards.Util.csproj">
-      <Project>{99573570-EE00-4264-8147-26A1B25DB23F}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\GrassCoverErosionInwardsInputView.resx">
-      <DependentUpon>GrassCoverErosionInwardsInputView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\GrassCoverErosionInwardsFailureMechanismView.resx">
-      <DependentUpon>GrassCoverErosionInwardsFailureMechanismView.cs</DependentUpon>
-    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.GrassCoverErosionInwards.Forms.Test</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
