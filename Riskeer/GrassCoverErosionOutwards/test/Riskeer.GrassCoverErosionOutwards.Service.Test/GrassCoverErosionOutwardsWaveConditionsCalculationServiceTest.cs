@@ -982,6 +982,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.All)]
         public void Calculate_Always_SendsProgressNotifications(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
         {
             // Setup
@@ -1014,15 +1017,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 {
                     // Assert
                     RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-                    int totalSteps = calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
-                                         ? waterLevels.Length * 2
-                                         : waterLevels.Length;
+                    int totalSteps = DetermineAmountOfCalculators(calculationType, waterLevels);
 
                     var revetmentType = "golfoploop";
                     if (step > waterLevels.Length
                         || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
                     {
                         revetmentType = "golfklap";
+                    }
+
+                    if (step > waterLevels.Length * 2 ||
+                        calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact ||
+                        step > waterLevels.Length && calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact)
+                    {
+                        revetmentType = "golfklap voor toets op maat";
                     }
 
                     string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {revetmentType} berekenen.";
