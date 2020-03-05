@@ -76,6 +76,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationType"/>
+        /// is a valid value, but unsupported.</exception> 
         public void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                               GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                               IAssessmentSection assessmentSection)
@@ -113,7 +115,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            TotalWaterLevelCalculations = DetermineTotalWaterLevelCalculations(calculationInput, assessmentLevel);
+            DetermineTotalWaterLevelCalculations(calculationInput, assessmentLevel);
 
             try
             {
@@ -154,23 +156,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             }
         }
 
-        internal static int DetermineTotalWaterLevelCalculations(GrassCoverErosionOutwardsWaveConditionsInput calculationInput, RoundedDouble assessmentLevel)
+        private void DetermineTotalWaterLevelCalculations(GrassCoverErosionOutwardsWaveConditionsInput calculationInput,
+                                                          RoundedDouble assessmentLevel)
         {
             int waterLevelCount = calculationInput.GetWaterLevels(assessmentLevel).Count();
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType = calculationInput.CalculationType;
 
             if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
             {
-                return waterLevelCount * 3;
+                TotalWaterLevelCalculations = waterLevelCount * 3;
+                return;
             }
 
             if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                 || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact)
             {
-                return waterLevelCount * 2;
+                TotalWaterLevelCalculations = waterLevelCount * 2;
+                return;
             }
 
-            return waterLevelCount;
+            TotalWaterLevelCalculations = waterLevelCount;
         }
 
         private static bool ShouldCalculateTailorMadeWaveImpact(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
