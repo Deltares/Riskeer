@@ -1,131 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{888D4097-8BC2-4703-9FB1-8744C94D525E}</ProjectGuid>
-    <RootNamespace>Riskeer.HydraRing.Calculation</RootNamespace>
-    <AssemblyName>Riskeer.HydraRing.Calculation</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net45\System.Data.SQLite.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Calculator\HydraulicLoadsCalculator.cs" />
-    <Compile Include="Calculator\DunesBoundaryConditionsCalculator.cs" />
-    <Compile Include="Calculator\Factory\HydraRingCalculatorFactory.cs" />
-    <Compile Include="Calculator\Factory\IHydraRingCalculatorFactory.cs" />
-    <Compile Include="Calculator\IHydraulicLoadsCalculator.cs" />
-    <Compile Include="Calculator\IDunesBoundaryConditionsCalculator.cs" />
-    <Compile Include="Calculator\IStructuresCalculator.cs" />
-    <Compile Include="Calculator\StructuresCalculator.cs" />
-    <Compile Include="Calculator\IDesignWaterLevelCalculator.cs" />
-    <Compile Include="Calculator\IOvertoppingCalculator.cs" />
-    <Compile Include="Calculator\IWaveConditionsCosineCalculator.cs" />
-    <Compile Include="Calculator\IWaveHeightCalculator.cs" />
-    <Compile Include="Calculator\WaveConditionsCosineCalculator.cs" />
-    <Compile Include="Calculator\WaveHeightCalculator.cs" />
-    <Compile Include="Calculator\DesignWaterLevelCalculator.cs" />
-    <Compile Include="Calculator\HydraRingCalculatorBase.cs" />
-    <Compile Include="Calculator\OvertoppingCalculator.cs" />
-    <Compile Include="Data\HydraRingBreakWater.cs" />
-    <Compile Include="Data\Input\HydraRingCalculationSettings.cs" />
-    <Compile Include="Data\Settings\PreprocessorSetting.cs" />
-    <Compile Include="Data\HydraRingSection.cs" />
-    <Compile Include="Data\HydraRingForelandPoint.cs" />
-    <Compile Include="Data\HydraRingProfilePoint.cs" />
-    <Compile Include="Data\Input\Hydraulics\OvertoppingRateCalculationInput.cs" />
-    <Compile Include="Data\Input\Hydraulics\HydraulicLoadsCalculationInput.cs" />
-    <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInput.cs" />
-    <Compile Include="Data\Input\Hydraulics\DunesBoundaryConditionsCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresClosureCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresClosureFloodedCulvertCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresClosureLowSillCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresClosureVerticalWallCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresStabilityPointCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresStabilityPointFloodedCulvertLinearCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresStabilityPointFloodedCulvertQuadraticCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresStabilityPointLowSillLinearCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresStabilityPointLowSillQuadraticCalculationInput.cs" />
-    <Compile Include="Data\Input\WaveConditions\WaveConditionsCosineCalculationInput.cs" />
-    <Compile Include="Data\Input\WaveConditions\WaveConditionsCalculationInput.cs" />
-    <Compile Include="Data\Input\Hydraulics\WaveHeightCalculationInput .cs" />
-    <Compile Include="Data\Input\Overtopping\HydraRingRoughnessProfilePoint.cs" />
-    <Compile Include="Data\Input\ExceedanceProbabilityCalculationInput.cs" />
-    <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInput.cs" />
-    <Compile Include="Data\Input\Structures\StructuresOvertoppingCalculationInput.cs" />
-    <Compile Include="Data\Input\WaveConditions\WaveConditionsTrapezoidCalculationInput.cs" />
-    <Compile Include="Data\Output\DunesBoundaryConditionsCalculationOutput.cs" />
-    <Compile Include="Data\Output\ReliabilityIndexCalculationOutput.cs" />
-    <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
-    <Compile Include="Data\Output\WaveConditionsCalculationOutput.cs" />
-    <Compile Include="Data\Settings\TimeIntegrationSetting.cs" />
-    <Compile Include="Data\Variables\DeterministicHydraRingVariable.cs" />
-    <Compile Include="Data\Variables\HydraRingVariable.cs" />
-    <Compile Include="Data\Variables\LogNormalHydraRingVariable.cs" />
-    <Compile Include="Data\Variables\NormalHydraRingVariable.cs" />
-    <Compile Include="Data\Variables\RandomHydraRingVariable.cs" />
-    <Compile Include="Data\Variables\RayleighNHydraRingVariable.cs" />
-    <Compile Include="Data\Variables\TruncatedNormalHydraRingVariable.cs" />
-    <Compile Include="Exceptions\HydraRingCalculationException.cs" />
-    <Compile Include="Exceptions\HydraRingFileParserException.cs" />
-    <Compile Include="HydraRingDatabaseConstants.cs" />
-    <Compile Include="HydraRingFileConstants.cs" />
-    <Compile Include="Parsers\DunesBoundaryConditionsCalculationParser.cs" />
-    <Compile Include="Parsers\ConvergenceParser.cs" />
-    <Compile Include="Parsers\HydraRingDatabaseParseHelper.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\CombinationType.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\FaultTreeIllustrationPoint.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\GeneralResult.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\IIllustrationPoint.cs" />
-    <Compile Include="Parsers\IllustrationPoints\IllustrationPointQueries.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\IllustrationPointResult.cs" />
-    <Compile Include="Parsers\IllustrationPoints\IllustrationPointsDatabaseConstants.cs" />
-    <Compile Include="Parsers\IllustrationPoints\IllustrationPointsParser.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\IllustrationPointTreeNode.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\SubMechanismIllustrationPointStochast.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\Stochast.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\SubMechanismIllustrationPoint.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\WindDirection.cs" />
-    <Compile Include="Data\Output\IllustrationPoints\WindDirectionClosingSituation.cs" />
-    <Compile Include="Readers\HydraRingDatabaseReader.cs" />
-    <Compile Include="Parsers\LastErrorFileParser.cs" />
-    <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
-    <Compile Include="Parsers\WaveConditionsCalculationParser.cs" />
-    <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
-    <Compile Include="Parsers\IHydraRingFileParser.cs" />
-    <Compile Include="Parsers\ReliabilityIndexCalculationParser.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
-    <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
-    <Compile Include="Data\Defaults\VariableDefaults.cs" />
-    <Compile Include="Providers\VariableDefaultsProvider.cs" />
-    <Compile Include="Data\HydraRingDistributionType.cs" />
-    <Compile Include="Data\HydraRingDeviationType.cs" />
-    <Compile Include="Data\Defaults\FailureMechanismDefaults.cs" />
-    <Compile Include="Providers\FailureMechanismDefaultsProvider.cs" />
-    <Compile Include="Data\Settings\DesignTablesSetting.cs" />
-    <Compile Include="Data\HydraRingFailureMechanismType.cs" />
-    <Compile Include="Services\HydraRingConfigurationService.cs" />
-    <Compile Include="Data\Settings\NumericsSetting.cs" />
-    <Compile Include="Data\Input\ReliabilityIndexCalculationInput.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\HydraRingUncertaintiesType.cs" />
-    <Compile Include="Services\HydraRingInitializationService.cs" />
-    <Compile Include="Services\HydraRingProcessFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
@@ -133,259 +14,270 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="HydraRing\config.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="HydraRing\DelftTools.Utils.dll">
+    <PackageReference Include="System.Data.SQLite.Core">
+      <Version>1.0.109.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.HydraRing.Calculation.Test</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.HydraRing.Calculation.TestUtil</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="HydraRing\config.sqlite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.Geographic.dll">
+    <None Update="HydraRing\DelftTools.Utils.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.Geometry.dll">
+    <None Update="HydraRing\Deltares.Geographic.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.Geotechnics.dll">
+    <None Update="HydraRing\Deltares.Geometry.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.Mathematics.dll">
+    <None Update="HydraRing\Deltares.Geotechnics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.Probabilistic.dll">
+    <None Update="HydraRing\Deltares.Mathematics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.Standard.dll">
+    <None Update="HydraRing\Deltares.Probabilistic.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WaternetCreator.dll">
+    <None Update="HydraRing\Deltares.Standard.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WTIPiping.dll">
+    <None Update="HydraRing\Deltares.WaternetCreator.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WTIStability.Calculation.dll">
+    <None Update="HydraRing\Deltares.WTIPiping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WTIStability.Calculation.Wrapper.dll">
+    <None Update="HydraRing\Deltares.WTIStability.Calculation.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WTIStability.dll">
+    <None Update="HydraRing\Deltares.WTIStability.Calculation.Wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WTIStability.IO.dll">
+    <None Update="HydraRing\Deltares.WTIStability.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WTIStability.Levenberg.dll">
+    <None Update="HydraRing\Deltares.WTIStability.IO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\Deltares.WTIStructuralFailure.dll">
+    <None Update="HydraRing\Deltares.WTIStability.Levenberg.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\DeltaShell.Plugins.MorphAn.Domain.dll">
+    <None Update="HydraRing\Deltares.WTIStructuralFailure.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\DeltaShell.Plugins.MorphAn.TRDA.dll">
+    <None Update="HydraRing\DeltaShell.Plugins.MorphAn.Domain.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\dikesOverflow.dll">
+    <None Update="HydraRing\DeltaShell.Plugins.MorphAn.TRDA.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\DikesOvertopping.dll">
+    <None Update="HydraRing\dikesOverflow.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\dllDikesOvertopping.dll">
+    <None Update="HydraRing\DikesOvertopping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\dllHydraulicDunes.dll">
+    <None Update="HydraRing\dllDikesOvertopping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\DllLinearizedBetaAlpha.dll">
+    <None Update="HydraRing\dllHydraulicDunes.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\dllStructuresClosure2018.dll">
+    <None Update="HydraRing\DllLinearizedBetaAlpha.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\dllStructuresConstFailure2017.dll">
+    <None Update="HydraRing\dllStructuresClosure2018.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\dllStructuresOvertopping2017.dll">
+    <None Update="HydraRing\dllStructuresConstFailure2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\duneErosion.Native.dll">
+    <None Update="HydraRing\dllStructuresOvertopping2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\DynamicLib-DaF.dll">
+    <None Update="HydraRing\duneErosion.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\exeRingComputation.exe">
+    <None Update="HydraRing\DynamicLib-DaF.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\feedbackDLL.dll">
+    <None Update="HydraRing\exePreprocessClosure2017.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HRutilitiesDll.dll">
+    <None Update="HydraRing\exeRingComputation.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.Database.dll">
+    <None Update="HydraRing\feedbackDLL.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.Database.Test.dll">
+    <None Update="HydraRing\HRutilitiesDll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.Database.TestUtils.dll">
+    <None Update="HydraRing\HydraRing.Database.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.DuneErosionWrapper.dll">
+    <None Update="HydraRing\HydraRing.Database.Test.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.DuneErosionWrapper.Tests.dll">
+    <None Update="HydraRing\HydraRing.Database.TestUtils.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.IO.Native.dll">
+    <None Update="HydraRing\HydraRing.DuneErosionWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.IO.TestUtils.Native.dll">
+    <None Update="HydraRing\HydraRing.DuneErosionWrapper.Tests.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.MacroStability.Wrapper.dll">
+    <None Update="HydraRing\HydraRing.IO.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.Piping2017Wrapper.dll">
+    <None Update="HydraRing\HydraRing.IO.TestUtils.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\HydraRing.PluginShared.dll">
+    <None Update="HydraRing\HydraRing.MacroStability.Wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\hydraring_computation.dll">
+    <None Update="HydraRing\HydraRing.Piping2017Wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\ICSharpCode.SharpZipLib.dll">
+    <None Update="HydraRing\HydraRing.PluginShared.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\libifcoremd.dll">
+    <None Update="HydraRing\hydraring_computation.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\libifcorert.dll">
+    <None Update="HydraRing\ICSharpCode.SharpZipLib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\libifportmd.dll">
+    <None Update="HydraRing\libifcoremd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\libiomp5md.dll">
+    <None Update="HydraRing\libifcorert.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\libiompstubs5md.dll">
+    <None Update="HydraRing\libifportmd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\libmmd.dll">
+    <None Update="HydraRing\libiomp5md.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\LicenseAGPL.txt">
+    <None Update="HydraRing\libiompstubs5md.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\linearizedBetaAlpha.dll">
+    <None Update="HydraRing\libmmd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\log4net.dll">
+    <None Update="HydraRing\LicenseAGPL.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\LumenWorks.Framework.IO.dll">
+    <None Update="HydraRing\linearizedBetaAlpha.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\macroStability.Native.dll">
+    <None Update="HydraRing\log4net.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\MathNet.Numerics.dll">
+    <None Update="HydraRing\LumenWorks.Framework.IO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\MechanismComputation.exe">
+    <None Update="HydraRing\macroStability.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\mfc110.dll">
+    <None Update="HydraRing\MathNet.Numerics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\mfc110u.dll">
+    <None Update="HydraRing\MechanismComputation.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\mfcm110.dll">
+    <None Update="HydraRing\mfc110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\mfcm110u.dll">
+    <None Update="HydraRing\mfc110u.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\msvcp110.dll">
+    <None Update="HydraRing\mfcm110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\msvcr110.dll">
+    <None Update="HydraRing\mfcm110u.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\msvcrt.dll">
+    <None Update="HydraRing\msvcp110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\NDepend.Helpers.FileDirectoryPath.dll">
+    <None Update="HydraRing\msvcr110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\nunit.framework.dll">
+    <None Update="HydraRing\msvcrt.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\piping2017.Native.dll">
+    <None Update="HydraRing\NDepend.Helpers.FileDirectoryPath.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\PostSharp.dll">
+    <None Update="HydraRing\nunit.framework.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\protobuf-net.dll">
+    <None Update="HydraRing\piping2017.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\ProtoBufRemote.dll">
+    <None Update="HydraRing\PostSharp.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\structuresClosure2018.dll">
+    <None Update="HydraRing\protobuf-net.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\structuresOvertopping2017.dll">
+    <None Update="HydraRing\ProtoBufRemote.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\structuresStructuralFailure2017.Native.dll">
+    <None Update="HydraRing\structuresClosure2018.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\StructuresStructuralFailure2017wrapper.dll">
+    <None Update="HydraRing\structuresOvertopping2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\svml_dispmd.dll">
+    <None Update="HydraRing\structuresStructuralFailure2017.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\System.Data.SQLite.dll">
+    <None Update="HydraRing\StructuresStructuralFailure2017wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\System.Data.SQLite.Linq.dll">
+    <None Update="HydraRing\svml_dispmd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\winapi.dll">
+    <None Update="HydraRing\System.Data.SQLite.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\x64\SQLite.Interop.dll">
+    <None Update="HydraRing\System.Data.SQLite.Linq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="HydraRing\x86\SQLite.Interop.dll">
+    <None Update="HydraRing\x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="HydraRing\x86\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
 </Project>
