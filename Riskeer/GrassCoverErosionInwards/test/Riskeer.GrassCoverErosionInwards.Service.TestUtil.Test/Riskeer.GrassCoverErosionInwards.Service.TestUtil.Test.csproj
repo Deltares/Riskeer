@@ -1,33 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{CE7E92A2-00F7-423A-98F2-C5F78437D54D}</ProjectGuid>
-    <RootNamespace>Riskeer.GrassCoverErosionInwards.Service.TestUtil.Test</RootNamespace>
-    <AssemblyName>Riskeer.GrassCoverErosionInwards.Service.TestUtil.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GrassCoverErosionInwardsCalculationServiceTestHelperTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Service.TestUtil\Riskeer.GrassCoverErosionInwards.Service.TestUtil.csproj">
-      <Project>{61506E11-2D00-44FE-AB74-44D5766DF457}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Service.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Riskeer.GrassCoverErosionInwards.Service.TestUtil\Riskeer.GrassCoverErosionInwards.Service.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

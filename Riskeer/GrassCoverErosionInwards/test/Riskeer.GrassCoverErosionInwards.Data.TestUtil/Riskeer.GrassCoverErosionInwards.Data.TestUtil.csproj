@@ -1,60 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</ProjectGuid>
-    <RootNamespace>Riskeer.GrassCoverErosionInwards.Data.TestUtil</RootNamespace>
-    <AssemblyName>Riskeer.GrassCoverErosionInwards.Data.TestUtil</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_TestUtil.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GrassCoverErosionInwardsCloneAssert.cs" />
-    <Compile Include="GrassCoverErosionInwardsTestDataGenerator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHydraulicLoadsOutput.cs" />
-    <Compile Include="TestOvertoppingOutput.cs" />
-    <Compile Include="TestOvertoppingRateOutput.cs" />
-    <Compile Include="TestDikeHeightOutput.cs" />
-    <Compile Include="TestGrassCoverErosionInwardsFailureMechanism.cs" />
-    <Compile Include="TestGrassCoverErosionInwardsOutput.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj">
-      <Project>{0b0d2dff-7e7e-4bb0-a007-61800c85809a}</Project>
-      <Name>Core.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
-      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
