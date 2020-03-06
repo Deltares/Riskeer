@@ -1,29 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{96C8FDAE-9F59-4D2F-A66E-BE512BB5EECB}</ProjectGuid>
-    <RootNamespace>Riskeer.Integration.Forms.Test</RootNamespace>
-    <AssemblyName>Riskeer.Integration.Forms.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="BruTile, Version=0.20.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\BruTile.0.20.0\lib\portable-net45+win+WindowsPhoneApp81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\BruTile.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NUnitForms, Version=2.0.5821.13987, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Compile Remove="test-data\**" />
+    <EmbeddedResource Remove="test-data\**" />
+    <None Remove="test-data\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -32,287 +16,68 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\CombinedSectionAssemblyMapDataFactoryTest.cs" />
-    <Compile Include="Factories\AssessmentSectionAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\TechnicalInnovationAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\PipingStructureAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Factories\MacroStabilityOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />
-    <Compile Include="Editors\HlcdFileNameEditorTest.cs" />
-    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialogTest.cs" />
-    <Compile Include="Dialogs\BackgroundMapDataSelectionDialogTest.cs" />
-    <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
-    <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControlTest.cs" />
-    <Compile Include="Merge\AssessmentSectionMergeFilePathProviderTest.cs" />
-    <Compile Include="Merge\FailureMechanismMergeDataRowTest.cs" />
-    <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
-    <Compile Include="PresentationObjects\AssemblyResultCategoriesContextTest.cs" />
-    <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
-    <Compile Include="PresentationObjects\AssemblyResultPerSectionMapContextTest.cs" />
-    <Compile Include="PresentationObjects\AssemblyResultsContextTest.cs" />
-    <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
-    <Compile Include="PresentationObjects\MacroStabilityOutwardsAssemblyCategoriesContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismSectionsContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
-    <Compile Include="PropertyClasses\AssemblyResultCategoriesPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoriesPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\NormPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\RiskeerProjectPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\NormPropertiesIntegrationTest.cs" />
-    <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
-    <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\AssessmentSectionCompositionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
-    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialogTest.cs" />
-    <Compile Include="RiskeerSettingsHelperTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
-    <Compile Include="Views\AssemblyResultCategoriesViewTest.cs" />
-    <Compile Include="Views\AssemblyResultPerSectionMapViewTest.cs" />
-    <Compile Include="Views\AssemblyResultPerSectionViewTest.cs" />
-    <Compile Include="Views\AssemblyCategoriesTableTest.cs" />
-    <Compile Include="Views\FailureMechanismWithoutDetailedAssessmentViewTest.cs" />
-    <Compile Include="Views\FailureMechanismWithDetailedAssessmentViewTest.cs" />
-    <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesViewTest.cs" />
-    <Compile Include="Views\FailureMechanismAssemblyCategoriesViewTest.cs" />
-    <Compile Include="Views\AssessmentSectionAssemblyCategoriesViewTest.cs" />
-    <Compile Include="Views\AssemblyCategoryRowTest.cs" />
-    <Compile Include="Views\AssemblyResultTotalViewTest.cs" />
-    <Compile Include="Views\CombinedFailureMechanismSectionAssemblyResultRowTest.cs" />
-    <Compile Include="Views\FailureMechanismAssemblyResultRowBaseTest.cs" />
-    <Compile Include="Views\FailureMechanismAssemblyCategoryGroupResultRowTest.cs" />
-    <Compile Include="Views\FailureMechanismAssemblyResultRowTest.cs" />
-    <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
-    <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
-    <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\MacroStabilityOutwardsResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\MicrostabilityResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\PipingStructureResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\StrengthStabilityLengthwiseConstructionResultViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\TechnicalInnovationSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultRows\MicrostabilitySectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultRows\PipingStructureSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultViews\TechnicalInnovationResultViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultViewTest.cs" />
-    <Compile Include="Views\AssessmentSectionViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\MacroStabilityOutwardsSectionResultRowTest.cs" />
-    <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj">
-      <Project>{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}</Project>
-      <Name>Core.Common.Base.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj">
-      <Project>{45193749-ece8-40c4-8c4b-0c783affacb5}</Project>
-      <Name>Core.Common.Util.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
-      <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>
-      <Name>Core.Components.BruTile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
-      <Name>Core.Components.Gis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
-      <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
-      <Name>Core.Components.BruTile.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj">
-      <Project>{f0fb401a-3494-4237-9e6d-02cdf77912a8}</Project>
-      <Name>Core.Components.Gis.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj">
-      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
-      <Name>Riskeer.AssemblyTool.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
-      <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
-      <Name>Riskeer.ClosingStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\test\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj">
-      <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
-      <Name>Riskeer.ClosingStructures.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj">
-      <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
-      <Name>Riskeer.Common.Forms.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
-      <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
-      <Name>Riskeer.DuneErosion.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj">
-      <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\test\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj">
-      <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
-      <Name>Riskeer.HeightStructures.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
-      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Data.TestUtil\Riskeer.MacroStabilityInwards.Data.TestUtil.csproj">
-      <Project>{2B78CF04-4785-4F27-A6E5-45BDDBB7BF04}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\test\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj">
-      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Riskeer.Piping.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
-      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
-      <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
-      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
-      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
-      <Name>Riskeer.HeightStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
-      <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
-      <Name>Riskeer.StabilityPointStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\test\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj">
-      <Project>{E9AC095B-8F10-41D2-9456-4A85E3BA91AD}</Project>
-      <Name>Riskeer.StabilityPointStructures.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
-      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Riskeer.StabilityStoneCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
-      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
-      <Name>Riskeer.Integration.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj">
-      <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
-      <Name>Riskeer.Integration.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj">
-      <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
-      <Name>Riskeer.Integration.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Integration.Util\Riskeer.Integration.Util.csproj">
-      <Project>{D4D21027-B2CD-47E2-A299-70885CC93AB4}</Project>
-      <Name>Riskeer.Integration.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Integration.Data.TestUtil\Riskeer.Integration.Data.TestUtil.csproj">
-      <Project>{2D51FD02-BBED-43FE-BDB7-4437152876A1}</Project>
-      <Name>Riskeer.Integration.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Integration.Forms.TestUtil\Riskeer.Integration.Forms.TestUtil.csproj">
-      <Project>{93C3B757-C591-4451-BA56-140FF91EFE9A}</Project>
-      <Name>Riskeer.Integration.Forms.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj">
-      <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
-      <Name>Riskeer.Integration.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\ClosingStructures\test\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Forms.TestUtil\Riskeer.Common.Forms.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj"/>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\HeightStructures\test\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Data.TestUtil\Riskeer.MacroStabilityInwards.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Piping\test\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\test\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj"/>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Util\Riskeer.Integration.Util.csproj"/>
+    <ProjectReference Include="..\Riskeer.Integration.Data.TestUtil\Riskeer.Integration.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\Riskeer.Integration.Forms.TestUtil\Riskeer.Integration.Forms.TestUtil.csproj"/>
+    <ProjectReference Include="..\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="BruTile">
+      <Version>0.20.0</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
