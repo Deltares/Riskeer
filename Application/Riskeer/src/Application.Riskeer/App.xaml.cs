@@ -233,17 +233,14 @@ namespace Application.Riskeer
 
             try
             {
-                if (!Debugger.IsAttached)
+                if (!AcquireSingleInstancePerUserMutex())
                 {
-                    if (!AcquireSingleInstancePerUserMutex())
-                    {
-                        MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
-                        Shutdown(1);
-                        return true; //done here
-                    }
-
-                    hasMutex = true;
+                    MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
+                    Shutdown(1);
+                    return true; //done here
                 }
+
+                hasMutex = true;
             }
             finally
             {
@@ -281,22 +278,11 @@ namespace Application.Riskeer
 
         private static bool AcquireSingleInstancePerUserMutex()
         {
-            var createdNew = false;
-            try
-            {
-                //include the user name in the (global) mutex to ensure we limit only the number of instances per 
-                //user, not per system (essential on for example Citrix systems).
+            bool createdNew;
 
-                //include the application name in the mutex to ensure we are allowed to start for example 'Sobek' 
-                //and 'Morphan' side by side.
-                string applicationName = ConfigurationManager.AppSettings.AllKeys.Contains("applicationName")
-                                             ? ConfigurationManager.AppSettings["applicationName"]
-                                             : string.Empty;
-
-                string mutexName = $"Riskeer-single-instance-mutex-{Environment.UserName}-{applicationName}";
-                singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
-            }
-            catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
+            // Include the user name in the (global) mutex to ensure we limit only the number of instances per 
+            // user, not per system (essential on for example Citrix systems).
+            singleInstanceMutex = new Mutex(true, $"Riskeer-single-instance-mutex-{Environment.UserName}", out createdNew);
 
             return createdNew;
         }
