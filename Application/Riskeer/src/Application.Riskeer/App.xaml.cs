@@ -196,7 +196,10 @@ namespace Application.Riskeer
                     fileToOpen = potentialPath;
                     return true;
                 }
-                catch (ArgumentException) {}
+                catch (ArgumentException)
+                {
+                    return false;
+                }
             }
 
             return false;
