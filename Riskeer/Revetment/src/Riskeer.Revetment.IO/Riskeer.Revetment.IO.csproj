@@ -1,53 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</ProjectGuid>
-    <RootNamespace>Riskeer.Revetment.IO</RootNamespace>
-    <AssemblyName>Riskeer.Revetment.IO</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter.cs" />
-    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfiguration.cs" />
-    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter.cs" />
-    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader.cs" />
-    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter.cs" />
-    <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryType.cs" />
-    <Compile Include="Configurations\Converters\ConfigurationAssessmentSectionCategoryTypeConverter.cs" />
-    <Compile Include="Configurations\WaveConditionsCalculationConfigurationExporter.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="WaveConditions\CoverType.cs" />
-    <Compile Include="WaveConditions\ExportableWaveConditions.cs" />
-    <Compile Include="WaveConditions\ExportableWaveConditionsFactory.cs" />
-    <Compile Include="Configurations\WaveConditionsCalculationConfigurationImporter.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Configurations\WaveConditionsCalculationConfiguration.cs" />
-    <Compile Include="Configurations\ConfigurationWaveConditionsInputStepSize.cs" />
-    <Compile Include="Configurations\WaveConditionsCalculationConfigurationReader.cs" />
-    <Compile Include="Configurations\WaveConditionsCalculationConfigurationSchemaIdentifiers.cs" />
-    <Compile Include="Configurations\WaveConditionsCalculationConfigurationWriter.cs" />
-    <Compile Include="WaveConditions\WaveConditionsExporterBase.cs" />
-    <Compile Include="Configurations\Converters\ConfigurationWaveConditionsInputStepSizeConverter.cs" />
-    <Compile Include="WaveConditions\WaveConditionsWriter.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
     <None Include="Resources\BekledingenConfiguratieBasisSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -56,42 +18,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
-      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
-      <Name>Core.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
-      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Riskeer.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Riskeer.Revetment.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
+    <ProjectReference Include="..\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
+  </ItemGroup>
+<ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.Revetment.IO.Test</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
