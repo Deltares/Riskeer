@@ -1,67 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{35B78215-420B-4D7D-9959-9E9010601200}</ProjectGuid>
-    <RootNamespace>Riskeer.Piping.Data.TestUtil.Test</RootNamespace>
-    <AssemblyName>Riskeer.Piping.Data.TestUtil.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="PipingCalculationScenarioTestFactoryTest.cs" />
-    <Compile Include="PipingInputFactoryTest.cs" />
-    <Compile Include="PipingOutputTestFactoryTest.cs" />
-    <Compile Include="PipingStochasticSoilModelTestFactoryTest.cs" />
-    <Compile Include="PipingTestDataGeneratorTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Segment2DLoopCollectionHelperTest.cs" />
-    <Compile Include="TestPipingFailureMechanismTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
-      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
-      <Name>Riskeer.Piping.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj">
-      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Riskeer.Piping.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj">
-      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Riskeer.Piping.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj">
-      <Project>{6F568E38-592A-4F99-A901-86B74C4F24D2}</Project>
-      <Name>Riskeer.Piping.Primitives.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
