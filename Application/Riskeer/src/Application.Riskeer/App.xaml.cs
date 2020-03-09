@@ -46,7 +46,6 @@ using Core.Plugins.ProjectExplorer;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
-using log4net.Repository;
 using Riskeer.ClosingStructures.Plugin;
 using Riskeer.DuneErosion.Plugin;
 using Riskeer.GrassCoverErosionInwards.Plugin;
@@ -91,8 +90,7 @@ namespace Application.Riskeer
 
         static App()
         {
-            ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+            XmlConfigurator.Configure(new FileInfo("log4net.config"));
 
             SettingsHelper.Instance = new RiskeerSettingsHelper();
             SetLanguage();
