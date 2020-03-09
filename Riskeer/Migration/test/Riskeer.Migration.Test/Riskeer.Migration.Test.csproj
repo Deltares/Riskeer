@@ -1,80 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{408F6A6B-7BF7-4F59-A5D4-893A777921D3}</ProjectGuid>
-    <RootNamespace>Riskeer.Migration.Test</RootNamespace>
-    <AssemblyName>Riskeer.Migration.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProjectMigratorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj">
-      <Project>{45193749-ECE8-40C4-8C4B-0C783AFFACB5}</Project>
-      <Name>Core.Common.Util.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
-      <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
-      <Name>Migration.Scripts.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Riskeer.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Migration\Riskeer.Migration.csproj">
-      <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
-      <Name>Riskeer.Migration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj">
-      <Project>{fac55b92-e259-43d6-b9a1-5bda6c834359}</Project>
-      <Name>Riskeer.Migration.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj">
-      <Project>{C98D99C5-2ADD-4693-916C-71BF78750412}</Project>
-      <Name>Riskeer.Migration.Core.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Migration\Riskeer.Migration.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj"/>
+    <ProjectReference Include="..\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj"/>
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>

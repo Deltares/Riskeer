@@ -1,23 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{B15791FA-6753-49AA-A54E-1AD3312E6EF4}</ProjectGuid>
-    <RootNamespace>Riskeer.ClosingStructures.Plugin.Test</RootNamespace>
-    <AssemblyName>Riskeer.ClosingStructures.Plugin.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NUnitForms, Version=2.0.5821.13987, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -25,151 +10,44 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExportInfos\ClosingStructuresCalculationContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\ClosingStructuresCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="FileImporters\ClosingStructureReplaceDataStrategyTest.cs" />
-    <Compile Include="FileImporters\ClosingStructureUpdateDataStrategyTest.cs" />
-    <Compile Include="FileImporters\ClosingStructuresFailureMechanismSectionResultUpdateStrategyTest.cs" />
-    <Compile Include="ImportInfos\ClosingStructuresCalculationGroupContextImportInfoTest.cs" />
-    <Compile Include="PropertyInfos\ClosingStructuresInputContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\ClosingStructuresFailureMechanismContextPropertyInfoTest.cs" />
-    <Compile Include="ClosingStructuresPluginTest.cs" />
-    <Compile Include="ImportInfos\ClosingStructuresContextImportInfoTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyInfos\ClosingStructureCollectionPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\ClosingStructuresOutputPropertyInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructuresFailureMechanismContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructuresCalculationContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructuresContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructuresInputContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructuresScenariosContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructureTreeNodeInfoTest.cs" />
-    <Compile Include="UpdateInfos\ClosingStructuresContextUpdateInfoTest.cs" />
-    <Compile Include="UpdateInfos\ClosingStructuresFailureMechanismSectionsContextUpdateInfoTest.cs" />
-    <Compile Include="ViewInfos\ClosingStructuresFailureMechanismResultViewInfoTest.cs" />
-    <Compile Include="ViewInfos\ClosingStructuresScenariosViewInfoTest.cs" />
-    <Compile Include="ViewInfos\ClosingStructuresFailureMechanismViewInfoTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
-      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
-      <Name>Core.Common.Gui.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
-      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Riskeer.Common.IO</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Plugin.TestUtil\Riskeer.Common.Plugin.TestUtil.csproj">
-      <Project>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</Project>
-      <Name>Riskeer.Common.Plugin.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj">
-      <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
-      <Name>Riskeer.Common.Service.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
-      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
-      <Name>Riskeer.HydraRing.Calculation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj">
-      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
-      <Name>Riskeer.HydraRing.Calculation.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
-      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Riskeer.ClosingStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Forms\Riskeer.ClosingStructures.Forms.csproj">
-      <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
-      <Name>Riskeer.ClosingStructures.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.IO\Riskeer.ClosingStructures.IO.csproj">
-      <Project>{24043F46-406D-4719-B94B-033D63D61153}</Project>
-      <Name>Riskeer.ClosingStructures.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj">
-      <Project>{7DA0AB85-828D-4B1D-B532-58B89E39BEF5}</Project>
-      <Name>Riskeer.ClosingStructures.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj">
-      <Project>{673B4A0B-96B1-4E98-BB49-E3C7BCB5F179}</Project>
-      <Name>Riskeer.ClosingStructures.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj">
-      <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
-      <Name>Riskeer.ClosingStructures.Data.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Plugin.TestUtil\Riskeer.Common.Plugin.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj"/>
+    <ProjectReference Include="..\..\..\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Forms\Riskeer.ClosingStructures.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.IO\Riskeer.ClosingStructures.IO.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj"/>
+    <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj"/>
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>

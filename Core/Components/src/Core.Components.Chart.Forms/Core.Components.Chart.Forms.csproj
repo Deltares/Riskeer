@@ -1,19 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</ProjectGuid>
-    <RootNamespace>Core.Components.Chart.Forms</RootNamespace>
-    <AssemblyName>Core.Components.Chart.Forms</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IChartControl.cs" />
-    <Compile Include="IChartView.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -22,18 +11,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
-      <Name>Core.Components.Chart</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

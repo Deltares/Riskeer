@@ -1,60 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{318BA582-88C9-4816-A54A-A7E431461DE3}</ProjectGuid>
-    <RootNamespace>Core.Components.Gis</RootNamespace>
-    <AssemblyName>Core.Components.Gis</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Data\MapDataCollectionVisibility.cs" />
-    <Compile Include="Helpers\MapDataCollectionHelper.cs" />
-    <Compile Include="Theme\CategoryTheme.cs" />
-    <Compile Include="Theme\LineCategoryTheme.cs" />
-    <Compile Include="Theme\PointCategoryTheme.cs" />
-    <Compile Include="Theme\PolygonCategoryTheme.cs" />
-    <Compile Include="Theme\ValueCriterion.cs" />
-    <Compile Include="Theme\ValueCriterionOperator.cs" />
-    <Compile Include="Theme\MapTheme.cs" />
-    <Compile Include="Data\ImageBasedMapData.cs" />
-    <Compile Include="Data\Removable\IRemovable.cs" />
-    <Compile Include="Data\MapData.cs" />
-    <Compile Include="Data\MapDataCollection.cs" />
-    <Compile Include="Data\MapDataCollectionExtensions.cs" />
-    <Compile Include="Data\MapLineData.cs" />
-    <Compile Include="Data\MapPointData.cs" />
-    <Compile Include="Data\MapPolygonData.cs" />
-    <Compile Include="Data\FeatureBasedMapData.cs" />
-    <Compile Include="Data\Removable\RemovableMapDataConverter.cs" />
-    <Compile Include="Data\Removable\RemovableMapLineData.cs" />
-    <Compile Include="Data\Removable\RemovableMapPointData.cs" />
-    <Compile Include="Data\Removable\RemovableMapPolygonData.cs" />
-    <Compile Include="Data\WellKnownTileSource.cs" />
-    <Compile Include="Data\WellKnownTileSourceMapData.cs" />
-    <Compile Include="Data\WmtsMapData.cs" />
-    <Compile Include="Exceptions\CannotCreateTileCacheException.cs" />
-    <Compile Include="Exceptions\CannotFindTileSourceException.cs" />
-    <Compile Include="Exceptions\CannotReceiveTilesException.cs" />
-    <Compile Include="Exceptions\ConfigurationInitializationException.cs" />
-    <Compile Include="Features\MapFeature.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Style\LineDashStyle.cs" />
-    <Compile Include="Style\LineStyle.cs" />
-    <Compile Include="Geometries\MapGeometry.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Style\PointStyle.cs" />
-    <Compile Include="Style\PointSymbol.cs" />
-    <Compile Include="Style\PolygonStyle.cs" />
-    <Compile Include="WmtsConnectionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -63,22 +12,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
 </Project>

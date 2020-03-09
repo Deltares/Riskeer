@@ -1,38 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{8ADC8891-1D6C-4E15-B7BC-DE9641E83BEF}</ProjectGuid>
-    <RootNamespace>Migration.Scripts.Data.TestUtil.Test</RootNamespace>
-    <AssemblyName>Migration.Scripts.Data.TestUtil.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCreateScriptTest.cs" />
-    <Compile Include="TestUpgradeScriptTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
-      <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
-      <Name>Migration.Scripts.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Migration.Scripts.Data.TestUtil\Migration.Scripts.Data.TestUtil.csproj">
-      <Project>{E4B36055-A984-4D40-9A70-34354054FE46}</Project>
-      <Name>Migration.Scripts.Data.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj"/>
+    <ProjectReference Include="..\Migration.Scripts.Data.TestUtil\Migration.Scripts.Data.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

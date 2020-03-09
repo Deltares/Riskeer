@@ -1,11 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</ProjectGuid>
-    <RootNamespace>Riskeer.Piping.Plugin</RootNamespace>
-    <AssemblyName>Riskeer.Piping.Plugin</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -16,118 +10,36 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileImporter\PipingSurfaceLineReplaceDataStrategy.cs" />
-    <Compile Include="FileImporter\PipingSurfaceLineUpdateDataStrategy.cs" />
-    <Compile Include="FileImporter\PipingStochasticSoilModelImporterConfigurationFactory.cs" />
-    <Compile Include="FileImporter\PipingStochasticSoilModelUpdateDataStrategy.cs" />
-    <Compile Include="FileImporter\PipingStochasticSoilModelReplaceDataStrategy.cs" />
-    <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactory.cs" />
-    <Compile Include="FileImporter\PipingFailureMechanismSectionResultUpdateStrategy.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Forms\Riskeer.Piping.Forms.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.IO\Riskeer.Piping.IO.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj"/>
+  </ItemGroup>
+<ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PipingPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
-      <Name>Core.Common.Gui</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
-      <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
-      <Name>Core.Components.Chart.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
-      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Riskeer.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj">
-      <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
-      <Name>Riskeer.Common.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
-      <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
-      <Name>Riskeer.Common.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Forms\Riskeer.Piping.Forms.csproj">
-      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Riskeer.Piping.Forms</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.IO\Riskeer.Piping.IO.csproj">
-      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Riskeer.Piping.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
-      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Riskeer.Piping.Primitives</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj">
-      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Riskeer.Piping.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,26 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}</ProjectGuid>
-    <RootNamespace>Riskeer.WaveImpactAsphaltCover.Service</RootNamespace>
-    <AssemblyName>Riskeer.WaveImpactAsphaltCover.Service</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.cs" />
-    <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationService.cs" />
-    <Compile Include="WaveImpactAsphaltCoverDataSynchronizationService.cs" />
-    <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -28,46 +10,30 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Riskeer.Common.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
-      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Riskeer.Common.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj">
-      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
-      <Name>Riskeer.HydraRing.Calculation</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
-      <Name>Riskeer.Revetment.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Service\Riskeer.Revetment.Service.csproj">
-      <Project>{2331235F-1E56-4344-ACC2-191C22A39594}</Project>
-      <Name>Riskeer.Revetment.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj"/>
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj"/>
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Service\Riskeer.Revetment.Service.csproj"/>
+    <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj"/>
+  </ItemGroup>
+<ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.WaveImpactAsphaltCover.Service.Test</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

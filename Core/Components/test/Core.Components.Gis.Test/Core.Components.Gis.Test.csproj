@@ -1,88 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{CCA12632-92B8-46DB-A3CA-E3C7C92B1AB0}</ProjectGuid>
-    <RootNamespace>Core.Components.Gis.Test</RootNamespace>
-    <AssemblyName>Core.Components.Gis.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\MapDataCollectionVisibilityTest.cs" />
-    <Compile Include="Helpers\MapDataCollectionHelperTest.cs" />
-    <Compile Include="TestFeatureBasedMapDataTest.cs" />
-    <Compile Include="Theme\CategoryThemeTest.cs" />
-    <Compile Include="Theme\LineCategoryThemeTest.cs" />
-    <Compile Include="Theme\PointCategoryThemeTest.cs" />
-    <Compile Include="Theme\PolygonCategoryThemeTest.cs" />
-    <Compile Include="Theme\ValueCriterionOperatorTest.cs" />
-    <Compile Include="Theme\ValueCriterionTest.cs" />
-    <Compile Include="Theme\MapThemeTest.cs" />
-    <Compile Include="Data\ImageBasedMapDataTest.cs" />
-    <Compile Include="Data\MapDataCollectionExtensionsTest.cs" />
-    <Compile Include="Data\MapDataCollectionTest.cs" />
-    <Compile Include="Data\MapDataTest.cs" />
-    <Compile Include="Data\MapLineDataTest.cs" />
-    <Compile Include="Data\MapPointDataTest.cs" />
-    <Compile Include="Data\MapPolygonDataTest.cs" />
-    <Compile Include="Data\FeatureBasedMapDataTest.cs" />
-    <Compile Include="Data\Removable\RemovableMapLineDataTest.cs" />
-    <Compile Include="Data\Removable\RemovableMapPointDataTest.cs" />
-    <Compile Include="Data\Removable\RemovableMapPolygonDataTest.cs" />
-    <Compile Include="Data\Removable\RemovableMapDataConverterTest.cs" />
-    <Compile Include="Data\WellKnownTileSourceMapDataTest.cs" />
-    <Compile Include="Data\WellKnownTileSourceTest.cs" />
-    <Compile Include="Data\WmtsMapDataTest.cs" />
-    <Compile Include="Exceptions\CannotCreateTileCacheExceptionTest.cs" />
-    <Compile Include="Exceptions\CannotFindTileSourceExceptionTest.cs" />
-    <Compile Include="Exceptions\CannotReceiveTilesExceptionTest.cs" />
-    <Compile Include="Exceptions\ConfigurationInitializationExceptionTest.cs" />
-    <Compile Include="Features\MapFeatureTest.cs" />
-    <Compile Include="Geometries\MapGeometryTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Style\LineDashStyleTest.cs" />
-    <Compile Include="Style\LineStyleTest.cs" />
-    <Compile Include="Style\PointStyleTest.cs" />
-    <Compile Include="Style\PointSymbolTest.cs" />
-    <Compile Include="Style\PolygonStyleTest.cs" />
-    <Compile Include="WmtsConnectionInfoTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
-      <Name>Core.Components.Gis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj">
-      <Project>{F0FB401A-3494-4237-9E6D-02CDF77912A8}</Project>
-      <Name>Core.Components.Gis.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj"/>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>

@@ -1,40 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{02266309-9A78-4843-AE3A-E563B744AF95}</ProjectGuid>
-    <RootNamespace>Riskeer.StabilityStoneCover.Data.TestUtil.Test</RootNamespace>
-    <AssemblyName>Riskeer.StabilityStoneCover.Data.TestUtil.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StabilityStoneCoverWaveConditionsOutputTestFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
-      <Name>Riskeer.Revetment.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
-      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Riskeer.StabilityStoneCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj">
-      <Project>{b727e93a-74b2-467a-ae46-9a4e39ed4b5f}</Project>
-      <Name>Riskeer.StabilityStoneCover.Data.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj"/>
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

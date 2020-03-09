@@ -1,18 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{DBF5A590-2A11-4EB4-A8CC-F3036475E4D5}</ProjectGuid>
-    <RootNamespace>Core.Components.PointedTree.Forms</RootNamespace>
-    <AssemblyName>Core.Components.PointedTree.Forms</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IPointedTreeGraphControl.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -21,8 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
-      <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
-      <Name>Core.Components.PointedTree</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

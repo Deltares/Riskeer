@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <OutDir>$(OutputPath)</OutDir>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Source.targets" />
+</Project>

@@ -1,39 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{594C5C6D-5833-4E1C-9F30-13A202628EEF}</ProjectGuid>
-    <RootNamespace>Riskeer.Storage.Core.Test</RootNamespace>
-    <AssemblyName>Riskeer.Storage.Core.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net45\Fluent.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net45\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
@@ -41,368 +13,62 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundDataIdentifiersTest.cs" />
-    <Compile Include="ColorConversionExtensionsTest.cs" />
-    <Compile Include="Create\BackgroundDataCreateExtensionsTest.cs" />
-    <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCalculationCollectionCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCalculationCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationCalculationOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\DikeHeightOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\HeightStructures\HeightStructureCreateExtensionsTest.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCalculationCollectionCreateExtensionsTest.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCalculationOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\HydraulicLocationConfigurationSettingsCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointStochastCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\StochastCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsCalculationScenarioCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile2DCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilModelCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSurfaceLineCreateExtensionsTest.cs" />
-    <Compile Include="Create\StructuresCalculationCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensionsTest.cs" />
-    <Compile Include="Create\StructuresOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
-    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
-    <Compile Include="DbContext\RiskeerEntitiesTest.cs" />
-    <Compile Include="Exceptions\CannotDetermineFingerprintExceptionTest.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensionsTest.cs" />
-    <Compile Include="Read\BackgroundDataMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosion\DuneErosionFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationCalculationCollectionEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationCalculationOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
-    <Compile Include="Create\ForeshoreProfileCreateExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOvertoppingRateOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HydraulicBoundaryDatabaseEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HydraulicLocationCalculationCollectionEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HydraulicLocationCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HydraulicLocationOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\FaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\GeneralResultFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\GeneralResultSubMechanismIllustrationPointEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\IllustrationPointResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointStochastEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerOneDEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileTwoDEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StructureCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\BackgroundDataEntityReadExtensionsTest.cs" />
-    <Compile Include="RoundedDoubleConversionExtensionsTest.cs" />
-    <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
-    <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializerTest.cs" />
-    <Compile Include="Serializers\Point2DCollectionXmlSerializerTest.cs" />
-    <Compile Include="Serializers\Point3DCollectionXmlSerializerTest.cs" />
-    <Compile Include="Serializers\RoughnessPointCollectionXmlSerializerTest.cs" />
-    <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
-    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingCalculationScenarioCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingSoilLayerCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingSoilProfileCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingSurfaceLineCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingStochasticSoilModelCreateExtensionsTest.cs" />
-    <Compile Include="Create\Piping\PipingStochasticSoilProfileCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityPointStructures\StabilityPointStructuresFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\StabilityPointStructures\StabilityPointStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\PersistenceRegistryTest.cs" />
-    <Compile Include="Create\FailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
-    <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
-    <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
-    <Compile Include="Create\RiskeerProjectCreateExtensionsTest.cs" />
-    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="DoubleConversionExtensionsTest.cs" />
-    <Compile Include="Exceptions\CannotDeleteBackupFileExceptionTest.cs" />
-    <Compile Include="FingerprintHelperTest.cs" />
-    <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\CalculationGroupEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ClosingStructures\ClosingStructuresSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\PipingCalculationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\PipingFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\PipingSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\PipingStructure\PipingStructureSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\PipingSoilLayerEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\PipingSoilProfileEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StochasticSoilModelEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\PipingStochasticSoilProfileEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\SurfaceLineEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosion\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\FailureMechanismEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\FailureMechanismSectionEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\HydraulicLocationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ReadConversionCollectorTest.cs" />
-    <Compile Include="RiskeerDatabaseCreatorTest.cs" />
-    <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
-    <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BackedUpFileWriterTest.cs" />
-    <Compile Include="Serializers\TangentLineCollectionXmlSerializerTest.cs" />
-    <Compile Include="SqLiteEntityConnectionStringBuilderTest.cs" />
-    <Compile Include="StorageSqliteCreatorTest.cs" />
-    <Compile Include="StorageSqLiteTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
-      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Riskeer.ClosingStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\test\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj">
-      <Project>{f5b43c29-6169-4e9a-859e-09090330b94e}</Project>
-      <Name>Riskeer.ClosingStructures.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Riskeer.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
-      <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
-      <Name>Riskeer.DuneErosion.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\test\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj">
-      <Project>{7BE6B522-02E3-4143-8508-C021A211DE54}</Project>
-      <Name>Riskeer.DuneErosion.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\test\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj">
-      <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\test\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj">
-      <Project>{f67e8ae8-1ff0-4680-9817-99e025cd9ff6}</Project>
-      <Name>Riskeer.HeightStructures.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
-      <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj">
-      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Data.TestUtil\Riskeer.MacroStabilityInwards.Data.TestUtil.csproj">
-      <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Primitives.TestUtil\Riskeer.MacroStabilityInwards.Primitives.TestUtil.csproj">
-      <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Primitives.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\test\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj">
-      <Project>{6F568E38-592A-4F99-A901-86B74C4F24D2}</Project>
-      <Name>Riskeer.Piping.Primitives.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
-      <Name>Riskeer.Revetment.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj">
-      <Project>{3706200E-48C6-4B86-B48C-4E45C69ABE95}</Project>
-      <Name>Riskeer.Revetment.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
-      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
-      <Name>Riskeer.StabilityPointStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\test\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj">
-      <Project>{e9ac095b-8f10-41d2-9456-4a85e3ba91ad}</Project>
-      <Name>Riskeer.StabilityPointStructures.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Riskeer.WaveImpactAsphaltCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
-      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Riskeer.GrassCoverErosionInwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
-      <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
-      <Name>Riskeer.GrassCoverErosionOutwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
-      <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
-      <Name>Riskeer.HeightStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
-      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
-      <Name>Riskeer.Integration.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
-      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Riskeer.Piping.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Piping\test\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj">
-      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Riskeer.Piping.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
-      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Riskeer.StabilityStoneCover.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj">
-      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
-      <Name>Riskeer.Storage.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Storage.Core.TestUtil\Riskeer.Storage.Core.TestUtil.csproj">
-      <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
-      <Name>Riskeer.Storage.Core.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\test\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\test\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\test\Riskeer.GrassCoverErosionInwards.Data.TestUtil\Riskeer.GrassCoverErosionInwards.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\test\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Data.TestUtil\Riskeer.MacroStabilityInwards.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Primitives.TestUtil\Riskeer.MacroStabilityInwards.Primitives.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\test\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityPointStructures\test\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\Piping\test\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj"/>
+    <ProjectReference Include="..\Riskeer.Storage.Core.TestUtil\Riskeer.Storage.Core.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>3.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.Core">
+      <Version>1.0.109.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.EF6">
+      <Version>1.0.109</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>

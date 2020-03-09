@@ -1,54 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</ProjectGuid>
-    <RootNamespace>Riskeer.ClosingStructures.Forms</RootNamespace>
-    <AssemblyName>Riskeer.ClosingStructures.Forms</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Factories\ClosingStructuresAssemblyMapDataFeaturesFactory.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresOutputContext.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresScenariosContext.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismSectionsContext.cs" />
-    <Compile Include="PropertyClasses\ClosingStructuresFailureMechanismProperties.cs" />
-    <Compile Include="PropertyClasses\ClosingStructureProperties.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresCalculationContext.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresContext.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContext.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresInputContext.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyClasses\ClosingStructuresInputContextProperties.cs" />
-    <Compile Include="PropertyClasses\ClosingStructuresOutputProperties.cs" />
-    <Compile Include="Views\ClosingStructuresFailureMechanismResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ClosingStructuresFailureMechanismSectionResultRow.cs" />
-    <Compile Include="Views\ClosingStructuresScenarioRow.cs" />
-    <Compile Include="Views\ClosingStructuresScenariosView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ClosingStructuresScenariosView.Designer.cs">
-      <DependentUpon>ClosingStructuresScenariosView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ClosingStructuresFailureMechanismView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ClosingStructuresFailureMechanismView.Designer.cs">
-      <DependentUpon>ClosingStructuresFailureMechanismView.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -57,82 +13,61 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
-      <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Riskeer.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
-      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
-      <Name>Riskeer.ClosingStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj">
-      <Project>{673b4a0b-96b1-4e98-bb49-e3c7bcb5f179}</Project>
-      <Name>Riskeer.ClosingStructures.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ClosingStructuresScenariosView.resx">
-      <DependentUpon>ClosingStructuresScenariosView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ClosingStructuresFailureMechanismView.resx">
-      <DependentUpon>ClosingStructuresFailureMechanismView.cs</DependentUpon>
-    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.ClosingStructures.Forms.Test</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

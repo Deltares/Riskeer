@@ -1,21 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{7F937E31-02CA-41D9-B7D4-1079CF452C72}</ProjectGuid>
-    <RootNamespace>Core.Common.Util.Test</RootNamespace>
-    <AssemblyName>Core.Common.Util.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Compile Remove="test-data\**" />
+    <EmbeddedResource Remove="test-data\**" />
+    <None Remove="test-data\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="PresentationCore" />
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -23,83 +14,48 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\ResourcesDisplayNameAttributeTest.cs" />
-    <Compile Include="Attributes\ResourcesDescriptionAttributeTest.cs" />
-    <Compile Include="Attributes\ResourcesCategoryAttributeTest.cs" />
-    <Compile Include="Builders\DirectoryWriterErrorMessageBuilderTest.cs" />
-    <Compile Include="Builders\FileWriterErrorMessageBuilderTest.cs" />
-    <Compile Include="Builders\FileReaderErrorMessageBuilderTest.cs" />
-    <Compile Include="Drawing\ColorAccessTest.cs" />
-    <Compile Include="Drawing\GraphicsExtensionsTest.cs" />
-    <Compile Include="Drawing\ImageExtensionsTest.cs" />
-    <Compile Include="EnumDisplayWrapperTest.cs" />
-    <Compile Include="EnumTypeConverterTest.cs" />
-    <Compile Include="Events\EventArgsTest.cs" />
-    <Compile Include="Exceptions\InvalidTypeParameterExceptionTest.cs" />
-    <Compile Include="Extensions\CollectionExtensionsTest.cs" />
-    <Compile Include="Extensions\ComparableExtensionsTest.cs" />
-    <Compile Include="Extensions\EnumerableExtensionsTest.cs" />
-    <Compile Include="Extensions\StringExtensionsTest.cs" />
-    <Compile Include="FileFilterGeneratorTest.cs" />
-    <Compile Include="IOUtilsTest.cs" />
-    <Compile Include="IO\EmbeddedResourceFileWriterTest.cs" />
-    <Compile Include="NullableEnumConverterTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="ReferenceEqualityComparerTest.cs" />
-    <Compile Include="Reflection\AssemblyUtilsTest.cs" />
-    <Compile Include="Reflection\TypeUtilsTest.cs" />
-    <Compile Include="Settings\SettingsHelperTest.cs" />
-    <Compile Include="StatisticsConverterTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\abacus.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\acorn.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\TestImage.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Black2x2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\TestImageWithBlack.png" />
+    <None Include="Resources\acornWithCross.png" />
+    <None Include="Resources\TestImageHalfOpacityOnBlack2x2.bmp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\EmbeddedResource1.txt" />
     <EmbeddedResource Include="EmbeddedResources\EmbeddedResource2.txt" />
     <None Include="EmbeddedResources\NonEmbeddedResource.txt" />
     <EmbeddedResource Include="EmbeddedResources\testFile.txt" />
-    <None Include="Resources\acornWithCross.png" />
-    <None Include="Resources\TestImageHalfOpacityOnBlack2x2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

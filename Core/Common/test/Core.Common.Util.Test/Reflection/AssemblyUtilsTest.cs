@@ -70,11 +70,10 @@ namespace Core.Common.Util.Test.Reflection
 
             // Assert
             Assert.AreEqual("Deltares", assemblyInfo.Company);
-            Assert.AreEqual("Copyright © Deltares 2019", assemblyInfo.Copyright);
-            Assert.IsEmpty(assemblyInfo.Description);
+            Assert.AreEqual("Copyright © Deltares 2020", assemblyInfo.Copyright);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Title);
-            StringAssert.StartsWith("19.2.1.", assemblyInfo.Version);
+            StringAssert.StartsWith("20.1.1", assemblyInfo.Version);
         }
 
         [Test]

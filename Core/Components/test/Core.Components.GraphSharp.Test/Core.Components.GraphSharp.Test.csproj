@@ -1,70 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{2E3214A5-E2A2-44FA-AB0E-28200A2439DC}</ProjectGuid>
-    <RootNamespace>Core.Components.GraphSharp.Test</RootNamespace>
-    <AssemblyName>Core.Components.GraphSharp.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\VertexSelectedCommandTest.cs" />
-    <Compile Include="Converters\GraphNodeConverterTest.cs" />
-    <Compile Include="Data\PointedTreeEdgeTest.cs" />
-    <Compile Include="Data\PointedTreeGraphTest.cs" />
-    <Compile Include="Data\PointedTreeElementVertexTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj">
-      <Project>{32358941-77c5-48a7-ad8b-dfb4f23b12a5}</Project>
-      <Name>Core.Components.GraphSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
-      <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
-      <Name>Core.Components.PointedTree</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj">
-      <Project>{0500CA45-1791-4C91-9243-EF95567068A3}</Project>
-      <Name>Core.Components.GraphSharp.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj"/>
+    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="QuickGraph">
+      <Version>3.6.61119.7</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

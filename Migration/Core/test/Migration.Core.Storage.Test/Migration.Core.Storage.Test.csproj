@@ -1,49 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{01776D8B-4BAC-444C-B566-5E398088BDFC}</ProjectGuid>
-    <RootNamespace>Migration.Core.Storage.Test</RootNamespace>
-    <AssemblyName>Migration.Core.Storage.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="VersionedFileMigratorTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
-      <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
-      <Name>Migration.Scripts.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Scripts\test\Migration.Scripts.Data.TestUtil\Migration.Scripts.Data.TestUtil.csproj">
-      <Project>{E4B36055-A984-4D40-9A70-34354054FE46}</Project>
-      <Name>Migration.Scripts.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
-      <Project>{EFD7E662-5B69-4B71-A448-565B64E9C033}</Project>
-      <Name>Migration.Core.Storage</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Scripts\test\Migration.Scripts.Data.TestUtil\Migration.Scripts.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Migration.Core.Storage\Migration.Core.Storage.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

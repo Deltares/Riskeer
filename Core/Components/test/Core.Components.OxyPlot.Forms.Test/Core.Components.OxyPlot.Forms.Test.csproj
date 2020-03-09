@@ -1,74 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{D07BB841-15D7-4127-8B46-CFC61C546B45}</ProjectGuid>
-    <RootNamespace>Core.Components.OxyPlot.Forms.Test</RootNamespace>
-    <AssemblyName>Core.Components.OxyPlot.Forms.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\OxyPlot.WindowsForms.1.0.0\lib\net45\OxyPlot.WindowsForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryPlotViewTest.cs" />
-    <Compile Include="ChartControlTest.cs" />
-    <Compile Include="LinearPlotViewTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StackChartControlTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
-      <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
-      <Name>Core.Components.Chart.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
-      <Name>Core.Components.Chart</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
-      <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
-      <Name>Core.Components.OxyPlot.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
-      <Project>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</Project>
-      <Name>Core.Components.OxyPlot</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
-      <Project>{72109E33-6518-4632-ACCF-6CBF2A312711}</Project>
-      <Name>Core.Components.Stack.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj">
-      <Project>{6a146889-a3c4-48bf-af53-c0b0cd355be4}</Project>
-      <Name>Core.Components.Stack</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Chart\Core.Components.Chart.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Components.Stack\Core.Components.Stack.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="OxyPlot.WindowsForms">
+      <Version>1.0.0</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

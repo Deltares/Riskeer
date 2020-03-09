@@ -1,80 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{D3ACB74A-D916-4750-B72F-8276D2E93791}</ProjectGuid>
-    <RootNamespace>Riskeer.HeightStructures.IO.Test</RootNamespace>
-    <AssemblyName>Riskeer.HeightStructures.IO.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Compile Remove="test-data\**" />
+    <EmbeddedResource Remove="test-data\**" />
+    <None Remove="test-data\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\HeightStructuresCalculationConfigurationImporterTest.cs" />
-    <Compile Include="Configurations\HeightStructuresCalculationConfigurationReaderTest.cs" />
-    <Compile Include="Configurations\HeightStructuresCalculationConfigurationTest.cs" />
-    <Compile Include="Configurations\HeightStructuresCalculationConfigurationExporterTest.cs" />
-    <Compile Include="Configurations\HeightStructuresCalculationConfigurationWriterTest.cs" />
-    <Compile Include="Configurations\HeightStructuresCalculationStochastAssignerTest.cs" />
-    <Compile Include="HeightStructuresImporterTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
-      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Riskeer.Common.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj">
-      <Project>{33508D7C-1602-4C0D-8503-73AAE98C19E5}</Project>
-      <Name>Riskeer.Common.IO.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
-      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
-      <Name>Riskeer.HeightStructures.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.IO\Riskeer.HeightStructures.IO.csproj">
-      <Project>{D63FCFEC-34E8-4C68-8B4F-99338D2447AC}</Project>
-      <Name>Riskeer.HeightStructures.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj">
-      <Project>{9AF85B2B-8D78-43C5-9542-FBB3A14EAB36}</Project>
-      <Name>Riskeer.HeightStructures.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj">
-      <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
-      <Name>Riskeer.HeightStructures.Data.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.IO\Riskeer.HeightStructures.IO.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj" />
+    <ProjectReference Include="..\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

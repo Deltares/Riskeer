@@ -1,20 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{69F3FC1D-2218-4FA7-BF8B-7DDAB355794F}</ProjectGuid>
-    <RootNamespace>Riskeer.MacroStabilityInwards.KernelWrapper.Test</RootNamespace>
-    <AssemblyName>Riskeer.MacroStabilityInwards.KernelWrapper.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -23,96 +9,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryTest.cs" />
-    <Compile Include="Calculators\Input\DrainageConstructionTest.cs" />
-    <Compile Include="Calculators\Input\PhreaticLineOffsetsTest.cs" />
-    <Compile Include="Calculators\Input\LandwardDirectionTest.cs" />
-    <Compile Include="Calculators\Input\WaternetCreationModeTest.cs" />
-    <Compile Include="Calculators\Input\PreconsolidationStressTest.cs" />
-    <Compile Include="Calculators\Input\DilatancyTypeTest.cs" />
-    <Compile Include="Calculators\Input\PlLineCreationMethodTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlaneConstraintsTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlaneTest.cs" />
-    <Compile Include="Calculators\Input\WaterPressureInterpolationModelTest.cs" />
-    <Compile Include="Calculators\Input\ShearStrengthModelTest.cs" />
-    <Compile Include="Calculators\Input\SoilLayerTest.cs" />
-    <Compile Include="Calculators\Input\SoilProfileTest.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorExceptionTest.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanKernelMessageTypeTest.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanKernelMessageTest.cs" />
-    <Compile Include="Calculators\Waternet\Input\WaternetCalculatorInputTest.cs" />
-    <Compile Include="Calculators\Waternet\Output\WaternetCalculatorResultTest.cs" />
-    <Compile Include="Calculators\Waternet\Output\WaternetLineResultTest.cs" />
-    <Compile Include="Calculators\Waternet\Output\WaternetPhreaticLineResultTest.cs" />
-    <Compile Include="Calculators\Waternet\WaternetCalculatorExceptionTest.cs" />
-    <Compile Include="Calculators\Waternet\WaternetCalculatorTest.cs" />
-    <Compile Include="Calculators\Waternet\WaternetDailyCalculatorTest.cs" />
-    <Compile Include="Calculators\Waternet\WaternetExtremeCalculatorTest.cs" />
-    <Compile Include="Creators\Input\LayerWithSoilCreatorTest.cs" />
-    <Compile Include="Creators\Input\LayerWithSoilTest.cs" />
-    <Compile Include="Creators\Input\SlipPlaneConstraintsCreatorTest.cs" />
-    <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />
-    <Compile Include="Creators\Input\SoilProfileCreatorTest.cs" />
-    <Compile Include="Creators\Input\StabilityLocationCreatorHelperTest.cs" />
-    <Compile Include="Creators\Input\UpliftVanStabilityLocationCreatorTest.cs" />
-    <Compile Include="Creators\Input\SurfaceLineCreatorTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanCalculatorInputTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorResultTest.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorTest.cs" />
-    <Compile Include="Creators\Input\SoilModelCreatorTest.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanGridTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanSliceResultTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTest.cs" />
-    <Compile Include="Creators\Input\WaternetStabilityLocationCreatorTest.cs" />
-    <Compile Include="Creators\Output\UpliftVanKernelMessagesCreatorTest.cs" />
-    <Compile Include="Creators\Output\UpliftVanSlidingCurveResultCreatorTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTest.cs" />
-    <Compile Include="Creators\Output\UpliftVanCalculationGridResultCreatorTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculationGridResultTest.cs" />
-    <Compile Include="Creators\Output\WaternetCalculatorResultCreatorTest.cs" />
-    <Compile Include="Kernels\MacroStabilityInwardsKernelWrapperFactoryTest.cs" />
-    <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperExceptionTest.cs" />
-    <Compile Include="Kernels\Waternet\WaternetDailyKernelWrapperTest.cs" />
-    <Compile Include="Kernels\Waternet\WaternetExtremeKernelWrapperTest.cs" />
-    <Compile Include="Kernels\Waternet\WaternetKernelWrapperExceptionTest.cs" />
-    <Compile Include="Kernels\Waternet\WaternetKernelWrapperTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj">
-      <Project>{3c0d3b38-a9f7-4b22-9705-513da26ae2cc}</Project>
-      <Name>Riskeer.MacroStabilityInwards.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj">
-      <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
-      <Name>Riskeer.MacroStabilityInwards.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
-      <Project>{3810d738-6412-47d1-8bc0-729d55bc951f}</Project>
-      <Name>Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj"/>
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

@@ -1,70 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{35B87B7A-7F50-4139-B563-589EE522B1ED}</ProjectGuid>
-    <RootNamespace>Riskeer.Piping.IO</RootNamespace>
-    <AssemblyName>Riskeer.Piping.IO</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
-    <Compile Include="Configurations\PipingCalculationConfigurationExporter.cs" />
-    <Compile Include="Configurations\PipingCalculationConfigurationWriter.cs" />
-    <Compile Include="Configurations\PipingCalculationConfigurationImporter.cs" />
-    <Compile Include="SoilProfiles\PipingSoilLayerTransformer.cs" />
-    <Compile Include="SoilProfiles\PipingSoilProfileTransformer.cs" />
-    <Compile Include="SoilProfiles\PipingStochasticSoilModelFilter.cs" />
-    <Compile Include="SoilProfiles\PipingStochasticSoilModelTransformer.cs" />
-    <Compile Include="SoilProfiles\PipingStochasticSoilProfileTransformer.cs" />
-    <Compile Include="SurfaceLines\PipingSurfaceLineTransformer.cs" />
-    <Compile Include="SurfaceLines\PipingSurfaceLineExtensions.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+  </ItemGroup>
+<ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Configurations\PipingCalculationConfigurationReader.cs" />
-    <Compile Include="Configurations\PipingCalculationConfigurationSchemaIdentifiers.cs" />
-    <Compile Include="Configurations\PipingCalculationConfiguration.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
-      <Name>Riskeer.Common.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
-      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
-      <Name>Riskeer.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
-      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Riskeer.Piping.Primitives</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
@@ -74,9 +30,18 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
     <None Include="Resources\PipingConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Riskeer.Piping.IO.Test</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

@@ -1,28 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectGuid>{9A5C8069-520E-49D3-AA62-E8FB19614A27}</ProjectGuid>
-    <RootNamespace>Riskeer.Piping.Plugin.Test</RootNamespace>
-    <AssemblyName>Riskeer.Piping.Plugin.Test</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Riskeer_Test.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NUnitForms, Version=2.0.5821.13987, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -31,161 +13,47 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExportInfos\PipingCalculationContextExportInfoTest.cs" />
-    <Compile Include="ExportInfos\PipingCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="FileImporter\PipingSurfaceLineReplaceDataStrategyTest.cs" />
-    <Compile Include="FileImporter\PipingFailureMechanismSectionResultUpdateStrategyTest.cs" />
-    <Compile Include="FileImporter\PipingSurfaceLineUpdateDataStrategyTest.cs" />
-    <Compile Include="FileImporter\PipingStochasticSoilModelImporterConfigurationFactoryTest.cs" />
-    <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactoryTest.cs" />
-    <Compile Include="FileImporter\PipingStochasticSoilModelReplaceDataStrategyTest.cs" />
-    <Compile Include="FileImporter\PipingStochasticSoilModelUpdateDataStrategyTest.cs" />
-    <Compile Include="ImportInfos\PipingCalculationGroupContextImportInfoTest.cs" />
-    <Compile Include="ImportInfos\PipingSurfaceLinesContextImportInfoTest.cs" />
-    <Compile Include="ImportInfos\PipingStochasticSoilModelCollectionContextImportInfoTest.cs" />
-    <Compile Include="PipingPluginTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyInfos\PipingOutputPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingStochasticSoilModelPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingFailureMechanismSectionsContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingStochasticSoilProfilePropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingSurfaceLineCollectionContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingStochasticSoilModelCollectionContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingInputContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingFailureMechanismPropertyInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingCalculationScenarioContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingFailureMechanismContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingInputContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingOutputContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingScenariosContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingSurfaceLineCollectionTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingSurfaceLineTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingStochasticSoilModelCollectionContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingStochasticSoilModelTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingStochasticSoilProfileTreeNodeInfoTest.cs" />
-    <Compile Include="UpdateInfos\PipingFailureMechanismSectionsContextUpdateInfoTest.cs" />
-    <Compile Include="UpdateInfos\PipingSurfaceLinesContextUpdateInfoTest.cs" />
-    <Compile Include="UpdateInfos\PipingStochasticSoilModelCollectionContextUpdateInfoTest.cs" />
-    <Compile Include="ViewInfos\PipingFailureMechanismSectionsProbabilityAssessmentViewInfoTest.cs" />
-    <Compile Include="ViewInfos\PipingInputViewInfoTest.cs" />
-    <Compile Include="ViewInfos\PipingFailureMechanismResultViewInfoTest.cs" />
-    <Compile Include="ViewInfos\PipingCalculationsViewInfoTest.cs" />
-    <Compile Include="ViewInfos\PipingFailureMechanismViewInfoTest.cs" />
-    <Compile Include="ViewInfos\PipingScenariosViewInfoTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
-      <Project>{26214bd0-dafb-4cfc-8eb2-80c5d53c859e}</Project>
-      <Name>Core.Common.Gui.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
-      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
-      <Name>Core.Components.Chart.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
-      <Name>Core.Components.Gis.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj">
-      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
-      <Name>Riskeer.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Riskeer.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Riskeer.Common.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj">
-      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
-      <Name>Riskeer.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj">
-      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Riskeer.Common.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj">
-      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
-      <Name>Riskeer.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Riskeer.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Plugin.TestUtil\Riskeer.Common.Plugin.TestUtil.csproj">
-      <Project>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</Project>
-      <Name>Riskeer.Common.Plugin.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj">
-      <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
-      <Name>Riskeer.Common.Service.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Riskeer.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Forms\Riskeer.Piping.Forms.csproj">
-      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Riskeer.Piping.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.IO\Riskeer.Piping.IO.csproj">
-      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Riskeer.Piping.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj">
-      <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
-      <Name>Riskeer.Piping.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj">
-      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Riskeer.Piping.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj">
-      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Riskeer.Piping.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj">
-      <Project>{6F568E38-592A-4F99-A901-86B74C4F24D2}</Project>
-      <Name>Riskeer.Piping.Primitives.TestUtil</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Plugin.TestUtil\Riskeer.Common.Plugin.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Service.TestUtil\Riskeer.Common.Service.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Forms\Riskeer.Piping.Forms.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.IO\Riskeer.Piping.IO.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Plugin\Riskeer.Piping.Plugin.csproj"/>
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
