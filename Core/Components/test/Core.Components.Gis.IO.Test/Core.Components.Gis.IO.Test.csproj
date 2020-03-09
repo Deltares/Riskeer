@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
+    <Compile Remove="test-data\**" />
+    <EmbeddedResource Remove="test-data\**" />
+    <None Remove="test-data\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DotSpatial.Data, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Data.dll</HintPath>
@@ -14,12 +19,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.IO\Core.Common.IO.csproj"/>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.IO\Core.Common.IO.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
