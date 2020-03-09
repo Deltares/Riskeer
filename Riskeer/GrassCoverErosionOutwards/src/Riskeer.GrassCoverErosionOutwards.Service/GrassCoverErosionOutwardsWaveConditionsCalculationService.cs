@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
         /// <summary>
         /// Performs a wave conditions calculation for the grass cover erosion outwards failure mechanism based on the supplied 
-        /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>  and sets 
+        /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> and sets 
         /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation.Output"/> if the calculation was successful. 
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
@@ -200,6 +200,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
         }
 
+        /// <summary>
+        /// Creates output for the wave conditions calculation.
+        /// </summary>
+        /// <param name="calculationType">The type of the calculation.</param>
+        /// <param name="waveRunUpOutput">The output of the wave run up calculation.</param>
+        /// <param name="waveImpactOutput">The output of the wave impact calculation.</param>
+        /// <param name="tailorMadeWaveImpactOutput">The output of the tailor made wave impact calculation.</param>
+        /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationType"/>
+        /// is a valid value, but unsupported.</exception> 
         private static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutput(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType,
                                                                                   IEnumerable<WaveConditionsOutput> waveRunUpOutput,
                                                                                   IEnumerable<WaveConditionsOutput> waveImpactOutput,

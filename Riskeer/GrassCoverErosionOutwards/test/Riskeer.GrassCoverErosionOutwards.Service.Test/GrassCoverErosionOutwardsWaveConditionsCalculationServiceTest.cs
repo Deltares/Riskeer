@@ -177,7 +177,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             calculation.InputParameters.UseBreakWater = false;
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
+            int nrOfCalculators = waterLevels.Length * 3;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -199,13 +199,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    const int expectedNrOfMessages = 18;
+                    const int expectedNrOfMessages = 26;
                     Assert.AreEqual(expectedNrOfMessages, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfoploop", 1);
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfklap", 9);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfklap voor toets op maat", 17);
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedNrOfMessages - 1]);
                 });
@@ -233,7 +234,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
+            int nrOfCalculators = waterLevels.Length * 3;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -270,13 +271,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    const int expectedNrOfMessages = 18;
+                    const int expectedNrOfMessages = 26;
                     Assert.AreEqual(expectedNrOfMessages, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfoploop", 1);
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfklap", 9);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, failureMechanism, assessmentSection), "golfklap voor toets op maat", 17);
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedNrOfMessages - 1]);
                 });
@@ -403,7 +405,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             calculation.InputParameters.BreakWater.Type = breakWaterType;
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
+            int nrOfCalculators = waterLevels.Length * 3;
 
             var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
 
@@ -422,7 +424,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mockRepository.ReplayAll();
 
             // Precondition
-            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact,
+            Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.All,
                             calculation.InputParameters.CalculationType);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -443,7 +445,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
                     failureMechanism.Contribution,
                     failureMechanism.GeneralInput.N);
-                for (var i = 0; i < nrOfReceivedInputs / 2; i++)
+                int nrOfReceivedInputsPerType = nrOfReceivedInputs / 3;
+                for (var i = 0; i < nrOfReceivedInputsPerType; i++)
                 {
                     WaveConditionsInput input = calculation.InputParameters;
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
@@ -461,7 +464,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 }
 
                 waterLevelIndex = 0;
-                for (int i = nrOfReceivedInputs / 2; i < nrOfReceivedInputs; i++)
+                for (int i = nrOfReceivedInputsPerType; i < nrOfReceivedInputsPerType * 2; i++)
                 {
                     WaveConditionsInput input = calculation.InputParameters;
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
@@ -479,7 +482,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 }
 
                 waterLevelIndex = 0;
-                for (int i = nrOfReceivedInputs / 2; i < nrOfReceivedInputs; i++)
+                for (int i = nrOfReceivedInputsPerType * 2; i < nrOfReceivedInputs; i++)
                 {
                     WaveConditionsInput input = calculation.InputParameters;
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
@@ -489,9 +492,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  GetWaterLevels(calculation, failureMechanism, assessmentSection).ElementAt(waterLevelIndex++),
-                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.A,
-                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.B,
-                                                                                 generalInput.GeneralWaveImpactWaveConditionsInput.C);
+                                                                                 generalInput.GeneralTailorMadeWaveImpactWaveConditionsInput.A,
+                                                                                 generalInput.GeneralTailorMadeWaveImpactWaveConditionsInput.B,
+                                                                                 generalInput.GeneralTailorMadeWaveImpactWaveConditionsInput.C);
 
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, testWaveConditionsInputs[i]);
                 }
@@ -784,7 +787,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                              .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Twice();
+                             .Times(5);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -806,7 +809,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(25, msgs.Length);
+                    Assert.AreEqual(36, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     AssertCalculationLogs(msgs, waterLevels, "golfoploop", 1);
@@ -826,7 +829,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     Assert.AreEqual($"Berekening voor waterstand '{waterLevelLowerBoundaryRevetment}' is beëindigd.", msgs[22]);
 
                     Assert.AreEqual("Berekening voor golfklap is beëindigd.", msgs[23]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[24]);
+
+                    AssertCalculationLogs(msgs, waterLevels, "golfklap voor toets op maat", 24);
+
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[35]);
                 });
 
                 WaveConditionsOutput[] waveRunUpOutputs = calculation.Output.WaveRunUpOutput.ToArray();
@@ -834,6 +840,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                 WaveConditionsOutput[] waveImpactOutputs = calculation.Output.WaveImpactOutput.ToArray();
                 Assert.AreEqual(3, waveImpactOutputs.Length);
+
+                WaveConditionsOutput[] tailorMadeWaveImpactOutputs = calculation.Output.TailorMadeWaveImpactOutput.ToArray();
+                Assert.AreEqual(3, tailorMadeWaveImpactOutputs.Length);
 
                 double targetNorm = CalculateTargetNorm(assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
                                                         failureMechanism.Contribution,
@@ -862,7 +871,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
+            int nrOfCalculators = waterLevels.Length * 3;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -911,7 +920,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
+            int nrOfCalculators = waterLevels.Length * 3;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -959,7 +968,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
+            int nrOfCalculators = waterLevels.Length * 3;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1123,6 +1132,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 {
                     HydraulicBoundaryLocation = location,
                     CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
