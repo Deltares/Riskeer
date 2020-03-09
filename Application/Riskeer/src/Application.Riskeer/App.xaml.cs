@@ -82,7 +82,7 @@ namespace Application.Riskeer
 
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
 
-        private static GuiCore gui;
+        private GuiCore gui;
         private static int waitForProcessId = -1;
         private static string fileToOpen = string.Empty;
 
@@ -112,7 +112,7 @@ namespace Application.Riskeer
         /// <summary>
         /// Runs the main Riskeer application.
         /// </summary>
-        private static void RunRiskeer()
+        private void RunRiskeer()
         {
             string loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (loaderDirectory != null)
@@ -199,7 +199,10 @@ namespace Application.Riskeer
                     fileToOpen = potentialPath;
                     return true;
                 }
-                catch (ArgumentException) {}
+                catch (ArgumentException)
+                {
+                    return false;
+                }
             }
 
             return false;
@@ -233,17 +236,14 @@ namespace Application.Riskeer
 
             try
             {
-                if (!Debugger.IsAttached)
+                if (!AcquireSingleInstancePerUserMutex())
                 {
-                    if (!AcquireSingleInstancePerUserMutex())
-                    {
-                        MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
-                        Shutdown(1);
-                        return true; //done here
-                    }
-
-                    hasMutex = true;
+                    MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
+                    Shutdown(1);
+                    return true; //done here
                 }
+
+                hasMutex = true;
             }
             finally
             {
@@ -281,39 +281,28 @@ namespace Application.Riskeer
 
         private static bool AcquireSingleInstancePerUserMutex()
         {
-            var createdNew = false;
-            try
-            {
-                //include the user name in the (global) mutex to ensure we limit only the number of instances per 
-                //user, not per system (essential on for example Citrix systems).
+            bool createdNew;
 
-                //include the application name in the mutex to ensure we are allowed to start for example 'Sobek' 
-                //and 'Morphan' side by side.
-                string applicationName = ConfigurationManager.AppSettings.AllKeys.Contains("applicationName")
-                                             ? ConfigurationManager.AppSettings["applicationName"]
-                                             : string.Empty;
-
-                string mutexName = $"Riskeer-single-instance-mutex-{Environment.UserName}-{applicationName}";
-                singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
-            }
-            catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
+            // Include the user name in the (global) mutex to ensure we limit only the number of instances per 
+            // user, not per system (essential on for example Citrix systems).
+            singleInstanceMutex = new Mutex(true, $"Riskeer-single-instance-mutex-{Environment.UserName}", out createdNew);
 
             return createdNew;
         }
 
-        private static void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreCommonGuiResources.App_Unhandled_exception);
 
             HandleExceptionOnMainThread(exception);
         }
 
-        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             HandleExceptionOnMainThread(e.Exception);
         }
 
-        private static void HandleExceptionOnMainThread(Exception exception)
+        private void HandleExceptionOnMainThread(Exception exception)
         {
             var control = (Control) gui.MainWindow.PropertyGrid;
 
@@ -328,7 +317,7 @@ namespace Application.Riskeer
             }
         }
 
-        private static void HandleException(Exception exception)
+        private void HandleException(Exception exception)
         {
             log.Error(CoreCommonGuiResources.App_Unhandled_exception, exception);
 

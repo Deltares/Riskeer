@@ -154,7 +154,7 @@
     <value>Hs_IIv</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description" xml:space="preserve">
-    <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap.</value>
+    <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek.</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Description" xml:space="preserve">
     <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat.</value>
@@ -163,7 +163,7 @@
     <value>Golfklap</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName" xml:space="preserve">
-    <value>golfklap toets op maat</value>
+    <value>golfklap voor toets op maat</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_Description" xml:space="preserve">
     <value>De modelinstellingen voor het berekenen van golfcondities voor golfoploop.</value>
@@ -172,15 +172,15 @@
     <value>Golfoploop</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description" xml:space="preserve">
-    <value>Berekende hydraulische belastingen voor golfklap.</value>
+    <value>Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek.</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayName" xml:space="preserve">
     <value>Hydraulische belastingen voor golfklap</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description" xml:space="preserve">
-    <value>Berekende hydraulische belastingen voor golfklap toets op maat.</value>
+    <value>Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName" xml:space="preserve">
-    <value>Hydraulische belastingen voor golfklap toets op maat</value>
+    <value>Hydraulische belastingen voor golfklap voor toets op maat</value>
   </data>
 </root>

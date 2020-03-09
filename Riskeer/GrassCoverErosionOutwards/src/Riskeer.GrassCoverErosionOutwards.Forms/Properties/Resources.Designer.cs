@@ -92,7 +92,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to golfklap toets op maat.
+        ///   Looks up a localized string similar to golfklap voor toets op maat.
         /// </summary>
         public static string GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName {
             get {
@@ -102,7 +102,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap..
+        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek..
         /// </summary>
         public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description {
             get {
@@ -138,7 +138,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap toets op maat..
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description {
             get {
@@ -148,7 +148,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen voor golfklap toets op maat.
+        ///   Looks up a localized string similar to Hydraulische belastingen voor golfklap voor toets op maat.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName {
             get {
@@ -158,7 +158,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap..
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description {
             get {

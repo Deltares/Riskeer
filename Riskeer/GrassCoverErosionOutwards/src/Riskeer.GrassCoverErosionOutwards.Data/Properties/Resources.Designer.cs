@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras (golfoploop, golfklap en golfklap toets op maat).
+        ///   Looks up a localized string similar to Gras (alle types).
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_All_DisplayName {
             get {
@@ -109,7 +109,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras (golfklap toets op maat).
+        ///   Looks up a localized string similar to Gras (golfklap voor toets op maat).
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName {
             get {
@@ -128,31 +128,31 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras (golfoploop).
+        ///   Looks up a localized string similar to Gras (golfoploop en golfklap voor toets op maat).
         /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_DisplayName {
+        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gras (golfoploop en golfklap toets op maat).
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveImpact_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveIm" +
-                        "pact_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWa" +
+                        "veImpact_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gras (golfoploop en golfklap).
         /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_WaveImpact_DisplayName {
+        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_WaveImpact_Displ" +
-                        "ayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_D" +
+                        "isplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gras (golfoploop).
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_DisplayName", resourceCulture);
             }
         }
     }

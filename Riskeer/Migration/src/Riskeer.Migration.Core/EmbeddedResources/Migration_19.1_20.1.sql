@@ -1,7 +1,7 @@
 /*
 Migration script for migrating Ringtoets databases.
 SourceProject version: 19.1
-TargetProject version: 19.2
+TargetProject version: 20.1
 */
 
 PRAGMA foreign_keys = OFF;
@@ -107,7 +107,7 @@ INSERT INTO VersionEntity (
 	[Timestamp],
 	[FingerPrint])
 SELECT [VersionId],
-	"19.2",
+	"20.1",
 	[Timestamp],
 	[FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
@@ -134,14 +134,14 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
-VALUES ("19.1", "19.2", "Gevolgen van de migratie van versie 19.1 naar versie 19.2:");
+VALUES ("19.1", "20.1", "Gevolgen van de migratie van versie 19.1 naar versie 20.1:");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
 	[LogMessage])
 SELECT "19.1",
-	"19.2", 
+	"20.1", 
 	"* Geen aanpassingen."
 	WHERE (
 		SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity

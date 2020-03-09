@@ -112,7 +112,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
-                                                                                                                               IEnumerable<WaveConditionsOutput> tailorMadeWaveImpact)
+                                                                                                                     IEnumerable<WaveConditionsOutput> tailorMadeWaveImpact)
         {
             if (waveRunUpOutput == null)
             {

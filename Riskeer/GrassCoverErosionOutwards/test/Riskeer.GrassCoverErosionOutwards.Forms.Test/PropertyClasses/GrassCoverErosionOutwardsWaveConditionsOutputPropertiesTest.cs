@@ -154,23 +154,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveImpactProperty,
                                                                             "Resultaat",
                                                                             "Hydraulische belastingen voor golfklap",
-                                                                            "Berekende hydraulische belastingen voor golfklap.",
+                                                                            "Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek.",
                                                                             true);
 
             PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
                                                                             "Resultaat",
-                                                                            "Hydraulische belastingen voor golfklap toets op maat",
-                                                                            "Berekende hydraulische belastingen voor golfklap toets op maat.",
+                                                                            "Hydraulische belastingen voor golfklap voor toets op maat",
+                                                                            "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.",
                                                                             true);
         }
 
         [Test]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, "Hydraulische belastingen voor golfoploop", "Berekende hydraulische belastingen voor golfoploop."  )]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, "Hydraulische belastingen voor golfklap", "Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek.")]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Hydraulische belastingen voor golfklap voor toets op maat" , "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.")]
         public void Constructor_CalculationTypeWaveRunUpOrWaveImpact_PropertiesHaveExpectedAttributesValues(
-            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, string expectedDisplayName, string expectedDescription)
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
@@ -187,27 +187,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(1, dynamicProperties.Count);
 
-            string revetmentType = null;
-            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)
-            {
-                revetmentType = "golfoploop";
-            }
-
-            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)
-            {
-                revetmentType = "golfklap";
-            }
-
-            if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact)
-            {
-                revetmentType = "golfklap toets op maat";
-            }
-
             PropertyDescriptor outputProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(outputProperty,
                                                                             "Resultaat",
-                                                                            $"Hydraulische belastingen voor {revetmentType}",
-                                                                            $"Berekende hydraulische belastingen voor {revetmentType}.",
+                                                                            expectedDisplayName,
+                                                                            expectedDescription,
                                                                             true);
         }
 

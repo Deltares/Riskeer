@@ -151,7 +151,7 @@ namespace Riskeer.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras (golfklap toets op maat).
+        ///   Looks up a localized string similar to Gras (golfklap voor toets op maat).
         /// </summary>
         internal static string CoverType_GrassTailorMadeWaveImpact {
             get {

@@ -82,11 +82,11 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact:
-                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_WaveImpact_DisplayName;
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
-                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveImpact_DisplayName;
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.All:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_All_DisplayName;
                     default:
@@ -108,31 +108,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
         {
             if (value is GrassCoverErosionOutwardsWaveConditionsCalculationType)
             {
-                var calculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) value;
-                if (!Enum.IsDefined(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType), calculationType))
-                {
-                    throw new InvalidEnumArgumentException(nameof(value),
-                                                           (int) calculationType,
-                                                           typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
-                }
-
-                switch (calculationType)
-                {
-                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp:
-                        return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp;
-                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact:
-                        return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
-                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
-                        return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
-                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact:
-                        return ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact;
-                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
-                        return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
-                    case GrassCoverErosionOutwardsWaveConditionsCalculationType.All:
-                        return ConfigurationGrassCoverErosionOutwardsCalculationType.All;
-                    default:
-                        throw new NotSupportedException();
-                }
+                return GetConfigurationGrassCoverErosionOutwardsCalculationType(value);
             }
 
             var stringValue = value as string;
@@ -148,7 +124,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
                 }
 
-                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_WaveImpact_DisplayName)
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
                 }
@@ -158,7 +134,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact;
                 }
 
-                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_TailorMadeWaveImpact_DisplayName)
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
                 }
@@ -170,6 +146,35 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
             }
 
             return base.ConvertFrom(context, culture, value);
+        }
+
+        private static object GetConfigurationGrassCoverErosionOutwardsCalculationType(object value)
+        {
+            var calculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) value;
+            if (!Enum.IsDefined(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) calculationType,
+                                                       typeof(GrassCoverErosionOutwardsWaveConditionsCalculationType));
+            }
+
+            switch (calculationType)
+            {
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp:
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp;
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact:
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact:
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact;
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.All:
+                    return ConfigurationGrassCoverErosionOutwardsCalculationType.All;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
