@@ -28,7 +28,7 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
     /// <summary>
     /// A factory to create <see cref="RowChartDataSeries"/> based on <see cref="StackChartData"/>.
     /// </summary>
-    internal static class RowChartDataSeriesFactory
+    public static class RowChartDataSeriesFactory
     {
         /// <summary>
         /// Creates a <see cref="RowChartDataSeries"/> based on <paramref name="data"/>.
