@@ -50,9 +50,6 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <PropertyGroup>
-   <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MSBuildGitHash" Version="0.5.0" />
     <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
