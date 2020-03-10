@@ -31,7 +31,4 @@
       <Version>3.19.0</Version>
     </PackageReference>
   </ItemGroup>
-  <PropertyGroup>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
 </Project>
