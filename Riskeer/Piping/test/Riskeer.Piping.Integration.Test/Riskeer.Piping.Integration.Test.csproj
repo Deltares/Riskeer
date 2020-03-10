@@ -9,17 +9,17 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj"/>
-    <ProjectReference Include="..\..\..\Integration\test\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Forms\Riskeer.Piping.Forms.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj"/>
-    <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
+    <ProjectReference Include="..\..\..\Integration\test\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Forms\Riskeer.Piping.Forms.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj" />
+    <ProjectReference Include="..\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -30,5 +30,6 @@
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.109.2" />
   </ItemGroup>
 </Project>
