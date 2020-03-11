@@ -12,7 +12,7 @@
     <Copyright>Copyright © Deltares 2020</Copyright>
     <Version>20.1.1</Version>
     <Configurations>Debug;Release;CreateInstaller;CreateInstallerWithDemoProject;ReleaseForCodeCoverage</Configurations>
-    <MSBuildGitHashCommand>git rev-parse --short HEAD</MSBuildGitHashCommand>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <ConfigurationGroup>Debug</ConfigurationGroup>
@@ -51,7 +51,11 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MSBuildGitHash" Version="0.5.0" />
     <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(SolutionDir)\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
