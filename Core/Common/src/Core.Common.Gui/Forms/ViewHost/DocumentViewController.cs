@@ -242,16 +242,9 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
         }
 
-        private Type GetDefaultViewTypeForData(object dataObject)
-        {
-            Type selectionType = dataObject.GetType();
-
-            return DefaultViewTypes.ContainsKey(selectionType) ? DefaultViewTypes[selectionType] : null;
-        }
-
         private ViewInfo GetViewInfoUsingDialog(object data, IEnumerable<ViewInfo> viewInfoList)
         {
-            Type defaultViewTypeForData = GetDefaultViewTypeForData(data);
+            Type defaultViewTypeForData = GetDefaultViewType(data);
             string defaultViewName = defaultViewTypeForData != null
                                          ? viewInfoList.First(vi => vi.ViewType == defaultViewTypeForData).Description
                                          : null;
