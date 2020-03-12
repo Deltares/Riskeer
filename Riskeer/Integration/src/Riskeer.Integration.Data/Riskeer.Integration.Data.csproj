@@ -69,9 +69,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Riskeer.Integration.Data.Test</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
 </Project>

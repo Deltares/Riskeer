@@ -98,12 +98,4 @@
       <Version>1.0.109.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Riskeer.Common.IO.Test</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Riskeer.Common.IO.TestUtil</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
 </Project>
