@@ -176,21 +176,6 @@ namespace Core.Common.Base.Data
             return left.Value >= right;
         }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((RoundedDouble) obj);
-        }
-
         public override int GetHashCode()
         {
             return Value.GetHashCode();
@@ -199,6 +184,21 @@ namespace Core.Common.Base.Data
         public override string ToString()
         {
             return ToString(null, null);
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (double.IsPositiveInfinity(Value))
+            {
+                return Resources.RoundedDouble_ToString_PositiveInfinity;
+            }
+
+            if (double.IsNegativeInfinity(Value))
+            {
+                return Resources.RoundedDouble_ToString_NegativeInfinity;
+            }
+
+            return Value.ToString(format ?? GetFormat(), formatProvider ?? CultureInfo.CurrentCulture);
         }
 
         public int CompareTo(object obj)
@@ -241,19 +241,19 @@ namespace Core.Common.Base.Data
             return Value.Equals(other.Value);
         }
 
-        public string ToString(string format, IFormatProvider formatProvider)
+        public override bool Equals(object obj)
         {
-            if (double.IsPositiveInfinity(Value))
+            if (ReferenceEquals(null, obj))
             {
-                return Resources.RoundedDouble_ToString_PositiveInfinity;
+                return false;
             }
 
-            if (double.IsNegativeInfinity(Value))
+            if (obj.GetType() != GetType())
             {
-                return Resources.RoundedDouble_ToString_NegativeInfinity;
+                return false;
             }
 
-            return Value.ToString(format ?? GetFormat(), formatProvider ?? CultureInfo.CurrentCulture);
+            return Equals((RoundedDouble)obj);
         }
 
         private static double RoundDouble(double value, int numberOfDecimalPlaces)

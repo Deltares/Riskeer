@@ -200,17 +200,6 @@ namespace Core.Components.OxyPlot.Forms
             return extent;
         }
 
-        private static Extent CreateExtentFor(XYAxisSeries chartData)
-        {
-            return new Extent
-            (
-                chartData.MinX,
-                chartData.MaxX,
-                chartData.MinY,
-                chartData.MaxY
-            );
-        }
-
         /// <summary>
         /// Defines the area taken up by the visible chart data based on the provided chart data.
         /// </summary>
@@ -227,6 +216,17 @@ namespace Core.Components.OxyPlot.Forms
             }
 
             return envelope;
+        }
+
+        private static Extent CreateExtentFor(XYAxisSeries chartData)
+        {
+            return new Extent
+            (
+                chartData.MinX,
+                chartData.MaxX,
+                chartData.MinY,
+                chartData.MaxY
+            );
         }
 
         private void InitializePlotView()

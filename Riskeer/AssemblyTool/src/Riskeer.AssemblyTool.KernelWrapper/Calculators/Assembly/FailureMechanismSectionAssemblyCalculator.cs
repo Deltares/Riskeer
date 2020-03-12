@@ -337,14 +337,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        private CategoriesList<FmSectionCategory> GetWbi01Categories(AssemblyCategoriesInput assemblyCategoriesInput)
-        {
-            ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
-            return categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
-                new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
-        }
-
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
                                                                             double failureMechanismSectionN,
@@ -395,6 +387,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
+        }
+
+        private CategoriesList<FmSectionCategory> GetWbi01Categories(AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
+            return categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
+                new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
         }
 
         #endregion
