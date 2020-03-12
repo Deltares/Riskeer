@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Converters
         /// </summary>
         private class ArrayPropertyDescriptor : SimplePropertyDescriptor
         {
-            private readonly object value;
+            private readonly object propertyValue;
 
             /// <summary>
             /// Creates a new instance of <see cref="ArrayPropertyDescriptor"/>.
@@ -93,7 +93,7 @@ namespace Core.Common.Gui.Converters
             public ArrayPropertyDescriptor(Type elementType, string name, object value)
                 : base(elementType, name, value.GetType())
             {
-                this.value = value;
+                propertyValue = value;
             }
 
             public override bool IsReadOnly
@@ -106,10 +106,10 @@ namespace Core.Common.Gui.Converters
 
             public override object GetValue(object component)
             {
-                return value;
+                return propertyValue;
             }
 
-            public override void SetValue(object component, object valueToSet)
+            public override void SetValue(object component, object value)
             {
                 throw new NotSupportedException();
             }
