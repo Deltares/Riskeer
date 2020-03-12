@@ -82,7 +82,7 @@ namespace Application.Riskeer
 
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
 
-        private GuiCore gui;
+        private static GuiCore gui;
         private static int waitForProcessId = -1;
         private static string fileToOpen = string.Empty;
 
@@ -112,7 +112,7 @@ namespace Application.Riskeer
         /// <summary>
         /// Runs the main Riskeer application.
         /// </summary>
-        private void RunRiskeer()
+        private static void RunRiskeer()
         {
             string loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (loaderDirectory != null)
@@ -290,19 +290,19 @@ namespace Application.Riskeer
             return createdNew;
         }
 
-        private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreCommonGuiResources.App_Unhandled_exception);
 
             HandleExceptionOnMainThread(exception);
         }
 
-        private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             HandleExceptionOnMainThread(e.Exception);
         }
 
-        private void HandleExceptionOnMainThread(Exception exception)
+        private static void HandleExceptionOnMainThread(Exception exception)
         {
             var control = (Control) gui.MainWindow.PropertyGrid;
 
@@ -317,7 +317,7 @@ namespace Application.Riskeer
             }
         }
 
-        private void HandleException(Exception exception)
+        private static void HandleException(Exception exception)
         {
             log.Error(CoreCommonGuiResources.App_Unhandled_exception, exception);
 
