@@ -470,9 +470,11 @@ namespace Core.Common.Base.Geometry
                                : Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
                 }
 
-                return IsPointInCollinearSegment(segment1.FirstPoint, segment2)
-                           ? Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint)
-                           : Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                {
+                    return IsPointInCollinearSegment(segment1.FirstPoint, segment2)
+                               ? Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint)
+                               : Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                }
             }
 
             return IsPointInCollinearSegment(segment2.FirstPoint, segment1)

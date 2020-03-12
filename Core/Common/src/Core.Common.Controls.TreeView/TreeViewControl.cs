@@ -93,7 +93,7 @@ namespace Core.Common.Controls.TreeView
 
         public event EventHandler DataDoubleClick;
         public event EventHandler SelectedDataChanged;
-        public event EventHandler<EventArgs<object>> DataDeleted;
+        public event EventHandler<EventArgs<object>> DataDeleted; // TODO; Way to explicit!
 
         /// <summary>
         /// Creates a new instance of <see cref="TreeViewControl"/>.
