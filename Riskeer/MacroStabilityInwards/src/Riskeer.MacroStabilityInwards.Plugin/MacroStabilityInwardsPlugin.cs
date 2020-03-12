@@ -565,14 +565,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #endregion
 
-        private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
-        {
-            foreach (MacroStabilityInwardsCalculation calculation in calculations)
-            {
-                MacroStabilityInwardsCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
-            }
-        }
-
         #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
 
         private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -638,18 +630,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         private void RemoveAllViewsForItem(MacroStabilityInwardsFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
-        private void CalculateAll(MacroStabilityInwardsFailureMechanismContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
-        }
-
-        private static void ValidateAll(MacroStabilityInwardsFailureMechanismContext context)
-        {
-            ValidateAll(context.WrappedData.Calculations.OfType<MacroStabilityInwardsCalculation>(), context.Parent);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(MacroStabilityInwardsFailureMechanismContext macroStabilityInwardsFailureMechanismContext,
@@ -899,6 +879,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                           .Build();
         }
 
+        private void CalculateAll(MacroStabilityInwardsFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
+        }
+
         private void CalculateAll(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
@@ -906,9 +893,22 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
         }
 
+        private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
+        {
+            foreach (MacroStabilityInwardsCalculation calculation in calculations)
+            {
+                MacroStabilityInwardsCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
+            }
+        }
+
         private static void ValidateAll(MacroStabilityInwardsCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<MacroStabilityInwardsCalculation>(), context.AssessmentSection);
+        }
+
+        private static void ValidateAll(MacroStabilityInwardsFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<MacroStabilityInwardsCalculation>(), context.Parent);
         }
 
         private static void AddCalculationScenario(MacroStabilityInwardsCalculationGroupContext nodeData)

@@ -539,100 +539,6 @@ namespace Riskeer.Integration.TestUtil
             SetConfiguredStructuresCalculations<StabilityPointStructuresInput, StabilityPointStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
         }
 
-        private static void SetConfiguredStructuresCalculations<TCalculationInput, TStructureBase>(
-            ICalculatableFailureMechanism failureMechanism,
-            HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            ForeshoreProfile profile1,
-            ForeshoreProfile profile2)
-            where TStructureBase : StructureBase
-            where TCalculationInput : StructuresInputBase<TStructureBase>, new()
-        {
-            var calculation = new StructuresCalculation<TCalculationInput>();
-            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestStructuresOutput()
-            };
-            var calculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
-                }
-            };
-            var calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfiles = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile2
-                },
-                Output = new TestStructuresOutput()
-            };
-            var calculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var subCalculation = new StructuresCalculation<TCalculationInput>();
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                Output = new TestStructuresOutput()
-            };
-            var subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile2
-                },
-                Output = new TestStructuresOutput()
-            };
-            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    ForeshoreProfile = profile1
-                }
-            };
-
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfiles);
-            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Children =
-                {
-                    subCalculation,
-                    subCalculationWithOutputAndHydraulicBoundaryLocation,
-                    subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile,
-                    subCalculationWithHydraulicBoundaryLocation,
-                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
-                }
-            });
-        }
-
         private static void SetFullyConfiguredFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
@@ -1036,6 +942,100 @@ namespace Riskeer.Integration.TestUtil
         private static void SetFullyConfiguredFailureMechanism(IFailureMechanism failureMechanism)
         {
             AddFailureMechanismSections(failureMechanism);
+        }
+
+        private static void SetConfiguredStructuresCalculations<TCalculationInput, TStructureBase>(
+            ICalculatableFailureMechanism failureMechanism,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            ForeshoreProfile profile1,
+            ForeshoreProfile profile2)
+            where TStructureBase : StructureBase
+            where TCalculationInput : StructuresInputBase<TStructureBase>, new()
+        {
+            var calculation = new StructuresCalculation<TCalculationInput>();
+            var calculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                }
+            };
+            var calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfiles = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var subCalculation = new StructuresCalculation<TCalculationInput>();
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestStructuresOutput()
+            };
+            var subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile2
+                },
+                Output = new TestStructuresOutput()
+            };
+            var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+            var subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ForeshoreProfile = profile1
+                }
+            };
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfiles);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Children =
+                {
+                    subCalculation,
+                    subCalculationWithOutputAndHydraulicBoundaryLocation,
+                    subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile,
+                    subCalculationWithHydraulicBoundaryLocation,
+                    subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
+                }
+            });
         }
 
         private static void AddFailureMechanismSections(IFailureMechanism failureMechanism)

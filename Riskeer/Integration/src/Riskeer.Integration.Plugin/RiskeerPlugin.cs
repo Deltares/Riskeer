@@ -1845,25 +1845,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new GrassCoverSlipOffInwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
-            };
-        }
-
         #endregion
 
         #region GrassCoverSlipOffOutwardsFailureMechanismContext TreeNodeInfo
@@ -1878,25 +1859,6 @@ namespace Riskeer.Integration.Plugin
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
-            };
-        }
-
-        private static IEnumerable<object> GetInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new GrassCoverSlipOffOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
             };
         }
 
@@ -1917,30 +1879,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
-                                                      IAssessmentSection assessmentSection)
-        {
-            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
-            return new object[]
-            {
-                new MacroStabilityOutwardsAssemblyCategoriesContext(nodeData,
-                                                                    assessmentSection,
-                                                                    () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
-                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData, assessmentSection),
-                nodeData.OutputComments
-            };
-        }
-
         #endregion
 
         #region MicrostabilityFailureMechanismContext TreeNodeInfo
@@ -1958,25 +1896,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new MicrostabilityFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(MicrostabilityFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
-            };
-        }
-
         #endregion
 
         #region PipingStructureFailureMechanismContext TreeNodeInfo
@@ -1991,29 +1910,6 @@ namespace Riskeer.Integration.Plugin
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
-            };
-        }
-
-        private static IEnumerable<object> GetInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new PipingStructureFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData,
-                                                      IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new FailureMechanismAssemblyCategoriesContext(nodeData,
-                                                              assessmentSection,
-                                                              () => nodeData.N),
-                new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData, assessmentSection),
-                nodeData.OutputComments
             };
         }
 
@@ -2035,25 +1931,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
-            };
-        }
-
         #endregion
 
         #region TechnicalInnovationFailureMechanismContext TreeNodeInfo
@@ -2071,25 +1948,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new TechnicalInnovationFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(TechnicalInnovationFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
-            };
-        }
-
         #endregion
 
         #region WaterPressureAsphaltCoverFailureMechanismContext TreeNodeInfo
@@ -2104,25 +1962,6 @@ namespace Riskeer.Integration.Plugin
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
-            };
-        }
-
-        private static IEnumerable<object> GetInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new WaterPressureAsphaltCoverFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
             };
         }
 
@@ -2510,6 +2349,175 @@ namespace Riskeer.Integration.Plugin
                                                                              new DialogBasedInquiryHelper(Gui.MainWindow));
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        #endregion
+
+        #region GetInputsMethods
+
+        private static IEnumerable<object> GetInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new GrassCoverSlipOffInwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new GrassCoverSlipOffOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new MicrostabilityFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new PipingStructureFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new TechnicalInnovationFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new WaterPressureAsphaltCoverFailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        #endregion
+
+        #region GetOutputsMethods
+
+        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(MicrostabilityFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(TechnicalInnovationFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData,
+                                                      IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(nodeData,
+                                                              assessmentSection,
+                                                              () => nodeData.N),
+                new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData, assessmentSection),
+                nodeData.OutputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
+                                                      IAssessmentSection assessmentSection)
+        {
+            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
+            return new object[]
+            {
+                new MacroStabilityOutwardsAssemblyCategoriesContext(nodeData,
+                                                                    assessmentSection,
+                                                                    () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
+                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData, assessmentSection),
+                nodeData.OutputComments
+            };
         }
 
         #endregion

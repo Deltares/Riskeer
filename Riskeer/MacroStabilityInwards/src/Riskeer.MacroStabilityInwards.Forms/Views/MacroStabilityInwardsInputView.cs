@@ -344,22 +344,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             surfaceLevelOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
         }
 
-        private void SetSoilProfileChartData(MacroStabilityInwardsSurfaceLine surfaceLine,
-                                             IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
-        {
-            if (!ReferenceEquals(currentSoilProfile, soilProfile) || !SurfaceLineEqual(surfaceLine))
-            {
-                SetSoilProfileChartData();
-            }
-
-            SetSoilLayerAreas();
-        }
-
-        private bool SurfaceLineEqual(MacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            return (surfaceLine != null || currentSurfaceLine != null) && currentSurfaceLine != null && currentSurfaceLine.Equals(surfaceLine);
-        }
-
         private void SetSoilProfileChartData()
         {
             soilProfileChartData.Clear();
@@ -375,6 +359,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                       });
 
             MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, data.InputParameters.StochasticSoilProfile?.SoilProfile);
+        }
+
+        private void SetSoilProfileChartData(MacroStabilityInwardsSurfaceLine surfaceLine,
+                                             IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
+        {
+            if (!ReferenceEquals(currentSoilProfile, soilProfile) || !SurfaceLineEqual(surfaceLine))
+            {
+                SetSoilProfileChartData();
+            }
+
+            SetSoilLayerAreas();
+        }
+
+        private bool SurfaceLineEqual(MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return (surfaceLine != null || currentSurfaceLine != null) && currentSurfaceLine != null && currentSurfaceLine.Equals(surfaceLine);
         }
 
         private void SetSoilLayerAreas()

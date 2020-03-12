@@ -41,22 +41,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsOutput"/> without slices.
-        /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsOutput"/>.</returns>
-        public static MacroStabilityInwardsOutput CreateOutputWithoutSlices()
-        {
-            return new MacroStabilityInwardsOutput(
-                new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                      MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                      Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0),
-                new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
-                                                            MacroStabilityInwardsGridTestFactory.Create(),
-                                                            new RoundedDouble[0]),
-                new MacroStabilityInwardsOutput.ConstructionProperties());
-        }
-
-        /// <summary>
         /// Creates an instance of <see cref="MacroStabilityInwardsOutput"/>.
         /// </summary>
         /// <param name="properties">The container of the properties for the <see cref="MacroStabilityInwardsOutput"/>.</param>
@@ -82,6 +66,22 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                                                                                                    (RoundedDouble) 2.0
                                                                                                }),
                                                    properties);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="MacroStabilityInwardsOutput"/> without slices.
+        /// </summary>
+        /// <returns>A <see cref="MacroStabilityInwardsOutput"/>.</returns>
+        public static MacroStabilityInwardsOutput CreateOutputWithoutSlices()
+        {
+            return new MacroStabilityInwardsOutput(
+                new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                      MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                      Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0),
+                new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
+                                                            MacroStabilityInwardsGridTestFactory.Create(),
+                                                            new RoundedDouble[0]),
+                new MacroStabilityInwardsOutput.ConstructionProperties());
         }
 
         /// <summary>
