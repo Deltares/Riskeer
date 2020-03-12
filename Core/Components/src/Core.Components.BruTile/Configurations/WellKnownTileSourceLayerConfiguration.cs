@@ -87,10 +87,10 @@ namespace Core.Components.BruTile.Configurations
         /// cache failed.</exception>
         public static WellKnownTileSourceLayerConfiguration CreateInitializedConfiguration(WellKnownTileSource wellKnownTileSource)
         {
-            KnownTileSource knownTileSource = WellKnownTileSourceToKnownTileSource(wellKnownTileSource);
+            KnownTileSource knownTileSourceEquivalent = WellKnownTileSourceToKnownTileSource(wellKnownTileSource);
 
-            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSource);
-            return new WellKnownTileSourceLayerConfiguration(knownTileSource, tileSource);
+            ITileSource tileSource = TileSourceFactory.Instance.GetKnownTileSource(knownTileSourceEquivalent);
+            return new WellKnownTileSourceLayerConfiguration(knownTileSourceEquivalent, tileSource);
         }
 
         protected override IConfiguration OnClone()

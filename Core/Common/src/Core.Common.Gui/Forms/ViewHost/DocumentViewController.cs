@@ -143,11 +143,11 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private static IEnumerable<ViewInfo> FilterOnInheritance(IEnumerable<ViewInfo> compatibleStandaloneViewInfos)
         {
-            ViewInfo[] viewInfos = compatibleStandaloneViewInfos.ToArray();
+            ViewInfo[] viewInfosArray = compatibleStandaloneViewInfos.ToArray();
 
             // filter on inheritance
-            IEnumerable<Type> dataTypes = viewInfos.Select(i => i.DataType);
-            return viewInfos.Where(i => !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
+            IEnumerable<Type> dataTypes = viewInfosArray.Select(i => i.DataType);
+            return viewInfosArray.Where(i => !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
         }
 
         private void CreateViewFromViewInfo(object data, ViewInfo viewInfo)
