@@ -61,50 +61,6 @@ namespace Riskeer.Common.IO.Configurations.Helpers
 
         /// <summary>
         /// Configure a new <see cref="StochastConfiguration"/> with 
-        /// <see cref="StochastConfiguration.Mean"/> taken from
-        /// <paramref name="distribution"/>.
-        /// </summary>
-        /// <param name="distribution">The distribution to take the values from.</param>
-        /// <returns>A new <see cref="StochastConfiguration"/> with 
-        /// <see cref="StochastConfiguration.Mean"/> set.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        public static StochastConfiguration ToStochastConfigurationWithMean(this IDistribution distribution)
-        {
-            if (distribution == null)
-            {
-                throw new ArgumentNullException(nameof(distribution));
-            }
-
-            return new StochastConfiguration
-            {
-                Mean = distribution.Mean
-            };
-        }
-
-        /// <summary>
-        /// Configure a new <see cref="StochastConfiguration"/> with 
-        /// <see cref="StochastConfiguration.StandardDeviation"/> taken from
-        /// <paramref name="distribution"/>.
-        /// </summary>
-        /// <param name="distribution">The distribution to take the values from.</param>
-        /// <returns>A new <see cref="StochastConfiguration"/> with 
-        /// <see cref="StochastConfiguration.StandardDeviation"/> set.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        public static StochastConfiguration ToStochastConfigurationWithStandardDeviation(this IDistribution distribution)
-        {
-            if (distribution == null)
-            {
-                throw new ArgumentNullException(nameof(distribution));
-            }
-
-            return new StochastConfiguration
-            {
-                StandardDeviation = distribution.StandardDeviation
-            };
-        }
-
-        /// <summary>
-        /// Configure a new <see cref="StochastConfiguration"/> with 
         /// <see cref="StochastConfiguration.Mean"/> and 
         /// <see cref="StochastConfiguration.VariationCoefficient"/> taken from
         /// <paramref name="distribution"/>.
@@ -137,6 +93,28 @@ namespace Riskeer.Common.IO.Configurations.Helpers
         /// <returns>A new <see cref="StochastConfiguration"/> with 
         /// <see cref="StochastConfiguration.Mean"/> set.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
+        public static StochastConfiguration ToStochastConfigurationWithMean(this IDistribution distribution)
+        {
+            if (distribution == null)
+            {
+                throw new ArgumentNullException(nameof(distribution));
+            }
+
+            return new StochastConfiguration
+            {
+                Mean = distribution.Mean
+            };
+        }
+
+        /// <summary>
+        /// Configure a new <see cref="StochastConfiguration"/> with 
+        /// <see cref="StochastConfiguration.Mean"/> taken from
+        /// <paramref name="distribution"/>.
+        /// </summary>
+        /// <param name="distribution">The distribution to take the values from.</param>
+        /// <returns>A new <see cref="StochastConfiguration"/> with 
+        /// <see cref="StochastConfiguration.Mean"/> set.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
         public static StochastConfiguration ToStochastConfigurationWithMean(this IVariationCoefficientDistribution distribution)
         {
             if (distribution == null)
@@ -147,6 +125,28 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             return new StochastConfiguration
             {
                 Mean = distribution.Mean
+            };
+        }
+
+        /// <summary>
+        /// Configure a new <see cref="StochastConfiguration"/> with 
+        /// <see cref="StochastConfiguration.StandardDeviation"/> taken from
+        /// <paramref name="distribution"/>.
+        /// </summary>
+        /// <param name="distribution">The distribution to take the values from.</param>
+        /// <returns>A new <see cref="StochastConfiguration"/> with 
+        /// <see cref="StochastConfiguration.StandardDeviation"/> set.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
+        public static StochastConfiguration ToStochastConfigurationWithStandardDeviation(this IDistribution distribution)
+        {
+            if (distribution == null)
+            {
+                throw new ArgumentNullException(nameof(distribution));
+            }
+
+            return new StochastConfiguration
+            {
+                StandardDeviation = distribution.StandardDeviation
             };
         }
 
@@ -210,6 +210,46 @@ namespace Riskeer.Common.IO.Configurations.Helpers
         {
             return distribution.TrySetMean(configuration.Mean, stochastName, calculationName)
                    && distribution.TrySetStandardDeviation(configuration.StandardDeviation, stochastName, calculationName);
+        }
+
+        /// <summary>
+        /// Attempts to set the parameters of an <see cref="IVariationCoefficientDistribution"/>.
+        /// </summary>
+        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
+        /// <param name="mean">The new value for <see cref="IVariationCoefficientDistribution.Mean"/>.</param>
+        /// <param name="variationCoefficient">The new value for <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.</param>
+        /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
+        /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
+        /// is associated.</param>
+        /// <returns><c>true</c> if setting all properties was successful, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
+        /// is <c>null</c>.</exception>
+        public static bool TrySetDistributionProperties(this IVariationCoefficientDistribution distribution,
+                                                        double? mean, double? variationCoefficient,
+                                                        string stochastName, string calculationName)
+        {
+            return distribution.TrySetMean(mean, stochastName, calculationName)
+                   && distribution.TrySetVariationCoefficient(variationCoefficient, stochastName, calculationName);
+        }
+
+        /// <summary>
+        /// Attempts to set the parameters of an <see cref="IVariationCoefficientDistribution"/>.
+        /// </summary>
+        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
+        /// <param name="configuration">The configuration containing the new values for 
+        /// <see cref="IVariationCoefficientDistribution.Mean"/> and <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.</param>
+        /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
+        /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
+        /// is associated.</param>
+        /// <returns><c>true</c> if setting all properties was successful, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
+        /// is <c>null</c>.</exception>
+        public static bool TrySetDistributionProperties(this IVariationCoefficientDistribution distribution,
+                                                        StochastConfiguration configuration,
+                                                        string stochastName, string calculationName)
+        {
+            return distribution.TrySetMean(configuration.Mean, stochastName, calculationName)
+                   && distribution.TrySetVariationCoefficient(configuration.VariationCoefficient, stochastName, calculationName);
         }
 
         /// <summary>
@@ -297,47 +337,7 @@ namespace Riskeer.Common.IO.Configurations.Helpers
 
             return true;
         }
-
-        /// <summary>
-        /// Attempts to set the parameters of an <see cref="IVariationCoefficientDistribution"/>.
-        /// </summary>
-        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
-        /// <param name="mean">The new value for <see cref="IVariationCoefficientDistribution.Mean"/>.</param>
-        /// <param name="variationCoefficient">The new value for <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.</param>
-        /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
-        /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
-        /// is associated.</param>
-        /// <returns><c>true</c> if setting all properties was successful, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
-        /// is <c>null</c>.</exception>
-        public static bool TrySetDistributionProperties(this IVariationCoefficientDistribution distribution,
-                                                        double? mean, double? variationCoefficient,
-                                                        string stochastName, string calculationName)
-        {
-            return distribution.TrySetMean(mean, stochastName, calculationName)
-                   && distribution.TrySetVariationCoefficient(variationCoefficient, stochastName, calculationName);
-        }
-
-        /// <summary>
-        /// Attempts to set the parameters of an <see cref="IVariationCoefficientDistribution"/>.
-        /// </summary>
-        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
-        /// <param name="configuration">The configuration containing the new values for 
-        /// <see cref="IVariationCoefficientDistribution.Mean"/> and <see cref="IVariationCoefficientDistribution.CoefficientOfVariation"/>.</param>
-        /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
-        /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
-        /// is associated.</param>
-        /// <returns><c>true</c> if setting all properties was successful, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
-        /// is <c>null</c>.</exception>
-        public static bool TrySetDistributionProperties(this IVariationCoefficientDistribution distribution,
-                                                        StochastConfiguration configuration,
-                                                        string stochastName, string calculationName)
-        {
-            return distribution.TrySetMean(configuration.Mean, stochastName, calculationName)
-                   && distribution.TrySetVariationCoefficient(configuration.VariationCoefficient, stochastName, calculationName);
-        }
-
+        
         /// <summary>
         /// Attempts to set <see cref="IVariationCoefficientDistribution.Mean"/>.
         /// </summary>

@@ -883,6 +883,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
+        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+        }
+
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
@@ -973,11 +978,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddSeparator()
                    .AddPropertiesItem()
                    .Build();
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
