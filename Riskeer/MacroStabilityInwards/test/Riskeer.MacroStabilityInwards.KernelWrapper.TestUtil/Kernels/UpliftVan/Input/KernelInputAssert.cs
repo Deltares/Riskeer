@@ -195,6 +195,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
+        /// <param name="expected">The expected <see cref="GeometrySurface"/> array.</param>
+        /// <param name="actual">The actual <see cref="GeometrySurface"/> array.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertGeometrySurfaces(GeometrySurface[] expected, GeometrySurface[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                AssertGeometrySurfaces(expected[i], actual[i]);
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
         /// <param name="expected">The expected <see cref="Soil"/>.</param>
         /// <param name="actual">The actual <see cref="Soil"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
@@ -237,23 +254,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.Bottom, actual.Bottom);
             Assert.AreEqual(expected.Left, actual.Left);
             Assert.AreEqual(expected.Right, actual.Right);
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="GeometrySurface"/> array.</param>
-        /// <param name="actual">The actual <see cref="GeometrySurface"/> array.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGeometrySurfaces(GeometrySurface[] expected, GeometrySurface[] actual)
-        {
-            Assert.AreEqual(expected.Length, actual.Length);
-
-            for (var i = 0; i < expected.Length; i++)
-            {
-                AssertGeometrySurfaces(expected[i], actual[i]);
-            }
         }
 
         /// <summary>

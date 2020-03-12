@@ -122,8 +122,82 @@ namespace Riskeer.Storage.Core.Create
             return entity;
         }
 
+        #endregion
+
+        #region HeightStructures
+
+        /// <summary>
+        /// Creates a <see cref="HeightStructuresCalculationEntity"/> based
+        /// on the information of the <see cref="StructuresCalculation{T}"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">The index at where <paramref name="calculation"/> resides
+        /// in its parent container.</param>
+        /// <returns>A new <see cref="HeightStructuresCalculationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static HeightStructuresCalculationEntity CreateForHeightStructures(this StructuresCalculation<HeightStructuresInput> calculation,
+                                                                                    PersistenceRegistry registry, int order)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            var entity = new HeightStructuresCalculationEntity
+            {
+                Name = calculation.Name.DeepClone(),
+                Comments = calculation.Comments.Body.DeepClone(),
+                Order = order
+            };
+            SetInputValues(entity, calculation.InputParameters, registry);
+            SetOutputEntity(calculation, entity);
+
+            registry.Register(entity, calculation);
+
+            return entity;
+        }
+
+        #endregion
+
+        #region StabilityPointStructures
+
+        /// <summary>
+        /// Creates a <see cref="StabilityPointStructuresCalculationEntity"/> based
+        /// on the information of the <see cref="StructuresCalculation{T}"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">The index at where <paramref name="calculation"/> resides
+        /// in its parent container.</param>
+        /// <returns>A new <see cref="StabilityPointStructuresCalculationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static StabilityPointStructuresCalculationEntity CreateForStabilityPointStructures(this StructuresCalculation<StabilityPointStructuresInput> calculation,
+                                                                                                    PersistenceRegistry registry, int order)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            var entity = new StabilityPointStructuresCalculationEntity
+            {
+                Name = calculation.Name.DeepClone(),
+                Comments = calculation.Comments.Body.DeepClone(),
+                Order = order
+            };
+            SetInputValues(entity, calculation.InputParameters, registry);
+            SetOutputEntity(calculation, entity);
+
+            registry.Register(entity, calculation);
+
+            return entity;
+        }
+
+        #endregion
+
         private static void SetInputValues(ClosingStructuresCalculationEntity entity, ClosingStructuresInput input,
-                                           PersistenceRegistry registry)
+                                   PersistenceRegistry registry)
         {
             input.Create(entity, registry);
 
@@ -163,53 +237,6 @@ namespace Riskeer.Storage.Core.Create
             entity.ProbabilityOpenStructureBeforeFlooding = input.ProbabilityOpenStructureBeforeFlooding;
         }
 
-        private static void SetOutputEntity(StructuresCalculation<ClosingStructuresInput> calculation,
-                                            ClosingStructuresCalculationEntity entity)
-        {
-            if (calculation.HasOutput)
-            {
-                entity.ClosingStructuresOutputEntities.Add(calculation
-                                                           .Output
-                                                           .Create<ClosingStructuresOutputEntity>());
-            }
-        }
-
-        #endregion
-
-        #region HeightStructures
-
-        /// <summary>
-        /// Creates a <see cref="HeightStructuresCalculationEntity"/> based
-        /// on the information of the <see cref="StructuresCalculation{T}"/>.
-        /// </summary>
-        /// <param name="calculation">The calculation to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
-        /// <param name="order">The index at where <paramref name="calculation"/> resides
-        /// in its parent container.</param>
-        /// <returns>A new <see cref="HeightStructuresCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static HeightStructuresCalculationEntity CreateForHeightStructures(this StructuresCalculation<HeightStructuresInput> calculation,
-                                                                                    PersistenceRegistry registry, int order)
-        {
-            if (registry == null)
-            {
-                throw new ArgumentNullException(nameof(registry));
-            }
-
-            var entity = new HeightStructuresCalculationEntity
-            {
-                Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Body.DeepClone(),
-                Order = order
-            };
-            SetInputValues(entity, calculation.InputParameters, registry);
-            SetOutputEntity(calculation, entity);
-
-            registry.Register(entity, calculation);
-
-            return entity;
-        }
-
         private static void SetInputValues(HeightStructuresCalculationEntity entity, HeightStructuresInput input,
                                            PersistenceRegistry registry)
         {
@@ -228,55 +255,8 @@ namespace Riskeer.Storage.Core.Create
             entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.ToNaNAsNull();
         }
 
-        private static void SetOutputEntity(StructuresCalculation<HeightStructuresInput> calculation,
-                                            HeightStructuresCalculationEntity entity)
-        {
-            if (calculation.HasOutput)
-            {
-                entity.HeightStructuresOutputEntities.Add(calculation
-                                                          .Output
-                                                          .Create<HeightStructuresOutputEntity>());
-            }
-        }
-
-        #endregion
-
-        #region StabilityPointStructures
-
-        /// <summary>
-        /// Creates a <see cref="StabilityPointStructuresCalculationEntity"/> based
-        /// on the information of the <see cref="StructuresCalculation{T}"/>.
-        /// </summary>
-        /// <param name="calculation">The calculation to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
-        /// <param name="order">The index at where <paramref name="calculation"/> resides
-        /// in its parent container.</param>
-        /// <returns>A new <see cref="StabilityPointStructuresCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StabilityPointStructuresCalculationEntity CreateForStabilityPointStructures(this StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                                                                                    PersistenceRegistry registry, int order)
-        {
-            if (registry == null)
-            {
-                throw new ArgumentNullException(nameof(registry));
-            }
-
-            var entity = new StabilityPointStructuresCalculationEntity
-            {
-                Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.Body.DeepClone(),
-                Order = order
-            };
-            SetInputValues(entity, calculation.InputParameters, registry);
-            SetOutputEntity(calculation, entity);
-
-            registry.Register(entity, calculation);
-
-            return entity;
-        }
-
         private static void SetInputValues(StabilityPointStructuresCalculationEntity entity,
-                                           StabilityPointStructuresInput input, PersistenceRegistry registry)
+                                   StabilityPointStructuresInput input, PersistenceRegistry registry)
         {
             input.Create(entity, registry);
 
@@ -354,6 +334,27 @@ namespace Riskeer.Storage.Core.Create
             }
         }
 
-        #endregion
+        private static void SetOutputEntity(StructuresCalculation<HeightStructuresInput> calculation,
+                                            HeightStructuresCalculationEntity entity)
+        {
+            if (calculation.HasOutput)
+            {
+                entity.HeightStructuresOutputEntities.Add(calculation
+                                                          .Output
+                                                          .Create<HeightStructuresOutputEntity>());
+            }
+        }
+
+        private static void SetOutputEntity(StructuresCalculation<ClosingStructuresInput> calculation,
+                                            ClosingStructuresCalculationEntity entity)
+        {
+            if (calculation.HasOutput)
+            {
+                entity.ClosingStructuresOutputEntities.Add(calculation
+                                                           .Output
+                                                           .Create<ClosingStructuresOutputEntity>());
+            }
+        }
+
     }
 }

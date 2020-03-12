@@ -312,12 +312,6 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
-        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralHeightStructuresInput generalInput)
-        {
-            GeneralHeightStructuresInput generalHeightStructuresInput = entity.HeightStructuresFailureMechanismMetaEntities.First().Read();
-            generalInput.N = generalHeightStructuresInput.N;
-        }
-
         private static void ReadHeightStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                                      CalculationGroup targetRootCalculationGroup,
                                                                      ReadConversionCollector collector)
@@ -463,12 +457,6 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result, collector);
             }
-        }
-
-        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralClosingStructuresInput generalInput)
-        {
-            GeneralClosingStructuresInput generalClosingStructuresInput = entity.ClosingStructuresFailureMechanismMetaEntities.First().Read();
-            generalInput.N2A = generalClosingStructuresInput.N2A;
         }
 
         private static void ReadClosingStructures(this FailureMechanismEntity entity,
@@ -677,12 +665,6 @@ namespace Riskeer.Storage.Core.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
-        }
-
-        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralWaveImpactAsphaltCoverInput generalInput)
-        {
-            GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().Read();
-            generalInput.DeltaL = generalWaveImpactAsphaltCoverInput.DeltaL;
         }
 
         #endregion
@@ -1035,12 +1017,6 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
-        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityStoneCoverWaveConditionsInput generalInput)
-        {
-            GeneralStabilityStoneCoverWaveConditionsInput generalStabilityPointStructuresInput = entity.StabilityStoneCoverFailureMechanismMetaEntities.First().Read();
-            generalInput.N = generalStabilityPointStructuresInput.N;
-        }
-
         #endregion
 
         #region Stability Point Structures
@@ -1101,12 +1077,6 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
-        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityPointStructuresInput generalInput)
-        {
-            GeneralStabilityPointStructuresInput generalStabilityPointStructuresInput = entity.StabilityPointStructuresFailureMechanismMetaEntities.First().Read();
-            generalInput.N = generalStabilityPointStructuresInput.N;
-        }
-
         private static void ReadStabilityPointStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                                              CalculationGroup targetRootCalculationGroup,
                                                                              ReadConversionCollector collector)
@@ -1116,6 +1086,40 @@ namespace Riskeer.Storage.Core.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
+        }
+
+        #endregion
+
+        #region ReadGeneralInputMethods
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralHeightStructuresInput generalInput)
+        {
+            GeneralHeightStructuresInput generalHeightStructuresInput = entity.HeightStructuresFailureMechanismMetaEntities.First().Read();
+            generalInput.N = generalHeightStructuresInput.N;
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralClosingStructuresInput generalInput)
+        {
+            GeneralClosingStructuresInput generalClosingStructuresInput = entity.ClosingStructuresFailureMechanismMetaEntities.First().Read();
+            generalInput.N2A = generalClosingStructuresInput.N2A;
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralWaveImpactAsphaltCoverInput generalInput)
+        {
+            GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().Read();
+            generalInput.DeltaL = generalWaveImpactAsphaltCoverInput.DeltaL;
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityStoneCoverWaveConditionsInput generalInput)
+        {
+            GeneralStabilityStoneCoverWaveConditionsInput generalStabilityPointStructuresInput = entity.StabilityStoneCoverFailureMechanismMetaEntities.First().Read();
+            generalInput.N = generalStabilityPointStructuresInput.N;
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityPointStructuresInput generalInput)
+        {
+            GeneralStabilityPointStructuresInput generalStabilityPointStructuresInput = entity.StabilityPointStructuresFailureMechanismMetaEntities.First().Read();
+            generalInput.N = generalStabilityPointStructuresInput.N;
         }
 
         #endregion

@@ -238,6 +238,41 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
+        private void CalculateAll(StabilityStoneCoverFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                                        context.Parent));
+        }
+
+        private void CalculateAll(CalculationGroup group, StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                        context.FailureMechanism,
+                                                                                                        context.AssessmentSection));
+        }
+
+        private static void ValidateAll(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>(),
+                        context.AssessmentSection);
+        }
+
+        private static void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, IAssessmentSection assessmentSection)
+        {
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
+            {
+                WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                              assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                   calculation.InputParameters.CategoryType),
+                                                              assessmentSection.HydraulicBoundaryDatabase,
+                                                              assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+            }
+        }
+
         #region ViewInfos
 
         #region StabilityStoneCoverFailureMechanismView ViewInfo
@@ -348,14 +383,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private void CalculateAll(StabilityStoneCoverFailureMechanismContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
-                                                                                                        context.Parent));
         }
 
         private void RemoveAllViewsForItem(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
@@ -480,12 +507,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private static void ValidateAll(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>(),
-                        context.AssessmentSection);
-        }
-
         private static string ValidateAllDataAvailableAndGetErrorMessageForFailureMechanism(StabilityStoneCoverFailureMechanismContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
@@ -562,27 +583,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             nodeData.WrappedData.Children.Add(calculation);
             nodeData.WrappedData.NotifyObservers();
-        }
-
-        private static void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, IAssessmentSection assessmentSection)
-        {
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
-            {
-                WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                              assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                   calculation.InputParameters.CategoryType),
-                                                              assessmentSection.HydraulicBoundaryDatabase,
-                                                              assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
-            }
-        }
-
-        private void CalculateAll(CalculationGroup group, StabilityStoneCoverWaveConditionsCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
-                                                                                                        context.FailureMechanism,
-                                                                                                        context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)

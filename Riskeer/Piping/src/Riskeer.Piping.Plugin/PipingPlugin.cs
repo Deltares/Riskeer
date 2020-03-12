@@ -557,14 +557,6 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
-        {
-            foreach (PipingCalculation calculation in pipingCalculations)
-            {
-                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
-            }
-        }
-
         #region PipingSurfaceLinesContext TreeNodeInfo
 
         private ContextMenuStrip PipingSurfaceLinesContextContextMenuStrip(PipingSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -604,6 +596,36 @@ namespace Riskeer.Piping.Plugin
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
+        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
+        }
+
+        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
+        }
+
+        private static void ValidateAll(PipingFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
+        }
+
+        private static void ValidateAll(PipingCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>(), context.AssessmentSection);
+        }
+
+        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
+        {
+            foreach (PipingCalculation calculation in pipingCalculations)
+            {
+                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
+            }
+        }
+
         #region PipingFailureMechanismContext TreeNodeInfo
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
@@ -635,17 +657,6 @@ namespace Riskeer.Piping.Plugin
         private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
-        private static void ValidateAll(PipingFailureMechanismContext context)
-        {
-            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
-        }
-
-        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
@@ -825,6 +836,32 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IEnumerable<PipingCalculationScenario> calculations)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
+
+            PipingCalculationScenario[] calculationsToUpdate = calculations
+                                                               .Where(calc => calc.InputParameters.SurfaceLine != null
+                                                                              && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
+                                                               .ToArray();
+
+            if (!calculationsToUpdate.Any())
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
+                toolTipMessage,
+                RiskeerCommonFormsResources.UpdateItemIcon,
+                (sender, args) => UpdateEntryAndExitPointsOfAllCalculations(calculationsToUpdate))
+            {
+                Enabled = contextMenuEnabled
+            };
+        }
+
         private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
@@ -968,17 +1005,6 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
-        }
-
-        private static void ValidateAll(PipingCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>(), context.AssessmentSection);
-        }
-
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
         {
             var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput)
@@ -1036,32 +1062,6 @@ namespace Riskeer.Piping.Plugin
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 
             parentGroupContext.NotifyObservers();
-        }
-
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IEnumerable<PipingCalculationScenario> calculations)
-        {
-            var contextMenuEnabled = true;
-            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
-
-            PipingCalculationScenario[] calculationsToUpdate = calculations
-                                                               .Where(calc => calc.InputParameters.SurfaceLine != null
-                                                                              && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
-                                                               .ToArray();
-
-            if (!calculationsToUpdate.Any())
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(
-                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
-                toolTipMessage,
-                RiskeerCommonFormsResources.UpdateItemIcon,
-                (sender, args) => UpdateEntryAndExitPointsOfAllCalculations(calculationsToUpdate))
-            {
-                Enabled = contextMenuEnabled
-            };
         }
 
         private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
