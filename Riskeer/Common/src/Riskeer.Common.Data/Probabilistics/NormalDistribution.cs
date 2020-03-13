@@ -80,7 +80,7 @@ namespace Riskeer.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException(null, Resources.StandardDeviation_Should_be_greater_or_equal_zero);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.StandardDeviation_Should_be_greater_or_equal_zero);
                 }
 
                 standardDeviation = roundedValue;

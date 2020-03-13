@@ -156,7 +156,7 @@ namespace Riskeer.Common.Data
                 string outOfRangeMessage = string.Format(Resources.MechanismSurfaceLineBase_0_L_needs_to_be_in_Range_1_,
                                                          Resources.MechanismSurfaceLineBase_GetZAtL_Cannot_determine_height,
                                                          localRangeL.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
+                throw new ArgumentOutOfRangeException(nameof(l), outOfRangeMessage);
             }
 
             var segments = new Collection<Segment2D>();

@@ -407,8 +407,8 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 if (!tangentLineNumberValidityRange.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(null, string.Format(Resources.TangentLineNumber_Value_needs_to_be_in_Range_0_,
-                                                                              tangentLineNumberValidityRange));
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.TangentLineNumber_Value_needs_to_be_in_Range_0_,
+                                                                                       tangentLineNumberValidityRange));
                 }
 
                 tangentLineNumber = value;
