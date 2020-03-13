@@ -85,7 +85,7 @@ namespace Core.Common.Util.Drawing
         /// <param name="x">The x-coordinate.</param>
         /// <param name="y">The y-coordinate.</param>
         /// <returns>The color of the given pixel.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the coordinates are out of bounds.</exception>
+        /// <exception cref="IndexOutOfRangeException">Thrown when the coordinates are out of bounds.</exception>
         /// <exception cref="NotSupportedException">Thrown when the getting or setting the color at the specified 
         /// coordinates of a <see cref="Bitmap"/> with an unsupported <see cref="PixelFormat"/>.</exception>
         public Color this[int x, int y]
@@ -227,13 +227,13 @@ namespace Core.Common.Util.Drawing
         /// </summary>
         /// <param name="x">The x-coordinate.</param>
         /// <param name="y">The y-coordinate.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="x"/>
+        /// <exception cref="IndexOutOfRangeException">Thrown when <paramref name="x"/>
         /// or <paramref name="y"/> are out of the accessible range.</exception>
         private void ValidateIndices(int x, int y)
         {
             if (!IsInValidRange(x, y))
             {
-                throw new ArgumentOutOfRangeException("indices", $@"Index must be in range x:[{validRange.Left},{validRange.Right - 1}], y:[{validRange.Top},{validRange.Bottom - 1}].");
+                throw new IndexOutOfRangeException($@"Index must be in range x:[{validRange.Left},{validRange.Right - 1}], y:[{validRange.Top},{validRange.Bottom - 1}].");
             }
         }
 
