@@ -118,8 +118,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.MoveGrid = input.MoveGrid;
             upliftVanKernel.MaximumSliceWidth = input.MaximumSliceWidth;
             upliftVanKernel.SetSoilModel(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()));
-            upliftVanKernel.SoilProfile = SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil);
-            upliftVanKernel.LocationExtreme = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            upliftVanKernel.SetSoilProfile(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil));
+            upliftVanKernel.SetLocationExtreme(UpliftVanStabilityLocationCreator.CreateExtreme(input));
             upliftVanKernel.LocationDaily = UpliftVanStabilityLocationCreator.CreateDaily(input);
             upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection);
             upliftVanKernel.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input.SlipPlane);

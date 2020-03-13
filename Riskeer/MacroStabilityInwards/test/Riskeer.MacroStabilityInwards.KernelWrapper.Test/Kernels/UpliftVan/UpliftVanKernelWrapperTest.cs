@@ -71,8 +71,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Call
             var kernel = new UpliftVanKernelWrapper
             {
-                SoilProfile = soilProfile2D,
-                LocationExtreme = stabilityLocationExtreme,
                 LocationDaily = stabilityLocationDaily,
                 SurfaceLine = surfaceLine,
                 MaximumSliceWidth = maximumSliceWidth,
@@ -82,6 +80,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 SlipPlaneConstraints = slipPlaneConstraints
             };
             kernel.SetSoilModel(soilModel);
+            kernel.SetSoilProfile(soilProfile2D);
+            kernel.SetLocationExtreme(stabilityLocationExtreme);
 
             // Assert
             var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
@@ -225,44 +225,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var kernelWrapper = new UpliftVanKernelWrapper
             {
                 SurfaceLine = new SurfaceLine2(),
-                LocationExtreme = new StabilityLocation(),
                 LocationDaily = new StabilityLocation(),
-                SoilProfile = new SoilProfile2D
-                {
-                    Geometry = new GeometryData
-                    {
-                        Points =
-                        {
-                            point1,
-                            point2,
-                            point3,
-                            point4
-                        },
-                        Curves =
-                        {
-                            curve1,
-                            curve2,
-                            curve3,
-                            curve4
-                        },
-                        Loops =
-                        {
-                            loop
-                        },
-                        Surfaces =
-                        {
-                            geometrySurface
-                        }
-                    },
-                    Surfaces =
-                    {
-                        new SoilLayer2D
-                        {
-                            GeometrySurface = geometrySurface,
-                            Soil = soil
-                        }
-                    }
-                },
                 SlipPlaneUpliftVan = new SlipPlaneUpliftVan(),
                 MoveGrid = true,
                 MaximumSliceWidth = 0,
@@ -274,7 +237,44 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 {
                     soil
                 }});
-
+            kernelWrapper.SetSoilProfile(new SoilProfile2D
+            {
+                Geometry = new GeometryData
+                {
+                    Points =
+                    {
+                        point1,
+                        point2,
+                        point3,
+                        point4
+                    },
+                    Curves =
+                    {
+                        curve1,
+                        curve2,
+                        curve3,
+                        curve4
+                    },
+                    Loops =
+                    {
+                        loop
+                    },
+                    Surfaces =
+                    {
+                        geometrySurface
+                    }
+                },
+                Surfaces =
+                {
+                    new SoilLayer2D
+                    {
+                        GeometrySurface = geometrySurface,
+                        Soil = soil
+                    }
+                }
+            });
+            kernelWrapper.SetLocationExtreme(new StabilityLocation());
+            
             return kernelWrapper;
         }
 

@@ -47,12 +47,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Sets the soil profile.
         /// </summary>
-        SoilProfile2D SoilProfile { set; }
+        void SetSoilProfile(SoilProfile2D soilProfile);
 
         /// <summary>
         /// Sets the location under extreme conditions.
         /// </summary>
-        StabilityLocation LocationExtreme { set; }
+        void SetLocationExtreme(StabilityLocation stabilityLocation);
 
         /// <summary>
         /// Sets the location under daily circumstances.

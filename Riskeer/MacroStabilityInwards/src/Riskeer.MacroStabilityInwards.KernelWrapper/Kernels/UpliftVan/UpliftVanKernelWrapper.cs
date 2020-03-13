@@ -72,27 +72,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             ForbiddenZonesXEntryMax = double.NaN;
         }
 
-        public void SetSoilModel(SoilModel soilModel)
-        {
-           stabilityModel.SoilModel = soilModel;
-        }
-
-        public SoilProfile2D SoilProfile
-        {
-            set
-            {
-                stabilityModel.SoilProfile = value;
-            }
-        }
-
-        public StabilityLocation LocationExtreme
-        {
-            set
-            {
-                stabilityModel.Location = value;
-            }
-        }
-
         public StabilityLocation LocationDaily
         {
             set
@@ -162,6 +141,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         public SlipPlaneUpliftVan SlipPlaneResult { get; private set; }
 
         public IEnumerable<LogMessage> CalculationMessages { get; private set; }
+
+        public void SetLocationExtreme(StabilityLocation stabilityLocation)
+        {
+            stabilityModel.Location = stabilityLocation;
+        }
+
+        public void SetSoilModel(SoilModel soilModel)
+        {
+            stabilityModel.SoilModel = soilModel;
+        }
+
+        public void SetSoilProfile(SoilProfile2D soilProfile)
+        {
+            stabilityModel.SoilProfile = soilProfile;
+        }
 
         public void Calculate()
         {
