@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -115,16 +114,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
 
-            upliftVanKernel.MoveGrid = input.MoveGrid;
-            upliftVanKernel.MaximumSliceWidth = input.MaximumSliceWidth;
+            upliftVanKernel.SetMoveGrid(input.MoveGrid);
+            upliftVanKernel.SetMaximumSliceWidth(input.MaximumSliceWidth);
             upliftVanKernel.SetSoilModel(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()));
             upliftVanKernel.SetSoilProfile(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil));
             upliftVanKernel.SetLocationExtreme(UpliftVanStabilityLocationCreator.CreateExtreme(input));
-            upliftVanKernel.LocationDaily = UpliftVanStabilityLocationCreator.CreateDaily(input);
-            upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection);
-            upliftVanKernel.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input.SlipPlane);
-            upliftVanKernel.SlipPlaneConstraints = SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints);
-            upliftVanKernel.GridAutomaticDetermined = input.SlipPlane.GridAutomaticDetermined;
+            upliftVanKernel.SetLocationDaily(UpliftVanStabilityLocationCreator.CreateDaily(input));
+            upliftVanKernel.SetSurfaceLine(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection));
+            upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
+            upliftVanKernel.SetSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints));
+            upliftVanKernel.SetGridAutomaticDetermined(input.SlipPlane.GridAutomaticDetermined);
 
             return upliftVanKernel;
         }

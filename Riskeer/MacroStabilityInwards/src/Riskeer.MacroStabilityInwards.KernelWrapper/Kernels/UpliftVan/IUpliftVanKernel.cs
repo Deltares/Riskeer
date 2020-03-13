@@ -40,57 +40,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
     public interface IUpliftVanKernel
     {
         /// <summary>
-        /// Sets the soil model.
-        /// </summary>
-        void SetSoilModel(SoilModel soilModel);
-
-        /// <summary>
-        /// Sets the soil profile.
-        /// </summary>
-        void SetSoilProfile(SoilProfile2D soilProfile);
-
-        /// <summary>
-        /// Sets the location under extreme conditions.
-        /// </summary>
-        void SetLocationExtreme(StabilityLocation stabilityLocation);
-
-        /// <summary>
-        /// Sets the location under daily circumstances.
-        /// </summary>
-        StabilityLocation LocationDaily { set; }
-
-        /// <summary>
-        /// Sets the surface line.
-        /// </summary>
-        SurfaceLine2 SurfaceLine { set; }
-
-        /// <summary>
-        /// Sets the move grid property.
-        /// </summary>
-        bool MoveGrid { set; }
-
-        /// <summary>
-        /// Sets the maximum slice width.
-        /// [m]
-        /// </summary>
-        double MaximumSliceWidth { set; }
-
-        /// <summary>
-        /// Sets the slip plane Uplift Van.
-        /// </summary>
-        SlipPlaneUpliftVan SlipPlaneUpliftVan { set; }
-
-        /// <summary>
-        /// Sets the slip plane constraints.
-        /// </summary>
-        SlipPlaneConstraints SlipPlaneConstraints { set; }
-
-        /// <summary>
-        /// Sets whether the grid is automatically determined or not.
-        /// </summary>
-        bool GridAutomaticDetermined { set; }
-
-        /// <summary>
         /// Gets the factor of stability.
         /// </summary>
         double FactorOfStability { get; }
@@ -125,6 +74,57 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// the calculation.
         /// </summary>
         IEnumerable<LogMessage> CalculationMessages { get; }
+
+        /// <summary>
+        /// Sets the soil model.
+        /// </summary>
+        void SetSoilModel(SoilModel soilModel);
+
+        /// <summary>
+        /// Sets the soil profile.
+        /// </summary>
+        void SetSoilProfile(SoilProfile2D soilProfile);
+
+        /// <summary>
+        /// Sets the location under extreme conditions.
+        /// </summary>
+        void SetLocationExtreme(StabilityLocation stabilityLocation);
+
+        /// <summary>
+        /// Sets the location under daily circumstances.
+        /// </summary>
+        void SetLocationDaily(StabilityLocation stabilityLocation);
+
+        /// <summary>
+        /// Sets the surface line 2.
+        /// </summary>
+        void SetSurfaceLine(SurfaceLine2 surfaceLine2);
+
+        /// <summary>
+        /// Sets the move grid property.
+        /// </summary>
+        void SetMoveGrid(bool moveGrid);
+
+        /// <summary>
+        /// Sets the maximum slice width.
+        /// [m]
+        /// </summary>
+        void SetMaximumSliceWidth(double maximumSliceWidth);
+
+        /// <summary>
+        /// Sets the slip plane Uplift Van.
+        /// </summary>
+        void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan);
+
+        /// <summary>
+        /// Sets the slip plane constraints.
+        /// </summary>
+        void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints);
+
+        /// <summary>
+        /// Sets whether the grid is automatically determined or not.
+        /// </summary>
+        void SetGridAutomaticDetermined(bool gridAutomaticDetermined);
 
         /// <summary>
         /// Performs the Uplift Van calculation.

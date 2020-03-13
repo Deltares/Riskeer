@@ -65,38 +65,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public SoilModel SoilModel { get; private set; }
 
-        public void SetSoilModel(SoilModel soilModel)
-        {
-            SoilModel = soilModel;
-        }
-
         public SoilProfile2D SoilProfile { get; private set; }
-
-        public void SetSoilProfile(SoilProfile2D soilProfile)
-        {
-            SoilProfile = soilProfile;
-        }
 
         public StabilityLocation LocationExtreme { get; private set; }
 
-        public void SetLocationExtreme(StabilityLocation stabilityLocation)
-        {
-            LocationExtreme = stabilityLocation;
-        }
+        public StabilityLocation LocationDaily { get; private set; }
 
-        public StabilityLocation LocationDaily { get; set; }
+        public bool MoveGrid { get; private set; }
 
-        public bool MoveGrid { get; set; }
+        public double MaximumSliceWidth { get; private set; }
 
-        public double MaximumSliceWidth { get; set; }
+        public SurfaceLine2 SurfaceLine { get; private set; }
 
-        public SurfaceLine2 SurfaceLine { get; set; }
+        public SlipPlaneUpliftVan SlipPlaneUpliftVan { get; private set; }
 
-        public SlipPlaneUpliftVan SlipPlaneUpliftVan { get; set; }
+        public SlipPlaneConstraints SlipPlaneConstraints { get; private set; }
 
-        public SlipPlaneConstraints SlipPlaneConstraints { get; set; }
-
-        public bool GridAutomaticDetermined { get; set; }
+        public bool GridAutomaticDetermined { get; private set; }
 
         public double FactorOfStability { get; set; }
 
@@ -111,6 +96,56 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public SlipPlaneUpliftVan SlipPlaneResult { get; set; }
 
         public IEnumerable<LogMessage> CalculationMessages { get; set; }
+
+        public void SetSoilModel(SoilModel soilModel)
+        {
+            SoilModel = soilModel;
+        }
+
+        public void SetSoilProfile(SoilProfile2D soilProfile)
+        {
+            SoilProfile = soilProfile;
+        }
+
+        public void SetLocationExtreme(StabilityLocation stabilityLocation)
+        {
+            LocationExtreme = stabilityLocation;
+        }
+
+        public void SetLocationDaily(StabilityLocation stabilityLocation)
+        {
+            LocationDaily = stabilityLocation;
+        }
+
+        public void SetSurfaceLine(SurfaceLine2 surfaceLine2)
+        {
+            SurfaceLine = surfaceLine2;
+        }
+
+        public void SetMoveGrid(bool moveGrid)
+        {
+            MoveGrid = moveGrid;
+        }
+
+        public void SetMaximumSliceWidth(double maximumSliceWidth)
+        {
+            MaximumSliceWidth = maximumSliceWidth;
+        }
+
+        public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
+        {
+            SlipPlaneUpliftVan = slipPlaneUpliftVan;
+        }
+
+        public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
+        {
+            SlipPlaneConstraints = slipPlaneConstraints;
+        }
+
+        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
+        {
+            GridAutomaticDetermined = gridAutomaticDetermined;
+        }
 
         public void Calculate()
         {

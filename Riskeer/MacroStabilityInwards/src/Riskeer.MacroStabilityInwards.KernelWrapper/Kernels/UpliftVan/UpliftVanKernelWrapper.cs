@@ -147,6 +147,41 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             stabilityModel.Location = stabilityLocation;
         }
 
+        public void SetLocationDaily(StabilityLocation stabilityLocation)
+        {
+            LocationDaily = stabilityLocation;
+        }
+
+        public void SetSurfaceLine(SurfaceLine2 surfaceLine2)
+        {
+            SurfaceLine = surfaceLine2;
+        }
+
+        public void SetMoveGrid(bool moveGrid)
+        {
+            MoveGrid = moveGrid;
+        }
+
+        public void SetMaximumSliceWidth(double maximumSliceWidth)
+        {
+            MaximumSliceWidth = maximumSliceWidth;
+        }
+
+        public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
+        {
+            SlipPlaneUpliftVan = slipPlaneUpliftVan;
+        }
+
+        public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
+        {
+            SlipPlaneConstraints = slipPlaneConstraints;
+        }
+
+        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
+        {
+            GridAutomaticDetermined = gridAutomaticDetermined;
+        }
+
         public void SetSoilModel(SoilModel soilModel)
         {
             stabilityModel.SoilModel = soilModel;
