@@ -159,14 +159,6 @@ namespace Riskeer.Common.IO.Configurations.Import
                 nestedSchemaDefinitionsUsage = nestedSchemaDefinitions.Keys.ToDictionary(k => k, k => false);
             }
 
-            public override ICredentials Credentials
-            {
-                set
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
             /// <summary>
             /// Gets whether all nested schema definitions are used.
             /// </summary>
