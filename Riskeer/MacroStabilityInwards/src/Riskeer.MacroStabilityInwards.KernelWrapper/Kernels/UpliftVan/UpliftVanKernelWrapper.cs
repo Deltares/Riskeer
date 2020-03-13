@@ -72,12 +72,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             ForbiddenZonesXEntryMax = double.NaN;
         }
 
-        public SoilModel SoilModel
+        public void SetSoilModel(SoilModel soilModel)
         {
-            set
-            {
-                stabilityModel.SoilModel = value;
-            }
+           stabilityModel.SoilModel = soilModel;
         }
 
         public SoilProfile2D SoilProfile

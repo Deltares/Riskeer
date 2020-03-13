@@ -71,7 +71,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Call
             var kernel = new UpliftVanKernelWrapper
             {
-                SoilModel = soilModel,
                 SoilProfile = soilProfile2D,
                 LocationExtreme = stabilityLocationExtreme,
                 LocationDaily = stabilityLocationDaily,
@@ -82,6 +81,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 GridAutomaticDetermined = gridAutomaticDetermined,
                 SlipPlaneConstraints = slipPlaneConstraints
             };
+            kernel.SetSoilModel(soilModel);
 
             // Assert
             var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
@@ -222,7 +222,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 OuterLoop = loop
             };
-            return new UpliftVanKernelWrapper
+            var kernelWrapper = new UpliftVanKernelWrapper
             {
                 SurfaceLine = new SurfaceLine2(),
                 LocationExtreme = new StabilityLocation(),
@@ -263,18 +263,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                         }
                     }
                 },
-                SoilModel = new SoilModel
-                {
-                    Soils =
-                    {
-                        soil
-                    }
-                },
                 SlipPlaneUpliftVan = new SlipPlaneUpliftVan(),
                 MoveGrid = true,
                 MaximumSliceWidth = 0,
                 SlipPlaneConstraints = new SlipPlaneConstraints()
             };
+            kernelWrapper.SetSoilModel(new SoilModel
+            {
+                Soils =
+                {
+                    soil
+                }});
+
+            return kernelWrapper;
         }
 
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)

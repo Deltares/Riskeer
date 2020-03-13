@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Deltares.WTIStability.Data.Geo;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -116,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
             upliftVanKernel.MoveGrid = input.MoveGrid;
             upliftVanKernel.MaximumSliceWidth = input.MaximumSliceWidth;
-            upliftVanKernel.SoilModel = SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray());
+            upliftVanKernel.SetSoilModel(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()));
             upliftVanKernel.SoilProfile = SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil);
             upliftVanKernel.LocationExtreme = UpliftVanStabilityLocationCreator.CreateExtreme(input);
             upliftVanKernel.LocationDaily = UpliftVanStabilityLocationCreator.CreateDaily(input);

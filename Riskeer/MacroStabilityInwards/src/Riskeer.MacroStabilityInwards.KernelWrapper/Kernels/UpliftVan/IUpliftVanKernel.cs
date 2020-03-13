@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Sets the soil model.
         /// </summary>
-        SoilModel SoilModel { set; }
+        void SetSoilModel(SoilModel soilModel);
 
         /// <summary>
         /// Sets the soil profile.

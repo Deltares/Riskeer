@@ -63,7 +63,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// </summary>
         public bool ReturnLogMessages { get; set; }
 
-        public SoilModel SoilModel { get; set; }
+        public SoilModel SoilModel { get; private set; }
+
+        public void SetSoilModel(SoilModel soilModel)
+        {
+            SoilModel = soilModel;
+        }
 
         public SoilProfile2D SoilProfile { get; set; }
 
