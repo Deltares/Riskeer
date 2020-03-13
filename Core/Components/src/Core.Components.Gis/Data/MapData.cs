@@ -56,7 +56,7 @@ namespace Core.Components.Gis.Data
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException(@"A name must be set to the map data.", nameof(Name));
+                    throw new ArgumentException(@"A name must be set to the map data.", nameof(value));
                 }
 
                 name = value;

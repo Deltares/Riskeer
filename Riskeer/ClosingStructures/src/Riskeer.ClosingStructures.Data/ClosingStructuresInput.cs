@@ -371,7 +371,7 @@ namespace Riskeer.ClosingStructures.Data
             {
                 if (!identicalAperturesValidityRange.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(IdenticalApertures),
+                    throw new ArgumentOutOfRangeException(nameof(value),
                                                           Resources.ClosingStructuresInput_IdenticalApertures_must_be_equal_or_greater_to_one);
                 }
 
