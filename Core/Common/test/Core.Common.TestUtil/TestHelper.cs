@@ -472,9 +472,7 @@ namespace Core.Common.TestUtil
             while (expectedEnumerator.MoveNext())
             {
                 Assert.IsTrue(actualEnumerator.MoveNext());
-                {
-                    Assert.AreSame(expectedEnumerator.Current, actualEnumerator.Current);
-                }
+                Assert.AreSame(expectedEnumerator.Current, actualEnumerator.Current);
             }
 
             Assert.IsFalse(actualEnumerator.MoveNext());
@@ -500,9 +498,7 @@ namespace Core.Common.TestUtil
             while (expectedEnumerator.MoveNext())
             {
                 Assert.IsTrue(actualEnumerator.MoveNext());
-                {
-                    Assert.AreNotSame(expectedEnumerator.Current, actualEnumerator.Current);
-                }
+                Assert.AreNotSame(expectedEnumerator.Current, actualEnumerator.Current);
             }
 
             Assert.IsFalse(actualEnumerator.MoveNext());
@@ -535,9 +531,7 @@ namespace Core.Common.TestUtil
                 while (expectedEnumerator.MoveNext())
                 {
                     Assert.IsTrue(actualEnumerator.MoveNext());
-                    {
-                        Assert.IsTrue(equalityComparer.Equals(expectedEnumerator.Current, actualEnumerator.Current));
-                    }
+                    Assert.IsTrue(equalityComparer.Equals(expectedEnumerator.Current, actualEnumerator.Current));
                 }
 
                 Assert.IsFalse(actualEnumerator.MoveNext());
