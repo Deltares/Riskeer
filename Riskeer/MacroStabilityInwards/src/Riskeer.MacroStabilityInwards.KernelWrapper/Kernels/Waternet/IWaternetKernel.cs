@@ -39,29 +39,29 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     public interface IWaternetKernel
     {
         /// <summary>
+        /// Gets the waternet result.
+        /// </summary>
+        WtiStabilityWaternet Waternet { get; }
+
+        /// <summary>
         /// Sets the location.
         /// </summary>
-        StabilityLocation Location { set; }
+        void SetLocation(StabilityLocation stabilityLocation);
 
         /// <summary>
         /// Sets the soil model.
         /// </summary>
-        SoilModel SoilModel { set; }
+        void SetSoilModel(SoilModel soilModel);
 
         /// <summary>
         /// Sets the soil profile.
         /// </summary>
-        SoilProfile2D SoilProfile { set; }
+        void SetSoilProfile(SoilProfile2D soilProfile);
 
         /// <summary>
         /// Sets the surface line.
         /// </summary>
-        SurfaceLine2 SurfaceLine { set; }
-
-        /// <summary>
-        /// Gets the waternet result.
-        /// </summary>
-        WtiStabilityWaternet Waternet { get; }
+        void SetSurfaceLine(SurfaceLine2 surfaceLine);
 
         /// <summary>
         /// Performs the Waternet calculation.

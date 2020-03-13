@@ -52,13 +52,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var surfaceLine = new SurfaceLine2();
 
             // Call
-            var kernel = new TestWaternetKernelWrapper
-            {
-                Location = stabilityLocation,
-                SoilModel = soilModel,
-                SoilProfile = soilProfile2D,
-                SurfaceLine = surfaceLine
-            };
+            var kernel = new TestWaternetKernelWrapper();
+            kernel.SetLocation(stabilityLocation);
+            kernel.SetSoilModel(soilModel);
+            kernel.SetSoilProfile(soilProfile2D);
+            kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
             var stabilityModel = TypeUtils.GetProperty<StabilityModel>(kernel, "StabilityModel");
@@ -127,12 +125,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
         private class TestWaternetKernelWrapper : WaternetKernelWrapper
         {
-            public override StabilityLocation Location
+            public override void SetLocation(StabilityLocation stabilityLocation)
             {
-                set
-                {
-                    StabilityModel.Location = value;
-                }
+                    StabilityModel.Location = stabilityLocation;
             }
 
             protected override string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation)

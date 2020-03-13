@@ -106,10 +106,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         {
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(Input.SoilProfile);
 
-            waternetKernel.SoilModel = SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray());
-            waternetKernel.SoilProfile = SoilProfileCreator.Create(Input.SoilProfile.PreconsolidationStresses, layersWithSoil);
-            waternetKernel.Location = WaternetStabilityLocationCreator.Create(Input);
-            waternetKernel.SurfaceLine = SurfaceLineCreator.Create(Input.SurfaceLine, Input.LandwardDirection);
+            waternetKernel.SetLocation(WaternetStabilityLocationCreator.Create(Input));
+            waternetKernel.SetSoilModel(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()));
+            waternetKernel.SetSoilProfile(SoilProfileCreator.Create(Input.SoilProfile.PreconsolidationStresses, layersWithSoil));
+            waternetKernel.SetSurfaceLine(SurfaceLineCreator.Create(Input.SurfaceLine, Input.LandwardDirection));
         }
     }
 }

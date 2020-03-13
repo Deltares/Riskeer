@@ -40,12 +40,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             };
         }
 
-        public override StabilityLocation Location
+        public override void SetLocation(StabilityLocation stabilityLocation)
         {
-            set
-            {
-                StabilityModel.LocationDaily = value;
-            }
+            StabilityModel.LocationDaily = stabilityLocation;
         }
 
         protected override string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation)

@@ -44,33 +44,24 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             StabilityModel = new StabilityModel();
         }
 
-        public abstract StabilityLocation Location { set; }
-
-        public SoilModel SoilModel
-        {
-            set
-            {
-                StabilityModel.SoilModel = value;
-            }
-        }
-
-        public SoilProfile2D SoilProfile
-        {
-            set
-            {
-                StabilityModel.SoilProfile = value;
-            }
-        }
-
-        public SurfaceLine2 SurfaceLine
-        {
-            set
-            {
-                StabilityModel.SurfaceLine2 = value;
-            }
-        }
-
         public WtiStabilityWaternet Waternet { get; private set; }
+
+        public abstract void SetLocation(StabilityLocation stabilityLocation);
+
+        public void SetSoilModel(SoilModel soilModel)
+        {
+            StabilityModel.SoilModel = soilModel;
+        }
+
+        public void SetSoilProfile(SoilProfile2D soilProfile)
+        {
+            StabilityModel.SoilProfile = soilProfile;
+        }
+
+        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
+        {
+            StabilityModel.SurfaceLine2 = surfaceLine;
+        }
 
         public void Calculate()
         {

@@ -32,12 +32,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetExtremeKernelWrapper : WaternetKernelWrapper
     {
-        public override StabilityLocation Location
+        public override void SetLocation(StabilityLocation stabilityLocation)
         {
-            set
-            {
-                StabilityModel.Location = value;
-            }
+            StabilityModel.Location = stabilityLocation;
         }
 
         protected override string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation)

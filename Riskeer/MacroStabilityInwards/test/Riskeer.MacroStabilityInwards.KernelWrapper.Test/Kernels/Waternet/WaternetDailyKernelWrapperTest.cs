@@ -50,13 +50,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var surfaceLine = new SurfaceLine2();
 
             // Call
-            var kernel = new WaternetDailyKernelWrapper
-            {
-                Location = stabilityLocation,
-                SoilModel = soilModel,
-                SoilProfile = soilProfile2D,
-                SurfaceLine = surfaceLine
-            };
+            var kernel = new WaternetDailyKernelWrapper();
+            kernel.SetLocation(stabilityLocation);
+            kernel.SetSoilModel(soilModel);
+            kernel.SetSoilProfile(soilProfile2D);
+            kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
             var stabilityModel = TypeUtils.GetProperty<StabilityModel>(kernel, "StabilityModel");
@@ -112,54 +110,54 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
                 OuterLoop = loop
             };
             var soil = new Soil();
-            return new WaternetDailyKernelWrapper
+            var waternetDailyKernelWrapper = new WaternetDailyKernelWrapper();
+            waternetDailyKernelWrapper.SetLocation(new StabilityLocation());
+            waternetDailyKernelWrapper.SetSoilModel(new SoilModel
             {
-                SurfaceLine = new SurfaceLine2(),
-                Location = new StabilityLocation(),
-                SoilProfile = new SoilProfile2D
+                Soils =
                 {
-                    Geometry = new GeometryData
+                    soil
+                }
+            });
+            waternetDailyKernelWrapper.SetSoilProfile(new SoilProfile2D
+            {
+                Geometry = new GeometryData
+                {
+                    Points =
                     {
-                        Points =
-                        {
-                            point1,
-                            point2,
-                            point3,
-                            point4
-                        },
-                        Curves =
-                        {
-                            curve1,
-                            curve2,
-                            curve3,
-                            curve4
-                        },
-                        Loops =
-                        {
-                            loop
-                        },
-                        Surfaces =
-                        {
-                            geometrySurface
-                        }
+                        point1,
+                        point2,
+                        point3,
+                        point4
+                    },
+                    Curves =
+                    {
+                        curve1,
+                        curve2,
+                        curve3,
+                        curve4
+                    },
+                    Loops =
+                    {
+                        loop
                     },
                     Surfaces =
                     {
-                        new SoilLayer2D
-                        {
-                            GeometrySurface = geometrySurface,
-                            Soil = soil
-                        }
+                        geometrySurface
                     }
                 },
-                SoilModel = new SoilModel
+                Surfaces =
                 {
-                    Soils =
+                    new SoilLayer2D
                     {
-                        soil
+                        GeometrySurface = geometrySurface,
+                        Soil = soil
                     }
                 }
-            };
+            });
+            waternetDailyKernelWrapper.SetSurfaceLine(new SurfaceLine2());
+
+            return waternetDailyKernelWrapper;
         }
 
         private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
