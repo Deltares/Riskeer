@@ -88,7 +88,7 @@ namespace Core.Common.Util.Test.Drawing
         [TestCase(0, -1)]
         [TestCase(3, 2)]
         [TestCase(2, 3)]
-        public void Index_GetAtInvalidIndices_ThrowIndexOutOfRangeException(int x, int y)
+        public void Index_GetAtInvalidIndices_ThrowArgumentOutOfRangeException(int x, int y)
         {
             // Setup
             ColorAccess colorAccess = ColorAccess.Create(Resources.Black2x2);
@@ -100,8 +100,8 @@ namespace Core.Common.Util.Test.Drawing
             };
 
             // Assert
-            var exception = Assert.Throws<IndexOutOfRangeException>(call);
-            Assert.AreEqual("Index must be in range x:[0,1], y:[0,1].", exception.Message);
+            const string message = "Index must be in range x:[0,1], y:[0,1].";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace Core.Common.Util.Test.Drawing
         [TestCase(0, -1)]
         [TestCase(16, 15)]
         [TestCase(15, 16)]
-        public void Index_SetAtInvalidIndices_ThrowIndexOutOfRangeException(int x, int y)
+        public void Index_SetAtInvalidIndices_ThrowArgumentOutOfRangeException(int x, int y)
         {
             // Setup
             ColorAccess colorAccess = ColorAccess.Create(Resources.acorn);
@@ -141,8 +141,8 @@ namespace Core.Common.Util.Test.Drawing
             TestDelegate call = () => colorAccess[x, y] = Color.AliceBlue;
 
             // Assert
-            var exception = Assert.Throws<IndexOutOfRangeException>(call);
-            Assert.AreEqual("Index must be in range x:[0,15], y:[0,15].", exception.Message);
+            const string message = "Index must be in range x:[0,15], y:[0,15].";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 
         [Test]
