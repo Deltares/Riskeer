@@ -107,10 +107,7 @@ namespace Riskeer.Revetment.Data
 
                 newLowerBoundaryRevetment = ValidateLowerBoundaryInRange(newLowerBoundaryRevetment);
 
-                if (!AreValidBoundaries(newLowerBoundaryRevetment, UpperBoundaryRevetment))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment);
-                }
+                ValidateRevetmentBoundaries(newLowerBoundaryRevetment, UpperBoundaryRevetment);
 
                 lowerBoundaryRevetment = newLowerBoundaryRevetment;
             }
@@ -133,10 +130,7 @@ namespace Riskeer.Revetment.Data
 
                 newUpperBoundaryRevetment = ValidateUpperBoundaryInRange(newUpperBoundaryRevetment);
 
-                if (!AreValidBoundaries(LowerBoundaryRevetment, newUpperBoundaryRevetment))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment);
-                }
+                ValidateRevetmentBoundaries(LowerBoundaryRevetment, newUpperBoundaryRevetment);
 
                 upperBoundaryRevetment = newUpperBoundaryRevetment;
             }
@@ -170,10 +164,7 @@ namespace Riskeer.Revetment.Data
 
                 newLowerBoundaryWaterLevels = ValidateLowerBoundaryInRange(newLowerBoundaryWaterLevels);
 
-                if (!AreValidBoundaries(newLowerBoundaryWaterLevels, UpperBoundaryWaterLevels))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels);
-                }
+                ValidateWaterLevelBoundaries(newLowerBoundaryWaterLevels, UpperBoundaryWaterLevels);
 
                 lowerBoundaryWaterLevels = newLowerBoundaryWaterLevels;
             }
@@ -203,10 +194,7 @@ namespace Riskeer.Revetment.Data
 
                 newUpperBoundaryWaterLevels = ValidateUpperBoundaryInRange(newUpperBoundaryWaterLevels);
 
-                if (!AreValidBoundaries(LowerBoundaryWaterLevels, newUpperBoundaryWaterLevels))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels);
-                }
+                ValidateWaterLevelBoundaries(LowerBoundaryWaterLevels, newUpperBoundaryWaterLevels);
 
                 upperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
             }
@@ -308,9 +296,24 @@ namespace Riskeer.Revetment.Data
             return boundary;
         }
 
-        private static bool AreValidBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)
+        private static void ValidateRevetmentBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)
         {
-            return double.IsNaN(lowerBoundary) || double.IsNaN(upperBoundary) || lowerBoundary < upperBoundary;
+            ValidateBoundaries(lowerBoundary, upperBoundary, Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment);
+        }
+
+        private static void ValidateWaterLevelBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)
+        {
+            ValidateBoundaries(lowerBoundary, upperBoundary, Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels);
+        }
+
+        private static void ValidateBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary, string exceptionMessage)
+        {
+            if (!double.IsNaN(lowerBoundary) &&
+                !double.IsNaN(upperBoundary) &&
+                lowerBoundary >= upperBoundary)
+            {
+                throw new ArgumentOutOfRangeException(null, exceptionMessage);
+            }
         }
 
         private static BreakWater GetDefaultBreakWater()
