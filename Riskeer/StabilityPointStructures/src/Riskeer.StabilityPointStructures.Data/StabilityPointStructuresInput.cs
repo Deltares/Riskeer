@@ -618,7 +618,7 @@ namespace Riskeer.StabilityPointStructures.Data
             {
                 if (!levellingCountValidityRange.InRange(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value),
+                    throw new ArgumentOutOfRangeException(nameof(LevellingCount),
                                                           Resources.StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero);
                 }
 
@@ -695,7 +695,7 @@ namespace Riskeer.StabilityPointStructures.Data
                 RoundedDouble newValue = value.ToPrecision(verticalDistance.NumberOfDecimalPlaces);
                 if (!double.IsNaN(newValue) && !verticalDistanceValidityRange.InRange(newValue))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value),
+                    throw new ArgumentOutOfRangeException(nameof(VerticalDistance),
                                                           Resources.StabilityPointStructuresInput_VerticalDistance_must_be_equal_or_greater_to_zero);
                 }
 
