@@ -137,7 +137,7 @@ namespace Core.Common.Util.Reflection
                 instance.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             if (propertyInfo == null)
             {
-                throw new ArgumentOutOfRangeException(nameof(propertyName));
+                throw new ArgumentOutOfRangeException(nameof(propertyInfo));
             }
 
             MethodInfo getter = propertyInfo.GetGetMethod(true);
