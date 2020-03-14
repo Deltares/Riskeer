@@ -104,9 +104,9 @@ namespace Riskeer.Piping.Data
 
                 if (!double.IsNaN(newEntryPointL))
                 {
-                    if (!double.IsNaN(exitPointL) && newEntryPointL >= exitPointL)
+                    if (!double.IsNaN(exitPointL))
                     {
-                        throw new ArgumentOutOfRangeException(nameof(value), Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+                        ValidateEntryExitPoint(newEntryPointL, exitPointL);
                     }
 
                     if (surfaceLine != null)
@@ -143,9 +143,9 @@ namespace Riskeer.Piping.Data
 
                 if (!double.IsNaN(newExitPointL))
                 {
-                    if (!double.IsNaN(entryPointL) && entryPointL >= newExitPointL)
+                    if (!double.IsNaN(entryPointL))
                     {
-                        throw new ArgumentOutOfRangeException(nameof(value), Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+                        ValidateEntryExitPoint(entryPointL, newExitPointL);
                     }
 
                     if (surfaceLine != null)
@@ -296,14 +296,22 @@ namespace Riskeer.Piping.Data
             }
         }
 
-        private void ValidatePointOnSurfaceLine(RoundedDouble value)
+        private static void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
         {
-            if (!surfaceLine.ValidateInRange(value))
+            if (entryPointLocalXCoordinate >= exitPointLocalXCoordinate)
+            {
+                throw new ArgumentOutOfRangeException(null, Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            }
+        }
+
+        private void ValidatePointOnSurfaceLine(RoundedDouble newLocalXCoordinate)
+        {
+            if (!surfaceLine.ValidateInRange(newLocalXCoordinate))
             {
                 var validityRange = new Range<double>(surfaceLine.LocalGeometry.First().X, surfaceLine.LocalGeometry.Last().X);
                 string outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_,
                                                          validityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                throw new ArgumentOutOfRangeException(nameof(value), outOfRangeMessage);
+                throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
         }
 
