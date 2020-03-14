@@ -66,7 +66,7 @@ namespace Riskeer.Common.Data.Probabilistics
                 {
                     string message = string.Format(Resources.DesignVariable_Percentile_must_be_in_Range_0_,
                                                    percentileValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                    throw new ArgumentOutOfRangeException(null, message);
                 }
 
                 percentile = value;

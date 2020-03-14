@@ -215,8 +215,8 @@ namespace Riskeer.Common.Data.Structures
                 RoundedDouble newStructureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
                 if (!double.IsNaN(newStructureNormalOrientation) && !structureNormalOrientationValidityRange.InRange(newStructureNormalOrientation))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.Orientation_Value_needs_to_be_in_Range_0_,
-                                                                                       structureNormalOrientationValidityRange));
+                    throw new ArgumentOutOfRangeException(null, string.Format(Resources.Orientation_Value_needs_to_be_in_Range_0_,
+                                                                              structureNormalOrientationValidityRange));
                 }
 
                 structureNormalOrientation = newStructureNormalOrientation;
