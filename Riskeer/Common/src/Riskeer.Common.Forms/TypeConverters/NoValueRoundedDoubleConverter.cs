@@ -38,12 +38,11 @@ namespace Riskeer.Common.Forms.TypeConverters
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
-            if (text != null)
+            if (text != null
+                && (string.IsNullOrWhiteSpace(text)
+                    || text.Trim() == Resources.RoundedDouble_No_result_dash))
             {
-                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedDouble_No_result_dash)
-                {
-                    return RoundedDouble.NaN;
-                }
+                return RoundedDouble.NaN;
             }
 
             return base.ConvertFrom(context, culture, value);

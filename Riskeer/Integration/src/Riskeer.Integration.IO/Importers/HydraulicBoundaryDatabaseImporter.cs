@@ -141,12 +141,10 @@ namespace Riskeer.Integration.IO.Importers
 
         private void InquireConfirmation(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
         {
-            if (updateHandler.IsConfirmationRequired(ImportTarget, readHydraulicBoundaryDatabase))
+            if (updateHandler.IsConfirmationRequired(ImportTarget, readHydraulicBoundaryDatabase)
+                && !updateHandler.InquireConfirmation())
             {
-                if (!updateHandler.InquireConfirmation())
-                {
-                    Cancel();
-                }
+                Cancel();
             }
         }
 

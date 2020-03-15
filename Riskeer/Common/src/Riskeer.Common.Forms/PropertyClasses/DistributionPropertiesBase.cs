@@ -68,12 +68,10 @@ namespace Riskeer.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(distribution));
             }
 
-            if (!propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
+            if (!propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All)
+                && handler == null)
             {
-                if (handler == null)
-                {
-                    throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
-                }
+                throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
             }
 
             Data = distribution;
