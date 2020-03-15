@@ -662,7 +662,10 @@ namespace Core.Common.Gui.Forms.MainWindow
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,
                 Title = Properties.Resources.Ribbon_About,
-                Icon = new BitmapImage(new Uri("pack://application:,,,/Core.Common.Gui;component/Resources/information.png", UriKind.Absolute)),
+                Icon = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.information.GetHbitmap(),
+                                                             IntPtr.Zero,
+                                                             Int32Rect.Empty,
+                                                             BitmapSizeOptions.FromEmptyOptions()),
                 ShowInTaskbar = false,
                 Owner = this,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
