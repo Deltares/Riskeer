@@ -210,11 +210,18 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         public void BringToFront(IView view)
         {
-            LayoutContent layoutContent = documentViews.Contains(view)
-                                              ? (LayoutContent) GetLayoutContent<LayoutDocument>(view)
-                                              : toolViews.Contains(view)
-                                                  ? GetLayoutContent<LayoutAnchorable>(view)
-                                                  : null;
+            LayoutContent layoutContent;
+
+            if (documentViews.Contains(view))
+            {
+                layoutContent = GetLayoutContent<LayoutDocument>(view);
+            }
+            else
+            {
+                layoutContent = toolViews.Contains(view)
+                                    ? GetLayoutContent<LayoutAnchorable>(view)
+                                    : null;
+            }
 
             BringToFront(layoutContent);
 

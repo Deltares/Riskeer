@@ -61,11 +61,14 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             {
                 var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
 
-                return configuration != null
-                           ? configuration.IsConfigured
-                                 ? data.Name
-                                 : string.Empty
-                           : data.Name;
+                if (configuration != null)
+                {
+                    return configuration.IsConfigured
+                               ? data.Name
+                               : string.Empty;
+                }
+
+                return data.Name;
             }
         }
 

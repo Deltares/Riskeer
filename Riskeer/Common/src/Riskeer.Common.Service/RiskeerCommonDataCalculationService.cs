@@ -45,11 +45,14 @@ namespace Riskeer.Common.Service
         /// <see cref="CalculationConvergence.NotCalculated"/> if no convergence was determined.</returns>
         public static CalculationConvergence GetCalculationConvergence(bool? converged)
         {
-            return converged.HasValue
-                       ? converged.Value
-                             ? CalculationConvergence.CalculatedConverged
-                             : CalculationConvergence.CalculatedNotConverged
-                       : CalculationConvergence.NotCalculated;
+            if (converged.HasValue)
+            {
+                return converged.Value
+                           ? CalculationConvergence.CalculatedConverged
+                           : CalculationConvergence.CalculatedNotConverged;
+            }
+
+            return CalculationConvergence.NotCalculated;
         }
 
         /// <summary>

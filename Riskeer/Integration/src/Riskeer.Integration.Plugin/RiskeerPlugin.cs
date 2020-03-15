@@ -923,12 +923,15 @@ namespace Riskeer.Integration.Plugin
                 ForeColor = data =>
                 {
                     var configuration = data.Configuration as WmtsBackgroundDataConfiguration;
-                    return configuration != null
-                           && configuration.IsConfigured
-                               ? Color.FromKnownColor(KnownColor.ControlText)
-                               : Color.FromKnownColor(configuration == null
-                                                          ? KnownColor.ControlText
-                                                          : KnownColor.GrayText);
+
+                    if (configuration != null && configuration.IsConfigured)
+                    {
+                        return Color.FromKnownColor(KnownColor.ControlText);
+                    }
+
+                    return Color.FromKnownColor(configuration == null
+                                                    ? KnownColor.ControlText
+                                                    : KnownColor.GrayText);
                 }
             };
 
