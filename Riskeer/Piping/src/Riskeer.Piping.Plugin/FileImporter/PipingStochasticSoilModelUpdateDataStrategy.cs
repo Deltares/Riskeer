@@ -54,9 +54,9 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         #region Remove Data Functions
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(PipingStochasticSoilModel removedModel)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(PipingStochasticSoilModel removedObject)
         {
-            return PipingDataSynchronizationService.RemoveStochasticSoilModel(FailureMechanism, removedModel);
+            return PipingDataSynchronizationService.RemoveStochasticSoilModel(FailureMechanism, removedObject);
         }
 
         #endregion
@@ -79,10 +79,10 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         #region Update Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(PipingStochasticSoilModel soilModelToUpdate,
-                                                                                 PipingStochasticSoilModel soilModelToUpdateFrom)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(PipingStochasticSoilModel objectToUpdate,
+                                                                                 PipingStochasticSoilModel objectToUpdateFrom)
         {
-            return UpdateStochasticSoilModel(soilModelToUpdate, soilModelToUpdateFrom);
+            return UpdateStochasticSoilModel(objectToUpdate, objectToUpdateFrom);
         }
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(PipingStochasticSoilModel modelToUpdate, PipingStochasticSoilModel modelToUpdateFrom)

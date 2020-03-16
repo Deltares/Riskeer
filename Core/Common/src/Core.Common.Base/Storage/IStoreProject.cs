@@ -49,10 +49,10 @@ namespace Core.Common.Base.Storage
         /// Converts the staged project to a new storage entry. Upon return, the staged project is released and
         /// <see cref="HasStagedProject"/> will be <c>false</c>.
         /// </summary>
-        /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
+        /// <param name="databaseFilePath">The path to the database required to connect to the storage.</param>
         /// <exception cref="InvalidOperationException">Thrown when no project has been staged
         /// before calling this method.</exception>
-        /// <exception cref="ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">Thrown when no new storage was created.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
@@ -62,24 +62,24 @@ namespace Core.Common.Base.Storage
         /// <item>The connection to the storage failed.</item>
         /// </list>
         /// </exception>
-        void SaveProjectAs(string connectionArguments);
+        void SaveProjectAs(string databaseFilePath);
 
         /// <summary>
         /// Attempts to load the <see cref="IProject"/> from the storage.
         /// </summary>
-        /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
+        /// <param name="databaseFilePath">The path to the database required to connect to the storage.</param>
         /// <returns>Returns a new instance of <see cref="IProject"/> with the data from the storage or <c>null</c> when not found.</returns>
-        /// <exception cref="ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
-        /// <item><paramref name="connectionArguments"/> is invalid.</item>
+        /// <item><paramref name="databaseFilePath"/> is invalid.</item>
         /// <item>The storage does not contain all requested tables.</item>
         /// <item>The connection to the storage failed.</item>
         /// <item>The related entity was not found in the storage.</item>
         /// <item>The storage's version is incompatible.</item>
         /// </list>
         /// </exception>
-        IProject LoadProject(string connectionArguments);
+        IProject LoadProject(string databaseFilePath);
 
         /// <summary>
         /// Stages the project (does some prep-work and validity checking) to be saved.

@@ -33,14 +33,14 @@ namespace Riskeer.Storage.Core.Serializers
     /// </summary>
     internal class Point2DCollectionXmlSerializer : DataCollectionSerializer<Point2D, Point2DCollectionXmlSerializer.SerializablePoint2D>
     {
-        protected override SerializablePoint2D[] ToSerializableData(IEnumerable<Point2D> points)
+        protected override SerializablePoint2D[] ToSerializableData(IEnumerable<Point2D> elements)
         {
-            return points.Select(p => new SerializablePoint2D(p)).ToArray();
+            return elements.Select(p => new SerializablePoint2D(p)).ToArray();
         }
 
-        protected override Point2D[] FromSerializableData(IEnumerable<SerializablePoint2D> pointData)
+        protected override Point2D[] FromSerializableData(IEnumerable<SerializablePoint2D> serializedElements)
         {
-            return pointData.Select(pd => pd.ToPoint2D()).ToArray();
+            return serializedElements.Select(pd => pd.ToPoint2D()).ToArray();
         }
 
         [Serializable]

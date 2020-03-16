@@ -54,9 +54,9 @@ namespace Riskeer.Piping.Plugin.FileImporter
             return UpdateTargetCollectionData(surfaceLines, sourceFilePath);
         }
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(PipingSurfaceLine removedSurfaceLine)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(PipingSurfaceLine removedObject)
         {
-            return PipingDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedSurfaceLine);
+            return PipingDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedObject);
         }
 
         /// <summary>
@@ -77,17 +77,17 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         #region Updating Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(PipingSurfaceLine surfaceLineToUpdate,
-                                                                                 PipingSurfaceLine matchingSurfaceLine)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(PipingSurfaceLine objectToUpdate,
+                                                                                 PipingSurfaceLine objectToUpdateFrom)
         {
-            surfaceLineToUpdate.CopyProperties(matchingSurfaceLine);
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
 
             var affectedObjects = new List<IObservable>();
 
-            affectedObjects.AddRange(UpdateSurfaceLineDependentData(surfaceLineToUpdate));
-            affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLineToUpdate));
+            affectedObjects.AddRange(UpdateSurfaceLineDependentData(objectToUpdate));
+            affectedObjects.AddRange(UpdateStochasticSoilModel(objectToUpdate));
 
-            ValidateEntryAndExitPoints(surfaceLineToUpdate);
+            ValidateEntryAndExitPoints(objectToUpdate);
 
             return affectedObjects;
         }
