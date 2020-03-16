@@ -85,11 +85,11 @@ namespace Riskeer.HydraRing.Calculation.Parsers
             {
                 object waveHeightResult = result[waveHeightColumn];
 
-                double waveHeight = waveHeightResult.GetType() != typeof(DBNull)
-                                        ? Convert.ToDouble(waveHeightResult)
-                                        : double.NaN;
+                double waveHeight = waveHeightResult is DBNull
+                                        ? double.NaN
+                                        : Convert.ToDouble(waveHeightResult);
 
-                bool isOvertoppingDominant = Convert.ToBoolean(result[isOvertoppingDominantColumn]);
+                var isOvertoppingDominant = Convert.ToBoolean(result[isOvertoppingDominantColumn]);
 
                 Output = new OvertoppingCalculationWaveHeightOutput(waveHeight,
                                                                     isOvertoppingDominant);
