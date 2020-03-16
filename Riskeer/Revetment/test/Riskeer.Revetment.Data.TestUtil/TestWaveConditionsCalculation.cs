@@ -58,7 +58,10 @@ namespace Riskeer.Revetment.Data.TestUtil
 
         public bool HasOutput { get; }
 
-        public void ClearOutput() {}
+        public void ClearOutput()
+        {
+            // Stub doesn't have to clear the output.
+        }
 
         #region Irrelevant for test
 

@@ -38,9 +38,15 @@ namespace Core.Components.BruTile.IO
         /// </summary>
         public static readonly NoopTileCache Instance = new NoopTileCache();
 
-        public void Add(TileIndex index, byte[] tile) {}
+        public void Add(TileIndex index, byte[] tile)
+        {
+            // Nothing to add.
+        }
 
-        public void Remove(TileIndex index) {}
+        public void Remove(TileIndex index)
+        {
+            // Nothing to remove.
+        }
 
         public byte[] Find(TileIndex index)
         {

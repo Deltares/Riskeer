@@ -58,7 +58,10 @@ namespace Demo.Riskeer.Ribbons
             return RiskeerDemoProjectRibbonControl;
         }
 
-        public void ValidateItems() {}
+        public void ValidateItems()
+        {
+            // Nothing to validate.
+        }
 
         private void AddNewDemoAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
         {

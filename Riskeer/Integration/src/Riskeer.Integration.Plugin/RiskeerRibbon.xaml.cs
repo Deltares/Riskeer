@@ -49,13 +49,14 @@ namespace Riskeer.Integration.Plugin
             return RiskeerRibbonControl;
         }
 
-        public void ValidateItems() {}
+        public void ValidateItems()
+        {
+            // Nothing to validate.
+        }
 
         private void ButtonAddAssessmentSectionToolWindowClick(object sender, RoutedEventArgs e)
         {
             AddAssessmentSectionButtonCommand.Execute();
-
-            ValidateItems();
         }
     }
 }
