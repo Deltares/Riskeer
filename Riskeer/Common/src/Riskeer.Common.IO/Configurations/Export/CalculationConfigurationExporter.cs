@@ -111,21 +111,15 @@ namespace Riskeer.Common.IO.Configurations.Export
         {
             foreach (ICalculationBase child in calculations)
             {
-                var innerGroup = child as CalculationGroup;
-                if (innerGroup != null)
-                {
-                    yield return ToConfiguration(innerGroup);
-                }
-
-                var calculation = child as TCalculation;
-                if (calculation != null)
-                {
-                    yield return ToConfiguration(calculation);
-                }
-
-                if (innerGroup == null && calculation == null)
-                {
-                    throw new ArgumentException($"Cannot export calculation of type '{child.GetType()}' using this exporter.");
+                switch (child) {
+                    case CalculationGroup innerGroup:
+                        yield return ToConfiguration(innerGroup);
+                        break;
+                    case TCalculation calculation:
+                        yield return ToConfiguration(calculation);
+                        break;
+                    default:
+                        throw new ArgumentException($"Cannot export calculation of type '{child.GetType()}' using this exporter.");
                 }
             }
         }

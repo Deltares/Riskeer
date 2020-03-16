@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Components.Stack.Data;
 
 namespace Core.Components.OxyPlot.DataSeries.Stack
@@ -43,10 +44,7 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
                 throw new ArgumentNullException(nameof(data));
             }
 
-            foreach (RowChartData row in data.Rows)
-            {
-                yield return new RowChartDataSeries(row);
-            }
+            return data.Rows.Select(row => new RowChartDataSeries(row));
         }
     }
 }

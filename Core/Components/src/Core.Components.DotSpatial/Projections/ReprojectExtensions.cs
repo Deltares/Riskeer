@@ -181,6 +181,11 @@ namespace Core.Components.DotSpatial.Projections
                                                       @"Number of additional points cannot be negative.");
             }
 
+            return GetEdgePoints(start, end, numberOfAdditionalPoints);
+        }
+
+        private static IEnumerable<Coordinate> GetEdgePoints(Coordinate start, Coordinate end, int numberOfAdditionalPoints)
+        {
             double dx = (end.X - start.X) / (numberOfAdditionalPoints + 1);
             double dy = (end.Y - start.Y) / (numberOfAdditionalPoints + 1);
 

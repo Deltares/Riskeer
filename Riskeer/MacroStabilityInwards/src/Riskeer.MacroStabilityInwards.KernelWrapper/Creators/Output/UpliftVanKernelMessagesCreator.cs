@@ -48,24 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                 throw new ArgumentNullException(nameof(logMessages));
             }
 
-            foreach (LogMessage logMessage in logMessages)
-            {
-                UpliftVanKernelMessageType type;
-                switch (logMessage.MessageType)
-                {
-                    case LogMessageType.Error:
-                    case LogMessageType.FatalError:
-                        type = UpliftVanKernelMessageType.Error;
-                        break;
-                    case LogMessageType.Warning:
-                        type = UpliftVanKernelMessageType.Warning;
-                        break;
-                    default:
-                        continue;
-                }
-
-                yield return new UpliftVanKernelMessage(type, logMessage.Message ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
-            }
+            return CreateLogMessages(logMessages);
         }
 
         /// <summary>
@@ -84,6 +67,33 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                 throw new ArgumentNullException(nameof(validationResults));
             }
 
+            return CreateValidationMessages(validationResults);
+        }
+
+        private static IEnumerable<UpliftVanKernelMessage> CreateLogMessages(IEnumerable<LogMessage> logMessages)
+        {
+            foreach (LogMessage logMessage in logMessages)
+            {
+                UpliftVanKernelMessageType type;
+                switch (logMessage.MessageType)
+                {
+                    case LogMessageType.Error:
+                    case LogMessageType.FatalError:
+                        type = UpliftVanKernelMessageType.Error;
+                        break;
+                    case LogMessageType.Warning:
+                        type = UpliftVanKernelMessageType.Warning;
+                        break;
+                    default:
+                        continue;
+                }
+
+                yield return CreateMessage(type, logMessage.Message);
+            }
+        }
+
+        private static IEnumerable<UpliftVanKernelMessage> CreateValidationMessages(IEnumerable<ValidationResult> validationResults)
+        {
             foreach (ValidationResult logMessage in validationResults)
             {
                 UpliftVanKernelMessageType type;
@@ -99,8 +109,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                         continue;
                 }
 
-                yield return new UpliftVanKernelMessage(type, logMessage.Text ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
+                yield return CreateMessage(type, logMessage.Text);
             }
+        }
+
+        private static UpliftVanKernelMessage CreateMessage(UpliftVanKernelMessageType type, string message)
+        {
+            return new UpliftVanKernelMessage(type, message ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
         }
     }
 }
