@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             var activities = new List<CalculatableActivity>();
             activities.AddRange(CreateDesignWaterLevelCalculationActivities(failureMechanism, assessmentSection));
             activities.AddRange(CreateWaveHeightCalculationActivities(failureMechanism, assessmentSection));
-            activities.AddRange(CreateCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection));
+            activities.AddRange(CreateWaveConditionsCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection));
             return activities;
         }
 
@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             var activities = new List<CalculatableActivity>();
             activities.AddRange(CreateDesignWaterLevelCalculationActivities(failureMechanism, assessmentSection, false));
             activities.AddRange(CreateWaveHeightCalculationActivities(failureMechanism, assessmentSection, false));
-            activities.AddRange(CreateCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection));
+            activities.AddRange(CreateWaveConditionsCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection));
             return activities;
         }
 
@@ -107,9 +107,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         /// belong to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(CalculationGroup calculationGroup,
-                                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                    IAssessmentSection assessmentSection)
+        public static IEnumerable<CalculatableActivity> CreateWaveConditionsCalculationActivities(CalculationGroup calculationGroup,
+                                                                                                  GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                                  IAssessmentSection assessmentSection)
         {
             if (calculationGroup == null)
             {

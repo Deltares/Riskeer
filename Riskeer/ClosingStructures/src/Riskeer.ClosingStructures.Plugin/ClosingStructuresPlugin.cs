@@ -267,11 +267,6 @@ namespace Riskeer.ClosingStructures.Plugin
                 }, filePath));
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
         private void CalculateAll(ClosingStructuresFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
@@ -310,11 +305,6 @@ namespace Riskeer.ClosingStructures.Plugin
             ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-        }
-
         private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresFailureMechanismContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
@@ -323,6 +313,16 @@ namespace Riskeer.ClosingStructures.Plugin
         private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationGroupContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        {
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         #region ViewInfo

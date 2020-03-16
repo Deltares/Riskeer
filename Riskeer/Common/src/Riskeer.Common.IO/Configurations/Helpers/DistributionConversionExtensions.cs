@@ -276,12 +276,55 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.Mean = (RoundedDouble) mean.Value;
+                    distribution.Mean = (RoundedDouble)mean.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
                     string errorMessage = string.Format(
                         Resources.IDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_,
+                        mean, stochastName);
+
+                    LogOutOfRangeException(errorMessage,
+                                           calculationName,
+                                           e);
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Attempts to set <see cref="IVariationCoefficientDistribution.Mean"/>.
+        /// </summary>
+        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
+        /// <param name="mean">The new value for <see cref="IVariationCoefficientDistribution.Mean"/>.</param>
+        /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
+        /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
+        /// is associated.</param>
+        /// <returns><c>true</c> if setting <see cref="IVariationCoefficientDistribution.Mean"/> was successful,
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
+        /// is <c>null</c>.</exception>
+        public static bool TrySetMean(this IVariationCoefficientDistribution distribution, double? mean,
+                                      string stochastName, string calculationName)
+        {
+            if (distribution == null)
+            {
+                throw new ArgumentNullException(nameof(distribution));
+            }
+
+            if (mean.HasValue)
+            {
+                try
+                {
+                    distribution.Mean = (RoundedDouble) mean.Value;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    string errorMessage = string.Format(
+                        Resources.IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_,
                         mean, stochastName);
 
                     LogOutOfRangeException(errorMessage,
@@ -319,56 +362,13 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.StandardDeviation = (RoundedDouble) standardDeviation.Value;
+                    distribution.StandardDeviation = (RoundedDouble)standardDeviation.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
                     string errorMessage = string.Format(
                         Resources.IDistributionExtensions_TrySetStandardDeviation_StandardDeviation_0_is_invalid_for_Stochast_1_,
                         standardDeviation, stochastName);
-
-                    LogOutOfRangeException(errorMessage,
-                                           calculationName,
-                                           e);
-
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        
-        /// <summary>
-        /// Attempts to set <see cref="IVariationCoefficientDistribution.Mean"/>.
-        /// </summary>
-        /// <param name="distribution">The <see cref="IVariationCoefficientDistribution"/> to be updated.</param>
-        /// <param name="mean">The new value for <see cref="IVariationCoefficientDistribution.Mean"/>.</param>
-        /// <param name="stochastName">The descriptive name of <paramref name="distribution"/>.</param>
-        /// <param name="calculationName">The name of the calculation to which <paramref name="distribution"/>
-        /// is associated.</param>
-        /// <returns><c>true</c> if setting <see cref="IVariationCoefficientDistribution.Mean"/> was successful,
-        /// <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
-        /// is <c>null</c>.</exception>
-        public static bool TrySetMean(this IVariationCoefficientDistribution distribution, double? mean,
-                                      string stochastName, string calculationName)
-        {
-            if (distribution == null)
-            {
-                throw new ArgumentNullException(nameof(distribution));
-            }
-
-            if (mean.HasValue)
-            {
-                try
-                {
-                    distribution.Mean = (RoundedDouble) mean.Value;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    string errorMessage = string.Format(
-                        Resources.IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_,
-                        mean, stochastName);
 
                     LogOutOfRangeException(errorMessage,
                                            calculationName,

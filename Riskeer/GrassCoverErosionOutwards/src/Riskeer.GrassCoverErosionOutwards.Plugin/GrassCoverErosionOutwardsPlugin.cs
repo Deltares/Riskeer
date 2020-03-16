@@ -897,9 +897,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(group,
-                                                                                                context.FailureMechanism,
-                                                                                                context.AssessmentSection));
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
+                    group, context.FailureMechanism, context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
