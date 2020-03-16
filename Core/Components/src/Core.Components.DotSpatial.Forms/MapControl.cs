@@ -57,7 +57,6 @@ namespace Core.Components.DotSpatial.Forms
 
         private Map map;
         private bool removing;
-        private MapFunctionPan mapFunctionPan;
         private MapFunctionSelectionZoom mapFunctionSelectionZoom;
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
@@ -178,7 +177,7 @@ namespace Core.Components.DotSpatial.Forms
             };
 
             // Configure the map pan function
-            mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+            MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
             mapFunctionPan.FunctionActivated += MapFunctionActivateFunction;
             mapFunctionPan.MouseDown += MapFunctionPanOnMouseDown;
             mapFunctionPan.MouseUp += MapFunctionOnMouseUp;
