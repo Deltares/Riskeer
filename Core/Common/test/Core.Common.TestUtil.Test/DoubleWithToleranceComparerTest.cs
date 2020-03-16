@@ -56,7 +56,7 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             string message = Assert.Throws<ArgumentException>(call).Message;
-            Assert.AreEqual("Cannot compare objects other than System.Double with this comparer.", message);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(double)} with this comparer.", message);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             string message = Assert.Throws<ArgumentException>(call).Message;
-            Assert.AreEqual("Cannot compare objects other than System.Double with this comparer.", message);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(double)} with this comparer.", message);
         }
 
         [Test]

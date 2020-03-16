@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using NUnit.Framework;
@@ -28,6 +31,53 @@ namespace Core.Common.Base.TestUtil.Test.Geometry
     [TestFixture]
     public class Point2DComparerWithToleranceTest
     {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+
+            // Call
+            var comparer = new Point2DComparerWithTolerance(1.1);
+
+            // Assert
+            Assert.IsInstanceOf<IComparer>(comparer);
+            Assert.IsInstanceOf<IComparer<Point2D>>(comparer);
+        }
+
+        [Test]
+        public void Compare_FirstObjectOfIncorrectType_ThrowArgumentException()
+        {
+            // Setup
+            var firstObject = new object();
+            object secondObject = 1.1;
+
+            var comparer = new Point2DComparerWithTolerance(2.2);
+
+            // Call
+            TestDelegate call = () => comparer.Compare(firstObject, secondObject);
+
+            // Assert
+            string message = Assert.Throws<ArgumentException>(call).Message;
+            Assert.AreEqual($"Cannot compare objects other than {typeof(Point2D)} with this comparer.", message);
+        }
+
+        [Test]
+        public void Compare_SecondObjectOfIncorrectType_ThrowArgumentException()
+        {
+            // Setup
+            object firstObject = 2.2;
+            var secondObject = new object();
+
+            var comparer = new Point2DComparerWithTolerance(2.2);
+
+            // Call
+            TestDelegate call = () => comparer.Compare(firstObject, secondObject);
+
+            // Assert
+            string message = Assert.Throws<ArgumentException>(call).Message;
+            Assert.AreEqual($"Cannot compare objects other than {typeof(Point2D)} with this comparer.", message);
+        }
+
         [Test]
         public void Compare_SameInstance_ReturnZero()
         {
