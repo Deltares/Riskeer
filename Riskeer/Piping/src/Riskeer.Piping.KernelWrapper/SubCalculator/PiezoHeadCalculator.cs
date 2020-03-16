@@ -32,6 +32,21 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
 
         public double HRiver { private get; set; }
 
+        public void SetPhiPolder(double phiPolder)
+        {
+            PhiPolder = phiPolder;
+        }
+
+        public void SetRExit(double rExit)
+        {
+            RExit = rExit;
+        }
+
+        public void SetHRiver(double hRiver)
+        {
+            HRiver = hRiver;
+        }
+
         public double PhiExit { get; private set; }
 
         public void Calculate()

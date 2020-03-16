@@ -153,9 +153,9 @@ namespace Riskeer.Piping.KernelWrapper
         public double CalculatePiezometricHeadAtExit()
         {
             IPiezoHeadCalculator calculator = factory.CreatePiezometricHeadAtExitCalculator();
-            calculator.PhiPolder = input.PhreaticLevelExit;
-            calculator.HRiver = input.AssessmentLevel;
-            calculator.RExit = input.DampingFactorExit;
+            calculator.SetPhiPolder(input.PhreaticLevelExit);
+            calculator.SetHRiver(input.AssessmentLevel);
+            calculator.SetRExit(input.DampingFactorExit);
             calculator.Calculate();
 
             return calculator.PhiExit;

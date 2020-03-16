@@ -29,17 +29,17 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the piezometric head in the hinterland.
         /// </summary>
-        double PhiPolder { set; }
+        void SetPhiPolder(double phiPolder);
 
         /// <summary>
         /// Sets the damping factor at the exit point.
         /// </summary>
-        double RExit { set; }
+        void SetRExit(double rExit);
 
         /// <summary>
         /// Sets the river water level.
         /// </summary>
-        double HRiver { set; }
+        void SetHRiver(double hRiver);
 
         /// <summary>
         /// Gets the piezometric head exit result.
