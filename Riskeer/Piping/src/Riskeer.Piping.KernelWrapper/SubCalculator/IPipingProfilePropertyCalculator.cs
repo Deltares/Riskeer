@@ -32,17 +32,17 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the soil profile.
         /// </summary>
-        PipingProfile SoilProfile { set; }
+        void SetSoilProfile(PipingProfile soilProfile);
 
         /// <summary>
         /// Sets the surface line.
         /// </summary>
-        PipingSurfaceLine SurfaceLine { set; }
+        void SetSurfaceLine(PipingSurfaceLine surfaceLine);
 
         /// <summary>
         /// Sets the x-coordinate of the exit point.
         /// </summary>
-        double ExitPointX { set; }
+        void SetExitPointX(double exitPointX);
 
         /// <summary>
         /// Gets the bottom level of the bottommost aquitard that is above the exit point's z-coordinate.

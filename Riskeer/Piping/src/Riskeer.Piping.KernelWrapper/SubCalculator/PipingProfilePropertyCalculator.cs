@@ -39,28 +39,19 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             wrappedCalculator = new Deltares.WTIPiping.PipingProfilePropertyCalculator();
         }
 
-        public PipingProfile SoilProfile
+        public void SetSoilProfile(PipingProfile soilProfile)
         {
-            set
-            {
-                wrappedCalculator.SoilProfile = value;
-            }
+            wrappedCalculator.SoilProfile = soilProfile;
         }
 
-        public PipingSurfaceLine SurfaceLine
+        public void SetSurfaceLine(PipingSurfaceLine surfaceLine)
         {
-            set
-            {
-                wrappedCalculator.SurfaceLine = value;
-            }
+            wrappedCalculator.SurfaceLine = surfaceLine;
         }
 
-        public double ExitPointX
+        public void SetExitPointX(double exitPointX)
         {
-            set
-            {
-                wrappedCalculator.ExitPointX = value;
-            }
+            wrappedCalculator.ExitPointX = exitPointX;
         }
 
         public double BottomAquitardLayerAboveExitPointZ

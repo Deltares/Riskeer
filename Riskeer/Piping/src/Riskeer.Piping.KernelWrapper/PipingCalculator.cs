@@ -240,7 +240,7 @@ namespace Riskeer.Piping.KernelWrapper
             calculator.SetSoilProfile(CreateSoilProfile());
             calculator.SetSurfaceLine(CreateSurfaceLine());
             calculator.SetVolumicWeightOfWater(input.WaterVolumetricWeight);
-            
+
             return calculator;
         }
 
@@ -253,7 +253,7 @@ namespace Riskeer.Piping.KernelWrapper
             calculator.SetPhiPolder(input.PhreaticLevelExit);
             calculator.SetRExit(input.DampingFactorExit);
             calculator.SetHExit(input.PhreaticLevelExit);
-            
+
             return calculator;
         }
 
@@ -299,9 +299,10 @@ namespace Riskeer.Piping.KernelWrapper
         private IPipingProfilePropertyCalculator CreatePipingProfilePropertyCalculator()
         {
             IPipingProfilePropertyCalculator calculator = factory.CreatePipingProfilePropertyCalculator();
-            calculator.SoilProfile = CreateSoilProfile();
-            calculator.SurfaceLine = CreateSurfaceLine();
-            calculator.ExitPointX = input.ExitPointXCoordinate;
+            calculator.SetSoilProfile(CreateSoilProfile());
+            calculator.SetSurfaceLine(CreateSurfaceLine());
+            calculator.SetExitPointX(input.ExitPointXCoordinate);
+
             return calculator;
         }
 

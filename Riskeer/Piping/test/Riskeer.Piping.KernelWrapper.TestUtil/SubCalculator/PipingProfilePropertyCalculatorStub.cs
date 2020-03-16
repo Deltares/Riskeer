@@ -40,10 +40,26 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public bool Validated { get; private set; }
 
-        public PipingProfile SoilProfile { get; set; }
-        public PipingSurfaceLine SurfaceLine { get; set; }
-        public double ExitPointX { get; set; }
+        public PipingProfile SoilProfile { get; private set; }
+        public PipingSurfaceLine SurfaceLine { get; private set; }
+        public double ExitPointX { get; private set; }
+
         public double BottomAquitardLayerAboveExitPointZ { get; set; }
+
+        public void SetSoilProfile(PipingProfile soilProfile)
+        {
+            SoilProfile = soilProfile;
+        }
+
+        public void SetSurfaceLine(PipingSurfaceLine surfaceLine)
+        {
+            SurfaceLine = surfaceLine;
+        }
+
+        public void SetExitPointX(double exitPointX)
+        {
+            ExitPointX = exitPointX;
+        }
 
         public void Calculate()
         {
