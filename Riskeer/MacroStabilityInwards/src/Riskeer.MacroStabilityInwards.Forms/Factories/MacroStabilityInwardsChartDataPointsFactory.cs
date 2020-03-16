@@ -668,8 +668,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         private static bool AreaIsNotFlatLine(IEnumerable<Point2D> topLine, IEnumerable<Point2D> bottomLine)
         {
             return topLine.Count() != bottomLine.Count()
-                   || topLine.Where((t, i) => !(Math.Abs(t.X - bottomLine.ElementAt(i).X) < tolerance)
-                                              || !(Math.Abs(t.Y - bottomLine.ElementAt(i).Y) < tolerance)).Any();
+                   || topLine.Where((t, i) => Math.Abs(t.X - bottomLine.ElementAt(i).X) >= tolerance
+                                              || Math.Abs(t.Y - bottomLine.ElementAt(i).Y) >= tolerance).Any();
         }
 
         private static bool IsSurfaceLineAboveWaternetZone(IEnumerable<Point2D> surfaceLineLocalGeometry,
