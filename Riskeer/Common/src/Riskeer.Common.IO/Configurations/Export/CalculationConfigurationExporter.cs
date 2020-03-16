@@ -46,8 +46,8 @@ namespace Riskeer.Common.IO.Configurations.Export
         where TConfiguration : class, IConfigurationItem
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>));
-        private readonly IEnumerable<IConfigurationItem> configuration;
-        private readonly TWriter writer;
+        private IEnumerable<IConfigurationItem> configuration;
+        private TWriter writer;
 
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationExporter{TWriter,TCalculation,TConfiguration}"/>.
@@ -64,8 +64,7 @@ namespace Riskeer.Common.IO.Configurations.Export
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            writer = CreateWriter(filePath);
-            configuration = ToConfiguration(calculations).ToArray();
+            Initialize(calculations, filePath);
         }
 
         public bool Export()
@@ -99,6 +98,12 @@ namespace Riskeer.Common.IO.Configurations.Export
         /// to properties of <paramref name="calculation"/>.</returns>
         protected abstract TConfiguration ToConfiguration(TCalculation calculation);
 
+        private void Initialize(IEnumerable<ICalculationBase> calculations, string filePath)
+        {
+            writer = CreateWriter(filePath);
+            configuration = ToConfiguration(calculations).ToArray();
+        }
+
         /// <summary>
         /// Converts a sequence of <see cref="ICalculationBase"/> into a sequence of <see cref="IConfigurationItem"/>.
         /// </summary>
@@ -111,7 +116,8 @@ namespace Riskeer.Common.IO.Configurations.Export
         {
             foreach (ICalculationBase child in calculations)
             {
-                switch (child) {
+                switch (child)
+                {
                     case CalculationGroup innerGroup:
                         yield return ToConfiguration(innerGroup);
                         break;
