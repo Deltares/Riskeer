@@ -92,7 +92,7 @@ namespace Riskeer.Common.IO.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        private SoilProfileReadException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected SoilProfileReadException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             ProfileName = info.GetString(profileNameKey);
         }
