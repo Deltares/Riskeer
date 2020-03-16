@@ -105,9 +105,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
         /// contains an invalid value of <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is FailureMechanismCategoryType)
+            if (value is FailureMechanismCategoryType categoryType)
             {
-                var categoryType = (FailureMechanismCategoryType) value;
                 if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
@@ -132,8 +131,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                 }
             }
 
-            var stringValue = value as string;
-            if (stringValue != null)
+            if (value is string stringValue)
             {
                 if (stringValue == RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)
                 {

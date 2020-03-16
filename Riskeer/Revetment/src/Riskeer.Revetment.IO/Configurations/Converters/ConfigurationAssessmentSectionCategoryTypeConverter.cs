@@ -101,9 +101,8 @@ namespace Riskeer.Revetment.IO.Configurations.Converters
         /// contains an invalid value of <see cref="ConfigurationAssessmentSectionCategoryType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is AssessmentSectionCategoryType)
+            if (value is AssessmentSectionCategoryType categoryType)
             {
-                var categoryType = (AssessmentSectionCategoryType) value;
                 if (!Enum.IsDefined(typeof(AssessmentSectionCategoryType), categoryType))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
@@ -126,8 +125,7 @@ namespace Riskeer.Revetment.IO.Configurations.Converters
                 }
             }
 
-            var stringValue = value as string;
-            if (stringValue != null)
+            if (value is string stringValue)
             {
                 if (stringValue == RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName)
                 {

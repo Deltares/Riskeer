@@ -95,9 +95,8 @@ namespace Riskeer.Revetment.IO.Configurations.Converters
         /// contains an invalid value of <see cref="WaveConditionsInputStepSize"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is WaveConditionsInputStepSize)
+            if (value is WaveConditionsInputStepSize stepSize)
             {
-                var stepSize = (WaveConditionsInputStepSize) value;
                 if (!Enum.IsDefined(typeof(WaveConditionsInputStepSize), stepSize))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
@@ -118,20 +117,19 @@ namespace Riskeer.Revetment.IO.Configurations.Converters
                 }
             }
 
-            var doubleValue = value as double?;
-            if (doubleValue != null)
+            if (value is double doubleValue)
             {
-                if (Math.Abs(doubleValue.Value - 0.5) < double.Epsilon)
+                if (Math.Abs(doubleValue - 0.5) < double.Epsilon)
                 {
                     return ConfigurationWaveConditionsInputStepSize.Half;
                 }
 
-                if (Math.Abs(doubleValue.Value - 1) < double.Epsilon)
+                if (Math.Abs(doubleValue - 1) < double.Epsilon)
                 {
                     return ConfigurationWaveConditionsInputStepSize.One;
                 }
 
-                if (Math.Abs(doubleValue.Value - 2) < double.Epsilon)
+                if (Math.Abs(doubleValue - 2) < double.Epsilon)
                 {
                     return ConfigurationWaveConditionsInputStepSize.Two;
                 }

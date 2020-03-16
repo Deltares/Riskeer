@@ -94,9 +94,8 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations.Converters
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is StabilityStoneCoverWaveConditionsCalculationType)
+            if (value is StabilityStoneCoverWaveConditionsCalculationType calculationType)
             {
-                var calculationType = (StabilityStoneCoverWaveConditionsCalculationType) value;
                 if (!Enum.IsDefined(typeof(StabilityStoneCoverWaveConditionsCalculationType), calculationType))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
@@ -117,8 +116,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations.Converters
                 }
             }
 
-            var stringValue = value as string;
-            if (stringValue != null)
+            if (value is string stringValue)
             {
                 if (stringValue == RiskeerStabilityStoneCoverDataResources.StabilityStoneCoverWaveConditionsCalculationType_Columns_DisplayName)
                 {

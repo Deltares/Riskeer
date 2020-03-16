@@ -113,9 +113,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers
         /// contains an invalid value of <see cref="DikeHeightCalculationType"/> or <see cref="OvertoppingRateCalculationType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is DikeHeightCalculationType)
+            if (value is DikeHeightCalculationType dikeHeightCalculationType)
             {
-                var dikeHeightCalculationType = (DikeHeightCalculationType) value;
                 if (!Enum.IsDefined(typeof(DikeHeightCalculationType), dikeHeightCalculationType))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
@@ -136,9 +135,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers
                 }
             }
 
-            if (value is OvertoppingRateCalculationType)
+            if (value is OvertoppingRateCalculationType overtoppingRateCalculationType)
             {
-                var overtoppingRateCalculationType = (OvertoppingRateCalculationType) value;
                 if (!Enum.IsDefined(typeof(OvertoppingRateCalculationType), overtoppingRateCalculationType))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
@@ -159,8 +157,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers
                 }
             }
 
-            var text = value as string;
-            if (text != null)
+            if (value is string text)
             {
                 if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_NoCalculation)
                 {
