@@ -56,6 +56,91 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         public double VolumetricWeightOfWater { get; set; }
         public double WhitesDragCoefficient { get; set; }
         public double BottomLevelAquitardAboveExitPointZ { get; set; }
+        public void SetBeddingAngle(double beddingAngle)
+        {
+            BeddingAngle = beddingAngle;
+        }
+
+        public void SetD70(double d70)
+        {
+            D70 = d70;
+        }
+
+        public void SetD70Mean(double d70Mean)
+        {
+            D70Mean = d70Mean;
+        }
+
+        public void SetDAquifer(double dAquifer)
+        {
+            DAquifer = dAquifer;
+        }
+
+        public void SetDarcyPermeability(double darcyPermeability)
+        {
+            DarcyPermeability = darcyPermeability;
+        }
+
+        public void SetDTotal(double dTotal)
+        {
+            DTotal = dTotal;
+        }
+
+        public void SetGammaSubParticles(double gammaSubParticles)
+        {
+            GammaSubParticles = gammaSubParticles;
+        }
+
+        public void SetGravity(double gravity)
+        {
+            Gravity = gravity;
+        }
+
+        public void SetHExit(double hExit)
+        {
+            HExit = hExit;
+        }
+
+        public void SetHRiver(double hRiver)
+        {
+            HRiver = hRiver;
+        }
+
+        public void SetKinematicViscosityWater(double kinematicViscosityWater)
+        {
+            KinematicViscosityWater = kinematicViscosityWater;
+        }
+
+        public void SetModelFactorPiping(double modelFactorPiping)
+        {
+            ModelFactorPiping = modelFactorPiping;
+        }
+
+        public void SetRc(double rc)
+        {
+            Rc = rc;
+        }
+
+        public void SetSeepageLength(double seepageLength)
+        {
+            SeepageLength = seepageLength;
+        }
+
+        public void SetVolumetricWeightOfWater(double volumetricWeightOfWater)
+        {
+            VolumetricWeightOfWater = volumetricWeightOfWater;
+        }
+
+        public void SetWhitesDragCoefficient(double whitesDragCoefficient)
+        {
+            WhitesDragCoefficient = whitesDragCoefficient;
+        }
+
+        public void SetBottomLevelAquitardAboveExitPointZ(double bottomLevelAquitardAboveExitPointZ)
+        {
+            BottomLevelAquitardAboveExitPointZ = bottomLevelAquitardAboveExitPointZ;
+        }
+
         public double CreepCoefficient { get; private set; }
         public double CriticalFall { get; private set; }
         public double ReducedFall { get; private set; }

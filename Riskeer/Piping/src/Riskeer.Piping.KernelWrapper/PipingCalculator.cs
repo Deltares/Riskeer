@@ -276,23 +276,24 @@ namespace Riskeer.Piping.KernelWrapper
         private ISellmeijerCalculator CreateSellmeijerCalculator()
         {
             ISellmeijerCalculator calculator = factory.CreateSellmeijerCalculator();
-            calculator.ModelFactorPiping = input.SellmeijerModelFactor;
-            calculator.HRiver = input.AssessmentLevel;
-            calculator.HExit = input.PhreaticLevelExit;
-            calculator.Rc = input.SellmeijerReductionFactor;
-            calculator.DTotal = input.ThicknessCoverageLayer;
-            calculator.SeepageLength = input.SeepageLength;
-            calculator.GammaSubParticles = input.SandParticlesVolumicWeight;
-            calculator.WhitesDragCoefficient = input.WhitesDragCoefficient;
-            calculator.D70 = input.Diameter70;
-            calculator.VolumetricWeightOfWater = input.WaterVolumetricWeight;
-            calculator.DarcyPermeability = input.DarcyPermeability;
-            calculator.KinematicViscosityWater = input.WaterKinematicViscosity;
-            calculator.Gravity = input.Gravity;
-            calculator.DAquifer = input.ThicknessAquiferLayer;
-            calculator.D70Mean = input.MeanDiameter70;
-            calculator.BeddingAngle = input.BeddingAngle;
-            calculator.BottomLevelAquitardAboveExitPointZ = GetBottomAquitardLayerAboveExitPointZ();
+            calculator.SetModelFactorPiping(input.SellmeijerModelFactor);
+            calculator.SetHRiver(input.AssessmentLevel);
+            calculator.SetHExit(input.PhreaticLevelExit);
+            calculator.SetRc(input.SellmeijerReductionFactor);
+            calculator.SetDTotal(input.ThicknessCoverageLayer);
+            calculator.SetSeepageLength(input.SeepageLength);
+            calculator.SetGammaSubParticles(input.SandParticlesVolumicWeight);
+            calculator.SetWhitesDragCoefficient(input.WhitesDragCoefficient);
+            calculator.SetD70(input.Diameter70);
+            calculator.SetVolumetricWeightOfWater(input.WaterVolumetricWeight);
+            calculator.SetDarcyPermeability(input.DarcyPermeability);
+            calculator.SetKinematicViscosityWater(input.WaterKinematicViscosity);
+            calculator.SetGravity(input.Gravity);
+            calculator.SetDAquifer(input.ThicknessAquiferLayer);
+            calculator.SetD70Mean(input.MeanDiameter70);
+            calculator.SetBeddingAngle(input.BeddingAngle);
+            calculator.SetBottomLevelAquitardAboveExitPointZ(GetBottomAquitardLayerAboveExitPointZ());
+            
             return calculator;
         }
 

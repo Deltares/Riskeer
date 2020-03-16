@@ -31,87 +31,87 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the bedding angle.
         /// </summary>
-        double BeddingAngle { set; }
+        void SetBeddingAngle(double beddingAngle);
 
         /// <summary>
         /// Sets the D70.
         /// </summary>
-        double D70 { set; }
+        void SetD70(double d70);
 
         /// <summary>
         /// Sets the D70 reference value.
         /// </summary>
-        double D70Mean { set; }
+        void SetD70Mean(double d70Mean);
 
         /// <summary>
         /// Sets the total thickness of the aquifer.
         /// </summary>
-        double DAquifer { set; }
+        void SetDAquifer(double dAquifer);
 
         /// <summary>
         /// Sets the hydraulic conductivity.
         /// </summary>
-        double DarcyPermeability { set; }
+        void SetDarcyPermeability(double darcyPermeability);
 
         /// <summary>
         /// Sets the total thickness of the cover layers.
         /// </summary>
-        double DTotal { set; }
+        void SetDTotal(double dTotal);
 
         /// <summary>
         /// Sets the submerged volumetric weight of sand particles.
         /// </summary>
-        double GammaSubParticles { set; }
+        void SetGammaSubParticles(double gammaSubParticles);
 
         /// <summary>
         /// Sets the gravitational constant.
         /// </summary>
-        double Gravity { set; }
+        void SetGravity(double gravity);
 
         /// <summary>
         /// Sets the phreatic level at the exit point.
         /// </summary>
-        double HExit { set; }
+        void SetHExit(double hExit);
 
         /// <summary>
         /// Sets the river water level.
         /// </summary>
-        double HRiver { set; }
+        void SetHRiver(double hRiver);
 
         /// <summary>
         /// Sets the kinematic viscosity of water at 10 degrees Celsius.
         /// </summary>
-        double KinematicViscosityWater { set; }
+        void SetKinematicViscosityWater(double kinematicViscosityWater);
 
         /// <summary>
         /// Sets the model factor.
         /// </summary>
-        double ModelFactorPiping { set; }
+        void SetModelFactorPiping(double modelFactorPiping);
 
         /// <summary>
         /// Sets the damping factor.
         /// </summary>
-        double Rc { set; }
+        void SetRc(double rc);
 
         /// <summary>
         /// Sets the horizontal seepage length.
         /// </summary>
-        double SeepageLength { set; }
+        void SetSeepageLength(double seepageLength);
 
         /// <summary>
         /// Sets the volumetric weight of water.
         /// </summary>
-        double VolumetricWeightOfWater { set; }
+        void SetVolumetricWeightOfWater(double volumetricWeightOfWater);
 
         /// <summary>
         /// Sets White's drag coefficient.
         /// </summary>
-        double WhitesDragCoefficient { set; }
+        void SetWhitesDragCoefficient(double whitesDragCoefficient);
 
         /// <summary>
         /// Sets the bottom level of the bottommost aquitard that is above the exit point's z-coordinate.
         /// </summary>
-        double BottomLevelAquitardAboveExitPointZ { set; }
+        void SetBottomLevelAquitardAboveExitPointZ(double bottomLevelAquitardAboveExitPointZ);
 
         /// <summary>
         /// Gets the creep factor. 

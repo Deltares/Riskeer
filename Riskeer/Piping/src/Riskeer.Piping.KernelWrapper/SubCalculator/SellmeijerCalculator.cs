@@ -38,143 +38,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         {
             wrappedCalculator = new Sellmeijer2011Calculator();
         }
-
-        public double BeddingAngle
-        {
-            set
-            {
-                wrappedCalculator.BeddingAngle = value;
-            }
-        }
-
-        public double D70
-        {
-            set
-            {
-                wrappedCalculator.D70 = value;
-            }
-        }
-
-        public double D70Mean
-        {
-            set
-            {
-                wrappedCalculator.D70Mean = value;
-            }
-        }
-
-        public double DAquifer
-        {
-            set
-            {
-                wrappedCalculator.DAquifer = value;
-            }
-        }
-
-        public double DarcyPermeability
-        {
-            set
-            {
-                wrappedCalculator.DarcyPermeability = value;
-            }
-        }
-
-        public double DTotal
-        {
-            set
-            {
-                wrappedCalculator.DTotal = value;
-            }
-        }
-
-        public double GammaSubParticles
-        {
-            set
-            {
-                wrappedCalculator.GammaSubParticles = value;
-            }
-        }
-
-        public double Gravity
-        {
-            set
-            {
-                wrappedCalculator.Gravity = value;
-            }
-        }
-
-        public double HExit
-        {
-            set
-            {
-                wrappedCalculator.HExit = value;
-            }
-        }
-
-        public double HRiver
-        {
-            set
-            {
-                wrappedCalculator.HRiver = value;
-            }
-        }
-
-        public double KinematicViscosityWater
-        {
-            set
-            {
-                wrappedCalculator.KinematicViscosityWater = value;
-            }
-        }
-
-        public double ModelFactorPiping
-        {
-            set
-            {
-                wrappedCalculator.ModelFactorPiping = value;
-            }
-        }
-
-        public double Rc
-        {
-            set
-            {
-                wrappedCalculator.Rc = value;
-            }
-        }
-
-        public double SeepageLength
-        {
-            set
-            {
-                wrappedCalculator.SeepageLength = value;
-            }
-        }
-
-        public double VolumetricWeightOfWater
-        {
-            set
-            {
-                wrappedCalculator.VolumetricWeightOfWater = value;
-            }
-        }
-
-        public double WhitesDragCoefficient
-        {
-            set
-            {
-                wrappedCalculator.WhitesDragCoefficient = value;
-            }
-        }
-
-        public double BottomLevelAquitardAboveExitPointZ
-        {
-            set
-            {
-                wrappedCalculator.BottomLevelAquitardAboveExitPointZ = value;
-            }
-        }
-
         public double CreepCoefficient
         {
             get
@@ -213,6 +76,91 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             {
                 return wrappedCalculator.FoSp;
             }
+        }
+
+        public void SetBeddingAngle(double beddingAngle)
+        {
+            wrappedCalculator.BeddingAngle = beddingAngle;
+        }
+
+        public void SetD70(double d70)
+        {
+            wrappedCalculator.D70 = d70;
+        }
+
+        public void SetD70Mean(double d70Mean)
+        {
+            wrappedCalculator.D70Mean = d70Mean;
+        }
+
+        public void SetDAquifer(double dAquifer)
+        {
+            wrappedCalculator.DAquifer = dAquifer;
+        }
+
+        public void SetDarcyPermeability(double darcyPermeability)
+        {
+            wrappedCalculator.DarcyPermeability = darcyPermeability;
+        }
+
+        public void SetDTotal(double dTotal)
+        {
+            wrappedCalculator.DTotal = dTotal;
+        }
+
+        public void SetGammaSubParticles(double gammaSubParticles)
+        {
+            wrappedCalculator.GammaSubParticles = gammaSubParticles;
+        }
+
+        public void SetGravity(double gravity)
+        {
+            wrappedCalculator.Gravity = gravity;
+        }
+
+        public void SetHExit(double hExit)
+        {
+            wrappedCalculator.HExit = hExit;
+        }
+
+        public void SetHRiver(double hRiver)
+        {
+            wrappedCalculator.HRiver = hRiver;
+        }
+
+        public void SetKinematicViscosityWater(double kinematicViscosityWater)
+        {
+            wrappedCalculator.KinematicViscosityWater = kinematicViscosityWater;
+        }
+
+        public void SetModelFactorPiping(double modelFactorPiping)
+        {
+            wrappedCalculator.ModelFactorPiping = modelFactorPiping;
+        }
+
+        public void SetRc(double rc)
+        {
+            wrappedCalculator.Rc = rc;
+        }
+
+        public void SetSeepageLength(double seepageLength)
+        {
+            wrappedCalculator.SeepageLength = seepageLength;
+        }
+
+        public void SetVolumetricWeightOfWater(double volumetricWeightOfWater)
+        {
+            wrappedCalculator.VolumetricWeightOfWater = volumetricWeightOfWater;
+        }
+
+        public void SetWhitesDragCoefficient(double whitesDragCoefficient)
+        {
+            wrappedCalculator.WhitesDragCoefficient = whitesDragCoefficient;
+        }
+
+        public void SetBottomLevelAquitardAboveExitPointZ(double bottomLevelAquitardAboveExitPointZ)
+        {
+            wrappedCalculator.BottomLevelAquitardAboveExitPointZ = bottomLevelAquitardAboveExitPointZ;
         }
 
         public void Calculate()
