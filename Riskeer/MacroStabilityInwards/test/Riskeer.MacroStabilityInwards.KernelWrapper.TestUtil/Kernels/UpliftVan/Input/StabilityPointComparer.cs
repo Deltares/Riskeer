@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Deltares.WTIStability.Data.Geo;
@@ -33,7 +34,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
     {
         public int Compare(object x, object y)
         {
-            return Compare(x as Point2D, y as Point2D);
+            if (!(x is Point2D) || !(y is Point2D))
+            {
+                throw new ArgumentException($"Cannot compare objects other than {typeof(Point2D)} with this comparer.");
+            }
+
+            return Compare((Point2D) x, (Point2D) y);
         }
 
         public int Compare(Point2D x, Point2D y)
