@@ -72,62 +72,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             ForbiddenZonesXEntryMax = double.NaN;
         }
 
-        public StabilityLocation LocationDaily
-        {
-            set
-            {
-                stabilityModel.LocationDaily = value;
-            }
-        }
-
-        public SurfaceLine2 SurfaceLine
-        {
-            set
-            {
-                stabilityModel.SurfaceLine2 = value;
-            }
-        }
-
-        public SlipPlaneConstraints SlipPlaneConstraints
-        {
-            set
-            {
-                stabilityModel.SlipPlaneConstraints = value;
-            }
-        }
-
-        public bool MoveGrid
-        {
-            set
-            {
-                stabilityModel.MoveGrid = value;
-            }
-        }
-
-        public double MaximumSliceWidth
-        {
-            set
-            {
-                stabilityModel.MaximumSliceWidth = value;
-            }
-        }
-
-        public SlipPlaneUpliftVan SlipPlaneUpliftVan
-        {
-            set
-            {
-                stabilityModel.SlipPlaneUpliftVan = value;
-            }
-        }
-
-        public bool GridAutomaticDetermined
-        {
-            set
-            {
-                stabilityModel.SlipCircle.Auto = value;
-            }
-        }
-
         public double FactorOfStability { get; private set; }
 
         public double ZValue { get; private set; }
@@ -149,37 +93,37 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetLocationDaily(StabilityLocation stabilityLocation)
         {
-            LocationDaily = stabilityLocation;
+            stabilityModel.LocationDaily = stabilityLocation;
         }
 
         public void SetSurfaceLine(SurfaceLine2 surfaceLine2)
         {
-            SurfaceLine = surfaceLine2;
+            stabilityModel.SurfaceLine2 = surfaceLine2;
         }
 
         public void SetMoveGrid(bool moveGrid)
         {
-            MoveGrid = moveGrid;
+            stabilityModel.MoveGrid = moveGrid;
         }
 
         public void SetMaximumSliceWidth(double maximumSliceWidth)
         {
-            MaximumSliceWidth = maximumSliceWidth;
+            stabilityModel.MaximumSliceWidth = maximumSliceWidth;
         }
 
         public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
         {
-            SlipPlaneUpliftVan = slipPlaneUpliftVan;
+            stabilityModel.SlipPlaneUpliftVan = slipPlaneUpliftVan;
         }
 
         public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
         {
-            SlipPlaneConstraints = slipPlaneConstraints;
+            stabilityModel.SlipPlaneConstraints = slipPlaneConstraints;
         }
 
         public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
         {
-            GridAutomaticDetermined = gridAutomaticDetermined;
+            stabilityModel.SlipCircle.Auto = gridAutomaticDetermined;
         }
 
         public void SetSoilModel(SoilModel soilModel)

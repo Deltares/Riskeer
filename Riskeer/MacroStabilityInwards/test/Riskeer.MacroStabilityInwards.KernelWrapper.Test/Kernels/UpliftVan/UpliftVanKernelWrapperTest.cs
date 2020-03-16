@@ -69,19 +69,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var slipPlaneConstraints = new SlipPlaneConstraints();
 
             // Call
-            var kernel = new UpliftVanKernelWrapper
-            {
-                LocationDaily = stabilityLocationDaily,
-                SurfaceLine = surfaceLine,
-                MaximumSliceWidth = maximumSliceWidth,
-                SlipPlaneUpliftVan = slipPlaneUpliftVan,
-                MoveGrid = moveGrid,
-                GridAutomaticDetermined = gridAutomaticDetermined,
-                SlipPlaneConstraints = slipPlaneConstraints
-            };
+            var kernel = new UpliftVanKernelWrapper();
             kernel.SetSoilModel(soilModel);
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetLocationExtreme(stabilityLocationExtreme);
+            kernel.SetLocationDaily(stabilityLocationDaily);
+            kernel.SetSurfaceLine(surfaceLine);
+            kernel.SetMaximumSliceWidth(maximumSliceWidth);
+            kernel.SetSlipPlaneUpliftVan(slipPlaneUpliftVan);
+            kernel.SetMoveGrid(moveGrid);
+            kernel.SetGridAutomaticDetermined(gridAutomaticDetermined);
+            kernel.SetSlipPlaneConstraints(slipPlaneConstraints);
 
             // Assert
             var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
@@ -222,15 +220,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 OuterLoop = loop
             };
-            var kernelWrapper = new UpliftVanKernelWrapper
-            {
-                SurfaceLine = new SurfaceLine2(),
-                LocationDaily = new StabilityLocation(),
-                SlipPlaneUpliftVan = new SlipPlaneUpliftVan(),
-                MoveGrid = true,
-                MaximumSliceWidth = 0,
-                SlipPlaneConstraints = new SlipPlaneConstraints()
-            };
+            var kernelWrapper = new UpliftVanKernelWrapper();
             kernelWrapper.SetSoilModel(new SoilModel
             {
                 Soils =
@@ -274,6 +264,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 }
             });
             kernelWrapper.SetLocationExtreme(new StabilityLocation());
+            kernelWrapper.SetLocationDaily(new StabilityLocation());
+            kernelWrapper.SetSurfaceLine(new SurfaceLine2());
+            kernelWrapper.SetSlipPlaneUpliftVan(new SlipPlaneUpliftVan());
+            kernelWrapper.SetMoveGrid(true);
+            kernelWrapper.SetMaximumSliceWidth(0);
+            kernelWrapper.SetSlipPlaneConstraints(new SlipPlaneConstraints());
             
             return kernelWrapper;
         }
