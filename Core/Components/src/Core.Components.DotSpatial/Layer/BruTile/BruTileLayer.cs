@@ -248,20 +248,20 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
         }
 
-        protected override void Dispose(bool managedResources)
+        protected override void Dispose(bool disposeManagedResources)
         {
             if (IsDisposeLocked)
             {
                 return;
             }
 
-            if (managedResources)
+            if (disposeManagedResources)
             {
                 configuration.Dispose();
                 imageAttributes.Dispose();
             }
 
-            base.Dispose(managedResources);
+            base.Dispose(disposeManagedResources);
         }
 
         private void DrawRegion(MapArgs args, DotSpatialExtent region, ITileSchema schema)

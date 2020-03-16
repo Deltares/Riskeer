@@ -44,10 +44,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
         public MacroStabilityInwardsSurfaceLineReplaceDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
             : base(failureMechanism, failureMechanism?.SurfaceLines) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<MacroStabilityInwardsSurfaceLine> readSurfaceLines,
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
                                                                            string sourceFilePath)
         {
-            return ReplaceTargetCollectionWithImportedData(readSurfaceLines, sourceFilePath);
+            return ReplaceTargetCollectionWithImportedData(surfaceLines, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

@@ -53,9 +53,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
             return UpdateTargetCollectionData(surfaceLines, sourceFilePath);
         }
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(MacroStabilityInwardsSurfaceLine removedSurfaceLine)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(MacroStabilityInwardsSurfaceLine removedObject)
         {
-            return MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedSurfaceLine);
+            return MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedObject);
         }
 
         /// <summary>
@@ -76,15 +76,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 
         #region Updating Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(MacroStabilityInwardsSurfaceLine surfaceLineToUpdate,
-                                                                                 MacroStabilityInwardsSurfaceLine matchingSurfaceLine)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(MacroStabilityInwardsSurfaceLine objectToUpdate,
+                                                                                 MacroStabilityInwardsSurfaceLine objectToUpdateFrom)
         {
-            surfaceLineToUpdate.CopyProperties(matchingSurfaceLine);
+            objectToUpdate.CopyProperties(objectToUpdateFrom);
 
             var affectedObjects = new List<IObservable>();
 
-            affectedObjects.AddRange(UpdateSurfaceLineDependentData(surfaceLineToUpdate));
-            affectedObjects.AddRange(UpdateStochasticSoilModel(surfaceLineToUpdate));
+            affectedObjects.AddRange(UpdateSurfaceLineDependentData(objectToUpdate));
+            affectedObjects.AddRange(UpdateStochasticSoilModel(objectToUpdate));
 
             return affectedObjects;
         }

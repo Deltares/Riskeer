@@ -36,9 +36,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             return Compare(x as Point2D, y as Point2D);
         }
 
-        public int Compare(Point2D p0, Point2D p1)
+        public int Compare(Point2D x, Point2D y)
         {
-            return p0.LocationEquals(p1) ? 0 : 1;
+            return x.LocationEquals(y) ? 0 : 1;
         }
     }
 }

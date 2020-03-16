@@ -54,9 +54,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 
         #region Remove Data Functions
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(MacroStabilityInwardsStochasticSoilModel removedModel)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(MacroStabilityInwardsStochasticSoilModel removedObject)
         {
-            return MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(FailureMechanism, removedModel);
+            return MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(FailureMechanism, removedObject);
         }
 
         #endregion
@@ -79,10 +79,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 
         #region Update Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(MacroStabilityInwardsStochasticSoilModel soilModelToUpdate,
-                                                                                 MacroStabilityInwardsStochasticSoilModel soilModelToUpdateFrom)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(MacroStabilityInwardsStochasticSoilModel objectToUpdate,
+                                                                                 MacroStabilityInwardsStochasticSoilModel objectToUpdateFrom)
         {
-            return UpdateStochasticSoilModel(soilModelToUpdate, soilModelToUpdateFrom);
+            return UpdateStochasticSoilModel(objectToUpdate, objectToUpdateFrom);
         }
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel modelToUpdate, MacroStabilityInwardsStochasticSoilModel modelToUpdateFrom)
