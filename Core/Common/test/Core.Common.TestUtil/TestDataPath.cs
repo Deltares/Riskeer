@@ -40,15 +40,15 @@ namespace Core.Common.TestUtil
         {
             public static class Common
             {
-                public static readonly TestDataPath Util = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Util.Test");
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.IO.Test");
+                public static readonly TestDataPath Util = "Core.Common.Util.Test";
+                public static readonly TestDataPath IO = "Core.Common.IO.Test";
             }
 
             public static class Components
             {
                 public static class Gis
                 {
-                    public static readonly TestDataPath IO = System.IO.Path.Combine("Core", "Components", "test", "Core.Components.Gis.IO.Test");
+                    public static readonly TestDataPath IO = "Core.Components.Gis.IO.Test";
                 }
             }
         }
@@ -57,85 +57,85 @@ namespace Core.Common.TestUtil
         {
             public static class AssemblyTool
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "AssemblyTool", "test", "Riskeer.AssemblyTool.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.AssemblyTool.IO.Test";
             }
 
             public static class ClosingStructures
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "ClosingStructures", "test", "Riskeer.ClosingStructures.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.ClosingStructures.IO.Test";
             }
 
             public static class Common
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "Common", "test", "Riskeer.Common.IO.Test");
-                public static readonly TestDataPath Service = System.IO.Path.Combine("Riskeer", "Common", "test", "Riskeer.Common.Service.Test");
+                public static readonly TestDataPath IO = "Riskeer.Common.IO.Test";
+                public static readonly TestDataPath Service = "Riskeer.Common.Service.Test";
             }
 
             public static class GrassCoverErosionInwards
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "GrassCoverErosionInwards", "test", "Riskeer.GrassCoverErosionInwards.IO.Test");
-                public static readonly TestDataPath Integration = System.IO.Path.Combine("Riskeer", "GrassCoverErosionInwards", "test", "Riskeer.GrassCoverErosionInwards.Integration.Test");
+                public static readonly TestDataPath IO = "Riskeer.GrassCoverErosionInwards.IO.Test";
+                public static readonly TestDataPath Integration = "Riskeer.GrassCoverErosionInwards.Integration.Test";
             }
 
             public static class GrassCoverErosionOutwards
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "GrassCoverErosionOutwards", "test", "Riskeer.GrassCoverErosionOutwards.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.GrassCoverErosionOutwards.IO.Test";
             }
 
             public static class HeightStructures
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "HeightStructures", "test", "Riskeer.HeightStructures.IO.Test");
-                public static readonly TestDataPath Integration = System.IO.Path.Combine("Riskeer", "HeightStructures", "test", "Riskeer.HeightStructures.Integration.Test");
+                public static readonly TestDataPath IO = "Riskeer.HeightStructures.IO.Test";
+                public static readonly TestDataPath Integration = "Riskeer.HeightStructures.Integration.Test";
             }
 
             public static class HydraRing
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "HydraRing", "test", "Riskeer.HydraRing.IO.Test");
-                public static readonly TestDataPath Calculation = System.IO.Path.Combine("Riskeer", "HydraRing", "test", "Riskeer.HydraRing.Calculation.Test");
+                public static readonly TestDataPath IO = "Riskeer.HydraRing.IO.Test";
+                public static readonly TestDataPath Calculation = "Riskeer.HydraRing.Calculation.Test";
             }
 
             public static class Integration
             {
-                public static readonly TestDataPath Forms = System.IO.Path.Combine("Riskeer", "Integration", "test", "Riskeer.Integration.Forms.Test");
-                public static readonly TestDataPath Service = System.IO.Path.Combine("Riskeer", "Integration", "test", "Riskeer.Integration.Service.Test");
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "Integration", "test", "Riskeer.Integration.IO.Test");
-                public static readonly TestDataPath Plugin = System.IO.Path.Combine("Riskeer", "Integration", "test", "Riskeer.Integration.Plugin.Test");
-                public static readonly TestDataPath TestUtil = System.IO.Path.Combine("Riskeer", "Integration", "test", "Riskeer.Integration.TestUtil.Test");
+                public static readonly TestDataPath Forms = "Riskeer.Integration.Forms.Test";
+                public static readonly TestDataPath Service = "Riskeer.Integration.Service.Test";
+                public static readonly TestDataPath IO = "Riskeer.Integration.IO.Test";
+                public static readonly TestDataPath Plugin = "Riskeer.Integration.Plugin.Test";
+                public static readonly TestDataPath TestUtil = "Riskeer.Integration.TestUtil.Test";
             }
 
             public static class MacroStabilityInwards
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "MacroStabilityInwards", "test", "Riskeer.MacroStabilityInwards.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.MacroStabilityInwards.IO.Test";
             }
 
             public static class Migration
             {
-                public static readonly TestDataPath Core = System.IO.Path.Combine("Riskeer", "Migration", "test", "Riskeer.Migration.Core.Test");
+                public static readonly TestDataPath Core = "Riskeer.Migration.Core.Test";
             }
 
             public static class Piping
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "Piping", "test", "Riskeer.Piping.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.Piping.IO.Test";
             }
 
             public static class Revetment
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "Revetment", "test", "Riskeer.Revetment.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.Revetment.IO.Test";
             }
 
             public static class StabilityPointStructures
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "StabilityPointStructures", "test", "Riskeer.StabilityPointStructures.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.StabilityPointStructures.IO.Test";
             }
 
             public static class StabilityStoneCover
             {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Riskeer", "StabilityStoneCover", "test", "Riskeer.StabilityStoneCover.IO.Test");
+                public static readonly TestDataPath IO = "Riskeer.StabilityStoneCover.IO.Test";
             }
 
             public static class Storage
             {
-                public static readonly TestDataPath Core = System.IO.Path.Combine("Riskeer", "Storage", "test", "Riskeer.Storage.Core.Test");
+                public static readonly TestDataPath Core = "Riskeer.Storage.Core.Test";
             }
         }
     }

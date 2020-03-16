@@ -91,7 +91,7 @@ namespace Core.Common.TestUtil
         /// <returns>A full path to the test data.</returns>
         public static string GetTestDataPath(TestDataPath testDataPath)
         {
-            return Path.Combine(Path.GetDirectoryName(SolutionRoot), testDataPath.Path, "test-data");
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test-data", testDataPath.Path);
         }
 
         /// <summary>
@@ -555,10 +555,7 @@ namespace Core.Common.TestUtil
             };
 
             var timerEnded = false;
-            timer.Elapsed += (sender, args) =>
-            {
-                timerEnded = true;
-            };
+            timer.Elapsed += (sender, args) => { timerEnded = true; };
 
             callAction();
             timer.Start();
