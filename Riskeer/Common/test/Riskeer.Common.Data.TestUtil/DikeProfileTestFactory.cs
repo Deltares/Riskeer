@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.TestUtil
     /// Factory that creates simple <see cref="DikeProfile"/> instances
     /// which can be used for testing.
     /// </summary>
-    public class DikeProfileTestFactory
+    public static class DikeProfileTestFactory
     {
         /// <summary>
         /// Creates a default <see cref="DikeProfile"/> at the world origin.
