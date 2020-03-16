@@ -11,6 +11,7 @@
       <MySourceFiles Include="$(ProjectDir)test-data\**\*.*"/>
     </ItemGroup>
     <Copy SourceFiles="@(MySourceFiles)"
-	      DestinationFiles="@(MySourceFiles->'$(OutDir)test-data\$(ProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"/>
+	      DestinationFiles="@(MySourceFiles->'$(OutDir)test-data\$(ProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"
+		  SkipUnchangedFiles="true"/>
   </Target> 
 </Project>
