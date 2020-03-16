@@ -41,8 +41,8 @@ namespace Riskeer.Common.Data.Structures
     {
         private const int structureNormalOrientationNumberOfDecimals = 2;
 
-        private static readonly Range<RoundedDouble> structureNormalOrientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(structureNormalOrientationNumberOfDecimals),
-                                                                                                                        new RoundedDouble(structureNormalOrientationNumberOfDecimals, 360));
+        private readonly Range<RoundedDouble> structureNormalOrientationValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(structureNormalOrientationNumberOfDecimals), new RoundedDouble(structureNormalOrientationNumberOfDecimals, 360));
 
         private LogNormalDistribution allowedLevelIncreaseStorage;
         private VariationCoefficientLogNormalDistribution storageStructureArea;

@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// derived.</typeparam>
     public abstract class PercentileBasedDesignVariable<T> : DesignVariable<T> where T : IDistribution
     {
-        private static readonly Range<double> percentileValidityRange = new Range<double>(0, 1);
+        private readonly Range<double> percentileValidityRange = new Range<double>(0, 1);
         private double percentile;
 
         /// <summary>
