@@ -31,6 +31,12 @@ namespace Riskeer.Common.Forms.PropertyClasses
     public enum VariationCoefficientDistributionPropertiesReadOnly
     {
         /// <summary>
+        /// Mark none of the properties of <see cref="VariationCoefficientDistributionPropertiesBase{T}"/>
+        /// as read-only.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Mark <see cref="VariationCoefficientDistributionPropertiesBase{T}.Mean"/> as read-only.
         /// </summary>
         Mean = 1,
@@ -46,12 +52,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <see cref="VariationCoefficientDistributionPropertiesBase{T}.CoefficientOfVariation"/>
         /// as read-only.
         /// </summary>
-        All = Mean | CoefficientOfVariation,
-
-        /// <summary>
-        /// Mark none of the properties of <see cref="VariationCoefficientDistributionPropertiesBase{T}"/>
-        /// as read-only.
-        /// </summary>
-        None = 0
+        All = Mean | CoefficientOfVariation
     }
 }

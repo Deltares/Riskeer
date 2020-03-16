@@ -30,6 +30,12 @@ namespace Riskeer.Common.Forms.PropertyClasses
     public enum DistributionPropertiesReadOnly
     {
         /// <summary>
+        /// Mark none of the properties of <see cref="DistributionPropertiesBase{T}"/>
+        /// as read-only.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Mark <see cref="DistributionPropertiesBase{T}.Mean"/> read-only.
         /// </summary>
         Mean = 1,
@@ -43,12 +49,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// Mark both <see cref="DistributionPropertiesBase{T}.Mean"/> and
         /// <see cref="DistributionPropertiesBase{T}.StandardDeviation"/> as read-only.
         /// </summary>
-        All = Mean | StandardDeviation,
-
-        /// <summary>
-        /// Mark none of the properties of <see cref="DistributionPropertiesBase{T}"/>
-        /// as read-only.
-        /// </summary>
-        None = 0
+        All = Mean | StandardDeviation
     }
 }
