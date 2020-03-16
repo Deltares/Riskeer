@@ -52,10 +52,10 @@ namespace Core.Common.Gui
         /// <summary>
         /// Sets the project and the path of the project that was used for obtaining it.
         /// </summary>
-        /// <param name="project">The project that is used in the application.</param>
-        /// <param name="projectPath">The file location where the <paramref name="project"/> was
+        /// <param name="newProject">The project that is used in the application.</param>
+        /// <param name="projectPath">The file location where the <paramref name="newProject"/> was
         /// loaded from, or <c>null</c> if it was not loaded from a file source.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
-        void SetProject(IProject project, string projectPath);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newProject"/> is <c>null</c>.</exception>
+        void SetProject(IProject newProject, string projectPath);
     }
 }

@@ -47,7 +47,7 @@ namespace Core.Common.Gui.UITypeEditors
             return UITypeEditorEditStyle.DropDown;
         }
 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object originalValue)
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             if (provider != null)
             {
@@ -65,7 +65,7 @@ namespace Core.Common.Gui.UITypeEditors
                     // Return user selected object, or original value if user did not select anything:
                     if (listBox.SelectedItem == null)
                     {
-                        return originalValue;
+                        return value;
                     }
 
                     if (ReferenceEquals(listBox.SelectedItem, NullItem))
@@ -77,7 +77,7 @@ namespace Core.Common.Gui.UITypeEditors
                 }
             }
 
-            return base.EditValue(context, provider, originalValue);
+            return base.EditValue(context, provider, value);
         }
 
         /// <summary>

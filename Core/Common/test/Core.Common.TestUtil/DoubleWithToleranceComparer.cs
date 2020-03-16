@@ -48,9 +48,9 @@ namespace Core.Common.TestUtil
             return Compare((double) x, (double) y);
         }
 
-        public int Compare(double firstDouble, double secondDouble)
+        public int Compare(double x, double y)
         {
-            double diff = firstDouble - secondDouble;
+            double diff = x - y;
 
             bool tolerable = Math.Abs(diff) <= tolerance;
 

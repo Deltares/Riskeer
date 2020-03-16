@@ -48,9 +48,9 @@ namespace Core.Common.Base.TestUtil.Geometry
             return Compare(x as Point2D, y as Point2D);
         }
 
-        public int Compare(Point2D p0, Point2D p1)
+        public int Compare(Point2D x, Point2D y)
         {
-            double diff = p0.GetEuclideanDistanceTo(p1);
+            double diff = x.GetEuclideanDistanceTo(y);
             return diff <= tolerance ? 0 : 1;
         }
     }
