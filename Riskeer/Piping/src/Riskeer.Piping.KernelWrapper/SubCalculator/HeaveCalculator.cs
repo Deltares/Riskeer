@@ -38,54 +38,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             wrappedCalculator = new Deltares.WTIPiping.HeaveCalculator();
         }
 
-        public double DTotal
-        {
-            set
-            {
-                wrappedCalculator.DTotal = value;
-            }
-        }
-
-        public double HExit
-        {
-            set
-            {
-                wrappedCalculator.HExit = value;
-            }
-        }
-
-        public double Ich
-        {
-            set
-            {
-                wrappedCalculator.Ich = value;
-            }
-        }
-
-        public double PhiExit
-        {
-            set
-            {
-                wrappedCalculator.PhiExit = value;
-            }
-        }
-
-        public double PhiPolder
-        {
-            set
-            {
-                wrappedCalculator.PhiPolder = value;
-            }
-        }
-
-        public double RExit
-        {
-            set
-            {
-                wrappedCalculator.RExit = value;
-            }
-        }
-
         public double Gradient
         {
             get
@@ -108,6 +60,36 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             {
                 return wrappedCalculator.FoSh;
             }
+        }
+
+        public void SetDTotal(double dTotal)
+        {
+            wrappedCalculator.DTotal = dTotal;
+        }
+
+        public void SetHExit(double hExit)
+        {
+            wrappedCalculator.HExit = hExit;
+        }
+
+        public void SetIch(double ich)
+        {
+            wrappedCalculator.Ich = ich;
+        }
+
+        public void SetPhiExit(double phiExit)
+        {
+            wrappedCalculator.PhiExit = phiExit;
+        }
+
+        public void SetPhiPolder(double phiPolder)
+        {
+            wrappedCalculator.PhiPolder = phiPolder;
+        }
+
+        public void SetRExit(double rExit)
+        {
+            wrappedCalculator.RExit = rExit;
         }
 
         public void Calculate()

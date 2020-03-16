@@ -247,12 +247,13 @@ namespace Riskeer.Piping.KernelWrapper
         private IHeaveCalculator CreateHeaveCalculator()
         {
             IHeaveCalculator calculator = factory.CreateHeaveCalculator();
-            calculator.Ich = input.CriticalHeaveGradient;
-            calculator.PhiExit = input.PiezometricHeadExit;
-            calculator.DTotal = input.ThicknessCoverageLayer;
-            calculator.PhiPolder = input.PhreaticLevelExit;
-            calculator.RExit = input.DampingFactorExit;
-            calculator.HExit = input.PhreaticLevelExit;
+            calculator.SetIch(input.CriticalHeaveGradient);
+            calculator.SetPhiExit(input.PiezometricHeadExit);
+            calculator.SetDTotal(input.ThicknessCoverageLayer);
+            calculator.SetPhiPolder(input.PhreaticLevelExit);
+            calculator.SetRExit(input.DampingFactorExit);
+            calculator.SetHExit(input.PhreaticLevelExit);
+            
             return calculator;
         }
 

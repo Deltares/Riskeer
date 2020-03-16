@@ -39,15 +39,46 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public bool Validated { get; private set; }
 
-        public double DTotal { get; set; }
-        public double HExit { get; set; }
-        public double Ich { get; set; }
-        public double PhiExit { get; set; }
-        public double PhiPolder { get; set; }
-        public double RExit { get; set; }
+        public double DTotal { get; private set; }
+        public double HExit { get; private set; }
+        public double Ich { get; private set; }
+        public double PhiExit { get; private set; }
+        public double PhiPolder { get; private set; }
+        public double RExit { get; private set; }
+
         public double Gradient { get; private set; }
         public double Zh { get; private set; }
         public double FoSh { get; private set; }
+
+        public void SetDTotal(double dTotal)
+        {
+            DTotal = dTotal;
+        }
+
+        public void SetHExit(double hExit)
+        {
+            HExit = hExit;
+        }
+
+        public void SetIch(double ich)
+        {
+            Ich = ich;
+        }
+
+        public void SetPhiExit(double phiExit)
+        {
+            PhiExit = phiExit;
+        }
+
+        public void SetPhiPolder(double phiPolder)
+        {
+            PhiPolder = phiPolder;
+        }
+
+        public void SetRExit(double rExit)
+        {
+            RExit = rExit;
+        }
 
         public void Calculate()
         {

@@ -31,32 +31,32 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the total thickness of the coverage layer.
         /// </summary>
-        double DTotal { set; }
+        void SetDTotal(double dTotal);
 
         /// <summary>
         /// Sets the phreatic level at the exit point.
         /// </summary>
-        double HExit { set; }
+        void SetHExit(double hExit);
 
         /// <summary>
         /// Sets the critical exit gradient.
         /// </summary>
-        double Ich { set; }
+        void SetIch(double ich);
 
         /// <summary>
         /// Sets the piezometric head at the exit point.
         /// </summary>
-        double PhiExit { set; }
+        void SetPhiExit(double phiExit);
 
         /// <summary>
         /// Sets the piezometric head in the hinterland.
         /// </summary>
-        double PhiPolder { set; }
+        void SetPhiPolder(double phiPolder);
 
         /// <summary>
         /// Sets the damping factor at the exit point.
         /// </summary>
-        double RExit { set; }
+        void SetRExit(double rExit);
 
         /// <summary>
         /// Gets the vertical outflow gradient.
