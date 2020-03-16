@@ -32,27 +32,27 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the exit point's x-coordinate.
         /// </summary>
-        double ExitPointXCoordinate { set; }
+        void SetExitPointXCoordinate(double exitPointXCoordinate);
 
         /// <summary>
         /// Sets the phreatic level at the exit point.
         /// </summary>
-        double PhreaticLevel { set; }
+        void SetPhreaticLevel(double phreaticLevel);
 
         /// <summary>
         /// Sets the volumic weight of water.
         /// </summary>
-        double VolumicWeightOfWater { set; }
+        void SetVolumicWeightOfWater(double volumicWeightOfWater);
 
         /// <summary>
         /// Sets the soil profile.
         /// </summary>
-        PipingProfile SoilProfile { set; }
+        void SetSoilProfile(PipingProfile soilProfile);
 
         /// <summary>
         /// Sets the surface line.
         /// </summary>
-        PipingSurfaceLine SurfaceLine { set; }
+        void SetSurfaceLine(PipingSurfaceLine surfaceLine);
 
         /// <summary>
         /// Gets the effective thickness of the cover layer.

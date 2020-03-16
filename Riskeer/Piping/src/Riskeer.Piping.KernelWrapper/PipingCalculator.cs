@@ -235,11 +235,12 @@ namespace Riskeer.Piping.KernelWrapper
         private IEffectiveThicknessCalculator CreateEffectiveThicknessCalculator()
         {
             IEffectiveThicknessCalculator calculator = factory.CreateEffectiveThicknessCalculator();
-            calculator.ExitPointXCoordinate = input.ExitPointXCoordinate;
-            calculator.PhreaticLevel = input.PhreaticLevelExit;
-            calculator.SoilProfile = CreateSoilProfile();
-            calculator.SurfaceLine = CreateSurfaceLine();
-            calculator.VolumicWeightOfWater = input.WaterVolumetricWeight;
+            calculator.SetExitPointXCoordinate(input.ExitPointXCoordinate);
+            calculator.SetPhreaticLevel(input.PhreaticLevelExit);
+            calculator.SetSoilProfile(CreateSoilProfile());
+            calculator.SetSurfaceLine(CreateSurfaceLine());
+            calculator.SetVolumicWeightOfWater(input.WaterVolumetricWeight);
+            
             return calculator;
         }
 

@@ -40,11 +40,12 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public bool Validated { get; private set; }
 
-        public double ExitPointXCoordinate { get; set; }
-        public double PhreaticLevel { get; set; }
-        public double VolumicWeightOfWater { get; set; }
-        public PipingProfile SoilProfile { get; set; }
-        public PipingSurfaceLine SurfaceLine { get; set; }
+        public double ExitPointXCoordinate { get; private set; }
+
+        public double PhreaticLevel { get; private set; }
+        public double VolumicWeightOfWater { get; private set; }
+        public PipingProfile SoilProfile { get; private set; }
+        public PipingSurfaceLine SurfaceLine { get; private set; }
 
         public double EffectiveHeight
         {
@@ -52,6 +53,31 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
             {
                 return 0.1;
             }
+        }
+
+        public void SetExitPointXCoordinate(double exitPointXCoordinate)
+        {
+            ExitPointXCoordinate = exitPointXCoordinate;
+        }
+
+        public void SetPhreaticLevel(double phreaticLevel)
+        {
+            PhreaticLevel = phreaticLevel;
+        }
+
+        public void SetVolumicWeightOfWater(double volumicWeightOfWater)
+        {
+            VolumicWeightOfWater = volumicWeightOfWater;
+        }
+
+        public void SetSoilProfile(PipingProfile soilProfile)
+        {
+            SoilProfile = soilProfile;
+        }
+
+        public void SetSurfaceLine(PipingSurfaceLine surfaceLine)
+        {
+            SurfaceLine = surfaceLine;
         }
 
         public List<string> Validate()
