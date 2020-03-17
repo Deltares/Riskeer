@@ -66,7 +66,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(calculation => new DuneLocationCalculationProperties(calculation)).ToArray();
+                return GetDuneLocationCalculationProperties();
             }
         }
 
@@ -82,6 +82,11 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             {
                 calculationsObserver.Dispose();
             }
+        }
+
+        private DuneLocationCalculationProperties[] GetDuneLocationCalculationProperties()
+        {
+            return data.Select(calculation => new DuneLocationCalculationProperties(calculation)).ToArray();
         }
     }
 }

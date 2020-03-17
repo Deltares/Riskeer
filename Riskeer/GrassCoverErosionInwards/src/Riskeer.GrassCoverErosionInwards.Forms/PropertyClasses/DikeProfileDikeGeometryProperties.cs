@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DikeGeometry.Select(rp => rp.Point).ToArray();
+                return GetCoordinates();
             }
         }
 
@@ -58,13 +58,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return DikeGeometryHelper.GetRoughnesses(data.DikeGeometry).ToArray();
+                return GetRoughnesses();
             }
         }
 
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private Point2D[] GetCoordinates()
+        {
+            return data.DikeGeometry.Select(rp => rp.Point).ToArray();
+        }
+
+        private RoundedDouble[] GetRoughnesses()
+        {
+            return DikeGeometryHelper.GetRoughnesses(data.DikeGeometry).ToArray();
         }
     }
 }

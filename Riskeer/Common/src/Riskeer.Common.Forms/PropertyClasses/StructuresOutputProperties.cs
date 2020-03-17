@@ -217,7 +217,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         private Stochast[] GetStochasts()
         {
-            return data.GeneralResult?.Stochasts.ToArray();
+            return GetStochasts();
         }
     }
 }

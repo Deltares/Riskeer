@@ -157,7 +157,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralResult?.Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -171,7 +171,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralResult?.Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -193,11 +193,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
                                                      .TopLevelIllustrationPoints
                                                      .HasMultipleUniqueValues(p => p.ClosingSituation);
 
-                return data.GeneralResult
-                           .TopLevelIllustrationPoints
-                           .Select(point =>
-                                       new TopLevelFaultTreeIllustrationPointProperties(
-                                           point, areClosingSituationsSame)).ToArray();
+                return GetTopLevelFaultTreeIllustrationPointProperties(areClosingSituationsSame);
             }
         }
 
@@ -213,6 +209,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
 
             return false;
+        }
+
+        private TopLevelFaultTreeIllustrationPointProperties[] GetTopLevelFaultTreeIllustrationPointProperties(bool areClosingSituationsSame)
+        {
+            return data.GeneralResult
+                       .TopLevelIllustrationPoints
+                       .Select(point =>
+                                   new TopLevelFaultTreeIllustrationPointProperties(
+                                       point, areClosingSituationsSame)).ToArray();
+        }
+
+        private Stochast[] GetStochasts()
+        {
+            return data.GeneralResult?.Stochasts.ToArray();
         }
     }
 }

@@ -92,7 +92,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data?.ForeshoreGeometry?.ToArray();
+                return GetCoordinates();
             }
         }
 
@@ -105,6 +105,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private Point2D[] GetCoordinates()
+        {
+            return data?.ForeshoreGeometry?.ToArray();
         }
 
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)

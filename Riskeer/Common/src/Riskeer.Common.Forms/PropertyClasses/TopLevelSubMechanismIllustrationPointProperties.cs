@@ -142,7 +142,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.SubMechanismIllustrationPoint.Stochasts.ToArray();
+                return GetSubMechanismIllustrationPointStochasts();
             }
         }
 
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.SubMechanismIllustrationPoint.Stochasts.ToArray();
+                return GetSubMechanismIllustrationPointStochasts();
             }
         }
 
@@ -190,6 +190,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
                        : string.Format(Resources.TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1,
                                        data.WindDirection.Name,
                                        data.ClosingSituation);
+        }
+
+        private SubMechanismIllustrationPointStochast[] GetSubMechanismIllustrationPointStochasts()
+        {
+            return data.SubMechanismIllustrationPoint.Stochasts.ToArray();
         }
 
         private bool AreClosingSituationsSame()

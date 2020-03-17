@@ -51,8 +51,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(location => new WaveHeightHydraulicBoundaryLocationProperties(location, GetHydraulicBoundaryLocationCalculationsForLocation(location))).ToArray();
+                return GetWaveHeightHydraulicBoundaryLocationProperties();
             }
+        }
+
+        private WaveHeightHydraulicBoundaryLocationProperties[] GetWaveHeightHydraulicBoundaryLocationProperties()
+        {
+            return data.Select(location => new WaveHeightHydraulicBoundaryLocationProperties(location, GetHydraulicBoundaryLocationCalculationsForLocation(location))).ToArray();
         }
     }
 }

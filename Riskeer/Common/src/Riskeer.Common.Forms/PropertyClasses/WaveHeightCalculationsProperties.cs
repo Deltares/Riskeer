@@ -50,8 +50,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(calculation => new WaveHeightCalculationProperties(calculation)).ToArray();
+                return GetWaveHeightCalculationProperties();
             }
+        }
+
+        private WaveHeightCalculationProperties[] GetWaveHeightCalculationProperties()
+        {
+            return data.Select(calculation => new WaveHeightCalculationProperties(calculation)).ToArray();
         }
     }
 }

@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Stochasts.ToArray();
+                return GetSubMechanismIllustrationPointStochasts();
             }
         }
 
@@ -82,13 +82,23 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.IllustrationPointResults.ToArray();
+                return GetIllustrationPointResults();
             }
         }
 
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private SubMechanismIllustrationPointStochast[] GetSubMechanismIllustrationPointStochasts()
+        {
+            return data.Stochasts.ToArray();
+        }
+
+        private IllustrationPointResult[] GetIllustrationPointResults()
+        {
+            return data.IllustrationPointResults.ToArray();
         }
     }
 }

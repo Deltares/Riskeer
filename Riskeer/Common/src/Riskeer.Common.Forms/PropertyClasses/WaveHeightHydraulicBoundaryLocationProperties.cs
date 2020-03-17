@@ -53,9 +53,14 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return CalculationPerCategoryBoundary.Select(calculation => new WaveHeightCalculationCategoryBoundaryProperties(calculation.Item2,
-                                                                                                                                calculation.Item1)).ToArray();
+                return GetWaveHeightCalculationCategoryBoundaryProperties();
             }
+        }
+
+        private WaveHeightCalculationCategoryBoundaryProperties[] GetWaveHeightCalculationCategoryBoundaryProperties()
+        {
+            return CalculationPerCategoryBoundary.Select(calculation => new WaveHeightCalculationCategoryBoundaryProperties(calculation.Item2,
+                                                                                                                            calculation.Item1)).ToArray();
         }
     }
 }
