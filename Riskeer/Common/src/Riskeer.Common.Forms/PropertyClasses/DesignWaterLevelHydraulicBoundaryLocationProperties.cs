@@ -53,9 +53,14 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return CalculationPerCategoryBoundary.Select(calculation => new DesignWaterLevelCalculationCategoryBoundaryProperties(calculation.Item2,
-                                                                                                                                      calculation.Item1)).ToArray();
+                return GetCategoryBoundaries();
             }
+        }
+
+        private DesignWaterLevelCalculationCategoryBoundaryProperties[] GetCategoryBoundaries()
+        {
+            return CalculationPerCategoryBoundary.Select(calculation => new DesignWaterLevelCalculationCategoryBoundaryProperties(calculation.Item2,
+                                                                                                                                  calculation.Item1)).ToArray();
         }
     }
 }

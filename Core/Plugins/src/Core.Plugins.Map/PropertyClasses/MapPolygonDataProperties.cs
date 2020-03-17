@@ -137,7 +137,7 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 MapTheme<PolygonCategoryTheme> mapTheme = data.Theme;
                 return mapTheme != null
-                           ? mapTheme.CategoryThemes.Select(ct => new PolygonCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray()
+                           ? GetCategoryThemes(mapTheme)
                            : new PolygonCategoryThemeProperties[0];
             }
         }
@@ -169,6 +169,11 @@ namespace Core.Plugins.Map.PropertyClasses
             }
 
             return base.DynamicReadonlyValidator(propertyName);
+        }
+
+        private PolygonCategoryThemeProperties[] GetCategoryThemes(MapTheme<PolygonCategoryTheme> mapTheme)
+        {
+            return mapTheme.CategoryThemes.Select(ct => new PolygonCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray();
         }
     }
 }

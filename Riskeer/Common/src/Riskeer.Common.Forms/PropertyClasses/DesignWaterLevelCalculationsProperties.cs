@@ -50,8 +50,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(calculation => new DesignWaterLevelCalculationProperties(calculation)).ToArray();
+                return GetCalculations();
             }
+        }
+
+        private DesignWaterLevelCalculationProperties[] GetCalculations()
+        {
+            return data.Select(calculation => new DesignWaterLevelCalculationProperties(calculation)).ToArray();
         }
     }
 }

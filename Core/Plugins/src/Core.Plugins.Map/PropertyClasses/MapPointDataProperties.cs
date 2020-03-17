@@ -176,7 +176,7 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 MapTheme<PointCategoryTheme> mapTheme = data.Theme;
                 return mapTheme != null
-                           ? mapTheme.CategoryThemes.Select(ct => new PointCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray()
+                           ? GetCategoryThemes(mapTheme)
                            : new PointCategoryThemeProperties[0];
             }
         }
@@ -198,6 +198,11 @@ namespace Core.Plugins.Map.PropertyClasses
             }
 
             return base.DynamicVisibleValidationMethod(propertyName);
+        }
+
+        private PointCategoryThemeProperties[] GetCategoryThemes(MapTheme<PointCategoryTheme> mapTheme)
+        {
+            return mapTheme.CategoryThemes.Select(ct => new PointCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray();
         }
     }
 }
