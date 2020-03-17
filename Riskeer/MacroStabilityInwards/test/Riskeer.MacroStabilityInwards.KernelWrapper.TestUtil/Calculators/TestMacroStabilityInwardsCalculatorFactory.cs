@@ -63,15 +63,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
 
         public IWaternetCalculator CreateWaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
-            return CreateWaternetCalculator(input, factory);
+            return CreateWaternetCalculator(input);
         }
 
         public IWaternetCalculator CreateWaternetDailyCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
-            return CreateWaternetCalculator(input, factory);
+            return CreateWaternetCalculator(input);
         }
 
-        private IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        private IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input)
         {
             LastCreatedWaternetCalculator.Input = input;
 
