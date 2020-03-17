@@ -39,12 +39,13 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SurfaceLines;
+using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.IO.Importers;
 using Riskeer.Integration.Plugin.Handlers;
-using Riskeer.Integration.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Plugin.FileImporter;
@@ -814,7 +815,12 @@ namespace Demo.Riskeer.Commands
                                                                                    "HRD dutch coast south.config.sqlite"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                DataImportHelper.ImportHydraulicBoundaryDatabase(demoAssessmentSection, filePath);
+                var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter(demoAssessmentSection.HydraulicBoundaryDatabase,
+                                                                                              new HydraulicBoundaryDatabaseUpdateHandler(
+                                                                                                  demoAssessmentSection,
+                                                                                                  new DuneLocationsReplacementHandler(viewCommands, demoAssessmentSection.DuneErosion)),
+                                                                                              filePath);
+                hydraulicBoundaryDatabaseImporter.Import();
             }
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
