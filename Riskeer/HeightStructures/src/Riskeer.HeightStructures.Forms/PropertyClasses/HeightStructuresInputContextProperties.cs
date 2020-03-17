@@ -133,7 +133,7 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
+                    DistributionReadOnlyProperties.StandardDeviation,
                     data.WrappedData.ModelFactorSuperCriticalFlow,
                     PropertyChangeHandler);
             }
@@ -232,8 +232,8 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.LevelCrestStructure,
                     PropertyChangeHandler);
             }

@@ -247,7 +247,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                return new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                          PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(data.WrappedData),
                                                                          propertyChangeHandler);
             }
@@ -262,7 +262,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+                return new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                       PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(data.WrappedData),
                                                                       propertyChangeHandler);
             }

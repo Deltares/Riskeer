@@ -48,18 +48,18 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// </summary>
         /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
         protected DistributionPropertiesBase(TDistribution distribution)
-            : this(DistributionPropertiesReadOnly.All, distribution, null) {}
+            : this(DistributionReadOnlyProperties.All, distribution, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="DistributionPropertiesBase{TDistribution}"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
-        protected DistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly,
+        protected DistributionPropertiesBase(DistributionReadOnlyProperties readOnlyProperties,
                                              TDistribution distribution,
                                              IObservablePropertyChangeHandler handler)
         {
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(distribution));
             }
 
-            if (!propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All)
+            if (!readOnlyProperties.HasFlag(DistributionReadOnlyProperties.All)
                 && handler == null)
             {
                 throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
@@ -76,8 +76,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
             Data = distribution;
 
-            isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);
-            isStandardDeviationReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.StandardDeviation);
+            isMeanReadOnly = readOnlyProperties.HasFlag(DistributionReadOnlyProperties.Mean);
+            isStandardDeviationReadOnly = readOnlyProperties.HasFlag(DistributionReadOnlyProperties.StandardDeviation);
 
             changeHandler = handler;
         }

@@ -218,7 +218,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(
-                    DistributionPropertiesReadOnly.None,
+                    DistributionReadOnlyProperties.None,
                     data.WrappedData.CriticalFlowRate,
                     propertyChangeHandler);
             }

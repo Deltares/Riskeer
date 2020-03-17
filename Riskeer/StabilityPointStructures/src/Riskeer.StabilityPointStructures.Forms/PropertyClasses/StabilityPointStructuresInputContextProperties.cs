@@ -305,8 +305,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.InsideWaterLevelFailureConstruction,
                     PropertyChangeHandler);
             }
@@ -324,8 +324,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.BankWidth,
                     PropertyChangeHandler);
             }
@@ -385,8 +385,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.ConstructiveStrengthLinearLoadModel,
                     PropertyChangeHandler);
             }
@@ -405,8 +405,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.ConstructiveStrengthQuadraticLoadModel,
                     PropertyChangeHandler);
             }
@@ -495,8 +495,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.LevelCrestStructure,
                     PropertyChangeHandler);
             }
@@ -514,8 +514,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.InsideWaterLevel,
                     PropertyChangeHandler);
             }
@@ -533,8 +533,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.ThresholdHeightOpenWeir,
                     PropertyChangeHandler);
             }
@@ -553,8 +553,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new LogNormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.AreaFlowApertures,
                     PropertyChangeHandler);
             }
@@ -572,7 +572,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
+                    DistributionReadOnlyProperties.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);
             }
@@ -636,8 +636,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.StabilityLinearLoadModel,
                     PropertyChangeHandler);
             }
@@ -656,8 +656,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.StabilityQuadraticLoadModel,
                     PropertyChangeHandler);
             }
@@ -679,8 +679,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.FailureCollisionEnergy,
                     PropertyChangeHandler);
             }
@@ -698,8 +698,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.ShipMass,
                     PropertyChangeHandler);
             }
@@ -717,8 +717,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.ShipVelocity,
                     PropertyChangeHandler);
             }
@@ -773,8 +773,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             {
                 return new VariationCoefficientNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.FlowVelocityStructureClosable,
                     PropertyChangeHandler);
             }

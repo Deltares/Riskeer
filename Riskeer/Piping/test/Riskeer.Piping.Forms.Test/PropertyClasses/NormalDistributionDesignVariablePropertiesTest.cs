@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            TestDelegate test = () => new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                                      null,
                                                                                      handler);
 
@@ -65,7 +65,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var designVariable = new NormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
+            var properties = new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.All,
                                                                             designVariable,
                                                                             handler);
 
@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var designVariable = new NormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            var properties = new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                             designVariable,
                                                                             handler);
 
@@ -142,7 +142,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var designVariable = new NormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            var properties = new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                             designVariable,
                                                                             handler);
 

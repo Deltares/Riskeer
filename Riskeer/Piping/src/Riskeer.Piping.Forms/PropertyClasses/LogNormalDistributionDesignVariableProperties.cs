@@ -39,20 +39,20 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>.</exception>
         public LogNormalDistributionDesignVariableProperties(DesignVariable<LogNormalDistribution> designVariable)
-            : this(DistributionPropertiesReadOnly.All, designVariable, null) {}
+            : this(DistributionReadOnlyProperties.All, designVariable, null) {}
 
         /// <summary>
         /// Creates a new <see cref="LogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
-        public LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
+        public LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties readOnlyProperties,
                                                              DesignVariable<LogNormalDistribution> designVariable,
                                                              IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly,
+            : base(readOnlyProperties,
                    designVariable,
                    handler) {}
 

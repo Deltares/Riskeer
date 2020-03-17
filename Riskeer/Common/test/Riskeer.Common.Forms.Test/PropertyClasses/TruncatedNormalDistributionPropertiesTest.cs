@@ -61,7 +61,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var distribution = new TruncatedNormalDistribution(new Random(21).Next(3, RoundedDouble.MaximumNumberOfDecimalPlaces));
 
             // Call
-            var properties = new TruncatedNormalDistributionProperties(DistributionPropertiesReadOnly.None, distribution, handler);
+            var properties = new TruncatedNormalDistributionProperties(DistributionReadOnlyProperties.None, distribution, handler);
 
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<TruncatedNormalDistribution>>(properties);

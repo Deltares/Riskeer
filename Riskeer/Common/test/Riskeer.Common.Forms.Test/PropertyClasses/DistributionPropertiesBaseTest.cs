@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.All, distribution, null);
+            var properties = new SimpleDistributionProperties(DistributionReadOnlyProperties.All, distribution, null);
 
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<IDistribution>>(properties);
@@ -73,11 +73,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.Mean)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        [TestCase(DistributionPropertiesReadOnly.None)]
+        [TestCase(DistributionReadOnlyProperties.Mean)]
+        [TestCase(DistributionReadOnlyProperties.StandardDeviation)]
+        [TestCase(DistributionReadOnlyProperties.None)]
         public void Constructor_NoDistributionSetWhileChangesPossible_ThrowArgumentException(
-            DistributionPropertiesReadOnly flags)
+            DistributionReadOnlyProperties flags)
         {
             // Call
             TestDelegate call = () => new SimpleDistributionProperties(flags, null, null);
@@ -88,11 +88,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.Mean)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        [TestCase(DistributionPropertiesReadOnly.None)]
+        [TestCase(DistributionReadOnlyProperties.Mean)]
+        [TestCase(DistributionReadOnlyProperties.StandardDeviation)]
+        [TestCase(DistributionReadOnlyProperties.None)]
         public void Constructor_NoHandlerSetWhileChangesPossible_ThrowArgumentException(
-            DistributionPropertiesReadOnly flags)
+            DistributionReadOnlyProperties flags)
         {
             // Setup
             var mocks = new MockRepository();
@@ -110,11 +110,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.All, true, true)]
-        [TestCase(DistributionPropertiesReadOnly.Mean, true, false)]
-        [TestCase(DistributionPropertiesReadOnly.None, false, false)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
+        [TestCase(DistributionReadOnlyProperties.All, true, true)]
+        [TestCase(DistributionReadOnlyProperties.Mean, true, false)]
+        [TestCase(DistributionReadOnlyProperties.None, false, false)]
+        [TestCase(DistributionReadOnlyProperties.StandardDeviation, false, true)]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(DistributionReadOnlyProperties readOnlyProperties, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
+            var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 
             // Assert
             AssertPropertiesInState(properties, expectMeanReadOnly, expectStandardDeviationReadOnly);
@@ -131,11 +131,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.All, true, true)]
-        [TestCase(DistributionPropertiesReadOnly.Mean, true, false)]
-        [TestCase(DistributionPropertiesReadOnly.None, false, false)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
-        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
+        [TestCase(DistributionReadOnlyProperties.All, true, true)]
+        [TestCase(DistributionReadOnlyProperties.Mean, true, false)]
+        [TestCase(DistributionReadOnlyProperties.None, false, false)]
+        [TestCase(DistributionReadOnlyProperties.StandardDeviation, false, true)]
+        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(DistributionReadOnlyProperties readOnlyProperties, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
+            var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 
             // Call
             bool meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
@@ -170,7 +170,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(DistributionPropertiesReadOnly.None, distribution, handler);
+            var properties = new SimpleDistributionProperties(DistributionReadOnlyProperties.None, distribution, handler);
 
             // Assert
             Assert.AreEqual(distribution.Mean, properties.Mean);
@@ -190,7 +190,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(
-                DistributionPropertiesReadOnly.All,
+                DistributionReadOnlyProperties.All,
                 distribution,
                 handler);
 
@@ -221,7 +221,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             });
 
             var properties = new SimpleDistributionProperties(
-                DistributionPropertiesReadOnly.None,
+                DistributionReadOnlyProperties.None,
                 distribution,
                 handler);
 
@@ -234,9 +234,9 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.All)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        public void StandardDeviation_ReadOnlyWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
+        [TestCase(DistributionReadOnlyProperties.All)]
+        [TestCase(DistributionReadOnlyProperties.StandardDeviation)]
+        public void StandardDeviation_ReadOnlyWithoutObserverable_ThrowsArgumentException(DistributionReadOnlyProperties readOnlyProperties)
         {
             // Setup
             var mocks = new MockRepository();
@@ -245,7 +245,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(
-                propertiesReadOnly,
+                readOnlyProperties,
                 distribution,
                 handler);
 
@@ -276,7 +276,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             });
 
             var properties = new SimpleDistributionProperties(
-                DistributionPropertiesReadOnly.None,
+                DistributionReadOnlyProperties.None,
                 distribution,
                 handler);
 
@@ -319,10 +319,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             public SimpleDistributionProperties(IDistribution distribution) : base(distribution) {}
 
-            public SimpleDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly,
+            public SimpleDistributionProperties(DistributionReadOnlyProperties readOnlyProperties,
                                                 IDistribution distribution,
                                                 IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, distribution, handler) {}
+                : base(readOnlyProperties, distribution, handler) {}
 
             public override string DistributionType
             {

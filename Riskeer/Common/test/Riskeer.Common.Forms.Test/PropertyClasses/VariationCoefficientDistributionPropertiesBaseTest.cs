@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.All, distribution, null);
+            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionReadOnlyProperties.All, distribution, null);
 
             // Assert
             Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
@@ -73,11 +73,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.Mean)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.None)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.Mean)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.None)]
         public void Constructor_NoDistributionSetWhileChangesPossible_ThrowArgumentException(
-            VariationCoefficientDistributionPropertiesReadOnly flags)
+            VariationCoefficientDistributionReadOnlyProperties flags)
         {
             // Call
             TestDelegate call = () => new SimpleDistributionProperties(flags, null, null);
@@ -88,11 +88,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.Mean)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.None)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.Mean)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.None)]
         public void Constructor_NoHandlerSetWhileChangesPossible_ThrowArgumentException(
-            VariationCoefficientDistributionPropertiesReadOnly flags)
+            VariationCoefficientDistributionReadOnlyProperties flags)
         {
             // Setup
             var mocks = new MockRepository();
@@ -110,11 +110,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.All, true, true)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.Mean, true, false)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.None, false, false)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, false, true)]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectCoefficientOfVariationReadOnly)
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.All, true, true)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.Mean, true, false)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.None, false, false)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation, false, true)]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties, bool expectMeanReadOnly, bool expectCoefficientOfVariationReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -123,7 +123,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
+            var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 
             // Assert
             AssertPropertiesInState(properties, expectMeanReadOnly, expectCoefficientOfVariationReadOnly);
@@ -131,11 +131,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.All, true, true)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.Mean, true, false)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.None, false, false)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, false, true)]
-        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectCoefficientOfVariationReadOnly)
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.All, true, true)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.Mean, true, false)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.None, false, false)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation, false, true)]
+        public void DynamicReadOnlyValidationMethod_VariousReadOnlySet_ExpectedValues(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties, bool expectMeanReadOnly, bool expectCoefficientOfVariationReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
+            var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 
             // Call
             bool meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
@@ -169,7 +169,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler);
+            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionReadOnlyProperties.None, distribution, handler);
 
             // Call
             properties.Data = distribution;
@@ -192,7 +192,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var properties = new SimpleDistributionProperties(
-                VariationCoefficientDistributionPropertiesReadOnly.All,
+                VariationCoefficientDistributionReadOnlyProperties.All,
                 distribution,
                 handler);
 
@@ -223,7 +223,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             });
 
             var properties = new SimpleDistributionProperties(
-                VariationCoefficientDistributionPropertiesReadOnly.None,
+                VariationCoefficientDistributionReadOnlyProperties.None,
                 distribution,
                 handler);
 
@@ -236,9 +236,9 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.All)]
-        [TestCase(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation)]
-        public void CoefficientOfVariation_ReadOnlyWithoutObserverable_ThrowsArgumentException(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly)
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.All)]
+        [TestCase(VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation)]
+        public void CoefficientOfVariation_ReadOnlyWithoutObserverable_ThrowsArgumentException(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties)
         {
             // Setup
             var mocks = new MockRepository();
@@ -246,7 +246,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new SimpleDistributionProperties(propertiesReadOnly, distribution, handler);
+            var properties = new SimpleDistributionProperties(readOnlyProperties, distribution, handler);
 
             // Call
             TestDelegate test = () => properties.CoefficientOfVariation = new RoundedDouble(2, 20);
@@ -274,7 +274,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 observerable
             });
 
-            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler)
+            var properties = new SimpleDistributionProperties(VariationCoefficientDistributionReadOnlyProperties.None, distribution, handler)
             {
                 Data = distribution
             };
@@ -320,10 +320,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             public SimpleDistributionProperties(IVariationCoefficientDistribution distribution) : base(distribution) {}
 
-            public SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+            public SimpleDistributionProperties(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties,
                                                 IVariationCoefficientDistribution distribution,
                                                 IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, distribution, handler) {}
+                : base(readOnlyProperties, distribution, handler) {}
 
             public override string DistributionType
             {

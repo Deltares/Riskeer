@@ -48,19 +48,19 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// </summary>
         /// <param name="distribution">The <see cref="TDistribution"/> to create the properties for.</param>
         protected VariationCoefficientDistributionPropertiesBase(TDistribution distribution)
-            : this(VariationCoefficientDistributionPropertiesReadOnly.All, distribution, null) {}
+            : this(VariationCoefficientDistributionReadOnlyProperties.All, distribution, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="VariationCoefficientDistributionPropertiesBase{TDistribution}"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="distribution">The data of the <see cref="TDistribution"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         protected VariationCoefficientDistributionPropertiesBase(
-            VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+            VariationCoefficientDistributionReadOnlyProperties readOnlyProperties,
             TDistribution distribution,
             IObservablePropertyChangeHandler handler)
         {
@@ -69,15 +69,15 @@ namespace Riskeer.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(distribution));
             }
 
-            if (!propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All) && handler == null)
+            if (!readOnlyProperties.HasFlag(VariationCoefficientDistributionReadOnlyProperties.All) && handler == null)
             {
                 throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
             }
 
             Data = distribution;
 
-            isMeanReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.Mean);
-            isVariationCoefficientReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation);
+            isMeanReadOnly = readOnlyProperties.HasFlag(VariationCoefficientDistributionReadOnlyProperties.Mean);
+            isVariationCoefficientReadOnly = readOnlyProperties.HasFlag(VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation);
 
             changeHandler = handler;
         }

@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new NormalDistributionProperties(
-                DistributionPropertiesReadOnly.None, distribution, handler);
+                DistributionReadOnlyProperties.None, distribution, handler);
 
             // Assert
             Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);

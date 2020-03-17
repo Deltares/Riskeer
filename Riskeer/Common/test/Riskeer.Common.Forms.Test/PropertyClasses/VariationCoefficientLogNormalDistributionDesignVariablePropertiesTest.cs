@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
+            TestDelegate test = () => new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
                                                                                                             null,
                                                                                                             handler);
 
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var designVariable = new VariationCoefficientLogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.All,
+            var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.All,
                                                                                                    designVariable,
                                                                                                    handler);
 
@@ -118,7 +118,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var designVariable = new VariationCoefficientLogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
+            var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
                                                                                                    designVariable,
                                                                                                    handler);
 
@@ -170,7 +170,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var designVariable = new VariationCoefficientLogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
+            var properties = new VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
                                                                                                    designVariable,
                                                                                                    handler);
 

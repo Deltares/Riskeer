@@ -150,7 +150,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
+                    DistributionReadOnlyProperties.StandardDeviation,
                     data.WrappedData.ModelFactorSuperCriticalFlow,
                     PropertyChangeHandler);
             }
@@ -408,8 +408,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.LevelCrestStructureNotClosing,
                     PropertyChangeHandler);
             }
@@ -428,8 +428,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.InsideWaterLevel,
                     PropertyChangeHandler);
             }
@@ -448,8 +448,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.ThresholdHeightOpenWeir,
                     PropertyChangeHandler);
             }
@@ -468,8 +468,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             {
                 return new LogNormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.AreaFlowApertures,
                     PropertyChangeHandler);
             }
@@ -487,7 +487,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
+                    DistributionReadOnlyProperties.StandardDeviation,
                     data.WrappedData.DrainCoefficient,
                     PropertyChangeHandler);
             }

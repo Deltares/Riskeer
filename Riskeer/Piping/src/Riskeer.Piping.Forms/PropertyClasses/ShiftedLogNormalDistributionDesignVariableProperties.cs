@@ -47,15 +47,15 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <summary>
         /// Creates a new <see cref="ShiftedLogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
-        public ShiftedLogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
+        public ShiftedLogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties readOnlyProperties,
                                                                     DesignVariable<LogNormalDistribution> designVariable,
                                                                     IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly, designVariable, handler) {}
+            : base(readOnlyProperties, designVariable, handler) {}
 
         [PropertyOrder(4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probabilistics_Shift_Symbol))]

@@ -39,15 +39,15 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new <see cref="DesignVariableProperties{TDistribution}"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The data of the <see cref="TDistribution"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
-        protected DesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
+        protected DesignVariableProperties(DistributionReadOnlyProperties readOnlyProperties,
                                            DesignVariable<TDistribution> designVariable,
                                            IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly, GetDistribution(designVariable), handler)
+            : base(readOnlyProperties, GetDistribution(designVariable), handler)
         {
             DesignVariable = designVariable;
         }

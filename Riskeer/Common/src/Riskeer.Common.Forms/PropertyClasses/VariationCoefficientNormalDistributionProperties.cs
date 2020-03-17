@@ -42,7 +42,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="VariationCoefficientNormalDistributionProperties"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be
         /// marked as read-only.</param>
         /// <param name="distribution">The <see cref="VariationCoefficientNormalDistribution"/> to create the properties for.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
@@ -50,10 +50,10 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         public VariationCoefficientNormalDistributionProperties(
-            VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+            VariationCoefficientDistributionReadOnlyProperties readOnlyProperties,
             VariationCoefficientNormalDistribution distribution,
             IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly, distribution, handler) {}
+            : base(readOnlyProperties, distribution, handler) {}
 
         public override string DistributionType
         {

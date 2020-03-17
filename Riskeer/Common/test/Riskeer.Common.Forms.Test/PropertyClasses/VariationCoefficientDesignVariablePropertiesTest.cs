@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
+            TestDelegate test = () => new SimpleDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
                                                                          null,
                                                                          handler);
 
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var designVariable = new SimpleVariationCoefficientDesignVariableProperties(distribution, RoundedDouble.NaN);
 
             // Call
-            var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.All,
+            var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.All,
                                                                 designVariable,
                                                                 handler);
 
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var designVariable = new SimpleVariationCoefficientDesignVariableProperties(distribution, new RoundedDouble(numberOfDecimalPlaces, 0.45));
 
             // Call
-            var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
+            var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties.None,
                                                                 designVariable,
                                                                 handler);
 
@@ -102,10 +102,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class SimpleDesignVariableProperties : VariationCoefficientDesignVariableProperties<IVariationCoefficientDistribution>
         {
-            public SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+            public SimpleDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties,
                                                   VariationCoefficientDesignVariable<IVariationCoefficientDistribution> designVariable,
                                                   IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, designVariable, handler) {}
+                : base(readOnlyProperties, designVariable, handler) {}
 
             public override string DistributionType { get; }
         }

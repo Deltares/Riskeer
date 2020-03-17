@@ -59,7 +59,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new VariationCoefficientLogNormalDistributionProperties(
-                VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler);
+                VariationCoefficientDistributionReadOnlyProperties.None, distribution, handler);
 
             // Assert
             Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>>(properties);

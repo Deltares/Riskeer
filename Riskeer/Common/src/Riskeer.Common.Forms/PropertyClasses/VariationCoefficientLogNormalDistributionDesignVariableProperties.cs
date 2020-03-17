@@ -39,20 +39,20 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>.</exception>
         public VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
-            : this(VariationCoefficientDistributionPropertiesReadOnly.All, designVariable, null) {}
+            : this(VariationCoefficientDistributionReadOnlyProperties.All, designVariable, null) {}
 
         /// <summary>
         /// Creates a new <see cref="VariationCoefficientLogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
-        public VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+        public VariationCoefficientLogNormalDistributionDesignVariableProperties(VariationCoefficientDistributionReadOnlyProperties readOnlyProperties,
                                                                                  VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable,
                                                                                  IObservablePropertyChangeHandler handler)
-            : base(propertiesReadOnly,
+            : base(readOnlyProperties,
                    designVariable,
                    handler) {}
 

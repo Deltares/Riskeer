@@ -387,8 +387,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
             {
                 return new NormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.WidthFlowApertures,
                     PropertyChangeHandler);
             }
@@ -404,7 +404,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
-                    VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation,
+                    VariationCoefficientDistributionReadOnlyProperties.CoefficientOfVariation,
                     data.WrappedData.StormDuration,
                     PropertyChangeHandler);
             }
@@ -425,8 +425,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.CriticalOvertoppingDischarge,
                     PropertyChangeHandler);
             }
@@ -443,8 +443,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
             {
                 return new LogNormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.FlowWidthAtBottomProtection,
                     PropertyChangeHandler);
             }
@@ -483,8 +483,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
             {
                 return new VariationCoefficientLogNormalDistributionProperties(
                     HasStructure()
-                        ? VariationCoefficientDistributionPropertiesReadOnly.None
-                        : VariationCoefficientDistributionPropertiesReadOnly.All,
+                        ? VariationCoefficientDistributionReadOnlyProperties.None
+                        : VariationCoefficientDistributionReadOnlyProperties.All,
                     data.WrappedData.StorageStructureArea,
                     PropertyChangeHandler);
             }
@@ -501,8 +501,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
             {
                 return new LogNormalDistributionProperties(
                     HasStructure()
-                        ? DistributionPropertiesReadOnly.None
-                        : DistributionPropertiesReadOnly.All,
+                        ? DistributionReadOnlyProperties.None
+                        : DistributionReadOnlyProperties.All,
                     data.WrappedData.AllowedLevelIncreaseStorage,
                     PropertyChangeHandler);
             }

@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            TestDelegate test = () => new SimpleDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                          null,
                                                                          handler);
 
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.All,
+            var properties = new SimpleDesignVariableProperties(DistributionReadOnlyProperties.All,
                                                                 designVariable,
                                                                 handler);
 
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            var properties = new SimpleDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                 designVariable,
                                                                 handler);
 
@@ -102,10 +102,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class SimpleDesignVariableProperties : DesignVariableProperties<LogNormalDistribution>
         {
-            public SimpleDesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
+            public SimpleDesignVariableProperties(DistributionReadOnlyProperties readOnlyProperties,
                                                   DesignVariable<LogNormalDistribution> designVariable,
                                                   IObservablePropertyChangeHandler handler)
-                : base(propertiesReadOnly, designVariable, handler) {}
+                : base(readOnlyProperties, designVariable, handler) {}
 
             public override string DistributionType { get; }
         }

@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            TestDelegate test = () => new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                                         null,
                                                                                         handler);
 
@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.All,
+            var properties = new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.All,
                                                                                designVariable,
                                                                                handler);
 
@@ -119,7 +119,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            var properties = new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                                designVariable,
                                                                                handler);
 
@@ -171,7 +171,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
             // Call
-            var properties = new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            var properties = new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
                                                                                designVariable,
                                                                                handler);
 

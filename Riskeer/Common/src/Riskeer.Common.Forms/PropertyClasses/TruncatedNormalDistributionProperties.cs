@@ -39,12 +39,12 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// </summary>
         /// <param name="distribution">The <see cref="TruncatedNormalDistribution"/> to create the properties for.</param>
         public TruncatedNormalDistributionProperties(TruncatedNormalDistribution distribution)
-            : this(DistributionPropertiesReadOnly.All, distribution, null) {}
+            : this(DistributionReadOnlyProperties.All, distribution, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TruncatedNormalDistributionProperties"/>.
         /// </summary>
-        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
+        /// <param name="readOnlyProperties">Indicates which properties, if any, should be
         /// marked as read-only.</param>
         /// <param name="distribution">The <see cref="TruncatedNormalDistribution"/> to create the properties for.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
@@ -52,10 +52,10 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         public TruncatedNormalDistributionProperties(
-            DistributionPropertiesReadOnly propertiesReadOnly,
+            DistributionReadOnlyProperties readOnlyProperties,
             TruncatedNormalDistribution distribution,
             IObservablePropertyChangeHandler handler) :
-            base(propertiesReadOnly, distribution, handler) {}
+            base(readOnlyProperties, distribution, handler) {}
 
         public override string DistributionType
         {

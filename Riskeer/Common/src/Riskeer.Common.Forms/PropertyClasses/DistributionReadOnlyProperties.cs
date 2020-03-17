@@ -24,34 +24,31 @@ using System;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Indicator of what properties to mark as read-only for
-    /// <see cref="VariationCoefficientDistributionPropertiesBase{T}"/>.
+    /// All options to mark properties of <see cref="DistributionPropertiesBase{T}"/> as read-only.
     /// </summary>
     [Flags]
-    public enum VariationCoefficientDistributionPropertiesReadOnly
+    public enum DistributionReadOnlyProperties
     {
         /// <summary>
-        /// Mark none of the properties of <see cref="VariationCoefficientDistributionPropertiesBase{T}"/>
+        /// Mark none of the properties of <see cref="DistributionPropertiesBase{T}"/>
         /// as read-only.
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// Mark <see cref="VariationCoefficientDistributionPropertiesBase{T}.Mean"/> as read-only.
+        /// Mark <see cref="DistributionPropertiesBase{T}.Mean"/> read-only.
         /// </summary>
         Mean = 1,
 
         /// <summary>
-        /// Mark <see cref="VariationCoefficientDistributionPropertiesBase{T}.CoefficientOfVariation"/>
-        /// as read-only.
+        /// Mark <see cref="DistributionPropertiesBase{T}.StandardDeviation"/> read-only.
         /// </summary>
-        CoefficientOfVariation = 2,
+        StandardDeviation = 2,
 
         /// <summary>
-        /// Marks both <see cref="VariationCoefficientDistributionPropertiesBase{T}.Mean"/> and
-        /// <see cref="VariationCoefficientDistributionPropertiesBase{T}.CoefficientOfVariation"/>
-        /// as read-only.
+        /// Mark both <see cref="DistributionPropertiesBase{T}.Mean"/> and
+        /// <see cref="DistributionPropertiesBase{T}.StandardDeviation"/> as read-only.
         /// </summary>
-        All = Mean | CoefficientOfVariation
+        All = Mean | StandardDeviation
     }
 }
