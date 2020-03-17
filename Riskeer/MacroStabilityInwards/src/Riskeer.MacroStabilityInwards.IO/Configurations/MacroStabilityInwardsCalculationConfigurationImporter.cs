@@ -568,104 +568,73 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
         private static void SetSimpleProperties(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
                                                 MacroStabilityInwardsInput input)
         {
-            if (calculationConfiguration.WaterLevelRiverAverage.HasValue)
-            {
-                input.WaterLevelRiverAverage = (RoundedDouble) calculationConfiguration.WaterLevelRiverAverage.Value;
-            }
+            SetProperty(calculationConfiguration.WaterLevelRiverAverage,
+                        value => input.WaterLevelRiverAverage = (RoundedDouble) value);
 
-            if (calculationConfiguration.DrainageConstructionPresent.HasValue)
-            {
-                input.DrainageConstructionPresent = calculationConfiguration.DrainageConstructionPresent.Value;
-            }
+            SetProperty(calculationConfiguration.DrainageConstructionPresent,
+                        value => input.DrainageConstructionPresent = value);
 
-            if (calculationConfiguration.XCoordinateDrainageConstruction.HasValue)
-            {
-                input.XCoordinateDrainageConstruction = (RoundedDouble) calculationConfiguration.XCoordinateDrainageConstruction.Value;
-            }
+            SetProperty(calculationConfiguration.XCoordinateDrainageConstruction,
+                        value => input.XCoordinateDrainageConstruction = (RoundedDouble) value);
 
-            if (calculationConfiguration.ZCoordinateDrainageConstruction.HasValue)
-            {
-                input.ZCoordinateDrainageConstruction = (RoundedDouble) calculationConfiguration.ZCoordinateDrainageConstruction.Value;
-            }
+            SetProperty(calculationConfiguration.ZCoordinateDrainageConstruction,
+                        value => input.ZCoordinateDrainageConstruction = (RoundedDouble) value);
 
-            if (calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopRiver.HasValue)
-            {
-                input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopRiver.Value;
-            }
+            SetProperty(calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopRiver,
+                        value => input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) value);
 
-            if (calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopPolder.HasValue)
-            {
-                input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopPolder.Value;
-            }
+            SetProperty(calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopPolder,
+                        value => input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) value);
 
-            if (calculationConfiguration.AdjustPhreaticLine3And4ForUplift.HasValue)
-            {
-                input.AdjustPhreaticLine3And4ForUplift = calculationConfiguration.AdjustPhreaticLine3And4ForUplift.Value;
-            }
+            SetProperty(calculationConfiguration.AdjustPhreaticLine3And4ForUplift,
+                        value => input.AdjustPhreaticLine3And4ForUplift = value);
 
-            if (calculationConfiguration.PiezometricHeadPhreaticLine2Outwards.HasValue)
-            {
-                input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) calculationConfiguration.PiezometricHeadPhreaticLine2Outwards.Value;
-            }
+            SetProperty(calculationConfiguration.PiezometricHeadPhreaticLine2Outwards,
+                        value => input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) value);
 
-            if (calculationConfiguration.PiezometricHeadPhreaticLine2Inwards.HasValue)
-            {
-                input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) calculationConfiguration.PiezometricHeadPhreaticLine2Inwards.Value;
-            }
+            SetProperty(calculationConfiguration.PiezometricHeadPhreaticLine2Inwards,
+                        value => input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) value);
 
-            if (calculationConfiguration.LeakageLengthOutwardsPhreaticLine3.HasValue)
-            {
-                input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.LeakageLengthOutwardsPhreaticLine3.Value;
-            }
+            SetProperty(calculationConfiguration.LeakageLengthOutwardsPhreaticLine3,
+                        value => input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) value);
 
-            if (calculationConfiguration.LeakageLengthInwardsPhreaticLine3.HasValue)
-            {
-                input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.LeakageLengthInwardsPhreaticLine3.Value;
-            }
+            SetProperty(calculationConfiguration.LeakageLengthInwardsPhreaticLine3,
+                        value => input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) value);
 
-            if (calculationConfiguration.LeakageLengthOutwardsPhreaticLine4.HasValue)
-            {
-                input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.LeakageLengthOutwardsPhreaticLine4.Value;
-            }
+            SetProperty(calculationConfiguration.LeakageLengthOutwardsPhreaticLine4,
+                        value => input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) value);
 
-            if (calculationConfiguration.LeakageLengthInwardsPhreaticLine4.HasValue)
-            {
-                input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.LeakageLengthInwardsPhreaticLine4.Value;
-            }
+            SetProperty(calculationConfiguration.LeakageLengthInwardsPhreaticLine4,
+                        value => input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) value);
 
-            if (calculationConfiguration.SlipPlaneMinimumDepth.HasValue)
-            {
-                input.SlipPlaneMinimumDepth = (RoundedDouble) calculationConfiguration.SlipPlaneMinimumDepth.Value;
-            }
+            SetProperty(calculationConfiguration.SlipPlaneMinimumDepth,
+                        value => input.SlipPlaneMinimumDepth = (RoundedDouble) value);
 
-            if (calculationConfiguration.SlipPlaneMinimumLength.HasValue)
-            {
-                input.SlipPlaneMinimumLength = (RoundedDouble) calculationConfiguration.SlipPlaneMinimumLength.Value;
-            }
+            SetProperty(calculationConfiguration.SlipPlaneMinimumLength,
+                        value => input.SlipPlaneMinimumLength = (RoundedDouble) value);
 
-            if (calculationConfiguration.MaximumSliceWidth.HasValue)
-            {
-                input.MaximumSliceWidth = (RoundedDouble) calculationConfiguration.MaximumSliceWidth.Value;
-            }
+            SetProperty(calculationConfiguration.MaximumSliceWidth,
+                        value => input.MaximumSliceWidth = (RoundedDouble) value);
 
-            if (calculationConfiguration.MoveGrid.HasValue)
-            {
-                input.MoveGrid = calculationConfiguration.MoveGrid.Value;
-            }
+            SetProperty(calculationConfiguration.MoveGrid,
+                        value => input.MoveGrid = value);
 
-            if (calculationConfiguration.CreateZones.HasValue)
-            {
-                input.CreateZones = calculationConfiguration.CreateZones.Value;
-            }
+            SetProperty(calculationConfiguration.CreateZones,
+                        value => input.CreateZones = value);
 
-            if (calculationConfiguration.ZoneBoundaryLeft.HasValue)
-            {
-                input.ZoneBoundaryLeft = (RoundedDouble) calculationConfiguration.ZoneBoundaryLeft.Value;
-            }
+            SetProperty(calculationConfiguration.ZoneBoundaryLeft,
+                        value => input.ZoneBoundaryLeft = (RoundedDouble) value);
 
-            if (calculationConfiguration.ZoneBoundaryRight.HasValue)
+            SetProperty(calculationConfiguration.ZoneBoundaryRight,
+                        value => input.ZoneBoundaryRight = (RoundedDouble) value);
+        }
+
+        private static void SetProperty<T>(T? property, Action<T> setPropertyAction)
+            where T : struct
+        {
+            if (property.HasValue)
             {
-                input.ZoneBoundaryRight = (RoundedDouble) calculationConfiguration.ZoneBoundaryRight.Value;
+                setPropertyAction(property.Value);
             }
         }
 
