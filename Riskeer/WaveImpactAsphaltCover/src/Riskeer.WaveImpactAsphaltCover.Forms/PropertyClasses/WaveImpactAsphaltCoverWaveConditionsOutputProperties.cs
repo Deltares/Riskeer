@@ -44,11 +44,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         {
             get
             {
-                return data.Items.Select(waveConditionOutput => new WaveConditionsOutputProperties
-                {
-                    Data = waveConditionOutput
-                }).ToArray();
+                return GetWaveConditionsOutputProperties();
             }
+        }
+
+        private WaveConditionsOutputProperties[] GetWaveConditionsOutputProperties()
+        {
+            return data.Items.Select(waveConditionOutput => new WaveConditionsOutputProperties
+            {
+                Data = waveConditionOutput
+            }).ToArray();
         }
     }
 }

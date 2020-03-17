@@ -72,10 +72,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                return data.BlocksOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
-                {
-                    Data = waveConditionsOutput
-                }).ToArray();
+                return GetBlocks();
             }
         }
 
@@ -88,10 +85,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                return data.ColumnsOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
-                {
-                    Data = waveConditionsOutput
-                }).ToArray();
+                return GetColumns();
             }
         }
 
@@ -109,6 +103,22 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             }
 
             return true;
+        }
+
+        private WaveConditionsOutputProperties[] GetBlocks()
+        {
+            return data.BlocksOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
+            {
+                Data = waveConditionsOutput
+            }).ToArray();
+        }
+
+        private WaveConditionsOutputProperties[] GetColumns()
+        {
+            return data.ColumnsOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
+            {
+                Data = waveConditionsOutput
+            }).ToArray();
         }
     }
 }
