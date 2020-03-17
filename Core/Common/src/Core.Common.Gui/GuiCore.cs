@@ -261,7 +261,6 @@ namespace Core.Common.Gui
                     currentSelectionProvider.SelectionChanged -= OnSelectionChanged;
                 }
 
-                // Dispose managed resources. TODO: double check if we need to dispose managed resources?
                 if (mainWindow != null && !mainWindow.IsWindowDisposed)
                 {
                     mainWindow.Dispose();

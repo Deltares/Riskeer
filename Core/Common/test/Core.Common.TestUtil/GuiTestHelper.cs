@@ -30,8 +30,6 @@ namespace Core.Common.TestUtil
 {
     /// <summary>
     /// Used by WindowsFormsTestHelper and WpfTestHelper
-    /// 
-    /// TODO: invert it - use GuiTestHelper as entry point in tests.
     /// </summary>
     public class GuiTestHelper
     {
