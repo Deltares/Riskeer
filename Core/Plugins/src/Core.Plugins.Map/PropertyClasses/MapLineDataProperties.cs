@@ -138,7 +138,7 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 MapTheme<LineCategoryTheme> mapTheme = data.Theme;
                 return mapTheme != null
-                           ? mapTheme.CategoryThemes.Select(ct => new LineCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray()
+                           ? GetCategoryThemes(mapTheme)
                            : new LineCategoryThemeProperties[0];
             }
         }
@@ -170,6 +170,11 @@ namespace Core.Plugins.Map.PropertyClasses
             }
 
             return base.DynamicReadonlyValidator(propertyName);
+        }
+
+        private LineCategoryThemeProperties[] GetCategoryThemes(MapTheme<LineCategoryTheme> mapTheme)
+        {
+            return mapTheme.CategoryThemes.Select(ct => new LineCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray();
         }
     }
 }
