@@ -262,14 +262,15 @@ namespace Riskeer.Piping.KernelWrapper
             double effectiveStress = DetermineEffectiveStressForOneLayerProfile(input.EffectiveThicknessCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer, input.WaterVolumetricWeight);
 
             IUpliftCalculator calculator = factory.CreateUpliftCalculator();
-            calculator.VolumetricWeightOfWater = input.WaterVolumetricWeight;
-            calculator.ModelFactorUplift = input.UpliftModelFactor;
+            calculator.SetVolumetricWeightOfWater(input.WaterVolumetricWeight);
+            calculator.SetModelFactorUplift(input.UpliftModelFactor);
             calculator.EffectiveStress = effectiveStress;
-            calculator.HRiver = input.AssessmentLevel;
-            calculator.PhiExit = input.PiezometricHeadExit;
-            calculator.RExit = input.DampingFactorExit;
-            calculator.HExit = input.PhreaticLevelExit;
-            calculator.PhiPolder = input.PhreaticLevelExit;
+            calculator.SetHRiver(input.AssessmentLevel);
+            calculator.SetPhiExit(input.PiezometricHeadExit);
+            calculator.SetRExit(input.DampingFactorExit);
+            calculator.SetHExit(input.PhreaticLevelExit);
+            calculator.SetPhiPolder(input.PhreaticLevelExit);
+            
             return calculator;
         }
 

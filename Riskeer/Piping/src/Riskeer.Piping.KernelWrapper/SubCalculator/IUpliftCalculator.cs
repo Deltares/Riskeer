@@ -36,37 +36,37 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the phreatic level at the exit point.
         /// </summary>
-        double HExit { set; }
+        void SetHExit(double hExit);
 
         /// <summary>
         /// Sets the river water level.
         /// </summary>
-        double HRiver { set; }
+        void SetHRiver(double hRiver);
 
         /// <summary>
         /// Sets the model factor.
         /// </summary>
-        double ModelFactorUplift { set; }
+        void SetModelFactorUplift(double modelFactorUplift);
 
         /// <summary>
         /// Sets the piezometric head at the exit point.
         /// </summary>
-        double PhiExit { set; }
+        void SetPhiExit(double phiExit);
 
         /// <summary>
         /// Sets the piezometric head in the hinterland.
         /// </summary>
-        double PhiPolder { set; }
+        void SetPhiPolder(double phiPolder);
 
         /// <summary>
         /// Sets the damping factor at the exit point.
         /// </summary>
-        double RExit { set; }
+        void SetRExit(double rExit);
 
         /// <summary>
         /// Sets the volumetric weight of water.
         /// </summary>
-        double VolumetricWeightOfWater { set; }
+        void SetVolumetricWeightOfWater(double volumetricWeightOfWater);
 
         /// <summary>
         /// Gets the z-value.

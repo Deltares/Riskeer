@@ -51,60 +51,39 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             }
         }
 
-        public double HExit
+        public void SetHExit(double hExit)
         {
-            set
-            {
-                wrappedCalculator.HExit = value;
-            }
+            wrappedCalculator.HExit = hExit;
         }
 
-        public double HRiver
+        public void SetHRiver(double hRiver)
         {
-            set
-            {
-                wrappedCalculator.HRiver = value;
-            }
+            wrappedCalculator.HRiver = hRiver;
         }
 
-        public double ModelFactorUplift
+        public void SetModelFactorUplift(double modelFactorUplift)
         {
-            set
-            {
-                wrappedCalculator.ModelFactorUplift = value;
-            }
+            wrappedCalculator.ModelFactorUplift = modelFactorUplift;
         }
 
-        public double PhiExit
+        public void SetPhiExit(double phiExit)
         {
-            set
-            {
-                wrappedCalculator.PhiExit = value;
-            }
+            wrappedCalculator.PhiExit = phiExit;
         }
 
-        public double PhiPolder
+        public void SetPhiPolder(double phiPolder)
         {
-            set
-            {
-                wrappedCalculator.PhiPolder = value;
-            }
+            wrappedCalculator.PhiPolder = phiPolder;
         }
 
-        public double RExit
+        public void SetRExit(double rExit)
         {
-            set
-            {
-                wrappedCalculator.RExit = value;
-            }
+            wrappedCalculator.RExit = rExit;
         }
 
-        public double VolumetricWeightOfWater
+        public void SetVolumetricWeightOfWater(double volumetricWeightOfWater)
         {
-            set
-            {
-                wrappedCalculator.VolumetricWeightOfWater = value;
-            }
+            wrappedCalculator.VolumetricWeightOfWater = volumetricWeightOfWater;
         }
 
         public double Zu

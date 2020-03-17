@@ -46,16 +46,52 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
 
+        public double HExit { get; private set; }
+        public double HRiver { get; private set; }
+        public double ModelFactorUplift { get; private set; }
+        public double PhiExit { get; private set; }
+        public double PhiPolder { get; private set; }
+        public double RExit { get; private set; }
+        public double VolumetricWeightOfWater { get; private set; }
+
         public double EffectiveStress { get; set; }
-        public double HExit { get; set; }
-        public double HRiver { get; set; }
-        public double ModelFactorUplift { get; set; }
-        public double PhiExit { get; set; }
-        public double PhiPolder { get; set; }
-        public double RExit { get; set; }
-        public double VolumetricWeightOfWater { get; set; }
         public double Zu { get; private set; }
         public double FoSu { get; private set; }
+
+        public void SetHExit(double hExit)
+        {
+            HExit = hExit;
+        }
+
+        public void SetHRiver(double hRiver)
+        {
+            HRiver = hRiver;
+        }
+
+        public void SetModelFactorUplift(double modelFactorUplift)
+        {
+            ModelFactorUplift = modelFactorUplift;
+        }
+
+        public void SetPhiExit(double phiExit)
+        {
+            PhiExit = phiExit;
+        }
+
+        public void SetPhiPolder(double phiPolder)
+        {
+            PhiPolder = phiPolder;
+        }
+
+        public void SetRExit(double rExit)
+        {
+            RExit = rExit;
+        }
+
+        public void SetVolumetricWeightOfWater(double volumetricWeightOfWater)
+        {
+            VolumetricWeightOfWater = volumetricWeightOfWater;
+        }
 
         public void Calculate()
         {
