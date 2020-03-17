@@ -69,7 +69,10 @@ namespace Core.Components.GraphSharp.Forms.Extensions
         /// <returns>An <see cref="Inline"/> element.</returns>
         private static Inline Convert(string value)
         {
-            var doc = new XmlDocument();
+            var doc = new XmlDocument
+            {
+                XmlResolver = null
+            };
             doc.LoadXml(value);
 
             var span = new Span();
