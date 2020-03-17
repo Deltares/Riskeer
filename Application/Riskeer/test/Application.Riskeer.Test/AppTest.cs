@@ -69,22 +69,22 @@ namespace Application.Riskeer.Test
             // Setup
             appDomain.DoCallBack(() =>
             {
-                App app = null;
-
                 // Call
-                void Call() => app = new App();
+                Action call = () =>
+                {
+                    var app = new App();
+                    app.Shutdown();
+                };
 
                 // Assert
                 string userDisplayInfo = UserDisplay();
 
-                TestHelper.AssertLogMessages(Call, messages =>
+                TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
                     Assert.AreEqual($"Riskeer versie {SettingsHelper.Instance.ApplicationVersion} wordt gestart door {userDisplayInfo}...", msgs[0]);
                 });
-
-                app.Shutdown();
             });
         }
 
