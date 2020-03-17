@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return faultTreeIllustrationPoint.Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return faultTreeIllustrationPoint.Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -132,6 +132,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
         public override bool IsDynamicVisible(string propertyName)
         {
             return propertyName.Equals(nameof(IllustrationPoints)) ? childNodes.Any() : base.IsDynamicVisible(propertyName);
+        }
+
+        private Stochast[] GetStochasts()
+        {
+            return faultTreeIllustrationPoint.Stochasts.ToArray();
         }
     }
 }

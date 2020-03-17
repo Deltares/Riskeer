@@ -173,7 +173,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralResult().Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -188,7 +188,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralResult().Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -203,7 +203,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             get
             {
                 IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints =
-                    GetGeneralResult().TopLevelIllustrationPoints.ToArray();
+                    GetTopLevelIllustrationPoints();
 
                 IEnumerable<string> closingSituations = topLevelIllustrationPoints.Select(s => s.ClosingSituation);
 
@@ -225,6 +225,16 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
 
             return true;
+        }
+
+        private Stochast[] GetStochasts()
+        {
+            return GetGeneralResult().Stochasts.ToArray();
+        }
+
+        private TopLevelSubMechanismIllustrationPoint[] GetTopLevelIllustrationPoints()
+        {
+            return GetGeneralResult().TopLevelIllustrationPoints.ToArray();
         }
 
         private GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()

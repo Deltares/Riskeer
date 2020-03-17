@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return subMechanismIllustrationPoint.Stochasts.ToArray();
+                return GetSubMechanismIllustrationPointStochasts();
             }
         }
 
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return subMechanismIllustrationPoint.Stochasts.ToArray();
+                return GetSubMechanismIllustrationPointStochasts();
             }
         }
 
@@ -95,6 +95,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
             {
                 return new SubMechanismIllustrationPointValuesProperties(subMechanismIllustrationPoint);
             }
+        }
+
+        private SubMechanismIllustrationPointStochast[] GetSubMechanismIllustrationPointStochasts()
+        {
+            return subMechanismIllustrationPoint.Stochasts.ToArray();
         }
     }
 }

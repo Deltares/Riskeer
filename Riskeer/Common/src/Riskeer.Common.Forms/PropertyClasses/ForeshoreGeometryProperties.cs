@@ -43,14 +43,19 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Geometry.Select(geometry => new Point2D(new RoundedDouble(0, geometry.X),
-                                                                    new RoundedDouble(0, geometry.Y))).ToArray();
+                return GetCoordinates();
             }
         }
 
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private Point2D[] GetCoordinates()
+        {
+            return data.Geometry.Select(geometry => new Point2D(new RoundedDouble(0, geometry.X),
+                                                                new RoundedDouble(0, geometry.Y))).ToArray();
         }
     }
 }
