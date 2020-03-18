@@ -67,8 +67,13 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return failureMechanismAssemblyCategories.Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
+                return GetFailureMechanismAssemblyCategories();
             }
+        }
+
+        private FailureMechanismAssemblyCategoryProperties[] GetFailureMechanismAssemblyCategories()
+        {
+            return failureMechanismAssemblyCategories.Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
         }
     }
 }

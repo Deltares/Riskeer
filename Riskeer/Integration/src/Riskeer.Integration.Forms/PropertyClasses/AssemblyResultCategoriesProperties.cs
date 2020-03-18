@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
+                return GetAssemblyCategories();
             }
         }
 
@@ -88,6 +88,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             {
                 return assessmentSection.FailureProbabilityMarginFactor;
             }
+        }
+
+        private FailureMechanismAssemblyCategoryProperties[] GetAssemblyCategories()
+        {
+            return data.Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
         }
     }
 }

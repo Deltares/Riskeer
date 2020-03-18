@@ -117,7 +117,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return ((FaultTreeIllustrationPoint) data.FaultTreeNodeRoot.Data).Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -130,7 +130,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return ((FaultTreeIllustrationPoint) data.FaultTreeNodeRoot.Data).Stochasts.ToArray();
+                return GetStochasts();
             }
         }
 
@@ -188,6 +188,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
         public override string ToString()
         {
             return $"{WindDirection}";
+        }
+
+        private Stochast[] GetStochasts()
+        {
+            return ((FaultTreeIllustrationPoint) data.FaultTreeNodeRoot.Data).Stochasts.ToArray();
         }
     }
 }

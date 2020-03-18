@@ -92,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer1D> macroStabilityInwardsSoilLayers1D = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Layers;
-                return macroStabilityInwardsSoilLayers1D?.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties(layer)).ToArray() ??
+                return GetLayers1D(macroStabilityInwardsSoilLayers1D) ??
                        new MacroStabilityInwardsSoilLayer1DProperties[0];
             }
         }
@@ -108,7 +108,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
                 IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
-                return macroStabilityInwardsSoilLayers2D.Select(layer => new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer)).ToArray();
+                return GetLayers2D(macroStabilityInwardsSoilLayers2D);
             }
         }
 
@@ -162,7 +162,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses =
                     (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.PreconsolidationStresses;
-                return preconsolidationStresses?.Select(stress => new MacroStabilityInwardsPreconsolidationStressProperties(stress)).ToArray() ??
+                return GetPreconsolidationStresses(preconsolidationStresses) ??
                        new MacroStabilityInwardsPreconsolidationStressProperties[0];
             }
         }
@@ -188,6 +188,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         public override string ToString()
         {
             return Name;
+        }
+
+        private static MacroStabilityInwardsSoilLayer1DProperties[] GetLayers1D(IEnumerable<MacroStabilityInwardsSoilLayer1D> macroStabilityInwardsSoilLayers1D)
+        {
+            return macroStabilityInwardsSoilLayers1D?.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties(layer)).ToArray();
+        }
+
+        private static MacroStabilityInwardsSoilLayer2DTopLevelProperties[] GetLayers2D(IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D)
+        {
+            return macroStabilityInwardsSoilLayers2D.Select(layer => new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer)).ToArray();
+        }
+
+        private static MacroStabilityInwardsPreconsolidationStressProperties[] GetPreconsolidationStresses(IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        {
+            return preconsolidationStresses?.Select(stress => new MacroStabilityInwardsPreconsolidationStressProperties(stress)).ToArray();
         }
     }
 }

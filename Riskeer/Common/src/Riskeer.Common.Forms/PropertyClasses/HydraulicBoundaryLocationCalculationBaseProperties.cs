@@ -207,8 +207,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
                 IEnumerable<string> closingSituations = topLevelIllustrationPoints.Select(s => s.ClosingSituation);
 
-                return topLevelIllustrationPoints.Select(p => new TopLevelSubMechanismIllustrationPointProperties(p, closingSituations))
-                                                 .ToArray();
+                return GetTopLevelSubMechanismIllustrationPointProperties(topLevelIllustrationPoints, closingSituations);
             }
         }
 
@@ -225,6 +224,12 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
 
             return true;
+        }
+
+        private static TopLevelSubMechanismIllustrationPointProperties[] GetTopLevelSubMechanismIllustrationPointProperties(IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints, IEnumerable<string> closingSituations)
+        {
+            return topLevelIllustrationPoints.Select(p => new TopLevelSubMechanismIllustrationPointProperties(p, closingSituations))
+                                             .ToArray();
         }
 
         private Stochast[] GetStochasts()

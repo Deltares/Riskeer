@@ -74,8 +74,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Geometry.ToArray();
+                return GetGeometry();
             }
+        }
+
+        private Point2D[] GetGeometry()
+        {
+            return data.Geometry.ToArray();
         }
 
         [PropertyOrder(3)]
@@ -88,9 +93,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.StochasticSoilProfiles.Any()
-                           ? data.StochasticSoilProfiles.Select(ssp => new MacroStabilityInwardsStochasticSoilProfileProperties(ssp)).ToArray()
+                           ? GeetMacroStabilityInwardsStochasticSoilProfiles()
                            : new MacroStabilityInwardsStochasticSoilProfileProperties[0];
             }
+        }
+
+        private MacroStabilityInwardsStochasticSoilProfileProperties[] GeetMacroStabilityInwardsStochasticSoilProfiles()
+        {
+            return data.StochasticSoilProfiles.Select(ssp => new MacroStabilityInwardsStochasticSoilProfileProperties(ssp)).ToArray();
         }
     }
 }

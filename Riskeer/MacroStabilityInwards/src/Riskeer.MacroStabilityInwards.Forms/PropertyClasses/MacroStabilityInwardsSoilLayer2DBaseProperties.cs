@@ -77,13 +77,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OuterRing.Points.ToArray();
+                return GetGeometry();
             }
         }
 
         public override string ToString()
         {
             return Name;
+        }
+
+        private Point2D[] GetGeometry()
+        {
+            return data.OuterRing.Points.ToArray();
         }
     }
 }

@@ -73,10 +73,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WaveRunUpOutput.Select(output => new WaveConditionsOutputProperties
-                {
-                    Data = output
-                }).ToArray();
+                return GetWaveRunUpOutput();
             }
         }
 
@@ -89,10 +86,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WaveImpactOutput.Select(output => new WaveConditionsOutputProperties
-                {
-                    Data = output
-                }).ToArray();
+                return GetWaveImpactOutput();
             }
         }
 
@@ -115,7 +109,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            switch (propertyName) {
+            switch (propertyName)
+            {
                 case nameof(WaveRunUpOutput):
                     return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
@@ -132,6 +127,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                 default:
                     return false;
             }
+        }
+
+        private WaveConditionsOutputProperties[] GetWaveRunUpOutput()
+        {
+            return data.WaveRunUpOutput.Select(output => new WaveConditionsOutputProperties
+            {
+                Data = output
+            }).ToArray();
+        }
+
+        private WaveConditionsOutputProperties[] GetWaveImpactOutput()
+        {
+            return data.WaveImpactOutput.Select(output => new WaveConditionsOutputProperties
+            {
+                Data = output
+            }).ToArray();
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Points.ToArray();
+                return GetGeometry();
             }
         }
 
@@ -88,6 +88,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
             return data.Points.Any();
+        }
+
+        private Point2D[] GetGeometry()
+        {
+            return data.Points.ToArray();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.NestedLayers.Select(nestedLayer => new MacroStabilityInwardsSoilLayer2DBaseProperties(nestedLayer)).ToArray();
+                return GetNestedLayers();
             }
         }
 
@@ -69,6 +69,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return data.Data.IsAquifer;
             }
+        }
+
+        private MacroStabilityInwardsSoilLayer2DBaseProperties[] GetNestedLayers()
+        {
+            return data.NestedLayers.Select(nestedLayer => new MacroStabilityInwardsSoilLayer2DBaseProperties(nestedLayer)).ToArray();
         }
     }
 }
