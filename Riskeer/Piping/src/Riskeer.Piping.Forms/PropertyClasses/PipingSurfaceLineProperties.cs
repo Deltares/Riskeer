@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.Points.ToArray();
+                return GetPoints3D();
             }
         }
 
@@ -124,6 +124,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             {
                 return data.DitchPolderSide;
             }
+        }
+
+        private Point3D[] GetPoints3D()
+        {
+            return data.Points.ToArray();
         }
     }
 }

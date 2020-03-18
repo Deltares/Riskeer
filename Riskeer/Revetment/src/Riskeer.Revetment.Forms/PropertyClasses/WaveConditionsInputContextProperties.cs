@@ -243,7 +243,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.GetWaterLevels(getAssessmentLevelFunc()).ToArray();
+                return GetWaterLevels();
             }
         }
 
@@ -395,6 +395,11 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         protected void HandleChangeProperty(SetObservablePropertyValueDelegate setPropertyDelegate)
         {
             PropertyChangeHelper.ChangePropertyAndNotify(setPropertyDelegate, propertyChangeHandler);
+        }
+
+        private RoundedDouble[] GetWaterLevels()
+        {
+            return data.WrappedData.GetWaterLevels(getAssessmentLevelFunc()).ToArray();
         }
     }
 }

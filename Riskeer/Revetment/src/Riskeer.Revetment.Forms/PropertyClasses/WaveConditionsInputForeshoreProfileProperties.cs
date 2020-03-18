@@ -64,7 +64,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.ForeshoreGeometry.ToArray();
+                return GetCoordinates();
             }
         }
 
@@ -77,6 +77,11 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private Point2D[] GetCoordinates()
+        {
+            return data.ForeshoreGeometry.ToArray();
         }
     }
 }

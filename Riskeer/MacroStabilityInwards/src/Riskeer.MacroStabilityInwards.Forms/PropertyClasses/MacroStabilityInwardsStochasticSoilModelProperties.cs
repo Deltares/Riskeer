@@ -93,12 +93,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.StochasticSoilProfiles.Any()
-                           ? GeetMacroStabilityInwardsStochasticSoilProfiles()
+                           ? GetMacroStabilityInwardsStochasticSoilProfiles()
                            : new MacroStabilityInwardsStochasticSoilProfileProperties[0];
             }
         }
 
-        private MacroStabilityInwardsStochasticSoilProfileProperties[] GeetMacroStabilityInwardsStochasticSoilProfiles()
+        private MacroStabilityInwardsStochasticSoilProfileProperties[] GetMacroStabilityInwardsStochasticSoilProfiles()
         {
             return data.StochasticSoilProfiles.Select(ssp => new MacroStabilityInwardsStochasticSoilProfileProperties(ssp)).ToArray();
         }

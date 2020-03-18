@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.Geometry.ToArray();
+                return GetGeometry();
             }
         }
 
@@ -88,9 +88,19 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 return data.StochasticSoilProfiles.Any()
-                           ? data.StochasticSoilProfiles.Select(ssp => new PipingStochasticSoilProfileProperties(ssp)).ToArray()
+                           ? GetStochasticSoilProfiles()
                            : new PipingStochasticSoilProfileProperties[0];
             }
+        }
+
+        private Point2D[] GetGeometry()
+        {
+            return data.Geometry.ToArray();
+        }
+
+        private PipingStochasticSoilProfileProperties[] GetStochasticSoilProfiles()
+        {
+            return data.StochasticSoilProfiles.Select(ssp => new PipingStochasticSoilProfileProperties(ssp)).ToArray();
         }
     }
 }

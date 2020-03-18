@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.PhreaticLines.Select(pl => new MacroStabilityInwardsPhreaticLineProperties(pl)).ToArray();
+                return GetPhreaticLines();
             }
         }
 
@@ -76,13 +76,23 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WaternetLines.Select(wnl => new MacroStabilityInwardsWaternetLineProperties(wnl)).ToArray();
+                return GetWaternetLines();
             }
         }
 
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private MacroStabilityInwardsPhreaticLineProperties[] GetPhreaticLines()
+        {
+            return data.PhreaticLines.Select(pl => new MacroStabilityInwardsPhreaticLineProperties(pl)).ToArray();
+        }
+
+        private MacroStabilityInwardsWaternetLineProperties[] GetWaternetLines()
+        {
+            return data.WaternetLines.Select(wnl => new MacroStabilityInwardsWaternetLineProperties(wnl)).ToArray();
         }
     }
 }

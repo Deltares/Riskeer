@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -90,8 +89,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                IEnumerable<PipingSoilLayer> pipingSoilLayers = data.SoilProfile.Layers;
-                return pipingSoilLayers.Select(layer => new PipingSoilLayerProperties(layer)).ToArray();
+                return ReturnLayers();
             }
         }
 
@@ -123,6 +121,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         public override string ToString()
         {
             return Name;
+        }
+
+        private PipingSoilLayerProperties[] ReturnLayers()
+        {
+            return data.SoilProfile.Layers.Select(layer => new PipingSoilLayerProperties(layer)).ToArray();
         }
     }
 }
