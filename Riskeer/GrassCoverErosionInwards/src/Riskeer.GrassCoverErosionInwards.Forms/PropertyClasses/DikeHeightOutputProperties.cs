@@ -213,7 +213,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         private Stochast[] GetStochasts()
         {
-            return GetStochasts();
+            return data.GeneralResult?.Stochasts.ToArray();
         }
 
         private TopLevelFaultTreeIllustrationPointProperties[] GetTopLevelFaultTreeIllustrationPointProperties(bool areClosingSituationsSame)
