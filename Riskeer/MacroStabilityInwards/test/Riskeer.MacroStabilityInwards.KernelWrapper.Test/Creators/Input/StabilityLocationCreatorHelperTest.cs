@@ -21,14 +21,14 @@
 
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Deltares.WaternetCreator;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WtiStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
+using WtiStabilityPlLineCreationMethod = Deltares.MacroStability.WaternetCreator.PlLineCreationMethod;
+using WtiStabilityWaternetCreationMethod = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {

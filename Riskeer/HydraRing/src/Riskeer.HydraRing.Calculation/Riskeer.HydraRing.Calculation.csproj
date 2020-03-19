@@ -58,7 +58,7 @@
     <None Update="HydraRing\Deltares.Standard.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HydraRing\Deltares.WaternetCreator.dll">
+    <None Update="HydraRing\Deltares.MacroStability.WaternetCreator.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="HydraRing\Deltares.WTIPiping.dll">
