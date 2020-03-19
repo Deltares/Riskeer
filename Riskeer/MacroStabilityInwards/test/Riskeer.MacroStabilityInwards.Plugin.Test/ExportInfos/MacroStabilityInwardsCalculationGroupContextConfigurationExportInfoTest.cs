@@ -38,7 +38,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationGroupContextExportInfoTest
+    public class MacroStabilityInwardsCalculationGroupContextConfigurationExportInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
