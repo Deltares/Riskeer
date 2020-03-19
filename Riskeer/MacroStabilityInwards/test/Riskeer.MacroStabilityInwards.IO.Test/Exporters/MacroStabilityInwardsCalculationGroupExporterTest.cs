@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
@@ -13,7 +14,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), string.Empty);
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), "ValidFolderPath");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -31,21 +32,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Constructor_FolderPathNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase("C:\\Not:Valid")]
+        public void Constructor_InvalidFolderPath_ThrowsArgumentException(string folderPath)
         {
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), null);
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), folderPath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("folderPath", exception.ParamName);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
         public void Export_Always_ReturnsFalse()
         {
             // Setup
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), string.Empty);
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), "ValidFolderPath");
 
             // Call
             bool exportResult = exporter.Export();
