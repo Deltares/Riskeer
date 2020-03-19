@@ -21,9 +21,11 @@
 
 using System;
 using System.DirectoryServices.AccountManagement;
+using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util.Settings;
+using log4net.Config;
 using NUnit.Framework;
 using Riskeer.Integration.Forms;
 
@@ -69,6 +71,8 @@ namespace Application.Riskeer.Test
             // Setup
             appDomain.DoCallBack(() =>
             {
+                XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
+
                 // Call
                 Action call = () =>
                 {
