@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.WTIStability;
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetExtremeKernelWrapper : WaternetKernelWrapper
     {
-        public override void SetLocation(StabilityLocation stabilityLocation)
+        public override void SetLocation(Location stabilityLocation)
         {
             StabilityModel.Location = stabilityLocation;
         }

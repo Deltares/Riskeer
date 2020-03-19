@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Standard;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
