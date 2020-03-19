@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.Geometry;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;

@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
+using Deltares.MacroStability.Data;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Standard;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan

@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input

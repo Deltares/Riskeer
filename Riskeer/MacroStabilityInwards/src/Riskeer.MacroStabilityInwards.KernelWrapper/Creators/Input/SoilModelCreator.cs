@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {

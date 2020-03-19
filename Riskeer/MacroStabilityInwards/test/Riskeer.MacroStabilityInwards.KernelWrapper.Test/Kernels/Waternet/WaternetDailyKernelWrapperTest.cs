@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Util.Reflection;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Data;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 

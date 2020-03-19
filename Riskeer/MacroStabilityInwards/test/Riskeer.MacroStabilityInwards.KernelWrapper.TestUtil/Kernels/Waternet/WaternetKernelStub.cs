@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 

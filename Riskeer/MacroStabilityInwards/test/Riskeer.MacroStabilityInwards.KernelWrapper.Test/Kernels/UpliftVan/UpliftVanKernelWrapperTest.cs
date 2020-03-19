@@ -24,9 +24,10 @@ using System.Linq;
 using System.Xml.Schema;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
+using Deltares.MacroStability.Data;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Preprocessing;
+using Deltares.MacroStability.Standard;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 

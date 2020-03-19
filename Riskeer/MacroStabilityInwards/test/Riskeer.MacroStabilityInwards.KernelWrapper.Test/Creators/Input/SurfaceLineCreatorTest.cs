@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;

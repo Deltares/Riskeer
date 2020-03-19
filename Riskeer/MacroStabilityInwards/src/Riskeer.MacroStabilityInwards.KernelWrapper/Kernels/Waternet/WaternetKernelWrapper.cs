@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability;
+using Deltares.MacroStability.Data;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Standard;
 using Deltares.WTIStability.Calculation.Wrapper;
-using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
 using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
