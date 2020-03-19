@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using Deltares.MacroStability.WaternetCreator;
-using Deltares.WTIStability;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
