@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 
-namespace Riskeer.MacroStabilityInwards.IO.Test
+namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationGroupExporterTest
