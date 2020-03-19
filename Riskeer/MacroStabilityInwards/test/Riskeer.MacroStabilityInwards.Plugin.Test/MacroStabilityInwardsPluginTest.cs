@@ -238,8 +238,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, exportInfos.Length);
-                Assert.IsTrue(exportInfos.Any(i => i.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)));
+                Assert.AreEqual(4, exportInfos.Length);
+                Assert.AreEqual(2, exportInfos.Count(i => i.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(i => i.DataType == typeof(MacroStabilityInwardsCalculationScenarioContext)));
             }
         }

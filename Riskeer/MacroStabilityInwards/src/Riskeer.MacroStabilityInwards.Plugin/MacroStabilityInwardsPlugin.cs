@@ -173,6 +173,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput
             };
+
+            yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
+            {
+                Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
+                FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension,
+                                                              Resources.Stix_file_filter_description),
+                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.HasOutput()
+            };
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
