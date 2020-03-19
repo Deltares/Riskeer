@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.Data;
 using Deltares.WTIStability;
 using NUnit.Framework;
 
