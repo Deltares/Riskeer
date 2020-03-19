@@ -92,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetStabilityLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -138,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetStabilityLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -189,7 +189,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetStabilityLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -248,7 +248,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetStabilityLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
@@ -281,7 +281,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             AssertIrrelevantValues(location);
         }
 
-        private static void AssertIrrelevantValues(StabilityLocation location)
+        private static void AssertIrrelevantValues(Location location)
         {
             Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
             Assert.AreEqual(0.0, location.X); // Unused property

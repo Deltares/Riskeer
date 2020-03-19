@@ -25,6 +25,7 @@ using System.Linq;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.SoilStress.Data;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data;
@@ -88,12 +89,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public IEnumerable<LogMessage> CalculationMessages { get; private set; }
 
-        public void SetLocationExtreme(StabilityLocation stabilityLocation)
+        public void SetLocationExtreme(Location stabilityLocation)
         {
             stabilityModel.Location = stabilityLocation;
         }
 
-        public void SetLocationDaily(StabilityLocation stabilityLocation)
+        public void SetLocationDaily(Location stabilityLocation)
         {
             stabilityModel.LocationDaily = stabilityLocation;
         }

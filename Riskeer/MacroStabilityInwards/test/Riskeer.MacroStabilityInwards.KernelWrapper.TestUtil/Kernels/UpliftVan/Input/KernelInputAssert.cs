@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
@@ -68,7 +69,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <param name="actual">The actual <see cref="StabilityLocation"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertStabilityLocations(StabilityLocation expected, StabilityLocation actual)
+        public static void AssertStabilityLocations(Location expected, Location actual)
         {
             Assert.AreEqual(expected.StabilityModel, actual.StabilityModel);
             Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);

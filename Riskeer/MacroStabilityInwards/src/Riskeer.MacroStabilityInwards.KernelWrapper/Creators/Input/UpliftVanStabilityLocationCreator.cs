@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -45,14 +46,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static StabilityLocation CreateExtreme(UpliftVanCalculatorInput input)
+        public static Location CreateExtreme(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            StabilityLocation location = CreateBaseLocation(input);
+            Location location = CreateBaseLocation(input);
             location.WaterLevelRiver = input.AssessmentLevel;
             location.WaterLevelPolder = input.WaterLevelPolderExtreme;
             location.UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults;
@@ -77,14 +78,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static StabilityLocation CreateDaily(UpliftVanCalculatorInput input)
+        public static Location CreateDaily(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            StabilityLocation location = CreateBaseLocation(input);
+            Location location = CreateBaseLocation(input);
             location.WaterLevelRiver = input.WaterLevelRiverAverage;
             location.WaterLevelPolder = input.WaterLevelPolderDaily;
             location.UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults;
@@ -96,9 +97,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return location;
         }
 
-        private static StabilityLocation CreateBaseLocation(UpliftVanCalculatorInput input)
+        private static Location CreateBaseLocation(UpliftVanCalculatorInput input)
         {
-            return new StabilityLocation
+            return new Location
             {
                 DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),

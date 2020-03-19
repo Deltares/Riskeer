@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.IO;
@@ -40,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             };
         }
 
-        public override void SetLocation(StabilityLocation stabilityLocation)
+        public override void SetLocation(Location stabilityLocation)
         {
             StabilityModel.LocationDaily = stabilityLocation;
         }

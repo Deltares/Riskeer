@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
@@ -88,12 +89,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Sets the location under extreme conditions.
         /// </summary>
-        void SetLocationExtreme(StabilityLocation stabilityLocation);
+        void SetLocationExtreme(Location stabilityLocation);
 
         /// <summary>
         /// Sets the location under daily circumstances.
         /// </summary>
-        void SetLocationDaily(StabilityLocation stabilityLocation);
+        void SetLocationDaily(Location stabilityLocation);
 
         /// <summary>
         /// Sets the surface line 2.

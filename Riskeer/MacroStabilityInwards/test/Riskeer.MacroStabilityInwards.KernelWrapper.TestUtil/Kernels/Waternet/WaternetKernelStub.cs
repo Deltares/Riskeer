@@ -21,6 +21,7 @@
 
 using System;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
@@ -41,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
 
-        public StabilityLocation Location { get; set; }
+        public Location Location { get; set; }
 
         public SoilModel SoilModel { get; set; }
 
@@ -51,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 
         public WtiStabilityWaternet Waternet { get; set; }
 
-        public void SetLocation(StabilityLocation stabilityLocation)
+        public void SetLocation(Location stabilityLocation)
         {
             Location = stabilityLocation;
         }

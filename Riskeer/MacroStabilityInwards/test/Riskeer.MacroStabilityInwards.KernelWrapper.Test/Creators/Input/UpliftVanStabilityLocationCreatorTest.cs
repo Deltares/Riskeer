@@ -97,7 +97,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -147,7 +147,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -202,7 +202,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -249,7 +249,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(input.AssessmentLevel, location.HeadInPlLine3);
@@ -324,7 +324,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -374,7 +374,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -429,7 +429,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -476,7 +476,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(input.WaterLevelRiverAverage, location.HeadInPlLine3);
@@ -494,7 +494,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             AssertIrrelevantValues(location);
         }
 
-        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, StabilityLocation location)
+        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, Location location)
         {
             Assert.AreEqual(input.WaterLevelRiverAverage, location.WaterLevelRiverAverage);
             Assert.AreEqual(input.DrainageConstruction.IsPresent, location.DrainageConstructionPresent);
@@ -514,7 +514,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
         }
 
-        private static void AssertIrrelevantValues(StabilityLocation location)
+        private static void AssertIrrelevantValues(Location location)
         {
             Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
             Assert.AreEqual(0.0, location.X); // Unused property

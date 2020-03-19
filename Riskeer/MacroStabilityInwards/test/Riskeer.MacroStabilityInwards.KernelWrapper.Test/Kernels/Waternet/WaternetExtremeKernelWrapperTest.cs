@@ -22,6 +22,7 @@
 using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
@@ -44,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Constructor_CompleteInput_InputCorrectlySetToWrappedKernel()
         {
             // Setup
-            var stabilityLocation = new StabilityLocation();
+            var stabilityLocation = new Location();
             var soilModel = new SoilModel();
             var soilProfile2D = new SoilProfile2D();
             var surfaceLine = new SurfaceLine2();
@@ -109,7 +110,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             };
             var soil = new Soil();
             var waternetExtremeKernelWrapper = new WaternetExtremeKernelWrapper();
-            waternetExtremeKernelWrapper.SetLocation(new StabilityLocation());
+            waternetExtremeKernelWrapper.SetLocation(new Location());
             waternetExtremeKernelWrapper.SetSoilModel(new SoilModel
             {
                 Soils =

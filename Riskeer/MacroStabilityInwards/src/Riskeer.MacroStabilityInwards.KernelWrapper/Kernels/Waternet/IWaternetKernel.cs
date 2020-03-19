@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -47,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Sets the location.
         /// </summary>
-        void SetLocation(StabilityLocation stabilityLocation);
+        void SetLocation(Location stabilityLocation);
 
         /// <summary>
         /// Sets the soil model.

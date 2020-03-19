@@ -25,6 +25,7 @@ using System.Linq;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
@@ -46,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
         public WtiStabilityWaternet Waternet { get; private set; }
 
-        public abstract void SetLocation(StabilityLocation stabilityLocation);
+        public abstract void SetLocation(Location stabilityLocation);
 
         public void SetSoilModel(SoilModel soilModel)
         {

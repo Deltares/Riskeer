@@ -28,6 +28,7 @@ using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
@@ -60,8 +61,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var random = new Random(21);
             var soilModel = new SoilModel();
             var soilProfile2D = new SoilProfile2D();
-            var stabilityLocationExtreme = new StabilityLocation();
-            var stabilityLocationDaily = new StabilityLocation();
+            var stabilityLocationExtreme = new Location();
+            var stabilityLocationDaily = new Location();
             var surfaceLine = new SurfaceLine2();
             double maximumSliceWidth = random.NextDouble();
             var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
@@ -264,8 +265,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     }
                 }
             });
-            kernelWrapper.SetLocationExtreme(new StabilityLocation());
-            kernelWrapper.SetLocationDaily(new StabilityLocation());
+            kernelWrapper.SetLocationExtreme(new Location());
+            kernelWrapper.SetLocationDaily(new Location());
             kernelWrapper.SetSurfaceLine(new SurfaceLine2());
             kernelWrapper.SetSlipPlaneUpliftVan(new SlipPlaneUpliftVan());
             kernelWrapper.SetMoveGrid(true);

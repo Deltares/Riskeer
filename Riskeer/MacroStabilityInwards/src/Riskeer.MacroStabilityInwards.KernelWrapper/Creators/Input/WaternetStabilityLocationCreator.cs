@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -45,14 +46,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static StabilityLocation Create(WaternetCalculatorInput input)
+        public static Location Create(WaternetCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            return new StabilityLocation
+            return new Location
             {
                 DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),

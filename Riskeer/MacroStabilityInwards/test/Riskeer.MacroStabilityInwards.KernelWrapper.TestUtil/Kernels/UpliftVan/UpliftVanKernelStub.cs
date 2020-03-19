@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
@@ -67,9 +68,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public SoilProfile2D SoilProfile { get; private set; }
 
-        public StabilityLocation LocationExtreme { get; private set; }
+        public Location LocationExtreme { get; private set; }
 
-        public StabilityLocation LocationDaily { get; private set; }
+        public Location LocationDaily { get; private set; }
 
         public bool MoveGrid { get; private set; }
 
@@ -107,12 +108,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             SoilProfile = soilProfile;
         }
 
-        public void SetLocationExtreme(StabilityLocation stabilityLocation)
+        public void SetLocationExtreme(Location stabilityLocation)
         {
             LocationExtreme = stabilityLocation;
         }
 
-        public void SetLocationDaily(StabilityLocation stabilityLocation)
+        public void SetLocationDaily(Location stabilityLocation)
         {
             LocationDaily = stabilityLocation;
         }
