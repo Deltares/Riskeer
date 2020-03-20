@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO;
 

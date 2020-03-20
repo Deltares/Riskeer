@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;

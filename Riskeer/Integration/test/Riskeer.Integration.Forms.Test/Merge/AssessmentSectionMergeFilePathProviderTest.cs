@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Forms.Merge;

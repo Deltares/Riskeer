@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Selection;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;

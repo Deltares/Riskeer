@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Service;

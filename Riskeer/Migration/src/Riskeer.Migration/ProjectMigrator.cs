@@ -25,7 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Core.Common.Base.Storage;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
 using log4net;

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using RiskeerStorageResources = Riskeer.Storage.Core.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Merge
