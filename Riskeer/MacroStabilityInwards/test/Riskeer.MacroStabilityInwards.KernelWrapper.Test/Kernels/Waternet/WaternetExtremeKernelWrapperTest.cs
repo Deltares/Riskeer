@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             Assert.AreSame(stabilityLocation, stabilityModel.Location);
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
-            Assert.AreSame(soilModel, stabilityModel.SoilModel);
+            Assert.AreSame(soilModel, stabilityModel.Soils);
             Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
 
             Assert.IsNull(stabilityModel.GeotechnicsData.CurrentWaternetDaily);
