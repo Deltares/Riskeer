@@ -129,9 +129,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             stabilityModel.SlipCircle.Auto = gridAutomaticDetermined;
         }
 
-        public void SetSoilModel(SoilModel soilModel)
+        public void SetSoilModel(IList<Soil> soilModel)
         {
-            stabilityModel.SoilModel = soilModel;
+            stabilityModel.Soils = soilModel;
         }
 
         public void SetSoilProfile(SoilProfile2D soilProfile)

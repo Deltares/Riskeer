@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability;
@@ -53,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Sets the soil model.
         /// </summary>
-        void SetSoilModel(SoilModel soilModel);
+        void SetSoilModel(IList<Soil> soilModel);
 
         /// <summary>
         /// Sets the soil profile.

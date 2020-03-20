@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// </summary>
         public bool ReturnLogMessages { get; set; }
 
-        public SoilModel SoilModel { get; private set; }
+        public IList<Soil> SoilModel { get; private set; }
 
         public SoilProfile2D SoilProfile { get; private set; }
 
@@ -98,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public IEnumerable<LogMessage> CalculationMessages { get; set; }
 
-        public void SetSoilModel(SoilModel soilModel)
+        public void SetSoilModel(IList<Soil> soilModel)
         {
             SoilModel = soilModel;
         }

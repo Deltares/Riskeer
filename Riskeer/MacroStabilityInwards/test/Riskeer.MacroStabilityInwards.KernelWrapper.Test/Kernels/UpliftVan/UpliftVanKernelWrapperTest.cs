@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Schema;
 using Core.Common.TestUtil;
@@ -59,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         {
             // Setup
             var random = new Random(21);
-            var soilModel = new SoilModel();
+            var soilModel = new List<Soil>();
             var soilProfile2D = new SoilProfile2D();
             var stabilityLocationExtreme = new Location();
             var stabilityLocationDaily = new Location();
@@ -223,12 +224,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 OuterLoop = loop
             };
             var kernelWrapper = new UpliftVanKernelWrapper();
-            kernelWrapper.SetSoilModel(new SoilModel
+            kernelWrapper.SetSoilModel(new List<Soil>
             {
-                Soils =
-                {
-                    soil
-                }});
+                soil
+            });
             kernelWrapper.SetSoilProfile(new SoilProfile2D
             {
                 Geometry = new GeometryData

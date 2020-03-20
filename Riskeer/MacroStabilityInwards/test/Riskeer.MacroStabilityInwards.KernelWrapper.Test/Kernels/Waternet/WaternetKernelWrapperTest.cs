@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
@@ -49,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             // Setup
             var stabilityLocation = new Location();
-            var soilModel = new SoilModel();
+            var soilModel = new List<Soil>();
             var soilProfile2D = new SoilProfile2D();
             var surfaceLine = new SurfaceLine2();
 
@@ -65,7 +66,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             Assert.AreSame(stabilityLocation, stabilityModel.Location);
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
-            Assert.AreSame(soilModel, stabilityModel.SoilModel);
+            Assert.AreSame(soilModel, stabilityModel.Soils);
             Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
 
             AssertIrrelevantValues(stabilityModel);

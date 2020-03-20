@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
@@ -34,17 +36,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="SoilModel"/>.</param>
-        /// <param name="actual">The actual <see cref="SoilModel"/>.</param>
+        /// <param name="expected">The expected collection of <see cref="Soil"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="Soil"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertSoilModels(SoilModel expected, SoilModel actual)
+        public static void AssertSoilModels(IList<Soil> expected, IList<Soil> actual)
         {
-            Assert.AreEqual(expected.Soils.Count, actual.Soils.Count);
+            Assert.AreEqual(expected.Count, actual.Count);
 
-            for (var i = 0; i < expected.Soils.Count; i++)
+            for (var i = 0; i < expected.Count; i++)
             {
-                AssertSoils(expected.Soils[i], actual.Soils[i]);
+                AssertSoils(expected[i], actual[i]);
             }
         }
 

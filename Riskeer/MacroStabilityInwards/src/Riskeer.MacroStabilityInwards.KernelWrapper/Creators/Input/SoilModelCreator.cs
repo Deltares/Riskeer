@@ -20,31 +20,32 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SoilModel"/> instances which are required in a calculation.
+    /// Creates a collection of <see cref="Soil"/> instances which are required in a calculation.
     /// </summary>
     internal static class SoilModelCreator
     {
         /// <summary>
-        /// Creates a <see cref="SoilModel"/> with the given <paramref name="soils"/>
+        /// Creates a collection of <see cref="Soil"/> with the given <paramref name="soils"/>
         /// which can be used in a calculation.
         /// </summary>
-        /// <param name="soils">The array of <see cref="Soil"/> to use in the <see cref="SoilModel"/>.</param>
-        /// <returns>A new <see cref="SoilModel"/> with the <paramref name="soils"/>.</returns>
+        /// <param name="soils">The array of <see cref="Soil"/> to use in the collection of <see cref="Soil"/>.</param>
+        /// <returns>A new collection of <see cref="Soil"/> with the <paramref name="soils"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soils"/> is <c>null</c>.</exception>
-        public static SoilModel Create(Soil[] soils)
+        public static IList<Soil> Create(Soil[] soils)
         {
             if (soils == null)
             {
                 throw new ArgumentNullException(nameof(soils));
             }
 
-            var soilModel = new SoilModel();
-            soilModel.Soils.AddRange(soils);
+            var soilModel = new List<Soil>();
+            soilModel.AddRange(soils);
             return soilModel;
         }
     }

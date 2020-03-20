@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -51,10 +52,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             };
 
             // Call
-            SoilModel soilModel = SoilModelCreator.Create(soils);
+            IList<Soil> soilModel = SoilModelCreator.Create(soils);
 
             // Assert
-            CollectionAssert.AreEqual(soils, soilModel.Soils);
+            CollectionAssert.AreEqual(soils, soilModel);
         }
     }
 }
