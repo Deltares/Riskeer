@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -31,7 +31,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {

@@ -26,7 +26,7 @@ using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
+using WtiStabilityPoint2D = Deltares.MacroStability.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {

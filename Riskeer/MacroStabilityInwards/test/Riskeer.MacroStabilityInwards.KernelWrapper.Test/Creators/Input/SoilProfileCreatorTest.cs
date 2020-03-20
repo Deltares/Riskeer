@@ -23,13 +23,13 @@ using System;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
+using WtiStabilityPoint2D = Deltares.MacroStability.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {

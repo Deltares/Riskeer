@@ -22,9 +22,9 @@
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {

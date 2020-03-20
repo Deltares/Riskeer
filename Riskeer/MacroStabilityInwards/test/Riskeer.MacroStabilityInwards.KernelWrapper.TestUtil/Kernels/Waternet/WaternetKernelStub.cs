@@ -23,7 +23,7 @@ using System;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 {

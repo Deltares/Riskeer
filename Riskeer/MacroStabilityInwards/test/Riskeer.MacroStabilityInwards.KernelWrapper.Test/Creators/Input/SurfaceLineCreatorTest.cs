@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 using LandwardDirection = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
-using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
+using WtiStabilityLandwardDirection = Deltares.MacroStability.Geometry.LandwardDirection;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {

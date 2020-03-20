@@ -30,9 +30,9 @@ using Point2D = Core.Common.Base.Geometry.Point2D;
 using ShearStrengthModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WtiStabilitySoil = Deltares.WTIStability.Data.Geo.Soil;
-using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
-using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
+using WtiStabilitySoil = Deltares.MacroStability.Geometry.Soil;
+using WtiStabilityDilatancyType = Deltares.MacroStability.Geometry.DilatancyType;
+using WtiStabilityShearStrengthModel = Deltares.MacroStability.Geometry.ShearStrengthModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
