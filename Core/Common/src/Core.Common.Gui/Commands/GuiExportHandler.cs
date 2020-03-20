@@ -26,8 +26,10 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
+using Core.Common.Util;
 using Core.Common.Util.Reflection;
 using log4net;
 
@@ -42,6 +44,7 @@ namespace Core.Common.Gui.Commands
 
         private readonly IWin32Window dialogParent;
         private readonly IEnumerable<ExportInfo> exportInfos;
+        private readonly DialogBasedInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiExportHandler"/> class.
@@ -52,6 +55,8 @@ namespace Core.Common.Gui.Commands
         {
             this.dialogParent = dialogParent;
             this.exportInfos = exportInfos;
+
+            inquiryHelper = new DialogBasedInquiryHelper(dialogParent);
         }
 
         public bool CanExportFrom(object source)
@@ -130,33 +135,32 @@ namespace Core.Common.Gui.Commands
 
         private void ExportItemUsingDialog(ExportInfo exportInfo, object source)
         {
-            using (var saveFileDialog = new SaveFileDialog
+            string exportFilePath = GetFilePath(exportInfo.FileFilterGenerator);
+
+            if (exportFilePath != null)
             {
-                Filter = exportInfo.FileFilterGenerator.Filter,
-                Title = Resources.SaveFileDialog_Title
-            })
-            {
-                if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
+                log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_,
+                               exportInfo.Name);
+
+                IFileExporter exporter = exportInfo.CreateFileExporter(source, exportFilePath);
+
+                if (exporter.Export())
                 {
-                    log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_,
+                    log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0, exportFilePath);
+                    log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful,
                                    exportInfo.Name);
-
-                    string exportFilePath = saveFileDialog.FileName;
-                    IFileExporter exporter = exportInfo.CreateFileExporter(source, exportFilePath);
-
-                    if (exporter.Export())
-                    {
-                        log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0, exportFilePath);
-                        log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful,
-                                       exportInfo.Name);
-                    }
-                    else
-                    {
-                        log.ErrorFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed,
-                                        exportInfo.Name);
-                    }
+                }
+                else
+                {
+                    log.ErrorFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed,
+                                    exportInfo.Name);
                 }
             }
+        }
+
+        private string GetFilePath(FileFilterGenerator fileFilterGenerator)
+        {
+            return inquiryHelper.GetTargetFileLocation(fileFilterGenerator.Filter, null);
         }
     }
 }
