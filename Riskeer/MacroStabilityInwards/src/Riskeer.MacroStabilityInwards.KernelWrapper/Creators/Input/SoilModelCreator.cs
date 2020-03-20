@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Deltares.MacroStability.Geometry;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
