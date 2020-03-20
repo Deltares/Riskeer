@@ -101,13 +101,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.HeadInPlLine4, actual.HeadInPlLine4);
             Assert.AreEqual(expected.X, actual.X);
             Assert.AreEqual(expected.Y, actual.Y);
-            Assert.AreEqual(expected.PiezometricHeads.Name, actual.PiezometricHeads.Name);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl1, actual.PiezometricHeads.HeadPl1);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl2, actual.PiezometricHeads.HeadPl2);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl3, actual.PiezometricHeads.HeadPl3);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl4, actual.PiezometricHeads.HeadPl4);
-            Assert.AreEqual(expected.PiezometricHeads.DampingFactorPl3, actual.PiezometricHeads.DampingFactorPl3);
-            Assert.AreEqual(expected.PiezometricHeads.DampingFactorPl4, actual.PiezometricHeads.DampingFactorPl4);
         }
 
         /// <summary>

@@ -286,11 +286,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
             Assert.AreEqual(0.0, location.X); // Unused property
             Assert.AreEqual(0.0, location.Y); // Unused property
-            Assert.IsTrue(string.IsNullOrEmpty(location.PiezometricHeads.Name)); // Unused property
-            Assert.IsNaN(location.PiezometricHeads.HeadPl3); // Unused property
-            Assert.AreEqual(0.30, location.PiezometricHeads.DampingFactorPl3); // Unused property
-            Assert.IsNaN(location.PiezometricHeads.HeadPl4); // Unused property
-            Assert.AreEqual(0.30, location.PiezometricHeads.DampingFactorPl4); // Unused property
         }
     }
 }
