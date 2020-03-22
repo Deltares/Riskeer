@@ -30,22 +30,9 @@ namespace Core.Common.Gui.Helpers
         /// <summary>
         /// Returns the path of an existing file that the user has chosen.
         /// </summary>
-        /// <returns>A file location, or <c>null</c> if no location was chosen.</returns>
-        string GetSourceFileLocation();
-
-        /// <summary>
-        /// Returns the path of an existing file that the user has chosen.
-        /// </summary>
         /// <param name="fileFilter">A filter to which the path returned complies.</param>
         /// <returns>A file location, or <c>null</c> if no location was chosen.</returns>
         string GetSourceFileLocation(string fileFilter);
-
-        /// <summary>
-        /// Returns the path to a file, which may or may not exist yet, that the user has chosen.
-        /// </summary>
-        /// <returns>A path to a file, which may or may not exist yet, or <c>null</c> if no location
-        /// was chosen.</returns>
-        string GetTargetFileLocation();
 
         /// <summary>
         /// Returns the path to a file, which may or may not exist yet, that the user has chosen.

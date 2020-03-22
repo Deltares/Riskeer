@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
-using Core.Common.Util;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Common.Gui.Helpers
@@ -52,11 +51,6 @@ namespace Core.Common.Gui.Helpers
             this.dialogParent = dialogParent;
         }
 
-        public string GetSourceFileLocation()
-        {
-            return GetSourceFileLocation(new FileFilterGenerator().Filter);
-        }
-
         public string GetSourceFileLocation(string fileFilter)
         {
             string filePath = null;
@@ -75,11 +69,6 @@ namespace Core.Common.Gui.Helpers
             }
 
             return filePath;
-        }
-
-        public string GetTargetFileLocation()
-        {
-            return GetTargetFileLocation(new FileFilterGenerator().Filter, null);
         }
 
         public string GetTargetFileLocation(string fileFilter, string suggestedFileName)

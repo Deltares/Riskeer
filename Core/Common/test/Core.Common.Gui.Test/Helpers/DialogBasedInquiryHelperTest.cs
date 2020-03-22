@@ -25,6 +25,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.Helpers;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -83,7 +84,7 @@ namespace Core.Common.Gui.Test.Helpers
             };
 
             // Call
-            helper.GetSourceFileLocation();
+            helper.GetSourceFileLocation(new FileFilterGenerator().Filter);
 
             // Assert
             Assert.AreEqual("Openen", windowName);
@@ -106,7 +107,7 @@ namespace Core.Common.Gui.Test.Helpers
             };
 
             // Call
-            string result = helper.GetSourceFileLocation();
+            string result = helper.GetSourceFileLocation(new FileFilterGenerator().Filter);
 
             // Assert
             Assert.IsNull(result);
@@ -132,7 +133,7 @@ namespace Core.Common.Gui.Test.Helpers
             using (new FileDisposeHelper(expectedFilePath))
             {
                 // Call
-                string result = helper.GetSourceFileLocation();
+                string result = helper.GetSourceFileLocation(new FileFilterGenerator().Filter);
 
                 // Assert
                 Assert.AreEqual(expectedFilePath, result);
@@ -158,7 +159,7 @@ namespace Core.Common.Gui.Test.Helpers
             };
 
             // Call
-            helper.GetTargetFileLocation();
+            helper.GetTargetFileLocation(new FileFilterGenerator().Filter, null);
 
             // Assert
             Assert.AreEqual("Opslaan als", windowName);
@@ -181,7 +182,7 @@ namespace Core.Common.Gui.Test.Helpers
             };
 
             // Call
-            string result = helper.GetTargetFileLocation();
+            string result = helper.GetTargetFileLocation(new FileFilterGenerator().Filter, null);
 
             // Assert
             Assert.IsNull(result);
@@ -205,7 +206,7 @@ namespace Core.Common.Gui.Test.Helpers
             };
 
             // Call
-            string result = helper.GetTargetFileLocation();
+            string result = helper.GetTargetFileLocation(new FileFilterGenerator().Filter, null);
 
             // Assert
             Assert.AreEqual(expectedFilePath, result);
