@@ -44,6 +44,13 @@ namespace Core.Common.Gui.Helpers
         string GetTargetFileLocation(string fileFilter, string suggestedFileName);
 
         /// <summary>
+        /// Returns the path to a folder that the user has chosen.
+        /// </summary>
+        /// <returns>A path to a file, which may or may not exist yet, or <c>null</c> if no location
+        /// was chosen.</returns>
+        string GetTargetFolderLocation();
+
+        /// <summary>
         /// Gets the confirmation of a user.
         /// </summary>
         /// <param name="query">The query to which the user needs to answer.</param>

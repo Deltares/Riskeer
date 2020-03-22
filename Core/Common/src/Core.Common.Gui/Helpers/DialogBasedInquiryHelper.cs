@@ -91,6 +91,25 @@ namespace Core.Common.Gui.Helpers
             return filePath;
         }
 
+        public string GetTargetFolderLocation()
+        {
+            string folderPath = null;
+            using (var dialog = new FolderBrowserDialog
+            {
+               ShowNewFolderButton = true,
+               Description = Resources.SaveFileDialog_Title
+            })
+            {
+                DialogResult result = dialog.ShowDialog(dialogParent);
+                if (result == DialogResult.OK)
+                {
+                    folderPath = dialog.SelectedPath;
+                }
+            }
+
+            return folderPath;
+        }
+
         public bool InquireContinuation(string query)
         {
             DialogResult dialog = MessageBox.Show(

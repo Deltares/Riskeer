@@ -214,6 +214,31 @@ namespace Core.Common.Gui.Test.Helpers
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GetTargetFolderLocation_Always_ShowsFolderBrowserDialog()
+        {
+            // Setup
+            dialogParent.Expect(d => d.Handle).Repeat.AtLeastOnce().Return(default(IntPtr));
+            mocks.ReplayAll();
+
+            var helper = new DialogBasedInquiryHelper(dialogParent);
+
+            string windowName = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new FileDialogTester(wnd);
+                windowName = name;
+                tester.ClickCancel();
+            };
+
+            // Call
+            helper.GetTargetFolderLocation();
+
+            // Assert
+            Assert.AreEqual("Browse For Folder", windowName);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         [TestCase(true)]
         [TestCase(false)]
         public void InquireContinuation_OkOrCancelClicked_ReturnExpectedResult(bool confirm)
