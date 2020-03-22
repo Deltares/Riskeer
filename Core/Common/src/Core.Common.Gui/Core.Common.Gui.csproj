@@ -33,9 +33,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\arrow-000-medium.png" />
     <None Include="Resources\Busy indicator.gif" />
     <None Include="Resources\arrow.png" />
@@ -120,4 +117,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)nl&quot; &quot;$(OutDir)\nl\*&quot; /D /S /Y" />
+  </Target>
 </Project>
