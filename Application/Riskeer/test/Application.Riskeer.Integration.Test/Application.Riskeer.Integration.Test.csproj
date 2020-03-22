@@ -16,22 +16,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="UnusedResourceSearcher\UnusedResourceSearcher.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj"/>
-    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj"/>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
-    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj"/>
-    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj"/>
-    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj"/>
-    <ProjectReference Include="..\..\..\..\Riskeer\Migration\test\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj" />
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Migration\test\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fluent.Ribbon">
@@ -50,4 +45,7 @@
       <Version>1.0.109</Version>
     </PackageReference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)\UnusedResourceSearcher\*&quot; /D /S /Y" />
+  </Target>
 </Project>
