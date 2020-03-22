@@ -120,9 +120,7 @@
       <Version>1.0.109</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Update="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)log4net.config&quot; &quot;$(OutDir)\*&quot; /D /Y" />
+  </Target>
 </Project>
