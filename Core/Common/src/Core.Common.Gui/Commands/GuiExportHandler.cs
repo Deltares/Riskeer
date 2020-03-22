@@ -135,7 +135,7 @@ namespace Core.Common.Gui.Commands
 
         private void ExportItemUsingDialog(ExportInfo exportInfo, object source)
         {
-            string exportFilePath = GetFilePath(exportInfo.FileFilterGenerator);
+            string exportFilePath = ExportHelper.GetFilePath(inquiryHelper, exportInfo.FileFilterGenerator);
 
             if (exportFilePath != null)
             {
@@ -156,11 +156,6 @@ namespace Core.Common.Gui.Commands
                                     exportInfo.Name);
                 }
             }
-        }
-
-        private string GetFilePath(FileFilterGenerator fileFilterGenerator)
-        {
-            return inquiryHelper.GetTargetFileLocation(fileFilterGenerator.Filter, null);
         }
     }
 }
