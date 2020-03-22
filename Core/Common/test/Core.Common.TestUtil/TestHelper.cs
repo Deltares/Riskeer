@@ -35,7 +35,6 @@ using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Timer = System.Timers.Timer;
 
 namespace Core.Common.TestUtil
@@ -45,13 +44,11 @@ namespace Core.Common.TestUtil
     /// </summary>
     public static class TestHelper
     {
-        private static string solutionRoot;
-
         public static string SolutionRoot
         {
             get
             {
-                return solutionRoot ?? (solutionRoot = GetSolutionRoot());
+                return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
             }
         }
 
@@ -664,26 +661,6 @@ namespace Core.Common.TestUtil
             Assert.AreEqual(toolTip, item.ToolTipText);
             Assert.AreEqual(enabled, item.Enabled);
             AssertImagesAreEqual(icon, item.Image);
-        }
-
-        private static string GetSolutionRoot()
-        {
-            const string solutionName = "Riskeer.sln";
-            //get the current directory and scope up
-
-            var testContext = new TestContext(new TestExecutionContext.AdhocContext());
-            string curDir = testContext.TestDirectory;
-            while (Directory.Exists(curDir) && !File.Exists(curDir + @"\" + solutionName))
-            {
-                curDir += "/../";
-            }
-
-            if (!File.Exists(Path.Combine(curDir, solutionName)))
-            {
-                throw new InvalidOperationException($"Solution file '{solutionName}' not found in any folder of '{Directory.GetCurrentDirectory()}'.");
-            }
-
-            return Path.GetFullPath(curDir);
         }
 
         private static float GetMachineHddPerformanceRank()
