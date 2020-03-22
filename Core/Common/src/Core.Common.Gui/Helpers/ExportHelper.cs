@@ -30,5 +30,22 @@ namespace Core.Common.Gui.Helpers
 
             return inquiryHelper.GetTargetFileLocation(fileFilterGenerator.Filter, null);
         }
+
+        /// <summary>
+        /// Gets the folder path to export to.
+        /// </summary>
+        /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
+        /// <returns>A path to a folder, or <c>null</c> if no location was chosen.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inquiryHelper"/>
+        /// is <c>null</c>.</exception>
+        public static string GetFolderPath(IInquiryHelper inquiryHelper)
+        {
+            if (inquiryHelper == null)
+            {
+                throw new ArgumentNullException(nameof(inquiryHelper));
+            }
+
+            return inquiryHelper.GetTargetFolderLocation();
+        }
     }
 }
