@@ -47,6 +47,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
+            Assert.IsNull(info.GetExportPath);
         }
 
         [Test]
@@ -63,6 +64,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
+            Assert.IsNull(info.GetExportPath);
         }
 
         [Test]
@@ -77,6 +79,7 @@ namespace Core.Common.Gui.Test.Plugin
             const string category = "category";
             var image = new Bitmap(16, 16);
             var generator = new FileFilterGenerator();
+            const string exportPath = "C:/path";
 
             var info = new ExportInfo<int>
             {
@@ -85,7 +88,8 @@ namespace Core.Common.Gui.Test.Plugin
                 Name = name,
                 Category = category,
                 Image = image,
-                FileFilterGenerator = generator
+                FileFilterGenerator = generator,
+                GetExportPath = filterGenerator => exportPath
             };
 
             // Precondition
@@ -105,6 +109,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(category, info.Category);
             Assert.AreSame(image, info.Image);
             Assert.AreEqual(generator, info.FileFilterGenerator);
+            Assert.AreEqual(exportPath, info.GetExportPath(new FileFilterGenerator()));
 
             mocks.VerifyAll();
         }
@@ -132,6 +137,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
             Assert.IsNull(info.FileFilterGenerator);
+            Assert.IsNull(info.GetExportPath);
         }
     }
 }

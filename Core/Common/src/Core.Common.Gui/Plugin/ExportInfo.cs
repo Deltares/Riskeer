@@ -77,6 +77,14 @@ namespace Core.Common.Gui.Plugin
         /// Gets or sets the file filter generator of the export information used to make file filters.
         /// </summary>
         public FileFilterGenerator FileFilterGenerator { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to get the path where the export should save the data. Function arguments:
+        /// <list type="number">
+        ///     <item>out - the path to export to.</item>
+        /// </list>
+        /// </summary>
+        public Func<FileFilterGenerator, string> GetExportPath { get; set; }
     }
 
     /// <summary>
@@ -88,13 +96,7 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Gets the data type associated with this export info.
         /// </summary>
-        public Type DataType
-        {
-            get
-            {
-                return typeof(TData);
-            }
-        }
+        public Type DataType => typeof(TData);
 
         /// <summary>
         /// Gets or sets the method used to create a <see cref="IFileExporter"/>. Function arguments:
@@ -138,6 +140,14 @@ namespace Core.Common.Gui.Plugin
         public FileFilterGenerator FileFilterGenerator { get; set; }
 
         /// <summary>
+        /// Gets or sets the method used to get the path where the export should save the data. Function arguments:
+        /// <list type="number">
+        ///     <item>out - the path to export to.</item>
+        /// </list>
+        /// </summary>
+        public Func<FileFilterGenerator, string> GetExportPath { get; set; }
+
+        /// <summary>
         /// Performs an implicit conversion from <see cref="ExportInfo{TData}"/> to <see cref="ExportInfo"/>.
         /// </summary>
         /// <param name="exportInfo">The export information to convert.</param>
@@ -152,7 +162,8 @@ namespace Core.Common.Gui.Plugin
                 Name = exportInfo.Name,
                 Category = exportInfo.Category,
                 Image = exportInfo.Image,
-                FileFilterGenerator = exportInfo.FileFilterGenerator
+                FileFilterGenerator = exportInfo.FileFilterGenerator,
+                GetExportPath = (fileFilter) => exportInfo.GetExportPath?.Invoke(fileFilter)
             };
         }
     }
