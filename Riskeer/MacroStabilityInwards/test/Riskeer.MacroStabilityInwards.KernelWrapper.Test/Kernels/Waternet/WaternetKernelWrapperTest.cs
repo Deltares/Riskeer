@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
 using NUnit.Framework;
@@ -93,22 +92,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Not applicable for Waternet calculation
             Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Not applicable for Waternet calculation
-            Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
             Assert.IsFalse(stabilityModel.OnlyMinimumSafetyCurve); // Only for Bishop
             Assert.IsFalse(stabilityModel.AutoGenerateGeneticSpencer); // Only for Spencer
-            Assert.AreEqual(SlipPlanePosition.High, stabilityModel.SlipPlanePosition); // Only for Spencer
             Assert.AreEqual(0.8, stabilityModel.RequiredForcePointsInSlices); // Only for Spencer
             Assert.AreEqual(60.0, stabilityModel.MaxAllowedAngleBetweenSlices); // Only for Spencer
             Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Only for genetic search algorithm
             Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions); // Only for Levenberg Marquardt search algorithm
-            Assert.AreEqual(ShearStrengthModel.CPhi, stabilityModel.DefaultShearStrengthModel); // Unused property
             Assert.AreEqual(50.0, stabilityModel.NumberOfGridMoves); // Only for Bishop
-            Assert.IsEmpty(stabilityModel.ConsolidationMatrix.ConsolidationValues); // No consolidation for WBI
-            Assert.IsNotNull(stabilityModel.ConsolidationLoad); // No consolidation for WBI
             Assert.AreEqual(ModelOptions.Bishop, stabilityModel.ModelOption); // Not applicable for Waternet calculation
-            Assert.AreEqual(ModelOptions.Bishop, stabilityModel.SoilModel.ModelOption); // Not applicable for Waternet calculation
             Assert.IsNotNull(stabilityModel.SlipPlaneUpliftVan); // Not applicable for Waternet calculation
             Assert.IsNotNull(stabilityModel.SlipCircle); // Not applicable for Waternet calculation
         }

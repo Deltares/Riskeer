@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
@@ -97,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
             Assert.AreSame(stabilityLocationExtreme, stabilityModel.Location);
             Assert.AreSame(stabilityLocationDaily, stabilityModel.LocationDaily);
-            Assert.AreSame(soilModel, stabilityModel.SoilModel);
+            Assert.AreSame(soilModel, stabilityModel.Soils);
             Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
             Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
             Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
@@ -274,20 +273,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)
         {
-            Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
-            Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
-            Assert.IsFalse(stabilityModel.OnlyMinimumSafetyCurve); // Only for Bishop
-            Assert.IsFalse(stabilityModel.AutoGenerateGeneticSpencer); // Only for Spencer
-            Assert.AreEqual(SlipPlanePosition.High, stabilityModel.SlipPlanePosition); // Only for Spencer
             Assert.AreEqual(0.8, stabilityModel.RequiredForcePointsInSlices); // Only for Spencer
             Assert.AreEqual(60.0, stabilityModel.MaxAllowedAngleBetweenSlices); // Only for Spencer
             Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Only for genetic search algorithm
             Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions); // Only for Levenberg Marquardt search algorithm
-            Assert.AreEqual(ShearStrengthModel.CPhi, stabilityModel.DefaultShearStrengthModel); // Unused property
-            Assert.AreEqual(50.0, stabilityModel.NumberOfGridMoves); // Only for Bishop
-            Assert.IsEmpty(stabilityModel.ConsolidationMatrix.ConsolidationValues); // No consolidation for WBI
-            Assert.IsNotNull(stabilityModel.ConsolidationLoad); // No consolidation for WBI
         }
 
         private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
