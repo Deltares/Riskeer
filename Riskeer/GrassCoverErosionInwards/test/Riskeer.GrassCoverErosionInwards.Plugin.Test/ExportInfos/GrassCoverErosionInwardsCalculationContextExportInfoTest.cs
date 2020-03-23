@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -51,9 +50,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
+                Assert.AreEqual("xml", info.Extension);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
-                Assert.IsNotNull(info.FileFilterGenerator);
+                Assert.IsNotNull(info.GetExportPath);
             }
         }
 
@@ -82,22 +82,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Setup
-            using (var plugin = new GrassCoverErosionInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Call
-                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
-
-                // Assert
-                Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
-            }
         }
 
         [Test]

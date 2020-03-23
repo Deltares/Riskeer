@@ -67,6 +67,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
     /// </summary>
     public class GrassCoverErosionInwardsPlugin : PluginBase
     {
+        private IInquiryHelper inquiryHelper;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismProperties>
@@ -163,13 +165,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionInwardsCalculationGroupContext>(
                 (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionInwardsCalculationContext>(
                 (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -502,7 +506,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         #region Helpers
 
         private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateChangeHandler(
-            DialogBasedInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+            IInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
         }
@@ -616,7 +620,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations = grassCoverErosionInwardsFailureMechanismContext.WrappedData
                                                                                                                            .Calculations
                                                                                                                            .Cast<GrassCoverErosionInwardsCalculation>();
@@ -639,7 +642,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                    .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                        () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                       CreateChangeHandler(inquiryHelper, calculations))
+                       CreateChangeHandler(GetInquiryHelper(), calculations))
                    .AddSeparator()
                    .AddCollapseAllItem()
                    .AddExpandAllItem()
@@ -718,8 +721,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                         .ToArray();
             StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(calculations);
 
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             builder.AddImportItem()
                    .AddExportItem()
@@ -759,7 +760,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                                                                        CreateChangeHandler(GetInquiryHelper(), calculations));
 
             if (isNestedGroup)
             {
@@ -935,9 +936,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationContext context, object parentData, TreeViewControl treeViewControl)
         {
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(inquiryHelper,
+            var changeHandler = new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationChangeHandler(GetInquiryHelper(),
                                                                                                               calculation);
 
             StrictContextMenuItem updateDikeProfile = CreateUpdateDikeProfileItem(context);
@@ -1012,10 +1012,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private bool DikeProfileDependentDataShouldUpdate(IEnumerable<GrassCoverErosionInwardsCalculation> calculations, string query)
         {
-            var changeHandler = new CalculationChangeHandler(calculations,
-                                                             query,
-                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -1048,13 +1045,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private bool VerifyDikeProfilesShouldUpdate(DikeProfilesContext context, string query)
         {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(context.ParentFailureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.ParentFailureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

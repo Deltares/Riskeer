@@ -66,6 +66,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
     /// </summary>
     public class StabilityStoneCoverPlugin : PluginBase
     {
+        private IInquiryHelper inquiryHelper;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismProperties>
@@ -222,13 +224,15 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
                 (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -447,7 +451,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
         {
             CalculationGroup group = nodeData.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
             StabilityStoneCoverWaveConditionsCalculation[] calculations = group
@@ -479,8 +482,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                inquiryHelper,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, GetInquiryHelper(),
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
@@ -628,8 +630,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                   TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
+            
             StabilityStoneCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
             return builder
                    .AddExportItem()
@@ -637,8 +638,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddDuplicateCalculationItem(calculation, nodeData)
                    .AddSeparator()
                    .AddRenameItem()
-                   .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                               inquiryHelper,
+                   .AddUpdateForeshoreProfileOfCalculationItem(calculation, GetInquiryHelper(),
                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateCalculationItem(nodeData,
@@ -694,5 +694,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
         #endregion
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

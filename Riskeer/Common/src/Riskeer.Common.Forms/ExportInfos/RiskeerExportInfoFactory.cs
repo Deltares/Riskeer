@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.Data.Calculation;
@@ -43,19 +44,23 @@ namespace Riskeer.Common.Forms.ExportInfos
         /// to create the <see cref="ExportInfo"/> for.</typeparam>
         /// <param name="createFileExporter">The function to create the relevant exporter.</param>
         /// <param name="isEnabled">The function to enable the exporter.</param>
+        /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
         /// <returns>An <see cref="ExportInfo"/> object.</returns>
         public static ExportInfo<TCalculationGroupContext> CreateCalculationGroupConfigurationExportInfo<TCalculationGroupContext>(
             Func<TCalculationGroupContext, string, IFileExporter> createFileExporter,
-            Func<TCalculationGroupContext, bool> isEnabled)
+            Func<TCalculationGroupContext, bool> isEnabled,
+            IInquiryHelper inquiryHelper)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new ExportInfo<TCalculationGroupContext>
             {
                 Name = Resources.CalculationConfigurationExporter_DisplayName,
-                FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
-                                                              Resources.DataTypeDisplayName_xml_file_filter_Description),
+                Extension = Resources.DataTypeDisplayName_xml_file_filter_Extension,
                 IsEnabled = isEnabled,
-                CreateFileExporter = createFileExporter
+                CreateFileExporter = createFileExporter,
+                GetExportPath = () => ExportHelper.GetFilePath(
+                    inquiryHelper, new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
+                                                           Resources.DataTypeDisplayName_xml_file_filter_Description))
             };
         }
 
@@ -66,18 +71,22 @@ namespace Riskeer.Common.Forms.ExportInfos
         /// <typeparam name="TCalculationContext">The type of calculation context
         /// to create the <see cref="ExportInfo"/> for.</typeparam>
         /// <param name="createFileExporter">The function to create the relevant exporter.</param>
+        /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
         /// <returns>An <see cref="ExportInfo"/> object.</returns>
         public static ExportInfo<TCalculationContext> CreateCalculationConfigurationExportInfo<TCalculationContext>
-            (Func<TCalculationContext, string, IFileExporter> createFileExporter)
+            (Func<TCalculationContext, string, IFileExporter> createFileExporter,
+             IInquiryHelper inquiryHelper)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new ExportInfo<TCalculationContext>
             {
                 Name = Resources.CalculationConfigurationExporter_DisplayName,
-                FileFilterGenerator = new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
-                                                              Resources.DataTypeDisplayName_xml_file_filter_Description),
+                Extension = Resources.DataTypeDisplayName_xml_file_filter_Extension,
                 CreateFileExporter = createFileExporter,
-                IsEnabled = context => true
+                IsEnabled = context => true,
+                GetExportPath = () => ExportHelper.GetFilePath(
+                inquiryHelper, new FileFilterGenerator(Resources.DataTypeDisplayName_xml_file_filter_Extension,
+                                                       Resources.DataTypeDisplayName_xml_file_filter_Description))
             };
         }
     }

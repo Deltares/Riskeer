@@ -71,6 +71,8 @@ namespace Riskeer.Piping.Plugin
     /// </summary>
     public class PipingPlugin : PluginBase
     {
+        private IInquiryHelper inquiryHelper;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismProperties>
@@ -158,13 +160,15 @@ namespace Riskeer.Piping.Plugin
         {
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<PipingCalculationGroupContext>(
                 (context, filePath) => new PipingCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<PipingCalculationScenarioContext>(
                 (context, filePath) => new PipingCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -411,9 +415,7 @@ namespace Riskeer.Piping.Plugin
 
         private bool VerifyStochasticSoilModelUpdates(PipingStochasticSoilModelCollectionContext context, string query)
         {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -1078,8 +1080,7 @@ namespace Riskeer.Piping.Plugin
 
         private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation> calculations, string query)
         {
-            var changeHandler = new CalculationChangeHandler(calculations, query, new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -1099,13 +1100,15 @@ namespace Riskeer.Piping.Plugin
 
         private bool VerifyPipingSurfaceLineUpdates(PipingSurfaceLinesContext context, string query)
         {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

@@ -70,6 +70,8 @@ namespace Riskeer.HeightStructures.Plugin
     /// </summary>
     public class HeightStructuresPlugin : PluginBase
     {
+        private IInquiryHelper inquiryHelper;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismProperties>
@@ -149,13 +151,15 @@ namespace Riskeer.HeightStructures.Plugin
         {
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<HeightStructuresCalculationGroupContext>(
                 (context, filePath) => new HeightStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<HeightStructuresCalculationContext>(
                 (context, filePath) => new HeightStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -455,7 +459,6 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = context.WrappedData
                                                                                             .Calculations
                                                                                             .Cast<StructuresCalculation<HeightStructuresInput>>();
@@ -477,7 +480,7 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                                          CreateChangeHandler(inquiryHelper, calculations))
+                                                                                          CreateChangeHandler(GetInquiryHelper(), calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -548,7 +551,6 @@ namespace Riskeer.HeightStructures.Plugin
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
             StructuresCalculation<HeightStructuresInput>[] calculations = group
@@ -580,8 +582,7 @@ namespace Riskeer.HeightStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                inquiryHelper,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, GetInquiryHelper(),
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
@@ -597,7 +598,7 @@ namespace Riskeer.HeightStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                                                                        CreateChangeHandler(GetInquiryHelper(), calculations));
 
             if (isNestedGroup)
             {
@@ -725,10 +726,8 @@ namespace Riskeer.HeightStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
+            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
@@ -736,8 +735,7 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddDuplicateCalculationItem(calculation, context)
                           .AddSeparator()
                           .AddRenameItem()
-                          .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                                      inquiryHelper,
+                          .AddUpdateForeshoreProfileOfCalculationItem(calculation, GetInquiryHelper(),
                                                                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
@@ -850,10 +848,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private bool StructureDependentDataShouldUpdate(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations, string query)
         {
-            var changeHandler = new CalculationChangeHandler(calculations,
-                                                             query,
-                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -907,15 +902,17 @@ namespace Riskeer.HeightStructures.Plugin
 
         private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)
         {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

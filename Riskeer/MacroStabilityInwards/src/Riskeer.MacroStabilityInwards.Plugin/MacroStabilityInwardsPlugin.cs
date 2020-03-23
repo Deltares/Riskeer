@@ -159,13 +159,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<MacroStabilityInwardsCalculationGroupContext>(
                 (context, filePath) => new MacroStabilityInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<MacroStabilityInwardsCalculationScenarioContext>(
                 (context, filePath) => new MacroStabilityInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationScenarioContext>
             {
@@ -173,7 +175,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension, Resources.Stix_file_filter_description),
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                GetExportPath = fileFilter => ExportHelper.GetFilePath(InquiryHelper, fileFilter)
+                GetExportPath = fileFilter => ExportHelper.GetFilePath(GetInquiryHelper(), fileFilter)
             };
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
@@ -182,7 +184,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension, Resources.Stix_file_filter_description),
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput(),
-                GetExportPath = fileFilter => ExportHelper.GetFolderPath(InquiryHelper)
+                GetExportPath = fileFilter => ExportHelper.GetFolderPath(GetInquiryHelper())
             };
         }
 
@@ -441,7 +443,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         private bool VerifyStochasticSoilModelUpdates(MacroStabilityInwardsStochasticSoilModelCollectionContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
-                                                                             query, InquiryHelper);
+                                                                             query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -1004,13 +1006,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         private bool VerifySurfaceLineUpdates(MacroStabilityInwardsSurfaceLinesContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
-                                                                             query, InquiryHelper);
+                                                                             query, GetInquiryHelper());
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion
 
-        private IInquiryHelper InquiryHelper => inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

@@ -68,6 +68,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
     /// </summary>
     public class StabilityPointStructuresPlugin : PluginBase
     {
+        private IInquiryHelper inquiryHelper;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityPointStructuresFailureMechanismContext, StabilityPointStructuresFailureMechanismProperties>
@@ -231,13 +233,15 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityPointStructuresCalculationGroupContext>(
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityPointStructuresCalculationContext>(
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -456,8 +460,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                                                                     .Calculations
                                                                                                                     .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
 
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
             var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
             return builder.AddOpenItem()
                           .AddSeparator()
@@ -474,7 +476,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                                          CreateChangeHandler(inquiryHelper, calculations))
+                                                                                          CreateChangeHandler(GetInquiryHelper(), calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -545,7 +547,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
             StructuresCalculation<StabilityPointStructuresInput>[] calculations = group
@@ -577,8 +578,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                inquiryHelper,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, GetInquiryHelper(),
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
@@ -594,7 +594,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                                                                        CreateChangeHandler(GetInquiryHelper(), calculations));
 
             if (isNestedGroup)
             {
@@ -775,10 +775,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
+            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
@@ -787,7 +785,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                                      inquiryHelper,
+                                                                      GetInquiryHelper(),
                                                                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
@@ -850,10 +848,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private bool StructureDependentDataShouldUpdate(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, string query)
         {
-            var changeHandler = new CalculationChangeHandler(calculations,
-                                                             query,
-                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -910,13 +905,15 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)
         {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

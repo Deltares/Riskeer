@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Helpers;
@@ -69,6 +68,8 @@ namespace Riskeer.ClosingStructures.Plugin
     /// </summary>
     public class ClosingStructuresPlugin : PluginBase
     {
+        private IInquiryHelper inquiryHelper;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismProperties>
@@ -259,13 +260,15 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<ClosingStructuresCalculationGroupContext>(
                 (context, filePath) => new ClosingStructuresCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<ClosingStructuresCalculationContext>(
                 (context, filePath) => new ClosingStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         private void CalculateAll(ClosingStructuresFailureMechanismContext context)
@@ -446,7 +449,6 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = closingStructuresFailureMechanismContext.WrappedData
                                                                                                                               .Calculations
                                                                                                                               .Cast<StructuresCalculation<ClosingStructuresInput>>();
@@ -468,7 +470,7 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                                          CreateChangeHandler(inquiryHelper, calculations))
+                                                                                          CreateChangeHandler(GetInquiryHelper(), calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -541,7 +543,6 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
             StructuresCalculation<ClosingStructuresInput>[] calculations = group
@@ -573,7 +574,7 @@ namespace Riskeer.ClosingStructures.Plugin
             }
 
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                inquiryHelper,
+                                                                GetInquiryHelper(),
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
@@ -589,7 +590,7 @@ namespace Riskeer.ClosingStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(inquiryHelper, calculations));
+                                                                        CreateChangeHandler(GetInquiryHelper(), calculations));
 
             if (isNestedGroup)
             {
@@ -768,10 +769,8 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
-            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(inquiryHelper, calculation);
+            var changeHandler = new ClearIllustrationPointsOfStructuresCalculationHandler(GetInquiryHelper(), calculation);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddExportItem()
@@ -780,7 +779,7 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                                      inquiryHelper,
+                                                                      GetInquiryHelper(),
                                                                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddCustomItem(CreateUpdateStructureItem(context))
                           .AddSeparator()
@@ -838,10 +837,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private bool StructureDependentDataShouldUpdate(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations, string query)
         {
-            var changeHandler = new CalculationChangeHandler(calculations,
-                                                             query,
-                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -901,15 +897,17 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)
         {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
         #endregion
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

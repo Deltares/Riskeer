@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -43,24 +44,25 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             // Setup
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileExporter>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             Func<ICalculationContext<ICalculation, IFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
             ExportInfo<ICalculationContext<ICalculation, IFailureMechanism>> exportInfo =
-                RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo(createFileExporter);
+                RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo(createFileExporter, inquiryHelper);
 
             // Assert
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
             Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name);
+            Assert.AreEqual("xml", exportInfo.Extension);
             Assert.AreEqual("Algemeen", exportInfo.Category);
-
-            FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
 
             TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
             Assert.IsTrue(exportInfo.IsEnabled(null));
+
+            Assert.IsNotNull(exportInfo.GetExportPath);
 
             mocks.VerifyAll();
         }
@@ -71,6 +73,7 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             // Setup
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileExporter>();
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
             Func<ICalculationContext<CalculationGroup, IFailureMechanism>, bool> isEnabled = context => false;
@@ -78,18 +81,20 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
 
             // Call
             ExportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> exportInfo =
-                RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo(createFileExporter, isEnabled);
+                RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo(createFileExporter, isEnabled, inquiryHelper);
 
             // Assert
             Assert.AreSame(isEnabled, exportInfo.IsEnabled);
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
             Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name);
+            Assert.AreEqual("xml", exportInfo.Extension);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
-            FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
-
             TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
+
+            Assert.IsNotNull(exportInfo.GetExportPath);
+
+            mocks.VerifyAll();
         }
     }
 }

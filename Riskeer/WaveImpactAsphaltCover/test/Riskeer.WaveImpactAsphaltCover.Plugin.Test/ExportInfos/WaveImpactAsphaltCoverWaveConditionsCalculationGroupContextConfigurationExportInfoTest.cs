@@ -55,11 +55,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
+            Assert.AreEqual("xml", exportInfo.Extension);
             Assert.IsNotNull(exportInfo.CreateFileExporter);
             Assert.IsNotNull(exportInfo.IsEnabled);
             Assert.AreEqual("Algemeen", exportInfo.Category);
             TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
-            Assert.IsNotNull(exportInfo.FileFilterGenerator);
+            Assert.IsNotNull(exportInfo.GetExportPath);
         }
 
         [Test]
@@ -80,16 +81,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter>(fileExporter);
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Call
-            FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-
-            // Assert
-            Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
         }
 
         [Test]
