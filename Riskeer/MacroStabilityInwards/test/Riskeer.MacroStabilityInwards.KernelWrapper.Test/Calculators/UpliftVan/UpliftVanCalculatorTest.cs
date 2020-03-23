@@ -496,7 +496,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             return new SlidingDualCircle
             {
-                LeftCircleIsActive = false,
                 ActiveCircle = new GeometryPoint(0.1, 0.2),
                 ActiveForce = 0.3,
                 ActiveForce0 = 0.4,

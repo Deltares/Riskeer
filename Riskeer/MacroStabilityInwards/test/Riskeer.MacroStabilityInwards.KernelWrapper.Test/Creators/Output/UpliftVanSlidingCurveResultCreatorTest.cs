@@ -73,7 +73,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 
             var slidingCurve = new SlidingDualCircle
             {
-                LeftCircleIsActive = leftCircleIsActive,
                 ActiveCircle = new GeometryPoint(activeCircleX, activeCircleZ),
                 ActiveForce = activeCircleIteratedForce,
                 ActiveForce0 = activeCircleNonIteratedForce,
