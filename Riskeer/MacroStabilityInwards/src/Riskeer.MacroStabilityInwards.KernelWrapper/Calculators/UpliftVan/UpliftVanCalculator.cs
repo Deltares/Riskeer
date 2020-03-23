@@ -120,7 +120,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SetSoilProfile(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil));
             upliftVanKernel.SetLocationExtreme(UpliftVanStabilityLocationCreator.CreateExtreme(input));
             upliftVanKernel.SetLocationDaily(UpliftVanStabilityLocationCreator.CreateDaily(input));
-            upliftVanKernel.SetSurfaceLine(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection));
+            upliftVanKernel.SetSurfaceLine(SurfaceLineCreator.Create(input.SurfaceLine));
             upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
             upliftVanKernel.SetSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints));
             upliftVanKernel.SetGridAutomaticDetermined(input.SlipPlane.GridAutomaticDetermined);

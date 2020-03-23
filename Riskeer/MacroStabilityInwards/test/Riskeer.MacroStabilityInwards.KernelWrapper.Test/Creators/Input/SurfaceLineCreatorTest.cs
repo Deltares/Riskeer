@@ -28,8 +28,6 @@ using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
-using LandwardDirection = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
-using WtiStabilityLandwardDirection = Deltares.MacroStability.Geometry.LandwardDirection;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -40,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SurfaceLineCreator.Create(null, LandwardDirection.PositiveX);
+            TestDelegate call = () => SurfaceLineCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -76,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -100,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -126,7 +124,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -157,7 +155,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -209,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             surfaceLine.SetDikeTopAtRiverAt(geometry[11]);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -237,38 +235,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderBaseInside).LocationEquals(ToGeometryPoint(geometry[9])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderTopInside).LocationEquals(ToGeometryPoint(geometry[10])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtRiver).LocationEquals(ToGeometryPoint(geometry[11])));
-        }
-
-        [Test]
-        public void Create_InvalidLandwardDirection_ThrowInvalidEnumArgumentException()
-        {
-            // Setup
-            const string name = "Surface line with landward direction";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
-
-            // Call
-            TestDelegate test = () => SurfaceLineCreator.Create(surfaceLine, (LandwardDirection) 99);
-
-            // Assert
-            string message = $"The value of argument 'landwardDirection' ({99}) is invalid for Enum type '{typeof(LandwardDirection).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
-        }
-
-        [TestCase(LandwardDirection.PositiveX, WtiStabilityLandwardDirection.PositiveX)]
-        [TestCase(LandwardDirection.NegativeX, WtiStabilityLandwardDirection.NegativeX)]
-        public void Create_ValidLandwardDirection_CreateSurfaceLineWithLandwardDirection(LandwardDirection landwardDirection,
-                                                                                         WtiStabilityLandwardDirection expectedLandwardDirection)
-        {
-            // Setup
-            const string name = "Surface line with landward direction";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
-
-            // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, landwardDirection);
-
-            // Assert
-            AssertGeneralValues(name, actual);
-            Assert.AreEqual(expectedLandwardDirection, actual.LandwardDirection);
         }
 
         private static void AssertGeneralValues(string name, SurfaceLine2 actual)

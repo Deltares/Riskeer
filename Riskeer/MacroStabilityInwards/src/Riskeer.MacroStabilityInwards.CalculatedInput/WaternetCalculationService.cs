@@ -136,7 +136,6 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
             {
                 WaternetCreationMode = WaternetCreationMode.CreateWaternet,
                 PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
-                LandwardDirection = LandwardDirection.PositiveX,
                 SurfaceLine = input.SurfaceLine,
                 SoilProfile = SoilProfileConverter.Convert(input.SoilProfileUnderSurfaceLine),
                 DrainageConstruction = DrainageConstructionConverter.Convert(input),

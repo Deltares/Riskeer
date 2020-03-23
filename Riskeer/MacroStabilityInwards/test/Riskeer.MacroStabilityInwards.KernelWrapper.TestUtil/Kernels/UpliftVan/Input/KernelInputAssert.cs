@@ -73,7 +73,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertStabilityLocations(Location expected, Location actual)
         {
-            Assert.AreEqual(expected.StabilityModel, actual.StabilityModel);
             Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);
             Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
             Assert.AreEqual(expected.PlLineCreationMethod, actual.PlLineCreationMethod);
@@ -115,7 +114,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public static void AssertSurfaceLines(SurfaceLine2 expected, SurfaceLine2 actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.LandwardDirection, actual.LandwardDirection);
             AssertGeometryPointStrings(expected.Geometry, actual.Geometry);
             AssertCharacteristicPointSets(expected.CharacteristicPoints, actual.CharacteristicPoints);
         }

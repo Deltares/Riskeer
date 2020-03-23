@@ -58,7 +58,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(), random.NextDouble(), random.NextBoolean());
             var waternetCreationMode = random.NextEnumValue<WaternetCreationMode>();
             var plLineCreationMethod = random.NextEnumValue<PlLineCreationMethod>();
-            var landwardDirection = random.NextEnumValue<LandwardDirection>();
             double waterLevelRiverAverage = random.NextDouble();
             double waterLevelPolderExtreme = random.NextDouble();
             double waterLevelPolderDaily = random.NextDouble();
@@ -84,7 +83,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     WaternetCreationMode = waternetCreationMode,
                     PlLineCreationMethod = plLineCreationMethod,
                     AssessmentLevel = hRiverValue,
-                    LandwardDirection = landwardDirection,
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
                     DrainageConstruction = drainageConstruction,
@@ -116,7 +114,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.AreEqual(plLineCreationMethod, input.PlLineCreationMethod);
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
-            Assert.AreEqual(landwardDirection, input.LandwardDirection);
             Assert.AreSame(soilProfile, input.SoilProfile);
             Assert.AreSame(drainageConstruction, input.DrainageConstruction);
             Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsetsDaily);
@@ -190,7 +187,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
-            Assert.AreEqual(LandwardDirection.PositiveX, input.LandwardDirection);
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }
 

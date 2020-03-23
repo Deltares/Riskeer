@@ -179,7 +179,6 @@ namespace Riskeer.MacroStabilityInwards.Service
                     WaternetCreationMode = WaternetCreationMode.CreateWaternet,
                     PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = effectiveAssessmentLevel,
-                    LandwardDirection = LandwardDirection.PositiveX,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = SoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
                     DrainageConstruction = DrainageConstructionConverter.Convert(inputParameters),
