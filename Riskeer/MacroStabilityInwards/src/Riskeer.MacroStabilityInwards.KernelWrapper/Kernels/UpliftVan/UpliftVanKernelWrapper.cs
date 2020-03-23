@@ -58,14 +58,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                     {
                         Name = "WaternetDaily"
                     }
-                },
-                MultiplicationFactorsCPhiForUpliftList =
-                {
-                    new MultiplicationFactorOnCPhiForUplift
-                    {
-                        UpliftFactor = 1.2,
-                        MultiplicationFactor = 0.0
-                    }
                 }
             };
 
