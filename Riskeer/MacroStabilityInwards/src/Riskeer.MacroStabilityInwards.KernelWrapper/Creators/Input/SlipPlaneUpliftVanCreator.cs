@@ -21,7 +21,6 @@
 
 using System;
 using Deltares.MacroStability.Data;
-using Deltares.WTIStability;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -47,11 +46,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(slipPlane));
             }
 
-            var kernelSlipPlane = new SlipPlaneUpliftVan
-            {
-                ActiveSide = ActiveSideType.Left
-            };
-
+            var kernelSlipPlane = new SlipPlaneUpliftVan();
             if (!slipPlane.GridAutomaticDetermined)
             {
                 kernelSlipPlane.SlipPlaneLeftGrid = CreateGrid(slipPlane.LeftGrid);
