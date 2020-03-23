@@ -94,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Converters
                                          ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(data).GetDesignValue(),
                                          StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(data).GetDesignValue(),
                                          Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data).GetDesignValue(),
-                                         DilatancyType = DilatancyType.Zero,
+                                         Dilatancy = 0.0,
                                          WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic
                                      },
                                      ConvertLayers(l.NestedLayers));

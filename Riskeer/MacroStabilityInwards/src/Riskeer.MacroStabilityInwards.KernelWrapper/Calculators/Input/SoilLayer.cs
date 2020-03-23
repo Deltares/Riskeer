@@ -68,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
             StrengthIncreaseExponent = properties.StrengthIncreaseExponent;
             ShearStrengthRatio = properties.ShearStrengthRatio;
             Pop = properties.Pop;
-            DilatancyType = properties.DilatancyType;
+            Dilatancy = properties.Dilatancy;
             WaterPressureInterpolationModel = properties.WaterPressureInterpolationModel;
 
             NestedLayers = nestedLayers;
@@ -140,9 +140,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
         public double Pop { get; }
 
         /// <summary>
-        /// Gets the dilatancy type.
+        /// Gets the dilatancy.
         /// </summary>
-        public DilatancyType DilatancyType { get; }
+        public double Dilatancy { get; }
 
         /// <summary>
         /// Gets the water pressure interpolation model.
@@ -168,7 +168,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
                 StrengthIncreaseExponent = double.NaN;
                 ShearStrengthRatio = double.NaN;
                 Pop = double.NaN;
-                DilatancyType = DilatancyType.Zero;
+                Dilatancy = 0.0;
                 WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic;
             }
 
@@ -230,7 +230,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
             /// <summary>
             /// Gets or sets the dilatancy type.
             /// </summary>
-            public DilatancyType DilatancyType { internal get; set; }
+            public double Dilatancy { internal get; set; }
 
             /// <summary>
             /// Gets or sets the water pressure interpolation model.

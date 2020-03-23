@@ -25,13 +25,11 @@ using System.ComponentModel;
 using System.Linq;
 using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using DilatancyType = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using ShearStrengthModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 using WtiStabilitySoil = Deltares.MacroStability.Geometry.Soil;
-using WtiStabilityDilatancyType = Deltares.MacroStability.Geometry.DilatancyType;
 using WtiStabilityShearStrengthModel = Deltares.MacroStability.Geometry.ShearStrengthModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
@@ -48,9 +46,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <returns>An <see cref="Array"/> of <see cref="LayerWithSoil"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
+        /// <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
+        /// <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
         public static LayerWithSoil[] Create(SoilProfile soilProfile)
         {
             if (soilProfile == null)
@@ -67,9 +65,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="soilLayers">The soil layers to obtain the <see cref="LayerWithSoil"/> objects from.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="LayerWithSoil"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
+        /// <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
+        /// <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
         private static IEnumerable<LayerWithSoil> GetLayersWithSoilRecursively(IEnumerable<SoilLayer> soilLayers)
         {
             var layersWithSoil = new List<LayerWithSoil>();
@@ -89,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                                                          RatioCuPc = layer.ShearStrengthRatio,
                                                          StrengthIncreaseExponent = layer.StrengthIncreaseExponent,
                                                          PoP = layer.Pop,
-                                                         DilatancyType = ConvertDilatancyType(layer.DilatancyType)
+                                                         Dilatancy = 0.0
                                                      },
                                                      layer.IsAquifer,
                                                      ConvertWaterPressureInterpolationModel(layer.WaterPressureInterpolationModel)));
@@ -140,37 +138,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                     return WtiStabilityShearStrengthModel.CPhi;
                 case ShearStrengthModel.CPhiOrSuCalculated:
                     return WtiStabilityShearStrengthModel.CPhiOrCuCalculated;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="DilatancyType"/> into a <see cref="WtiStabilityDilatancyType"/>.
-        /// </summary>
-        /// <param name="dilatancyType">The <see cref="DilatancyType"/> to convert.</param>
-        /// <returns>A <see cref="WtiStabilityDilatancyType"/> based on <paramref name="dilatancyType"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dilatancyType"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="dilatancyType"/>
-        /// is a valid value, but unsupported.</exception>
-        private static WtiStabilityDilatancyType ConvertDilatancyType(DilatancyType dilatancyType)
-        {
-            if (!Enum.IsDefined(typeof(DilatancyType), dilatancyType))
-            {
-                throw new InvalidEnumArgumentException(nameof(dilatancyType),
-                                                       (int) dilatancyType,
-                                                       typeof(DilatancyType));
-            }
-
-            switch (dilatancyType)
-            {
-                case DilatancyType.Phi:
-                    return WtiStabilityDilatancyType.Phi;
-                case DilatancyType.Zero:
-                    return WtiStabilityDilatancyType.Zero;
-                case DilatancyType.MinusPhi:
-                    return WtiStabilityDilatancyType.MinusPhi;
                 default:
                     throw new NotSupportedException();
             }
