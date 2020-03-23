@@ -223,7 +223,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.RatioCuPc, actual.RatioCuPc);
             Assert.AreEqual(expected.StrengthIncreaseExponent, actual.StrengthIncreaseExponent);
             Assert.AreEqual(expected.PoP, actual.PoP);
-            Assert.AreEqual(expected.DilatancyType, actual.DilatancyType);
+            Assert.AreEqual(expected.Dilatancy, actual.Dilatancy);
             Assert.AreEqual(expected.CuBottom, actual.CuBottom);
             Assert.AreEqual(expected.CuTop, actual.CuTop);
             Assert.AreEqual(expected.Ocr, actual.Ocr);
