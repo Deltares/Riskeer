@@ -29,6 +29,7 @@ using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
@@ -60,6 +61,7 @@ namespace Riskeer.DuneErosion.Plugin
     public class DuneErosionPlugin : PluginBase
     {
         private DuneLocationCalculationGuiService duneLocationCalculationGuiService;
+        private IInquiryHelper inquiryHelper;
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -166,6 +168,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new ExportInfo<DuneLocationCalculationsContext>
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => CreateDuneLocationCalculationsExporter(context.WrappedData
                                                                                                           .Select(calc => new ExportableDuneLocationCalculation(
                                                                                                                       calc,
@@ -173,19 +176,16 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                                                       context.CategoryBoundaryName)).ToArray(),
                                                                                                    filePath),
                 IsEnabled = context => context.WrappedData.Any(calculation => calculation.Output != null),
-                FileFilterGenerator = new FileFilterGenerator(
-                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
-                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
 
             yield return new ExportInfo<DuneLocationCalculationsGroupContext>
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
                 CreateFileExporter = CreateDuneLocationCalculationsGroupContextFileExporter,
                 IsEnabled = IsDuneLocationCalculationsGroupContextExportMenuItemEnabled,
-                FileFilterGenerator = new FileFilterGenerator(
-                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
-                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
         }
 
@@ -206,6 +206,13 @@ namespace Riskeer.DuneErosion.Plugin
             }
 
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
+        }
+
+        private static FileFilterGenerator GetFileFilterGenerator()
+        {
+            return new FileFilterGenerator(
+                Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
+                Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description);
         }
 
         private static bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsGroupContext context)
@@ -530,5 +537,10 @@ namespace Riskeer.DuneErosion.Plugin
         #endregion
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

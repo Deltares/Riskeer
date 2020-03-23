@@ -247,6 +247,7 @@ namespace Riskeer.Integration.Plugin
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
+        private IInquiryHelper inquiryHelper;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -281,7 +282,7 @@ namespace Riskeer.Integration.Plugin
 
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-            assessmentSectionMerger = new AssessmentSectionMerger(new AssessmentSectionMergeFilePathProvider(new DialogBasedInquiryHelper(Gui.MainWindow)),
+            assessmentSectionMerger = new AssessmentSectionMerger(new AssessmentSectionMergeFilePathProvider(GetInquiryHelper()),
                                                                   new AssessmentSectionProvider(Gui.MainWindow),
                                                                   new AssessmentSectionMergeComparer(),
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
@@ -797,28 +798,31 @@ namespace Riskeer.Integration.Plugin
             yield return new ExportInfo<ReferenceLineContext>
             {
                 Name = RiskeerCommonDataResources.ReferenceLine_DisplayName,
+                Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData, context.AssessmentSection.Id, filePath),
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
             };
 
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
             };
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
                 Name = RiskeerCommonFormsResources.AssemblyResult_DisplayName,
+                Extension = Resources.AssemblyResult_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
-                FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.AssemblyResult_DisplayName)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
+                                                                                                           RiskeerCommonFormsResources.AssemblyResult_DisplayName))
             };
         }
 
@@ -2057,9 +2061,8 @@ namespace Riskeer.Integration.Plugin
                                                         designWaterLevelItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
@@ -2098,9 +2101,8 @@ namespace Riskeer.Integration.Plugin
                                                         waveHeightItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
@@ -2156,9 +2158,8 @@ namespace Riskeer.Integration.Plugin
                                                         calculateAllItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
@@ -2198,9 +2199,8 @@ namespace Riskeer.Integration.Plugin
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(nodeData.AssessmentSection));
 
@@ -2232,9 +2232,8 @@ namespace Riskeer.Integration.Plugin
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(nodeData.AssessmentSection));
 
@@ -2348,10 +2347,7 @@ namespace Riskeer.Integration.Plugin
 
         private bool VerifyForeshoreProfileUpdates(ForeshoreProfilesContext context, string query)
         {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(context.ParentFailureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
-
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.ParentFailureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -2525,5 +2521,10 @@ namespace Riskeer.Integration.Plugin
         }
 
         #endregion
+
+        private IInquiryHelper GetInquiryHelper()
+        {
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
+        }
     }
 }

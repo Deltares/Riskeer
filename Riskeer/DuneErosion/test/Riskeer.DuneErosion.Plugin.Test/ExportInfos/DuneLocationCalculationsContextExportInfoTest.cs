@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -52,9 +51,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.AreEqual("Hydraulische belastingen", info.Name);
+                Assert.AreEqual("bnd", info.Extension);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
-                Assert.IsNotNull(info.FileFilterGenerator);
+                Assert.IsNotNull(info.GetExportPath);
             }
         }
 
@@ -84,22 +84,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Setup
-            using (var plugin = new DuneErosionPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Call
-                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
-
-                // Assert
-                Assert.AreEqual("Hydraulische belastingen duinen (*.bnd)|*.bnd", fileFilterGenerator.Filter);
-            }
         }
 
         [Test]

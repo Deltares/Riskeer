@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -56,11 +55,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
+            Assert.AreEqual("csv", exportInfo.Extension);
             Assert.IsNotNull(exportInfo.CreateFileExporter);
             Assert.IsNotNull(exportInfo.IsEnabled);
             Assert.AreEqual("Algemeen", exportInfo.Category);
             TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
-            Assert.IsNotNull(exportInfo.FileFilterGenerator);
+            Assert.IsNotNull(exportInfo.GetExportPath);
         }
 
         [Test]
@@ -83,16 +83,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Call
-            FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-
-            // Assert
-            Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilterGenerator.Filter);
         }
 
         [Test]

@@ -199,26 +199,26 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
                     return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
@@ -239,6 +239,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                 new WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
+        }
+
+        private FileFilterGenerator GetWaveConditionsFileFilterGenerator()
+        {
+            return new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description);
         }
 
         private void CalculateAll(WaveImpactAsphaltCoverFailureMechanismContext context)

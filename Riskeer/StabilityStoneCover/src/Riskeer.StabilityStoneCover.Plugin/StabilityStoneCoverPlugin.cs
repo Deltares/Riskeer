@@ -202,24 +202,22 @@ namespace Riskeer.StabilityStoneCover.Plugin
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
@@ -240,6 +238,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
                 new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
+        }
+
+        private FileFilterGenerator GetWaveConditionsFileFilterGenerator()
+        {
+            return new FileFilterGenerator(
+                RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description);
         }
 
         private void CalculateAll(StabilityStoneCoverFailureMechanismContext context)

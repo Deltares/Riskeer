@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
@@ -48,12 +47,13 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Assert
+                Assert.AreEqual("Toetsoordeel", info.Name);
+                Assert.AreEqual("gml", info.Extension);
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Toetsoordeel", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
-                Assert.IsNotNull(info.FileFilterGenerator);
+                Assert.IsNotNull(info.GetExportPath);
             }
         }
 
@@ -76,22 +76,6 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
 
                 // Assert
                 Assert.IsInstanceOf<AssemblyExporter>(fileExporter);
-            }
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Setup
-            using (var plugin = new RiskeerPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Call
-                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
-
-                // Assert
-                Assert.AreEqual("Toetsoordeel (*.gml)|*.gml", fileFilterGenerator.Filter);
             }
         }
 

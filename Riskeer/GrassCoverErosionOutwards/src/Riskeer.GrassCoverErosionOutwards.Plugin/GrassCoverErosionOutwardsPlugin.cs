@@ -328,50 +328,54 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
                 Name = RiskeerCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
+                Extension = RiskeerCommonIoResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                     new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(context.FailureMechanism, context.AssessmentSection,
                                                                                     filePath),
                 IsEnabled = context => context.WrappedData.Locations.Count > 0,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIoResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIoResources.Shape_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIoResources.Shape_file_filter_Extension,
+                                                                                                           RiskeerCommonIoResources.Shape_file_filter_Description))
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(

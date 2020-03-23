@@ -172,19 +172,20 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ExportInfo<MacroStabilityInwardsCalculationScenarioContext>
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
-                FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension, Resources.Stix_file_filter_description),
+                Extension = Resources.Stix_file_filter_extension,
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                GetExportPath = fileFilter => ExportHelper.GetFilePath(GetInquiryHelper(), fileFilter)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Stix_file_filter_extension,
+                                                                                                           Resources.Stix_file_filter_description))
             };
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
-                FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension, Resources.Stix_file_filter_description),
+                Extension = Resources.Stix_file_filter_extension,
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput(),
-                GetExportPath = fileFilter => ExportHelper.GetFolderPath(GetInquiryHelper())
+                GetExportPath = () => ExportHelper.GetFolderPath(GetInquiryHelper())
             };
         }
 
