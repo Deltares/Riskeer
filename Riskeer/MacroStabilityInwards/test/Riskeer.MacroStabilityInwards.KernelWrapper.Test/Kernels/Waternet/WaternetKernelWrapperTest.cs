@@ -93,7 +93,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Not applicable for Waternet calculation
             Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Not applicable for Waternet calculation
-            Assert.IsEmpty(stabilityModel.MultiplicationFactorsCPhiForUpliftList); // Not applicable for Waternet calculation
             Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
