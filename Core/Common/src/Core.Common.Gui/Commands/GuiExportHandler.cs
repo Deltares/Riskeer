@@ -127,14 +127,14 @@ namespace Core.Common.Gui.Commands
 
         private static string GetItemName(ExportInfo exportInfo)
         {
-            return exportInfo.FileFilterGenerator != null
-                       ? string.Format(Resources.GetItemName_Name_0_FileExtension_1, exportInfo.Name, exportInfo.FileFilterGenerator.Extension)
+            return exportInfo.Extension != null
+                       ? string.Format(Resources.GetItemName_Name_0_FileExtension_1, exportInfo.Name, exportInfo.Extension)
                        : exportInfo.Name;
         }
 
         private void ExportItemUsingDialog(ExportInfo exportInfo, object source)
         {
-            string exportFilePath = ExportHelper.GetFilePath(inquiryHelper, exportInfo.FileFilterGenerator);
+            string exportFilePath = exportInfo.GetExportPath();
 
             if (exportFilePath != null)
             {

@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Properties;
-using Core.Common.Util;
 
 namespace Core.Common.Gui.Plugin
 {
@@ -62,6 +61,11 @@ namespace Core.Common.Gui.Plugin
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the file extension of the export information.
+        /// </summary>
+        public string Extension { get; set; }
+
+        /// <summary>
         /// Gets or sets the category of the export information.
         /// </summary>
         /// <remarks>Should never return null.</remarks>
@@ -74,17 +78,12 @@ namespace Core.Common.Gui.Plugin
         public Image Image { get; set; } = Resources.ExportIcon;
 
         /// <summary>
-        /// Gets or sets the file filter generator of the export information used to make file filters.
-        /// </summary>
-        public FileFilterGenerator FileFilterGenerator { get; set; }
-
-        /// <summary>
         /// Gets or sets the method used to get the path where the export should save the data. Function arguments:
         /// <list type="number">
         ///     <item>out - the path to export to.</item>
         /// </list>
         /// </summary>
-        public Func<FileFilterGenerator, string> GetExportPath { get; set; }
+        public Func<string> GetExportPath { get; set; }
     }
 
     /// <summary>
@@ -123,6 +122,11 @@ namespace Core.Common.Gui.Plugin
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the file extension of the export information.
+        /// </summary>
+        public string Extension { get; set; }
+
+        /// <summary>
         /// Gets or sets the category of the export information.
         /// </summary>
         /// <remarks>Should never return null.</remarks>
@@ -135,17 +139,12 @@ namespace Core.Common.Gui.Plugin
         public Image Image { get; set; } = Resources.ExportIcon;
 
         /// <summary>
-        /// Gets or sets the file filter generator of the export information used to make file filters.
-        /// </summary>
-        public FileFilterGenerator FileFilterGenerator { get; set; }
-
-        /// <summary>
         /// Gets or sets the method used to get the path where the export should save the data. Function arguments:
         /// <list type="number">
         ///     <item>out - the path to export to.</item>
         /// </list>
         /// </summary>
-        public Func<FileFilterGenerator, string> GetExportPath { get; set; }
+        public Func<string> GetExportPath { get; set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="ExportInfo{TData}"/> to <see cref="ExportInfo"/>.
@@ -162,8 +161,8 @@ namespace Core.Common.Gui.Plugin
                 Name = exportInfo.Name,
                 Category = exportInfo.Category,
                 Image = exportInfo.Image,
-                FileFilterGenerator = exportInfo.FileFilterGenerator,
-                GetExportPath = fileFilter => exportInfo.GetExportPath?.Invoke(fileFilter)
+                Extension = exportInfo.Extension,
+                GetExportPath = () => exportInfo.GetExportPath?.Invoke()
             };
         }
     }
