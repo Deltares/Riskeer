@@ -22,7 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using Deltares.MacroStability.Data;
-using Deltares.WTIStability;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -85,12 +84,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(rightGridZBottom, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZBottom);
             Assert.AreEqual(rightGridXNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXNumber);
             Assert.AreEqual(rightGridZNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZNumber);
-            Assert.AreEqual(slipPlane.TangentLinesAutomaticAtBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.AutomaticAtBoundaries);
             Assert.AreEqual(tangentLineZTop, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(tangentLineNumber, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
-            Assert.AreEqual(10, slipPlaneUpliftVan.SlipPlaneTangentLine.MaxSpacingBetweenBoundaries); // Only used in case of auto grid determination combined with specified tangent lines (unsupported by calculator)
         }
 
         [Test]
@@ -121,7 +118,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
-            Assert.AreEqual(slipPlane.TangentLinesAutomaticAtBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.AutomaticAtBoundaries);
         }
 
         [Test]
@@ -156,20 +152,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(leftGridZBottom, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZBottom);
             Assert.AreEqual(leftGridXNumber, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridXNumber);
             Assert.AreEqual(leftGridZNumber, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZNumber);
-            Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipPlaneLeftGrid.Owner); // Automatically synced
             Assert.AreEqual(rightGridXLeft, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXLeft);
             Assert.AreEqual(rightGridXRight, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXRight);
             Assert.AreEqual(rightGridZTop, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZTop);
             Assert.AreEqual(rightGridZBottom, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZBottom);
             Assert.AreEqual(rightGridXNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXNumber);
             Assert.AreEqual(rightGridZNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZNumber);
-            Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipPlaneRightGrid.Owner); // Automatically synced
-            Assert.AreEqual(slipPlane.TangentLinesAutomaticAtBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.AutomaticAtBoundaries);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
-            Assert.AreEqual(10, slipPlaneUpliftVan.SlipPlaneTangentLine.MaxSpacingBetweenBoundaries); // Only used in case of auto grid determination combined with specified tangent lines (unsupported by calculator)
         }
     }
 }

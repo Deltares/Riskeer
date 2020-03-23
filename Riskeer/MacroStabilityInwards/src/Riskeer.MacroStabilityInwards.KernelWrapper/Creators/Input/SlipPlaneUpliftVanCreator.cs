@@ -60,10 +60,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
         private static SlipCircleTangentLine CreateTangentline(UpliftVanSlipPlane slipPlane)
         {
-            var tangentLine = new SlipCircleTangentLine
-            {
-                AutomaticAtBoundaries = slipPlane.TangentLinesAutomaticAtBoundaries
-            };
+            var tangentLine = new SlipCircleTangentLine();
 
             if (!slipPlane.TangentLinesAutomaticAtBoundaries)
             {
