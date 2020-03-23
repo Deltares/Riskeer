@@ -299,12 +299,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(soilProfile2D, stabilityModel.Location.SoilProfile2D);
             Assert.AreSame(surfaceLine, stabilityModel.Location.Surfaceline);
             Assert.IsTrue(stabilityModel.Location.Inwards);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.SoilModel.ModelOption);
+            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
             Assert.AreSame(stabilityModel, stabilityModel.SlipCircle.StabilityModel);
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
             Assert.IsNotNull(stabilityModel.GeotechnicsData);
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.SlipPlaneUpliftVan.ModelOption);
+            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
             Assert.AreSame(stabilityModel, stabilityModel.SlipPlaneUpliftVan.StabilityModel);
             Assert.AreSame(stabilityModel, stabilityModel.SlipPlaneUpliftVan.SlipPlaneTangentLine.StabilityModel);
             Assert.AreEqual(stabilityModel.SlipCircle.Auto, stabilityModel.SlipPlaneUpliftVan.SlipCircleTangentLine.IsAutomaticGrid);

@@ -48,12 +48,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             return new SlipPlaneConstraints
             {
-                AutomaticForbiddenZones = input.AutomaticForbiddenZones,
-                CreateZones = input.CreateZones,
                 SlipPlaneMinDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinLength = input.SlipPlaneMinimumLength,
-                XEntryMax = input.ZoneBoundaryRight,
-                XEntryMin = input.ZoneBoundaryLeft
+                XLeftMin = input.ZoneBoundaryLeft,
+                XLeftMax = input.ZoneBoundaryRight
             };
         }
     }

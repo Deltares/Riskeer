@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Deltares.MacroStability.Data;
 using Deltares.WTIStability;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -52,12 +53,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SlipPlaneConstraints constraints = SlipPlaneConstraintsCreator.Create(upliftVanSlipPlaneConstraints);
 
             // Assert
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.CreateZones, constraints.CreateZones);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.AutomaticForbiddenZones, constraints.AutomaticForbiddenZones);
             Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumLength, constraints.SlipPlaneMinLength);
             Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumDepth, constraints.SlipPlaneMinDepth);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, constraints.XEntryMin);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, constraints.XEntryMax);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, constraints.XLeftMax);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, constraints.XRightMax);
         }
     }
 }
