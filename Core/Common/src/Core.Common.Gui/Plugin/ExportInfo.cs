@@ -163,7 +163,7 @@ namespace Core.Common.Gui.Plugin
                 Category = exportInfo.Category,
                 Image = exportInfo.Image,
                 FileFilterGenerator = exportInfo.FileFilterGenerator,
-                GetExportPath = (fileFilter) => exportInfo.GetExportPath?.Invoke(fileFilter)
+                GetExportPath = fileFilter => exportInfo.GetExportPath?.Invoke(fileFilter)
             };
         }
     }

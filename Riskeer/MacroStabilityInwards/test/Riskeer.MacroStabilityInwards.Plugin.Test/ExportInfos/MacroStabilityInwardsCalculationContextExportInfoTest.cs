@@ -1,9 +1,15 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -18,7 +24,7 @@ using Riskeer.MacroStabilityInwards.Primitives;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationContextExportInfoTest
+    public class MacroStabilityInwardsCalculationContextExportInfoTest : NUnitFormTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -36,6 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
+                Assert.IsNotNull(info.GetExportPath);
             }
         }
 
@@ -142,6 +149,40 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
 
                 // Assert
                 Assert.IsTrue(isEnabled);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GetExportPath_Always_ReturnsFilePath()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            string expectedFilePath = Path.Combine(TestHelper.GetScratchPadPath(), "Test");
+            
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new SaveFileDialogTester(wnd);
+                tester.SaveFile(expectedFilePath);
+            };
+
+            using (var plugin = new MacroStabilityInwardsPlugin())
+            {
+                plugin.Gui = gui;
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                string path = info.GetExportPath(new FileFilterGenerator());
+
+                // Assert
+                Assert.AreEqual(expectedFilePath, path);
             }
 
             mocks.VerifyAll();
