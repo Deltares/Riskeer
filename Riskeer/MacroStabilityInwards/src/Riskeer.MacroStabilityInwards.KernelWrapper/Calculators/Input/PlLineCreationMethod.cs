@@ -26,12 +26,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
     /// </summary>
     public enum PlLineCreationMethod
     {
-        ExpertKnowledgeRrd = 1,
-        ExpertKnowledgeLinearInDike = 2,
-        RingtoetsWti2017 = 3,
-        DupuitStatic = 4,
-        DupuitDynamic = 5,
-        Sensors = 6,
-        None = 7
+        RingtoetsWti2017 = 1,
+        None = 2
     }
 }

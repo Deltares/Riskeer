@@ -32,14 +32,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Values_ExpectedValues()
         {
             // Assert
-            Assert.AreEqual(7, Enum.GetValues(typeof(PlLineCreationMethod)).Length);
-            Assert.AreEqual(1, (int) PlLineCreationMethod.ExpertKnowledgeRrd);
-            Assert.AreEqual(2, (int) PlLineCreationMethod.ExpertKnowledgeLinearInDike);
-            Assert.AreEqual(3, (int) PlLineCreationMethod.RingtoetsWti2017);
-            Assert.AreEqual(4, (int) PlLineCreationMethod.DupuitStatic);
-            Assert.AreEqual(5, (int) PlLineCreationMethod.DupuitDynamic);
-            Assert.AreEqual(6, (int) PlLineCreationMethod.Sensors);
-            Assert.AreEqual(7, (int) PlLineCreationMethod.None);
+            Assert.AreEqual(2, Enum.GetValues(typeof(PlLineCreationMethod)).Length);
+            Assert.AreEqual(1, (int) PlLineCreationMethod.RingtoetsWti2017);
+            Assert.AreEqual(2, (int) PlLineCreationMethod.None);
         }
     }
 }

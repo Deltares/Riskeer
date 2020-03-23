@@ -118,18 +118,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             switch (plLineCreationMethod)
             {
-                case PlLineCreationMethod.ExpertKnowledgeRrd:
-                    return WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd;
-                case PlLineCreationMethod.ExpertKnowledgeLinearInDike:
-                    return WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike;
                 case PlLineCreationMethod.RingtoetsWti2017:
                     return WtiStabilityPlLineCreationMethod.RingtoetsWti2017;
-                case PlLineCreationMethod.DupuitStatic:
-                    return WtiStabilityPlLineCreationMethod.DupuitStatic;
-                case PlLineCreationMethod.DupuitDynamic:
-                    return WtiStabilityPlLineCreationMethod.DupuitDynamic;
-                case PlLineCreationMethod.Sensors:
-                    return WtiStabilityPlLineCreationMethod.Sensors;
                 case PlLineCreationMethod.None:
                     return WtiStabilityPlLineCreationMethod.None;
                 default:
