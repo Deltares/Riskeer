@@ -78,7 +78,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                                                      GetInnerLoopsRecursively(layer),
                                                      new WtiStabilitySoil(layer.MaterialName)
                                                      {
-                                                         UsePop = layer.UsePop,
                                                          ShearStrengthModel = ConvertShearStrengthModel(layer.ShearStrengthModel),
                                                          AbovePhreaticLevel = layer.AbovePhreaticLevel,
                                                          BelowPhreaticLevel = layer.BelowPhreaticLevel,
@@ -86,7 +85,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                                                          FrictionAngle = layer.FrictionAngle,
                                                          RatioCuPc = layer.ShearStrengthRatio,
                                                          StrengthIncreaseExponent = layer.StrengthIncreaseExponent,
-                                                         PoP = layer.Pop,
                                                          Dilatancy = 0.0
                                                      },
                                                      layer.IsAquifer,

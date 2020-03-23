@@ -242,7 +242,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(WaterpressureInterpolationModel.Hydrostatic, layerWithSoil.WaterPressureInterpolationModel);
 
             Assert.IsNotNull(layerWithSoil.Soil);
-            Assert.AreEqual(soilLayer.UsePop, layerWithSoil.Soil.UsePop);
             Assert.AreEqual(WtiStabilityShearStrengthModel.CuCalculated, layerWithSoil.Soil.ShearStrengthModel);
             Assert.AreEqual(soilLayer.MaterialName, layerWithSoil.Soil.Name);
             Assert.AreEqual(soilLayer.AbovePhreaticLevel, layerWithSoil.Soil.AbovePhreaticLevel);
@@ -251,12 +250,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(soilLayer.FrictionAngle, layerWithSoil.Soil.FrictionAngle);
             Assert.AreEqual(soilLayer.ShearStrengthRatio, layerWithSoil.Soil.RatioCuPc);
             Assert.AreEqual(soilLayer.StrengthIncreaseExponent, layerWithSoil.Soil.StrengthIncreaseExponent);
-            Assert.AreEqual(soilLayer.Pop, layerWithSoil.Soil.PoP);
             Assert.AreEqual(soilLayer.Dilatancy, layerWithSoil.Soil.Dilatancy);
-
-            Assert.IsNaN(layerWithSoil.Soil.Ocr); // OCR is only used as output
-            Assert.IsNaN(layerWithSoil.Soil.CuBottom); // Only for CuMeasured
-            Assert.IsNaN(layerWithSoil.Soil.CuTop); // Only for CuMeasured
         }
 
         private static SoilLayer.ConstructionProperties CreateRandomConstructionProperties(int seed, string materialName)

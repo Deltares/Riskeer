@@ -214,7 +214,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         private static void AssertSoils(Soil expected, Soil actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.UsePop, actual.UsePop);
             Assert.AreEqual(expected.ShearStrengthModel, actual.ShearStrengthModel);
             Assert.AreEqual(expected.AbovePhreaticLevel, actual.AbovePhreaticLevel);
             Assert.AreEqual(expected.BelowPhreaticLevel, actual.BelowPhreaticLevel);
@@ -222,11 +221,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.FrictionAngle, actual.FrictionAngle);
             Assert.AreEqual(expected.RatioCuPc, actual.RatioCuPc);
             Assert.AreEqual(expected.StrengthIncreaseExponent, actual.StrengthIncreaseExponent);
-            Assert.AreEqual(expected.PoP, actual.PoP);
             Assert.AreEqual(expected.Dilatancy, actual.Dilatancy);
-            Assert.AreEqual(expected.CuBottom, actual.CuBottom);
-            Assert.AreEqual(expected.CuTop, actual.CuTop);
-            Assert.AreEqual(expected.Ocr, actual.Ocr);
             Assert.AreEqual(expected.RatioCuPc, actual.RatioCuPc);
         }
 
