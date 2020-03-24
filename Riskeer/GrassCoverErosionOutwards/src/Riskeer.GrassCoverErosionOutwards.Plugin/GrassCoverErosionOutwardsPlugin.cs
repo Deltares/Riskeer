@@ -736,6 +736,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                 TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             bool isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
 
@@ -770,7 +771,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, GetInquiryHelper(),
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
@@ -947,6 +948,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                            object parentData,
                                                                            TreeViewControl treeViewControl)
         {
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = nodeData.WrappedData;
@@ -957,7 +959,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddDuplicateCalculationItem(calculation, nodeData)
                    .AddSeparator()
                    .AddRenameItem()
-                   .AddUpdateForeshoreProfileOfCalculationItem(calculation, GetInquiryHelper(),
+                   .AddUpdateForeshoreProfileOfCalculationItem(calculation, inquiryHelper,
                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateCalculationItem(

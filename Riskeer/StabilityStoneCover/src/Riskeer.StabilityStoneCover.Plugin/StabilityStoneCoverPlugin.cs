@@ -455,6 +455,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                        TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
@@ -487,7 +489,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, GetInquiryHelper(),
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,

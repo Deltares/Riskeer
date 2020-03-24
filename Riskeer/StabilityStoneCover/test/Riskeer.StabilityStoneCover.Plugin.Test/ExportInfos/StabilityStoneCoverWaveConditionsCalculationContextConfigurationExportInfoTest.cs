@@ -22,6 +22,8 @@
 using System;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -38,36 +40,53 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationContextConfigurationExportInfoTest
     {
-        private ExportInfo exportInfo;
+        private StabilityStoneCoverPlugin plugin;
+        private ExportInfo info;
+        private MockRepository mocks;
 
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
-            using (var plugin = new StabilityStoneCoverPlugin())
+            mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.Replay(gui);
+            mocks.Replay(mainWindow);
+
+            plugin = new StabilityStoneCoverPlugin
             {
-                exportInfo = plugin.GetExportInfos()
-                                   .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)
-                                                 && ei.Name.Equals("Riskeer berekeningenconfiguratie"));
-            }
+                Gui = gui
+            };
+
+            info = plugin.GetExportInfos()
+                         .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)
+                                       && ei.Name.Equals("Riskeer berekeningenconfiguratie"));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual("xml", exportInfo.Extension);
-            Assert.IsNotNull(exportInfo.CreateFileExporter);
-            Assert.IsNotNull(exportInfo.IsEnabled);
-            Assert.AreEqual("Algemeen", exportInfo.Category);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
-            Assert.IsNotNull(exportInfo.GetExportPath);
+            Assert.AreEqual("xml", info.Extension);
+            Assert.IsNotNull(info.CreateFileExporter);
+            Assert.IsNotNull(info.IsEnabled);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            Assert.IsNotNull(info.GetExportPath);
         }
 
         [Test]
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -85,18 +104,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
                                                                                   assessmentSection);
 
             // Call
-            IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
+            IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
             // Assert
             Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculationConfigurationExporter>(fileExporter);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_Always_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -106,11 +123,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
                                                                                   assessmentSection);
 
             // Call
-            bool isEnabled = exportInfo.IsEnabled(context);
+            bool isEnabled = info.IsEnabled(context);
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
         }
     }
 }

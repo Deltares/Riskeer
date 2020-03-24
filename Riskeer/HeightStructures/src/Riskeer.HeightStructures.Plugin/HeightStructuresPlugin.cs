@@ -463,6 +463,8 @@ namespace Riskeer.HeightStructures.Plugin
                                                                                             .Calculations
                                                                                             .Cast<StructuresCalculation<HeightStructuresInput>>();
 
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
@@ -480,7 +482,7 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                                          CreateChangeHandler(GetInquiryHelper(), calculations))
+                                                                                          CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -550,6 +552,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
@@ -582,7 +585,7 @@ namespace Riskeer.HeightStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, GetInquiryHelper(),
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
@@ -598,7 +601,7 @@ namespace Riskeer.HeightStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(GetInquiryHelper(), calculations));
+                                                                        CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {

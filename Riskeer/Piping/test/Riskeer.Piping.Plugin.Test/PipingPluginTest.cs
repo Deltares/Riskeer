@@ -24,9 +24,12 @@ using System.Linq;
 using System.Threading;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -229,7 +232,16 @@ namespace Riskeer.Piping.Plugin.Test
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
-            using (var plugin = new PipingPlugin())
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            using (var plugin = new PipingPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
@@ -239,6 +251,8 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationGroupContext)));
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationScenarioContext)));
             }
+
+            mocks.VerifyAll();
         }
     }
 }

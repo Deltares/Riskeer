@@ -458,6 +458,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                        object parentData, TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             bool isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
 
@@ -491,7 +493,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, GetInquiryHelper(),
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,

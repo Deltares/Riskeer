@@ -452,6 +452,7 @@ namespace Riskeer.ClosingStructures.Plugin
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = closingStructuresFailureMechanismContext.WrappedData
                                                                                                                               .Calculations
                                                                                                                               .Cast<StructuresCalculation<ClosingStructuresInput>>();
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(closingStructuresFailureMechanismContext, treeViewControl));
 
@@ -470,7 +471,7 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                                          CreateChangeHandler(GetInquiryHelper(), calculations))
+                                                                                          CreateChangeHandler(inquiryHelper, calculations))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -542,6 +543,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                          TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
@@ -573,8 +575,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                GetInquiryHelper(),
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddCustomItem(CreateUpdateStructureItem(calculations))
                    .AddSeparator()
@@ -590,7 +591,7 @@ namespace Riskeer.ClosingStructures.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(GetInquiryHelper(), calculations));
+                                                                        CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {

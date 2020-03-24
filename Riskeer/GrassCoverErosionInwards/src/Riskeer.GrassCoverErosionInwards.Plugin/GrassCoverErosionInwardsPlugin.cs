@@ -623,6 +623,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations = grassCoverErosionInwardsFailureMechanismContext.WrappedData
                                                                                                                            .Calculations
                                                                                                                            .Cast<GrassCoverErosionInwardsCalculation>();
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
             return builder
@@ -642,7 +643,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                    .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                        () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                       CreateChangeHandler(GetInquiryHelper(), calculations))
+                       CreateChangeHandler(inquiryHelper, calculations))
                    .AddSeparator()
                    .AddCollapseAllItem()
                    .AddExpandAllItem()
@@ -721,6 +722,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                         .ToArray();
             StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(calculations);
 
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             builder.AddImportItem()
                    .AddExportItem()
@@ -760,7 +763,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
-                                                                        CreateChangeHandler(GetInquiryHelper(), calculations));
+                                                                        CreateChangeHandler(inquiryHelper, calculations));
 
             if (isNestedGroup)
             {

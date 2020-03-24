@@ -21,6 +21,8 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -38,36 +40,53 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest
     {
-        private ExportInfo exportInfo;
+        private StabilityStoneCoverPlugin plugin;
+        private ExportInfo info;
+        private MockRepository mocks;
 
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
-            using (var plugin = new StabilityStoneCoverPlugin())
+            mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.Replay(gui);
+            mocks.Replay(mainWindow);
+
+            plugin = new StabilityStoneCoverPlugin
             {
-                exportInfo = plugin.GetExportInfos()
-                                   .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)
-                                                 && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
-            }
+                Gui = gui
+            };
+
+            info = plugin.GetExportInfos()
+                               .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)
+                                             && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual("csv", exportInfo.Extension);
-            Assert.IsNotNull(exportInfo.CreateFileExporter);
-            Assert.IsNotNull(exportInfo.IsEnabled);
-            Assert.AreEqual("Algemeen", exportInfo.Category);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
-            Assert.IsNotNull(exportInfo.GetExportPath);
+            Assert.AreEqual("csv", info.Extension);
+            Assert.IsNotNull(info.CreateFileExporter);
+            Assert.IsNotNull(info.IsEnabled);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            Assert.IsNotNull(info.GetExportPath);
         }
 
         [Test]
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -77,19 +96,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
-            IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
+            IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_NoCalculations_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -99,19 +115,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
-            bool isEnabled = exportInfo.IsEnabled(context);
+            bool isEnabled = info.IsEnabled(context);
 
             // Assert
             Assert.IsFalse(isEnabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_CalculationWithoutOutput_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -122,19 +135,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
-            bool isEnabled = exportInfo.IsEnabled(context);
+            bool isEnabled = info.IsEnabled(context);
 
             // Assert
             Assert.IsFalse(isEnabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IsEnabled_CalculationWithOutput_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -148,12 +158,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
-            bool isEnabled = exportInfo.IsEnabled(context);
+            bool isEnabled = info.IsEnabled(context);
 
             // Assert
             Assert.IsTrue(isEnabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -162,7 +170,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
         public void IsEnabled_CalculationWithOrWithoutOutputInSubFolder_ReturnExpectedEnabledState(bool hasOutput)
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -190,12 +197,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
-            bool isEnabled = exportInfo.IsEnabled(context);
+            bool isEnabled = info.IsEnabled(context);
 
             // Assert
             Assert.AreEqual(hasOutput, isEnabled);
-
-            mocks.VerifyAll();
         }
     }
 }

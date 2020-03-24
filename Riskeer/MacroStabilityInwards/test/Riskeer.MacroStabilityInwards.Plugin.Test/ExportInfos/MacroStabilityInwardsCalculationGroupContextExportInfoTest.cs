@@ -21,6 +21,8 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -40,31 +42,53 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
     [TestFixture]
     public class MacroStabilityInwardsCalculationGroupContextExportInfoTest
     {
+        private MacroStabilityInwardsPlugin plugin;
+        private ExportInfo info;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.Replay(gui);
+            mocks.Replay(mainWindow);
+
+            plugin = new MacroStabilityInwardsPlugin
+            {
+                Gui = gui
+            };
+
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)
+                                                       && ei.Name.Equals("D-GEO Suite Stability Project"));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                // Call
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Assert
-                Assert.AreEqual("D-GEO Suite Stability Project", info.Name);
-                Assert.AreEqual("stix", info.Extension);
-                Assert.IsNotNull(info.CreateFileExporter);
-                Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
-                Assert.IsNotNull(info.GetExportPath);
-            }
+            // Assert
+            Assert.AreEqual("D-GEO Suite Stability Project", info.Name);
+            Assert.AreEqual("stix", info.Extension);
+            Assert.IsNotNull(info.CreateFileExporter);
+            Assert.IsNotNull(info.IsEnabled);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            Assert.IsNotNull(info.GetExportPath);
         }
 
         [Test]
         public void CreateFileExporter_WithContext_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -75,25 +99,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
-                // Call
-                IFileExporter fileExporter = info.CreateFileExporter(context, "test");
-
-                // Assert
-                Assert.IsInstanceOf<MacroStabilityInwardsCalculationGroupExporter>(fileExporter);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.IsInstanceOf<MacroStabilityInwardsCalculationGroupExporter>(fileExporter);
         }
 
         [Test]
         public void IsEnabled_CalculationGroupNoChildren_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -104,25 +120,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.IsFalse(isEnabled);
         }
 
         [Test]
         public void IsEnabled_CalculationGroupChildIsNestedGroup_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -136,25 +144,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.IsFalse(isEnabled);
         }
 
         [Test]
         public void IsEnabled_CalculationGroupChildIsCalculationWithoutOutput_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -168,25 +168,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.IsFalse(isEnabled);
         }
 
         [Test]
         public void IsEnabled_CalculationGroupChildIsCalculationWithOutput_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -205,25 +197,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsTrue(isEnabled);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.IsTrue(isEnabled);
         }
 
         [Test]
         public void IsEnabled_CalculationGroupChildIsNestedGroupWithCalculationWithAndWithoutOutput_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -232,7 +216,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
-            var nestedGroup= new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
             nestedGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
@@ -246,24 +230,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsTrue(isEnabled);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        private static ExportInfo GetExportInfo(MacroStabilityInwardsPlugin plugin)
-        {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)
-                                                       && ei.Name.Equals("D-GEO Suite Stability Project"));
+            // Assert
+            Assert.IsTrue(isEnabled);
         }
     }
 }
