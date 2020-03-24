@@ -22,12 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
-using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
@@ -35,45 +33,40 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// <summary>
     /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing a Waternet calculation.
     /// </summary>
-    internal abstract class WaternetKernelWrapper : IWaternetKernel
+    internal class WaternetKernelWrapper : IWaternetKernel
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
-        /// </summary>
-        protected WaternetKernelWrapper()
+        private SoilProfile2D soilProfile2D;
+        private SurfaceLine2 surfaceLine2;
+        private Location location;
+
+        public WtiStabilityWaternet Waternet { get; protected set; }
+
+        public void SetLocation(Location stabilityLocation)
         {
-            StabilityModel = new StabilityModel();
-        }
-
-        public WtiStabilityWaternet Waternet { get; private set; }
-
-        public abstract void SetLocation(Location stabilityLocation);
-
-        public void SetSoilModel(IList<Soil> soilModel)
-        {
-            StabilityModel.Soils.AddRange(soilModel);
+            location = stabilityLocation;
         }
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
         {
-            StabilityModel.SoilProfile = soilProfile;
+            soilProfile2D = soilProfile;
         }
 
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
-            StabilityModel.SurfaceLine2 = surfaceLine;
+            surfaceLine2 = surfaceLine;
         }
 
         public void Calculate()
         {
             try
             {
-                var waternetCalculation = new WTIStabilityCalculation();
-                waternetCalculation.InitializeForDeterministic(WTISerializer.Serialize(StabilityModel));
+                const double unitWeightWater = 9.81; // Taken from kernel
+                var waternetCreator = new WaternetCreator(unitWeightWater);
+                location.Surfaceline = surfaceLine2;
+                location.SoilProfile2D = soilProfile2D;
+                waternetCreator.UpdateWaternet(Waternet, location);
 
-                string waternetXmlResult = CreateWaternetXmlResult(waternetCalculation);
-                ReadValidationResult(waternetXmlResult);
-                Waternet = ReadResult(waternetXmlResult);
+                ReadLogMessages(waternetCreator.LogMessages);
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
@@ -82,39 +75,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         }
 
         /// <summary>
-        /// Gets the stability model of the kernel.
+        /// Reads the log messages of the calculation.
         /// </summary>
-        protected StabilityModel StabilityModel { get; }
-
-        /// <summary>
-        /// Creates the Waternet XML result with the supplied calculation.
-        /// </summary>
-        /// <param name="waternetCalculation">The calculation to create the Waternet from.</param>
-        /// <returns>The Waternet XML result.</returns>
-        protected abstract string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation);
-
-        /// <summary>
-        /// Reads the <see cref="WtiStabilityWaternet"/> from the supplied XML result.
-        /// </summary>
-        /// <param name="waternetXmlResult">The Waternet XML result to read.</param>
-        /// <returns>The parsed Waternet result.</returns>
-        protected abstract WtiStabilityWaternet ReadResult(string waternetXmlResult);
-
-        /// <summary>
-        /// Reads the validation results of the calculation.
-        /// </summary>
-        /// <param name="waternetXmlResult">The result to read.</param>
+        /// <param name="receivedLogMessages">The messages to read.</param>
         /// <exception cref="WaternetKernelWrapperException">Thrown when there
-        /// are validation results of the type <see cref="ValidationResultType.Error"/>.</exception>
-        private static void ReadValidationResult(string waternetXmlResult)
+        /// are log messages of the type <see cref="LogMessageType.FatalError"/> or <see cref="LogMessageType.Error"/>.</exception>
+        private static void ReadLogMessages(IEnumerable<LogMessage> receivedLogMessages)
         {
-            List<ValidationResult> validationResults = WTIDeserializer.DeserializeValidationMessagesForWaternet(waternetXmlResult);
-            ValidationResult[] errorMessages = validationResults.Where(vr => vr.MessageType == ValidationResultType.Error).ToArray();
+            LogMessage[] errorMessages = receivedLogMessages.Where(lm => lm.MessageType == LogMessageType.FatalError 
+                                                                         || lm.MessageType == LogMessageType.Error).ToArray();
 
             if (errorMessages.Any())
             {
                 string message = errorMessages.Aggregate(string.Empty,
-                                                         (current, validationResult) => current + $"{validationResult.Text}{Environment.NewLine}")
+                                                         (current, logMessage) => current + $"{logMessage.Message}{Environment.NewLine}")
                                               .Trim();
 
                 throw new WaternetKernelWrapperException(message);

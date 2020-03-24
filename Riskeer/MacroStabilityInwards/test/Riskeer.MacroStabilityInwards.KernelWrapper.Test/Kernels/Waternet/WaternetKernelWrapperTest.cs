@@ -19,15 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Util.Reflection;
-using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
-using Deltares.WTIStability.Calculation.Wrapper;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 {
@@ -49,27 +45,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             // Setup
             var stabilityLocation = new Location();
-            var soilModel = new List<Soil>();
             var soilProfile2D = new SoilProfile2D();
             var surfaceLine = new SurfaceLine2();
 
             // Call
             var kernel = new TestWaternetKernelWrapper();
             kernel.SetLocation(stabilityLocation);
-            kernel.SetSoilModel(soilModel);
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
-            var stabilityModel = TypeUtils.GetProperty<StabilityModel>(kernel, "StabilityModel");
+            var location = TypeUtils.GetProperty<Location>(kernel, "location");
 
-            Assert.AreSame(stabilityLocation, stabilityModel.Location);
-            Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
-            Assert.AreSame(soilModel, stabilityModel.Soils);
-            Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
-
-            AssertIrrelevantValues(stabilityModel);
-            AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
+            Assert.AreSame(stabilityLocation, location);
+            Assert.AreSame(surfaceLine, location.Surfaceline);
+            Assert.AreSame(soilProfile2D, location.SoilProfile2D);
         }
 
         [Test]
@@ -88,50 +78,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             Assert.IsNull(kernel.Waternet);
         }
 
-        private static void AssertIrrelevantValues(StabilityModel stabilityModel)
-        {
-            Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
-            Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
-            Assert.IsFalse(stabilityModel.OnlyMinimumSafetyCurve); // Only for Bishop
-            Assert.IsFalse(stabilityModel.AutoGenerateGeneticSpencer); // Only for Spencer
-            Assert.AreEqual(0.8, stabilityModel.RequiredForcePointsInSlices); // Only for Spencer
-            Assert.AreEqual(60.0, stabilityModel.MaxAllowedAngleBetweenSlices); // Only for Spencer
-            Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Only for genetic search algorithm
-            Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions); // Only for Levenberg Marquardt search algorithm
-            Assert.AreEqual(50.0, stabilityModel.NumberOfGridMoves); // Only for Bishop
-            Assert.AreEqual(ModelOptions.Bishop, stabilityModel.ModelOption); // Not applicable for Waternet calculation
-            Assert.IsNotNull(stabilityModel.SlipPlaneUpliftVan); // Not applicable for Waternet calculation
-            Assert.IsNotNull(stabilityModel.SlipCircle); // Not applicable for Waternet calculation
-        }
-
-        private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
-        {
-            Assert.AreSame(stabilityModel, stabilityModel.Location.StabilityModel);
-            Assert.IsTrue(stabilityModel.Location.Inwards);
-            Assert.AreSame(soilProfile2D, stabilityModel.Location.SoilProfile2D);
-            Assert.AreSame(surfaceLine, stabilityModel.Location.Surfaceline);
-            Assert.IsTrue(stabilityModel.Location.Inwards);
-            Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
-            Assert.IsNotNull(stabilityModel.GeotechnicsData);
-            Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
-        }
-
-        private class TestWaternetKernelWrapper : WaternetKernelWrapper
-        {
-            public override void SetLocation(Location stabilityLocation)
-            {
-                    StabilityModel.Location = stabilityLocation;
-            }
-
-            protected override string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation)
-            {
-                return null;
-            }
-
-            protected override WtiStabilityWaternet ReadResult(string waternetXmlResult)
-            {
-                return null;
-            }
-        }
+        private class TestWaternetKernelWrapper : WaternetKernelWrapper {}
     }
 }

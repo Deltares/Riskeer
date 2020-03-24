@@ -19,10 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.MacroStability.WaternetCreator;
-using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
-using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
@@ -35,25 +32,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     {
         public WaternetDailyKernelWrapper()
         {
-            StabilityModel.GeotechnicsData.CurrentWaternetDaily = new WtiStabilityWaternet
+            Waternet = new WtiStabilityWaternet
             {
                 Name = "WaternetDaily"
             };
-        }
-
-        public override void SetLocation(Location stabilityLocation)
-        {
-            StabilityModel.LocationDaily = stabilityLocation;
-        }
-
-        protected override string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation)
-        {
-            return waternetCalculation.CreateWaternet(true);
-        }
-
-        protected override WtiStabilityWaternet ReadResult(string waternetXmlResult)
-        {
-            return WTIDeserializer.DeserializeWaternetUsedDuringCalculation(waternetXmlResult, true);
         }
     }
 }

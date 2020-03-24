@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Util.Reflection;
-using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
@@ -47,29 +45,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             // Setup
             var stabilityLocation = new Location();
-            var soilModel = new List<Soil>();
             var soilProfile2D = new SoilProfile2D();
             var surfaceLine = new SurfaceLine2();
 
             // Call
             var kernel = new WaternetDailyKernelWrapper();
             kernel.SetLocation(stabilityLocation);
-            kernel.SetSoilModel(soilModel);
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
-            var stabilityModel = TypeUtils.GetProperty<StabilityModel>(kernel, "StabilityModel");
+            var location = TypeUtils.GetProperty<Location>(kernel, "location");
 
-            Assert.AreSame(stabilityLocation, stabilityModel.LocationDaily);
-            Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
-            Assert.AreSame(soilModel, stabilityModel.SoilModel);
-            Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
+            Assert.AreSame(stabilityLocation, location);
+            Assert.AreSame(surfaceLine, location.Surfaceline);
+            Assert.AreSame(soilProfile2D, location.SoilProfile2D);
 
-            Assert.IsNotNull(stabilityModel.GeotechnicsData.CurrentWaternetDaily);
-            Assert.AreEqual("WaternetDaily", stabilityModel.GeotechnicsData.CurrentWaternetDaily.Name);
-
-            AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
+            Assert.AreEqual("WaternetDaily", kernel.Waternet.Name);
         }
 
         [Test]
@@ -114,10 +106,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var soil = new Soil();
             var waternetDailyKernelWrapper = new WaternetDailyKernelWrapper();
             waternetDailyKernelWrapper.SetLocation(new Location());
-            waternetDailyKernelWrapper.SetSoilModel(new List<Soil>
-            {
-                soil
-            });
             waternetDailyKernelWrapper.SetSoilProfile(new SoilProfile2D
             {
                 Geometry = new GeometryData
@@ -157,15 +145,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             waternetDailyKernelWrapper.SetSurfaceLine(new SurfaceLine2());
 
             return waternetDailyKernelWrapper;
-        }
-
-        private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
-        {
-            Assert.AreSame(stabilityModel, stabilityModel.LocationDaily.StabilityModel);
-            Assert.IsTrue(stabilityModel.LocationDaily.Inwards);
-            Assert.AreSame(soilProfile2D, stabilityModel.LocationDaily.SoilProfile2D);
-            Assert.AreSame(surfaceLine, stabilityModel.LocationDaily.Surfaceline);
-            Assert.IsTrue(stabilityModel.LocationDaily.Inwards);
         }
     }
 }

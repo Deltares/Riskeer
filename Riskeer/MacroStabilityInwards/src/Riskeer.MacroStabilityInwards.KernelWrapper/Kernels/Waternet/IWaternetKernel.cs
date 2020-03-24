@@ -52,11 +52,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         void SetLocation(Location stabilityLocation);
 
         /// <summary>
-        /// Sets the soil model.
-        /// </summary>
-        void SetSoilModel(IList<Soil> soilModel);
-
-        /// <summary>
         /// Sets the soil profile.
         /// </summary>
         void SetSoilProfile(SoilProfile2D soilProfile);
