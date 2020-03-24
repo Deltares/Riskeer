@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -92,7 +92,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to golfklap voor toets op maat.
+        ///   Looks up a localized string similar to Golfklap voor toets op maat.
         /// </summary>
         public static string GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName {
             get {
