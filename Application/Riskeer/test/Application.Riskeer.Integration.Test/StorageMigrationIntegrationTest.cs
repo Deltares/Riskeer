@@ -24,6 +24,7 @@ using System.IO;
 using System.Threading;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;

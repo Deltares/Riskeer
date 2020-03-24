@@ -29,7 +29,7 @@ using Riskeer.Revetment.IO.WaveConditions;
 namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 {
     /// <summary>
-    /// Exports grass cover erosion outwards wave conditions and stores then as a csv file.
+    /// Exports grass cover erosion outwards wave conditions and stores them as a csv file.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsExporter : WaveConditionsExporterBase
     {

@@ -143,4 +143,13 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationExporter_DisplayName" xml:space="preserve">
+    <value>D-GEO Suite Stability Project</value>
+  </data>
+  <data name="Stix_file_filter_extension" xml:space="preserve">
+    <value>stix</value>
+  </data>
+  <data name="Stix_file_filter_description" xml:space="preserve">
+    <value>D-GEO Suite Stability Project</value>
+  </data>
 </root>

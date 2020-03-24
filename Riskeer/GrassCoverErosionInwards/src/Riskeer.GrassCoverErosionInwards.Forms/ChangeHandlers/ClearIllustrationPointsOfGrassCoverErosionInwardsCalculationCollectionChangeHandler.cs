@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Service;

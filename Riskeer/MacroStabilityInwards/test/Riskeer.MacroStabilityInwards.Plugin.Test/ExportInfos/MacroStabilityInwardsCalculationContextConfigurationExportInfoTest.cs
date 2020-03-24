@@ -1,7 +1,27 @@
-﻿using System.Linq;
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+//
+// This file is part of Riskeer.
+//
+// Riskeer is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
@@ -10,15 +30,15 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
-using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.IO.Exporters;
+using Riskeer.MacroStabilityInwards.IO.Configurations;
 using Riskeer.MacroStabilityInwards.Primitives;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationContextExportInfoTest
+    public class MacroStabilityInwardsCalculationContextConfigurationExportInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -32,15 +52,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("D-GEO Suite Stability Project", info.Name);
+                Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
+                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
             }
         }
 
         [Test]
-        public void CreateFileExporter_WithContext_ReturnFileExporter()
+        public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
             var mocks = new MockRepository();
@@ -62,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                 IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
                 // Assert
-                Assert.IsInstanceOf<MacroStabilityInwardsCalculationExporter>(fileExporter);
+                Assert.IsInstanceOf<MacroStabilityInwardsCalculationConfigurationExporter>(fileExporter);
             }
 
             mocks.VerifyAll();
@@ -80,53 +100,19 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
                 FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("D-GEO Suite Stability Project (*.stix)|*.stix", fileFilterGenerator.Filter);
+                Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
             }
         }
 
         [Test]
-        public void IsEnabled_CalculationWithoutOutput_ReturnFalse()
+        public void IsEnabled_Always_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var context = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(),
-                                                                              new CalculationGroup(),
-                                                                              Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                              Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                              new MacroStabilityInwardsFailureMechanism(),
-                                                                              assessmentSection);
-
-            using (var plugin = new MacroStabilityInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void IsEnabled_CalculationWithOutput_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario
-            {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-            };
-
-            var context = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                               new CalculationGroup(),
                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
@@ -150,7 +136,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         private static ExportInfo GetExportInfo(MacroStabilityInwardsPlugin plugin)
         {
             return plugin.GetExportInfos().First(ei => ei.DataType == typeof(MacroStabilityInwardsCalculationScenarioContext)
-                                                       && ei.Name.Equals("D-GEO Suite Stability Project"));
+                                                       && ei.Name.Equals("Riskeer berekeningenconfiguratie"));
         }
     }
 }

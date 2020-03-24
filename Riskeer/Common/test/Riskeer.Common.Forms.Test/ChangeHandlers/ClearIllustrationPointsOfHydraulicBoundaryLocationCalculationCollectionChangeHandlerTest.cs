@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.ChangeHandlers;

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -78,6 +78,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D-GEO Suite Stability Project.
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationExporter_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationExporter_DisplayName", resourceCulture);
             }
         }
         
@@ -145,6 +154,24 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Properties {
         public static string Soil_file_Extension {
             get {
                 return ResourceManager.GetString("Soil_file_Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D-GEO Suite Stability Project.
+        /// </summary>
+        public static string Stix_file_filter_description {
+            get {
+                return ResourceManager.GetString("Stix_file_filter_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stix.
+        /// </summary>
+        public static string Stix_file_filter_extension {
+            get {
+                return ResourceManager.GetString("Stix_file_filter_extension", resourceCulture);
             }
         }
     }

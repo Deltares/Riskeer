@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
     public class MacroStabilityInwardsPluginTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var plugin = new MacroStabilityInwardsPlugin())
@@ -238,9 +238,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, exportInfos.Length);
-                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(MacroStabilityInwardsCalculationScenarioContext)));
+                Assert.AreEqual(4, exportInfos.Length);
+                Assert.AreEqual(2, exportInfos.Count(i => i.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)));
+                Assert.AreEqual(2, exportInfos.Count(i => i.DataType == typeof(MacroStabilityInwardsCalculationScenarioContext)));
             }
         }
     }

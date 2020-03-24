@@ -26,9 +26,9 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
@@ -55,6 +55,7 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.IO.Configurations;
+using Riskeer.MacroStabilityInwards.IO.Exporters;
 using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
 using Riskeer.MacroStabilityInwards.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -163,6 +164,24 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 {
                     context.WrappedData
                 }, filePath));
+
+            yield return new ExportInfo<MacroStabilityInwardsCalculationScenarioContext>
+            {
+                Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
+                FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension,
+                                                              Resources.Stix_file_filter_description),
+                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.HasOutput
+            };
+
+            yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
+            {
+                Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
+                FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension,
+                                                              Resources.Stix_file_filter_description),
+                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.HasOutput()
+            };
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()

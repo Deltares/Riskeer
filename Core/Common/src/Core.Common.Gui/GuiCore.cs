@@ -40,6 +40,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.ViewHost;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Settings;

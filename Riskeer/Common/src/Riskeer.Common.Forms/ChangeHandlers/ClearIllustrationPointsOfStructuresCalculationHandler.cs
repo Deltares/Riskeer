@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui;
+using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.Common.Forms.ChangeHandlers
