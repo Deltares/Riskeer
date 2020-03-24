@@ -90,8 +90,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)
         {
-            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Not applicable for Waternet calculation
-            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Not applicable for Waternet calculation
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
             Assert.IsFalse(stabilityModel.OnlyMinimumSafetyCurve); // Only for Bishop

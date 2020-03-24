@@ -123,7 +123,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetSoilModel(IList<Soil> soilModel)
         {
-            stabilityModel.Soils = soilModel;
+            stabilityModel.Soils.AddRange(soilModel);
         }
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
