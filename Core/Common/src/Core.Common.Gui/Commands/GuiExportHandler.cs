@@ -71,7 +71,7 @@ namespace Core.Common.Gui.Commands
                 return;
             }
 
-            ExportItemUsingDialog(exportInfo, source);
+            ExportItem(exportInfo, source);
         }
 
         private IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
@@ -132,7 +132,7 @@ namespace Core.Common.Gui.Commands
                        : exportInfo.Name;
         }
 
-        private void ExportItemUsingDialog(ExportInfo exportInfo, object source)
+        private void ExportItem(ExportInfo exportInfo, object source)
         {
             string exportFilePath = exportInfo.GetExportPath();
 

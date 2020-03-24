@@ -119,7 +119,7 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_SupportedExporterAvailableCancelClicked_AbortsExport()
+        public void ExportFrom_SupportedExporterAvailableNoFilePathGiven_AbortsExport()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -127,17 +127,12 @@ namespace Core.Common.Gui.Test.Commands
             var exporter = mockRepository.StrictMock<IFileExporter>();
             mockRepository.ReplayAll();
 
-            ModalFormHandler = (name, wnd, form) =>
-            {
-                var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.ClickCancel();
-            };
-
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
                 new ExportInfo<int>
                 {
-                    CreateFileExporter = (o, s) => exporter
+                    CreateFileExporter = (o, s) => exporter,
+                    GetExportPath = () => null
                 }
             });
 
@@ -150,25 +145,17 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_SupportedExporterAvailableWhichRunsSuccessfulSaveClicked_CallsExportAndLogsMessages()
+        public void ExportFrom_SupportedExporterAvailableAndFilePathGivenAndExporterRunsSuccessful_CallsExportAndLogsMessages()
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
             var exporter = mockRepository.StrictMock<IFileExporter>();
-
             exporter.Stub(e => e.Export()).Return(true);
-
             mockRepository.ReplayAll();
 
             const int expectedData = 1234;
             string targetExportFileName = Path.GetFullPath("exportFile.txt");
-
-            ModalFormHandler = (name, wnd, form) =>
-            {
-                var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile(targetExportFileName);
-            };
 
             const string exportInfoName = "Random data";
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -181,7 +168,8 @@ namespace Core.Common.Gui.Test.Commands
                         Assert.AreEqual(expectedData, data);
                         Assert.AreEqual(targetExportFileName, filePath);
                         return exporter;
-                    }
+                    },
+                    GetExportPath = () => targetExportFileName
                 }
             });
 
@@ -200,23 +188,16 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_SupportedExporterAvailableWhichFailsSaveClicked_CallsExportAndLogsMessages()
+        public void ExportFrom_SupportedExporterAvailableAndFilePathGivenAndExporterFails_CallsExportAndLogsMessages()
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
             var exporter = mockRepository.StrictMock<IFileExporter>();
-
             exporter.Stub(e => e.Export()).Return(false);
-
             mockRepository.ReplayAll();
 
             string targetExportFileName = Path.GetFullPath("exportFile.txt");
-            ModalFormHandler = (name, wnd, form) =>
-            {
-                var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile(targetExportFileName);
-            };
 
             const string exportInfoName = "Random data";
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -224,7 +205,8 @@ namespace Core.Common.Gui.Test.Commands
                 new ExportInfo<int>
                 {
                     Name = exportInfoName,
-                    CreateFileExporter = (data, filePath) => exporter
+                    CreateFileExporter = (data, filePath) => exporter,
+                    GetExportPath = () => targetExportFileName
                 }
             });
 
