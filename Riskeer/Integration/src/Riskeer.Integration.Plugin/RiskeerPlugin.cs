@@ -247,7 +247,6 @@ namespace Riskeer.Integration.Plugin
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
-        private IInquiryHelper inquiryHelper;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -2521,10 +2520,5 @@ namespace Riskeer.Integration.Plugin
         }
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

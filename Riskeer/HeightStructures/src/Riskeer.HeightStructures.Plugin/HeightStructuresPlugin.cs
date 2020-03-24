@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Helpers;
@@ -70,8 +69,6 @@ namespace Riskeer.HeightStructures.Plugin
     /// </summary>
     public class HeightStructuresPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismProperties>
@@ -912,10 +909,5 @@ namespace Riskeer.HeightStructures.Plugin
         #endregion
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

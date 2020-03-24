@@ -68,8 +68,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
     /// </summary>
     public class StabilityPointStructuresPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityPointStructuresFailureMechanismContext, StabilityPointStructuresFailureMechanismProperties>
@@ -912,10 +910,5 @@ namespace Riskeer.StabilityPointStructures.Plugin
         }
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

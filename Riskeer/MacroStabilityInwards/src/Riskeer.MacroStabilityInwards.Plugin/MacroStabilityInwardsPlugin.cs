@@ -71,8 +71,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
     /// </summary>
     public class MacroStabilityInwardsPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismContext, MacroStabilityInwardsFailureMechanismProperties>
@@ -1013,10 +1011,5 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         }
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

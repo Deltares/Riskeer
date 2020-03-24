@@ -61,7 +61,6 @@ namespace Riskeer.DuneErosion.Plugin
     public class DuneErosionPlugin : PluginBase
     {
         private DuneLocationCalculationGuiService duneLocationCalculationGuiService;
-        private IInquiryHelper inquiryHelper;
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -537,10 +536,5 @@ namespace Riskeer.DuneErosion.Plugin
         #endregion
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

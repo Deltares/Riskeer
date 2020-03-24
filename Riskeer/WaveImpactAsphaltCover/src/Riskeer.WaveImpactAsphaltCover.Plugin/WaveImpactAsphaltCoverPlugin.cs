@@ -66,8 +66,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
     /// </summary>
     public class WaveImpactAsphaltCoverPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismProperties>
@@ -700,10 +698,5 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

@@ -67,8 +67,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
     /// </summary>
     public class GrassCoverErosionInwardsPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismProperties>
@@ -1053,10 +1051,5 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         }
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

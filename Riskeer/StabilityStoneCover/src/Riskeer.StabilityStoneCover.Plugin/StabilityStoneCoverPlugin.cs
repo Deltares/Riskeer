@@ -66,8 +66,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
     /// </summary>
     public class StabilityStoneCoverPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismProperties>
@@ -701,10 +699,5 @@ namespace Riskeer.StabilityStoneCover.Plugin
         #endregion
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

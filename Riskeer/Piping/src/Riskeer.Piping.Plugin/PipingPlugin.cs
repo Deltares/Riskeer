@@ -71,8 +71,6 @@ namespace Riskeer.Piping.Plugin
     /// </summary>
     public class PipingPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismProperties>
@@ -1105,10 +1103,5 @@ namespace Riskeer.Piping.Plugin
         }
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

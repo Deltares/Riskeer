@@ -68,8 +68,6 @@ namespace Riskeer.ClosingStructures.Plugin
     /// </summary>
     public class ClosingStructuresPlugin : PluginBase
     {
-        private IInquiryHelper inquiryHelper;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismProperties>
@@ -905,10 +903,5 @@ namespace Riskeer.ClosingStructures.Plugin
         #endregion
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }

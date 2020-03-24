@@ -75,7 +75,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
-        private IInquiryHelper inquiryHelper;
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -1281,10 +1280,5 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
-
-        private IInquiryHelper GetInquiryHelper()
-        {
-            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
-        }
     }
 }
