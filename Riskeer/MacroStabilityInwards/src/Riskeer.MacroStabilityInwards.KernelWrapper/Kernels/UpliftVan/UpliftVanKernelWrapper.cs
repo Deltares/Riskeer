@@ -24,9 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Kernel;
+using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
-using Deltares.SoilStress.Data;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data;
 using Deltares.WTIStability.IO;
@@ -40,6 +41,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
     internal class UpliftVanKernelWrapper : IUpliftVanKernel
     {
         private readonly StabilityModel stabilityModel;
+        private SoilProfile2D soilProfile2D;
+        private SurfaceLine2 surfaceLine;
+        private Location locationDaily;
+        private Location locationExtreme;
+        private bool autoGridDetermination;
+
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
@@ -52,13 +59,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 SlipCircle = new SlipCircle(),
                 SearchAlgorithm = SearchAlgorithm.Grid,
                 ModelOption = ModelOptions.UpliftVan,
-                GeotechnicsData =
-                {
-                    CurrentWaternetDaily = new WtiStabilityWaternet
-                    {
-                        Name = "WaternetDaily"
-                    }
-                }
             };
 
             FactorOfStability = double.NaN;
@@ -83,17 +83,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetLocationExtreme(Location stabilityLocation)
         {
-            stabilityModel.Location = stabilityLocation;
+            locationExtreme = stabilityLocation;
         }
 
         public void SetLocationDaily(Location stabilityLocation)
         {
-            stabilityModel.LocationDaily = stabilityLocation;
+            locationDaily = stabilityLocation;
         }
 
         public void SetSurfaceLine(SurfaceLine2 surfaceLine2)
         {
-            stabilityModel.SurfaceLine2 = surfaceLine2;
+            surfaceLine = surfaceLine2;
         }
 
         public void SetMoveGrid(bool moveGrid)
@@ -118,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
         {
-            stabilityModel.SlipCircle.Auto = gridAutomaticDetermined;
+            autoGridDetermination = gridAutomaticDetermined;
         }
 
         public void SetSoilModel(IList<Soil> soilModel)
@@ -128,13 +128,36 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
         {
-            stabilityModel.SoilProfile = soilProfile;
+            soilProfile2D = soilProfile;
         }
 
         public void Calculate()
         {
             try
             {
+                var kernelModel = new KernelModel
+                {
+                    StabilityModel = stabilityModel,
+                    PreprocessingModel = new PreprocessingModel()
+                };
+                kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea = autoGridDetermination;
+                var kernelCalculation = new KernelCalculation();
+                kernelCalculation.Run(kernelModel);
+
+                const double unitWeightWater = 9.81; // Taken from kernel
+                var waternetCreator = new WaternetCreator(unitWeightWater);
+                locationDaily.Surfaceline = surfaceLine;
+                locationDaily.SoilProfile2D = soilProfile2D;
+                var waternet = new WtiStabilityWaternet
+                {
+                    Name = "WaternetDaily"
+                };
+                waternetCreator.UpdateWaternet(waternet, locationDaily);
+
+                var stage = stabilityModel.ConstructionStages.First();
+                stage.GeotechnicsData.Waternets.Add(waternet);
+                stage.SoilProfile = soilProfile2D;
+
                 var wtiStabilityCalculation = new WTIStabilityCalculation();
                 wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
 

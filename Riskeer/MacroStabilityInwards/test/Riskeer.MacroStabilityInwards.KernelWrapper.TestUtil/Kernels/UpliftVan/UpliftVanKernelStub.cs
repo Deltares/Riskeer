@@ -103,9 +103,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             SoilModel = soilModel;
         }
 
-        public void SetSoilProfile(SoilProfile2D soilProfile)
+        public void SetSoilProfile(SoilProfile2D soilProfile2D)
         {
-            SoilProfile = soilProfile;
+            SoilProfile = soilProfile2D;
         }
 
         public void SetLocationExtreme(Location stabilityLocation)
