@@ -29,7 +29,6 @@ using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
-using Deltares.WTIStability.Data;
 using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -47,7 +46,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         private Location locationDaily;
         private bool autoGridDetermination;
 
-
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
         /// </summary>
@@ -58,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 GridOrientation = GridOrientation.Inwards,
                 SlipCircle = new SlipCircle(),
                 SearchAlgorithm = SearchAlgorithm.Grid,
-                ModelOption = ModelOptions.UpliftVan,
+                ModelOption = ModelOptions.UpliftVan
             };
 
             FactorOfStability = double.NaN;
@@ -136,8 +134,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                     PreprocessingModel = new PreprocessingModel()
                 };
                 kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea = autoGridDetermination;
-                var kernelCalculation = new KernelCalculation();
-                kernelCalculation.Run(kernelModel);
 
                 const double unitWeightWater = 9.81; // Taken from kernel
                 var waternetCreator = new WaternetCreator(unitWeightWater);
@@ -149,15 +145,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 };
                 waternetCreator.UpdateWaternet(waternet, locationDaily);
 
-                var stage = stabilityModel.ConstructionStages.First();
+                ConstructionStage stage = stabilityModel.ConstructionStages.First();
                 stage.GeotechnicsData.Waternets.Add(waternet);
                 stage.SoilProfile = soilProfile2D;
 
-                var wtiStabilityCalculation = new WTIStabilityCalculation();
-                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(kernelModel));
-                string result = wtiStabilityCalculation.Run();
+                var kernelCalculation = new KernelCalculation();
+                kernelCalculation.Run(kernelModel);
 
-                ReadResult(result);
+                SetResults(kernelModel);
+                ReadLogMessages(kernelCalculation.LogMessages);
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
             {
@@ -182,25 +178,25 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
         }
 
+        private void ReadLogMessages(List<LogMessage> kernelCalculationLogMessages)
+        {
+            CalculationMessages = kernelCalculationLogMessages ?? Enumerable.Empty<LogMessage>();
+        }
+
         /// <summary>
         /// Reads the calculation result.
         /// </summary>
-        /// <param name="result">The result to read.</param>
-        /// <exception cref="UpliftVanKernelWrapperException">Thrown when the
-        /// calculation result contains error messages.</exception>
-        private void ReadResult(string result)
+        /// <param name="returnedKernelModel">The returned kernel model.</param>
+        private void SetResults(KernelModel returnedKernelModel)
         {
-            StabilityAssessmentCalculationResult convertedResult = WTIDeserializer.DeserializeResult(result);
+            StabilityModel returnedStabilityModel = returnedKernelModel.StabilityModel;
+            FactorOfStability = returnedStabilityModel.MinimumSafetyCurve.SafetyFactor;
+            ZValue = returnedStabilityModel.MinimumSafetyCurve.SafetyFactor - 1;
+            ForbiddenZonesXEntryMin = returnedStabilityModel.SlipPlaneConstraints.XLeftMin;
+            ForbiddenZonesXEntryMax = returnedStabilityModel.SlipPlaneConstraints.XLeftMax;
 
-            FactorOfStability = convertedResult.FactorOfSafety;
-            ZValue = convertedResult.ZValue;
-            ForbiddenZonesXEntryMin = convertedResult.XMinEntry;
-            ForbiddenZonesXEntryMax = convertedResult.XMaxEntry;
-
-            SlidingCurveResult = (SlidingDualCircle) convertedResult.Curve;
-            SlipPlaneResult = convertedResult.SlipPlaneUpliftVan;
-
-            CalculationMessages = convertedResult.Messages ?? Enumerable.Empty<LogMessage>();
+            SlidingCurveResult = (SlidingDualCircle) returnedStabilityModel.MinimumSafetyCurve;
+            SlipPlaneResult = returnedStabilityModel.SlipPlaneUpliftVan;
         }
     }
 }
