@@ -28,7 +28,6 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
-using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;

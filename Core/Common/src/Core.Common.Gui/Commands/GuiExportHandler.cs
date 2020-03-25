@@ -26,7 +26,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Util.Reflection;
@@ -43,7 +42,6 @@ namespace Core.Common.Gui.Commands
 
         private readonly IWin32Window dialogParent;
         private readonly IEnumerable<ExportInfo> exportInfos;
-        private readonly DialogBasedInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiExportHandler"/> class.
@@ -54,8 +52,6 @@ namespace Core.Common.Gui.Commands
         {
             this.dialogParent = dialogParent;
             this.exportInfos = exportInfos;
-
-            inquiryHelper = new DialogBasedInquiryHelper(dialogParent);
         }
 
         public bool CanExportFrom(object source)
@@ -132,7 +128,7 @@ namespace Core.Common.Gui.Commands
                        : exportInfo.Name;
         }
 
-        private void ExportItem(ExportInfo exportInfo, object source)
+        private static void ExportItem(ExportInfo exportInfo, object source)
         {
             string exportFilePath = exportInfo.GetExportPath();
 
