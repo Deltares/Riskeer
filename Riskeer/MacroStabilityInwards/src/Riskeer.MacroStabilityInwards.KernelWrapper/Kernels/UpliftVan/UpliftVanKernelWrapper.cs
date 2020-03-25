@@ -41,10 +41,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
     internal class UpliftVanKernelWrapper : IUpliftVanKernel
     {
         private readonly StabilityModel stabilityModel;
+        private KernelModel kernelModel;
         private SoilProfile2D soilProfile2D;
         private SurfaceLine2 surfaceLine;
         private Location locationDaily;
-        private Location locationExtreme;
         private bool autoGridDetermination;
 
 
@@ -80,11 +80,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         public SlipPlaneUpliftVan SlipPlaneResult { get; private set; }
 
         public IEnumerable<LogMessage> CalculationMessages { get; private set; }
-
-        public void SetLocationExtreme(Location stabilityLocation)
-        {
-            locationExtreme = stabilityLocation;
-        }
 
         public void SetLocationDaily(Location stabilityLocation)
         {
@@ -135,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             try
             {
-                var kernelModel = new KernelModel
+                kernelModel = new KernelModel
                 {
                     StabilityModel = stabilityModel,
                     PreprocessingModel = new PreprocessingModel()
@@ -159,8 +154,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 stage.SoilProfile = soilProfile2D;
 
                 var wtiStabilityCalculation = new WTIStabilityCalculation();
-                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
-
+                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(kernelModel));
                 string result = wtiStabilityCalculation.Run();
 
                 ReadResult(result);
@@ -176,7 +170,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             try
             {
                 var wtiStabilityCalculation = new WTIStabilityCalculation();
-                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
+                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(kernelModel));
 
                 string result = wtiStabilityCalculation.Validate();
 

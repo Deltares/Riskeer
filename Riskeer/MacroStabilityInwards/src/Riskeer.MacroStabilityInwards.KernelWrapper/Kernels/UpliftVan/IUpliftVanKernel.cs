@@ -87,11 +87,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         void SetSoilProfile(SoilProfile2D soilProfile);
 
         /// <summary>
-        /// Sets the location under extreme conditions.
-        /// </summary>
-        void SetLocationExtreme(Location stabilityLocation);
-
-        /// <summary>
         /// Sets the location under daily circumstances.
         /// </summary>
         void SetLocationDaily(Location stabilityLocation);
