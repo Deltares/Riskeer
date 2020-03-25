@@ -24,7 +24,6 @@ using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -44,9 +43,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.CreateFileExporter);
             Assert.IsNull(info.IsEnabled);
             Assert.IsNull(info.Name);
+            Assert.IsNull(info.Extension);
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
-            Assert.IsNull(info.FileFilterGenerator);
+            Assert.IsNull(info.GetExportPath);
         }
 
         [Test]
@@ -60,9 +60,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(info.CreateFileExporter);
             Assert.IsNull(info.IsEnabled);
             Assert.IsNull(info.Name);
+            Assert.IsNull(info.Extension);
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
-            Assert.IsNull(info.FileFilterGenerator);
+            Assert.IsNull(info.GetExportPath);
         }
 
         [Test]
@@ -74,18 +75,20 @@ namespace Core.Common.Gui.Test.Plugin
             mocks.ReplayAll();
 
             const string name = "name";
+            const string extension = ".txt";
             const string category = "category";
             var image = new Bitmap(16, 16);
-            var generator = new FileFilterGenerator();
+            const string exportPath = "C:/path";
 
             var info = new ExportInfo<int>
             {
                 CreateFileExporter = (data, filePath) => fileExporter,
                 IsEnabled = data => false,
                 Name = name,
+                Extension = extension,
                 Category = category,
                 Image = image,
-                FileFilterGenerator = generator
+                GetExportPath = () => exportPath
             };
 
             // Precondition
@@ -102,9 +105,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsFalse(convertedInfo.IsEnabled(12));
             Assert.AreEqual(name, info.Name);
+            Assert.AreEqual(extension, info.Extension);
             Assert.AreEqual(category, info.Category);
             Assert.AreSame(image, info.Image);
-            Assert.AreEqual(generator, info.FileFilterGenerator);
+            Assert.AreEqual(exportPath, info.GetExportPath());
 
             mocks.VerifyAll();
         }
@@ -129,9 +133,10 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsTrue(convertedInfo.IsEnabled(new object()));
             Assert.IsNull(info.Name);
+            Assert.IsNull(info.Extension);
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, info.Image);
-            Assert.IsNull(info.FileFilterGenerator);
+            Assert.IsNull(info.GetExportPath);
         }
     }
 }

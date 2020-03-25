@@ -21,9 +21,10 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -40,30 +41,52 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
     [TestFixture]
     public class PipingCalculationContextExportInfoTest
     {
+        private PipingPlugin plugin;
+        private ExportInfo info;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.Replay(gui);
+            mocks.Replay(mainWindow);
+
+            plugin = new PipingPlugin
+            {
+                Gui = gui
+            };
+
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(PipingCalculationScenarioContext));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            using (var plugin = new PipingPlugin())
-            {
-                // Call
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Assert
-                Assert.IsNotNull(info.CreateFileExporter);
-                Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
-                Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
-                Assert.IsNotNull(info.FileFilterGenerator);
-            }
+            // Assert
+            Assert.IsNotNull(info.CreateFileExporter);
+            Assert.IsNotNull(info.IsEnabled);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
+            Assert.AreEqual("xml", info.Extension);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            Assert.IsNotNull(info.GetExportPath);
         }
 
         [Test]
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -74,41 +97,17 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
                                                                new PipingFailureMechanism(),
                                                                assessmentSection);
 
-            using (var plugin = new PipingPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
-                // Call
-                IFileExporter fileExporter = info.CreateFileExporter(context, "test");
-
-                // Assert
-                Assert.IsInstanceOf<PipingCalculationConfigurationExporter>(fileExporter);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Setup
-            using (var plugin = new PipingPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Call
-                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
-
-                // Assert
-                Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
-            }
+            // Assert
+            Assert.IsInstanceOf<PipingCalculationConfigurationExporter>(fileExporter);
         }
 
         [Test]
         public void IsEnabled_Always_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -119,23 +118,11 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
                                                                new PipingFailureMechanism(),
                                                                assessmentSection);
 
-            using (var plugin = new PipingPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsTrue(isEnabled);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        private static ExportInfo GetExportInfo(PipingPlugin plugin)
-        {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(PipingCalculationScenarioContext));
+            // Assert
+            Assert.IsTrue(isEnabled);
         }
     }
 }

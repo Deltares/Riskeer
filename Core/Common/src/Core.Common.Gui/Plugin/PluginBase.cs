@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Helpers;
 
 namespace Core.Common.Gui.Plugin
 {
@@ -32,6 +33,8 @@ namespace Core.Common.Gui.Plugin
     /// </summary>
     public abstract class PluginBase : IDisposable
     {
+        private IInquiryHelper inquiryHelper;
+
         /// <summary>
         /// Gets or sets the gui.
         /// </summary>
@@ -129,6 +132,22 @@ namespace Core.Common.Gui.Plugin
             {
                 Gui = null;
             }
+        }
+
+        /// <summary>
+        /// Returns the <see cref="IInquiryHelper"/>.
+        /// </summary>
+        /// <returns>The <see cref="IInquiryHelper"/>.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="Gui"/>
+        /// is <c>null</c>.</exception>
+        protected IInquiryHelper GetInquiryHelper()
+        {
+            if (Gui == null)
+            {
+                throw new InvalidOperationException("Gui cannot be null");
+            }
+
+            return inquiryHelper ?? (inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow));
         }
     }
 }

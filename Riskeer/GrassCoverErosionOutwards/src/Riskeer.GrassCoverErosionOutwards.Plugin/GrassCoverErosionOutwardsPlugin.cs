@@ -327,61 +327,67 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
                 Name = RiskeerCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
+                Extension = RiskeerCommonIoResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                     new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(context.FailureMechanism, context.AssessmentSection,
                                                                                     filePath),
                 IsEnabled = context => context.WrappedData.Locations.Count > 0,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIoResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIoResources.Shape_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIoResources.Shape_file_filter_Extension,
+                                                                                                           RiskeerCommonIoResources.Shape_file_filter_Description))
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                                                                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                 (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -625,9 +631,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                         designWaterLevelItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
@@ -674,9 +679,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                         waveHeightItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
@@ -731,8 +735,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                 TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
 
             GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group
@@ -766,8 +770,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                inquiryHelper,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
@@ -944,9 +947,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                            object parentData,
                                                                            TreeViewControl treeViewControl)
         {
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
+            
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = nodeData.WrappedData;
 
             return builder
@@ -955,8 +958,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddDuplicateCalculationItem(calculation, nodeData)
                    .AddSeparator()
                    .AddRenameItem()
-                   .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                               inquiryHelper,
+                   .AddUpdateForeshoreProfileOfCalculationItem(calculation, inquiryHelper,
                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateCalculationItem(
@@ -1044,9 +1046,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                         calculateAllItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
                 () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(
                     failureMechanism, assessmentSection));
@@ -1095,9 +1096,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
                 () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(
                     failureMechanism, assessmentSection));
@@ -1186,9 +1186,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(guiMainWindow);
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                inquiryHelper,
+                GetInquiryHelper(),
                 RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
                 () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(
                     failureMechanism, assessmentSection));

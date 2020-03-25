@@ -157,30 +157,33 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<MacroStabilityInwardsCalculationGroupContext>(
                 (context, filePath) => new MacroStabilityInwardsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<MacroStabilityInwardsCalculationScenarioContext>(
                 (context, filePath) => new MacroStabilityInwardsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationScenarioContext>
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
-                FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension,
-                                                              Resources.Stix_file_filter_description),
+                Extension = Resources.Stix_file_filter_extension,
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(context.WrappedData, filePath),
-                IsEnabled = context => context.WrappedData.HasOutput
+                IsEnabled = context => context.WrappedData.HasOutput,
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Stix_file_filter_extension,
+                                                                                                           Resources.Stix_file_filter_description))
             };
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
-                FileFilterGenerator = new FileFilterGenerator(Resources.Stix_file_filter_extension,
-                                                              Resources.Stix_file_filter_description),
+                Extension = Resources.Stix_file_filter_extension,
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, filePath),
-                IsEnabled = context => context.WrappedData.HasOutput()
+                IsEnabled = context => context.WrappedData.HasOutput(),
+                GetExportPath = () => ExportHelper.GetFolderPath(GetInquiryHelper())
             };
         }
 
@@ -439,8 +442,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         private bool VerifyStochasticSoilModelUpdates(MacroStabilityInwardsStochasticSoilModelCollectionContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+                                                                             query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
@@ -1003,8 +1005,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         private bool VerifySurfaceLineUpdates(MacroStabilityInwardsSurfaceLinesContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
-                                                                             query,
-                                                                             new DialogBasedInquiryHelper(Gui.MainWindow));
+                                                                             query, GetInquiryHelper());
 
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }

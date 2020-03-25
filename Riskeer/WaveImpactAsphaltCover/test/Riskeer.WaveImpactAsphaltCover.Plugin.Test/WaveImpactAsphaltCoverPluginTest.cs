@@ -22,9 +22,12 @@
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Revetment.Data;
@@ -135,7 +138,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            using (var plugin = new WaveImpactAsphaltCoverPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
@@ -145,6 +157,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]

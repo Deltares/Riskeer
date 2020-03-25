@@ -4101,7 +4101,6 @@ Global
 		{3DCEF8F6-CB6D-435C-9539-50143DACD86C}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{3DCEF8F6-CB6D-435C-9539-50143DACD86C}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.Debug|x86.ActiveCfg = Debug|x86
 		{18DC8B68-59FB-4246-A9B0-2321D4627E10}.Debug|x86.Build.0 = Debug|x86
@@ -4118,7 +4117,6 @@ Global
 		{1081336C-D919-4249-AB33-9AF15F4D19EC}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{1081336C-D919-4249-AB33-9AF15F4D19EC}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{69B97F30-F52B-4A31-A250-7280123CFF3D}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.Debug|x86.ActiveCfg = Debug|x86
 		{69B97F30-F52B-4A31-A250-7280123CFF3D}.Debug|x86.Build.0 = Debug|x86
@@ -5132,7 +5130,6 @@ Global
 		{430C588F-004A-4E19-91FB-F31E35174DF5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{430C588F-004A-4E19-91FB-F31E35174DF5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{7FB79768-1A8B-41CA-9614-8EC6C3C79482}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{7FB79768-1A8B-41CA-9614-8EC6C3C79482}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{7FB79768-1A8B-41CA-9614-8EC6C3C79482}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{7FB79768-1A8B-41CA-9614-8EC6C3C79482}.Debug|x86.ActiveCfg = Debug|x86
 		{7FB79768-1A8B-41CA-9614-8EC6C3C79482}.Debug|x86.Build.0 = Debug|x86
@@ -5141,7 +5138,6 @@ Global
 		{7FB79768-1A8B-41CA-9614-8EC6C3C79482}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{7FB79768-1A8B-41CA-9614-8EC6C3C79482}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{12B27394-C1AC-4B59-BD49-1662525B91C7}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{12B27394-C1AC-4B59-BD49-1662525B91C7}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{12B27394-C1AC-4B59-BD49-1662525B91C7}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{12B27394-C1AC-4B59-BD49-1662525B91C7}.Debug|x86.ActiveCfg = Debug|x86
 		{12B27394-C1AC-4B59-BD49-1662525B91C7}.Debug|x86.Build.0 = Debug|x86

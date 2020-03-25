@@ -197,37 +197,39 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
                     return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                                                              RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
                 (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -235,6 +237,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                 new WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
+        }
+
+        private FileFilterGenerator GetWaveConditionsFileFilterGenerator()
+        {
+            return new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                                           RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description);
         }
 
         private void CalculateAll(WaveImpactAsphaltCoverFailureMechanismContext context)
@@ -448,8 +456,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                        object parentData, TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
 
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group
@@ -482,8 +491,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                inquiryHelper,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
@@ -629,8 +637,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                   object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
+            
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
 
             return builder.AddExportItem()
@@ -638,8 +645,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .AddDuplicateCalculationItem(calculation, nodeData)
                           .AddSeparator()
                           .AddRenameItem()
-                          .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                                      inquiryHelper,
+                          .AddUpdateForeshoreProfileOfCalculationItem(calculation, GetInquiryHelper(),
                                                                       SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                           .AddSeparator()
                           .AddValidateCalculationItem(nodeData,

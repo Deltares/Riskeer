@@ -21,9 +21,10 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -38,30 +39,52 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextExportInfoTest
     {
+        private GrassCoverErosionInwardsPlugin plugin;
+        private ExportInfo info;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.Replay(gui);
+            mocks.Replay(mainWindow);
+
+            plugin = new GrassCoverErosionInwardsPlugin
+            {
+                Gui = gui
+            };
+
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(GrassCoverErosionInwardsCalculationGroupContext));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            using (var plugin = new GrassCoverErosionInwardsPlugin())
-            {
-                // Call
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Assert
-                Assert.IsNotNull(info.CreateFileExporter);
-                Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
-                Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
-                Assert.IsNotNull(info.FileFilterGenerator);
-            }
+            // Assert
+            Assert.IsNotNull(info.CreateFileExporter);
+            Assert.IsNotNull(info.IsEnabled);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
+            Assert.AreEqual("xml", info.Extension);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            Assert.IsNotNull(info.GetExportPath);
         }
 
         [Test]
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -70,41 +93,17 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                               assessmentSection);
 
-            using (var plugin = new GrassCoverErosionInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
-                // Call
-                IFileExporter fileExporter = info.CreateFileExporter(context, "test");
-
-                // Assert
-                Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationConfigurationExporter>(fileExporter);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Setup
-            using (var plugin = new GrassCoverErosionInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Call
-                FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
-
-                // Assert
-                Assert.AreEqual("Riskeer berekeningenconfiguratie (*.xml)|*.xml", fileFilterGenerator.Filter);
-            }
+            // Assert
+            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationConfigurationExporter>(fileExporter);
         }
 
         [Test]
         public void IsEnabled_CalculationGroupNoChildren_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -113,18 +112,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                               assessmentSection);
 
-            using (var plugin = new GrassCoverErosionInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.IsFalse(isEnabled);
         }
 
         [Test]
@@ -133,7 +125,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
         public void IsEnabled_CalculationGroupWithChildren_ReturnTrue(bool hasNestedGroup, bool hasCalculation)
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -154,23 +145,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                               assessmentSection);
 
-            using (var plugin = new GrassCoverErosionInwardsPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
+            // Call
+            bool isEnabled = info.IsEnabled(context);
 
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsTrue(isEnabled);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        private static ExportInfo GetExportInfo(GrassCoverErosionInwardsPlugin plugin)
-        {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(GrassCoverErosionInwardsCalculationGroupContext));
+            // Assert
+            Assert.IsTrue(isEnabled);
         }
     }
 }

@@ -22,9 +22,12 @@
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -176,7 +179,16 @@ namespace Riskeer.HeightStructures.Plugin.Test
         public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
-            using (var plugin = new HeightStructuresPlugin())
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            using (var plugin = new HeightStructuresPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
@@ -186,6 +198,8 @@ namespace Riskeer.HeightStructures.Plugin.Test
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(HeightStructuresCalculationGroupContext)));
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(HeightStructuresCalculationContext)));
             }
+
+            mocks.VerifyAll();
         }
     }
 }

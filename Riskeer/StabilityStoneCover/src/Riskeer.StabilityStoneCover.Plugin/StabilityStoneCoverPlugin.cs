@@ -200,35 +200,35 @@ namespace Riskeer.StabilityStoneCover.Plugin
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilterGenerator = new FileFilterGenerator(
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
                 Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilterGenerator = new FileFilterGenerator(
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description)
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
-                context => context.WrappedData.Children.Any());
+                context => context.WrappedData.Children.Any(),
+                GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
                 (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
-                }, filePath));
+                }, filePath),
+                GetInquiryHelper());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -236,6 +236,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
                 new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
+        }
+
+        private FileFilterGenerator GetWaveConditionsFileFilterGenerator()
+        {
+            return new FileFilterGenerator(
+                RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description);
         }
 
         private void CalculateAll(StabilityStoneCoverFailureMechanismContext context)
@@ -446,8 +453,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                        TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
+            IInquiryHelper inquiryHelper = GetInquiryHelper();
+
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
             bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
             StabilityStoneCoverWaveConditionsCalculation[] calculations = group
@@ -479,8 +487,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 builder.AddRenameItem();
             }
 
-            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations,
-                                                                inquiryHelper,
+            builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
@@ -628,8 +635,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                   TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var inquiryHelper = new DialogBasedInquiryHelper(Gui.MainWindow);
-
+            
             StabilityStoneCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
             return builder
                    .AddExportItem()
@@ -637,8 +643,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                    .AddDuplicateCalculationItem(calculation, nodeData)
                    .AddSeparator()
                    .AddRenameItem()
-                   .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                               inquiryHelper,
+                   .AddUpdateForeshoreProfileOfCalculationItem(calculation, GetInquiryHelper(),
                                                                SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
                    .AddSeparator()
                    .AddValidateCalculationItem(nodeData,

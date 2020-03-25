@@ -21,9 +21,10 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -39,78 +40,83 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextExportInfoTest
     {
-        private ExportInfo exportInfo;
+        private GrassCoverErosionOutwardsPlugin plugin;
+        private ExportInfo info;
+        private MockRepository mocks;
 
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
-            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.Replay(gui);
+            mocks.Replay(mainWindow);
+
+            plugin = new GrassCoverErosionOutwardsPlugin
             {
-                exportInfo = plugin.GetExportInfos()
-                                   .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext)
-                                                 && ei.Name.Equals("Waterstanden en golfhoogten uit marginale statistiek"));
-            }
+                Gui = gui
+            };
+
+            info = plugin.GetExportInfos()
+                               .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext)
+                                             && ei.Name.Equals("Waterstanden en golfhoogten uit marginale statistiek"));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.IsNotNull(exportInfo.CreateFileExporter);
-            Assert.IsNotNull(exportInfo.IsEnabled);
-            Assert.AreEqual("Algemeen", exportInfo.Category);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
-            Assert.IsNotNull(exportInfo.FileFilterGenerator);
+            Assert.AreEqual("shp", info.Extension);
+            Assert.IsNotNull(info.CreateFileExporter);
+            Assert.IsNotNull(info.IsEnabled);
+            Assert.AreEqual("Algemeen", info.Category);
+            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            Assert.IsNotNull(info.GetExportPath);
         }
 
         [Test]
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var context = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
-            IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
+            IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter>(fileExporter);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void FileFilterGenerator_Always_ReturnFileFilter()
-        {
-            // Call
-            FileFilterGenerator fileFilterGenerator = exportInfo.FileFilterGenerator;
-
-            // Assert
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
         }
 
         [Test]
         public void IsEnabled_HydraulicBoundaryLocationsEmpty_ReturnFalse()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var context = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
-            bool isEnabled = exportInfo.IsEnabled(context);
+            bool isEnabled = info.IsEnabled(context);
 
             // Assert
             Assert.IsFalse(isEnabled);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -126,7 +132,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var context = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
-            bool isEnabled = exportInfo.IsEnabled(context);
+            bool isEnabled = info.IsEnabled(context);
 
             // Assert
             Assert.IsTrue(isEnabled);

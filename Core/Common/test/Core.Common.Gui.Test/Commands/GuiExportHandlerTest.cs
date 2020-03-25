@@ -32,7 +32,6 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -120,7 +119,7 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_SupportedExporterAvailableCancelClicked_AbortsExport()
+        public void ExportFrom_SupportedExporterAvailableNoFilePathGiven_AbortsExport()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -128,18 +127,12 @@ namespace Core.Common.Gui.Test.Commands
             var exporter = mockRepository.StrictMock<IFileExporter>();
             mockRepository.ReplayAll();
 
-            ModalFormHandler = (name, wnd, form) =>
-            {
-                var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.ClickCancel();
-            };
-
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
                 new ExportInfo<int>
                 {
-                    FileFilterGenerator = new FileFilterGenerator(),
-                    CreateFileExporter = (o, s) => exporter
+                    CreateFileExporter = (o, s) => exporter,
+                    GetExportPath = () => null
                 }
             });
 
@@ -152,25 +145,17 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_SupportedExporterAvailableWhichRunsSuccessfulSaveClicked_CallsExportAndLogsMessages()
+        public void ExportFrom_SupportedExporterAvailableAndFilePathGivenAndExporterRunsSuccessful_CallsExportAndLogsMessages()
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
             var exporter = mockRepository.StrictMock<IFileExporter>();
-
             exporter.Stub(e => e.Export()).Return(true);
-
             mockRepository.ReplayAll();
 
             const int expectedData = 1234;
             string targetExportFileName = Path.GetFullPath("exportFile.txt");
-
-            ModalFormHandler = (name, wnd, form) =>
-            {
-                var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile(targetExportFileName);
-            };
 
             const string exportInfoName = "Random data";
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -178,13 +163,13 @@ namespace Core.Common.Gui.Test.Commands
                 new ExportInfo<int>
                 {
                     Name = exportInfoName,
-                    FileFilterGenerator = new FileFilterGenerator(),
                     CreateFileExporter = (data, filePath) =>
                     {
                         Assert.AreEqual(expectedData, data);
                         Assert.AreEqual(targetExportFileName, filePath);
                         return exporter;
-                    }
+                    },
+                    GetExportPath = () => targetExportFileName
                 }
             });
 
@@ -203,23 +188,16 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_SupportedExporterAvailableWhichFailsSaveClicked_CallsExportAndLogsMessages()
+        public void ExportFrom_SupportedExporterAvailableAndFilePathGivenAndExporterFails_CallsExportAndLogsMessages()
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
             var exporter = mockRepository.StrictMock<IFileExporter>();
-
             exporter.Stub(e => e.Export()).Return(false);
-
             mockRepository.ReplayAll();
 
             string targetExportFileName = Path.GetFullPath("exportFile.txt");
-            ModalFormHandler = (name, wnd, form) =>
-            {
-                var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile(targetExportFileName);
-            };
 
             const string exportInfoName = "Random data";
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -227,8 +205,8 @@ namespace Core.Common.Gui.Test.Commands
                 new ExportInfo<int>
                 {
                     Name = exportInfoName,
-                    FileFilterGenerator = new FileFilterGenerator(),
-                    CreateFileExporter = (data, filePath) => exporter
+                    CreateFileExporter = (data, filePath) => exporter,
+                    GetExportPath = () => targetExportFileName
                 }
             });
 
@@ -363,7 +341,7 @@ namespace Core.Common.Gui.Test.Commands
         [TestCase(true)]
         [TestCase(false)]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_MultipleSupportedExportersAvailableWithCustomSelectionDialogStyling_GivesExpectedSelectionDialog(bool hasFileFilterGenerator)
+        public void ExportFrom_MultipleSupportedExportersAvailableWithCustomSelectionDialogStyling_GivesExpectedSelectionDialog(bool hasFileExtension)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -393,7 +371,7 @@ namespace Core.Common.Gui.Test.Commands
                 Name = "Name 1",
                 Category = "Category 1",
                 Image = Resources.Busy_indicator,
-                FileFilterGenerator = hasFileFilterGenerator ? new FileFilterGenerator("extension 1") : null
+                Extension = hasFileExtension ? "extension 1" : null
             };
 
             var exportInfo2 = new ExportInfo<int>
@@ -401,7 +379,7 @@ namespace Core.Common.Gui.Test.Commands
                 Name = "Name 2",
                 Category = "Category 2",
                 Image = Resources.DeleteIcon,
-                FileFilterGenerator = hasFileFilterGenerator ? new FileFilterGenerator("extension 2") : null
+                Extension = hasFileExtension ? "extension 2" : null
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -417,13 +395,13 @@ namespace Core.Common.Gui.Test.Commands
             Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
 
             Assert.AreEqual(2, listViewItems.Length);
-            string expectedItemName1 = hasFileFilterGenerator
-                                           ? $"{exportInfo1.Name} (*.{exportInfo1.FileFilterGenerator.Extension})"
+            string expectedItemName1 = hasFileExtension
+                                           ? $"{exportInfo1.Name} (*.{exportInfo1.Extension})"
                                            : exportInfo1.Name;
             Assert.AreEqual(expectedItemName1, listViewItems[0].Name);
             Assert.AreEqual(exportInfo1.Category, listViewItems[0].Group);
-            string expectedItemName2 = hasFileFilterGenerator
-                                           ? $"{exportInfo2.Name} (*.{exportInfo2.FileFilterGenerator.Extension})"
+            string expectedItemName2 = hasFileExtension
+                                           ? $"{exportInfo2.Name} (*.{exportInfo2.Extension})"
                                            : exportInfo2.Name;
             Assert.AreEqual(expectedItemName2, listViewItems[1].Name);
             Assert.AreEqual(exportInfo2.Category, listViewItems[1].Group);

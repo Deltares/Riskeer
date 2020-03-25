@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -31,7 +34,7 @@ namespace Core.Common.Gui.Test.Plugin
     public class PluginBaseTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var plugin = new SimplePlugin())
@@ -195,6 +198,73 @@ namespace Core.Common.Gui.Test.Plugin
             mocks.VerifyAll();
         }
 
-        private class SimplePlugin : PluginBase {}
+        [Test]
+        public void GetInquiryHelper_GuiIsNull_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var plugin = new SimplePlugin();
+
+            // Call
+            void Call() => plugin.GetInquiryHelperFromBase();
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(Call);
+            Assert.AreEqual("Gui cannot be null", exception.Message);
+        }
+
+        [Test]
+        public void GetInquiryHelper_WithGui_ReturnsDialogBasedInquiryHelper()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            var plugin = new SimplePlugin
+            {
+                Gui = gui
+            };
+
+            // Call
+            IInquiryHelper inquiryHelper = plugin.GetInquiryHelperFromBase();
+
+            // Assert
+            Assert.IsInstanceOf<DialogBasedInquiryHelper>(inquiryHelper);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPluginWithGui_WhenGetInquiryHelperCalled_ThenAlwaysSameInquiryHelperReturned()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            mocks.ReplayAll();
+
+            var plugin = new SimplePlugin
+            {
+                Gui = gui
+            };
+
+            // When
+            IInquiryHelper inquiryHelper1 = plugin.GetInquiryHelperFromBase();
+            IInquiryHelper inquiryHelper2 = plugin.GetInquiryHelperFromBase();
+
+            // Then
+            Assert.AreSame(inquiryHelper1, inquiryHelper2);
+            mocks.VerifyAll();
+        }
+
+        private class SimplePlugin : PluginBase
+        {
+            public IInquiryHelper GetInquiryHelperFromBase()
+            {
+                return GetInquiryHelper();
+            }
+        }
     }
 }

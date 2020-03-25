@@ -43,6 +43,9 @@ All rights reserved.
         <xs:enumeration value="Gras (golfoploop)"/>
         <xs:enumeration value="Gras (golfklap)"/>
         <xs:enumeration value="Gras (golfoploop en golfklap)"/>
+        <xs:enumeration value="Gras (golfklap voor toets op maat)"/>
+        <xs:enumeration value="Gras (golfoploop en golfklap voor toets op maat)"/>
+        <xs:enumeration value="Gras (alle types)"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>

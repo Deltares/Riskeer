@@ -26,10 +26,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Helpers;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
-using Core.Common.Util;
 using Core.Common.Util.Reflection;
 using log4net;
 
@@ -44,7 +42,6 @@ namespace Core.Common.Gui.Commands
 
         private readonly IWin32Window dialogParent;
         private readonly IEnumerable<ExportInfo> exportInfos;
-        private readonly DialogBasedInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiExportHandler"/> class.
@@ -55,8 +52,6 @@ namespace Core.Common.Gui.Commands
         {
             this.dialogParent = dialogParent;
             this.exportInfos = exportInfos;
-
-            inquiryHelper = new DialogBasedInquiryHelper(dialogParent);
         }
 
         public bool CanExportFrom(object source)
@@ -72,7 +67,7 @@ namespace Core.Common.Gui.Commands
                 return;
             }
 
-            ExportItemUsingDialog(exportInfo, source);
+            ExportItem(exportInfo, source);
         }
 
         private IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
@@ -128,14 +123,14 @@ namespace Core.Common.Gui.Commands
 
         private static string GetItemName(ExportInfo exportInfo)
         {
-            return exportInfo.FileFilterGenerator != null
-                       ? string.Format(Resources.GetItemName_Name_0_FileExtension_1, exportInfo.Name, exportInfo.FileFilterGenerator.Extension)
+            return exportInfo.Extension != null
+                       ? string.Format(Resources.GetItemName_Name_0_FileExtension_1, exportInfo.Name, exportInfo.Extension)
                        : exportInfo.Name;
         }
 
-        private void ExportItemUsingDialog(ExportInfo exportInfo, object source)
+        private static void ExportItem(ExportInfo exportInfo, object source)
         {
-            string exportFilePath = ExportHelper.GetFilePath(inquiryHelper, exportInfo.FileFilterGenerator);
+            string exportFilePath = exportInfo.GetExportPath();
 
             if (exportFilePath != null)
             {
