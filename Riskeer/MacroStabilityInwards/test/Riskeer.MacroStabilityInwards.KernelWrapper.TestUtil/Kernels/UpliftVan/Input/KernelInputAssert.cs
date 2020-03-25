@@ -60,7 +60,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public static void AssertSoilProfiles(SoilProfile2D expected, SoilProfile2D actual)
         {
             AssertSoilLayers(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
-            AssertPreconsolidationStresses(expected.PreconsolidationStresses.ToArray(), actual.PreconsolidationStresses.ToArray());
             AssertGeometryDatas(expected.Geometry, actual.Geometry);
         }
 

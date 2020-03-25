@@ -57,7 +57,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             }
 
             var profile = new SoilProfile2D();
-            profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(preconsolidationStresses));
 
             var alreadyCreatedPoints = new List<WtiStabilityPoint2D>();
             var alreadyCreatedCurves = new List<GeometryCurve>();

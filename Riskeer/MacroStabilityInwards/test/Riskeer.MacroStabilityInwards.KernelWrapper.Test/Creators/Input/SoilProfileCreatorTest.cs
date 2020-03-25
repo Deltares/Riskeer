@@ -186,17 +186,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
 
-            #region Preconsolidation stresses
-
-            Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
-            PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
-            Assert.IsTrue(string.IsNullOrEmpty(preconsolidationStress.Name)); // Unused property
-            Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
-            Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
-            Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
-
-            #endregion
-
             #region Geometry
 
             var outerLoopPoint1 = new WtiStabilityPoint2D(0, 0);
@@ -490,17 +479,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Assert
-
-            #region Preconsolidation stresses
-
-            Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
-            PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
-            Assert.IsTrue(string.IsNullOrEmpty(preconsolidationStress.Name)); // Unused property
-            Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
-            Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
-            Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
-
-            #endregion
 
             #region Geometry
 
