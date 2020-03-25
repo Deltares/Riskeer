@@ -59,7 +59,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         {
             // Setup
             var random = new Random(21);
-            var soilModel = new List<Soil>();
             var soilProfile2D = new SoilProfile2D();
             var stabilityLocationExtreme = new Location();
             var stabilityLocationDaily = new Location();
@@ -72,7 +71,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Call
             var kernel = new UpliftVanKernelWrapper();
-            kernel.SetSoilModel(soilModel);
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetLocationExtreme(stabilityLocationExtreme);
             kernel.SetLocationDaily(stabilityLocationDaily);
@@ -85,27 +83,26 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
+            var location = TypeUtils.GetField<Location>(kernel, "location");
 
             Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
             Assert.IsNotNull(stabilityModel.SlipCircle);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            Assert.IsNotNull(stabilityModel.GeotechnicsData.CurrentWaternetDaily);
-            Assert.AreEqual("WaternetDaily", stabilityModel.GeotechnicsData.CurrentWaternetDaily.Name);
-            Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
-            Assert.AreSame(stabilityLocationExtreme, stabilityModel.Location);
-            Assert.AreSame(stabilityLocationDaily, stabilityModel.LocationDaily);
-            Assert.AreSame(soilModel, stabilityModel.Soils);
-            Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
+            ConstructionStage firstConstructionStage = stabilityModel.ConstructionStages.First();
+            Assert.IsNotNull(firstConstructionStage.GeotechnicsData.CurrentWaternet);
+            Assert.AreEqual("WaternetDaily", firstConstructionStage.GeotechnicsData.CurrentWaternet.Name);
+            Assert.AreSame(surfaceLine, location.Surfaceline);
+            Assert.AreSame(stabilityLocationExtreme, location);
+            Assert.AreSame(stabilityLocationDaily, location);
+            Assert.AreSame(soilProfile2D, location.SoilProfile2D);
             Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
             Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
             Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
-            Assert.AreEqual(gridAutomaticDetermined, stabilityModel.SlipCircle.Auto);
 
             AssertIrrelevantValues(stabilityModel);
-            AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
         }
 
         [Test]
@@ -278,23 +275,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(60.0, stabilityModel.MaxAllowedAngleBetweenSlices); // Only for Spencer
             Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Only for genetic search algorithm
             Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions); // Only for Levenberg Marquardt search algorithm
-        }
-
-        private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
-        {
-            Assert.AreSame(stabilityModel, stabilityModel.Location.StabilityModel);
-            Assert.AreSame(soilProfile2D, stabilityModel.Location.SoilProfile2D);
-            Assert.AreSame(surfaceLine, stabilityModel.Location.Surfaceline);
-            Assert.IsTrue(stabilityModel.Location.Inwards);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            Assert.AreSame(stabilityModel, stabilityModel.SlipCircle.StabilityModel);
-            Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
-            Assert.IsNotNull(stabilityModel.GeotechnicsData);
-            Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            Assert.AreSame(stabilityModel, stabilityModel.SlipPlaneUpliftVan.StabilityModel);
-            Assert.AreSame(stabilityModel, stabilityModel.SlipPlaneUpliftVan.SlipPlaneTangentLine.StabilityModel);
-            Assert.AreEqual(stabilityModel.SlipCircle.Auto, stabilityModel.SlipPlaneUpliftVan.SlipCircleTangentLine.IsAutomaticGrid);
         }
     }
 }
