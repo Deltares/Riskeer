@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -74,7 +73,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 // Assert
                 LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile);
 
-                KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()), waternetKernel.SoilModel);
                 KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil), waternetKernel.SoilProfile);
                 KernelInputAssert.AssertStabilityLocations(WaternetStabilityLocationCreator.Create(input), waternetKernel.Location);
                 KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), waternetKernel.SurfaceLine);
