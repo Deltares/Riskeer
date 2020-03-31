@@ -26,6 +26,7 @@ using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 {
@@ -84,6 +85,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public bool GridAutomaticDetermined { get; private set; }
 
+        public WtiStabilityWaternet WaternetDaily { get; private set; }
+
+        public WtiStabilityWaternet WaternetExtreme { get; private set; }
+
         public double FactorOfStability { get; set; }
 
         public double ZValue { get; set; }
@@ -108,19 +113,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             SoilProfile = soilProfile2D;
         }
 
-        public void SetLocationExtreme(Location stabilityLocation)
+        public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
         {
-            LocationExtreme = stabilityLocation;
+            WaternetDaily = waternetDaily;
         }
 
-        public void SetLocationDaily(Location stabilityLocation)
+        public void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme)
         {
-            LocationDaily = stabilityLocation;
-        }
-
-        public void SetSurfaceLine(SurfaceLine2 surfaceLine2)
-        {
-            SurfaceLine = surfaceLine2;
+            WaternetExtreme = waternetExtreme;
         }
 
         public void SetMoveGrid(bool moveGrid)

@@ -27,7 +27,6 @@ using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Kernel;
 using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
@@ -42,9 +41,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         private readonly StabilityModel stabilityModel;
         private KernelModel kernelModel;
         private SoilProfile2D soilProfile2D;
-        private SurfaceLine2 surfaceLine;
-        private Location locationDaily;
         private bool autoGridDetermination;
+        private WtiStabilityWaternet dailyWaternet;
+        private WtiStabilityWaternet extremeWaternet;
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
@@ -79,14 +78,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public IEnumerable<LogMessage> CalculationMessages { get; private set; }
 
-        public void SetLocationDaily(Location stabilityLocation)
+        public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
         {
-            locationDaily = stabilityLocation;
+            dailyWaternet = waternetDaily;
         }
 
-        public void SetSurfaceLine(SurfaceLine2 surfaceLine2)
+        public void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme)
         {
-            surfaceLine = surfaceLine2;
+            extremeWaternet = waternetExtreme;
         }
 
         public void SetMoveGrid(bool moveGrid)
@@ -135,19 +134,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 };
                 kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea = autoGridDetermination;
 
-                const double unitWeightWater = 9.81; // Taken from kernel
-                var waternetCreator = new WaternetCreator(unitWeightWater);
-                locationDaily.Surfaceline = surfaceLine;
-                locationDaily.SoilProfile2D = soilProfile2D;
-                var waternet = new WtiStabilityWaternet
-                {
-                    Name = "WaternetDaily"
-                };
-                waternetCreator.UpdateWaternet(waternet, locationDaily);
-
-                ConstructionStage stage = stabilityModel.ConstructionStages.First();
-                stage.GeotechnicsData.Waternets.Add(waternet);
-                stage.SoilProfile = soilProfile2D;
+                ConstructionStage dailyStage = stabilityModel.ConstructionStages.First();
+                dailyStage.GeotechnicsData.CurrentWaternet = dailyWaternet;
+                dailyStage.SoilProfile = soilProfile2D;
+               
+                stabilityModel.ConstructionStages.Add(new ConstructionStage());
+                ConstructionStage extremeStage = stabilityModel.ConstructionStages.ElementAt(1);
+                extremeStage.GeotechnicsData.CurrentWaternet = extremeWaternet;
+                extremeStage.SoilProfile = soilProfile2D;
 
                 var kernelCalculation = new KernelCalculation();
                 kernelCalculation.Run(kernelModel);

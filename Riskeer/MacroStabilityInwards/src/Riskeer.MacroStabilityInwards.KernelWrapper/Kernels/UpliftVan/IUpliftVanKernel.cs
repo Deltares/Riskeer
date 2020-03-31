@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
@@ -89,12 +89,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Sets the location under daily circumstances.
         /// </summary>
-        void SetLocationDaily(Location stabilityLocation);
+        void SetWaternetDaily(WtiStabilityWaternet waternetDaily);
 
         /// <summary>
-        /// Sets the surface line 2.
+        /// Sets the location under extreme circumstances.
         /// </summary>
-        void SetSurfaceLine(SurfaceLine2 surfaceLine2);
+        void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme);
 
         /// <summary>
         /// Sets the move grid property.

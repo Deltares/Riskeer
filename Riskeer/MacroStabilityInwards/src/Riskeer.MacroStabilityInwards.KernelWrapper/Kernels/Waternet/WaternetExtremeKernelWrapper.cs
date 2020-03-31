@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Deltares.WTIStability.Calculation.Wrapper;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -29,5 +30,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetExtremeKernelWrapper : WaternetKernelWrapper
     {
+        public WaternetExtremeKernelWrapper()
+        {
+            Waternet = new WtiStabilityWaternet
+            {
+                Name = "WaternetExtreme"
+            };
+        }
     }
 }

@@ -82,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// are log messages of the type <see cref="LogMessageType.FatalError"/> or <see cref="LogMessageType.Error"/>.</exception>
         private static void ReadLogMessages(IEnumerable<LogMessage> receivedLogMessages)
         {
-            LogMessage[] errorMessages = receivedLogMessages.Where(lm => lm.MessageType == LogMessageType.FatalError 
+            LogMessage[] errorMessages = receivedLogMessages.Where(lm => lm.MessageType == LogMessageType.FatalError
                                                                          || lm.MessageType == LogMessageType.Error).ToArray();
 
             if (errorMessages.Any())

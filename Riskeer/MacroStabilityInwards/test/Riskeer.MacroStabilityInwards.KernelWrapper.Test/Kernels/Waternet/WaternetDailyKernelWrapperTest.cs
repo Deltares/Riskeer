@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Util.Reflection;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
@@ -41,25 +38,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         }
 
         [Test]
-        public void Constructor_CompleteInput_InputCorrectlySetToWrappedKernel()
+        public void Constructor_Always_SetsCorrectWaternetName()
         {
-            // Setup
-            var stabilityLocation = new Location();
-            var soilProfile2D = new SoilProfile2D();
-            var surfaceLine = new SurfaceLine2();
-
             // Call
             var kernel = new WaternetDailyKernelWrapper();
-            kernel.SetLocation(stabilityLocation);
-            kernel.SetSoilProfile(soilProfile2D);
-            kernel.SetSurfaceLine(surfaceLine);
-
-            // Assert
-            var location = TypeUtils.GetProperty<Location>(kernel, "location");
-
-            Assert.AreSame(stabilityLocation, location);
-            Assert.AreSame(surfaceLine, location.Surfaceline);
-            Assert.AreSame(soilProfile2D, location.SoilProfile2D);
 
             Assert.AreEqual("WaternetDaily", kernel.Waternet.Name);
         }
@@ -68,83 +50,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Calculate_ValidationErrorInCalculation_ThrowsWaternetKernelWrapperException()
         {
             // Setup
-            WaternetDailyKernelWrapper kernel = CreateInvalidKernel();
+            var kernel = new WaternetDailyKernelWrapper();
 
             // Call
             TestDelegate test = () => kernel.Calculate();
 
             // Assert
             var exception = Assert.Throws<WaternetKernelWrapperException>(test);
-            Assert.AreEqual("Waternet-Beoordeling: De punten in de hoogtegeometrie zijn niet oplopend. (x-waarde)\r\n" +
-                            "Waternet-Dagelijks: De punten in de hoogtegeometrie zijn niet oplopend. (x-waarde)", exception.Message);
-        }
-
-        private static WaternetDailyKernelWrapper CreateInvalidKernel()
-        {
-            var point1 = new Point2D(0, 0);
-            var point2 = new Point2D(1, 1);
-            var point3 = new Point2D(2, 2);
-            var point4 = new Point2D(3, 3);
-            var curve1 = new GeometryCurve(point1, point2);
-            var curve2 = new GeometryCurve(point2, point3);
-            var curve3 = new GeometryCurve(point3, point4);
-            var curve4 = new GeometryCurve(point4, point1);
-            var loop = new GeometryLoop
-            {
-                CurveList =
-                {
-                    curve1,
-                    curve2,
-                    curve3,
-                    curve4
-                }
-            };
-            var geometrySurface = new GeometrySurface
-            {
-                OuterLoop = loop
-            };
-            var soil = new Soil();
-            var waternetDailyKernelWrapper = new WaternetDailyKernelWrapper();
-            waternetDailyKernelWrapper.SetLocation(new Location());
-            waternetDailyKernelWrapper.SetSoilProfile(new SoilProfile2D
-            {
-                Geometry = new GeometryData
-                {
-                    Points =
-                    {
-                        point1,
-                        point2,
-                        point3,
-                        point4
-                    },
-                    Curves =
-                    {
-                        curve1,
-                        curve2,
-                        curve3,
-                        curve4
-                    },
-                    Loops =
-                    {
-                        loop
-                    },
-                    Surfaces =
-                    {
-                        geometrySurface
-                    }
-                },
-                Surfaces =
-                {
-                    new SoilLayer2D
-                    {
-                        GeometrySurface = geometrySurface,
-                        Soil = soil
-                    }
-                }
-            });
-            waternetDailyKernelWrapper.SetSurfaceLine(new SurfaceLine2());
-
-            return waternetDailyKernelWrapper;
+            Assert.IsNotNull(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
     }
 }

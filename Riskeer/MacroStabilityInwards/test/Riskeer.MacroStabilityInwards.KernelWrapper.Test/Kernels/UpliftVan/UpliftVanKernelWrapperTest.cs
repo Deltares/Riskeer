@@ -72,8 +72,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Call
             var kernel = new UpliftVanKernelWrapper();
             kernel.SetSoilProfile(soilProfile2D);
-            kernel.SetLocationDaily(stabilityLocationDaily);
-            kernel.SetSurfaceLine(surfaceLine);
             kernel.SetMaximumSliceWidth(maximumSliceWidth);
             kernel.SetSlipPlaneUpliftVan(slipPlaneUpliftVan);
             kernel.SetMoveGrid(moveGrid);
@@ -256,8 +254,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     }
                 }
             });
-            kernelWrapper.SetLocationDaily(new Location());
-            kernelWrapper.SetSurfaceLine(new SurfaceLine2());
             kernelWrapper.SetSlipPlaneUpliftVan(new SlipPlaneUpliftVan());
             kernelWrapper.SetMoveGrid(true);
             kernelWrapper.SetMaximumSliceWidth(0);
