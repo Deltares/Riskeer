@@ -38,9 +38,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BruTile" Version="0.20.0" />
+    <PackageReference Include="BruTile" Version="1.0.3" />
     <PackageReference Include="BruTile.Desktop">
-      <Version>0.20.0</Version>
+      <Version>1.0.3</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

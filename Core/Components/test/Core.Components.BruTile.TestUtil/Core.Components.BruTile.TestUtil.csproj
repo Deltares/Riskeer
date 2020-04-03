@@ -27,13 +27,13 @@
     <None Include="Resources\stubTile.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.BruTile\Core.Components.BruTile.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.BruTile\Core.Components.BruTile.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BruTile">
-      <Version>0.20.0</Version>
+      <Version>1.0.3</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

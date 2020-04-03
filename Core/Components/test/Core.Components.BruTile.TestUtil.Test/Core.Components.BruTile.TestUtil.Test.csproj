@@ -11,16 +11,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.BruTile\Core.Components.BruTile.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
-    <ProjectReference Include="..\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj"/>
-    <ProjectReference Include="..\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.BruTile\Core.Components.BruTile.csproj" />
+    <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj" />
+    <ProjectReference Include="..\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj" />
+    <ProjectReference Include="..\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BruTile">
-      <Version>0.20.0</Version>
+      <Version>1.0.3</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
