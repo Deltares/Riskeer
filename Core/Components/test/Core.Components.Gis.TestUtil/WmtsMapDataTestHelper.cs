@@ -35,7 +35,7 @@ namespace Core.Components.Gis.TestUtil
         public static WmtsMapData CreateDefaultPdokMapData()
         {
             return new WmtsMapData("PDOK achtergrondkaart",
-                                   "http://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS ",
+                                   "https://geodata.nationaalgeoregister.nl/wmts/top10nlv2?VERSION=1.0.0&request=GetCapabilities",
                                    "brtachtergrondkaart(EPSG:28992)",
                                    "image/png");
         }
