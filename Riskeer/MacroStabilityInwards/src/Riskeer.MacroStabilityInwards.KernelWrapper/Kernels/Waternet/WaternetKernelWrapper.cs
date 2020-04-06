@@ -64,9 +64,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
                 var waternetCreator = new WaternetCreator(unitWeightWater);
                 location.Surfaceline = surfaceLine2;
                 location.SoilProfile2D = soilProfile2D;
+
+                if (!waternetCreator.CanGenerateWaternet(location))
+                {
+                    throw new WaternetKernelWrapperException();
+                }
+
                 waternetCreator.UpdateWaternet(Waternet, location);
 
                 ReadLogMessages(waternetCreator.LogMessages);
+
+                Waternet.HeadLineList.ForEach(l => l.SyncPoints());
+                Waternet.WaternetLineList.ForEach(l => l.SyncPoints());
+                Waternet.PhreaticLine.SyncPoints();
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {

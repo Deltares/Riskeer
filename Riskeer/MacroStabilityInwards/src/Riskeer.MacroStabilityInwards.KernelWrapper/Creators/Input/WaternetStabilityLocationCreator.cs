@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Deltares.MacroStability.WaternetCreator;
-using Deltares.WTIStability;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
@@ -78,7 +77,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
                 HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = input.PenetrationLength
+                PenetrationLength = input.PenetrationLength,
+                Inwards = true
             };
         }
     }

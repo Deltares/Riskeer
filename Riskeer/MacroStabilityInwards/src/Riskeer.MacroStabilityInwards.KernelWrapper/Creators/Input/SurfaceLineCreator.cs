@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.MacroStability.Geometry;
@@ -67,6 +66,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                     wtiSurfaceLine.CharacteristicPoints.Add(characteristicPoint);
                 }
             }
+
+            wtiSurfaceLine.Geometry.SyncCalcPoints();
 
             return wtiSurfaceLine;
         }
