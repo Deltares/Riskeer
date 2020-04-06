@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 
@@ -37,11 +36,6 @@ namespace Demo.Riskeer.Views
         public MapDataView()
         {
             InitializeComponent();
-
-            ((MapControl)Map).BackgroundMapData = new WmtsMapData("Test",
-                                                                  "http://geodata.nationaalgeoregister.nl/wmts?",
-                                                                  "brtachtergrondkaart(EPSG:28992)",
-                                                                  "image/png");
         }
 
         public object Data
