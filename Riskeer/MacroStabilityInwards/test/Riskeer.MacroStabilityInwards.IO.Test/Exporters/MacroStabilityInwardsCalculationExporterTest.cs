@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Components.Persistence.Stability;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 
@@ -34,46 +36,81 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
             // Call
-            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), "ValidFilePath");
+            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, "ValidFilePath");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(null, string.Empty);
+            void Call() => new MacroStabilityInwardsCalculationExporter(null, persistenceFactory, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_PersistenceFactoryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("persistenceFactory", exception.ParamName);
         }
 
         [Test]
         [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
         public void Constructor_FilePathInvalid_ThrowsArgumentException(string filePath)
         {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
+
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), filePath);
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Export_Always_ReturnsFalse()
         {
             // Setup
-            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), "ValidFilePath");
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
+            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, "ValidFilePath");
 
             // Call
             bool exportResult = exporter.Export();
 
             // Assert
             Assert.IsFalse(exportResult);
+            mocks.VerifyAll();
         }
     }
 }

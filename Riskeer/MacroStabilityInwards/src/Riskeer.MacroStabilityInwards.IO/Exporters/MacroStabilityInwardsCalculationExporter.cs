@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Components.Persistence.Stability;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Riskeer.MacroStabilityInwards.Data;
@@ -37,8 +38,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationExporter"/>.
         /// </summary>
         /// <param name="calculation">The calculation to export.</param>
+        /// <param name="persistenceFactory">The persistence factory to use.</param>
         /// <param name="filePath">The file path to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or
+        /// <see cref="persistenceFactory"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">
@@ -47,11 +50,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public MacroStabilityInwardsCalculationExporter(MacroStabilityInwardsCalculation calculation, string filePath)
+        public MacroStabilityInwardsCalculationExporter(MacroStabilityInwardsCalculation calculation,
+                                                        IPersistenceFactory persistenceFactory,
+                                                        string filePath)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (persistenceFactory == null)
+            {
+                throw new ArgumentNullException(nameof(persistenceFactory));
             }
 
             IOUtils.ValidateFilePath(filePath);
