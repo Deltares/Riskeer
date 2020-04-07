@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -117,6 +118,14 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
                     foreach (WaveConditionsOutput output in calculation.Output.WaveImpactOutput)
                     {
                         entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact, i++));
+                    }
+                }
+
+                if (calculation.Output.TailorMadeWaveImpactOutput != null)
+                {
+                    foreach(WaveConditionsOutput output in calculation.Output.TailorMadeWaveImpactOutput)
+                    {
+                        entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact, i++));
                     }
                 }
             }

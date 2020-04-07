@@ -226,7 +226,11 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(
+                    new[]
+                    {
+                        new TestWaveConditionsOutput()
+                    },
                     new[]
                     {
                         new TestWaveConditionsOutput()
@@ -242,15 +246,17 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             ICollection<GrassCoverErosionOutwardsWaveConditionsOutputEntity> outputEntities = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities;
-            Assert.AreEqual(2, outputEntities.Count);
+            Assert.AreEqual(3, outputEntities.Count);
             CollectionAssert.AreEqual(new[]
             {
                 0,
-                1
+                1,
+                2
             }, outputEntities.Select(oe => oe.Order));
 
             Assert.AreEqual(Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp), outputEntities.ElementAt(0).OutputType);
             Assert.AreEqual(Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact), outputEntities.ElementAt(1).OutputType);
+            Assert.AreEqual(Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact), outputEntities.ElementAt(2).OutputType);
         }
 
         [Test]
@@ -311,6 +317,36 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             }, outputEntities.Select(oe => oe.Order));
 
             Assert.IsTrue(outputEntities.All(oe => oe.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact)));
+        }
+
+        [Test]
+        public void Create_HasCalculationOutputWithTailorMadeWaveImpact_EntityHasCalculationOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(
+                    new[]
+                    {
+                        new TestWaveConditionsOutput(),
+                        new TestWaveConditionsOutput()
+                    })
+            };
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            ICollection<GrassCoverErosionOutwardsWaveConditionsOutputEntity> outputEntities = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities;
+            Assert.AreEqual(2, outputEntities.Count);
+            CollectionAssert.AreEqual(new[]
+            {
+                0,
+                1
+            }, outputEntities.Select(oe => oe.Order));
+
+            Assert.IsTrue(outputEntities.All(oe => oe.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)));
         }
     }
 }
