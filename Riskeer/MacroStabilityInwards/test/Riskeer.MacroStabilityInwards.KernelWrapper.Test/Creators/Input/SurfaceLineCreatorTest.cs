@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -240,7 +239,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         private static void AssertGeneralValues(string name, SurfaceLine2 actual)
         {
             Assert.AreEqual(name, actual.Name); // Unused property
-            CollectionAssert.IsEmpty(actual.Geometry.CalcPoints); // Internal property
         }
 
         private static GeometryPoint ToGeometryPoint(Point3D point)
