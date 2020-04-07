@@ -61,10 +61,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
                 const double unitWeightWater = 9.81; // Taken from kernel
                 var waternetCreator = new WaternetCreator(unitWeightWater);
 
-                if (!waternetCreator.CanGenerateWaternet(location))
-                {
-                    throw new WaternetKernelWrapperException();
-                }
+                CheckIfWaternetCanBeGenerated(waternetCreator);
 
                 waternetCreator.UpdateWaternet(Waternet, location);
 
@@ -75,6 +72,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
                 throw new WaternetKernelWrapperException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Checks if a waternet can be generated.
+        /// </summary>
+        /// <param name="waternetCreator">The instance of the <see cref="WaternetCreator"/>.</param>
+        /// <exception cref="WaternetKernelWrapperException">Thrown when the waternet can not be generated.</exception>
+        private void CheckIfWaternetCanBeGenerated(WaternetCreator waternetCreator)
+        {
+            if (!waternetCreator.CanGenerateWaternet(location))
+            {
+                throw new WaternetKernelWrapperException();
             }
         }
 
