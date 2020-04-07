@@ -63,6 +63,26 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         }
 
         [Test]
+        public void Calculate_WaternetCannotBeGenerated_ThrowsWaternetKernelWrapperExceptionAndWaternetNotSet()
+        {
+            // Setup
+            var kernel = new TestWaternetKernelWrapper();
+            var location = new Location
+            {
+                WaternetCreationMode = WaternetCreationMode.CreateWaternet,
+                Surfaceline = null
+            };
+            kernel.SetLocation(location);
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            Assert.Throws<WaternetKernelWrapperException>(test);
+            Assert.IsNull(kernel.Waternet);
+        }
+
+        [Test]
         public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperExceptionAndWaternetNotSet()
         {
             // Setup
