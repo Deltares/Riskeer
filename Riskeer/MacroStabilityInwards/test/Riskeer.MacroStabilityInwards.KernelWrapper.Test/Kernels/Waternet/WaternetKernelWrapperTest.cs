@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
-            var location = TypeUtils.GetProperty<Location>(kernel, "location");
+            var location = TypeUtils.GetField<Location>(kernel, "location");
 
             Assert.AreSame(stabilityLocation, location);
             Assert.AreSame(surfaceLine, location.Surfaceline);

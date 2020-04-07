@@ -35,8 +35,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetKernelWrapper : IWaternetKernel
     {
-        private SoilProfile2D soilProfile2D;
-        private SurfaceLine2 surfaceLine2;
         private Location location;
 
         public WtiStabilityWaternet Waternet { get; protected set; }
@@ -48,12 +46,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
         {
-            soilProfile2D = soilProfile;
+            location.SoilProfile2D = soilProfile;
         }
 
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
-            surfaceLine2 = surfaceLine;
+            location.Surfaceline = surfaceLine;
         }
 
         public void Calculate()
@@ -62,8 +60,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             {
                 const double unitWeightWater = 9.81; // Taken from kernel
                 var waternetCreator = new WaternetCreator(unitWeightWater);
-                location.Surfaceline = surfaceLine2;
-                location.SoilProfile2D = soilProfile2D;
 
                 if (!waternetCreator.CanGenerateWaternet(location))
                 {
@@ -74,14 +70,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
                 ReadLogMessages(waternetCreator.LogMessages);
 
-                Waternet.HeadLineList.ForEach(l => l.SyncPoints());
-                Waternet.WaternetLineList.ForEach(l => l.SyncPoints());
-                Waternet.PhreaticLine.SyncPoints();
+                SynchronizeWaternetLinePoints();
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
                 throw new WaternetKernelWrapperException(e.Message, e);
             }
+        }
+
+        private void SynchronizeWaternetLinePoints()
+        {
+            Waternet.HeadLineList.ForEach(l => l.SyncPoints());
+            Waternet.WaternetLineList.ForEach(l => l.SyncPoints());
+            Waternet.PhreaticLine.SyncPoints();
         }
 
         /// <summary>
