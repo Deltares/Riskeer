@@ -42,16 +42,16 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="DbContext\Generated\RiskeerEntities.edmx">
+    <EntityDeploy Include="DbContext\RiskeerEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RiskeerEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DbContext\Generated\RiskeerEntities.edmx.diagram">
+    <None Include="DbContext\RiskeerEntities.edmx.diagram">
       <DependentUpon>RiskeerEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
 <ItemGroup>
-    <Compile Update="DbContext\Generated\RiskeerEntities.Designer.cs">
+    <Compile Update="DbContext\RiskeerEntities.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>RiskeerEntities.edmx</DependentUpon>
