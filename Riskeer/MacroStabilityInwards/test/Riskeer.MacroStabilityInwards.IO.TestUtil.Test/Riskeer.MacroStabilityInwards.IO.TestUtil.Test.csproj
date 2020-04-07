@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
+    <Reference Include="Components.Persistence.Stability">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Components.Persistence.Stability.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -10,9 +13,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
-    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.IO.TestUtil\Riskeer.MacroStabilityInwards.IO.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.IO.TestUtil\Riskeer.MacroStabilityInwards.IO.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
