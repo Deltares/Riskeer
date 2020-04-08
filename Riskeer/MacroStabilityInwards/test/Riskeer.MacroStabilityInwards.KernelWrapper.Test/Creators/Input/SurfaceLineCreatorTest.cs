@@ -83,6 +83,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
+        public void Create_Always_SynchronizesCalcPoints()
+        {
+            // Setup
+            const string name = "Local coordinate surface line";
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.1),
+                new Point3D(2.2, 0.0, 3.3),
+                new Point3D(4.4, 0.0, 5.5)
+            });
+
+            // Call
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            CollectionAssert.AreEqual(actual.Geometry.Points.Select(p => p.X), actual.Geometry.CalcPoints.Select(p => p.X));
+            CollectionAssert.AreEqual(actual.Geometry.Points.Select(p => p.Z), actual.Geometry.CalcPoints.Select(p => p.Z));
+        }
+
+        [Test]
         public void Create_LocalSurfaceLineNotNormalized_TranslateAllPointsToMakeFirstCoordinateZeroX()
         {
             // Setup
