@@ -22,7 +22,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateArchivePersister_ThrowExceptionIsFalse_SetsPropertiesAndReturnsNull()
+        public void CreateArchivePersister_ThrowExceptionIsFalse_SetsPropertiesAndReturnsTestPersister()
         {
             // Setup
             var persistableDataModel = new PersistableDataModel();
@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
             // Assert
             Assert.AreSame(persistableDataModel, persistenceFactory.PersistableDataModel);
             Assert.AreEqual(filePath, persistenceFactory.FilePath);
-            Assert.IsNull(persister);
+            Assert.IsInstanceOf<MacroStabilityInwardsTestPersister>(persister);
         }
 
         [Test]

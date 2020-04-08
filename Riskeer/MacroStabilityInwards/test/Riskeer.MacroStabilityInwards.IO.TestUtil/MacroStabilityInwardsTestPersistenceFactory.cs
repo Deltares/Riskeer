@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             FilePath = path;
             PersistableDataModel = dataModel;
 
-            return null;
+            return new MacroStabilityInwardsTestPersister();
         }
 
         public Reader<PersistableDataModel> CreateArchiveReader(string path)
