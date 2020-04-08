@@ -135,30 +135,24 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             bool hasWaveImpactOutput = waveImpactOutput.Any();
             bool hasTailorMadeWaveImpactOutput = tailorMadeWaveImpactOutput.Any();
 
-            if (hasWaveRunUpOutput)
+            if (!hasWaveRunUpOutput)
             {
-                if (hasWaveImpactOutput && !hasTailorMadeWaveImpactOutput)
-                {
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
-                }
-                if (!hasWaveImpactOutput && hasTailorMadeWaveImpactOutput)
-                {
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput, tailorMadeWaveImpactOutput);
-                }
-                if (hasWaveRunUpOutput && hasTailorMadeWaveImpactOutput)
-                {
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
-                }
-
-                return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
+                return hasWaveImpactOutput
+                           ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput)
+                           : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(tailorMadeWaveImpactOutput);
             }
 
             if (hasWaveImpactOutput)
             {
-                return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
+                return !hasTailorMadeWaveImpactOutput 
+                           ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput)
+                           : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
             }
 
-            return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(tailorMadeWaveImpactOutput);
+            return hasTailorMadeWaveImpactOutput
+                       ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput, tailorMadeWaveImpactOutput)
+                       : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
+
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity,
