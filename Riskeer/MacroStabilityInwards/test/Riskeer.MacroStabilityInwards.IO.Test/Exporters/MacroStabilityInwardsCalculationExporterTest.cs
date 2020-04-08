@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Reflection;
 using Components.Persistence.Stability;
+using Components.Persistence.Stability.Data;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data;
@@ -123,17 +126,49 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         {
             // Setup
             const string filePath = "ValidFilePath";
+            var calculation = new MacroStabilityInwardsCalculation();
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath);
 
             // Call
             bool exportResult = exporter.Export();
 
             // Assert
-            Assert.IsNotNull(persistenceFactory.PersistableDataModel);
+            AssertPersistableDataModel(calculation, persistenceFactory.PersistableDataModel, filePath);
             Assert.AreEqual(filePath, persistenceFactory.FilePath);
             Assert.IsTrue(exportResult);
+        }
+
+        private void AssertPersistableDataModel(MacroStabilityInwardsCalculation calculation, PersistableDataModel persistableDataModel, string filePath)
+        {
+            Assert.AreEqual(filePath, persistableDataModel.Info.Path);
+            Assert.AreEqual(calculation.Name, persistableDataModel.Info.Project);
+            Assert.AreEqual(calculation.InputParameters.SurfaceLine?.Name, persistableDataModel.Info.CrossSection);
+            Assert.AreEqual($"Riskeer {AssemblyUtils.GetAssemblyInfo(Assembly.GetAssembly(GetType())).Version}", persistableDataModel.Info.ApplicationCreated);
+            Assert.AreEqual("Export from Riskeer", persistableDataModel.Info.Remarks);
+            Assert.IsNotNull(persistableDataModel.Info.Created);
+            Assert.IsNull(persistableDataModel.Info.Date);
+            Assert.IsNull(persistableDataModel.Info.LastModified);
+            Assert.IsNull(persistableDataModel.Info.LastModifier);
+            Assert.IsNull(persistableDataModel.Info.Analyst);
+            
+            Assert.IsNull(persistableDataModel.AssessmentResults);
+            Assert.IsNull(persistableDataModel.CalculationSettings);
+            Assert.IsNull(persistableDataModel.Decorations);
+            Assert.IsNull(persistableDataModel.Geometry);
+            Assert.IsNull(persistableDataModel.Loads);
+            Assert.IsNull(persistableDataModel.NailPropertiesForSoils);
+            Assert.IsNull(persistableDataModel.Reinforcements);
+            Assert.IsNull(persistableDataModel.SoilCorrelations);
+            Assert.IsNull(persistableDataModel.SoilLayers);
+            Assert.IsNull(persistableDataModel.SoilVisualizations);
+            Assert.IsNull(persistableDataModel.Soils);
+            Assert.IsNull(persistableDataModel.Stages);
+            Assert.IsNull(persistableDataModel.WaternetCreatorSettings);
+            Assert.IsNull(persistableDataModel.Waternets);
+            Assert.IsNull(persistableDataModel.StateCorrelations);
+            Assert.IsNull(persistableDataModel.States);
         }
     }
 }
