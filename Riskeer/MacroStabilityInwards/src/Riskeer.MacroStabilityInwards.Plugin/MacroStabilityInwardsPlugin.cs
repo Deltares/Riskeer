@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Components.Persistence.Stability;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -171,7 +172,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
                 Extension = Resources.Stix_file_filter_extension,
-                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(context.WrappedData, filePath),
+                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(context.WrappedData,
+                                                                                                         new PersistenceFactory(),
+                                                                                                         filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Stix_file_filter_extension,
                                                                                                            Resources.Stix_file_filter_description))

@@ -32,7 +32,7 @@ namespace Riskeer.Storage.Core.Test
     public class RiskeerDatabaseCreatorTest
     {
         /// <summary>
-        /// Creates a new Riskeer.rtd file in the root of the <c>Riskeer.Storage.Core</c>, 
+        /// Creates a new Riskeer.risk file in the root of the <c>Riskeer.Storage.Core</c>, 
         /// which is used to auto-generate the database code.
         /// </summary>
         [Test]

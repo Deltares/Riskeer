@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BruTile">
-      <Version>0.20.0</Version>
+      <Version>2.1.2</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>

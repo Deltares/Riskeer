@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -104,20 +105,22 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
             if (calculation.HasOutput)
             {
                 var i = 0;
-                if (calculation.Output.WaveRunUpOutput != null)
-                {
-                    foreach (WaveConditionsOutput output in calculation.Output.WaveRunUpOutput)
-                    {
-                        entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp, i++));
-                    }
-                }
+                SetOutputEntities(entity, calculation.Output.WaveRunUpOutput, GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp, ref i);
+                SetOutputEntities(entity, calculation.Output.WaveImpactOutput, GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact, ref i);
+                SetOutputEntities(entity, calculation.Output.TailorMadeWaveImpactOutput, GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact, ref i);
+            }
+        }
 
-                if (calculation.Output.WaveImpactOutput != null)
+        private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
+                                              IEnumerable<WaveConditionsOutput> calculationOutput,
+                                              GrassCoverErosionOutwardsWaveConditionsOutputType type,
+                                              ref int i)
+        {
+            if (calculationOutput != null)
+            {
+                foreach (WaveConditionsOutput output in calculationOutput)
                 {
-                    foreach (WaveConditionsOutput output in calculation.Output.WaveImpactOutput)
-                    {
-                        entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact, i++));
-                    }
+                    entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(type, i++));
                 }
             }
         }

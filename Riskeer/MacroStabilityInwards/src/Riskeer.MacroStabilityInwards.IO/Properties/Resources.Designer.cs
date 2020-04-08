@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -93,7 +93,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsConfiguratieSchema {
             get {
@@ -113,7 +114,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsGridsSchema {
             get {
@@ -133,7 +135,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsWaterspanningenSchema {
             get {
@@ -153,7 +156,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MacroStabiliteitBinnenwaartsZonesSchema {
             get {
@@ -268,6 +272,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineZTopBottom" +
                         "_Combination_of_TangentLineZTop_0_and_TangentLineZBottom_1_invalid_Reason_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen D-GEO Suite Stability Project geëxporteerd..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported", resourceCulture);
             }
         }
         
