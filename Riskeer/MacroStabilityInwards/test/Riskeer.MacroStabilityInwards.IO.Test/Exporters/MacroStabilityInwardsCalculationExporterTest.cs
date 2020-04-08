@@ -138,6 +138,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             AssertPersistableDataModel(calculation, persistenceFactory.PersistableDataModel, filePath);
             Assert.AreEqual(filePath, persistenceFactory.FilePath);
             Assert.IsTrue(exportResult);
+
+            var persister = (MacroStabilityInwardsTestPersister) persistenceFactory.CreatedPersister;
+            Assert.IsTrue(persister.PersistCalled);
         }
 
         private void AssertPersistableDataModel(MacroStabilityInwardsCalculation calculation, PersistableDataModel persistableDataModel, string filePath)

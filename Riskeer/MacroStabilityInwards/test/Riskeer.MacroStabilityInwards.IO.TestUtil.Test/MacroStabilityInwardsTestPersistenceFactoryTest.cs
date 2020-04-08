@@ -19,6 +19,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
             Assert.IsInstanceOf<IPersistenceFactory>(persistenceFactory);
             Assert.IsNull(persistenceFactory.PersistableDataModel);
             Assert.IsNull(persistenceFactory.FilePath);
+            Assert.IsNull(persistenceFactory.CreatedPersister);
         }
 
         [Test]
@@ -37,6 +38,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
             Assert.AreSame(persistableDataModel, persistenceFactory.PersistableDataModel);
             Assert.AreEqual(filePath, persistenceFactory.FilePath);
             Assert.IsInstanceOf<MacroStabilityInwardsTestPersister>(persister);
+            Assert.AreSame(persister, persistenceFactory.CreatedPersister);
         }
 
         [Test]

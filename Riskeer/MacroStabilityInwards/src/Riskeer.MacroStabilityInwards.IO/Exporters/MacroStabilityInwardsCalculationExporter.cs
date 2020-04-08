@@ -30,6 +30,7 @@ using log4net;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Properties;
 using Shared.Common;
+using Shared.Components.Persistence;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
@@ -88,7 +89,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
             try
             {
-                persistenceFactory.CreateArchivePersister(filePath, persistableDataModel);
+                using (IPersister persister = persistenceFactory.CreateArchivePersister(filePath, persistableDataModel))
+                {
+                    persister.Persist();
+                }
             }
             catch (Exception)
             {

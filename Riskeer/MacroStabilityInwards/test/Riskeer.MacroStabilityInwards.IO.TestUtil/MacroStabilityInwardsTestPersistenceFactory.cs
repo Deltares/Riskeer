@@ -21,6 +21,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         public string FilePath { get; private set; }
 
         /// <summary>
+        /// Gets the created <see cref="IPersister"/>.
+        /// </summary>
+        public IPersister CreatedPersister { get; private set; }
+
+        /// <summary>
         /// Gets or sets whether an exception should be thrown.
         /// </summary>
         public bool ThrowException { get; set; }
@@ -35,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             FilePath = path;
             PersistableDataModel = dataModel;
 
-            return new MacroStabilityInwardsTestPersister();
+            return CreatedPersister ?? (CreatedPersister = new MacroStabilityInwardsTestPersister());
         }
 
         public Reader<PersistableDataModel> CreateArchiveReader(string path)
