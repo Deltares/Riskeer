@@ -111,10 +111,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                 {
                     Path = filePath,
                     Project = calculation.Name,
-                    CrossSection = calculation.InputParameters.SurfaceLine?.Name,
+                    CrossSection = calculation.InputParameters.SurfaceLine.Name,
                     ApplicationCreated = $"Riskeer {AssemblyUtils.GetAssemblyInfo(Assembly.GetAssembly(GetType())).Version}",
                     Remarks = "Export from Riskeer",
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    IsDataValidated = true
                 }
             };
         }

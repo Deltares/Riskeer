@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 {
@@ -126,7 +127,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         {
             // Setup
             const string filePath = "ValidFilePath";
-            var calculation = new MacroStabilityInwardsCalculation();
+            var calculation = new MacroStabilityInwardsCalculation
+            {
+                InputParameters =
+                {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("Test")
+                }
+            };
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
 
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath);
@@ -137,25 +144,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Assert
             AssertPersistableDataModel(calculation, persistenceFactory.PersistableDataModel, filePath);
             Assert.AreEqual(filePath, persistenceFactory.FilePath);
-            Assert.IsTrue(exportResult);
-
+            
             var persister = (MacroStabilityInwardsTestPersister) persistenceFactory.CreatedPersister;
             Assert.IsTrue(persister.PersistCalled);
+
+            Assert.IsTrue(exportResult);
         }
 
         private void AssertPersistableDataModel(MacroStabilityInwardsCalculation calculation, PersistableDataModel persistableDataModel, string filePath)
         {
-            Assert.AreEqual(filePath, persistableDataModel.Info.Path);
-            Assert.AreEqual(calculation.Name, persistableDataModel.Info.Project);
-            Assert.AreEqual(calculation.InputParameters.SurfaceLine?.Name, persistableDataModel.Info.CrossSection);
-            Assert.AreEqual($"Riskeer {AssemblyUtils.GetAssemblyInfo(Assembly.GetAssembly(GetType())).Version}", persistableDataModel.Info.ApplicationCreated);
-            Assert.AreEqual("Export from Riskeer", persistableDataModel.Info.Remarks);
-            Assert.IsNotNull(persistableDataModel.Info.Created);
-            Assert.IsNull(persistableDataModel.Info.Date);
-            Assert.IsNull(persistableDataModel.Info.LastModified);
-            Assert.IsNull(persistableDataModel.Info.LastModifier);
-            Assert.IsNull(persistableDataModel.Info.Analyst);
-            
+            AssertProjectInfo(calculation, persistableDataModel.Info, filePath);
+
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.CalculationSettings);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -172,6 +171,21 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             Assert.IsNull(persistableDataModel.Waternets);
             Assert.IsNull(persistableDataModel.StateCorrelations);
             Assert.IsNull(persistableDataModel.States);
+        }
+
+        private void AssertProjectInfo(MacroStabilityInwardsCalculation calculation, PersistableProjectInfo persistableProjectInfo, string filePath)
+        {
+            Assert.AreEqual(filePath, persistableProjectInfo.Path);
+            Assert.AreEqual(calculation.Name, persistableProjectInfo.Project);
+            Assert.AreEqual(calculation.InputParameters.SurfaceLine.Name, persistableProjectInfo.CrossSection);
+            Assert.AreEqual($"Riskeer {AssemblyUtils.GetAssemblyInfo(Assembly.GetAssembly(GetType())).Version}", persistableProjectInfo.ApplicationCreated);
+            Assert.AreEqual("Export from Riskeer", persistableProjectInfo.Remarks);
+            Assert.IsNotNull(persistableProjectInfo.Created);
+            Assert.IsNull(persistableProjectInfo.Date);
+            Assert.IsNull(persistableProjectInfo.LastModified);
+            Assert.IsNull(persistableProjectInfo.LastModifier);
+            Assert.IsNull(persistableProjectInfo.Analyst);
+            Assert.IsTrue(persistableProjectInfo.IsDataValidated);
         }
     }
 }
